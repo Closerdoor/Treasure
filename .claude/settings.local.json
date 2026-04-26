@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__pencil__get_editor_state",
+      "mcp__pencil__open_document",
+      "mcp__pencil__get_guidelines",
+      "mcp__pencil__batch_design",
+      "mcp__pencil__get_screenshot",
+      "mcp__pencil__batch_get",
+      "Bash(git add *)"
+    ]
+  }
+}
