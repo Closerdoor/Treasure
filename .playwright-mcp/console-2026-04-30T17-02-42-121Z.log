@@ -1,0 +1,15 @@
+[     161ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://img1.doubanio.com/f/vendors/ee6598d46af0bc554cecec9bcbf525b9b0582cb0/css/separation/_all.css:0
+[     162ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://img1.doubanio.com/f/vendors/0511abe9863c2ea7084efa7e24d1d86c5b3974f1/js/jquery-1.10.2.min.js:0
+[     173ms] Uncaught ReferenceError: $ is not defined
+    at <anonymous> (https://img1.doubanio.com/f/vendors/e258329ca4b2122b4efe53fddc418967441e0e7f/js/douban.js:1351:0)
+[     173ms] Uncaught ReferenceError: jQuery is not defined
+    at <anonymous> (https://img1.doubanio.com/f/vendors/b0d3faaf7a432605add54908e39e17746824d6cc/js/separation/_all.js:0:1564)
+[     174ms] Uncaught ReferenceError: jQuery is not defined
+    at 1669 (https://img1.doubanio.com/cuphead/movie-static/mod/login_pop.89db9.js:0:54)
+    at o (https://img1.doubanio.com/cuphead/movie-static/mod/login_pop.89db9.js:0:161)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/mod/login_pop.89db9.js:0:187)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/mod/login_pop.89db9.js:0:1590)
+[     185ms] Uncaught ReferenceError: jQuery is not defined
+    at <anonymous> (https://img3.doubanio.com/dae/accounts/resources/f8b2226/movie/bundle.js:0:3169)
+    at <anonymous> (https://img3.doubanio.com/dae/accounts/resources/f8b2226/movie/bundle.js:0:7763)
+[     286ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://img1.doubanio.com/favicon.ico:0

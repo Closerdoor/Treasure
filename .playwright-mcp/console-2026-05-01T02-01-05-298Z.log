@@ -1,0 +1,16 @@
+[     709ms] [INFO] 喜欢看豆瓣的代码，还是发现了什么bug？不如和我们一起为豆瓣添砖加瓦吧！
+http://jobs.douban.com/#position-zsqd @ https://img1.doubanio.com/f/vendors/e258329ca4b2122b4efe53fddc418967441e0e7f/js/douban.js:3213
+[     771ms] Uncaught (in promise) ScriptExternalLoadError: Loading script failed.
+(error: https://img9.doubanio.com/cuphead/federation/remoteEntry.js)
+while loading "./lib/rc" from 756
+    at 756 (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:212)
+    at d (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:834)
+    at u (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3414)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3643)
+    at d.f.remotes (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3103)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:1697)
+    at d.e (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:1663)
+    at 799 (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:67)
+    at d (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:834)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:6722)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:6729)

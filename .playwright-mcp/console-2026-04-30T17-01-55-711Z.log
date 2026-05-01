@@ -1,0 +1,23 @@
+[     243ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://img1.doubanio.com/f/vendors/ee6598d46af0bc554cecec9bcbf525b9b0582cb0/css/separation/_all.css:0
+[     243ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://img1.doubanio.com/cuphead/movie-static/base/init.15f4b.css:0
+[     243ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://img1.doubanio.com/f/vendors/0511abe9863c2ea7084efa7e24d1d86c5b3974f1/js/jquery-1.10.2.min.js:0
+[     243ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://img1.doubanio.com/f/vendors/b0d3faaf7a432605add54908e39e17746824d6cc/js/separation/_all.js:0
+[     243ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://img1.doubanio.com/f/vendors/f25ae221544f39046484a823776f3aa01769ee10/js/ui/dialog.js:0
+[     243ms] Uncaught ReferenceError: $ is not defined
+    at <anonymous> (https://img1.doubanio.com/f/vendors/e258329ca4b2122b4efe53fddc418967441e0e7f/js/douban.js:1351:0)
+[     393ms] Uncaught ReferenceError: jQuery is not defined
+    at 1669 (https://img1.doubanio.com/cuphead/movie-static/mod/login_pop.89db9.js:0:54)
+    at o (https://img1.doubanio.com/cuphead/movie-static/mod/login_pop.89db9.js:0:161)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/mod/login_pop.89db9.js:0:187)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/mod/login_pop.89db9.js:0:1590)
+[     394ms] Uncaught ReferenceError: jQuery is not defined
+    at <anonymous> (https://img3.doubanio.com/dae/accounts/resources/f8b2226/movie/bundle.js:0:3169)
+    at <anonymous> (https://img3.doubanio.com/dae/accounts/resources/f8b2226/movie/bundle.js:0:7763)
+[     404ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://img1.doubanio.com/f/vendors/8dd0c794499fe925ae2ae89ee30cd225750457b4/pics/personage-default-medium.png:0
+[   10310ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/view/personage/m/public/70b100200e83e9c08b56d2e6dc7c7b8e.jpg:0
+[   10311ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/view/personage/m/public/f6a87011ed6e702d955cac85d17fc031.jpg:0
+[   10311ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/view/celebrity/m/public/p1541737758.21.webp:0
+[   10311ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/view/celebrity/m/public/p1554907702.01.webp:0
+[   10357ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/view/celebrity/m/public/p8601.webp:0
+[   10405ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/view/celebrity/m/public/p1501464004.21.webp:0
+[   10456ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://img1.doubanio.com/favicon.ico:0

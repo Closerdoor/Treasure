@@ -1,0 +1,88 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - link "登录/注册" [ref=e5] [cursor=pointer]:
+      - /url: https://accounts.douban.com/passport/login?source=main
+    - link "下载豆瓣客户端" [ref=e7] [cursor=pointer]:
+      - /url: https://www.douban.com/doubanapp/app?channel=top-nav
+    - list [ref=e9]:
+      - listitem [ref=e10]:
+        - link "豆瓣" [ref=e11] [cursor=pointer]:
+          - /url: https://www.douban.com
+      - listitem [ref=e12]:
+        - link "读书" [ref=e13] [cursor=pointer]:
+          - /url: https://book.douban.com
+      - listitem [ref=e14]:
+        - link "电影" [ref=e15] [cursor=pointer]:
+          - /url: https://movie.douban.com
+      - listitem [ref=e16]:
+        - link "音乐" [ref=e17] [cursor=pointer]:
+          - /url: https://music.douban.com
+      - listitem [ref=e18]:
+        - link "播客" [ref=e19] [cursor=pointer]:
+          - /url: https://www.douban.com/podcast/
+      - listitem [ref=e20]:
+        - link "同城" [ref=e21] [cursor=pointer]:
+          - /url: https://www.douban.com/location
+      - listitem [ref=e22]:
+        - link "小组" [ref=e23] [cursor=pointer]:
+          - /url: https://www.douban.com/group
+      - listitem [ref=e24]:
+        - link "阅读" [ref=e25] [cursor=pointer]:
+          - /url: https://read.douban.com/?dcs=top-nav&dcm=douban
+      - listitem [ref=e26]:
+        - link "FM" [ref=e27] [cursor=pointer]:
+          - /url: https://fm.douban.com/?from_=shire_top_nav
+      - listitem [ref=e28]:
+        - link "时间" [ref=e29] [cursor=pointer]:
+          - /url: https://time.douban.com/?dt_time_source=douban-web_top_nav
+      - listitem [ref=e30]:
+        - link "豆品" [ref=e31] [cursor=pointer]:
+          - /url: https://market.douban.com/?utm_campaign=douban_top_nav&utm_source=douban&utm_medium=pc_web
+  - generic [ref=e34]:
+    - link "豆瓣社区" [ref=e36] [cursor=pointer]:
+      - /url: https://www.douban.com
+    - group "搜索：" [ref=e39]:
+      - textbox "搜索你感兴趣的内容和人..." [ref=e41]
+      - button "搜索" [ref=e43] [cursor=pointer]
+    - list [ref=e45]:
+      - listitem [ref=e46]:
+        - link "首页" [ref=e47] [cursor=pointer]:
+          - /url: https://www.douban.com
+      - listitem [ref=e48]:
+        - link "浏览发现" [ref=e49] [cursor=pointer]:
+          - /url: https://www.douban.com/explore
+      - listitem [ref=e50]:
+        - link "话题广场 new" [ref=e51] [cursor=pointer]:
+          - /url: https://www.douban.com/gallery
+          - text: 话题广场
+          - img "new" [ref=e52]
+  - generic [ref=e53]:
+    - generic [ref=e54]:
+      - img [ref=e55]
+      - list [ref=e56]:
+        - listitem [ref=e57]: 呃...你想访问的页面不存在
+        - listitem [ref=e58]
+        - listitem [ref=e59]:
+          - text: "> 3秒后"
+          - link "返回首页" [ref=e60] [cursor=pointer]:
+            - /url: /
+    - generic [ref=e61]:
+      - generic [ref=e62]: © 2005－2026 douban.com, all rights reserved 北京豆网科技有限公司
+      - generic [ref=e63]:
+        - link "关于豆瓣" [ref=e64] [cursor=pointer]:
+          - /url: https://www.douban.com/about
+        - text: ·
+        - link "在豆瓣工作" [ref=e65] [cursor=pointer]:
+          - /url: https://www.douban.com/jobs
+        - text: ·
+        - link "联系我们" [ref=e66] [cursor=pointer]:
+          - /url: https://www.douban.com/about?topic=contactus
+        - text: ·
+        - link "法律声明" [ref=e67] [cursor=pointer]:
+          - /url: https://www.douban.com/about/legal
+        - text: ·
+        - link "帮助中心" [ref=e68] [cursor=pointer]:
+          - /url: https://help.douban.com/
+        - text: ·
+        - link "移动应用" [ref=e69] [cursor=pointer]:
+          - /url: https://www.douban.com/doubanapp/

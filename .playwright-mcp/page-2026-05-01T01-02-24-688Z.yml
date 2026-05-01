@@ -1,0 +1,340 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - link "登录/注册" [ref=e5] [cursor=pointer]:
+      - /url: https://accounts.douban.com/passport/login?source=movie
+    - link "下载豆瓣客户端" [ref=e7] [cursor=pointer]:
+      - /url: https://www.douban.com/doubanapp/app?channel=top-nav
+    - list [ref=e9]:
+      - listitem [ref=e10]:
+        - link "豆瓣" [ref=e11] [cursor=pointer]:
+          - /url: https://www.douban.com
+      - listitem [ref=e12]:
+        - link "读书" [ref=e13] [cursor=pointer]:
+          - /url: https://book.douban.com
+      - listitem [ref=e14]:
+        - link "电影" [ref=e15] [cursor=pointer]:
+          - /url: https://movie.douban.com
+      - listitem [ref=e16]:
+        - link "音乐" [ref=e17] [cursor=pointer]:
+          - /url: https://music.douban.com
+      - listitem [ref=e18]:
+        - link "播客" [ref=e19] [cursor=pointer]:
+          - /url: https://www.douban.com/podcast/
+      - listitem [ref=e20]:
+        - link "同城" [ref=e21] [cursor=pointer]:
+          - /url: https://www.douban.com/location
+      - listitem [ref=e22]:
+        - link "小组" [ref=e23] [cursor=pointer]:
+          - /url: https://www.douban.com/group
+      - listitem [ref=e24]:
+        - link "阅读" [ref=e25] [cursor=pointer]:
+          - /url: https://read.douban.com/?dcs=top-nav&dcm=douban
+      - listitem [ref=e26]:
+        - link "FM" [ref=e27] [cursor=pointer]:
+          - /url: https://fm.douban.com/?from_=shire_top_nav
+      - listitem [ref=e28]:
+        - link "时间" [ref=e29] [cursor=pointer]:
+          - /url: https://time.douban.com/?dt_time_source=douban-web_top_nav
+      - listitem [ref=e30]:
+        - link "豆品" [ref=e31] [cursor=pointer]:
+          - /url: https://market.douban.com/?utm_campaign=douban_top_nav&utm_source=douban&utm_medium=pc_web
+  - generic [ref=e32]:
+    - generic [ref=e34]:
+      - link "豆瓣电影" [ref=e36] [cursor=pointer]:
+        - /url: https://movie.douban.com
+      - group "搜索：" [ref=e39]:
+        - textbox [ref=e41]:
+          - /placeholder: 搜索电影、电视剧、综艺、影人
+        - button "搜索" [ref=e43] [cursor=pointer]
+    - generic [ref=e44]:
+      - list [ref=e46]:
+        - listitem [ref=e47]:
+          - link "影讯&购票" [ref=e48] [cursor=pointer]:
+            - /url: https://movie.douban.com/cinema/nowplaying/
+        - listitem [ref=e49]:
+          - link "选电影" [ref=e50] [cursor=pointer]:
+            - /url: https://movie.douban.com/explore
+        - listitem [ref=e51]:
+          - link "选剧集" [ref=e52] [cursor=pointer]:
+            - /url: https://movie.douban.com/tv/
+        - listitem [ref=e53]:
+          - link "排行榜" [ref=e54] [cursor=pointer]:
+            - /url: https://movie.douban.com/chart
+        - listitem [ref=e55]:
+          - link "影评" [ref=e56] [cursor=pointer]:
+            - /url: https://movie.douban.com/review/best/
+        - listitem [ref=e57]:
+          - link "2025年度榜单" [ref=e58] [cursor=pointer]:
+            - /url: https://movie.douban.com/annual/2025/?fullscreen=1&dt_from=movie_navigation
+        - listitem [ref=e59]:
+          - link "2025年度报告" [ref=e60] [cursor=pointer]:
+            - /url: https://c9.douban.com/app/standbyme-2025/?autorotate=false&fullscreen=true&hidenav=true&monitor_screenshot=true&df_from=web_navigation
+      - link [ref=e61] [cursor=pointer]:
+        - /url: https://movie.douban.com/annual/2025/?fullscreen=1&source=movie_navigation_logo
+  - generic [ref=e62]:
+    - generic [ref=e63]:
+      - heading "肖申克的救赎 的海报" [level=1] [ref=e64]
+      - generic [ref=e65]:
+        - generic [ref=e66]:
+          - generic [ref=e67]:
+            - generic [ref=e68]: 第125张/共149张
+            - generic [ref=e69]:
+              - link "上一张" [ref=e70] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/1351874552/#title-anchor
+              - text: /
+              - link "下一张" [ref=e71] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/1168020617/#title-anchor
+            - generic [ref=e72]:
+              - text: ">"
+              - link "浏览所有海报" [ref=e73] [cursor=pointer]:
+                - /url: https://movie.douban.com/subject/1292052/photos?type=R
+          - generic [ref=e75]:
+            - link "点击查看下一张" [ref=e76] [cursor=pointer]:
+              - /url: https://movie.douban.com/photos/photo/1168020617/#title-anchor
+              - img [ref=e77]
+            - link "查看大图" [ref=e78] [cursor=pointer]:
+              - /url: "#"
+          - generic [ref=e80]: 哥来张大点的
+          - generic [ref=e81]:
+            - link "查看大图" [ref=e83] [cursor=pointer]:
+              - /url: "#"
+            - generic [ref=e84]:
+              - generic [ref=e86]:
+                - link "推荐" [ref=e88] [cursor=pointer]:
+                  - /url: /accounts/register?reason=recommend
+                - text: 2人
+              - generic [ref=e89]:
+                - generic [ref=e90]:
+                  - link "43人" [ref=e91] [cursor=pointer]:
+                    - /url: "#"
+                  - text: 喜欢
+                - link "喜欢" [ref=e92] [cursor=pointer]:
+                  - /url: https://www.douban.com/accounts/register?reason=like
+          - generic [ref=e93]:
+            - generic [ref=e94]:
+              - link "热荐电影" [ref=e96] [cursor=pointer]:
+                - /url: https://www.douban.com/people/moviecomment/
+                - img "热荐电影" [ref=e97]
+              - generic [ref=e98]:
+                - generic [ref=e99]:
+                  - text: 2013-02-05 17:06:19
+                  - link "热荐电影" [ref=e100] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/moviecomment/
+                  - text: (微信公众号：goodmovie)
+                - paragraph [ref=e101]: 不错
+            - generic [ref=e102]:
+              - link "一ᴗ一" [ref=e104] [cursor=pointer]:
+                - /url: https://www.douban.com/people/53479153/
+                - img "一ᴗ一" [ref=e105]
+              - generic [ref=e106]:
+                - generic [ref=e107]:
+                  - text: 2013-09-08 02:35:42
+                  - link "一ᴗ一" [ref=e108] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/53479153/
+                  - text: (看电影)
+                - paragraph [ref=e109]: The Shawshank Redemption
+            - generic [ref=e110]:
+              - link "Mr.Whitefox" [ref=e112] [cursor=pointer]:
+                - /url: https://www.douban.com/people/89705919/
+                - img "Mr.Whitefox" [ref=e113]
+              - generic [ref=e114]:
+                - generic [ref=e115]:
+                  - text: 2014-05-26 12:32:43
+                  - link "Mr.Whitefox" [ref=e116] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/89705919/
+                - paragraph [ref=e117]: A great YES for this film, The Shawshank Redemption
+            - generic [ref=e118]:
+              - link "三支角节" [ref=e120] [cursor=pointer]:
+                - /url: https://www.douban.com/people/72718715/
+                - img "三支角节" [ref=e121]
+              - generic [ref=e122]:
+                - generic [ref=e123]:
+                  - text: 2017-01-14 12:01:37
+                  - link "三支角节" [ref=e124] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/72718715/
+                - paragraph [ref=e125]: 我老觉得这张海报激情满满
+            - generic [ref=e126]:
+              - link ":)" [ref=e128] [cursor=pointer]:
+                - /url: https://www.douban.com/people/cynthianie/
+                - img ":)" [ref=e129]
+              - generic [ref=e130]:
+                - generic [ref=e131]:
+                  - text: 2017-07-29 11:17:11
+                  - link ":)" [ref=e132] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/cynthianie/
+                - generic [ref=e133]:
+                  - text: 我老觉得这张海报激情满满
+                  - link:
+                    - /url: "#"
+                  - link "三支角节" [ref=e135] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/72718715/
+                - paragraph [ref=e136]: 基…
+                - link "来自豆瓣App" [ref=e137] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e138]:
+              - link "斯巴达西" [ref=e140] [cursor=pointer]:
+                - /url: https://www.douban.com/people/153402692/
+                - img "斯巴达西" [ref=e141]
+              - generic [ref=e142]:
+                - generic [ref=e143]:
+                  - text: 2018-12-27 21:29:39
+                  - link "斯巴达西" [ref=e144] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/153402692/
+                - paragraph [ref=e145]: 安迪的眼神坚定不移，瑞德则是奢望
+                - link "来自豆瓣App" [ref=e146] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e147]:
+              - link "独孤的瓶" [ref=e149] [cursor=pointer]:
+                - /url: https://www.douban.com/people/171346145/
+                - img "独孤的瓶" [ref=e150]
+              - generic [ref=e151]:
+                - generic [ref=e152]:
+                  - text: 2019-04-14 10:14:28
+                  - link "独孤的瓶" [ref=e153] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/171346145/
+                - paragraph [ref=e154]: 感觉有点像为奴十二年
+                - link "来自豆瓣App" [ref=e155] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e156]:
+              - link "Gahead" [ref=e158] [cursor=pointer]:
+                - /url: https://www.douban.com/people/Gahead/
+                - img "Gahead" [ref=e159]
+              - generic [ref=e160]:
+                - generic [ref=e161]:
+                  - text: 2019-09-12 21:16:02
+                  - link "Gahead" [ref=e162] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/Gahead/
+                - paragraph [ref=e163]: 断背山……
+            - generic [ref=e164]:
+              - link "衣柜里挂着白天" [ref=e166] [cursor=pointer]:
+                - /url: https://www.douban.com/people/189248146/
+                - img "衣柜里挂着白天" [ref=e167]
+              - generic [ref=e168]:
+                - generic [ref=e169]:
+                  - text: 2020-02-05 20:57:02
+                  - link "衣柜里挂着白天" [ref=e170] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/189248146/
+                - paragraph [ref=e171]: 给我一种珍珠港海报的感觉😂😂
+                - link "来自豆瓣App" [ref=e172] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e173]:
+              - link "梨久" [ref=e175] [cursor=pointer]:
+                - /url: https://www.douban.com/people/166446907/
+                - img "梨久" [ref=e176]
+              - generic [ref=e177]:
+                - generic [ref=e178]:
+                  - text: 2020-03-21 23:07:03
+                  - link "梨久" [ref=e179] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/166446907/
+                - paragraph [ref=e180]: 《刺激1995》《月黑飞高》
+                - link "来自豆瓣App" [ref=e181] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e182]:
+              - link "美梦收藏家" [ref=e184] [cursor=pointer]:
+                - /url: https://www.douban.com/people/185982312/
+                - img "美梦收藏家" [ref=e185]
+              - generic [ref=e186]:
+                - generic [ref=e187]:
+                  - text: 2020-08-12 23:22:49
+                  - link "美梦收藏家" [ref=e188] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/185982312/
+                - paragraph [ref=e189]: 看得我内心五味杂陈
+                - link "来自豆瓣App" [ref=e190] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e191]:
+              - link "venusasaboy" [ref=e193] [cursor=pointer]:
+                - /url: https://www.douban.com/people/venusasaboy/
+                - img "venusasaboy" [ref=e194]
+              - generic [ref=e195]:
+                - generic [ref=e196]:
+                  - text: 2023-06-30 11:44:00
+                  - link "venusasaboy" [ref=e197] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/venusasaboy/
+                - paragraph [ref=e198]: 最后他两一起 也很美满了
+            - generic [ref=e199]:
+              - link "闲云野鹤" [ref=e201] [cursor=pointer]:
+                - /url: https://www.douban.com/people/208302502/
+                - img "闲云野鹤" [ref=e202]
+              - generic [ref=e203]:
+                - generic [ref=e204]:
+                  - text: 2023-11-04 00:16:48
+                  - link "闲云野鹤" [ref=e205] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/208302502/
+                - generic [ref=e206]:
+                  - text: 我老觉得这张海报激情满满
+                  - link:
+                    - /url: "#"
+                  - link "三支角节" [ref=e208] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/72718715/
+                - paragraph [ref=e209]: 沙雕
+                - link "来自豆瓣App" [ref=e210] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - link "> 我来回应" [ref=e212] [cursor=pointer]:
+              - /url: https://www.douban.com/accounts/register?reason=comment
+        - generic [ref=e213]:
+          - generic [ref=e215]:
+            - link "后退" [ref=e217] [cursor=pointer]:
+              - /url: https://movie.douban.com/photos/photo/1351874552/#title-anchor
+            - list [ref=e219]:
+              - listitem [ref=e220]:
+                - link [ref=e221] [cursor=pointer]:
+                  - /url: https://movie.douban.com/photos/photo/1351874552/
+              - listitem [ref=e222]:
+                - link [ref=e223] [cursor=pointer]:
+                  - /url: https://movie.douban.com/photos/photo/1179738178/
+              - listitem [ref=e224]:
+                - link [ref=e225] [cursor=pointer]:
+                  - /url: https://movie.douban.com/photos/photo/1168020617/
+            - link "前进" [ref=e227] [cursor=pointer]:
+              - /url: https://movie.douban.com/photos/photo/1168020617/#title-anchor
+          - generic [ref=e228]:
+            - heading "图片信息 · · · · · ·" [level=2] [ref=e229]
+            - list [ref=e230]:
+              - listitem [ref=e231]:
+                - text: 电影名称：
+                - link "肖申克的救赎 The Shawshank Redemption" [ref=e232] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/1292052/
+              - listitem [ref=e233]: 图片类型：正式海报 美国
+              - listitem [ref=e234]: 大图尺寸：737x1080
+              - listitem [ref=e235]:
+                - text: 来自：
+                - link "卡米猪" [ref=e236] [cursor=pointer]:
+                  - /url: https://www.douban.com/people/30052579/
+              - listitem [ref=e237]: 上传于2011-08-24
+            - paragraph [ref=e238]:
+              - text: ">"
+              - link "去 肖申克的救赎 的页面" [ref=e239] [cursor=pointer]:
+                - /url: https://movie.douban.com/subject/1292052/
+          - list [ref=e243]:
+            - listitem [ref=e244] [cursor=pointer]:
+              - generic [ref=e248]:
+                - generic [ref=e249]:
+                  - generic [ref=e250]:
+                    - generic [ref=e251]: 懂行的，可以试试这款复古养老服，不肝不氪轻松冲榜！
+                    - generic [ref=e252]: 1.76版复古传奇，原汁原味，经典怀旧，装备靠打，爆率超高！
+                  - generic [ref=e253]: 查看详情
+                - generic [ref=e254]:
+                  - generic [ref=e256]: 176老传奇 · 效卓
+                  - generic [ref=e257]: 广告
+        - link "投诉不良信息" [ref=e260] [cursor=pointer]:
+          - /url: javascript:void(0)
+    - generic [ref=e261]:
+      - generic [ref=e262]: © 2005－2026 douban.com, all rights reserved 北京豆网科技有限公司
+      - generic [ref=e263]:
+        - link "关于豆瓣" [ref=e264] [cursor=pointer]:
+          - /url: https://www.douban.com/about
+        - text: ·
+        - link "在豆瓣工作" [ref=e265] [cursor=pointer]:
+          - /url: https://www.douban.com/jobs
+        - text: ·
+        - link "联系我们" [ref=e266] [cursor=pointer]:
+          - /url: https://www.douban.com/about?topic=contactus
+        - text: ·
+        - link "法律声明" [ref=e267] [cursor=pointer]:
+          - /url: https://www.douban.com/about/legal
+        - text: ·
+        - link "帮助中心" [ref=e268] [cursor=pointer]:
+          - /url: https://help.douban.com/?app=movie
+        - text: ·
+        - link "移动应用" [ref=e269] [cursor=pointer]:
+          - /url: https://www.douban.com/doubanapp/

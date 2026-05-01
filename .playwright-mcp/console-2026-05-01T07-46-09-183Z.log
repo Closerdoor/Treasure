@@ -1,0 +1,5 @@
+[     140ms] [INFO] 喜欢看豆瓣的代码，还是发现了什么bug？不如和我们一起为豆瓣添砖加瓦吧！
+http://jobs.douban.com/#position-zsqd @ https://img1.doubanio.com/f/vendors/e258329ca4b2122b4efe53fddc418967441e0e7f/js/douban.js:3213
+[   10146ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u77141271-1.jpg:0
+[   10447ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/img/trailer/medium/2926873151.jpg:0
+[   10447ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/img/trailer/medium/2929293921.jpg:0

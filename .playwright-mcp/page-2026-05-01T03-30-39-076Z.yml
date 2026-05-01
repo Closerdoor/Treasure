@@ -1,0 +1,162 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - link "登录/注册" [ref=e5] [cursor=pointer]:
+      - /url: https://accounts.douban.com/passport/login?source=movie
+    - link "下载豆瓣客户端" [ref=e7] [cursor=pointer]:
+      - /url: https://www.douban.com/doubanapp/app?channel=top-nav
+    - list [ref=e9]:
+      - listitem [ref=e10]:
+        - link "豆瓣" [ref=e11] [cursor=pointer]:
+          - /url: https://www.douban.com
+      - listitem [ref=e12]:
+        - link "读书" [ref=e13] [cursor=pointer]:
+          - /url: https://book.douban.com
+      - listitem [ref=e14]:
+        - link "电影" [ref=e15] [cursor=pointer]:
+          - /url: https://movie.douban.com
+      - listitem [ref=e16]:
+        - link "音乐" [ref=e17] [cursor=pointer]:
+          - /url: https://music.douban.com
+      - listitem [ref=e18]:
+        - link "播客" [ref=e19] [cursor=pointer]:
+          - /url: https://www.douban.com/podcast/
+      - listitem [ref=e20]:
+        - link "同城" [ref=e21] [cursor=pointer]:
+          - /url: https://www.douban.com/location
+      - listitem [ref=e22]:
+        - link "小组" [ref=e23] [cursor=pointer]:
+          - /url: https://www.douban.com/group
+      - listitem [ref=e24]:
+        - link "阅读" [ref=e25] [cursor=pointer]:
+          - /url: https://read.douban.com/?dcs=top-nav&dcm=douban
+      - listitem [ref=e26]:
+        - link "FM" [ref=e27] [cursor=pointer]:
+          - /url: https://fm.douban.com/?from_=shire_top_nav
+      - listitem [ref=e28]:
+        - link "时间" [ref=e29] [cursor=pointer]:
+          - /url: https://time.douban.com/?dt_time_source=douban-web_top_nav
+      - listitem [ref=e30]:
+        - link "豆品" [ref=e31] [cursor=pointer]:
+          - /url: https://market.douban.com/?utm_campaign=douban_top_nav&utm_source=douban&utm_medium=pc_web
+  - generic [ref=e32]:
+    - generic [ref=e34]:
+      - link "豆瓣电影" [ref=e36] [cursor=pointer]:
+        - /url: https://movie.douban.com
+      - group "搜索：" [ref=e39]:
+        - textbox [ref=e41]:
+          - /placeholder: 搜索电影、电视剧、综艺、影人
+        - button "搜索" [ref=e43] [cursor=pointer]
+    - generic [ref=e44]:
+      - list [ref=e46]:
+        - listitem [ref=e47]:
+          - link "影讯&购票" [ref=e48] [cursor=pointer]:
+            - /url: https://movie.douban.com/cinema/nowplaying/
+        - listitem [ref=e49]:
+          - link "选电影" [ref=e50] [cursor=pointer]:
+            - /url: https://movie.douban.com/explore
+        - listitem [ref=e51]:
+          - link "选剧集" [ref=e52] [cursor=pointer]:
+            - /url: https://movie.douban.com/tv/
+        - listitem [ref=e53]:
+          - link "排行榜" [ref=e54] [cursor=pointer]:
+            - /url: https://movie.douban.com/chart
+        - listitem [ref=e55]:
+          - link "影评" [ref=e56] [cursor=pointer]:
+            - /url: https://movie.douban.com/review/best/
+        - listitem [ref=e57]:
+          - link "2025年度榜单" [ref=e58] [cursor=pointer]:
+            - /url: https://movie.douban.com/annual/2025/?fullscreen=1&dt_from=movie_navigation
+        - listitem [ref=e59]:
+          - link "2025年度报告" [ref=e60] [cursor=pointer]:
+            - /url: https://c9.douban.com/app/standbyme-2025/?autorotate=false&fullscreen=true&hidenav=true&monitor_screenshot=true&df_from=web_navigation
+      - link [ref=e61] [cursor=pointer]:
+        - /url: https://movie.douban.com/annual/2025/?fullscreen=1&source=movie_navigation_logo
+  - generic [ref=e62]:
+    - generic [ref=e63]:
+      - heading "肖申克的救赎 的壁纸" [level=1] [ref=e64]
+      - generic [ref=e65]:
+        - generic [ref=e66]:
+          - generic [ref=e67]:
+            - generic [ref=e68]: 第3张/共4张
+            - generic [ref=e69]:
+              - link "上一张" [ref=e70] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/2892555807/#title-anchor
+              - text: /
+              - link "下一张" [ref=e71] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/1189287866/#title-anchor
+            - generic [ref=e72]:
+              - text: ">"
+              - link "浏览所有壁纸" [ref=e73] [cursor=pointer]:
+                - /url: https://movie.douban.com/subject/1292052/photos?type=W
+          - generic [ref=e75]:
+            - link "点击查看下一张" [ref=e76] [cursor=pointer]:
+              - /url: https://movie.douban.com/photos/photo/1189287866/#title-anchor
+              - img [ref=e77]
+            - link "查看大图" [ref=e78] [cursor=pointer]:
+              - /url: "#"
+          - generic [ref=e79]:
+            - link "查看大图" [ref=e81] [cursor=pointer]:
+              - /url: "#"
+            - generic [ref=e82]:
+              - link "推荐" [ref=e86] [cursor=pointer]:
+                - /url: /accounts/register?reason=recommend
+              - link "喜欢" [ref=e88] [cursor=pointer]:
+                - /url: https://www.douban.com/accounts/register?reason=like
+          - link "> 我来回应" [ref=e91] [cursor=pointer]:
+            - /url: https://www.douban.com/accounts/register?reason=comment
+        - generic [ref=e92]:
+          - generic [ref=e94]:
+            - link "后退" [ref=e96] [cursor=pointer]:
+              - /url: https://movie.douban.com/photos/photo/2892555807/#title-anchor
+            - list [ref=e98]:
+              - listitem [ref=e99]:
+                - link [ref=e100] [cursor=pointer]:
+                  - /url: https://movie.douban.com/photos/photo/2892555807/
+              - listitem [ref=e101]:
+                - link [ref=e102] [cursor=pointer]:
+                  - /url: https://movie.douban.com/photos/photo/1435907941/
+              - listitem [ref=e103]:
+                - link [ref=e104] [cursor=pointer]:
+                  - /url: https://movie.douban.com/photos/photo/1189287866/
+            - link "前进" [ref=e106] [cursor=pointer]:
+              - /url: https://movie.douban.com/photos/photo/1189287866/#title-anchor
+          - generic [ref=e107]:
+            - heading "图片信息 · · · · · ·" [level=2] [ref=e108]
+            - list [ref=e109]:
+              - listitem [ref=e110]:
+                - text: 电影名称：
+                - link "肖申克的救赎 The Shawshank Redemption" [ref=e111] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/1292052/
+              - listitem [ref=e112]: 图片类型：壁纸
+              - listitem [ref=e113]: 大图尺寸：1280x720
+              - listitem [ref=e114]:
+                - text: 来自：
+                - link "senders" [ref=e115] [cursor=pointer]:
+                  - /url: https://www.douban.com/people/51550629/
+              - listitem [ref=e116]: 上传于2012-02-26
+            - paragraph [ref=e117]:
+              - text: ">"
+              - link "去 肖申克的救赎 的页面" [ref=e118] [cursor=pointer]:
+                - /url: https://movie.douban.com/subject/1292052/
+        - link "投诉不良信息" [ref=e121] [cursor=pointer]:
+          - /url: javascript:void(0)
+    - generic [ref=e122]:
+      - generic [ref=e123]: © 2005－2026 douban.com, all rights reserved 北京豆网科技有限公司
+      - generic [ref=e124]:
+        - link "关于豆瓣" [ref=e125] [cursor=pointer]:
+          - /url: https://www.douban.com/about
+        - text: ·
+        - link "在豆瓣工作" [ref=e126] [cursor=pointer]:
+          - /url: https://www.douban.com/jobs
+        - text: ·
+        - link "联系我们" [ref=e127] [cursor=pointer]:
+          - /url: https://www.douban.com/about?topic=contactus
+        - text: ·
+        - link "法律声明" [ref=e128] [cursor=pointer]:
+          - /url: https://www.douban.com/about/legal
+        - text: ·
+        - link "帮助中心" [ref=e129] [cursor=pointer]:
+          - /url: https://help.douban.com/?app=movie
+        - text: ·
+        - link "移动应用" [ref=e130] [cursor=pointer]:
+          - /url: https://www.douban.com/doubanapp/

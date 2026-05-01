@@ -1,0 +1,36 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - heading "百度百科错误页" [level=1] [ref=e3]
+    - generic [ref=e4]:
+      - paragraph [ref=e7]: 抱歉，您所访问的页面不存在...
+      - paragraph [ref=e9]:
+        - text: 3秒后自动跳转到
+        - link "百科首页" [ref=e10] [cursor=pointer]:
+          - /url: http://baike.baidu.com/
+  - generic [ref=e12]:
+    - list [ref=e14]:
+      - listitem [ref=e15]:
+        - text: 如果想提出功能问题或意见建议,请到
+        - link "意见反馈" [ref=e16] [cursor=pointer]:
+          - /url: http://baike.baidu.com/feedback
+        - text: ;
+      - listitem [ref=e17]:
+        - text: 如果您要举报侵权或违法信息,请到
+        - link "投诉中心" [ref=e18] [cursor=pointer]:
+          - /url: http://help.baidu.com/newadd?prod_id=10&category=1
+        - text: ;
+      - listitem [ref=e19]:
+        - text: 其他问题请访问
+        - link "百度百科吧" [ref=e20] [cursor=pointer]:
+          - /url: http://tieba.baidu.com/f?kw=%B0%D9%B6%C8%B0%D9%BF%C6
+        - text: 。
+    - generic [ref=e21]:
+      - text: ©2026Baidu
+      - link "使用百度前必读" [ref=e22] [cursor=pointer]:
+        - /url: http://www.baidu.com/duty/
+      - text: "|"
+      - link "百科协议" [ref=e23] [cursor=pointer]:
+        - /url: http://help.baidu.com/question?prod_en=baike&class=89&id=1637
+      - text: "|"
+      - link "百度百科合作平台" [ref=e24] [cursor=pointer]:
+        - /url: http://baike.baidu.com/hezuo/

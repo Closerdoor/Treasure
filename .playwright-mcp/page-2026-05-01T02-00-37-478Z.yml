@@ -1,0 +1,436 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - list [ref=e5]:
+      - listitem [ref=e6]:
+        - link "豆邮" [ref=e7] [cursor=pointer]:
+          - /url: https://www.douban.com/doumail/
+      - listitem [ref=e8]:
+        - link "忽而今夏的账号" [ref=e9] [cursor=pointer]:
+          - /url: https://accounts.douban.com/passport/setting/
+          - generic [ref=e10]: 忽而今夏的账号
+    - link "提醒" [ref=e13] [cursor=pointer]:
+      - /url: https://www.douban.com/notification/
+    - link "下载豆瓣客户端" [ref=e15] [cursor=pointer]:
+      - /url: https://www.douban.com/doubanapp/app?channel=top-nav
+    - list [ref=e17]:
+      - listitem [ref=e18]:
+        - link "豆瓣" [ref=e19] [cursor=pointer]:
+          - /url: https://www.douban.com
+      - listitem [ref=e20]:
+        - link "读书" [ref=e21] [cursor=pointer]:
+          - /url: https://book.douban.com
+      - listitem [ref=e22]:
+        - link "电影" [ref=e23] [cursor=pointer]:
+          - /url: https://movie.douban.com
+      - listitem [ref=e24]:
+        - link "音乐" [ref=e25] [cursor=pointer]:
+          - /url: https://music.douban.com
+      - listitem [ref=e26]:
+        - link "播客" [ref=e27] [cursor=pointer]:
+          - /url: https://www.douban.com/podcast/
+      - listitem [ref=e28]:
+        - link "同城" [ref=e29] [cursor=pointer]:
+          - /url: https://www.douban.com/location
+      - listitem [ref=e30]:
+        - link "小组" [ref=e31] [cursor=pointer]:
+          - /url: https://www.douban.com/group
+      - listitem [ref=e32]:
+        - link "阅读" [ref=e33] [cursor=pointer]:
+          - /url: https://read.douban.com/?dcs=top-nav&dcm=douban
+      - listitem [ref=e34]:
+        - link "FM" [ref=e35] [cursor=pointer]:
+          - /url: https://fm.douban.com/?from_=shire_top_nav
+      - listitem [ref=e36]:
+        - link "时间" [ref=e37] [cursor=pointer]:
+          - /url: https://time.douban.com/?dt_time_source=douban-web_top_nav
+      - listitem [ref=e38]:
+        - link "豆品" [ref=e39] [cursor=pointer]:
+          - /url: https://market.douban.com/?utm_campaign=douban_top_nav&utm_source=douban&utm_medium=pc_web
+  - generic [ref=e40]:
+    - generic [ref=e42]:
+      - link "豆瓣电影" [ref=e44] [cursor=pointer]:
+        - /url: https://movie.douban.com
+      - group "搜索：" [ref=e47]:
+        - textbox [ref=e49]:
+          - /placeholder: 搜索电影、电视剧、综艺、影人
+        - button "搜索" [ref=e51] [cursor=pointer]
+    - generic [ref=e52]:
+      - list [ref=e54]:
+        - listitem [ref=e55]:
+          - link "我看" [ref=e56] [cursor=pointer]:
+            - /url: https://movie.douban.com/mine
+        - listitem [ref=e57]:
+          - link "影讯&购票" [ref=e58] [cursor=pointer]:
+            - /url: https://movie.douban.com/cinema/nowplaying/
+        - listitem [ref=e59]:
+          - link "选电影" [ref=e60] [cursor=pointer]:
+            - /url: https://movie.douban.com/explore
+        - listitem [ref=e61]:
+          - link "选剧集" [ref=e62] [cursor=pointer]:
+            - /url: https://movie.douban.com/tv/
+        - listitem [ref=e63]:
+          - link "排行榜" [ref=e64] [cursor=pointer]:
+            - /url: https://movie.douban.com/chart
+        - listitem [ref=e65]:
+          - link "影评" [ref=e66] [cursor=pointer]:
+            - /url: https://movie.douban.com/review/best/
+        - listitem [ref=e67]:
+          - link "2025年度榜单" [ref=e68] [cursor=pointer]:
+            - /url: https://movie.douban.com/annual/2025/?fullscreen=1&dt_from=movie_navigation
+        - listitem [ref=e69]:
+          - link "2025年度报告" [ref=e70] [cursor=pointer]:
+            - /url: https://c9.douban.com/app/standbyme-2025/?autorotate=false&fullscreen=true&hidenav=true&monitor_screenshot=true&df_from=web_navigation
+      - link [ref=e71] [cursor=pointer]:
+        - /url: https://movie.douban.com/annual/2025/?fullscreen=1&source=movie_navigation_logo
+  - generic [ref=e72]:
+    - generic [ref=e73]:
+      - heading "肖申克的救赎 的海报" [level=1] [ref=e74]
+      - generic [ref=e75]:
+        - generic [ref=e76]:
+          - generic [ref=e77]:
+            - generic [ref=e78]: 第30张/共149张
+            - generic [ref=e79]:
+              - link "上一张" [ref=e80] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/2587231204/#title-anchor
+              - text: /
+              - link "下一张" [ref=e81] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/2560435382/#title-anchor
+            - generic [ref=e82]:
+              - text: ">"
+              - link "浏览所有海报" [ref=e83] [cursor=pointer]:
+                - /url: https://movie.douban.com/subject/1292052/photos?type=R
+          - generic [ref=e85]:
+            - link "点击查看下一张" [ref=e86] [cursor=pointer]:
+              - /url: https://movie.douban.com/photos/photo/2560435382/#title-anchor
+              - img [ref=e87]
+            - link "查看大图" [ref=e88] [cursor=pointer]:
+              - /url: https://nenya.doubanio.com/view/photo/xl/public/p2568685146.jpg?sa_cv=65157a4ac9617edba0127b93d26b3342&sa_ct=69f40945
+          - generic [ref=e90]: 今天去了另一个平行宇宙旅游，看到他们《肖申克的救赎》会重映，而且还有IMAX版本。
+          - generic [ref=e91]:
+            - link "添加到豆列" [ref=e93] [cursor=pointer]:
+              - /url: javascript:void(0)
+              - text: 添加到豆列
+            - generic [ref=e95]:
+              - link "查看大图" [ref=e96] [cursor=pointer]:
+                - /url: https://nenya.doubanio.com/view/photo/xl/public/p2568685146.jpg?sa_cv=65157a4ac9617edba0127b93d26b3342&sa_ct=69f40945
+              - generic [ref=e98] [cursor=pointer]:
+                - text: ">"
+                - link "这张图片有问题" [ref=e99]:
+                  - /url: /misc/mp_report?type=M&uid=2568685146
+            - generic [ref=e100]:
+              - generic [ref=e102]:
+                - link "推荐" [ref=e104] [cursor=pointer]:
+                  - /url: "#"
+                - text: 2人
+              - generic [ref=e105]:
+                - generic [ref=e106]:
+                  - link "83人" [ref=e107] [cursor=pointer]:
+                    - /url: "#"
+                  - text: 喜欢
+                - link "喜欢" [ref=e108] [cursor=pointer]:
+                  - /url: "#"
+          - generic [ref=e109]:
+            - generic [ref=e110]:
+              - link "豆友185301057" [ref=e112] [cursor=pointer]:
+                - /url: https://www.douban.com/people/185301057/
+                - img "豆友185301057" [ref=e113]
+              - generic [ref=e114]:
+                - generic [ref=e115]:
+                  - text: 2019-12-13 19:40:43
+                  - link "豆友185301057" [ref=e116] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/185301057/
+                - paragraph [ref=e117]: 「内容不可见」
+            - generic [ref=e118]:
+              - link "未来" [ref=e120] [cursor=pointer]:
+                - /url: https://www.douban.com/people/144149609/
+                - img "未来" [ref=e121]
+              - generic [ref=e122]:
+                - generic [ref=e123]:
+                  - text: 2020-02-21 23:29:46
+                  - link "未来" [ref=e124] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/144149609/
+                - generic [ref=e125]:
+                  - text: 「内容不可见」
+                  - link:
+                    - /url: "#"
+                  - link "豆友185301057" [ref=e127] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/185301057/
+                - paragraph [ref=e128]: 只可惜下个月是在台湾重映，大陆不知道有重映的机会。
+                - link "来自豆瓣App" [ref=e129] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e130]:
+              - link "深爱Briar" [ref=e132] [cursor=pointer]:
+                - /url: https://www.douban.com/people/191016816/
+                - img "深爱Briar" [ref=e133]
+              - generic [ref=e134]:
+                - generic [ref=e135]:
+                  - text: 2020-03-14 16:15:56
+                  - link "深爱Briar" [ref=e136] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/191016816/
+                - paragraph [ref=e137]: 大概是2020年吧
+                - link "来自豆瓣App" [ref=e138] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e139]:
+              - link "Yuanhoo" [ref=e141] [cursor=pointer]:
+                - /url: https://www.douban.com/people/164366815/
+                - img "Yuanhoo" [ref=e142]
+              - generic [ref=e143]:
+                - generic [ref=e144]:
+                  - text: 2020-04-12 23:00:12
+                  - link "Yuanhoo" [ref=e145] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/164366815/
+                - paragraph [ref=e146]: 这个海报不好，剧透
+                - link "来自豆瓣App" [ref=e147] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e148]:
+              - link "Unityal" [ref=e150] [cursor=pointer]:
+                - /url: https://www.douban.com/people/187103985/
+                - img "Unityal" [ref=e151]
+              - generic [ref=e152]:
+                - generic [ref=e153]:
+                  - text: 2020-08-15 12:50:13
+                  - link "Unityal" [ref=e154] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/187103985/
+                - generic [ref=e155]:
+                  - text: 这个海报不好，剧透
+                  - link:
+                    - /url: "#"
+                  - link "Yuanhoo" [ref=e157] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/164366815/
+                - paragraph [ref=e158]: 这片子只要是会到电影院看的人应该都看过了吧
+                - link "来自豆瓣App" [ref=e159] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e160]:
+              - link "何默然" [ref=e162] [cursor=pointer]:
+                - /url: https://www.douban.com/people/qmgw/
+                - img "何默然" [ref=e163]
+              - generic [ref=e164]:
+                - generic [ref=e165]:
+                  - text: 2020-08-20 22:39:33
+                  - link "何默然" [ref=e166] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/qmgw/
+                  - text: (……)
+                - paragraph [ref=e167]: smartisan
+            - generic [ref=e168]:
+              - link "晚焰" [ref=e170] [cursor=pointer]:
+                - /url: https://www.douban.com/people/75924844/
+                - img "晚焰" [ref=e171]
+              - generic [ref=e172]:
+                - generic [ref=e173]:
+                  - text: 2021-04-13 20:44:18
+                  - link "晚焰" [ref=e174] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/75924844/
+                  - text: (腦內的都是虛妄 眼前的才在腳下)
+                - paragraph [ref=e175]: ！！！！重印绝对要看啊啊啊啊！
+            - generic [ref=e176]:
+              - link "夕陽無限好" [ref=e178] [cursor=pointer]:
+                - /url: https://www.douban.com/people/202538891/
+                - img "夕陽無限好" [ref=e179]
+              - generic [ref=e180]:
+                - generic [ref=e181]:
+                  - text: 2021-04-21 22:44:02
+                  - link "夕陽無限好" [ref=e182] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/202538891/
+                - generic [ref=e183]:
+                  - text: 这个海报不好，剧透
+                  - link:
+                    - /url: "#"
+                  - link "Yuanhoo" [ref=e185] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/164366815/
+                - paragraph [ref=e186]: 还剧透哈哈哈哈哈多少人看过了都，我现在给你剧透迪迦复活了哈哈哈
+                - link "来自豆瓣App" [ref=e187] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e188]:
+              - link "My Chief" [ref=e190] [cursor=pointer]:
+                - /url: https://www.douban.com/people/217780915/
+                - img "My Chief" [ref=e191]
+              - generic [ref=e192]:
+                - generic [ref=e193]:
+                  - text: 2021-09-04 22:54:02
+                  - link "My Chief" [ref=e194] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/217780915/
+                - paragraph [ref=e195]: 圣经里面有锤子
+                - link "来自豆瓣App" [ref=e196] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e197]:
+              - link "小黑" [ref=e199] [cursor=pointer]:
+                - /url: https://www.douban.com/people/ji__dun/
+                - img "小黑" [ref=e200]
+              - generic [ref=e201]:
+                - generic [ref=e202]:
+                  - text: 2021-10-12 22:46:32
+                  - link "小黑" [ref=e203] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/ji__dun/
+                - generic [ref=e204]:
+                  - text: 「内容不可见」
+                  - link:
+                    - /url: "#"
+                  - link "豆友185301057" [ref=e206] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/185301057/
+                - paragraph [ref=e207]: 下周二我这里重映
+                - link "来自豆瓣App" [ref=e208] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e209]:
+              - link "小黑" [ref=e211] [cursor=pointer]:
+                - /url: https://www.douban.com/people/ji__dun/
+                - img "小黑" [ref=e212]
+              - generic [ref=e213]:
+                - generic [ref=e214]:
+                  - text: 2021-10-12 22:46:49
+                  - link "小黑" [ref=e215] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/ji__dun/
+                - generic [ref=e216]:
+                  - text: 只可惜下个月是在台湾重映，大陆不知道有重映的机会。
+                  - link:
+                    - /url: "#"
+                  - link "未来" [ref=e218] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/144149609/
+                - paragraph [ref=e219]: 下周我们这里重映
+                - link "来自豆瓣App" [ref=e220] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e221]:
+              - link "豆友182752308" [ref=e223] [cursor=pointer]:
+                - /url: https://www.douban.com/people/182752308/
+                - img "豆友182752308" [ref=e224]
+              - generic [ref=e225]:
+                - generic [ref=e226]:
+                  - text: 2021-10-25 14:06:38
+                  - link "豆友182752308" [ref=e227] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/182752308/
+                - generic [ref=e228]:
+                  - text: 还剧透哈哈哈哈哈多少人看过了都，我现在给你剧透迪迦复活了哈哈哈
+                  - link:
+                    - /url: "#"
+                  - link "夕陽無限好" [ref=e230] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/202538891/
+                - paragraph [ref=e231]: 「内容不可见」
+                - link "来自豆瓣App" [ref=e232] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e233]:
+              - link "深爱Briar" [ref=e235] [cursor=pointer]:
+                - /url: https://www.douban.com/people/191016816/
+                - img "深爱Briar" [ref=e236]
+              - generic [ref=e237]:
+                - generic [ref=e238]:
+                  - text: 2023-04-17 21:18:00
+                  - link "深爱Briar" [ref=e239] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/191016816/
+                - generic [ref=e240]:
+                  - text: 大概是2020年吧
+                  - link:
+                    - /url: "#"
+                  - link "深爱Briar" [ref=e242] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/191016816/
+                - paragraph [ref=e243]: 继续等。？
+                - link "来自豆瓣App" [ref=e244] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e245]:
+              - link "月亮铜🌙" [ref=e247] [cursor=pointer]:
+                - /url: https://www.douban.com/people/191544655/
+                - img "月亮铜🌙" [ref=e248]
+              - generic [ref=e249]:
+                - generic [ref=e250]:
+                  - text: 2023-04-29 23:50:23
+                  - link "月亮铜🌙" [ref=e251] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/191544655/
+                - paragraph [ref=e252]: 2023，4.29北京国际电影节重映，且有IMAX
+                - link "来自豆瓣App" [ref=e253] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e254]:
+              - link "Pearl" [ref=e256] [cursor=pointer]:
+                - /url: https://www.douban.com/people/209022170/
+                - img "Pearl" [ref=e257]
+              - generic [ref=e258]:
+                - generic [ref=e259]:
+                  - text: 2024-02-09 13:08:42
+                  - link "Pearl" [ref=e260] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/209022170/
+                - generic [ref=e261]:
+                  - text: 继续等。？
+                  - link:
+                    - /url: "#"
+                  - link "深爱Briar" [ref=e263] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/191016816/
+                - paragraph [ref=e264]: 还得等
+                - link "来自豆瓣App" [ref=e265] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e266]:
+              - link "昊子" [ref=e268] [cursor=pointer]:
+                - /url: https://www.douban.com/people/KOUSHI_JERRY/
+                - img "昊子" [ref=e269]
+              - generic [ref=e270]:
+                - generic [ref=e271]:
+                  - text: 2026-04-26 03:25:50
+                  - link "昊子" [ref=e272] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/KOUSHI_JERRY/
+                - paragraph [ref=e273]:
+                  - text: 即将内地首映!
+                  - text: 进口 中国电影集团公司
+                  - text: 联合发行 中国电影产业集团股份有限公司 华夏电影发行有限责任公司
+                  - text: 译制 中国电影产业集团股份有限公司
+                - link "来自豆瓣App" [ref=e274] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - heading "你的回应 · · · · · ·" [level=2] [ref=e275]
+            - generic [ref=e277]:
+              - textbox [ref=e279]
+              - generic [ref=e280]:
+                - button "加上去" [ref=e282]
+                - generic [ref=e284]:
+                  - checkbox "推荐到广播" [ref=e285]
+                  - text: 推荐到广播
+        - generic [ref=e286]:
+          - generic [ref=e288]:
+            - link "后退" [ref=e290] [cursor=pointer]:
+              - /url: https://movie.douban.com/photos/photo/2587231204/#title-anchor
+            - list [ref=e292]:
+              - listitem [ref=e293]:
+                - link [ref=e294] [cursor=pointer]:
+                  - /url: https://movie.douban.com/photos/photo/2587231204/
+              - listitem [ref=e295]:
+                - link [ref=e296] [cursor=pointer]:
+                  - /url: https://movie.douban.com/photos/photo/2568685146/
+              - listitem [ref=e297]:
+                - link [ref=e298] [cursor=pointer]:
+                  - /url: https://movie.douban.com/photos/photo/2560435382/
+            - link "前进" [ref=e300] [cursor=pointer]:
+              - /url: https://movie.douban.com/photos/photo/2560435382/#title-anchor
+          - generic [ref=e301]:
+            - heading "图片信息 · · · · · ·" [level=2] [ref=e302]
+            - list [ref=e303]:
+              - listitem [ref=e304]:
+                - text: 电影名称：
+                - link "肖申克的救赎 The Shawshank Redemption" [ref=e305] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/1292052/
+              - listitem [ref=e306]: 图片类型：正式海报 中国大陆
+              - listitem [ref=e307]: 大图尺寸：1609x2448
+              - listitem [ref=e308]:
+                - text: 来自：
+                - link "公映哥" [ref=e309] [cursor=pointer]:
+                  - /url: https://www.douban.com/people/Iamgyg/
+              - listitem [ref=e310]: 上传于2019-09-14
+            - paragraph [ref=e311]:
+              - text: ">"
+              - link "去 肖申克的救赎 的页面" [ref=e312] [cursor=pointer]:
+                - /url: https://movie.douban.com/subject/1292052/
+        - link "投诉不良信息" [ref=e314] [cursor=pointer]:
+          - /url: javascript:void(0)
+    - generic [ref=e315]:
+      - generic [ref=e316]: © 2005－2026 douban.com, all rights reserved 北京豆网科技有限公司
+      - generic [ref=e317]:
+        - link "关于豆瓣" [ref=e318] [cursor=pointer]:
+          - /url: https://www.douban.com/about
+        - text: ·
+        - link "在豆瓣工作" [ref=e319] [cursor=pointer]:
+          - /url: https://www.douban.com/jobs
+        - text: ·
+        - link "联系我们" [ref=e320] [cursor=pointer]:
+          - /url: https://www.douban.com/about?topic=contactus
+        - text: ·
+        - link "法律声明" [ref=e321] [cursor=pointer]:
+          - /url: https://www.douban.com/about/legal
+        - text: ·
+        - link "帮助中心" [ref=e322] [cursor=pointer]:
+          - /url: https://help.douban.com/?app=movie
+        - text: ·
+        - link "移动应用" [ref=e323] [cursor=pointer]:
+          - /url: https://www.douban.com/doubanapp/

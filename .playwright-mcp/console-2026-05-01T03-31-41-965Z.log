@@ -1,0 +1,20 @@
+[     618ms] [INFO] 喜欢看豆瓣的代码，还是发现了什么bug？不如和我们一起为豆瓣添砖加瓦吧！
+http://jobs.douban.com/#position-zsqd @ https://img1.doubanio.com/f/vendors/e258329ca4b2122b4efe53fddc418967441e0e7f/js/douban.js:3213
+[     926ms] Uncaught (in promise) ScriptExternalLoadError: Loading script failed.
+(error: https://img9.doubanio.com/cuphead/federation/remoteEntry.js)
+while loading "./lib/rc" from 7756
+    at 7756 (https://img2.doubanio.com/cuphead/search-static/main_subject_search/main.bf1a1.js:0:216)
+    at p (https://img2.doubanio.com/cuphead/search-static/main_subject_search/main.bf1a1.js:0:856)
+    at u (https://img2.doubanio.com/cuphead/search-static/main_subject_search/main.bf1a1.js:0:3883)
+    at <anonymous> (https://img2.doubanio.com/cuphead/search-static/main_subject_search/main.bf1a1.js:0:4112)
+    at p.f.remotes (https://img2.doubanio.com/cuphead/search-static/main_subject_search/main.bf1a1.js:0:3572)
+    at <anonymous> (https://img2.doubanio.com/cuphead/search-static/main_subject_search/main.bf1a1.js:0:1810)
+    at p.e (https://img2.doubanio.com/cuphead/search-static/main_subject_search/main.bf1a1.js:0:1776)
+    at 4573 (https://img2.doubanio.com/cuphead/search-static/main_subject_search/main.bf1a1.js:0:68)
+    at p (https://img2.doubanio.com/cuphead/search-static/main_subject_search/main.bf1a1.js:0:856)
+    at <anonymous> (https://img2.doubanio.com/cuphead/search-static/main_subject_search/main.bf1a1.js:0:7230)
+    at <anonymous> (https://img2.doubanio.com/cuphead/search-static/main_subject_search/main.bf1a1.js:0:7238)
+[     937ms] ReferenceError: DetectBrowser is not defined
+    at https://music.douban.com/subject_search?search_text=The%20Shawshank%20Redemption%20soundtrack:321:7
+    at https://music.douban.com/subject_search?search_text=The%20Shawshank%20Redemption%20soundtrack:330:6
+[     946ms] [WARNING] [Warning]: ad_slot: null is not exist @ https://img1.doubanio.com/ZHdhZ2Y4eC9mL2FkanMvZmE3NGZkMWY5NzhhZmM4NmZhZjMxMTllNTQ5MGIyYWRlNTUwYmI0NS9hZC5yZWxlYXNlLmpz?company_token=kX69T8w1wyOE-dale:1

@@ -1,0 +1,17 @@
+[     574ms] [INFO] 喜欢看豆瓣的代码，还是发现了什么bug？不如和我们一起为豆瓣添砖加瓦吧！
+http://jobs.douban.com/#position-zsqd @ https://img1.doubanio.com/f/vendors/e258329ca4b2122b4efe53fddc418967441e0e7f/js/douban.js:3213
+[     709ms] [LOG] voteSelector .vote-comment @ https://img1.doubanio.com/f/vendors/6eba6f43fb7592ab783e390f654c0d6a96b1598e/subject-comments/comments-section.js:0
+[    1183ms] [WARNING] An iframe which has both allow-scripts and allow-same-origin for its sandbox attribute can escape its sandboxing. @ https://img1.doubanio.com/ZHdhZ2Y4eC9mL2FkanMvZmE3NGZkMWY5NzhhZmM4NmZhZjMxMTllNTQ5MGIyYWRlNTUwYmI0NS9hZC5yZWxlYXNlLmpz?company_token=kX69T8w1wyOE-dale:1
+[    1188ms] [LOG] script loaded:  https://shared.ydstatic.com/js/yadk/1.1.2.js @ https://shared.ydstatic.com/js/yatdk/3.0.0/pcBanner.js:6
+[    1188ms] [LOG] scripts load finish! @ https://shared.ydstatic.com/js/yatdk/3.0.0/pcBanner.js:6
+[    1429ms] [LOG] frame on registerListener @ https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:0
+[    1531ms] [LOG] frame on sync_method {getGameSession: } @ https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:0
+[    1658ms] [LOG] frame on invoke {apiName: getGameSession, args: Object} @ https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:0
+[    2167ms] [LOG] getgametraceid res {apiname: getgametraceid, errcode: 0, errmsg: , jsdata: {"encrypted_data":"UwgSstflDOVugG9vvMUAyRvtqEi1EAT…AYwnLWtOpiBIWxw==","expire_timestamp":1778816736}} @ https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:0
+[    2168ms] [LOG] [GDTAdSDK]: 初始化成功 undefined @ :6
+[    2351ms] [ERROR] [GDTAdSdk]: loadNativeAdData failed GDTError: Match no ad. Please DON'T retry immediately.
+    at LocalPlugin.loadNativeAdData (https://qzs.gdtimg.com/union/res/pc/ylh-pc-ad-sdk.v1.29.29.js:44:64117)
+    at async SDKAdapter.execute (https://qzs.gdtimg.com/union/res/pc/ylh-pc-ad-sdk.v1.29.29.js:44:64659)
+    at async Proxy.loadNativeAdData (https://qzs.gdtimg.com/union/res/pc/ylh-pc-ad-sdk.v1.29.29.js:44:66446) @ :213
+[    3673ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ https://localhost.weixin.qq.com:14020/wx_game_base/api/business:0
+[    3674ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ https://localhost.weixin.qq.com:14021/wx_game_base/api/business:0

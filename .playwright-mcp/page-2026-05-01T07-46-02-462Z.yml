@@ -1,0 +1,18 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e19]: "418"
+      - generic [ref=e20]:
+        - generic [ref=e21]: 请求已被站点的安全策略拦截。
+        - generic [ref=e22]:
+          - text: 本站点已启用安全防护服务以抵御在线攻击，本次访问已被限制。
+          - text: 若此页面持续出现，请联系网站管理员，并提供当前页面显示的请求 ID。
+        - generic [ref=e23]:
+          - generic [ref=e24]:
+            - generic [ref=e25] [cursor=pointer]: "请求 ID: 18122757767002792423"
+            - img [ref=e26] [cursor=pointer]
+          - generic [ref=e29]: "请求时间: 2026-05-01 15:46:03 UTC+8"
+    - generic [ref=e31]:
+      - text: "若您是网站拥有者:"
+      - text: 请参阅 EdgeOne Web 安全分析官方文档，了解如何筛选请求 ID 查看样本日志与命中规则。
+  - generic [ref=e32]: 由 Tencent Cloud EdgeOne 提供防护

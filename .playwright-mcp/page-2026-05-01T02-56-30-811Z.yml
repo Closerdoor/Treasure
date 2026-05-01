@@ -1,0 +1,424 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - list [ref=e5]:
+      - listitem [ref=e6]:
+        - link "豆邮" [ref=e7] [cursor=pointer]:
+          - /url: https://www.douban.com/doumail/
+      - listitem [ref=e8]:
+        - link "忽而今夏的账号" [ref=e9] [cursor=pointer]:
+          - /url: https://accounts.douban.com/passport/setting/
+          - generic [ref=e10]: 忽而今夏的账号
+    - link "提醒" [ref=e13] [cursor=pointer]:
+      - /url: https://www.douban.com/notification/
+    - link "下载豆瓣客户端" [ref=e15] [cursor=pointer]:
+      - /url: https://www.douban.com/doubanapp/app?channel=top-nav
+    - list [ref=e17]:
+      - listitem [ref=e18]:
+        - link "豆瓣" [ref=e19] [cursor=pointer]:
+          - /url: https://www.douban.com
+      - listitem [ref=e20]:
+        - link "读书" [ref=e21] [cursor=pointer]:
+          - /url: https://book.douban.com
+      - listitem [ref=e22]:
+        - link "电影" [ref=e23] [cursor=pointer]:
+          - /url: https://movie.douban.com
+      - listitem [ref=e24]:
+        - link "音乐" [ref=e25] [cursor=pointer]:
+          - /url: https://music.douban.com
+      - listitem [ref=e26]:
+        - link "播客" [ref=e27] [cursor=pointer]:
+          - /url: https://www.douban.com/podcast/
+      - listitem [ref=e28]:
+        - link "同城" [ref=e29] [cursor=pointer]:
+          - /url: https://www.douban.com/location
+      - listitem [ref=e30]:
+        - link "小组" [ref=e31] [cursor=pointer]:
+          - /url: https://www.douban.com/group
+      - listitem [ref=e32]:
+        - link "阅读" [ref=e33] [cursor=pointer]:
+          - /url: https://read.douban.com/?dcs=top-nav&dcm=douban
+      - listitem [ref=e34]:
+        - link "FM" [ref=e35] [cursor=pointer]:
+          - /url: https://fm.douban.com/?from_=shire_top_nav
+      - listitem [ref=e36]:
+        - link "时间" [ref=e37] [cursor=pointer]:
+          - /url: https://time.douban.com/?dt_time_source=douban-web_top_nav
+      - listitem [ref=e38]:
+        - link "豆品" [ref=e39] [cursor=pointer]:
+          - /url: https://market.douban.com/?utm_campaign=douban_top_nav&utm_source=douban&utm_medium=pc_web
+  - generic [ref=e42]:
+    - link "豆瓣社区" [ref=e44] [cursor=pointer]:
+      - /url: https://www.douban.com
+    - group "搜索：" [ref=e47]:
+      - textbox "搜索你感兴趣的内容和人..." [ref=e49]
+      - button "搜索" [ref=e51] [cursor=pointer]
+    - list [ref=e53]:
+      - listitem [ref=e54]:
+        - link "首页" [ref=e55] [cursor=pointer]:
+          - /url: https://www.douban.com
+      - listitem [ref=e56]:
+        - link "我的豆瓣" [ref=e57] [cursor=pointer]:
+          - /url: https://www.douban.com/mine/
+      - listitem [ref=e58]:
+        - link "浏览发现" [ref=e59] [cursor=pointer]:
+          - /url: https://www.douban.com/explore
+      - listitem [ref=e60]:
+        - link "话题广场 new" [ref=e61] [cursor=pointer]:
+          - /url: https://www.douban.com/gallery
+          - text: 话题广场
+          - img "new" [ref=e62]
+  - generic [ref=e63]:
+    - generic [ref=e65]:
+      - generic [ref=e66]:
+        - generic [ref=e67]:
+          - generic [ref=e68]:
+            - heading "摩根·弗里曼 Morgan Freeman" [level=1] [ref=e69]
+            - generic [ref=e70]:
+              - generic [ref=e71]:
+                - img "摩根·弗里曼" [ref=e72]
+                - link "去修改" [ref=e74] [cursor=pointer]:
+                  - /url: //www.douban.com/contribution/personage/27260301/edit/
+              - link "增改资料和作品" [ref=e76] [cursor=pointer]:
+                - /url: //www.douban.com/contribution/personage/27260301/edit/
+            - generic [ref=e77]:
+              - list [ref=e78]:
+                - listitem [ref=e79]: "性别: 男"
+                - listitem [ref=e80]: "出生日期: 1937年6月1日"
+                - listitem [ref=e81]: "出生地: 美国,田纳西州,孟菲斯"
+                - listitem [ref=e82]: "更多中文名: 摩根费曼"
+                - listitem [ref=e83]: "更多外文名: Morgan Porterfield Freeman Jr. (本名)"
+                - listitem [ref=e84]: "家庭成员: Jeanette Adair Bradshaw(前妻) / Myrna Colley-Lee(前妻)"
+                - listitem [ref=e85]: "IMDb编号: nm0000151"
+                - listitem [ref=e86]: "职业: 演员 / 制片人 / 配音"
+              - generic [ref=e87]:
+                - link "关注" [ref=e88] [cursor=pointer]:
+                  - /url: javascript:;;
+                - generic [ref=e89]: 64428人关注
+          - generic [ref=e91]:
+            - link "添加到豆列" [ref=e93] [cursor=pointer]:
+              - /url: javascript:void(0)
+              - text: 添加到豆列
+            - link "推荐" [ref=e97] [cursor=pointer]:
+              - /url: https://www.douban.com/share/recommend?sanity_key=_bf8a8&apikey=&object_kind=1065&name=%E6%91%A9%E6%A0%B9%C2%B7%E5%BC%97%E9%87%8C%E6%9B%BC&image=https%3A%2F%2Fimg1.doubanio.com%2Fview%2Fcelebrity%2Fs%2Fpublic%2Fp34642.jpg&target_action=0&redir=https%3A%2F%2Fwww.douban.com%2Fpersonage%2F27260301%2F&object_id=27260301&heading=%E6%8E%A8%E8%8D%90%E5%88%B0%E8%B1%86%E7%93%A3&target_type=rec&btn_text=%E6%8E%A8%E8%8D%90&href=https%3A%2F%2Fwww.douban.com%2Fpersonage%2F27260301%2F&action_props=%7B%22personage_name%22%3A%22%E6%91%A9%E6%A0%B9%C2%B7%E5%BC%97%E9%87%8C%E6%9B%BC%22%2C%22personage_url%22%3A%22https%3A%5C%2F%5C%2Fwww.douban.com%5C%2Fpersonage%5C%2F27260301%5C%2F%22%7D&curl=&type=&properties=%7B%7D&desc=%E6%BC%94%E5%91%98+%E5%88%B6%E7%89%87%E4%BA%BA+%E9%85%8D%E9%9F%B3+%2F+%E8%82%96%E7%94%B3%E5%85%8B%E7%9A%84%E6%95%91%E8%B5%8E+%E8%9D%99%E8%9D%A0%E4%BE%A0%EF%BC%9A%E9%BB%91%E6%9A%97%E9%AA%91%E5%A3%AB+%E4%B8%83%E5%AE%97%E7%BD%AA
+        - generic [ref=e98]:
+          - heading "人物简介 · · · · · ·" [level=2] [ref=e99]
+          - generic [ref=e102]:
+            - paragraph [ref=e103]: 摩根·弗里曼 （Morgan Freeman），美国黑人男演员、导演。1989年凭借着在《为戴西小姐开车》中的忠厚诚实、善良勇敢的老司机形象为他赢得了金球奖和全美影评奖。2005年凭借克林特·伊斯特伍德导演的《百万美元宝贝》获得第77届奥斯卡最佳男配角奖。摩根·弗里曼于1990年代成名，并演出过许多著名的好莱坞电影。
+            - paragraph [ref=e104]: IMDB TOP 001的《肖申克救赎》中，弗里曼塑造的囚犯瑞德的形象更为深入人心。
+        - generic [ref=e105]:
+          - heading "图片 · · · · · · ( 全部 106 张 · 上传照片 )" [level=2] [ref=e106]:
+            - text: 图片 · · · · · ·
+            - generic [ref=e107]:
+              - text: (
+              - link "全部 106 张" [ref=e108] [cursor=pointer]:
+                - /url: photos
+              - text: ·
+              - link "上传照片" [ref=e109] [cursor=pointer]:
+                - /url: /personage/27260301/photos/upload
+              - text: )
+          - list [ref=e110]:
+            - link:
+              - /url: photo/2158216398
+              - listitem [ref=e111] [cursor=pointer]
+            - link:
+              - /url: photo/1081945672
+              - listitem [ref=e112] [cursor=pointer]
+            - link:
+              - /url: photo/1186816418
+              - listitem [ref=e113] [cursor=pointer]
+            - link:
+              - /url: photo/1081936735
+              - listitem [ref=e114] [cursor=pointer]
+            - link:
+              - /url: photo/2158216387
+              - listitem [ref=e115] [cursor=pointer]
+        - generic [ref=e116]:
+          - heading "获奖情况 · · · · · · ( 全部 12 )" [level=2] [ref=e117]:
+            - text: 获奖情况 · · · · · ·
+            - generic [ref=e118]:
+              - text: (
+              - link "全部 12" [ref=e119] [cursor=pointer]:
+                - /url: awards
+              - text: )
+          - list [ref=e120]:
+            - listitem [ref=e121]:
+              - text: 2023年
+              - link "第75届黄金时段艾美奖" [ref=e122] [cursor=pointer]:
+                - /url: https://movie.douban.com/awards/emmys/75/
+              - text: 最佳旁白 (提名)
+              - link "我们的浩瀚宇宙" [ref=e123] [cursor=pointer]:
+                - /url: https://movie.douban.com/subject/36144875/
+            - listitem [ref=e124]:
+              - text: 2021年
+              - link "第73届黄金时段艾美奖" [ref=e125] [cursor=pointer]:
+                - /url: https://movie.douban.com/awards/emmys/73/
+              - text: 喜剧类 最佳客串男演员 (提名)
+              - link "柯明斯基理论 第三季" [ref=e126] [cursor=pointer]:
+                - /url: https://movie.douban.com/subject/35127542/
+            - listitem [ref=e127]:
+              - text: 2010年
+              - link "第82届奥斯卡金像奖" [ref=e128] [cursor=pointer]:
+                - /url: https://movie.douban.com/awards/Oscar/82/
+              - text: 最佳男主角 (提名)
+              - link "成事在人" [ref=e129] [cursor=pointer]:
+                - /url: https://movie.douban.com/subject/2136824/
+        - generic [ref=e131]:
+          - heading "最近的5部作品 · · · · · ·" [level=2] [ref=e132]: 最近的5部作品 · · · · · ·
+          - generic [ref=e133]:
+            - list [ref=e134]:
+              - listitem [ref=e135]:
+                - generic [ref=e136]: "2026"
+                - link "恐龙时代：你不知道的故事" [ref=e137] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/38228773/
+                  - img "恐龙时代：你不知道的故事" [ref=e138]
+                - link "恐龙时代：你不知道的故事" [ref=e139] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/38228773/
+                - generic [ref=e140]: "8.2"
+              - listitem [ref=e142]:
+                - generic [ref=e143]: "2025"
+                - link "惊天魔盗团3" [ref=e144] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/26404869/
+                  - img "惊天魔盗团3" [ref=e145]
+                - link "惊天魔盗团3" [ref=e146] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/26404869/
+                - generic [ref=e147]: "5.7"
+              - listitem [ref=e149]:
+                - link "美国革命" [ref=e150] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/37229737/
+                  - img "美国革命" [ref=e151]
+                - link "美国革命" [ref=e152] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/37229737/
+                - generic [ref=e153]: 暂无评分
+              - listitem [ref=e154]:
+                - generic [ref=e155]: "2024"
+                - link "母狮 第二季" [ref=e156] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/36778427/
+                  - img "母狮 第二季" [ref=e157]
+                - link "母狮 第二季" [ref=e158] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/36778427/
+                - generic [ref=e159]: "6.7"
+              - listitem [ref=e161]:
+                - link "枪手" [ref=e162] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/36350204/
+                  - img "枪手" [ref=e163]
+                - link "枪手" [ref=e164] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/36350204/
+                - generic [ref=e165]: "3.9"
+            - list [ref=e167]:
+              - listitem [ref=e168]: "未上映:"
+              - listitem [ref=e169]:
+                - link "与拉玛相会" [ref=e170] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/5422668/
+                - generic [ref=e171]: (2026)
+              - listitem [ref=e172]:
+                - link "The Little Bedroom" [ref=e173] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/36795358/
+                - generic [ref=e174]: (2027)
+              - listitem [ref=e175]:
+                - link "嗅探" [ref=e176] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/35591925/
+                - generic [ref=e177]: (2028)
+              - listitem [ref=e178]:
+                - link "漂亮的吉姆·凯" [ref=e179] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/25889639/
+                - generic [ref=e180]: (2030)
+              - listitem [ref=e181]:
+                - link "超体" [ref=e182] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/36139820/
+                - generic [ref=e183]: (2030)
+              - listitem [ref=e184]:
+                - link "卢卡死亡之旅" [ref=e185] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/34847874/
+                - generic [ref=e186]: (2030)
+              - listitem [ref=e187]:
+                - link "不愿你离开" [ref=e188] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/35414579/
+                - generic [ref=e189]: (2030)
+            - text: ">"
+            - link "更多影视作品 234" [ref=e190] [cursor=pointer]:
+              - /url: creations?sortby=time&type=filmmaker
+        - heading "收藏人数最多的5部作品 · · · · · ·" [level=2] [ref=e193]: 收藏人数最多的5部作品 · · · · · ·
+        - generic [ref=e195]:
+          - heading "合作过的人物 · · · · · · ( 全部 864 )" [level=2] [ref=e196]:
+            - text: 合作过的人物 · · · · · ·
+            - generic [ref=e197]:
+              - text: (
+              - link "全部 864" [ref=e198] [cursor=pointer]:
+                - /url: /personage/27260301/partners
+              - text: )
+          - list [ref=e199]:
+            - listitem [ref=e200]:
+              - link "克林特·伊斯特伍德" [ref=e202] [cursor=pointer]:
+                - /url: https://www.douban.com/personage/27260204
+                - img "克林特·伊斯特伍德" [ref=e203]
+              - generic [ref=e204]:
+                - link "克林特·伊斯特伍德" [ref=e205] [cursor=pointer]:
+                  - /url: https://www.douban.com/personage/27260204
+                - generic [ref=e206]:
+                  - text: 合作作品 (
+                  - link "16" [ref=e207] [cursor=pointer]:
+                    - /url: /personage/27260301/partners#27260204
+                  - text: )
+            - listitem [ref=e208]:
+              - link "马丁·斯科塞斯" [ref=e210] [cursor=pointer]:
+                - /url: https://www.douban.com/personage/27260193
+                - img "马丁·斯科塞斯" [ref=e211]
+              - generic [ref=e212]:
+                - link "马丁·斯科塞斯" [ref=e213] [cursor=pointer]:
+                  - /url: https://www.douban.com/personage/27260193
+                - generic [ref=e214]:
+                  - text: 合作作品 (
+                  - link "10" [ref=e215] [cursor=pointer]:
+                    - /url: /personage/27260301/partners#27260193
+                  - text: )
+            - listitem [ref=e216]:
+              - link "凯文·史派西" [ref=e218] [cursor=pointer]:
+                - /url: https://www.douban.com/personage/27260200
+                - img "凯文·史派西" [ref=e219]
+              - generic [ref=e220]:
+                - link "凯文·史派西" [ref=e221] [cursor=pointer]:
+                  - /url: https://www.douban.com/personage/27260200
+                - generic [ref=e222]:
+                  - text: 合作作品 (
+                  - link "10" [ref=e223] [cursor=pointer]:
+                    - /url: /personage/27260301/partners#27260200
+                  - text: )
+            - listitem [ref=e224]:
+              - link "迈克尔·凯恩" [ref=e226] [cursor=pointer]:
+                - /url: https://www.douban.com/personage/27260276
+                - img "迈克尔·凯恩" [ref=e227]
+              - generic [ref=e228]:
+                - link "迈克尔·凯恩" [ref=e229] [cursor=pointer]:
+                  - /url: https://www.douban.com/personage/27260276
+                - generic [ref=e230]:
+                  - text: 合作作品 (
+                  - link "10" [ref=e231] [cursor=pointer]:
+                    - /url: /personage/27260301/partners#27260276
+                  - text: )
+            - listitem [ref=e232]:
+              - link "塞缪尔·杰克逊" [ref=e234] [cursor=pointer]:
+                - /url: https://www.douban.com/personage/27260176
+                - img "塞缪尔·杰克逊" [ref=e235]
+              - generic [ref=e236]:
+                - link "塞缪尔·杰克逊" [ref=e237] [cursor=pointer]:
+                  - /url: https://www.douban.com/personage/27260176
+                - generic [ref=e238]:
+                  - text: 合作作品 (
+                  - link "8" [ref=e239] [cursor=pointer]:
+                    - /url: /personage/27260301/partners#27260176
+                  - text: )
+            - listitem [ref=e240]:
+              - link "史蒂文·斯皮尔伯格" [ref=e242] [cursor=pointer]:
+                - /url: https://www.douban.com/personage/27260208
+                - img "史蒂文·斯皮尔伯格" [ref=e243]
+              - generic [ref=e244]:
+                - link "史蒂文·斯皮尔伯格" [ref=e245] [cursor=pointer]:
+                  - /url: https://www.douban.com/personage/27260208
+                - generic [ref=e246]:
+                  - text: 合作作品 (
+                  - link "7" [ref=e247] [cursor=pointer]:
+                    - /url: /personage/27260301/partners#27260208
+                  - text: )
+      - generic [ref=e248]:
+        - generic [ref=e249]:
+          - heading "他们也关注了摩根·弗里曼 · · · · · · ( 全部 64428 )" [level=2] [ref=e250]:
+            - text: 他们也关注了摩根·弗里曼 · · · · · ·
+            - generic [ref=e251]:
+              - text: (
+              - link "全部 64428" [ref=e252] [cursor=pointer]:
+                - /url: followers
+              - text: )
+          - list [ref=e253]:
+            - listitem [ref=e254]:
+              - link "豆友294876095" [ref=e255] [cursor=pointer]:
+                - /url: https://www.douban.com/people/294876095/
+                - text: 豆友294876095
+            - listitem [ref=e257]:
+              - link "啶埘炸彈" [ref=e258] [cursor=pointer]:
+                - /url: https://www.douban.com/people/172915008/
+                - text: 啶埘炸彈
+            - listitem [ref=e260]:
+              - link "昆吾" [ref=e261] [cursor=pointer]:
+                - /url: https://www.douban.com/people/163560055/
+                - text: 昆吾
+            - listitem [ref=e263]:
+              - link "muscle" [ref=e264] [cursor=pointer]:
+                - /url: https://www.douban.com/people/293929152/
+                - text: muscle
+            - listitem [ref=e266]:
+              - link "秃鹫和星星" [ref=e267] [cursor=pointer]:
+                - /url: https://www.douban.com/people/163723644/
+                - text: 秃鹫和星星
+            - listitem [ref=e269]:
+              - link "第二梦" [ref=e270] [cursor=pointer]:
+                - /url: https://www.douban.com/people/166444692/
+                - text: 第二梦
+            - listitem [ref=e272]:
+              - link "张欣霖" [ref=e273] [cursor=pointer]:
+                - /url: https://www.douban.com/people/225602806/
+                - text: 张欣霖
+            - listitem [ref=e275]:
+              - link "Wake" [ref=e276] [cursor=pointer]:
+                - /url: https://www.douban.com/people/293282657/
+                - text: Wake
+        - generic [ref=e278]:
+          - heading "摩根·弗里曼的贡献者 · · · · · · ( 全部 65 )" [level=2] [ref=e279]:
+            - text: 摩根·弗里曼的贡献者 · · · · · ·
+            - generic [ref=e280]:
+              - text: (
+              - link "全部 65" [ref=e281] [cursor=pointer]:
+                - /url: contributors
+              - text: )
+          - list [ref=e282]:
+            - listitem [ref=e283]:
+              - link "bobosuperman" [ref=e284] [cursor=pointer]:
+                - /url: https://www.douban.com/people/bobosuperman/
+                - text: bobosuperman
+            - listitem [ref=e286]:
+              - link "Vini_Kazma" [ref=e287] [cursor=pointer]:
+                - /url: https://www.douban.com/people/tomqulab/
+                - text: Vini_Kazma
+            - listitem [ref=e289]:
+              - link "Elaine" [ref=e290] [cursor=pointer]:
+                - /url: https://www.douban.com/people/tianyuyin/
+                - text: Elaine
+            - listitem [ref=e292]:
+              - link "陈土土" [ref=e293] [cursor=pointer]:
+                - /url: https://www.douban.com/people/63164908/
+                - text: 陈土土
+            - listitem [ref=e295]:
+              - link "Sawubona" [ref=e296] [cursor=pointer]:
+                - /url: https://www.douban.com/people/75458642/
+                - text: Sawubona
+            - listitem [ref=e298]:
+              - link "拿烟斗的人" [ref=e299] [cursor=pointer]:
+                - /url: https://www.douban.com/people/smellybean/
+                - text: 拿烟斗的人
+            - listitem [ref=e301]:
+              - link "枫小叶。" [ref=e302] [cursor=pointer]:
+                - /url: https://www.douban.com/people/44630719/
+                - text: 枫小叶。
+            - listitem [ref=e304]:
+              - link "影志" [ref=e305] [cursor=pointer]:
+                - /url: https://www.douban.com/people/tjz230/
+                - text: 影志
+    - generic [ref=e307]:
+      - generic [ref=e308]: © 2005－2026 douban.com, all rights reserved 北京豆网科技有限公司
+      - generic [ref=e309]:
+        - link "关于豆瓣" [ref=e310] [cursor=pointer]:
+          - /url: https://www.douban.com/about
+        - text: ·
+        - link "在豆瓣工作" [ref=e311] [cursor=pointer]:
+          - /url: https://www.douban.com/jobs
+        - text: ·
+        - link "联系我们" [ref=e312] [cursor=pointer]:
+          - /url: https://www.douban.com/about?topic=contactus
+        - text: ·
+        - link "法律声明" [ref=e313] [cursor=pointer]:
+          - /url: https://www.douban.com/about/legal
+        - text: ·
+        - link "帮助中心" [ref=e314] [cursor=pointer]:
+          - /url: https://help.douban.com/?app=elessar
+        - text: ·
+        - link "移动应用" [ref=e315] [cursor=pointer]:
+          - /url: https://www.douban.com/doubanapp/

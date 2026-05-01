@@ -1,0 +1,41 @@
+[   41573ms] [INFO] 喜欢看豆瓣的代码，还是发现了什么bug？不如和我们一起为豆瓣添砖加瓦吧！
+http://jobs.douban.com/#position-zsqd @ https://img1.doubanio.com/f/vendors/e258329ca4b2122b4efe53fddc418967441e0e7f/js/douban.js:3213
+[   42662ms] [WARNING] An iframe which has both allow-scripts and allow-same-origin for its sandbox attribute can escape its sandboxing. @ https://img1.doubanio.com/ZHdhZ2Y4eC9mL2FkanMvZmE3NGZkMWY5NzhhZmM4NmZhZjMxMTllNTQ5MGIyYWRlNTUwYmI0NS9hZC5yZWxlYXNlLmpz?company_token=kX69T8w1wyOE-dale:1
+[   43193ms] [LOG] frame on registerListener @ https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:0
+[   43196ms] [LOG] frame on sync_method {getGameSession: } @ https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:0
+[   44806ms] [LOG] frame on invoke {apiName: getGameSession, args: Object} @ https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:0
+[   44814ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_CLOSED @ https://localhost.weixin.qq.com:14019/wx_game_base/api/business:0
+[   46198ms] [LOG] [GDTAdSDK]: 初始化成功 undefined @ :6
+[   46611ms] [LOG] frame on invoke {apiName: getGameSession, args: Object} @ https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:0
+[   46618ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_CLOSED @ https://localhost.weixin.qq.com:14019/wx_game_base/api/business:0
+[   47816ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_CLOSED @ https://localhost.weixin.qq.com:14016/wx_game_base/api/business:0
+[   49619ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_CLOSED @ https://localhost.weixin.qq.com:14016/wx_game_base/api/business:0
+[   51577ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/view/photo/m/public/p2929502591.webp:0
+[   51817ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://localhost.weixin.qq.com:14018/wx_game_base/api/business:0
+[   51817ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://localhost.weixin.qq.com:13016/wx_game_base/api/business:0
+[   51817ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://localhost.weixin.qq.com:14017/wx_game_base/api/business:0
+[   51818ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://localhost.weixin.qq.com:13018/wx_game_base/api/business:0
+[   51818ms] [ERROR] Error: timeout
+    at https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:1:9167
+    at Generator.throw (<anonymous>)
+    at a (https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:1:7941) @ https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:0
+[   51818ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://localhost.weixin.qq.com:13017/wx_game_base/api/business:0
+[   51879ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/view/photo/m/public/p2929538741.webp:0
+[   51880ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/view/photo/m/public/p2930433221.webp:0
+[   51880ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/view/photo/m/public/p2932012481.webp:0
+[   51880ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/view/photo/m/public/p2932012391.webp:0
+[   51881ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/view/photo/m/public/p2931486561.webp:0
+[   53620ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://localhost.weixin.qq.com:14017/wx_game_base/api/business:0
+[   53620ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://localhost.weixin.qq.com:14018/wx_game_base/api/business:0
+[   53620ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://localhost.weixin.qq.com:13016/wx_game_base/api/business:0
+[   53620ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://localhost.weixin.qq.com:13018/wx_game_base/api/business:0
+[   53621ms] [ERROR] Error: timeout
+    at https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:1:9167
+    at Generator.throw (<anonymous>)
+    at a (https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:1:7941) @ https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:0
+[   53621ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://localhost.weixin.qq.com:13017/wx_game_base/api/business:0
+[   54201ms] [ERROR] [GDTAdSdk]: loadNativeAdData failed GDTError: 请求超时，超时时间 5000ms
+    at LocalPlugin.loadNativeAdData (https://qzs.gdtimg.com/union/res/pc/ylh-pc-ad-sdk.v1.29.29.js:44:64117)
+    at async SDKAdapter.execute (https://qzs.gdtimg.com/union/res/pc/ylh-pc-ad-sdk.v1.29.29.js:44:64659)
+    at async Proxy.loadNativeAdData (https://qzs.gdtimg.com/union/res/pc/ylh-pc-ad-sdk.v1.29.29.js:44:66446) @ :213
+[   61580ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u289570523-1.jpg:0

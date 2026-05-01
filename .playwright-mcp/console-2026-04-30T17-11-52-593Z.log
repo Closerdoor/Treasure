@@ -1,0 +1,298 @@
+[    1832ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://img1.doubanio.com/f/vendors/0511abe9863c2ea7084efa7e24d1d86c5b3974f1/js/jquery-1.10.2.min.js:0
+[    1837ms] Uncaught ReferenceError: $ is not defined
+    at <anonymous> (https://img1.doubanio.com/f/vendors/e258329ca4b2122b4efe53fddc418967441e0e7f/js/douban.js:1351:0)
+[    1838ms] Uncaught ReferenceError: jQuery is not defined
+    at <anonymous> (https://img1.doubanio.com/f/vendors/b0d3faaf7a432605add54908e39e17746824d6cc/js/separation/_all.js:0:1564)
+[    1848ms] Uncaught ReferenceError: jQuery is not defined
+    at 1669 (https://img1.doubanio.com/cuphead/movie-static/mod/login_pop.89db9.js:0:54)
+    at o (https://img1.doubanio.com/cuphead/movie-static/mod/login_pop.89db9.js:0:161)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/mod/login_pop.89db9.js:0:187)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/mod/login_pop.89db9.js:0:1590)
+[    1891ms] Uncaught ReferenceError: jQuery is not defined
+    at <anonymous> (https://img3.doubanio.com/dae/accounts/resources/f8b2226/movie/bundle.js:0:3169)
+    at <anonymous> (https://img3.doubanio.com/dae/accounts/resources/f8b2226/movie/bundle.js:0:7763)
+[    1969ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://img1.doubanio.com/ZHdhZ2Y4eC9mL2FkanMvZmE3NGZkMWY5NzhhZmM4NmZhZjMxMTllNTQ5MGIyYWRlNTUwYmI0NS9hZC5yZWxlYXNlLmpz?company_token=kX69T8w1wyOE-dale:0
+[   11856ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/view/photo/m/public/p1435895101.webp:0
+[   11857ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u292337190-1.jpg:0
+[   11857ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u3566031-31.jpg:0
+[   11857ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u282812580-1.jpg:0
+[   11900ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://img1.doubanio.com/favicon.ico:0
+[   26052ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://img1.doubanio.com/f/vendors/0511abe9863c2ea7084efa7e24d1d86c5b3974f1/js/jquery-1.10.2.min.js:0
+[   26052ms] Uncaught ReferenceError: $ is not defined
+    at <anonymous> (https://img1.doubanio.com/f/vendors/e258329ca4b2122b4efe53fddc418967441e0e7f/js/douban.js:1351:0)
+[   26052ms] Uncaught ReferenceError: jQuery is not defined
+    at <anonymous> (https://img1.doubanio.com/f/vendors/b0d3faaf7a432605add54908e39e17746824d6cc/js/separation/_all.js:0:1564)
+[   26071ms] ReferenceError: $ is not defined
+    at https://movie.douban.com/photos/photo/480747492/:4287:1
+[   26140ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://img1.doubanio.com/icon/user_normal.jpg:0
+[   26164ms] Uncaught ReferenceError: jQuery is not defined
+    at 1669 (https://img1.doubanio.com/cuphead/movie-static/mod/login_pop.89db9.js:0:54)
+    at o (https://img1.doubanio.com/cuphead/movie-static/mod/login_pop.89db9.js:0:161)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/mod/login_pop.89db9.js:0:187)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/mod/login_pop.89db9.js:0:1590)
+[   26166ms] ReferenceError: $ is not defined
+    at https://movie.douban.com/photos/photo/480747492/:4367:9
+[   26166ms] Uncaught ReferenceError: $ is not defined
+    at <anonymous> (https://img1.doubanio.com/f/vendors/ea69107b490f3252404492cd7e7049f60f3e9dc1/js/photo_turn_page.js:0:0)
+[   26166ms] ReferenceError: $ is not defined
+    at https://movie.douban.com/photos/photo/480747492/:4460:5
+[   26166ms] Uncaught ReferenceError: jQuery is not defined
+    at 1669 (https://img3.doubanio.com/cuphead/movie-static/common/photo_slide.493ea.js:0:50)
+    at i (https://img3.doubanio.com/cuphead/movie-static/common/photo_slide.493ea.js:0:157)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/common/photo_slide.493ea.js:0:183)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/common/photo_slide.493ea.js:0:1224)
+[   26167ms] Uncaught ReferenceError: jQuery is not defined
+    at <anonymous> (https://img3.doubanio.com/dae/accounts/resources/f8b2226/movie/bundle.js:0:3169)
+    at <anonymous> (https://img3.doubanio.com/dae/accounts/resources/f8b2226/movie/bundle.js:0:7763)
+[   26173ms] Uncaught (in promise) ScriptExternalLoadError: Loading script failed.
+(error: https://img9.doubanio.com/cuphead/federation/remoteEntry.js)
+while loading "./lib/rc" from 756
+    at 756 (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:212)
+    at d (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:834)
+    at u (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3414)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3643)
+    at d.f.remotes (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3103)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:1697)
+    at d.e (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:1663)
+    at 799 (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:67)
+    at d (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:834)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:6722)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:6729)
+[   26216ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://img1.doubanio.com/ZHdhZ2Y4eC9mL2FkanMvZmE3NGZkMWY5NzhhZmM4NmZhZjMxMTllNTQ5MGIyYWRlNTUwYmI0NS9hZC5yZWxlYXNlLmpz?company_token=kX69T8w1wyOE-dale:0
+[   36066ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u75262439-1.jpg:0
+[   36069ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u74748075-1.jpg:0
+[   36069ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u102563791-1.jpg:0
+[   36069ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u63135899-1.jpg:0
+[   36069ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u172902170-1.jpg:0
+[   36069ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u153001400-1.jpg:0
+[   46089ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u21054992-201.jpg:0
+[   46090ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u183043368-1.jpg:0
+[   46090ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u151626597-1.jpg:0
+[   46090ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u146548615-11.jpg:0
+[   46090ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u199219967-1.jpg:0
+[   46091ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u129176818-11.jpg:0
+[   54836ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://img1.doubanio.com/f/vendors/0511abe9863c2ea7084efa7e24d1d86c5b3974f1/js/jquery-1.10.2.min.js:0
+[   54836ms] Uncaught ReferenceError: $ is not defined
+    at <anonymous> (https://img1.doubanio.com/f/vendors/e258329ca4b2122b4efe53fddc418967441e0e7f/js/douban.js:1351:0)
+[   54836ms] Uncaught ReferenceError: jQuery is not defined
+    at <anonymous> (https://img1.doubanio.com/f/vendors/b0d3faaf7a432605add54908e39e17746824d6cc/js/separation/_all.js:0:1564)
+[   54837ms] Uncaught ReferenceError: jQuery is not defined
+    at 1669 (https://img1.doubanio.com/cuphead/movie-static/mod/login_pop.89db9.js:0:54)
+    at o (https://img1.doubanio.com/cuphead/movie-static/mod/login_pop.89db9.js:0:161)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/mod/login_pop.89db9.js:0:187)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/mod/login_pop.89db9.js:0:1590)
+[   54844ms] Uncaught ReferenceError: jQuery is not defined
+    at <anonymous> (https://img3.doubanio.com/dae/accounts/resources/f8b2226/movie/bundle.js:0:3169)
+    at <anonymous> (https://img3.doubanio.com/dae/accounts/resources/f8b2226/movie/bundle.js:0:7763)
+[   54893ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://img1.doubanio.com/ZHdhZ2Y4eC9mL2FkanMvZmE3NGZkMWY5NzhhZmM4NmZhZjMxMTllNTQ5MGIyYWRlNTUwYmI0NS9hZC5yZWxlYXNlLmpz?company_token=kX69T8w1wyOE-dale:0
+[   56110ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/view/photo/m/public/p1435895101.webp:0
+[   56111ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u292337190-1.jpg:0
+[   56111ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u3566031-31.jpg:0
+[   64863ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u282812580-1.jpg:0
+[   64964ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://img1.doubanio.com/favicon.ico:0
+[  106219ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://img1.doubanio.com/f/vendors/0511abe9863c2ea7084efa7e24d1d86c5b3974f1/js/jquery-1.10.2.min.js:0
+[  106218ms] Uncaught ReferenceError: $ is not defined
+    at <anonymous> (https://img1.doubanio.com/f/vendors/e258329ca4b2122b4efe53fddc418967441e0e7f/js/douban.js:1351:0)
+[  106218ms] Uncaught ReferenceError: jQuery is not defined
+    at <anonymous> (https://img1.doubanio.com/f/vendors/b0d3faaf7a432605add54908e39e17746824d6cc/js/separation/_all.js:0:1564)
+[  106219ms] Uncaught ReferenceError: jQuery is not defined
+    at 1669 (https://img1.doubanio.com/cuphead/movie-static/mod/login_pop.89db9.js:0:54)
+    at o (https://img1.doubanio.com/cuphead/movie-static/mod/login_pop.89db9.js:0:161)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/mod/login_pop.89db9.js:0:187)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/mod/login_pop.89db9.js:0:1590)
+[  106224ms] Uncaught ReferenceError: jQuery is not defined
+    at <anonymous> (https://img3.doubanio.com/dae/accounts/resources/f8b2226/movie/bundle.js:0:3169)
+    at <anonymous> (https://img3.doubanio.com/dae/accounts/resources/f8b2226/movie/bundle.js:0:7763)
+[  106259ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://img1.doubanio.com/ZHdhZ2Y4eC9mL2FkanMvZmE3NGZkMWY5NzhhZmM4NmZhZjMxMTllNTQ5MGIyYWRlNTUwYmI0NS9hZC5yZWxlYXNlLmpz?company_token=kX69T8w1wyOE-dale:0
+[  116229ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/view/photo/m/public/p1435895101.webp:0
+[  116230ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u292337190-1.jpg:0
+[  116230ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u3566031-31.jpg:0
+[  116230ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u282812580-1.jpg:0
+[  116273ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://img1.doubanio.com/favicon.ico:0
+[  116317ms] [ERROR] Failed to load resource: the server responded with a status of 418 () @ https://img3.doubanio.com/view/photo/l/public/p480747492.webp:0
+[  127389ms] [INFO] 喜欢看豆瓣的代码，还是发现了什么bug？不如和我们一起为豆瓣添砖加瓦吧！
+http://jobs.douban.com/#position-zsqd @ https://img1.doubanio.com/f/vendors/e258329ca4b2122b4efe53fddc418967441e0e7f/js/douban.js:3213
+[  128621ms] [WARNING] An iframe which has both allow-scripts and allow-same-origin for its sandbox attribute can escape its sandboxing. @ https://img1.doubanio.com/ZHdhZ2Y4eC9mL2FkanMvZmE3NGZkMWY5NzhhZmM4NmZhZjMxMTllNTQ5MGIyYWRlNTUwYmI0NS9hZC5yZWxlYXNlLmpz?company_token=kX69T8w1wyOE-dale:1
+[  129254ms] [LOG] frame on registerListener @ https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:0
+[  132210ms] [LOG] frame on sync_method {getGameSession: } @ https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:0
+[  132211ms] [LOG] [GDTAdSDK]: 初始化成功 undefined @ :6
+[  136154ms] [ERROR] [GDTAdSdk]: loadNativeAdData failed GDTError: Match no ad. Please DON'T retry immediately.
+    at LocalPlugin.loadNativeAdData (https://qzs.gdtimg.com/union/res/pc/ylh-pc-ad-sdk.v1.29.29.js:44:64117)
+    at async SDKAdapter.execute (https://qzs.gdtimg.com/union/res/pc/ylh-pc-ad-sdk.v1.29.29.js:44:64659)
+    at async Proxy.loadNativeAdData (https://qzs.gdtimg.com/union/res/pc/ylh-pc-ad-sdk.v1.29.29.js:44:66446) @ :213
+[  137288ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/view/photo/m/public/p1435895101.webp:0
+[  137397ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u292337190-1.jpg:0
+[  137397ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u3566031-31.jpg:0
+[  137397ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u282812580-1.jpg:0
+[  137447ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://img1.doubanio.com/favicon.ico:0
+[  236635ms] [ERROR] Failed to load resource: the server responded with a status of 418 () @ https://img3.doubanio.com/view/photo/l/public/p480747492.webp:0
+[  236700ms] [ERROR] Failed to load resource: the server responded with a status of 418 () @ https://img3.doubanio.com/view/photo/l/public/p1593537722.webp:0
+[  236754ms] [ERROR] Failed to load resource: the server responded with a status of 418 () @ chrome-error://chromewebdata/:0
+[  245373ms] [INFO] 喜欢看豆瓣的代码，还是发现了什么bug？不如和我们一起为豆瓣添砖加瓦吧！
+http://jobs.douban.com/#position-zsqd @ https://img1.doubanio.com/f/vendors/e258329ca4b2122b4efe53fddc418967441e0e7f/js/douban.js:3213
+[  245506ms] [LOG] voteSelector .vote-comment @ https://img1.doubanio.com/f/vendors/6eba6f43fb7592ab783e390f654c0d6a96b1598e/subject-comments/comments-section.js:0
+[  245533ms] Uncaught (in promise) ScriptExternalLoadError: Loading script failed.
+(error: https://img9.doubanio.com/cuphead/federation/remoteEntry.js)
+while loading "./lib/rc" from 756
+    at 756 (https://img1.doubanio.com/cuphead/movie-static/updated_progress/index.f7790.js:0:179)
+    at p (https://img1.doubanio.com/cuphead/movie-static/updated_progress/index.f7790.js:0:802)
+    at u (https://img1.doubanio.com/cuphead/movie-static/updated_progress/index.f7790.js:0:3388)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/updated_progress/index.f7790.js:0:3617)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/updated_progress/index.f7790.js:0:3077)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/updated_progress/index.f7790.js:0:1679)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/updated_progress/index.f7790.js:0:1645)
+    at 608 (https://img1.doubanio.com/cuphead/movie-static/updated_progress/index.f7790.js:0:67)
+    at p (https://img1.doubanio.com/cuphead/movie-static/updated_progress/index.f7790.js:0:802)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/updated_progress/index.f7790.js:0:6701)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/updated_progress/index.f7790.js:0:6708)
+[  245533ms] Uncaught (in promise) ScriptExternalLoadError: Loading script failed.
+(error: https://img9.doubanio.com/cuphead/federation/remoteEntry.js)
+while loading "./lib/rc" from 7756
+    at 7756 (https://img1.doubanio.com/cuphead/movie-static/series/items-swiper.b6abb.js:0:205)
+    at p (https://img1.doubanio.com/cuphead/movie-static/series/items-swiper.b6abb.js:0:829)
+    at u (https://img1.doubanio.com/cuphead/movie-static/series/items-swiper.b6abb.js:0:3403)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/series/items-swiper.b6abb.js:0:3632)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/series/items-swiper.b6abb.js:0:3092)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/series/items-swiper.b6abb.js:0:1692)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/series/items-swiper.b6abb.js:0:1658)
+    at 5075 (https://img1.doubanio.com/cuphead/movie-static/series/items-swiper.b6abb.js:0:68)
+    at p (https://img1.doubanio.com/cuphead/movie-static/series/items-swiper.b6abb.js:0:829)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/series/items-swiper.b6abb.js:0:6703)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/series/items-swiper.b6abb.js:0:6711)
+[  247032ms] [WARNING] [Warning]: dale_movie_subject_hovering_video content is empty @ https://img1.doubanio.com/ZHdhZ2Y4eC9mL2FkanMvZmE3NGZkMWY5NzhhZmM4NmZhZjMxMTllNTQ5MGIyYWRlNTUwYmI0NS9hZC5yZWxlYXNlLmpz?company_token=kX69T8w1wyOE-dale:1
+[  247035ms] [WARNING] [Warning]: dale_subject_right_guess_you_like content is empty @ https://img1.doubanio.com/ZHdhZ2Y4eC9mL2FkanMvZmE3NGZkMWY5NzhhZmM4NmZhZjMxMTllNTQ5MGIyYWRlNTUwYmI0NS9hZC5yZWxlYXNlLmpz?company_token=kX69T8w1wyOE-dale:1
+[  247036ms] [WARNING] [Warning]: dale_movie_subject_banner_after_intro content is empty @ https://img1.doubanio.com/ZHdhZ2Y4eC9mL2FkanMvZmE3NGZkMWY5NzhhZmM4NmZhZjMxMTllNTQ5MGIyYWRlNTUwYmI0NS9hZC5yZWxlYXNlLmpz?company_token=kX69T8w1wyOE-dale:1
+[  247621ms] [WARNING] An iframe which has both allow-scripts and allow-same-origin for its sandbox attribute can escape its sandboxing. @ https://img1.doubanio.com/ZHdhZ2Y4eC9mL2FkanMvZmE3NGZkMWY5NzhhZmM4NmZhZjMxMTllNTQ5MGIyYWRlNTUwYmI0NS9hZC5yZWxlYXNlLmpz?company_token=kX69T8w1wyOE-dale:1
+[  247785ms] [LOG] frame on registerListener @ https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:0
+[  247915ms] [LOG] frame on sync_method {getGameSession: } @ https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:0
+[  249933ms] [LOG] [GDTAdSDK]: 初始化成功 undefined @ :6
+[  251329ms] [LOG] frame on invoke {apiName: getGameSession, args: Object} @ https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:0
+[  251338ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_CLOSED @ https://localhost.weixin.qq.com:14019/wx_game_base/api/business:0
+[  254346ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_CLOSED @ https://localhost.weixin.qq.com:14016/wx_game_base/api/business:0
+[  255376ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/cuphead/movie-static/pics/reference.png:0
+[  255407ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/view/photo/s_ratio_poster/public/p579729551.webp:0
+[  255409ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u1187841-1.jpg:0
+[  255409ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u57849309-11.jpg:0
+[  255409ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u294873291-1.jpg:0
+[  255452ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/view/photo/photo/public/p2524161701.webp:0
+[  257962ms] [ERROR] [GDTAdSdk]: loadNativeAdData failed GDTError: 请求超时，超时时间 5000ms
+    at LocalPlugin.loadNativeAdData (https://qzs.gdtimg.com/union/res/pc/ylh-pc-ad-sdk.v1.29.29.js:44:64117)
+    at async SDKAdapter.execute (https://qzs.gdtimg.com/union/res/pc/ylh-pc-ad-sdk.v1.29.29.js:44:64659)
+    at async Proxy.loadNativeAdData (https://qzs.gdtimg.com/union/res/pc/ylh-pc-ad-sdk.v1.29.29.js:44:66446) @ :213
+[  258425ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://localhost.weixin.qq.com:13018/wx_game_base/api/business:0
+[  258425ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://localhost.weixin.qq.com:13017/wx_game_base/api/business:0
+[  258425ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://localhost.weixin.qq.com:14018/wx_game_base/api/business:0
+[  258425ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://localhost.weixin.qq.com:14017/wx_game_base/api/business:0
+[  258425ms] [ERROR] Error: timeout
+    at https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:1:9167
+    at Generator.throw (<anonymous>)
+    at a (https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:1:7941) @ https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:0
+[  258426ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://localhost.weixin.qq.com:13016/wx_game_base/api/business:0
+[  266205ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://img1.doubanio.com/favicon.ico:0
+[  268195ms] [ERROR] Failed to load resource: the server responded with a status of 418 () @ https://img3.doubanio.com/view/photo/l/public/p480747492.webp:0
+[  335300ms] [ERROR] Failed to load resource: the server responded with a status of 418 () @ https://img3.doubanio.com/view/photo/l/public/p480747492.webp:0
+[  335903ms] [ERROR] Failed to load resource: the server responded with a status of 418 () @ https://img3.doubanio.com/view/photo/l/public/p1593537722.webp:0
+[  336490ms] [ERROR] Failed to load resource: the server responded with a status of 418 () @ chrome-error://chromewebdata/:0
+[  336820ms] [ERROR] Failed to load resource: the server responded with a status of 418 () @ https://img1.doubanio.com/view/photo/l/public/p1179738178.webp:0
+[  336859ms] [ERROR] Failed to load resource: the server responded with a status of 418 () @ https://img1.doubanio.com/view/photo/l/public/p1435892728.webp:0
+[  336898ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://img1.doubanio.com/favicon.ico:0
+[  359871ms] [INFO] 喜欢看豆瓣的代码，还是发现了什么bug？不如和我们一起为豆瓣添砖加瓦吧！
+http://jobs.douban.com/#position-zsqd @ https://img1.doubanio.com/f/vendors/e258329ca4b2122b4efe53fddc418967441e0e7f/js/douban.js:3213
+[  361021ms] [WARNING] An iframe which has both allow-scripts and allow-same-origin for its sandbox attribute can escape its sandboxing. @ https://img1.doubanio.com/ZHdhZ2Y4eC9mL2FkanMvZmE3NGZkMWY5NzhhZmM4NmZhZjMxMTllNTQ5MGIyYWRlNTUwYmI0NS9hZC5yZWxlYXNlLmpz?company_token=kX69T8w1wyOE-dale:1
+[  361465ms] [LOG] frame on registerListener @ https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:0
+[  361611ms] [LOG] frame on sync_method {getGameSession: } @ https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:0
+[  363624ms] [LOG] [GDTAdSDK]: 初始化成功 undefined @ :6
+[  364197ms] [LOG] frame on invoke {apiName: getGameSession, args: Object} @ https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:0
+[  364205ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_CLOSED @ https://localhost.weixin.qq.com:14019/wx_game_base/api/business:0
+[  367210ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_CLOSED @ https://localhost.weixin.qq.com:14016/wx_game_base/api/business:0
+[  369882ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/view/photo/m/public/p825401501.webp:0
+[  369884ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/view/photo/m/public/p490579301.webp:0
+[  369884ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/view/photo/m/public/p2232749931.webp:0
+[  371287ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://localhost.weixin.qq.com:14018/wx_game_base/api/business:0
+[  371288ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://localhost.weixin.qq.com:13018/wx_game_base/api/business:0
+[  371288ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://localhost.weixin.qq.com:13016/wx_game_base/api/business:0
+[  371288ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://localhost.weixin.qq.com:13017/wx_game_base/api/business:0
+[  371288ms] [ERROR] Error: timeout
+    at https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:1:9167
+    at Generator.throw (<anonymous>)
+    at a (https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:1:7941) @ https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:0
+[  371288ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://localhost.weixin.qq.com:14017/wx_game_base/api/business:0
+[  371630ms] [ERROR] [GDTAdSdk]: loadNativeAdData failed GDTError: 请求超时，超时时间 5000ms
+    at LocalPlugin.loadNativeAdData (https://qzs.gdtimg.com/union/res/pc/ylh-pc-ad-sdk.v1.29.29.js:44:64117)
+    at async SDKAdapter.execute (https://qzs.gdtimg.com/union/res/pc/ylh-pc-ad-sdk.v1.29.29.js:44:64659)
+    at async Proxy.loadNativeAdData (https://qzs.gdtimg.com/union/res/pc/ylh-pc-ad-sdk.v1.29.29.js:44:66446) @ :213
+[  396634ms] [ERROR] Failed to load resource: net::ERR_TIMED_OUT @ https://mi.gdt.qq.com/gdt_mview.fcg?adposcount=1&count=1&posid=1125773639552611&datatype=2&support_https=1&charset=utf8&r=0.9537754876154796&datafmt=jsonp&ext=%7B%22req%22%3A%7B%22m11%22%3A%220101869FB0293A4BA4C62F8CC99327911AAF3A3394328C73BCE69F9556A13F8F090C0574D1A91BD3836562F5%22%2C%22url%22%3A%22https%253A%252F%252Fmovie.douban.com%252Fsubject%252F1292052%252Fphotos%253Ftype%253DS%22%2C%22appid%22%3A%221210826650%22%2C%22conn%22%3A1%2C%22carrier%22%3A0%2C%22c_os%22%3A%22windows%22%2C%22c_osver%22%3A%2210.0.0%22%2C%22c_device%22%3A%22Windows%20NT%2010.0%3B%20Win64%3B%20x64%22%2C%22c_devicetype%22%3A4%2C%22c_ori%22%3A0%2C%22c_w%22%3A1200%2C%22c_h%22%3A1800%2C%22c_hl%22%3A%22zh-CN%22%2C%22sdkver%22%3A%221.29.29%22%2C%22sdk_st%22%3A1%2C%22sdk_cnl%22%3A1%2C%22sdk_src%22%3A%22pc_union_js%22%2C%22support_features%22%3A2097152%2C%22s_hd%22%3Atrue%2C%22deep_link_version%22%3A1%2C%22placement_type%22%3A9%2C%22render_type%22%3A1%2C%22tmpallpt%22%3Atrue%2C%22support_video%22%3Atrue%2C%22istopr%22%3A0%2C%22c_webua%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20HeadlessChrome%2F147.0.0.0%20Safari%2F537.36%22%2C%22support_container%22%3Atrue%2C%22max_duration%22%3A1801%2C%22min_duration%22%3A5%2C%22support_opensdk%22%3Atrue%7D%7D&callback=_lqz0adhy&_t=1777569479221:0
+[  396685ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://img1.doubanio.com/favicon.ico:0
+[  406473ms] [INFO] 喜欢看豆瓣的代码，还是发现了什么bug？不如和我们一起为豆瓣添砖加瓦吧！
+http://jobs.douban.com/#position-zsqd @ https://img1.doubanio.com/f/vendors/e258329ca4b2122b4efe53fddc418967441e0e7f/js/douban.js:3213
+[  406561ms] [LOG] voteSelector .vote-comment @ https://img1.doubanio.com/f/vendors/6eba6f43fb7592ab783e390f654c0d6a96b1598e/subject-comments/comments-section.js:0
+[  406573ms] Uncaught (in promise) ScriptExternalLoadError: Loading script failed.
+(error: https://img9.doubanio.com/cuphead/federation/remoteEntry.js)
+while loading "./lib/rc" from 756
+    at 756 (https://img1.doubanio.com/cuphead/movie-static/updated_progress/index.f7790.js:0:179)
+    at p (https://img1.doubanio.com/cuphead/movie-static/updated_progress/index.f7790.js:0:802)
+    at u (https://img1.doubanio.com/cuphead/movie-static/updated_progress/index.f7790.js:0:3388)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/updated_progress/index.f7790.js:0:3617)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/updated_progress/index.f7790.js:0:3077)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/updated_progress/index.f7790.js:0:1679)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/updated_progress/index.f7790.js:0:1645)
+    at 608 (https://img1.doubanio.com/cuphead/movie-static/updated_progress/index.f7790.js:0:67)
+    at p (https://img1.doubanio.com/cuphead/movie-static/updated_progress/index.f7790.js:0:802)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/updated_progress/index.f7790.js:0:6701)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/updated_progress/index.f7790.js:0:6708)
+[  406573ms] Uncaught (in promise) ScriptExternalLoadError: Loading script failed.
+(error: https://img9.doubanio.com/cuphead/federation/remoteEntry.js)
+while loading "./lib/rc" from 7756
+    at 7756 (https://img1.doubanio.com/cuphead/movie-static/series/items-swiper.b6abb.js:0:205)
+    at p (https://img1.doubanio.com/cuphead/movie-static/series/items-swiper.b6abb.js:0:829)
+    at u (https://img1.doubanio.com/cuphead/movie-static/series/items-swiper.b6abb.js:0:3403)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/series/items-swiper.b6abb.js:0:3632)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/series/items-swiper.b6abb.js:0:3092)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/series/items-swiper.b6abb.js:0:1692)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/series/items-swiper.b6abb.js:0:1658)
+    at 5075 (https://img1.doubanio.com/cuphead/movie-static/series/items-swiper.b6abb.js:0:68)
+    at p (https://img1.doubanio.com/cuphead/movie-static/series/items-swiper.b6abb.js:0:829)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/series/items-swiper.b6abb.js:0:6703)
+    at <anonymous> (https://img1.doubanio.com/cuphead/movie-static/series/items-swiper.b6abb.js:0:6711)
+[  407258ms] [WARNING] An iframe which has both allow-scripts and allow-same-origin for its sandbox attribute can escape its sandboxing. @ https://img1.doubanio.com/ZHdhZ2Y4eC9mL2FkanMvZmE3NGZkMWY5NzhhZmM4NmZhZjMxMTllNTQ5MGIyYWRlNTUwYmI0NS9hZC5yZWxlYXNlLmpz?company_token=kX69T8w1wyOE-dale:1
+[  407265ms] [WARNING] [Warning]: dale_movie_subject_banner_after_intro content is empty @ https://img1.doubanio.com/ZHdhZ2Y4eC9mL2FkanMvZmE3NGZkMWY5NzhhZmM4NmZhZjMxMTllNTQ5MGIyYWRlNTUwYmI0NS9hZC5yZWxlYXNlLmpz?company_token=kX69T8w1wyOE-dale:1
+[  407265ms] [WARNING] [Warning]: dale_subject_right_guess_you_like content is empty @ https://img1.doubanio.com/ZHdhZ2Y4eC9mL2FkanMvZmE3NGZkMWY5NzhhZmM4NmZhZjMxMTllNTQ5MGIyYWRlNTUwYmI0NS9hZC5yZWxlYXNlLmpz?company_token=kX69T8w1wyOE-dale:1
+[  407265ms] [WARNING] [Warning]: dale_movie_subject_hovering_video content is empty @ https://img1.doubanio.com/ZHdhZ2Y4eC9mL2FkanMvZmE3NGZkMWY5NzhhZmM4NmZhZjMxMTllNTQ5MGIyYWRlNTUwYmI0NS9hZC5yZWxlYXNlLmpz?company_token=kX69T8w1wyOE-dale:1
+[  407381ms] [LOG] frame on registerListener @ https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:0
+[  407424ms] [LOG] frame on sync_method {getGameSession: } @ https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:0
+[  407823ms] [LOG] frame on invoke {apiName: getGameSession, args: Object} @ https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:0
+[  407830ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_CLOSED @ https://localhost.weixin.qq.com:14019/wx_game_base/api/business:0
+[  410426ms] [LOG] [GDTAdSDK]: 初始化成功 undefined @ :6
+[  410841ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_CLOSED @ https://localhost.weixin.qq.com:14016/wx_game_base/api/business:0
+[  411979ms] [LOG] frame on invoke {apiName: getGameSession, args: Object} @ https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:0
+[  411986ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_CLOSED @ https://localhost.weixin.qq.com:14019/wx_game_base/api/business:0
+[  413047ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://local.info.g9hc4.cn:54360/?callback=uuidjsonpcb2020&t=1777569521564:0
+[  414920ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://localhost.weixin.qq.com:14017/wx_game_base/api/business:0
+[  414920ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://localhost.weixin.qq.com:13018/wx_game_base/api/business:0
+[  414920ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://localhost.weixin.qq.com:13017/wx_game_base/api/business:0
+[  414921ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://localhost.weixin.qq.com:13016/wx_game_base/api/business:0
+[  414921ms] [ERROR] Error: timeout
+    at https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:1:9167
+    at Generator.throw (<anonymous>)
+    at a (https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:1:7941) @ https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:0
+[  414921ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://localhost.weixin.qq.com:14018/wx_game_base/api/business:0
+[  414987ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_CLOSED @ https://localhost.weixin.qq.com:14016/wx_game_base/api/business:0
+[  416480ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/cuphead/movie-static/pics/reference.png:0
+[  416501ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/view/photo/s_ratio_poster/public/p579729551.webp:0
+[  416502ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u1187841-1.jpg:0
+[  416502ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u265199740-1.jpg:0
+[  416517ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/view/photo/photo/public/p2524161701.webp:0
+[  417135ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://local.info.g9hc4.cn:51360/?callback=uuidjsonpcb2020&t=1777569525640:0
+[  418435ms] [ERROR] [GDTAdSdk]: loadNativeAdData failed GDTError: 请求超时，超时时间 5000ms
+    at LocalPlugin.loadNativeAdData (https://qzs.gdtimg.com/union/res/pc/ylh-pc-ad-sdk.v1.29.29.js:44:64117)
+    at async SDKAdapter.execute (https://qzs.gdtimg.com/union/res/pc/ylh-pc-ad-sdk.v1.29.29.js:44:64659)
+    at async Proxy.loadNativeAdData (https://qzs.gdtimg.com/union/res/pc/ylh-pc-ad-sdk.v1.29.29.js:44:66446) @ :213
+[  419070ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://localhost.weixin.qq.com:14017/wx_game_base/api/business:0
+[  419070ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://localhost.weixin.qq.com:13018/wx_game_base/api/business:0
+[  419070ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://localhost.weixin.qq.com:13016/wx_game_base/api/business:0
+[  419071ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://localhost.weixin.qq.com:13017/wx_game_base/api/business:0
+[  419071ms] [ERROR] Error: timeout
+    at https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:1:9167
+    at Generator.throw (<anonymous>)
+    at a (https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:1:7941) @ https://game.weixin.qq.com/cgi-bin/minigame/static/pc-gamesdk-alpha/wxgamesdkframe.html:0
+[  419071ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://localhost.weixin.qq.com:14018/wx_game_base/api/business:0

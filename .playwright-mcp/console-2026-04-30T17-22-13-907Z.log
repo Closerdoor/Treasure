@@ -1,0 +1,229 @@
+[     971ms] [INFO] 喜欢看豆瓣的代码，还是发现了什么bug？不如和我们一起为豆瓣添砖加瓦吧！
+http://jobs.douban.com/#position-zsqd @ https://img1.doubanio.com/f/vendors/e258329ca4b2122b4efe53fddc418967441e0e7f/js/douban.js:3213
+[    1016ms] Uncaught (in promise) ScriptExternalLoadError: Loading script failed.
+(error: https://img9.doubanio.com/cuphead/federation/remoteEntry.js)
+while loading "./lib/rc" from 756
+    at 756 (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:212)
+    at d (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:834)
+    at u (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3414)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3643)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3103)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:1697)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:1663)
+    at 799 (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:67)
+    at d (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:834)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:6722)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:6729)
+[    1680ms] [WARNING] An iframe which has both allow-scripts and allow-same-origin for its sandbox attribute can escape its sandboxing. @ https://img1.doubanio.com/ZHdhZ2Y4eC9mL2FkanMvZmE3NGZkMWY5NzhhZmM4NmZhZjMxMTllNTQ5MGIyYWRlNTUwYmI0NS9hZC5yZWxlYXNlLmpz?company_token=kX69T8w1wyOE-dale:1
+[    1683ms] [LOG] script loaded:  https://shared.ydstatic.com/js/yadk/1.1.2.js @ https://shared.ydstatic.com/js/yatdk/3.0.0/pcBanner.js:6
+[    1683ms] [LOG] scripts load finish! @ https://shared.ydstatic.com/js/yatdk/3.0.0/pcBanner.js:6
+[    3071ms] [ERROR] Event @ https://img1.doubanio.com/ZHdhZ2Y4eC9mL2FkanMvZmE3NGZkMWY5NzhhZmM4NmZhZjMxMTllNTQ5MGIyYWRlNTUwYmI0NS9hZC5yZWxlYXNlLmpz?company_token=kX69T8w1wyOE-dale:1
+[   10980ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u2851406-1.jpg:0
+[   10987ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u3609647-21.jpg:0
+[   10987ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u68470756-21.jpg:0
+[   10987ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u115994323-41.jpg:0
+[   10987ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u103959108-1.jpg:0
+[   10987ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u105125970-11.jpg:0
+[   20994ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u135182236-121.jpg:0
+[   20996ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u146638983-1.jpg:0
+[   20996ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u148997335-11.jpg:0
+[   20996ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u149042295-1.jpg:0
+[   20996ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u140874856-1.jpg:0
+[   20996ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u169842191-1.jpg:0
+[   29851ms] [INFO] 喜欢看豆瓣的代码，还是发现了什么bug？不如和我们一起为豆瓣添砖加瓦吧！
+http://jobs.douban.com/#position-zsqd @ https://img1.doubanio.com/f/vendors/e258329ca4b2122b4efe53fddc418967441e0e7f/js/douban.js:3213
+[   30024ms] Uncaught (in promise) ScriptExternalLoadError: Loading script failed.
+(error: https://img9.doubanio.com/cuphead/federation/remoteEntry.js)
+while loading "./lib/rc" from 756
+    at 756 (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:212)
+    at d (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:834)
+    at u (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3414)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3643)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3103)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:1697)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:1663)
+    at 799 (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:67)
+    at d (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:834)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:6722)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:6729)
+[   30579ms] [WARNING] An iframe which has both allow-scripts and allow-same-origin for its sandbox attribute can escape its sandboxing. @ https://img1.doubanio.com/ZHdhZ2Y4eC9mL2FkanMvZmE3NGZkMWY5NzhhZmM4NmZhZjMxMTllNTQ5MGIyYWRlNTUwYmI0NS9hZC5yZWxlYXNlLmpz?company_token=kX69T8w1wyOE-dale:1
+[   30582ms] [LOG] script loaded:  https://shared.ydstatic.com/js/yadk/1.1.2.js @ https://shared.ydstatic.com/js/yatdk/3.0.0/pcBanner.js:6
+[   30582ms] [LOG] scripts load finish! @ https://shared.ydstatic.com/js/yatdk/3.0.0/pcBanner.js:6
+[   39873ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u2851406-1.jpg:0
+[   39875ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u18431299-41.jpg:0
+[   39875ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u26489547-71.jpg:0
+[   39875ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u51469462-41.jpg:0
+[   39875ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u75457148-1.jpg:0
+[   39875ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u95678785-1.jpg:0
+[   49884ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u157358661-1.jpg:0
+[   49886ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u53866226-11.jpg:0
+[   49886ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u3606643-1.jpg:0
+[   49886ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u148997335-11.jpg:0
+[   80910ms] [INFO] 喜欢看豆瓣的代码，还是发现了什么bug？不如和我们一起为豆瓣添砖加瓦吧！
+http://jobs.douban.com/#position-zsqd @ https://img1.doubanio.com/f/vendors/e258329ca4b2122b4efe53fddc418967441e0e7f/js/douban.js:3213
+[   80947ms] Uncaught (in promise) ScriptExternalLoadError: Loading script failed.
+(error: https://img9.doubanio.com/cuphead/federation/remoteEntry.js)
+while loading "./lib/rc" from 756
+    at 756 (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:212)
+    at d (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:834)
+    at u (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3414)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3643)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3103)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:1697)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:1663)
+    at 799 (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:67)
+    at d (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:834)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:6722)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:6729)
+[   81958ms] [WARNING] An iframe which has both allow-scripts and allow-same-origin for its sandbox attribute can escape its sandboxing. @ https://img1.doubanio.com/ZHdhZ2Y4eC9mL2FkanMvZmE3NGZkMWY5NzhhZmM4NmZhZjMxMTllNTQ5MGIyYWRlNTUwYmI0NS9hZC5yZWxlYXNlLmpz?company_token=kX69T8w1wyOE-dale:1
+[   81961ms] [LOG] script loaded:  https://shared.ydstatic.com/js/yadk/1.1.2.js @ https://shared.ydstatic.com/js/yatdk/3.0.0/pcBanner.js:6
+[   81961ms] [LOG] scripts load finish! @ https://shared.ydstatic.com/js/yatdk/3.0.0/pcBanner.js:6
+[   82492ms] [ERROR] Event @ https://img1.doubanio.com/ZHdhZ2Y4eC9mL2FkanMvZmE3NGZkMWY5NzhhZmM4NmZhZjMxMTllNTQ5MGIyYWRlNTUwYmI0NS9hZC5yZWxlYXNlLmpz?company_token=kX69T8w1wyOE-dale:1
+[   90924ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u41749055-111.jpg:0
+[   90926ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u2851406-1.jpg:0
+[   90926ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u175885503-1.jpg:0
+[   90926ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u62466689-1.jpg:0
+[   90926ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u177466640-1.jpg:0
+[   90926ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u242980419-1.jpg:0
+[  122002ms] [INFO] 喜欢看豆瓣的代码，还是发现了什么bug？不如和我们一起为豆瓣添砖加瓦吧！
+http://jobs.douban.com/#position-zsqd @ https://img1.doubanio.com/f/vendors/e258329ca4b2122b4efe53fddc418967441e0e7f/js/douban.js:3213
+[  122059ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://img1.doubanio.com/icon/u48954171-10.jpg:0
+[  122059ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://img1.doubanio.com/icon/u161340922-8.jpg:0
+[  122059ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://img1.doubanio.com/icon/u68390549-19.jpg:0
+[  122059ms] [ERROR] Failed to load resource: net::ERR_HTTP2_PROTOCOL_ERROR @ https://img1.doubanio.com/view/photo/l/public/p825402640.webp:0
+[  122076ms] Uncaught (in promise) ScriptExternalLoadError: Loading script failed.
+(error: https://img9.doubanio.com/cuphead/federation/remoteEntry.js)
+while loading "./lib/rc" from 756
+    at 756 (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:212)
+    at d (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:834)
+    at u (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3414)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3643)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3103)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:1697)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:1663)
+    at 799 (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:67)
+    at d (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:834)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:6722)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:6729)
+[  122705ms] [WARNING] An iframe which has both allow-scripts and allow-same-origin for its sandbox attribute can escape its sandboxing. @ https://img1.doubanio.com/ZHdhZ2Y4eC9mL2FkanMvZmE3NGZkMWY5NzhhZmM4NmZhZjMxMTllNTQ5MGIyYWRlNTUwYmI0NS9hZC5yZWxlYXNlLmpz?company_token=kX69T8w1wyOE-dale:1
+[  122708ms] [LOG] script loaded:  https://shared.ydstatic.com/js/yadk/1.1.2.js @ https://shared.ydstatic.com/js/yatdk/3.0.0/pcBanner.js:6
+[  122709ms] [LOG] scripts load finish! @ https://shared.ydstatic.com/js/yatdk/3.0.0/pcBanner.js:6
+[  132022ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u39056668-21.jpg:0
+[  132023ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u47377252-11.jpg:0
+[  132023ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u178411670-1.jpg:0
+[  132023ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u157046146-41.jpg:0
+[  132023ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u155715063-1.jpg:0
+[  132023ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u156278663-1.jpg:0
+[  142047ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u176300963-1.jpg:0
+[  173021ms] [INFO] 喜欢看豆瓣的代码，还是发现了什么bug？不如和我们一起为豆瓣添砖加瓦吧！
+http://jobs.douban.com/#position-zsqd @ https://img1.doubanio.com/f/vendors/e258329ca4b2122b4efe53fddc418967441e0e7f/js/douban.js:3213
+[  173080ms] Uncaught (in promise) ScriptExternalLoadError: Loading script failed.
+(error: https://img9.doubanio.com/cuphead/federation/remoteEntry.js)
+while loading "./lib/rc" from 756
+    at 756 (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:212)
+    at d (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:834)
+    at u (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3414)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3643)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3103)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:1697)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:1663)
+    at 799 (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:67)
+    at d (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:834)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:6722)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:6729)
+[  183031ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/view/photo/l/public/p825401501.webp:0
+[  183047ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/view/photo/sqxs/public/p825401501.webp:0
+[  183048ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u2203404-21.jpg:0
+[  183048ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u169842191-1.jpg:0
+[  183048ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u214758412-1.jpg:0
+[  214334ms] [INFO] 喜欢看豆瓣的代码，还是发现了什么bug？不如和我们一起为豆瓣添砖加瓦吧！
+http://jobs.douban.com/#position-zsqd @ https://img1.doubanio.com/f/vendors/e258329ca4b2122b4efe53fddc418967441e0e7f/js/douban.js:3213
+[  214426ms] Uncaught (in promise) ScriptExternalLoadError: Loading script failed.
+(error: https://img9.doubanio.com/cuphead/federation/remoteEntry.js)
+while loading "./lib/rc" from 756
+    at 756 (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:212)
+    at d (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:834)
+    at u (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3414)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3643)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3103)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:1697)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:1663)
+    at 799 (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:67)
+    at d (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:834)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:6722)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:6729)
+[  215105ms] [WARNING] An iframe which has both allow-scripts and allow-same-origin for its sandbox attribute can escape its sandboxing. @ https://img1.doubanio.com/ZHdhZ2Y4eC9mL2FkanMvZmE3NGZkMWY5NzhhZmM4NmZhZjMxMTllNTQ5MGIyYWRlNTUwYmI0NS9hZC5yZWxlYXNlLmpz?company_token=kX69T8w1wyOE-dale:1
+[  215108ms] [LOG] script loaded:  https://shared.ydstatic.com/js/yadk/1.1.2.js @ https://shared.ydstatic.com/js/yatdk/3.0.0/pcBanner.js:6
+[  215108ms] [LOG] scripts load finish! @ https://shared.ydstatic.com/js/yatdk/3.0.0/pcBanner.js:6
+[  224361ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u48967291-1.jpg:0
+[  224362ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u2851406-1.jpg:0
+[  224362ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u66615256-11.jpg:0
+[  224377ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u157771111-1.jpg:0
+[  224377ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u149042295-1.jpg:0
+[  224377ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u61743337-51.jpg:0
+[  234376ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u178859272-1.jpg:0
+[  234377ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u164485373-1.jpg:0
+[  265329ms] [INFO] 喜欢看豆瓣的代码，还是发现了什么bug？不如和我们一起为豆瓣添砖加瓦吧！
+http://jobs.douban.com/#position-zsqd @ https://img1.doubanio.com/f/vendors/e258329ca4b2122b4efe53fddc418967441e0e7f/js/douban.js:3213
+[  265357ms] Uncaught (in promise) ScriptExternalLoadError: Loading script failed.
+(error: https://img9.doubanio.com/cuphead/federation/remoteEntry.js)
+while loading "./lib/rc" from 756
+    at 756 (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:212)
+    at d (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:834)
+    at u (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3414)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3643)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3103)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:1697)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:1663)
+    at 799 (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:67)
+    at d (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:834)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:6722)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:6729)
+[  275362ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u79269908-1.jpg:0
+[  275363ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u157077582-1.jpg:0
+[  275363ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u164485373-1.jpg:0
+[  275363ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u175538089-1.jpg:0
+[  275363ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u172580632-1.jpg:0
+[  275363ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u161790978-71.jpg:0
+[  285384ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u215602849-1.jpg:0
+[  316215ms] [INFO] 喜欢看豆瓣的代码，还是发现了什么bug？不如和我们一起为豆瓣添砖加瓦吧！
+http://jobs.douban.com/#position-zsqd @ https://img1.doubanio.com/f/vendors/e258329ca4b2122b4efe53fddc418967441e0e7f/js/douban.js:3213
+[  316236ms] Uncaught (in promise) ScriptExternalLoadError: Loading script failed.
+(error: https://img9.doubanio.com/cuphead/federation/remoteEntry.js)
+while loading "./lib/rc" from 756
+    at 756 (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:212)
+    at d (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:834)
+    at u (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3414)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3643)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3103)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:1697)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:1663)
+    at 799 (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:67)
+    at d (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:834)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:6722)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:6729)
+[  316904ms] [WARNING] An iframe which has both allow-scripts and allow-same-origin for its sandbox attribute can escape its sandboxing. @ https://img1.doubanio.com/ZHdhZ2Y4eC9mL2FkanMvZmE3NGZkMWY5NzhhZmM4NmZhZjMxMTllNTQ5MGIyYWRlNTUwYmI0NS9hZC5yZWxlYXNlLmpz?company_token=kX69T8w1wyOE-dale:1
+[  316908ms] [LOG] script loaded:  https://shared.ydstatic.com/js/yadk/1.1.2.js @ https://shared.ydstatic.com/js/yatdk/3.0.0/pcBanner.js:6
+[  316908ms] [LOG] scripts load finish! @ https://shared.ydstatic.com/js/yatdk/3.0.0/pcBanner.js:6
+[  317994ms] [ERROR] Event @ https://img1.doubanio.com/ZHdhZ2Y4eC9mL2FkanMvZmE3NGZkMWY5NzhhZmM4NmZhZjMxMTllNTQ5MGIyYWRlNTUwYmI0NS9hZC5yZWxlYXNlLmpz?company_token=kX69T8w1wyOE-dale:1
+[  347407ms] [INFO] 喜欢看豆瓣的代码，还是发现了什么bug？不如和我们一起为豆瓣添砖加瓦吧！
+http://jobs.douban.com/#position-zsqd @ https://img1.doubanio.com/f/vendors/e258329ca4b2122b4efe53fddc418967441e0e7f/js/douban.js:3213
+[  347433ms] Uncaught (in promise) ScriptExternalLoadError: Loading script failed.
+(error: https://img9.doubanio.com/cuphead/federation/remoteEntry.js)
+while loading "./lib/rc" from 756
+    at 756 (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:212)
+    at d (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:834)
+    at u (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3414)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3643)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:3103)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:1697)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:1663)
+    at 799 (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:67)
+    at d (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:834)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:6722)
+    at <anonymous> (https://img3.doubanio.com/cuphead/movie-static/photos/actor-list.4ca5a.js:0:6729)
+[  348099ms] [WARNING] An iframe which has both allow-scripts and allow-same-origin for its sandbox attribute can escape its sandboxing. @ https://img1.doubanio.com/ZHdhZ2Y4eC9mL2FkanMvZmE3NGZkMWY5NzhhZmM4NmZhZjMxMTllNTQ5MGIyYWRlNTUwYmI0NS9hZC5yZWxlYXNlLmpz?company_token=kX69T8w1wyOE-dale:1
+[  348103ms] [LOG] script loaded:  https://shared.ydstatic.com/js/yadk/1.1.2.js @ https://shared.ydstatic.com/js/yatdk/3.0.0/pcBanner.js:6
+[  348103ms] [LOG] scripts load finish! @ https://shared.ydstatic.com/js/yatdk/3.0.0/pcBanner.js:6
+[  357423ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u2245199-1.jpg:0
+[  357424ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_RESET @ https://img2.doubanio.com/icon/u51469462-41.jpg:0

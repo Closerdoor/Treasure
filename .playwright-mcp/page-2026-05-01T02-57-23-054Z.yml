@@ -1,0 +1,353 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - list [ref=e5]:
+      - listitem [ref=e6]:
+        - link "豆邮" [ref=e7] [cursor=pointer]:
+          - /url: https://www.douban.com/doumail/
+      - listitem [ref=e8]:
+        - link "忽而今夏的账号" [ref=e9] [cursor=pointer]:
+          - /url: https://accounts.douban.com/passport/setting/
+          - generic [ref=e10]: 忽而今夏的账号
+    - link "提醒" [ref=e13] [cursor=pointer]:
+      - /url: https://www.douban.com/notification/
+    - link "下载豆瓣客户端" [ref=e15] [cursor=pointer]:
+      - /url: https://www.douban.com/doubanapp/app?channel=top-nav
+    - list [ref=e17]:
+      - listitem [ref=e18]:
+        - link "豆瓣" [ref=e19] [cursor=pointer]:
+          - /url: https://www.douban.com
+      - listitem [ref=e20]:
+        - link "读书" [ref=e21] [cursor=pointer]:
+          - /url: https://book.douban.com
+      - listitem [ref=e22]:
+        - link "电影" [ref=e23] [cursor=pointer]:
+          - /url: https://movie.douban.com
+      - listitem [ref=e24]:
+        - link "音乐" [ref=e25] [cursor=pointer]:
+          - /url: https://music.douban.com
+      - listitem [ref=e26]:
+        - link "播客" [ref=e27] [cursor=pointer]:
+          - /url: https://www.douban.com/podcast/
+      - listitem [ref=e28]:
+        - link "同城" [ref=e29] [cursor=pointer]:
+          - /url: https://www.douban.com/location
+      - listitem [ref=e30]:
+        - link "小组" [ref=e31] [cursor=pointer]:
+          - /url: https://www.douban.com/group
+      - listitem [ref=e32]:
+        - link "阅读" [ref=e33] [cursor=pointer]:
+          - /url: https://read.douban.com/?dcs=top-nav&dcm=douban
+      - listitem [ref=e34]:
+        - link "FM" [ref=e35] [cursor=pointer]:
+          - /url: https://fm.douban.com/?from_=shire_top_nav
+      - listitem [ref=e36]:
+        - link "时间" [ref=e37] [cursor=pointer]:
+          - /url: https://time.douban.com/?dt_time_source=douban-web_top_nav
+      - listitem [ref=e38]:
+        - link "豆品" [ref=e39] [cursor=pointer]:
+          - /url: https://market.douban.com/?utm_campaign=douban_top_nav&utm_source=douban&utm_medium=pc_web
+  - generic [ref=e42]:
+    - link "豆瓣社区" [ref=e44] [cursor=pointer]:
+      - /url: https://www.douban.com
+    - group "搜索：" [ref=e47]:
+      - textbox "搜索你感兴趣的内容和人..." [ref=e49]
+      - button "搜索" [ref=e51] [cursor=pointer]
+    - list [ref=e53]:
+      - listitem [ref=e54]:
+        - link "首页" [ref=e55] [cursor=pointer]:
+          - /url: https://www.douban.com
+      - listitem [ref=e56]:
+        - link "我的豆瓣" [ref=e57] [cursor=pointer]:
+          - /url: https://www.douban.com/mine/
+      - listitem [ref=e58]:
+        - link "浏览发现" [ref=e59] [cursor=pointer]:
+          - /url: https://www.douban.com/explore
+      - listitem [ref=e60]:
+        - link "话题广场 new" [ref=e61] [cursor=pointer]:
+          - /url: https://www.douban.com/gallery
+          - text: 话题广场
+          - img "new" [ref=e62]
+  - generic [ref=e63]:
+    - generic [ref=e65]:
+      - generic [ref=e66]:
+        - generic [ref=e67]:
+          - generic [ref=e68]:
+            - heading "威廉·赛德勒 William Sadler" [level=1] [ref=e69]
+            - generic [ref=e70]:
+              - generic [ref=e71]:
+                - img "威廉·赛德勒" [ref=e72]
+                - link "去修改" [ref=e74] [cursor=pointer]:
+                  - /url: //www.douban.com/contribution/personage/27205785/edit/
+              - link "增改资料和作品" [ref=e76] [cursor=pointer]:
+                - /url: //www.douban.com/contribution/personage/27205785/edit/
+            - generic [ref=e77]:
+              - list [ref=e78]:
+                - listitem [ref=e79]: "性别: 男"
+                - listitem [ref=e80]: "出生日期: 1950年4月13日"
+                - listitem [ref=e81]: "出生地: 美国,纽约,布法罗"
+                - listitem [ref=e82]: "更多中文名: 威廉·托马斯·桑德勒(本名) / 威廉·桑德勒 / 威廉姆·赛德勒"
+                - listitem [ref=e83]: "更多外文名: William Thomas Sadler(本名)"
+                - listitem [ref=e84]: "家庭成员: Marni Joan Bakst(妻)"
+                - listitem [ref=e85]: "IMDb编号: nm0006669"
+                - listitem [ref=e86]: "职业: 演员 / 导演"
+              - generic [ref=e87]:
+                - link "关注" [ref=e88] [cursor=pointer]:
+                  - /url: javascript:;;
+                - generic [ref=e89]: 494人关注
+          - generic [ref=e91]:
+            - link "添加到豆列" [ref=e93] [cursor=pointer]:
+              - /url: javascript:void(0)
+              - text: 添加到豆列
+            - link "推荐" [ref=e97] [cursor=pointer]:
+              - /url: https://www.douban.com/share/recommend?sanity_key=_169ca&apikey=&object_kind=1065&name=%E5%A8%81%E5%BB%89%C2%B7%E8%B5%9B%E5%BE%B7%E5%8B%92&image=https%3A%2F%2Fimg1.doubanio.com%2Fview%2Fcelebrity%2Fs%2Fpublic%2Fp7827.jpg&target_action=0&redir=https%3A%2F%2Fwww.douban.com%2Fpersonage%2F27205785%2F&object_id=27205785&heading=%E6%8E%A8%E8%8D%90%E5%88%B0%E8%B1%86%E7%93%A3&target_type=rec&btn_text=%E6%8E%A8%E8%8D%90&href=https%3A%2F%2Fwww.douban.com%2Fpersonage%2F27205785%2F&action_props=%7B%22personage_name%22%3A%22%E5%A8%81%E5%BB%89%C2%B7%E8%B5%9B%E5%BE%B7%E5%8B%92%22%2C%22personage_url%22%3A%22https%3A%5C%2F%5C%2Fwww.douban.com%5C%2Fpersonage%5C%2F27205785%5C%2F%22%7D&curl=&type=&properties=%7B%7D&desc=%E6%BC%94%E5%91%98+%E5%AF%BC%E6%BC%94+%2F+%E8%82%96%E7%94%B3%E5%85%8B%E7%9A%84%E6%95%91%E8%B5%8E+%E9%92%A2%E9%93%81%E4%BE%A03+%E7%BB%BF%E9%87%8C%E5%A5%87%E8%BF%B9
+        - generic [ref=e98]:
+          - heading "人物简介 · · · · · ·" [level=2] [ref=e99]
+          - generic [ref=e101]:
+            - paragraph [ref=e102]: 1950年出生，非常多产的演员。从70年代末期开始演戏，80年代末90年代初开始担任配角或者主角，也在多部大片里打酱油。美国影视剧超级大熟人，经常演坏蛋。
+            - paragraph [ref=e103]: 也是电视剧《罗斯维尔 Roswell》的主要人物Jim Valenti ，电视剧《奇迹降临 Wonderfalls》的主演Darrin Tyler、短命剧《致命旅行 Traveler》里的Carlton Fog、《太平洋战争》里的Lewis 'Chesty' Puller。
+            - paragraph [ref=e104]: 客串过《星际旅行深空九号》里的Sloan、客串过《国土安全》里的Michael Higgins、客串过《基本演绎法》里
+          - link "(展开)" [ref=e106] [cursor=pointer]:
+            - /url: javascript:;;
+        - generic [ref=e107]:
+          - heading "图片 · · · · · · ( 全部 5 张 · 上传照片 )" [level=2] [ref=e108]:
+            - text: 图片 · · · · · ·
+            - generic [ref=e109]:
+              - text: (
+              - link "全部 5 张" [ref=e110] [cursor=pointer]:
+                - /url: photos
+              - text: ·
+              - link "上传照片" [ref=e111] [cursor=pointer]:
+                - /url: /personage/27205785/photos/upload
+              - text: )
+          - list [ref=e112]:
+            - link:
+              - /url: photo/2556841188
+              - listitem [ref=e113] [cursor=pointer]
+            - link:
+              - /url: photo/2556841190
+              - listitem [ref=e114] [cursor=pointer]
+            - link:
+              - /url: photo/2556841189
+              - listitem [ref=e115] [cursor=pointer]
+            - link:
+              - /url: photo/2914237915
+              - listitem [ref=e116] [cursor=pointer]
+            - link:
+              - /url: photo/2896495017
+              - listitem [ref=e117] [cursor=pointer]
+        - heading "最近的5部作品 · · · · · ·" [level=2] [ref=e120]: 最近的5部作品 · · · · · ·
+        - generic [ref=e122]:
+          - heading "收藏人数最多的5部作品 · · · · · ·" [level=2] [ref=e123]: 收藏人数最多的5部作品 · · · · · ·
+          - generic [ref=e124]:
+            - list [ref=e125]:
+              - listitem [ref=e126]:
+                - link "肖申克的救赎" [ref=e127] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/1292052/
+                  - img "肖申克的救赎" [ref=e128]
+                - link "肖申克的救赎" [ref=e129] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/1292052/
+                - generic [ref=e130]: "9.7"
+                - generic [ref=e132]: "1994"
+              - listitem [ref=e133]:
+                - link "钢铁侠3" [ref=e134] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/3231742/
+                  - img "钢铁侠3" [ref=e135]
+                - link "钢铁侠3" [ref=e136] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/3231742/
+                - generic [ref=e137]: "7.9"
+                - generic [ref=e139]: "2013"
+              - listitem [ref=e140]:
+                - link "绿里奇迹" [ref=e141] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/1300374/
+                  - img "绿里奇迹" [ref=e142]
+                - link "绿里奇迹" [ref=e143] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/1300374/
+                - generic [ref=e144]: "8.9"
+                - generic [ref=e146]: "1999"
+              - listitem [ref=e147]:
+                - link "迷雾" [ref=e148] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/1945330/
+                  - img "迷雾" [ref=e149]
+                - link "迷雾" [ref=e150] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/1945330/
+                - generic [ref=e151]: "8.1"
+                - generic [ref=e153]: "2007"
+              - listitem [ref=e154]:
+                - link "疑犯追踪 第一季" [ref=e155] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/5980670/
+                  - img "疑犯追踪 第一季" [ref=e156]
+                - link "疑犯追踪 第一季" [ref=e157] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/5980670/
+                - generic [ref=e158]: "9.3"
+                - generic [ref=e160]: "2011"
+            - text: ">"
+            - link "更多影视作品 144" [ref=e161] [cursor=pointer]:
+              - /url: creations?sortby=collection&type=filmmaker
+        - generic [ref=e163]:
+          - heading "合作过的人物 · · · · · · ( 全部 3217 )" [level=2] [ref=e164]:
+            - text: 合作过的人物 · · · · · ·
+            - generic [ref=e165]:
+              - text: (
+              - link "全部 3217" [ref=e166] [cursor=pointer]:
+                - /url: /personage/27205785/partners
+              - text: )
+          - list [ref=e167]:
+            - listitem [ref=e168]:
+              - link "史蒂芬·麦克哈蒂" [ref=e170] [cursor=pointer]:
+                - /url: https://www.douban.com/personage/27212723
+                - img "史蒂芬·麦克哈蒂" [ref=e171]
+              - generic [ref=e172]:
+                - link "史蒂芬·麦克哈蒂" [ref=e173] [cursor=pointer]:
+                  - /url: https://www.douban.com/personage/27212723
+                - generic [ref=e174]:
+                  - text: 合作作品 (
+                  - link "9" [ref=e175] [cursor=pointer]:
+                    - /url: /personage/27205785/partners#27212723
+                  - text: )
+            - listitem [ref=e176]:
+              - link "蒂姆·金尼" [ref=e178] [cursor=pointer]:
+                - /url: https://www.douban.com/personage/27246936
+                - img "蒂姆·金尼" [ref=e179]
+              - generic [ref=e180]:
+                - link "蒂姆·金尼" [ref=e181] [cursor=pointer]:
+                  - /url: https://www.douban.com/personage/27246936
+                - generic [ref=e182]:
+                  - text: 合作作品 (
+                  - link "9" [ref=e183] [cursor=pointer]:
+                    - /url: /personage/27205785/partners#27246936
+                  - text: )
+            - listitem [ref=e184]:
+              - link "内斯特·塞拉诺" [ref=e186] [cursor=pointer]:
+                - /url: https://www.douban.com/personage/27351397
+                - img "内斯特·塞拉诺" [ref=e187]
+              - generic [ref=e188]:
+                - link "内斯特·塞拉诺" [ref=e189] [cursor=pointer]:
+                  - /url: https://www.douban.com/personage/27351397
+                - generic [ref=e190]:
+                  - text: 合作作品 (
+                  - link "9" [ref=e191] [cursor=pointer]:
+                    - /url: /personage/27205785/partners#27351397
+                  - text: )
+            - listitem [ref=e192]:
+              - link "特瑞·欧奎恩" [ref=e194] [cursor=pointer]:
+                - /url: https://www.douban.com/personage/27216235
+                - img "特瑞·欧奎恩" [ref=e195]
+              - generic [ref=e196]:
+                - link "特瑞·欧奎恩" [ref=e197] [cursor=pointer]:
+                  - /url: https://www.douban.com/personage/27216235
+                - generic [ref=e198]:
+                  - text: 合作作品 (
+                  - link "8" [ref=e199] [cursor=pointer]:
+                    - /url: /personage/27205785/partners#27216235
+                  - text: )
+            - listitem [ref=e200]:
+              - link "杰弗里·德曼" [ref=e202] [cursor=pointer]:
+                - /url: https://www.douban.com/personage/27293064
+                - img "杰弗里·德曼" [ref=e203]
+              - generic [ref=e204]:
+                - link "杰弗里·德曼" [ref=e205] [cursor=pointer]:
+                  - /url: https://www.douban.com/personage/27293064
+                - generic [ref=e206]:
+                  - text: 合作作品 (
+                  - link "8" [ref=e207] [cursor=pointer]:
+                    - /url: /personage/27205785/partners#27293064
+                  - text: )
+            - listitem [ref=e208]:
+              - link "丹尼斯·布特斯卡里斯" [ref=e210] [cursor=pointer]:
+                - /url: https://www.douban.com/personage/27282047
+                - img "丹尼斯·布特斯卡里斯" [ref=e211]
+              - generic [ref=e212]:
+                - link "丹尼斯·布特斯卡里斯" [ref=e213] [cursor=pointer]:
+                  - /url: https://www.douban.com/personage/27282047
+                - generic [ref=e214]:
+                  - text: 合作作品 (
+                  - link "8" [ref=e215] [cursor=pointer]:
+                    - /url: /personage/27205785/partners#27282047
+                  - text: )
+      - generic [ref=e216]:
+        - generic [ref=e217]:
+          - heading "他们也关注了威廉·赛德勒 · · · · · · ( 全部 494 )" [level=2] [ref=e218]:
+            - text: 他们也关注了威廉·赛德勒 · · · · · ·
+            - generic [ref=e219]:
+              - text: (
+              - link "全部 494" [ref=e220] [cursor=pointer]:
+                - /url: followers
+              - text: )
+          - list [ref=e221]:
+            - listitem [ref=e222]:
+              - link "Hr韩" [ref=e223] [cursor=pointer]:
+                - /url: https://www.douban.com/people/282269894/
+                - text: Hr韩
+            - listitem [ref=e225]:
+              - link "影视四眼虫" [ref=e226] [cursor=pointer]:
+                - /url: https://www.douban.com/people/278493638/
+                - text: 影视四眼虫
+            - listitem [ref=e228]:
+              - link "Ξ" [ref=e229] [cursor=pointer]:
+                - /url: https://www.douban.com/people/224261237/
+                - text: Ξ
+            - listitem [ref=e231]:
+              - link "残破岁月" [ref=e232] [cursor=pointer]:
+                - /url: https://www.douban.com/people/Michael-24/
+                - text: 残破岁月
+            - listitem [ref=e234]:
+              - link "Leonard" [ref=e235] [cursor=pointer]:
+                - /url: https://www.douban.com/people/264548445/
+                - text: Leonard
+            - listitem [ref=e237]:
+              - link "豆友Dgt3Jcqb-E" [ref=e238] [cursor=pointer]:
+                - /url: https://www.douban.com/people/288326697/
+                - text: 豆友Dgt3Jcqb-E
+            - listitem [ref=e240]:
+              - link "MOMO" [ref=e241] [cursor=pointer]:
+                - /url: https://www.douban.com/people/53740528/
+                - text: MOMO
+            - listitem [ref=e243]:
+              - link "Stevenchow" [ref=e244] [cursor=pointer]:
+                - /url: https://www.douban.com/people/251975077/
+                - text: Stevenchow
+        - generic [ref=e246]:
+          - heading "威廉·赛德勒的贡献者 · · · · · · ( 全部 4 )" [level=2] [ref=e247]:
+            - text: 威廉·赛德勒的贡献者 · · · · · ·
+            - generic [ref=e248]:
+              - text: (
+              - link "全部 4" [ref=e249] [cursor=pointer]:
+                - /url: contributors
+              - text: )
+          - list [ref=e250]:
+            - listitem [ref=e251]:
+              - link "喵星人不吃鱼" [ref=e252] [cursor=pointer]:
+                - /url: https://www.douban.com/people/forles/
+                - text: 喵星人不吃鱼
+            - listitem [ref=e254]:
+              - link "13樓新房客" [ref=e255] [cursor=pointer]:
+                - /url: https://www.douban.com/people/sun1987/
+                - text: 13樓新房客
+            - listitem [ref=e257]:
+              - link "屠龙侠912" [ref=e258] [cursor=pointer]:
+                - /url: https://www.douban.com/people/dinokiller912/
+                - text: 屠龙侠912
+            - listitem [ref=e260]:
+              - link "电影考古队" [ref=e261] [cursor=pointer]:
+                - /url: https://www.douban.com/people/34263880/
+                - text: 电影考古队
+    - generic [ref=e263]:
+      - generic [ref=e264]: © 2005－2026 douban.com, all rights reserved 北京豆网科技有限公司
+      - generic [ref=e265]:
+        - link "关于豆瓣" [ref=e266] [cursor=pointer]:
+          - /url: https://www.douban.com/about
+        - text: ·
+        - link "在豆瓣工作" [ref=e267] [cursor=pointer]:
+          - /url: https://www.douban.com/jobs
+        - text: ·
+        - link "联系我们" [ref=e268] [cursor=pointer]:
+          - /url: https://www.douban.com/about?topic=contactus
+        - text: ·
+        - link "法律声明" [ref=e269] [cursor=pointer]:
+          - /url: https://www.douban.com/about/legal
+        - text: ·
+        - link "帮助中心" [ref=e270] [cursor=pointer]:
+          - /url: https://help.douban.com/?app=elessar
+        - text: ·
+        - link "移动应用" [ref=e271] [cursor=pointer]:
+          - /url: https://www.douban.com/doubanapp/

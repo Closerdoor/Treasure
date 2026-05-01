@@ -1,0 +1,761 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - list [ref=e5]:
+      - listitem [ref=e6]:
+        - link "豆邮" [ref=e7] [cursor=pointer]:
+          - /url: https://www.douban.com/doumail/
+      - listitem [ref=e8]:
+        - link "忽而今夏的账号" [ref=e9] [cursor=pointer]:
+          - /url: https://accounts.douban.com/passport/setting/
+          - generic [ref=e10]: 忽而今夏的账号
+    - link "提醒" [ref=e13] [cursor=pointer]:
+      - /url: https://www.douban.com/notification/
+    - link "下载豆瓣客户端" [ref=e15] [cursor=pointer]:
+      - /url: https://www.douban.com/doubanapp/app?channel=top-nav
+    - list [ref=e17]:
+      - listitem [ref=e18]:
+        - link "豆瓣" [ref=e19] [cursor=pointer]:
+          - /url: https://www.douban.com
+      - listitem [ref=e20]:
+        - link "读书" [ref=e21] [cursor=pointer]:
+          - /url: https://book.douban.com
+      - listitem [ref=e22]:
+        - link "电影" [ref=e23] [cursor=pointer]:
+          - /url: https://movie.douban.com
+      - listitem [ref=e24]:
+        - link "音乐" [ref=e25] [cursor=pointer]:
+          - /url: https://music.douban.com
+      - listitem [ref=e26]:
+        - link "播客" [ref=e27] [cursor=pointer]:
+          - /url: https://www.douban.com/podcast/
+      - listitem [ref=e28]:
+        - link "同城" [ref=e29] [cursor=pointer]:
+          - /url: https://www.douban.com/location
+      - listitem [ref=e30]:
+        - link "小组" [ref=e31] [cursor=pointer]:
+          - /url: https://www.douban.com/group
+      - listitem [ref=e32]:
+        - link "阅读" [ref=e33] [cursor=pointer]:
+          - /url: https://read.douban.com/?dcs=top-nav&dcm=douban
+      - listitem [ref=e34]:
+        - link "FM" [ref=e35] [cursor=pointer]:
+          - /url: https://fm.douban.com/?from_=shire_top_nav
+      - listitem [ref=e36]:
+        - link "时间" [ref=e37] [cursor=pointer]:
+          - /url: https://time.douban.com/?dt_time_source=douban-web_top_nav
+      - listitem [ref=e38]:
+        - link "豆品" [ref=e39] [cursor=pointer]:
+          - /url: https://market.douban.com/?utm_campaign=douban_top_nav&utm_source=douban&utm_medium=pc_web
+  - generic [ref=e40]:
+    - generic [ref=e42]:
+      - link "豆瓣电影" [ref=e44] [cursor=pointer]:
+        - /url: https://movie.douban.com
+      - group "搜索：" [ref=e47]:
+        - textbox [ref=e49]:
+          - /placeholder: 搜索电影、电视剧、综艺、影人
+        - button "搜索" [ref=e51] [cursor=pointer]
+    - generic [ref=e52]:
+      - list [ref=e54]:
+        - listitem [ref=e55]:
+          - link "我看" [ref=e56] [cursor=pointer]:
+            - /url: https://movie.douban.com/mine
+        - listitem [ref=e57]:
+          - link "影讯&购票" [ref=e58] [cursor=pointer]:
+            - /url: https://movie.douban.com/cinema/nowplaying/
+        - listitem [ref=e59]:
+          - link "选电影" [ref=e60] [cursor=pointer]:
+            - /url: https://movie.douban.com/explore
+        - listitem [ref=e61]:
+          - link "选剧集" [ref=e62] [cursor=pointer]:
+            - /url: https://movie.douban.com/tv/
+        - listitem [ref=e63]:
+          - link "排行榜" [ref=e64] [cursor=pointer]:
+            - /url: https://movie.douban.com/chart
+        - listitem [ref=e65]:
+          - link "影评" [ref=e66] [cursor=pointer]:
+            - /url: https://movie.douban.com/review/best/
+        - listitem [ref=e67]:
+          - link "2025年度榜单" [ref=e68] [cursor=pointer]:
+            - /url: https://movie.douban.com/annual/2025/?fullscreen=1&dt_from=movie_navigation
+        - listitem [ref=e69]:
+          - link "2025年度报告" [ref=e70] [cursor=pointer]:
+            - /url: https://c9.douban.com/app/standbyme-2025/?autorotate=false&fullscreen=true&hidenav=true&monitor_screenshot=true&df_from=web_navigation
+      - link [ref=e71] [cursor=pointer]:
+        - /url: https://movie.douban.com/annual/2025/?fullscreen=1&source=movie_navigation_logo
+  - generic [ref=e72]:
+    - generic [ref=e73]:
+      - heading "肖申克的救赎 的剧照" [level=1] [ref=e74]
+      - generic [ref=e75]:
+        - generic [ref=e76]:
+          - generic [ref=e77]:
+            - generic [ref=e78]: 第876张/共918张
+            - generic [ref=e79]:
+              - link "上一张" [ref=e80] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/825402640/#title-anchor
+              - text: /
+              - link "下一张" [ref=e81] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/825402445/#title-anchor
+            - generic [ref=e82]:
+              - text: ">"
+              - link "浏览所有剧照" [ref=e83] [cursor=pointer]:
+                - /url: https://movie.douban.com/subject/1292052/photos?type=S
+          - generic [ref=e85]:
+            - link "点击查看下一张" [ref=e86] [cursor=pointer]:
+              - /url: https://movie.douban.com/photos/photo/825402445/#title-anchor
+              - img [ref=e87]
+            - link "查看大图" [ref=e88] [cursor=pointer]:
+              - /url: https://nenya.doubanio.com/view/photo/xl/public/p825402537.jpg?sa_cv=d86025bbc84d91e62825c39662b490f0&sa_ct=69f40999
+          - generic [ref=e89]:
+            - link "添加到豆列" [ref=e91] [cursor=pointer]:
+              - /url: javascript:void(0)
+              - text: 添加到豆列
+            - generic [ref=e93]:
+              - link "查看大图" [ref=e94] [cursor=pointer]:
+                - /url: https://nenya.doubanio.com/view/photo/xl/public/p825402537.jpg?sa_cv=d86025bbc84d91e62825c39662b490f0&sa_ct=69f40999
+              - generic [ref=e96] [cursor=pointer]:
+                - text: ">"
+                - link "这张图片有问题" [ref=e97]:
+                  - /url: /misc/mp_report?type=M&uid=825402537
+            - generic [ref=e98]:
+              - generic [ref=e100]:
+                - link "推荐" [ref=e102] [cursor=pointer]:
+                  - /url: "#"
+                - text: 8人
+              - generic [ref=e103]:
+                - generic [ref=e104]:
+                  - link "139人" [ref=e105] [cursor=pointer]:
+                    - /url: "#"
+                  - text: 喜欢
+                - link "喜欢" [ref=e106] [cursor=pointer]:
+                  - /url: "#"
+          - generic [ref=e107]:
+            - generic [ref=e108]:
+              - link "苏愈" [ref=e110] [cursor=pointer]:
+                - /url: https://www.douban.com/people/28524946/
+                - img "苏愈" [ref=e111]
+              - generic [ref=e112]:
+                - generic [ref=e113]:
+                  - text: 2010-11-09 20:14:33
+                  - link "苏愈" [ref=e114] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/28524946/
+                  - text: (。)
+                - paragraph [ref=e115]: 人中之龙 干什么都会成功的那种人 坚忍智慧 会改造环境超越困境
+            - generic [ref=e116]:
+              - link "高先生" [ref=e118] [cursor=pointer]:
+                - /url: https://www.douban.com/people/6442127/
+                - img "高先生" [ref=e119]
+              - generic [ref=e120]:
+                - generic [ref=e121]:
+                  - text: 2011-01-09 10:23:21
+                  - link "高先生" [ref=e122] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/6442127/
+                - paragraph [ref=e123]: 同意LS的说法。
+            - generic [ref=e124]:
+              - link "[已注销]" [ref=e126] [cursor=pointer]:
+                - /url: https://www.douban.com/people/strongkishi/
+                - img "[已注销]" [ref=e127]
+              - generic [ref=e128]:
+                - generic [ref=e129]:
+                  - text: 2011-01-15 18:54:21
+                  - link "[已注销]" [ref=e130] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/strongkishi/
+                - paragraph [ref=e131]: 「内容不可见」
+            - generic [ref=e132]:
+              - link "高先生" [ref=e134] [cursor=pointer]:
+                - /url: https://www.douban.com/people/6442127/
+                - img "高先生" [ref=e135]
+              - generic [ref=e136]:
+                - generic [ref=e137]:
+                  - text: 2011-01-15 20:18:55
+                  - link "高先生" [ref=e138] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/6442127/
+                - paragraph [ref=e139]: LS说反了吧 并不是没个人都能坚持
+            - generic [ref=e140]:
+              - link "小王子" [ref=e142] [cursor=pointer]:
+                - /url: https://www.douban.com/people/39056668/
+                - img "小王子" [ref=e143]
+              - generic [ref=e144]:
+                - generic [ref=e145]:
+                  - text: 2011-02-09 19:19:31
+                  - link "小王子" [ref=e146] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/39056668/
+                  - text: (Carpe Diem)
+                - paragraph [ref=e147]: 男主角我从头感叹到尾 一方面喜欢他的长相一方面 这样的男人...
+            - generic [ref=e148]:
+              - link "Dave" [ref=e150] [cursor=pointer]:
+                - /url: https://www.douban.com/people/dyy9199/
+                - img "Dave" [ref=e151]
+              - generic [ref=e152]:
+                - generic [ref=e153]:
+                  - text: 2011-02-25 13:14:59
+                  - link "Dave" [ref=e154] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/dyy9199/
+                  - text: (我们心中的道德法则)
+                - paragraph [ref=e155]: 犀利
+            - generic [ref=e156]:
+              - link "Eve" [ref=e158] [cursor=pointer]:
+                - /url: https://www.douban.com/people/teresa502/
+                - img "Eve" [ref=e159]
+              - generic [ref=e160]:
+                - generic [ref=e161]:
+                  - text: 2011-03-18 23:10:38
+                  - link "Eve" [ref=e162] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/teresa502/
+                - paragraph [ref=e163]: 好喜欢他的嘴巴。
+            - generic [ref=e164]:
+              - link "KRIVL" [ref=e166] [cursor=pointer]:
+                - /url: https://www.douban.com/people/4683399/
+                - img "KRIVL" [ref=e167]
+              - generic [ref=e168]:
+                - generic [ref=e169]:
+                  - text: 2011-03-19 22:01:13
+                  - link "KRIVL" [ref=e170] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/4683399/
+                  - text: (调整生物钟)
+                - paragraph [ref=e171]: 希望和能力，二者不可或缺啊
+            - generic [ref=e172]:
+              - link "蚂蚁" [ref=e174] [cursor=pointer]:
+                - /url: https://www.douban.com/people/50283379/
+                - img "蚂蚁" [ref=e175]
+              - generic [ref=e176]:
+                - generic [ref=e177]:
+                  - text: 2011-03-22 13:23:39
+                  - link "蚂蚁" [ref=e178] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/50283379/
+                - paragraph [ref=e179]: 好喜欢他的智慧
+            - generic [ref=e180]:
+              - link "法式微笑" [ref=e182] [cursor=pointer]:
+                - /url: https://www.douban.com/people/46526850/
+                - img "法式微笑" [ref=e183]
+              - generic [ref=e184]:
+                - generic [ref=e185]:
+                  - text: 2011-04-09 16:59:53
+                  - link "法式微笑" [ref=e186] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/46526850/
+                - paragraph [ref=e187]: A man who never give up！
+            - generic [ref=e188]:
+              - link "小王子" [ref=e190] [cursor=pointer]:
+                - /url: https://www.douban.com/people/39056668/
+                - img "小王子" [ref=e191]
+              - generic [ref=e192]:
+                - generic [ref=e193]:
+                  - text: 2011-05-12 20:04:17
+                  - link "小王子" [ref=e194] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/39056668/
+                  - text: (Carpe Diem)
+                - paragraph [ref=e195]:
+                  - text: 好喜欢他的嘴巴。
+                  - text: 对对 就是嘴巴 最喜欢了
+            - generic [ref=e196]:
+              - link "華彤" [ref=e198] [cursor=pointer]:
+                - /url: https://www.douban.com/people/46538858/
+                - img "華彤" [ref=e199]
+              - generic [ref=e200]:
+                - generic [ref=e201]:
+                  - text: 2011-06-08 00:52:07
+                  - link "華彤" [ref=e202] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/46538858/
+                - paragraph [ref=e203]: 我愛上聰明人了
+            - generic [ref=e204]:
+              - link "雪謙" [ref=e206] [cursor=pointer]:
+                - /url: https://www.douban.com/people/bixiaweicheng/
+                - img "雪謙" [ref=e207]
+              - generic [ref=e208]:
+                - generic [ref=e209]:
+                  - text: 2011-08-13 21:42:33
+                  - link "雪謙" [ref=e210] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/bixiaweicheng/
+                - paragraph [ref=e211]: 一楼真相了！
+            - generic [ref=e212]:
+              - link "太阳." [ref=e214] [cursor=pointer]:
+                - /url: https://www.douban.com/people/49531882/
+                - img "太阳." [ref=e215]
+              - generic [ref=e216]:
+                - generic [ref=e217]:
+                  - text: 2011-08-21 10:12:29
+                  - link "太阳." [ref=e218] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/49531882/
+                - paragraph [ref=e219]: 更重要的是坚持和信念.
+            - generic [ref=e220]:
+              - link "1164" [ref=e222] [cursor=pointer]:
+                - /url: https://www.douban.com/people/49288850/
+                - img "1164" [ref=e223]
+              - generic [ref=e224]:
+                - generic [ref=e225]:
+                  - text: 2011-12-14 08:57:45
+                  - link "1164" [ref=e226] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/49288850/
+                  - text: (这个人，总有一天要看到全世界)
+                - paragraph [ref=e227]: 好坚毅的眼神
+            - generic [ref=e228]:
+              - link "阿史" [ref=e230] [cursor=pointer]:
+                - /url: https://www.douban.com/people/ashi323/
+                - img "阿史" [ref=e231]
+              - generic [ref=e232]:
+                - generic [ref=e233]:
+                  - text: 2012-01-26 15:38:56
+                  - link "阿史" [ref=e234] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/ashi323/
+                  - text: (UWU)
+                - paragraph [ref=e235]: 一楼说的真好。。
+            - generic [ref=e236]:
+              - link "小南瓜" [ref=e238] [cursor=pointer]:
+                - /url: https://www.douban.com/people/48261556/
+                - img "小南瓜" [ref=e239]
+              - generic [ref=e240]:
+                - generic [ref=e241]:
+                  - text: 2012-02-08 22:53:50
+                  - link "小南瓜" [ref=e242] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/48261556/
+                - paragraph [ref=e243]: 看完这个电影，会爱上这个男人……
+            - generic [ref=e244]:
+              - link "wowo" [ref=e246] [cursor=pointer]:
+                - /url: https://www.douban.com/people/53646218/
+                - img "wowo" [ref=e247]
+              - generic [ref=e248]:
+                - generic [ref=e249]:
+                  - text: 2012-02-18 14:13:50
+                  - link "wowo" [ref=e250] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/53646218/
+                  - text: (nbcs)
+                - paragraph [ref=e251]: 有味道的男人
+            - generic [ref=e252]:
+              - link "跟豆豆战斗到底" [ref=e254] [cursor=pointer]:
+                - /url: https://www.douban.com/people/48954171/
+                - img "跟豆豆战斗到底" [ref=e255]
+              - generic [ref=e256]:
+                - generic [ref=e257]:
+                  - text: 2012-06-06 13:57:15
+                  - link "跟豆豆战斗到底" [ref=e258] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/48954171/
+                  - text: (就欺少年穷)
+                - paragraph [ref=e259]: 好的电影最起码要有好的演员。必须要说，他演的真好，不管你怎么想都会认为现实中的安迪就是这个样子
+            - generic [ref=e260]:
+              - link "taromantic" [ref=e262] [cursor=pointer]:
+                - /url: https://www.douban.com/people/60617297/
+                - img "taromantic" [ref=e263]
+              - generic [ref=e264]:
+                - generic [ref=e265]:
+                  - text: 2012-08-29 22:31:13
+                  - link "taromantic" [ref=e266] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/60617297/
+                - paragraph [ref=e267]: 排楼上
+            - generic [ref=e268]:
+              - link "or" [ref=e270] [cursor=pointer]:
+                - /url: https://www.douban.com/people/64698994/
+                - img "or" [ref=e271]
+              - generic [ref=e272]:
+                - generic [ref=e273]:
+                  - text: 2013-09-05 23:50:17
+                  - link "or" [ref=e274] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/64698994/
+                  - text: (我觉得，我会喜欢上自己的)
+                - paragraph [ref=e275]: 没错，看完这部电影，真的会爱上这个男人
+            - generic [ref=e276]:
+              - link "极品" [ref=e278] [cursor=pointer]:
+                - /url: https://www.douban.com/people/72305790/
+                - img "极品" [ref=e279]
+              - generic [ref=e280]:
+                - generic [ref=e281]:
+                  - text: 2013-09-22 17:14:51
+                  - link "极品" [ref=e282] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/72305790/
+                - paragraph [ref=e283]: 救赎帝
+            - generic [ref=e284]:
+              - link "周籽籽" [ref=e286] [cursor=pointer]:
+                - /url: https://www.douban.com/people/85936466/
+                - img "周籽籽" [ref=e287]
+              - generic [ref=e288]:
+                - generic [ref=e289]:
+                  - text: 2014-05-11 18:03:04
+                  - link "周籽籽" [ref=e290] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/85936466/
+                - paragraph [ref=e291]: 这个男人真是最完美最完美的了，
+            - generic [ref=e292]:
+              - link "xbdihio" [ref=e294] [cursor=pointer]:
+                - /url: https://www.douban.com/people/3874111/
+                - img "xbdihio" [ref=e295]
+              - generic [ref=e296]:
+                - generic [ref=e297]:
+                  - text: 2014-05-19 18:47:42
+                  - link "xbdihio" [ref=e298] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/3874111/
+                - paragraph [ref=e299]: 37927..
+            - generic [ref=e300]:
+              - link "空气过滤" [ref=e302] [cursor=pointer]:
+                - /url: https://www.douban.com/people/klcfilter/
+                - img "空气过滤" [ref=e303]
+              - generic [ref=e304]:
+                - generic [ref=e305]:
+                  - text: 2015-06-28 13:55:10
+                  - link "空气过滤" [ref=e306] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/klcfilter/
+                  - text: (www.klcfilter.com)
+                - paragraph [ref=e307]: 有魅力
+            - generic [ref=e308]:
+              - link "万无" [ref=e310] [cursor=pointer]:
+                - /url: https://www.douban.com/people/sunyanfine/
+                - img "万无" [ref=e311]
+              - generic [ref=e312]:
+                - generic [ref=e313]:
+                  - text: 2016-03-29 17:38:05
+                  - link "万无" [ref=e314] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/sunyanfine/
+                  - text: (。。。)
+                - generic [ref=e315]:
+                  - text: 人中之龙 干什么都会成功的那种人 坚忍智慧 会改造环境超越困境
+                  - link:
+                    - /url: "#"
+                  - link "苏愈" [ref=e317] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/28524946/
+                - paragraph [ref=e318]: 顶
+            - generic [ref=e319]:
+              - link "万无" [ref=e321] [cursor=pointer]:
+                - /url: https://www.douban.com/people/sunyanfine/
+                - img "万无" [ref=e322]
+              - generic [ref=e323]:
+                - generic [ref=e324]:
+                  - text: 2016-03-29 17:41:54
+                  - link "万无" [ref=e325] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/sunyanfine/
+                  - text: (。。。)
+                - generic [ref=e326]:
+                  - text: 顶
+                  - link:
+                    - /url: "#"
+                  - link "万无" [ref=e328] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/sunyanfine/
+                - paragraph [ref=e329]: 坚忍智慧 改造环境 超越困境。
+            - generic [ref=e330]:
+              - link "〢" [ref=e332] [cursor=pointer]:
+                - /url: https://www.douban.com/people/75901458/
+                - img "〢" [ref=e333]
+              - generic [ref=e334]:
+                - generic [ref=e335]:
+                  - text: 2016-10-05 22:19:03
+                  - link "〢" [ref=e336] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/75901458/
+                  - text: (/)
+                - paragraph [ref=e337]: 妙在不言。
+                - link "来自豆瓣App" [ref=e338] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e339]:
+              - link "妖女叉腰側望" [ref=e341] [cursor=pointer]:
+                - /url: https://www.douban.com/people/143842123/
+                - img "妖女叉腰側望" [ref=e342]
+              - generic [ref=e343]:
+                - generic [ref=e344]:
+                  - text: 2017-01-18 13:14:26
+                  - link "妖女叉腰側望" [ref=e345] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/143842123/
+                - generic [ref=e346]:
+                  - text: 人中之龙 干什么都会成功的那种人 坚忍智慧 会改造环境超越困境
+                  - link:
+                    - /url: "#"
+                  - link "苏愈" [ref=e348] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/28524946/
+                - paragraph [ref=e349]: 赞同
+            - generic [ref=e350]:
+              - link "卡普辛路14号" [ref=e352] [cursor=pointer]:
+                - /url: https://www.douban.com/people/KPX14/
+                - img "卡普辛路14号" [ref=e353]
+              - generic [ref=e354]:
+                - generic [ref=e355]:
+                  - text: 2018-01-29 11:24:43
+                  - link "卡普辛路14号" [ref=e356] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/KPX14/
+                - paragraph [ref=e357]: 有人靠着个号码中彩了
+                - link "来自豆瓣App" [ref=e358] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e359]:
+              - link "执鞭人" [ref=e361] [cursor=pointer]:
+                - /url: https://www.douban.com/people/68390549/
+                - img "执鞭人" [ref=e362]
+              - generic [ref=e363]:
+                - generic [ref=e364]:
+                  - text: 2018-07-06 19:31:49
+                  - link "执鞭人" [ref=e365] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/68390549/
+                  - text: (远离俗世)
+                - paragraph [ref=e366]: 穿什么都像贵族
+                - link "来自豆瓣App" [ref=e367] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e368]:
+              - link "小塔卡" [ref=e370] [cursor=pointer]:
+                - /url: https://www.douban.com/people/181258040/
+                - img "小塔卡" [ref=e371]
+              - generic [ref=e372]:
+                - generic [ref=e373]:
+                  - text: 2018-07-26 01:51:53
+                  - link "小塔卡" [ref=e374] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/181258040/
+                - paragraph [ref=e375]: 男主很聪明
+                - link "来自豆瓣App" [ref=e376] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e377]:
+              - link "montage6" [ref=e379] [cursor=pointer]:
+                - /url: https://www.douban.com/people/178411670/
+                - img "montage6" [ref=e380]
+              - generic [ref=e381]:
+                - generic [ref=e382]:
+                  - text: 2018-08-10 14:22:43
+                  - link "montage6" [ref=e383] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/178411670/
+                - paragraph [ref=e384]: 散发着智慧的魅力，这种男人极品
+                - link "来自豆瓣App" [ref=e385] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e386]:
+              - link "凛" [ref=e388] [cursor=pointer]:
+                - /url: https://www.douban.com/people/157046146/
+                - img "凛" [ref=e389]
+              - generic [ref=e390]:
+                - generic [ref=e391]:
+                  - text: 2018-09-20 12:49:51
+                  - link "凛" [ref=e392] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/157046146/
+                - generic [ref=e393]:
+                  - text: 人中之龙 干什么都会成功的那种人 坚忍智慧 会改造环境超越困境
+                  - link:
+                    - /url: "#"
+                  - link "苏愈" [ref=e395] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/28524946/
+                - paragraph [ref=e396]: 顶
+                - link "来自豆瓣App" [ref=e397] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e398]:
+              - link "生命之树的分叉" [ref=e400] [cursor=pointer]:
+                - /url: https://www.douban.com/people/155715063/
+                - img "生命之树的分叉" [ref=e401]
+              - generic [ref=e402]:
+                - generic [ref=e403]:
+                  - text: 2018-12-28 00:30:25
+                  - link "生命之树的分叉" [ref=e404] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/155715063/
+                - paragraph [ref=e405]: 他的妻子不喜欢或许就是因为太聪明，太理性了，而他的性格一看就不是那种万金油，所以两人婚后应该交流很少，妻子想要激情，于是出轨了，而他最后也原谅了他的妻子，有时候婚姻失败并不是一方的问题
+                - link "来自豆瓣App" [ref=e406] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e407]:
+              - link "吃了么" [ref=e409] [cursor=pointer]:
+                - /url: https://www.douban.com/people/Awezhang/
+                - img "吃了么" [ref=e410]
+              - generic [ref=e411]:
+                - generic [ref=e412]:
+                  - text: 2019-02-28 10:41:58
+                  - link "吃了么" [ref=e413] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/Awezhang/
+                  - text: (I feel infinite.)
+                - paragraph [ref=e414]: "37927"
+            - generic [ref=e415]:
+              - link "montage6" [ref=e417] [cursor=pointer]:
+                - /url: https://www.douban.com/people/178411670/
+                - img "montage6" [ref=e418]
+              - generic [ref=e419]:
+                - generic [ref=e420]:
+                  - text: 2019-04-11 20:39:59
+                  - link "montage6" [ref=e421] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/178411670/
+                - generic [ref=e422]:
+                  - text: 他的妻子不喜欢或许就是因为太聪明，太理性了，而他的性格一看就不是那种万金油，所以两人婚后应
+                  - link "..." [ref=e423] [cursor=pointer]:
+                    - /url: "#"
+                  - link "生命之树的分叉" [ref=e425] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/155715063/
+                - paragraph [ref=e426]: 没有激情可以离婚，不要为出轨找借口
+                - link "来自豆瓣App" [ref=e427] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e428]:
+              - link "蔚秋" [ref=e430] [cursor=pointer]:
+                - /url: https://www.douban.com/people/197797346/
+                - img "蔚秋" [ref=e431]
+              - generic [ref=e432]:
+                - generic [ref=e433]:
+                  - text: 2019-06-19 14:45:58
+                  - link "蔚秋" [ref=e434] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/197797346/
+                - paragraph [ref=e435]: 嘴巴比女人性感
+                - link "来自豆瓣App" [ref=e436] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e437]:
+              - link "暖暖和和" [ref=e439] [cursor=pointer]:
+                - /url: https://www.douban.com/people/156451490/
+                - img "暖暖和和" [ref=e440]
+              - generic [ref=e441]:
+                - generic [ref=e442]:
+                  - text: 2020-02-05 04:15:32
+                  - link "暖暖和和" [ref=e443] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/156451490/
+                - paragraph [ref=e444]: 这样的男人，他妻子还出轨，，，，
+                - link "来自豆瓣App" [ref=e445] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e446]:
+              - link "暖暖和和" [ref=e448] [cursor=pointer]:
+                - /url: https://www.douban.com/people/156451490/
+                - img "暖暖和和" [ref=e449]
+              - generic [ref=e450]:
+                - generic [ref=e451]:
+                  - text: 2020-02-05 04:15:44
+                  - link "暖暖和和" [ref=e452] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/156451490/
+                - paragraph [ref=e453]: 这样的男人，他妻子还出轨，，，，
+                - link "来自豆瓣App" [ref=e454] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e455]:
+              - link "暖暖和和" [ref=e457] [cursor=pointer]:
+                - /url: https://www.douban.com/people/156451490/
+                - img "暖暖和和" [ref=e458]
+              - generic [ref=e459]:
+                - generic [ref=e460]:
+                  - text: 2020-02-05 04:16:35
+                  - link "暖暖和和" [ref=e461] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/156451490/
+                - paragraph [ref=e462]: 这样的男人，他妻子还出轨，，，，
+                - link "来自豆瓣App" [ref=e463] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e464]:
+              - link "套马的大蛋" [ref=e466] [cursor=pointer]:
+                - /url: https://www.douban.com/people/156278663/
+                - img "套马的大蛋" [ref=e467]
+              - generic [ref=e468]:
+                - generic [ref=e469]:
+                  - text: 2020-03-08 21:43:08
+                  - link "套马的大蛋" [ref=e470] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/156278663/
+                - paragraph [ref=e471]: 呜呜呜好喜欢他
+                - link "来自豆瓣App" [ref=e472] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e473]:
+              - link "家洛" [ref=e475] [cursor=pointer]:
+                - /url: https://www.douban.com/people/176300963/
+                - img "家洛" [ref=e476]
+              - generic [ref=e477]:
+                - generic [ref=e478]:
+                  - text: 2021-11-08 22:59:52
+                  - link "家洛" [ref=e479] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/176300963/
+                - paragraph [ref=e480]: 在家里看的电影 两个半小时我不舍得上厕所
+                - link "来自豆瓣App" [ref=e481] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e482]:
+              - link "freedom." [ref=e484] [cursor=pointer]:
+                - /url: https://www.douban.com/people/196746532/
+                - img "freedom." [ref=e485]
+              - generic [ref=e486]:
+                - generic [ref=e487]:
+                  - text: 2022-01-01 12:14:11
+                  - link "freedom." [ref=e488] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/196746532/
+                - paragraph [ref=e489]: 我觉得有点像毕志飞，对不起对不起对不起对不起。。
+                - link "来自豆瓣App" [ref=e490] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e491]:
+              - link "豆友166872097" [ref=e493] [cursor=pointer]:
+                - /url: https://www.douban.com/people/166872097/
+                - img "豆友166872097" [ref=e494]
+              - generic [ref=e495]:
+                - generic [ref=e496]:
+                  - text: 2022-01-10 09:31:24
+                  - link "豆友166872097" [ref=e497] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/166872097/
+                - paragraph [ref=e498]: 「内容不可见」
+                - link "来自豆瓣App" [ref=e499] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e500]:
+              - link "巴西小野驴" [ref=e502] [cursor=pointer]:
+                - /url: https://www.douban.com/people/Z33642638/
+                - img "巴西小野驴" [ref=e503]
+              - generic [ref=e504]:
+                - generic [ref=e505]:
+                  - text: 2022-09-16 13:57:51
+                  - link "巴西小野驴" [ref=e506] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/Z33642638/
+                - paragraph [ref=e507]: 我跟我爸说，男主长得像丁海峰+张国荣～
+                - link "来自豆瓣App" [ref=e508] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - generic [ref=e509]:
+              - link "林喵的秀儿" [ref=e511] [cursor=pointer]:
+                - /url: https://www.douban.com/people/248877115/
+                - img "林喵的秀儿" [ref=e512]
+              - generic [ref=e513]:
+                - generic [ref=e514]:
+                  - text: 2024-04-26 21:30:58
+                  - link "林喵的秀儿" [ref=e515] [cursor=pointer]:
+                    - /url: https://www.douban.com/people/248877115/
+                - paragraph [ref=e516]: 真的很帅
+                - link "来自豆瓣App" [ref=e517] [cursor=pointer]:
+                  - /url: https://www.douban.com/doubanapp/
+            - heading "你的回应 · · · · · ·" [level=2] [ref=e518]
+            - generic [ref=e520]:
+              - textbox [ref=e522]
+              - generic [ref=e523]:
+                - button "加上去" [ref=e525]
+                - generic [ref=e527]:
+                  - checkbox "推荐到广播" [ref=e528]
+                  - text: 推荐到广播
+        - generic [ref=e529]:
+          - generic [ref=e531]:
+            - link "后退" [ref=e533] [cursor=pointer]:
+              - /url: https://movie.douban.com/photos/photo/825402640/#title-anchor
+            - list [ref=e535]:
+              - listitem [ref=e536]:
+                - link [ref=e537] [cursor=pointer]:
+                  - /url: https://movie.douban.com/photos/photo/825402640/
+              - listitem [ref=e538]:
+                - link [ref=e539] [cursor=pointer]:
+                  - /url: https://movie.douban.com/photos/photo/825402537/
+              - listitem [ref=e540]:
+                - link [ref=e541] [cursor=pointer]:
+                  - /url: https://movie.douban.com/photos/photo/825402445/
+            - link "前进" [ref=e543] [cursor=pointer]:
+              - /url: https://movie.douban.com/photos/photo/825402445/#title-anchor
+          - generic [ref=e544]:
+            - heading "图片信息 · · · · · ·" [level=2] [ref=e545]
+            - list [ref=e546]:
+              - listitem [ref=e547]:
+                - text: 电影名称：
+                - link "肖申克的救赎 The Shawshank Redemption" [ref=e548] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/1292052/
+              - listitem [ref=e549]: 图片类型：官方剧照
+              - listitem [ref=e550]: 大图尺寸：515x768
+              - listitem [ref=e551]:
+                - text: 来自：
+                - link "#瞬间收藏家#" [ref=e552] [cursor=pointer]:
+                  - /url: https://www.douban.com/people/rex2xt/
+              - listitem [ref=e553]: 上传于2011-01-30
+            - paragraph [ref=e554]:
+              - text: ">"
+              - link "去 肖申克的救赎 的页面" [ref=e555] [cursor=pointer]:
+                - /url: https://movie.douban.com/subject/1292052/
+          - list [ref=e559]:
+            - listitem [ref=e560] [cursor=pointer]:
+              - img "豆包-全能AI助手，一站式解决多种办公学习需求！" [ref=e561]
+              - generic [ref=e562]:
+                - generic [ref=e563]:
+                  - generic [ref=e564]:
+                    - generic [ref=e565]: 豆包-全能AI助手，一站式解决多种办公学习需求！
+                    - generic [ref=e566]: 专为电脑办公学习场景设计，无需复杂操作，一键搞定文案生成、PPT制作、智能生图、高效翻译，免费使用。
+                  - generic [ref=e567]: 查看详情
+                - generic [ref=e568]:
+                  - generic [ref=e570]: 豆包AI · 效卓
+                  - generic [ref=e571]: 广告
+        - link "投诉不良信息" [ref=e573] [cursor=pointer]:
+          - /url: javascript:void(0)
+    - generic [ref=e574]:
+      - generic [ref=e575]: © 2005－2026 douban.com, all rights reserved 北京豆网科技有限公司
+      - generic [ref=e576]:
+        - link "关于豆瓣" [ref=e577] [cursor=pointer]:
+          - /url: https://www.douban.com/about
+        - text: ·
+        - link "在豆瓣工作" [ref=e578] [cursor=pointer]:
+          - /url: https://www.douban.com/jobs
+        - text: ·
+        - link "联系我们" [ref=e579] [cursor=pointer]:
+          - /url: https://www.douban.com/about?topic=contactus
+        - text: ·
+        - link "法律声明" [ref=e580] [cursor=pointer]:
+          - /url: https://www.douban.com/about/legal
+        - text: ·
+        - link "帮助中心" [ref=e581] [cursor=pointer]:
+          - /url: https://help.douban.com/?app=movie
+        - text: ·
+        - link "移动应用" [ref=e582] [cursor=pointer]:
+          - /url: https://www.douban.com/doubanapp/

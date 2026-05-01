@@ -1,0 +1,1330 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - list [ref=e5]:
+      - listitem [ref=e6]:
+        - link "豆邮" [ref=e7] [cursor=pointer]:
+          - /url: https://www.douban.com/doumail/
+      - listitem [ref=e8]:
+        - link "忽而今夏的账号" [ref=e9] [cursor=pointer]:
+          - /url: https://accounts.douban.com/passport/setting/
+          - generic [ref=e10]: 忽而今夏的账号
+    - link "提醒" [ref=e13] [cursor=pointer]:
+      - /url: https://www.douban.com/notification/
+    - link "下载豆瓣客户端" [ref=e15] [cursor=pointer]:
+      - /url: https://www.douban.com/doubanapp/app?channel=top-nav
+    - list [ref=e17]:
+      - listitem [ref=e18]:
+        - link "豆瓣" [ref=e19] [cursor=pointer]:
+          - /url: https://www.douban.com
+      - listitem [ref=e20]:
+        - link "读书" [ref=e21] [cursor=pointer]:
+          - /url: https://book.douban.com
+      - listitem [ref=e22]:
+        - link "电影" [ref=e23] [cursor=pointer]:
+          - /url: https://movie.douban.com
+      - listitem [ref=e24]:
+        - link "音乐" [ref=e25] [cursor=pointer]:
+          - /url: https://music.douban.com
+      - listitem [ref=e26]:
+        - link "播客" [ref=e27] [cursor=pointer]:
+          - /url: https://www.douban.com/podcast/
+      - listitem [ref=e28]:
+        - link "同城" [ref=e29] [cursor=pointer]:
+          - /url: https://www.douban.com/location
+      - listitem [ref=e30]:
+        - link "小组" [ref=e31] [cursor=pointer]:
+          - /url: https://www.douban.com/group
+      - listitem [ref=e32]:
+        - link "阅读" [ref=e33] [cursor=pointer]:
+          - /url: https://read.douban.com/?dcs=top-nav&dcm=douban
+      - listitem [ref=e34]:
+        - link "FM" [ref=e35] [cursor=pointer]:
+          - /url: https://fm.douban.com/?from_=shire_top_nav
+      - listitem [ref=e36]:
+        - link "时间" [ref=e37] [cursor=pointer]:
+          - /url: https://time.douban.com/?dt_time_source=douban-web_top_nav
+      - listitem [ref=e38]:
+        - link "豆品" [ref=e39] [cursor=pointer]:
+          - /url: https://market.douban.com/?utm_campaign=douban_top_nav&utm_source=douban&utm_medium=pc_web
+  - generic [ref=e40]:
+    - generic [ref=e42]:
+      - link "豆瓣电影" [ref=e44] [cursor=pointer]:
+        - /url: https://movie.douban.com
+      - group "搜索：" [ref=e47]:
+        - textbox [ref=e49]:
+          - /placeholder: 搜索电影、电视剧、综艺、影人
+        - button "搜索" [ref=e51] [cursor=pointer]
+    - generic [ref=e52]:
+      - list [ref=e54]:
+        - listitem [ref=e55]:
+          - link "我看" [ref=e56] [cursor=pointer]:
+            - /url: https://movie.douban.com/mine
+        - listitem [ref=e57]:
+          - link "影讯&购票" [ref=e58] [cursor=pointer]:
+            - /url: https://movie.douban.com/cinema/nowplaying/
+        - listitem [ref=e59]:
+          - link "选电影" [ref=e60] [cursor=pointer]:
+            - /url: https://movie.douban.com/explore
+        - listitem [ref=e61]:
+          - link "选剧集" [ref=e62] [cursor=pointer]:
+            - /url: https://movie.douban.com/tv/
+        - listitem [ref=e63]:
+          - link "排行榜" [ref=e64] [cursor=pointer]:
+            - /url: https://movie.douban.com/chart
+        - listitem [ref=e65]:
+          - link "影评" [ref=e66] [cursor=pointer]:
+            - /url: https://movie.douban.com/review/best/
+        - listitem [ref=e67]:
+          - link "2025年度榜单" [ref=e68] [cursor=pointer]:
+            - /url: https://movie.douban.com/annual/2025/?fullscreen=1&dt_from=movie_navigation
+        - listitem [ref=e69]:
+          - link "2025年度报告" [ref=e70] [cursor=pointer]:
+            - /url: https://c9.douban.com/app/standbyme-2025/?autorotate=false&fullscreen=true&hidenav=true&monitor_screenshot=true&df_from=web_navigation
+      - link [ref=e71] [cursor=pointer]:
+        - /url: https://movie.douban.com/annual/2025/?fullscreen=1&source=movie_navigation_logo
+  - generic [ref=e72]:
+    - generic [ref=e73]:
+      - heading "迈克尔·杰克逊：巨星之路 的全部演职员" [level=1] [ref=e74]
+      - generic [ref=e75]:
+        - generic [ref=e77]:
+          - generic [ref=e78]:
+            - heading "导演 Director" [level=2] [ref=e79]
+            - list [ref=e80]:
+              - listitem [ref=e81]:
+                - link "安东尼·福奎阿 Antoine Fuqua":
+                  - /url: https://www.douban.com/personage/27219613/
+                - generic [ref=e82]:
+                  - link "安东尼·福奎阿 Antoine Fuqua" [ref=e84] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27219613/
+                  - text: 导演 Director
+                  - generic [ref=e85]:
+                    - text: 代表作：
+                    - link "好家伙" [ref=e86] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1292268/
+                    - link "生死狙击" [ref=e87] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1947549/
+                    - link "伸冤人" [ref=e88] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/3012013/
+          - generic [ref=e89]:
+            - heading "演员 Cast" [level=2] [ref=e90]
+            - list [ref=e91]:
+              - listitem [ref=e92]:
+                - link "贾法尔·杰克逊 Jaafar Jackson":
+                  - /url: https://www.douban.com/personage/36224177/
+                - generic [ref=e93]:
+                  - link "贾法尔·杰克逊 Jaafar Jackson" [ref=e95] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/36224177/
+                  - text: 演员 Actor (饰 迈克尔·杰克逊 Michael Jackson)
+                  - generic [ref=e96]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e97] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+                    - link "迈克尔·杰克逊：巨星之路2" [ref=e98] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/37314835/
+                    - 'link "The Jacksons: Next Generation" [ref=e99] [cursor=pointer]':
+                      - /url: https://movie.douban.com/subject/26617663/
+              - listitem [ref=e100]:
+                - link "尼娅·朗 Nia Long":
+                  - /url: https://www.douban.com/personage/27246324/
+                - generic [ref=e101]:
+                  - link "尼娅·朗 Nia Long" [ref=e103] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27246324/
+                  - text: 演员 Actor/Actress (饰 凯瑟琳·杰克逊 Katherine Jackson)
+                  - generic [ref=e104]:
+                    - text: 代表作：
+                    - link "女间谍" [ref=e105] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/25752261/
+                    - link "网络谜踪2" [ref=e106] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/34795100/
+                    - link "银行家" [ref=e107] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/30346880/
+              - listitem [ref=e108]:
+                - link "朱利亚诺·瓦尔迪 Juliano Valdi":
+                  - /url: https://www.douban.com/personage/36742237/
+                - generic [ref=e109]:
+                  - link "朱利亚诺·瓦尔迪 Juliano Valdi" [ref=e111] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/36742237/
+                  - text: 演员 Actor (饰 小迈克尔·杰克逊 Young Michael Jackson)
+                  - generic [ref=e112]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e113] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+              - listitem [ref=e114]:
+                - link "科尔曼·多明戈 Colman Domingo":
+                  - /url: https://www.douban.com/personage/27294506/
+                - generic [ref=e115]:
+                  - link "科尔曼·多明戈 Colman Domingo" [ref=e117] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27294506/
+                  - text: 演员 Actor (饰 约瑟夫·杰克逊 Joseph Jackson)
+                  - generic [ref=e118]:
+                    - text: 代表作：
+                    - link "变形金刚：超能勇士崛起" [ref=e119] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/26634250/
+                    - link "林肯" [ref=e120] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1889242/
+                    - link "白宫管家" [ref=e121] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/3292949/
+              - listitem [ref=e122]:
+                - link "迈尔斯·特勒 Miles Teller":
+                  - /url: https://www.douban.com/personage/27541295/
+                - generic [ref=e123]:
+                  - link "迈尔斯·特勒 Miles Teller" [ref=e125] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27541295/
+                  - text: 演员 Actor (饰 约翰·布兰卡 John Branca)
+                  - generic [ref=e126]:
+                    - text: 代表作：
+                    - link "爆裂鼓手" [ref=e127] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/25773932/
+                    - link "壮志凌云2：独行侠" [ref=e128] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/6893932/
+                    - link "分歧者：异类觉醒" [ref=e129] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/6424814/
+              - listitem [ref=e130]:
+                - link "凯林·多瑞尔·琼斯 KeiLyn Durrel Jones":
+                  - /url: https://www.douban.com/personage/27578963/
+                - generic [ref=e131]:
+                  - link "凯林·多瑞尔·琼斯 KeiLyn Durrel Jones" [ref=e133] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27578963/
+                  - text: 演员 Actor (饰 比尔·布雷 Bill Bray)
+                  - generic [ref=e134]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e135] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+                    - link "难以伺候 第一季" [ref=e136] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/26803790/
+                    - link "难以伺候 第二季" [ref=e137] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/27013889/
+              - listitem [ref=e138]:
+                - link "劳拉·哈里尔 Laura Harrier":
+                  - /url: https://www.douban.com/personage/27550236/
+                - generic [ref=e139]:
+                  - link "劳拉·哈里尔 Laura Harrier" [ref=e141] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27550236/
+                  - text: 演员 Actress (饰 苏珊·德·帕斯 Suzanne de Passe)
+                  - generic [ref=e142]:
+                    - text: 代表作：
+                    - link "蜘蛛侠：英雄归来" [ref=e143] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/24753477/
+                    - link "骇人来电" [ref=e144] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/33390298/
+                    - link "黑色党徒" [ref=e145] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/27133913/
+              - listitem [ref=e146]:
+                - link "杰西卡·苏拉 Jessica Sula":
+                  - /url: https://www.douban.com/personage/27569431/
+                - generic [ref=e147]:
+                  - link "杰西卡·苏拉 Jessica Sula" [ref=e149] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27569431/
+                  - text: 演员 Actress (饰 拉托娅·杰克逊 La Toya Jackson)
+                  - generic [ref=e150]:
+                    - text: 代表作：
+                    - link "分裂" [ref=e151] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/26600660/
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e152] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+                    - link "皮囊 第五季" [ref=e153] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/5387003/
+              - listitem [ref=e154]:
+                - link "麦克·梅尔斯 Mike Myers":
+                  - /url: https://www.douban.com/personage/27223623/
+                - generic [ref=e155]:
+                  - link "麦克·梅尔斯 Mike Myers" [ref=e157] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27223623/
+                  - text: 演员 Actor/Actress (饰 沃特·耶特尼科夫 Walter Yetnikoff)
+                  - generic [ref=e158]:
+                    - text: 代表作：
+                    - link "波西米亚狂想曲" [ref=e159] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/5300054/
+                    - link "无耻混蛋" [ref=e160] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1438652/
+                    - link "怪物史瑞克" [ref=e161] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1291581/
+              - listitem [ref=e162]:
+                - link "肯德里克·桑普森 Kendrick Sampson":
+                  - /url: https://www.douban.com/personage/27555875/
+                - generic [ref=e163]:
+                  - link "肯德里克·桑普森 Kendrick Sampson" [ref=e165] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27555875/
+                  - text: 演员 Actor (饰 昆西·琼斯 Quincy Jones)
+                  - generic [ref=e166]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e167] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+                    - link "逍遥法外 第二季" [ref=e168] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/26113881/
+                    - link "闪电侠 第四季" [ref=e169] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/26952099/
+              - listitem [ref=e170]:
+                - link "拉伦兹·泰特 Larenz Tate":
+                  - /url: https://www.douban.com/personage/27260402/
+                - generic [ref=e171]:
+                  - link "拉伦兹·泰特 Larenz Tate" [ref=e173] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27260402/
+                  - text: 演员 Actor (饰 贝瑞·高迪 Berry Gordy)
+                  - generic [ref=e174]:
+                    - text: 代表作：
+                    - link "撞车" [ref=e175] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1388216/
+                    - link "灵魂歌王" [ref=e176] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1309085/
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e177] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+              - listitem [ref=e178]:
+                - link "约瑟夫·戴维-琼斯 Joseph David-Jones":
+                  - /url: https://www.douban.com/personage/27585804/
+                - generic [ref=e179]:
+                  - link "约瑟夫·戴维-琼斯 Joseph David-Jones" [ref=e181] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27585804/
+                  - text: 演员 Actor (饰 杰基·杰克逊 Jackie Jackson)
+                  - generic [ref=e182]:
+                    - text: 代表作：
+                    - link "分歧者3：忠诚世界" [ref=e183] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/25794302/
+                    - link "底特律" [ref=e184] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/26718836/
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e185] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+              - listitem [ref=e186]:
+                - link "贾马尔·亨德森 Jamal Henderson":
+                  - /url: https://www.douban.com/personage/36796358/
+                - generic [ref=e187]:
+                  - link "贾马尔·亨德森 Jamal Henderson" [ref=e189] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/36796358/
+                  - text: 演员 Actor (饰 杰梅因·杰克逊 Jermaine Jackson)
+                  - generic [ref=e190]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e191] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+                    - link "Puncher's Chance" [ref=e192] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/36560629/
+              - listitem [ref=e193]:
+                - link "莱恩·希尔 Rhyan Hill":
+                  - /url: https://www.douban.com/personage/38437686/
+                - generic [ref=e194]:
+                  - link "莱恩·希尔 Rhyan Hill" [ref=e196] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/38437686/
+                  - text: 演员 Actor (饰 蒂托·杰克逊 Tito Jackson)
+                  - generic [ref=e197]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e198] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+              - listitem [ref=e199]:
+                - link "特雷·霍顿 Tre Horton":
+                  - /url: https://www.douban.com/personage/38437701/
+                - generic [ref=e200]:
+                  - link "特雷·霍顿 Tre Horton" [ref=e202] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/38437701/
+                  - text: 演员 Actor (饰 马龙·杰克逊 Marlon Jackson)
+                  - generic [ref=e203]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e204] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+              - listitem [ref=e205]:
+                - link "朱达·爱德华兹 Judah Edwards":
+                  - /url: https://www.douban.com/personage/38437702/
+                - generic [ref=e206]:
+                  - link "朱达·爱德华兹 Judah Edwards" [ref=e208] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/38437702/
+                  - text: 演员 Actor (饰 小蒂托·杰克逊 Young Tito Jackson)
+                  - generic [ref=e209]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e210] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+              - listitem [ref=e211]:
+                - link "杰登·哈维尔 Jayden Harville":
+                  - /url: https://www.douban.com/personage/38437710/
+                - generic [ref=e212]:
+                  - link "杰登·哈维尔 Jayden Harville" [ref=e214] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/38437710/
+                  - text: 演员 Actor (饰 小杰梅因·杰克逊 Young Jermaine Jackson)
+                  - generic [ref=e215]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e216] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+              - listitem [ref=e217]:
+                - link "杰林·林登·亨特 Jaylen Lyndon Hunter":
+                  - /url: https://www.douban.com/personage/38437711/
+                - generic [ref=e218]:
+                  - link "杰林·林登·亨特 Jaylen Lyndon Hunter" [ref=e220] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/38437711/
+                  - text: 演员 Actor (饰 小马龙·杰克逊 Young Marlon Jackson)
+                  - generic [ref=e221]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e222] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+              - listitem [ref=e223]:
+                - link "纳撒尼尔·罗根·麦金泰尔 Nathaniel Logan McIntyre":
+                  - /url: https://www.douban.com/personage/36997535/
+                - generic [ref=e224]:
+                  - link "纳撒尼尔·罗根·麦金泰尔 Nathaniel Logan McIntyre" [ref=e226] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/36997535/
+                  - text: 演员 Actor (饰 小杰基·杰克逊 Young Jackie Jackson)
+                  - generic [ref=e227]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e228] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+              - listitem [ref=e229]:
+                - link "乔·吉列特 Joe Gillette":
+                  - /url: https://www.douban.com/personage/37827603/
+                - generic [ref=e230]:
+                  - link "乔·吉列特 Joe Gillette" [ref=e232] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/37827603/
+                  - text: 演员 Actor (饰 Steve Rubell)
+                  - generic [ref=e233]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e234] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+              - listitem [ref=e235]:
+                - link "卡特琳娜·格兰厄姆 Katerina Graham":
+                  - /url: https://www.douban.com/personage/27255318/
+                - generic [ref=e236]:
+                  - link "卡特琳娜·格兰厄姆 Katerina Graham" [ref=e238] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27255318/
+                  - text: 演员 Actress (饰 Diana Ross)
+                  - generic [ref=e239]:
+                    - text: 代表作：
+                    - link "天生一对" [ref=e240] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1297102/
+                    - link "重返十七岁" [ref=e241] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/2213591/
+                    - link "吸血鬼日记 第一季" [ref=e242] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/3646523/
+              - listitem [ref=e243]:
+                - link "德里克·卢克 Derek Luke":
+                  - /url: https://www.douban.com/personage/27250711/
+                - generic [ref=e244]:
+                  - link "德里克·卢克 Derek Luke" [ref=e246] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27250711/
+                  - text: 演员 Actor (饰 Johnnie Cochran)
+                  - generic [ref=e247]:
+                    - text: 代表作：
+                    - link "美国队长" [ref=e248] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/2138838/
+                    - link "光荣之路" [ref=e249] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1457219/
+                    - link "爱情三选一" [ref=e250] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1922152/
+              - listitem [ref=e251]:
+                - link "汉克·诺思罗普 Hank Northrop":
+                  - /url: https://www.douban.com/personage/27556180/
+                - generic [ref=e252]:
+                  - link "汉克·诺思罗普 Hank Northrop" [ref=e254] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27556180/
+                  - text: 演员 Actor (饰 Security Guard)
+                  - generic [ref=e255]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e256] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+                    - link "蛛丝马迹" [ref=e257] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/30489388/
+                    - link "犯罪现场调查 第十五季" [ref=e258] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/25884687/
+              - listitem [ref=e259]:
+                - link "迈卡·麦克尼尔 Micah McNeil":
+                  - /url: https://www.douban.com/personage/37827604/
+                - generic [ref=e260]:
+                  - link "迈卡·麦克尼尔 Micah McNeil" [ref=e262] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/37827604/
+                  - text: 演员 Actor (饰 LAPD Officer)
+                  - generic [ref=e263]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e264] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+              - listitem [ref=e265]:
+                - link "莫妮克·林赛 Monique Lindsey":
+                  - /url: https://www.douban.com/personage/37372616/
+                - generic [ref=e266]:
+                  - link "莫妮克·林赛 Monique Lindsey" [ref=e268] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/37372616/
+                  - text: 演员 Actress (饰 Sally)
+                  - generic [ref=e269]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e270] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+              - listitem [ref=e271]:
+                - link "奥利维娅·塔卡格什 Oliviia Tcargush":
+                  - /url: https://www.douban.com/personage/37827605/
+                - generic [ref=e272]:
+                  - link "奥利维娅·塔卡格什 Oliviia Tcargush" [ref=e274] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/37827605/
+                  - text: 演员 Actress (饰 Concert Goer)
+                  - generic [ref=e275]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e276] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+              - listitem [ref=e277]:
+                - link "凯蒂·凯 Katie Kay":
+                  - /url: https://www.douban.com/personage/36997534/
+                - generic [ref=e278]:
+                  - link "凯蒂·凯 Katie Kay" [ref=e280] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/36997534/
+                  - text: 演员 Actress (饰 Concert Goer)
+                  - generic [ref=e281]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e282] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+                    - link "女仆机器人起源" [ref=e283] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/36997672/
+                    - 'link "Reincarnated Love: Amy''s Revenge" [ref=e284] [cursor=pointer]':
+                      - /url: https://movie.douban.com/subject/37488591/
+              - listitem [ref=e285]:
+                - link "德斯蒂妮·麦金尼 Destiny McKinney":
+                  - /url: https://www.douban.com/personage/37134919/
+                - generic [ref=e286]:
+                  - link "德斯蒂妮·麦金尼 Destiny McKinney" [ref=e288] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/37134919/
+                  - text: 演员 Actress (饰 Concert Goer)
+                  - generic [ref=e289]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e290] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+                    - link "万圣节派对" [ref=e291] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/37131614/
+                    - link "好莱坞罗曼史" [ref=e292] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/37134776/
+              - listitem [ref=e293]:
+                - link "Amari Deity Amari Deity":
+                  - /url: https://www.douban.com/personage/36997528/
+                - generic [ref=e294]:
+                  - link "Amari Deity Amari Deity" [ref=e296] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/36997528/
+                  - text: 演员 Actor/Actress (饰 Studio Celebrity)
+                  - generic [ref=e297]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e298] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+                    - link "怪物：梅内德斯兄弟的故事" [ref=e299] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/36148971/
+              - listitem [ref=e300]:
+                - link "Claire Dewar Claire Dewar":
+                  - /url: https://www.douban.com/personage/36997529/
+                - generic [ref=e301]:
+                  - link "Claire Dewar Claire Dewar" [ref=e303] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/36997529/
+                  - text: 演员 Actor/Actress (饰 Concert Goer)
+                  - generic [ref=e304]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e305] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+                    - link "流线型人生" [ref=e306] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/34926418/
+                    - link "FCBK" [ref=e307] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/38362382/
+              - listitem [ref=e308]:
+                - link "泰勒·迪兹 Taylor Deetz":
+                  - /url: https://www.douban.com/personage/36997530/
+                - generic [ref=e309]:
+                  - link "泰勒·迪兹 Taylor Deetz" [ref=e311] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/36997530/
+                  - text: 演员 Actress (饰 Concert Goer)
+                  - generic [ref=e312]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e313] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+                    - link "辣妈辣妹2" [ref=e314] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/36403252/
+              - listitem [ref=e315]:
+                - link "Carly King Carly King":
+                  - /url: https://www.douban.com/personage/36997531/
+                - generic [ref=e316]:
+                  - link "Carly King Carly King" [ref=e318] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/36997531/
+                  - text: 演员 Actor/Actress (饰 Dancer)
+                  - generic [ref=e319]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e320] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+              - listitem [ref=e321]:
+                - link "Peter Lorme Peter Lorme":
+                  - /url: https://www.douban.com/personage/36997532/
+                - generic [ref=e322]:
+                  - link "Peter Lorme Peter Lorme" [ref=e324] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/36997532/
+                  - text: 演员 Actor/Actress (饰 Zentz Sound Engineer)
+                  - generic [ref=e325]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e326] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+              - listitem [ref=e327]:
+                - link "Allan Wayne Anderson Allan Wayne Anderson":
+                  - /url: https://www.douban.com/personage/36997533/
+                - generic [ref=e328]:
+                  - link "Allan Wayne Anderson Allan Wayne Anderson" [ref=e330] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/36997533/
+                  - text: 演员 Actor/Actress (饰 Andy Warhol)
+                  - generic [ref=e331]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e332] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+                    - link "Second Chances" [ref=e333] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/36044136/
+                    - link "8:46PM. Harriet Arrives." [ref=e334] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/37169123/
+          - generic [ref=e335]:
+            - heading "编剧 Writer" [level=2] [ref=e336]
+            - list [ref=e337]:
+              - listitem [ref=e338]:
+                - link "约翰·洛根 John Logan":
+                  - /url: https://www.douban.com/personage/27324122/
+                - generic [ref=e339]:
+                  - link "约翰·洛根 John Logan" [ref=e341] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27324122/
+                  - text: 编剧 / 编剧 Writer / Writer
+                  - generic [ref=e342]:
+                    - text: 代表作：
+                    - link "异形：契约" [ref=e343] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/11803087/
+                    - link "角斗士" [ref=e344] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1293530/
+                    - link "007：大破天幕杀机" [ref=e345] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/2363876/
+          - generic [ref=e346]:
+            - heading "制片人 Producer" [level=2] [ref=e347]
+            - list [ref=e348]:
+              - listitem [ref=e349]:
+                - link "格拉汉姆·金 Graham King":
+                  - /url: https://www.douban.com/personage/27242539/
+                - generic [ref=e350]:
+                  - link "格拉汉姆·金 Graham King" [ref=e352] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27242539/
+                  - text: 制片人 Producer
+                  - generic [ref=e353]:
+                    - text: 代表作：
+                    - link "波西米亚狂想曲" [ref=e354] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/5300054/
+                    - link "雨果" [ref=e355] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/2028677/
+                    - link "纽约黑帮" [ref=e356] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1301061/
+              - listitem [ref=e357]:
+                - link "约翰·布兰卡 John Branca":
+                  - /url: https://www.douban.com/personage/38437650/
+                - generic [ref=e358]:
+                  - link "约翰·布兰卡 John Branca" [ref=e360] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/38437650/
+                  - text: 制片人 Producer
+                  - generic [ref=e361]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e362] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+              - listitem [ref=e363]:
+                - link "约翰·麦克莱恩 John McClain":
+                  - /url: https://www.douban.com/personage/38437651/
+                - generic [ref=e364]:
+                  - link "约翰·麦克莱恩 John McClain" [ref=e366] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/38437651/
+                  - text: 制片人 Producer
+                  - generic [ref=e367]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e368] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+              - listitem [ref=e369]:
+                - link "安东尼·福奎阿 Antoine Fuqua":
+                  - /url: https://www.douban.com/personage/27219613/
+                - generic [ref=e370]:
+                  - link "安东尼·福奎阿 Antoine Fuqua" [ref=e372] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27219613/
+                  - text: 执行制片人 Executive Producer
+                  - generic [ref=e373]:
+                    - text: 代表作：
+                    - link "好家伙" [ref=e374] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1292268/
+                    - link "生死狙击" [ref=e375] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1947549/
+                    - link "伸冤人" [ref=e376] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/3012013/
+              - listitem [ref=e377]:
+                - link "大卫·B·豪斯霍尔特 David B. Householter":
+                  - /url: https://www.douban.com/personage/38437652/
+                - generic [ref=e378]:
+                  - link "大卫·B·豪斯霍尔特 David B. Householter" [ref=e380] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/38437652/
+                  - text: 执行制片人 Executive Producer
+                  - generic [ref=e381]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e382] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+              - listitem [ref=e383]:
+                - link "莉迪亚·西尔弗曼 Lydia Silverman":
+                  - /url: https://www.douban.com/personage/38437654/
+                - generic [ref=e384]:
+                  - link "莉迪亚·西尔弗曼 Lydia Silverman" [ref=e386] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/38437654/
+                  - text: 执行制片人 Executive Producer
+                  - generic [ref=e387]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e388] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+              - listitem [ref=e389]:
+                - link "普林斯·迈克尔 Prince Michael":
+                  - /url: https://www.douban.com/personage/27407166/
+                - generic [ref=e390]:
+                  - link "普林斯·迈克尔 Prince Michael" [ref=e392] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27407166/
+                  - text: 执行制片人 Executive Producer
+                  - generic [ref=e393]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e394] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+                    - link "迈克尔·杰克逊追思会" [ref=e395] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/3889623/
+                    - link "迈克尔•杰克逊大追踪" [ref=e396] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/2284594/
+              - listitem [ref=e397]:
+                - link "卡伦·兰福德 Karen Langford":
+                  - /url: https://www.douban.com/personage/38437665/
+                - generic [ref=e398]:
+                  - link "卡伦·兰福德 Karen Langford" [ref=e400] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/38437665/
+                  - text: 执行制片人 Executive Producer
+                  - generic [ref=e401]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e402] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+              - listitem [ref=e403]:
+                - link "海莉·金 Hayley King":
+                  - /url: https://www.douban.com/personage/38437666/
+                - generic [ref=e404]:
+                  - link "海莉·金 Hayley King" [ref=e406] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/38437666/
+                  - text: 执行制片人 Executive Producer
+                  - generic [ref=e407]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e408] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+              - listitem [ref=e409]:
+                - link "罗恩·伯克尔 Ron Burkle":
+                  - /url: https://www.douban.com/personage/27248353/
+                - generic [ref=e410]:
+                  - link "罗恩·伯克尔 Ron Burkle" [ref=e412] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27248353/
+                  - text: 执行制片人 Executive Producer
+                  - generic [ref=e413]:
+                    - text: 代表作：
+                    - link "塔尔萨之王 第一季" [ref=e414] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35814636/
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e415] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+                    - link "石油天王 第一季" [ref=e416] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35930321/
+              - listitem [ref=e417]:
+                - link "杰梅因·杰克逊 Jermaine Jackson":
+                  - /url: https://www.douban.com/personage/27242457/
+                - generic [ref=e418]:
+                  - link "杰梅因·杰克逊 Jermaine Jackson" [ref=e420] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27242457/
+                  - text: 执行制片人 Executive Producer
+                  - generic [ref=e421]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e422] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+                    - link "迈克尔杰克逊：30周年演唱会" [ref=e423] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/3188272/
+                    - link "迈克尔杰克逊反击片" [ref=e424] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/3837173/
+              - listitem [ref=e425]:
+                - link "蒂托·杰克逊 Tito Jackson":
+                  - /url: https://www.douban.com/personage/27230862/
+                - generic [ref=e426]:
+                  - link "蒂托·杰克逊 Tito Jackson" [ref=e428] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27230862/
+                  - text: 执行制片人 Executive Producer
+                  - generic [ref=e429]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e430] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+                    - link "迈克尔·杰克逊：偶像的一生" [ref=e431] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/6961193/
+                    - link "天下一家" [ref=e432] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/3921776/
+              - listitem [ref=e433]:
+                - link "杰基·杰克逊 Jackie Jackson":
+                  - /url: https://www.douban.com/personage/27251034/
+                - generic [ref=e434]:
+                  - link "杰基·杰克逊 Jackie Jackson" [ref=e436] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27251034/
+                  - text: 执行制片人 Executive Producer
+                  - generic [ref=e437]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e438] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+                    - link "天下一家" [ref=e439] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/3921776/
+                    - link "迈克尔杰克逊：30周年演唱会" [ref=e440] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/3188272/
+              - listitem [ref=e441]:
+                - link "马龙·杰克逊 Marlon Jackson":
+                  - /url: https://www.douban.com/personage/27241347/
+                - generic [ref=e442]:
+                  - link "马龙·杰克逊 Marlon Jackson" [ref=e444] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27241347/
+                  - text: 执行制片人 Executive Producer
+                  - generic [ref=e445]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e446] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+                    - link "大地的女儿" [ref=e447] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1297804/
+                    - link "天下一家" [ref=e448] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/3921776/
+              - listitem [ref=e449]:
+                - link "拉托亚·杰克逊 La Toya Jackson":
+                  - /url: https://www.douban.com/personage/27309382/
+                - generic [ref=e450]:
+                  - link "拉托亚·杰克逊 La Toya Jackson" [ref=e452] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27309382/
+                  - text: 执行制片人 Executive Producer
+                  - generic [ref=e453]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e454] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+                    - link "反击 第一季" [ref=e455] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/2367948/
+                    - link "天下一家" [ref=e456] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/3921776/
+              - listitem [ref=e457]:
+                - link "乔丹·舒尔 Jordan Schur":
+                  - /url: https://www.douban.com/personage/38437685/
+                - generic [ref=e458]:
+                  - link "乔丹·舒尔 Jordan Schur" [ref=e460] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/38437685/
+                  - text: 执行制片人 Executive Producer
+                  - generic [ref=e461]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e462] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+          - generic [ref=e463]:
+            - heading "音乐 Music Department" [level=2] [ref=e464]
+            - list [ref=e465]:
+              - listitem [ref=e466]:
+                - link "哈维·梅森 Harvey Mason Jr.":
+                  - /url: https://www.douban.com/personage/38437733/
+                - generic [ref=e467]:
+                  - link "哈维·梅森 Harvey Mason Jr." [ref=e469] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/38437733/
+                  - text: 音乐制作 Music Executive Producer
+                  - generic [ref=e470]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e471] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+              - listitem [ref=e472]:
+                - link "约翰·沃赫斯特 John Warhurst":
+                  - /url: https://www.douban.com/personage/27534262/
+                - generic [ref=e473]:
+                  - link "约翰·沃赫斯特 John Warhurst" [ref=e475] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27534262/
+                  - text: 音乐总监 Music Supervisor
+                  - generic [ref=e476]:
+                    - text: 代表作：
+                    - link "波西米亚狂想曲" [ref=e477] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/5300054/
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e478] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+                    - link "波西米亚狂想曲：皇后乐队的声与形" [ref=e479] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35204876/
+          - generic [ref=e480]:
+            - heading "摄影 Camera Department" [level=2] [ref=e481]
+            - list [ref=e482]:
+              - listitem [ref=e483]:
+                - link "迪昂·毕比 Dion Beebe":
+                  - /url: https://www.douban.com/personage/27506492/
+                - generic [ref=e484]:
+                  - link "迪昂·毕比 Dion Beebe" [ref=e486] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27506492/
+                  - text: 摄影 Cinematographer
+                  - generic [ref=e487]:
+                    - text: 代表作：
+                    - link "双子杀手" [ref=e488] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/3097572/
+                    - link "艺伎回忆录" [ref=e489] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1309059/
+                    - link "芝加哥" [ref=e490] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1307697/
+          - generic [ref=e491]:
+            - heading "剪辑 Editorial Department" [level=2] [ref=e492]
+            - list [ref=e493]:
+              - listitem [ref=e494]:
+                - link "哈里·尹 Harry Yoon":
+                  - /url: https://www.douban.com/personage/35350116/
+                - generic [ref=e495]:
+                  - link "哈里·尹 Harry Yoon" [ref=e497] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/35350116/
+                  - text: 剪辑 Editor
+                  - generic [ref=e498]:
+                    - text: 代表作：
+                    - link "雷霆特攻队*" [ref=e499] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35927475/
+                    - link "米纳里" [ref=e500] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/34463995/
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e501] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+              - listitem [ref=e502]:
+                - link "约翰·奥特曼 John Ottman":
+                  - /url: https://www.douban.com/personage/27219405/
+                - generic [ref=e503]:
+                  - link "约翰·奥特曼 John Ottman" [ref=e505] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27219405/
+                  - text: 剪辑 Editor
+                  - generic [ref=e506]:
+                    - text: 代表作：
+                    - link "波西米亚狂想曲" [ref=e507] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/5300054/
+                    - link "X战警：逆转未来" [ref=e508] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/10485647/
+                    - link "X战警：天启" [ref=e509] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/25786060/
+              - listitem [ref=e510]:
+                - link "康拉德·巴夫四世 Conrad Buff IV":
+                  - /url: https://www.douban.com/personage/27507860/
+                - generic [ref=e511]:
+                  - link "康拉德·巴夫四世 Conrad Buff IV" [ref=e513] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27507860/
+                  - text: 剪辑 Editor
+                  - generic [ref=e514]:
+                    - text: 代表作：
+                    - link "泰坦尼克号" [ref=e515] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1292722/
+                    - link "E.T.外星人" [ref=e516] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1294638/
+                    - link "终结者2：审判日" [ref=e517] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1291844/
+              - listitem [ref=e518]:
+                - link "汤姆·克罗斯 Tom Cross":
+                  - /url: https://www.douban.com/personage/27546418/
+                - generic [ref=e519]:
+                  - link "汤姆·克罗斯 Tom Cross" [ref=e521] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27546418/
+                  - text: 剪辑 Editor
+                  - generic [ref=e522]:
+                    - text: 代表作：
+                    - link "爱乐之城" [ref=e523] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/25934014/
+                    - link "爆裂鼓手" [ref=e524] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/25773932/
+                    - link "马戏之王" [ref=e525] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/3914513/
+          - generic [ref=e526]:
+            - heading "选角 Casting Department" [level=2] [ref=e527]
+            - list [ref=e528]:
+              - listitem [ref=e529]:
+                - link "维多利亚·托马斯 Victoria Thomas":
+                  - /url: https://www.douban.com/personage/34768795/
+                - generic [ref=e530]:
+                  - link "维多利亚·托马斯 Victoria Thomas" [ref=e532] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/34768795/
+                  - text: 选角指导 Casting Director
+                  - generic [ref=e533]:
+                    - text: 代表作：
+                    - link "好莱坞往事" [ref=e534] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/27087724/
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e535] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+                    - link "蜘蛛夫人：超感觉醒" [ref=e536] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/34846514/
+          - generic [ref=e537]:
+            - heading "美术 Art Department" [level=2] [ref=e538]
+            - list [ref=e539]:
+              - listitem [ref=e540]:
+                - link "芭芭拉·凌 Barbara Ling":
+                  - /url: https://www.douban.com/personage/34768798/
+                - generic [ref=e541]:
+                  - link "芭芭拉·凌 Barbara Ling" [ref=e543] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/34768798/
+                  - text: 艺术指导 Production Designer
+                  - generic [ref=e544]:
+                    - text: 代表作：
+                    - link "好莱坞往事" [ref=e545] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/27087724/
+                    - link "生无可恋的奥托" [ref=e546] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/27150277/
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e547] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+              - listitem [ref=e548]:
+                - link "戈登·斯托茨 Gordon Stotz":
+                  - /url: https://www.douban.com/personage/36582672/
+                - generic [ref=e549]:
+                  - link "戈登·斯托茨 Gordon Stotz" [ref=e551] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/36582672/
+                  - text: 美术指导 Art Director
+                  - generic [ref=e552]:
+                    - text: 代表作：
+                    - link "芭比" [ref=e553] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/4058939/
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e554] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+              - listitem [ref=e555]:
+                - link "埃里克·桑达尔 Eric Sundahl":
+                  - /url: https://www.douban.com/personage/27526944/
+                - generic [ref=e556]:
+                  - link "埃里克·桑达尔 Eric Sundahl" [ref=e558] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27526944/
+                  - text: 美术指导 Art Director
+                  - generic [ref=e559]:
+                    - text: 代表作：
+                    - link "星际穿越" [ref=e560] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1889243/
+                    - link "好莱坞往事" [ref=e561] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/27087724/
+                    - link "好好先生" [ref=e562] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/2147854/
+              - listitem [ref=e563]:
+                - link "艾米·威尔斯 Amy Wells":
+                  - /url: https://www.douban.com/personage/36582494/
+                - generic [ref=e564]:
+                  - link "艾米·威尔斯 Amy Wells" [ref=e566] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/36582494/
+                  - text: 布景师 Set Dresser
+                  - generic [ref=e567]:
+                    - text: 代表作：
+                    - link "单身男子" [ref=e568] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/3275168/
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e569] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+                    - link "鲁斯汀" [ref=e570] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35360555/
+          - generic [ref=e571]:
+            - heading "服装 Costume Department" [level=2] [ref=e572]
+            - list [ref=e573]:
+              - listitem [ref=e574]:
+                - link "马奇·罗杰斯 Marci Rodgers":
+                  - /url: https://www.douban.com/personage/30407043/
+                - generic [ref=e575]:
+                  - link "马奇·罗杰斯 Marci Rodgers" [ref=e577] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/30407043/
+                  - text: 服装设计 Costume Designer
+                  - generic [ref=e578]:
+                    - text: 代表作：
+                    - link "黑色党徒" [ref=e579] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/27133913/
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e580] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+                    - link "感应" [ref=e581] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/36666493/
+          - generic [ref=e582]:
+            - heading "化妆 Makeup Department" [level=2] [ref=e583]
+            - list [ref=e584]:
+              - listitem [ref=e585]:
+                - link "比尔·科尔索 Bill Corso":
+                  - /url: https://www.douban.com/personage/27509596/
+                - generic [ref=e586]:
+                  - link "比尔·科尔索 Bill Corso" [ref=e588] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27509596/
+                  - text: 化妆设计 Makeup Designer
+                  - generic [ref=e589]:
+                    - text: 代表作：
+                    - link "人工智能" [ref=e590] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1302827/
+                    - link "X战警3：背水一战" [ref=e591] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1401524/
+                    - link "死侍与金刚狼" [ref=e592] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/26957900/
+              - listitem [ref=e593]:
+                - link "霍华德·伯杰 Howard Berger":
+                  - /url: https://www.douban.com/personage/27506721/
+                - generic [ref=e594]:
+                  - link "霍华德·伯杰 Howard Berger" [ref=e596] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27506721/
+                  - text: 特效化妆师 Special Makeup Effects Artist
+                  - generic [ref=e597]:
+                    - text: 代表作：
+                    - link "低俗小说" [ref=e598] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1291832/
+                    - link "遗愿清单" [ref=e599] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1867345/
+                    - link "杀死比尔" [ref=e600] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1291580/
+              - listitem [ref=e601]:
+                - link "卡拉·法默 Carla Farmer":
+                  - /url: https://www.douban.com/personage/27511726/
+                - generic [ref=e602]:
+                  - link "卡拉·法默 Carla Farmer" [ref=e604] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27511726/
+                  - text: 发型师 Hair Artist
+                  - generic [ref=e605]:
+                    - text: 代表作：
+                    - link "惊声尖笑2" [ref=e606] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1308207/
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e607] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+                    - link "母与子" [ref=e608] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/3008671/
+              - listitem [ref=e609]:
+                - link "马克.加巴里诺 Mark Garbarino":
+                  - /url: https://www.douban.com/personage/27512771/
+                - generic [ref=e610]:
+                  - link "马克.加巴里诺 Mark Garbarino" [ref=e612] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27512771/
+                  - text: 特效化妆师 Special Makeup Effects Artist
+                  - generic [ref=e613]:
+                    - text: 代表作：
+                    - link "人工智能" [ref=e614] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1302827/
+                    - link "十月围城" [ref=e615] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/3626416/
+                    - link "投名状" [ref=e616] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1947089/
+              - listitem [ref=e617]:
+                - link "Randi Mavestrand Randi Mavestrand":
+                  - /url: https://www.douban.com/personage/30242875/
+                - generic [ref=e618]:
+                  - link "Randi Mavestrand Randi Mavestrand" [ref=e620] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/30242875/
+                  - text: 化妆 Makeup
+                  - generic [ref=e621]:
+                    - text: 代表作：
+                    - link "科洛弗悖论" [ref=e622] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/21328095/
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e623] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+              - listitem [ref=e624]:
+                - link "Bart Mixon Bart Mixon":
+                  - /url: https://www.douban.com/personage/27323213/
+                - generic [ref=e625]:
+                  - link "Bart Mixon Bart Mixon" [ref=e627] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27323213/
+                  - text: 特效化妆师 Special Makeup Effects Artist
+                  - generic [ref=e628]:
+                    - text: 代表作：
+                    - link "钢铁侠" [ref=e629] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1432146/
+                    - link "加勒比海盗2：亡灵的宝藏" [ref=e630] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1315574/
+                    - link "X战警3：背水一战" [ref=e631] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1401524/
+              - listitem [ref=e632]:
+                - link "维·尼尔 Ve Neill":
+                  - /url: https://www.douban.com/personage/27521289/
+                - generic [ref=e633]:
+                  - link "维·尼尔 Ve Neill" [ref=e635] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27521289/
+                  - text: 特效化妆师 Special Makeup Effects Artist
+                  - generic [ref=e636]:
+                    - text: 代表作：
+                    - link "剪刀手爱德华" [ref=e637] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1292370/
+                    - link "加勒比海盗" [ref=e638] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1298070/
+                    - link "人工智能" [ref=e639] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1302827/
+              - listitem [ref=e640]:
+                - link "克里斯托弗·艾伦·尼尔森 Christopher Allen Nelson":
+                  - /url: https://www.douban.com/personage/27584285/
+                - generic [ref=e641]:
+                  - link "克里斯托弗·艾伦·尼尔森 Christopher Allen Nelson" [ref=e643] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27584285/
+                  - text: 特效化妆师 Special Makeup Effects Artist
+                  - generic [ref=e644]:
+                    - text: 代表作：
+                    - link "致命ID" [ref=e645] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1297192/
+                    - link "自杀小队" [ref=e646] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/3569910/
+                    - link "一战再战" [ref=e647] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/36176155/
+              - listitem [ref=e648]:
+                - link "Dominie Till Dominie Till":
+                  - /url: https://www.douban.com/personage/27527554/
+                - generic [ref=e649]:
+                  - link "Dominie Till Dominie Till" [ref=e651] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27527554/
+                  - text: 特效化妆师 Special Makeup Effects Artist
+                  - generic [ref=e652]:
+                    - text: 代表作：
+                    - link "金刚" [ref=e653] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1309043/
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e654] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+                    - link "希尔维亚" [ref=e655] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1307503/
+          - generic [ref=e656]:
+            - heading "视觉特效 Visual Effects" [level=2] [ref=e657]
+            - list [ref=e658]:
+              - listitem [ref=e659]:
+                - link "路易斯·莫林 Louis Morin":
+                  - /url: https://www.douban.com/personage/27520794/
+                - generic [ref=e660]:
+                  - link "路易斯·莫林 Louis Morin" [ref=e662] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27520794/
+                  - text: 视觉特效监制 Visual Effects Supervisor
+                  - generic [ref=e663]:
+                    - text: 代表作：
+                    - link "断背山" [ref=e664] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1418834/
+                    - link "暖暖内含光" [ref=e665] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1308777/
+                    - link "飞行家" [ref=e666] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1309070/
+          - generic [ref=e667]:
+            - heading "动作特技 Action or Stunts" [level=2] [ref=e668]
+            - list [ref=e669]:
+              - listitem [ref=e670]:
+                - link "大卫·巴雷特 David Barrett":
+                  - /url: https://www.douban.com/personage/27506245/
+                - generic [ref=e671]:
+                  - link "大卫·巴雷特 David Barrett" [ref=e673] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27506245/
+                  - text: 特技表演者 stunt performer
+                  - generic [ref=e674]:
+                    - text: 代表作：
+                    - link "蜘蛛侠" [ref=e675] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1306612/
+                    - link "黑客帝国2：重装上阵" [ref=e676] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1304141/
+                    - link "疾速追杀3" [ref=e677] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/26909790/
+              - listitem [ref=e678]:
+                - link "布莱恩·马克莱特 Brian Machleit":
+                  - /url: https://www.douban.com/personage/27320983/
+                - generic [ref=e679]:
+                  - link "布莱恩·马克莱特 Brian Machleit" [ref=e681] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27320983/
+                  - text: 特技统筹 Covering Stunt Coordinator
+                  - generic [ref=e682]:
+                    - text: 代表作：
+                    - link "阿凡达：水之道" [ref=e683] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/4811774/
+                    - link "荒野猎人" [ref=e684] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/5327268/
+                    - link "一战再战" [ref=e685] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/36176155/
+              - listitem [ref=e686]:
+                - link "克里斯·奥哈拉 Chris O'Hara":
+                  - /url: https://www.douban.com/personage/27335488/
+                - generic [ref=e687]:
+                  - link "克里斯·奥哈拉 Chris O'Hara" [ref=e689] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/27335488/
+                  - text: 总特技统筹 supervising stunt coordinator
+                  - generic [ref=e690]:
+                    - text: 代表作：
+                    - link "毒液：致命守护者" [ref=e691] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/3168101/
+                    - link "复仇者联盟" [ref=e692] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1866479/
+                    - link "钢铁侠3" [ref=e693] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/3231742/
+              - listitem [ref=e694]:
+                - link "海顿·道尔顿 Haydn Dalton":
+                  - /url: https://www.douban.com/personage/36929333/
+                - generic [ref=e695]:
+                  - link "海顿·道尔顿 Haydn Dalton" [ref=e697] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/36929333/
+                  - text: 武师 Stunts
+                  - generic [ref=e698]:
+                    - text: 代表作：
+                    - link "加勒比海盗5：死无对证" [ref=e699] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/6311303/
+                    - link "金刚狼" [ref=e700] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/1792928/
+                    - link "环太平洋：雷霆再起" [ref=e701] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/20435622/
+              - listitem [ref=e702]:
+                - link "拉斯蒂克·波多莫夫 Rustic Bodomov":
+                  - /url: https://www.douban.com/personage/36982828/
+                - generic [ref=e703]:
+                  - link "拉斯蒂克·波多莫夫 Rustic Bodomov" [ref=e705] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/36982828/
+                  - text: 特技表演者 stunt performer
+                  - generic [ref=e706]:
+                    - text: 代表作：
+                    - link "银河护卫队3" [ref=e707] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/26258779/
+                    - link "黑豹2" [ref=e708] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/30167997/
+                    - link "死亡之雪2" [ref=e709] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/25785807/
+          - generic [ref=e710]:
+            - heading "其它 Other Crew" [level=2] [ref=e711]
+            - list [ref=e712]:
+              - listitem [ref=e713]:
+                - link "里奇·塔劳埃加 Richmond Talauega":
+                  - /url: https://www.douban.com/personage/38437734/
+                - generic [ref=e714]:
+                  - link "里奇·塔劳埃加 Richmond Talauega" [ref=e716] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/38437734/
+                  - text: 编舞 Choreography
+                  - generic [ref=e717]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e718] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+              - listitem [ref=e719]:
+                - link "安东尼·塔劳埃加 Anthony Talauega":
+                  - /url: https://www.douban.com/personage/38437735/
+                - generic [ref=e720]:
+                  - link "安东尼·塔劳埃加 Anthony Talauega" [ref=e722] [cursor=pointer]:
+                    - /url: https://www.douban.com/personage/38437735/
+                  - text: 编舞 Choreography
+                  - generic [ref=e723]:
+                    - text: 代表作：
+                    - link "迈克尔·杰克逊：巨星之路" [ref=e724] [cursor=pointer]:
+                      - /url: https://movie.douban.com/subject/35948919/
+        - generic [ref=e725]:
+          - paragraph [ref=e726]:
+            - text: ">"
+            - link "去 迈克尔·杰克逊：巨星之路 的页面" [ref=e727] [cursor=pointer]:
+              - /url: https://movie.douban.com/subject/35948919/
+          - generic [ref=e729]:
+            - link "迈克尔·杰克逊：巨星之路 Michael" [ref=e731] [cursor=pointer]:
+              - /url: https://movie.douban.com/subject/35948919/
+              - img "迈克尔·杰克逊：巨星之路 Michael" [ref=e732]
+            - generic [ref=e733]:
+              - paragraph [ref=e734]:
+                - text: "导演:"
+                - link "安东尼·福奎阿" [ref=e735] [cursor=pointer]:
+                  - /url: https://www.douban.com/personage/27219613/
+              - paragraph [ref=e736]:
+                - text: "主演:"
+                - link "贾法尔·杰克逊" [ref=e737] [cursor=pointer]:
+                  - /url: https://www.douban.com/personage/36224177/
+                - text: /
+                - link "尼娅·朗" [ref=e738] [cursor=pointer]:
+                  - /url: https://www.douban.com/personage/27246324/
+                - text: /
+                - link "朱利亚诺·瓦尔迪" [ref=e739] [cursor=pointer]:
+                  - /url: https://www.douban.com/personage/36742237/
+                - text: /
+                - link "科尔曼·多明戈" [ref=e740] [cursor=pointer]:
+                  - /url: https://www.douban.com/personage/27294506/
+                - text: /
+                - link "迈尔斯·特勒" [ref=e741] [cursor=pointer]:
+                  - /url: https://www.douban.com/personage/27541295/
+                - text: /
+                - link "凯林·多瑞尔·琼斯" [ref=e742] [cursor=pointer]:
+                  - /url: https://www.douban.com/personage/27578963/
+                - text: /
+                - link "劳拉·哈里尔" [ref=e743] [cursor=pointer]:
+                  - /url: https://www.douban.com/personage/27550236/
+                - text: /
+                - link "杰西卡·苏拉" [ref=e744] [cursor=pointer]:
+                  - /url: https://www.douban.com/personage/27569431/
+                - text: /
+                - link "麦克·梅尔斯" [ref=e745] [cursor=pointer]:
+                  - /url: https://www.douban.com/personage/27223623/
+                - text: /
+                - link "肯德里克·桑普森" [ref=e746] [cursor=pointer]:
+                  - /url: https://www.douban.com/personage/27555875/
+              - paragraph [ref=e747]: "类型: 剧情, 传记, 音乐"
+              - paragraph [ref=e748]: "地区: 美国"
+              - paragraph [ref=e749]: "片长: 128分钟"
+              - paragraph [ref=e750]: "上映: 2026-04-22(中国香港), 2026-04-24(美国/中国大陆)"
+              - link "预告片" [ref=e751] [cursor=pointer]:
+                - /url: https://movie.douban.com/trailer/324247/#content
+    - generic [ref=e752]:
+      - generic [ref=e753]: © 2005－2026 douban.com, all rights reserved 北京豆网科技有限公司
+      - generic [ref=e754]:
+        - link "关于豆瓣" [ref=e755] [cursor=pointer]:
+          - /url: https://www.douban.com/about
+        - text: ·
+        - link "在豆瓣工作" [ref=e756] [cursor=pointer]:
+          - /url: https://www.douban.com/jobs
+        - text: ·
+        - link "联系我们" [ref=e757] [cursor=pointer]:
+          - /url: https://www.douban.com/about?topic=contactus
+        - text: ·
+        - link "法律声明" [ref=e758] [cursor=pointer]:
+          - /url: https://www.douban.com/about/legal
+        - text: ·
+        - link "帮助中心" [ref=e759] [cursor=pointer]:
+          - /url: https://help.douban.com/?app=movie
+        - text: ·
+        - link "移动应用" [ref=e760] [cursor=pointer]:
+          - /url: https://www.douban.com/doubanapp/

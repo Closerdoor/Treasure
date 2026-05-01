@@ -1,0 +1,420 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - list [ref=e5]:
+      - listitem [ref=e6]:
+        - link "豆邮" [ref=e7] [cursor=pointer]:
+          - /url: https://www.douban.com/doumail/
+      - listitem [ref=e8]:
+        - link "忽而今夏的账号" [ref=e9] [cursor=pointer]:
+          - /url: https://accounts.douban.com/passport/setting/
+          - generic [ref=e10]: 忽而今夏的账号
+    - link "提醒" [ref=e13] [cursor=pointer]:
+      - /url: https://www.douban.com/notification/
+    - link "下载豆瓣客户端" [ref=e15] [cursor=pointer]:
+      - /url: https://www.douban.com/doubanapp/app?channel=top-nav
+    - list [ref=e17]:
+      - listitem [ref=e18]:
+        - link "豆瓣" [ref=e19] [cursor=pointer]:
+          - /url: https://www.douban.com
+      - listitem [ref=e20]:
+        - link "读书" [ref=e21] [cursor=pointer]:
+          - /url: https://book.douban.com
+      - listitem [ref=e22]:
+        - link "电影" [ref=e23] [cursor=pointer]:
+          - /url: https://movie.douban.com
+      - listitem [ref=e24]:
+        - link "音乐" [ref=e25] [cursor=pointer]:
+          - /url: https://music.douban.com
+      - listitem [ref=e26]:
+        - link "播客" [ref=e27] [cursor=pointer]:
+          - /url: https://www.douban.com/podcast/
+      - listitem [ref=e28]:
+        - link "同城" [ref=e29] [cursor=pointer]:
+          - /url: https://www.douban.com/location
+      - listitem [ref=e30]:
+        - link "小组" [ref=e31] [cursor=pointer]:
+          - /url: https://www.douban.com/group
+      - listitem [ref=e32]:
+        - link "阅读" [ref=e33] [cursor=pointer]:
+          - /url: https://read.douban.com/?dcs=top-nav&dcm=douban
+      - listitem [ref=e34]:
+        - link "FM" [ref=e35] [cursor=pointer]:
+          - /url: https://fm.douban.com/?from_=shire_top_nav
+      - listitem [ref=e36]:
+        - link "时间" [ref=e37] [cursor=pointer]:
+          - /url: https://time.douban.com/?dt_time_source=douban-web_top_nav
+      - listitem [ref=e38]:
+        - link "豆品" [ref=e39] [cursor=pointer]:
+          - /url: https://market.douban.com/?utm_campaign=douban_top_nav&utm_source=douban&utm_medium=pc_web
+  - generic [ref=e40]:
+    - generic [ref=e42]:
+      - link "豆瓣电影" [ref=e44] [cursor=pointer]:
+        - /url: https://movie.douban.com
+      - group "搜索：" [ref=e47]:
+        - textbox [ref=e49]:
+          - /placeholder: 搜索电影、电视剧、综艺、影人
+        - button "搜索" [ref=e51] [cursor=pointer]
+    - generic [ref=e52]:
+      - list [ref=e54]:
+        - listitem [ref=e55]:
+          - link "我看" [ref=e56] [cursor=pointer]:
+            - /url: https://movie.douban.com/mine
+        - listitem [ref=e57]:
+          - link "影讯&购票" [ref=e58] [cursor=pointer]:
+            - /url: https://movie.douban.com/cinema/nowplaying/
+        - listitem [ref=e59]:
+          - link "选电影" [ref=e60] [cursor=pointer]:
+            - /url: https://movie.douban.com/explore
+        - listitem [ref=e61]:
+          - link "选剧集" [ref=e62] [cursor=pointer]:
+            - /url: https://movie.douban.com/tv/
+        - listitem [ref=e63]:
+          - link "排行榜" [ref=e64] [cursor=pointer]:
+            - /url: https://movie.douban.com/chart
+        - listitem [ref=e65]:
+          - link "影评" [ref=e66] [cursor=pointer]:
+            - /url: https://movie.douban.com/review/best/
+        - listitem [ref=e67]:
+          - link "2025年度榜单" [ref=e68] [cursor=pointer]:
+            - /url: https://movie.douban.com/annual/2025/?fullscreen=1&dt_from=movie_navigation
+        - listitem [ref=e69]:
+          - link "2025年度报告" [ref=e70] [cursor=pointer]:
+            - /url: https://c9.douban.com/app/standbyme-2025/?autorotate=false&fullscreen=true&hidenav=true&monitor_screenshot=true&df_from=web_navigation
+      - link [ref=e71] [cursor=pointer]:
+        - /url: https://movie.douban.com/annual/2025/?fullscreen=1&source=movie_navigation_logo
+  - generic [ref=e72]:
+    - generic [ref=e73]:
+      - heading "迈克尔·杰克逊：巨星之路 Michael的海报" [level=1] [ref=e74]
+      - generic [ref=e75]:
+        - generic [ref=e76]:
+          - generic [ref=e77]:
+            - text: 按喜欢排序 ·
+            - link "按尺寸排序" [ref=e78] [cursor=pointer]:
+              - /url: https://movie.douban.com/subject/35948919/photos?type=R&start=0&sortby=size&size=a&subtype=a&appeared_personage_ids=[]
+            - text: ·
+            - link "按时间排序" [ref=e79] [cursor=pointer]:
+              - /url: https://movie.douban.com/subject/35948919/photos?type=R&start=0&sortby=time&size=a&subtype=a&appeared_personage_ids=[]
+          - list [ref=e80]:
+            - listitem [ref=e81]:
+              - link [ref=e83] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/2931063628/
+                - img [ref=e84]
+              - generic [ref=e85]:
+                - text: 正式海报 中国大陆
+                - link "28回应" [ref=e86] [cursor=pointer]:
+                  - /url: https://movie.douban.com/photos/photo/2931063628/#comments
+            - listitem [ref=e87]:
+              - link [ref=e89] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/2926889884/
+                - img [ref=e90]
+              - generic [ref=e91]:
+                - text: 正式海报 美国
+                - link "7回应" [ref=e92] [cursor=pointer]:
+                  - /url: https://movie.douban.com/photos/photo/2926889884/#comments
+            - listitem [ref=e93]:
+              - link [ref=e95] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/2929524744/
+                - img [ref=e96]
+              - generic [ref=e97]: 正式海报 美国
+            - listitem [ref=e98]:
+              - link [ref=e100] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/2926923489/
+                - img [ref=e101]
+              - generic [ref=e102]: 正式海报
+            - listitem [ref=e103]:
+              - link [ref=e105] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/2930648993/
+                - img [ref=e106]
+              - generic [ref=e107]: 正式海报 英国
+            - listitem [ref=e108]:
+              - generic [ref=e109]:
+                - link:
+                  - /url: https://movie.douban.com/photos/photo/2929502591/
+                  - img
+              - generic [ref=e110]: 正式海报 美国
+            - listitem [ref=e111]:
+              - link [ref=e113] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/2931259362/
+                - img [ref=e114]
+              - generic [ref=e115]: 正式海报 中国大陆
+            - listitem [ref=e116]:
+              - link [ref=e118] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/2930648998/
+                - img [ref=e119]
+              - generic [ref=e120]: 正式海报 英国
+            - listitem [ref=e121]:
+              - link [ref=e123] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/2930648997/
+                - img [ref=e124]
+              - generic [ref=e125]: 正式海报 英国
+            - listitem [ref=e126]:
+              - link [ref=e128] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/2931052353/
+                - img [ref=e129]
+              - generic [ref=e130]: 正式海报 美国
+            - listitem [ref=e131]:
+              - link [ref=e133] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/2930648994/
+                - img [ref=e134]
+              - generic [ref=e135]: 正式海报 西班牙
+            - listitem [ref=e136]:
+              - link [ref=e138] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/2931063629/
+                - img [ref=e139]
+              - generic [ref=e140]:
+                - text: 正式海报 中国大陆
+                - link "1回应" [ref=e141] [cursor=pointer]:
+                  - /url: https://movie.douban.com/photos/photo/2931063629/#comments
+            - listitem [ref=e142]:
+              - generic [ref=e143]:
+                - link:
+                  - /url: https://movie.douban.com/photos/photo/2929538741/
+                  - img
+              - generic [ref=e144]: 正式海报 中国香港
+            - listitem [ref=e145]:
+              - link [ref=e147] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/2931063624/
+                - img [ref=e148]
+              - generic [ref=e149]:
+                - text: 正式海报 中国大陆
+                - link "1回应" [ref=e150] [cursor=pointer]:
+                  - /url: https://movie.douban.com/photos/photo/2931063624/#comments
+            - listitem [ref=e151]:
+              - link [ref=e153] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/2931063622/
+                - img [ref=e154]
+              - generic [ref=e155]:
+                - text: 正式海报 中国大陆
+                - link "1回应" [ref=e156] [cursor=pointer]:
+                  - /url: https://movie.douban.com/photos/photo/2931063622/#comments
+            - listitem [ref=e157]:
+              - link [ref=e159] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/2931052352/
+                - img [ref=e160]
+              - generic [ref=e161]: 正式海报 美国
+            - listitem [ref=e162]:
+              - generic [ref=e163]:
+                - link:
+                  - /url: https://movie.douban.com/photos/photo/2930433221/
+                  - img
+              - generic [ref=e164]: 正式海报 日本
+            - listitem [ref=e165]:
+              - link [ref=e167] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/2929525113/
+                - img [ref=e168]
+              - generic [ref=e169]: 正式海报 韩国
+            - listitem [ref=e170]:
+              - generic [ref=e171]:
+                - link:
+                  - /url: https://movie.douban.com/photos/photo/2932012481/
+                  - img
+              - generic [ref=e172]: 正式海报 日本
+            - listitem [ref=e173]:
+              - link [ref=e175] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/2932012480/
+                - img [ref=e176]
+              - generic [ref=e177]: 正式海报 日本
+            - listitem [ref=e178]:
+              - link [ref=e180] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/2932012477/
+                - img [ref=e181]
+              - generic [ref=e182]: 正式海报 日本
+            - listitem [ref=e183]:
+              - link [ref=e185] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/2932012476/
+                - img [ref=e186]
+              - generic [ref=e187]: 正式海报 日本
+            - listitem [ref=e188]:
+              - generic [ref=e189]:
+                - link:
+                  - /url: https://movie.douban.com/photos/photo/2932012391/
+                  - img
+              - generic [ref=e190]: 正式海报 韩国
+            - listitem [ref=e191]:
+              - link [ref=e193] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/2932012390/
+                - img [ref=e194]
+              - generic [ref=e195]: 正式海报 韩国
+            - listitem [ref=e196]:
+              - link [ref=e198] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/2932012389/
+                - img [ref=e199]
+              - generic [ref=e200]: 正式海报 韩国
+            - listitem [ref=e201]:
+              - link [ref=e203] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/2932012388/
+                - img [ref=e204]
+              - generic [ref=e205]: 正式海报 韩国
+            - listitem [ref=e206]:
+              - link [ref=e208] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/2931611568/
+                - img [ref=e209]
+              - generic [ref=e210]: 正式海报 中国大陆
+            - listitem [ref=e211]:
+              - link [ref=e213] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/2931486562/
+                - img [ref=e214]
+              - generic [ref=e215]: 正式海报 中国大陆
+            - listitem [ref=e216]:
+              - generic [ref=e217]:
+                - link:
+                  - /url: https://movie.douban.com/photos/photo/2931486561/
+                  - img
+              - generic [ref=e218]: 正式海报 中国大陆
+            - listitem [ref=e219]:
+              - link [ref=e221] [cursor=pointer]:
+                - /url: https://movie.douban.com/photos/photo/2931434848/
+                - img [ref=e222]
+              - generic [ref=e223]: 正式海报 日本
+          - generic [ref=e224]:
+            - text: <前页 1
+            - link "2" [ref=e225] [cursor=pointer]:
+              - /url: https://movie.douban.com/subject/35948919/photos?type=R&start=30&sortby=like&size=a&subtype=a&appeared_personage_ids=
+            - link "3" [ref=e226] [cursor=pointer]:
+              - /url: https://movie.douban.com/subject/35948919/photos?type=R&start=60&sortby=like&size=a&subtype=a&appeared_personage_ids=
+            - link "后页>" [ref=e228] [cursor=pointer]:
+              - /url: https://movie.douban.com/subject/35948919/photos?type=R&start=30&sortby=like&size=a&subtype=a&appeared_personage_ids=
+            - text: (共79张)
+        - generic [ref=e229]:
+          - link "+ 上传剧照&海报&壁纸" [ref=e230] [cursor=pointer]:
+            - /url: https://movie.douban.com/subject/35948919/mupload
+          - paragraph [ref=e231]:
+            - text: ">"
+            - link "全部图片" [ref=e232] [cursor=pointer]:
+              - /url: https://movie.douban.com/subject/35948919/all_photos
+          - list [ref=e234]:
+            - listitem [ref=e235]:
+              - link "剧照 (215)" [ref=e236] [cursor=pointer]:
+                - /url: https://movie.douban.com/subject/35948919/photos?type=S&start=0&sortby=like&size=a&subtype=a&appeared_personage_ids=
+            - listitem [ref=e237]
+            - listitem [ref=e238]:
+              - generic [ref=e239]: 海报 (79)
+            - list [ref=e240]:
+              - listitem [ref=e241]:
+                - link "正式海报 (36)" [ref=e242] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/35948919/photos?type=R&start=0&sortby=like&size=a&subtype=o&appeared_personage_ids=
+              - listitem [ref=e243]:
+                - link "预告海报 (14)" [ref=e244] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/35948919/photos?type=R&start=0&sortby=like&size=a&subtype=p&appeared_personage_ids=
+              - listitem [ref=e245]:
+                - link "其他海报 (29)" [ref=e246] [cursor=pointer]:
+                  - /url: https://movie.douban.com/subject/35948919/photos?type=R&start=0&sortby=like&size=a&subtype=t&appeared_personage_ids=
+            - listitem [ref=e247]:
+              - link "壁纸 (1)" [ref=e248] [cursor=pointer]:
+                - /url: https://movie.douban.com/subject/35948919/photos?type=W&start=0&sortby=like&size=a&subtype=a&appeared_personage_ids=
+          - paragraph [ref=e250]:
+            - text: ">"
+            - link "去 迈克尔·杰克逊：巨星之路 的页面" [ref=e251] [cursor=pointer]:
+              - /url: https://movie.douban.com/subject/35948919/
+          - generic [ref=e253]:
+            - iframe [ref=e254]:
+              - generic [active] [ref=f8e1]:
+                - generic [ref=f8e2]:
+                  - link [ref=f8e3] [cursor=pointer]:
+                    - /url: https://erebor.douban.com/redirect/?action=&ad=268502&ad_type=7&al=3&bid=kCvuoRbBcWc&brand=&chicken=5951e06b554deac4c19272a786cf7aa9&creative=unknown_300x100&crtr=3%3A%2Fsubject%2F35948919%2Fphotos%3Ftype%3DR&device=0&disable_creative=false&disable_third=false&high_value=false&hn=nob65&imp_type=2&is_cache=false&is_cmp=false&is_core=false&is_ht=false&is_short=false&item_type=COMPLEMENT&mark=&model=&net=&os=52&osv=NT+10.0&p=0&posid=&priority=2&region=b3132af5f1fe70b5&sig=74066c865f52bdabf668def84faefbaaee40572ac41782d2f4446577ba82214f&sigt=hmac&t_mode=&target=aHR0cHM6Ly9zaGlqaS5kb3ViYW4uY29tL2RldGFpbC8xODA5Mzcv&ts=__TIMESTAMP__&ts_ms=__TIMESTAMP_MS__&uid=82200190&unit=dale_movie_subject_photos_middle_mini&vendor=
+                  - generic [ref=f8e4]:
+                    - paragraph [ref=f8e5]:
+                      - link "豆瓣豆品 | 作家系列金属中性笔" [ref=f8e6] [cursor=pointer]:
+                        - /url: https://erebor.douban.com/redirect/?action=&ad=268502&ad_type=7&al=3&bid=kCvuoRbBcWc&brand=&chicken=5951e06b554deac4c19272a786cf7aa9&creative=unknown_300x100&crtr=3%3A%2Fsubject%2F35948919%2Fphotos%3Ftype%3DR&device=0&disable_creative=false&disable_third=false&high_value=false&hn=nob65&imp_type=2&is_cache=false&is_cmp=false&is_core=false&is_ht=false&is_short=false&item_type=COMPLEMENT&mark=&model=&net=&os=52&osv=NT+10.0&p=0&posid=&priority=2&region=b3132af5f1fe70b5&sig=74066c865f52bdabf668def84faefbaaee40572ac41782d2f4446577ba82214f&sigt=hmac&t_mode=&target=aHR0cHM6Ly9zaGlqaS5kb3ViYW4uY29tL2RldGFpbC8xODA5Mzcv&ts=__TIMESTAMP__&ts_ms=__TIMESTAMP_MS__&uid=82200190&unit=dale_movie_subject_photos_middle_mini&vendor=
+                    - paragraph [ref=f8e7]: 豆瓣豆品
+                - img
+            - generic [ref=e255]: 广告
+          - heading "最新回应 · · · · · ·" [level=2] [ref=e256]
+          - list [ref=e257]:
+            - listitem [ref=e258]:
+              - link [ref=e259] [cursor=pointer]:
+                - /url: https://www.douban.com/people/3386887/
+                - img [ref=e260]
+            - listitem [ref=e261]:
+              - 'link "我是鱼 : 我觉得还原度已经很好了 只是短了点" [ref=e262] [cursor=pointer]':
+                - /url: https://movie.douban.com/photos/photo/2931063628/#c-160742648
+              - text: 04-30 11:50
+            - listitem [ref=e263]:
+              - link [ref=e264] [cursor=pointer]:
+                - /url: https://www.douban.com/people/dr.dust/
+                - img [ref=e265]
+            - listitem [ref=e266]:
+              - 'link "dr.dust : 高了…" [ref=e267] [cursor=pointer]':
+                - /url: https://movie.douban.com/photos/photo/2931063628/#c-160741761
+              - text: 04-29 17:02
+            - listitem
+            - listitem [ref=e268]:
+              - 'link "dr.dust : 达不到… 😂" [ref=e269] [cursor=pointer]':
+                - /url: https://movie.douban.com/photos/photo/2926889884/#c-160741759
+              - text: 04-29 17:01
+            - listitem [ref=e270]:
+              - link [ref=e271] [cursor=pointer]:
+                - /url: https://www.douban.com/people/190599371/
+                - img [ref=e272]
+            - listitem [ref=e273]:
+              - 'link "your eyes : 这片能有7.5 都是给的情怀分吧，大家还是对外国电影太宽容了" [ref=e274] [cursor=pointer]':
+                - /url: https://movie.douban.com/photos/photo/2931063628/#c-160740713
+              - text: 04-28 18:07
+            - listitem [ref=e275]:
+              - link [ref=e276] [cursor=pointer]:
+                - /url: https://www.douban.com/people/undes/
+                - img [ref=e277]
+            - listitem [ref=e278]:
+              - 'link "Art Nouveau : 米高积逊？！台湾还是香港的？！😅😅😅" [ref=e279] [cursor=pointer]':
+                - /url: https://movie.douban.com/photos/photo/2926997993/#c-160740221
+              - text: 04-28 08:26
+            - listitem [ref=e280]:
+              - link [ref=e281] [cursor=pointer]:
+                - /url: https://www.douban.com/people/270999361/
+                - img [ref=e282]
+            - listitem [ref=e283]:
+              - 'link "乌兰图雅🌹 : 7.5" [ref=e284] [cursor=pointer]':
+                - /url: https://movie.douban.com/photos/photo/2931063628/#c-160739275
+              - text: 04-27 12:19
+            - listitem [ref=e285]:
+              - link [ref=e286] [cursor=pointer]:
+                - /url: https://www.douban.com/people/263095069/
+                - img [ref=e287]
+            - listitem [ref=e288]:
+              - 'link "𝒥·𝒦ℒℯℴ𝓃 : 差5分就8.0了" [ref=e289] [cursor=pointer]':
+                - /url: https://movie.douban.com/photos/photo/2931063628/#c-160739051
+              - text: 04-27 07:24
+            - listitem [ref=e290]:
+              - link [ref=e291] [cursor=pointer]:
+                - /url: https://www.douban.com/people/241118817/
+                - img [ref=e292]
+            - listitem [ref=e293]:
+              - 'link "金雨JY : 7.5" [ref=e294] [cursor=pointer]':
+                - /url: https://movie.douban.com/photos/photo/2931063628/#c-160738990
+              - text: 04-27 03:26
+            - listitem [ref=e295]:
+              - link [ref=e296] [cursor=pointer]:
+                - /url: https://www.douban.com/people/232671914/
+                - img [ref=e297]
+            - listitem [ref=e298]:
+              - 'link "流浪地球 : 7.5" [ref=e299] [cursor=pointer]':
+                - /url: https://movie.douban.com/photos/photo/2931063628/#c-160738676
+              - text: 04-26 22:33
+            - listitem [ref=e300]:
+              - link:
+                - /url: https://www.douban.com/people/289570523/
+                - img
+            - listitem [ref=e301]:
+              - 'link "豆友vxGjzvauJQ : 7.5" [ref=e302] [cursor=pointer]':
+                - /url: https://movie.douban.com/photos/photo/2931063628/#c-160738672
+              - text: 04-26 22:32
+    - generic [ref=e303]:
+      - generic [ref=e304]: © 2005－2026 douban.com, all rights reserved 北京豆网科技有限公司
+      - generic [ref=e305]:
+        - link "关于豆瓣" [ref=e306] [cursor=pointer]:
+          - /url: https://www.douban.com/about
+        - text: ·
+        - link "在豆瓣工作" [ref=e307] [cursor=pointer]:
+          - /url: https://www.douban.com/jobs
+        - text: ·
+        - link "联系我们" [ref=e308] [cursor=pointer]:
+          - /url: https://www.douban.com/about?topic=contactus
+        - text: ·
+        - link "法律声明" [ref=e309] [cursor=pointer]:
+          - /url: https://www.douban.com/about/legal
+        - text: ·
+        - link "帮助中心" [ref=e310] [cursor=pointer]:
+          - /url: https://help.douban.com/?app=movie
+        - text: ·
+        - link "移动应用" [ref=e311] [cursor=pointer]:
+          - /url: https://www.douban.com/doubanapp/
