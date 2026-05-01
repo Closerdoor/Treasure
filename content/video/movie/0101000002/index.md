@@ -174,13 +174,9 @@
 
 > 所有图片位于 `images/` 目录下，共 29 张（12.4 MB）
 
-### 海报（已下载11张，豆瓣共79张）
+### 海报（补充海报已下载10张，豆瓣共79张）
 
 <div style="display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0;">
-
-<div style="width: 160px;">
-<img src="images/poster-main.jpg" width="160" style="border-radius: 4px;"><br>
-</div>
 
 <div style="width: 160px;">
 <img src="images/poster-01-cn.jpg" width="160" style="border-radius: 4px;"><br>

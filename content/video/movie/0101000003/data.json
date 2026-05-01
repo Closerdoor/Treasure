@@ -228,7 +228,7 @@
     ]
   },
   "similar": [
-    { "title": "肖申克的救赎", "year": 1994, "rating": 9.7 },
+    { "id": "0101000001", "title": "肖申克的救赎", "year": 1994, "rating": 9.7 },
     { "title": "这个杀手不太冷", "year": 1994, "rating": 9.4 },
     { "title": "美丽人生", "year": 1997, "rating": 9.5 },
     { "title": "泰坦尼克号", "year": 1997, "rating": 9.5 },

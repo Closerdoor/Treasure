@@ -195,7 +195,7 @@
     ]
   },
   "similar": [
-    { "title": "阿甘正传", "year": 1994, "rating": 9.5 },
+    { "id": "0101000003", "title": "阿甘正传", "year": 1994, "rating": 9.5 },
     { "title": "楚门的世界", "year": 1998, "rating": 9.4 },
     { "title": "当幸福来敲门", "year": 2006, "rating": 9.1 },
     { "title": "活着", "year": 1994, "rating": 9.3 },

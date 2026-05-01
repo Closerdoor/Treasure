@@ -433,6 +433,12 @@
 | `images.stills[]` | 画廊展示（200px宽） |
 | `images.stillsTotal` | 源站剧照总量说明（不等于本地下载数量） |
 
+### 壁纸画廊
+
+| data.json 字段 | 映射规则 |
+|----------------|----------|
+| `images.wallpapers[]` | 画廊展示（如有数据则展示） |
+
 ## 音乐区映射（新增）
 
 ```markdown
@@ -506,6 +512,7 @@
 
 | data.json 字段 | 映射规则 |
 |----------------|----------|
+| `similar[].id` | 如存在则作为站内详情页链接目标 |
 | `similar[].title` | 表格列 |
 | `similar[].year` | 表格列 |
 | `similar[].rating` | 表格列 |

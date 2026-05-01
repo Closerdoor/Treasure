@@ -183,7 +183,7 @@
 
 > 所有图片位于 `images/` 目录下
 
-### 海报（已下载11张，豆瓣共149张）
+### 海报（补充海报已下载10张，豆瓣共149张）
 
 <div style="display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0;">
 
@@ -225,11 +225,6 @@
 
 <div style="width: 160px;">
 <img src="images/poster-10.png" width="160" style="border-radius: 4px;"><br>
-</div>
-
-<div style="width: 160px;">
-<img src="images/poster-main.jpg" width="160" style="border-radius: 4px;"><br>
-<small>OMDb</small>
 </div>
 
 </div>

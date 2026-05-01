@@ -91,7 +91,7 @@
 | `images.poster` | 豆瓣 > OMDb | 主海报（豆瓣优先，禁止使用OMDb小图） |
 | `images.posters` | 豆瓣 > IMDb | 补充海报列表，不包含 `images.poster` |
 | `images.stills` | 豆瓣 > IMDb | 剧照列表 |
-| `images.wallpapers` | 豆瓣 > IMDb | 壁纸列表 |
+| `images.wallpapers` | 豆瓣 > IMDb | 壁纸列表，允许为空 |
 | `videos` | 豆瓣 > IMDb | 预告片列表 |
 | `soundtrack` | 百度百科 > 豆瓣 | 原声带信息（百度百科最完整） |
 
