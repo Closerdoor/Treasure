@@ -279,6 +279,13 @@
       "crawledAt": "2026-05-01T19:00:00Z",
       "note": "TMDB backdrops，共39张"
     },
+    "stillsTotal": {
+      "value": 39,
+      "source": "tmdb",
+      "sourceUrl": "https://www.themoviedb.org/movie/13/images/backdrops",
+      "crawledAt": "2026-05-01T19:00:00Z",
+      "note": "源站可获取剧照总量，不等于本地已下载文件数量"
+    },
     "avatars": {
       "value": [
         "avatar-robert-zemeckis.jpg",

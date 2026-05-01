@@ -647,6 +647,7 @@ node crawlers/omdb.js --id tt11378946 --output raw-omdb-update.json
 - `images.poster` 永远表示主海报
 - `images.posters` 表示补充海报列表，后续录入时不应再重复包含主海报
 - `images.postersTotal` 表示补充海报总数，不包含主海报本身
+- `images.stillsTotal` 表示源站可获取剧照总量，不等于本地已下载剧照数量
 - `links.*` 缺失时统一使用 `null`
 - `soundtrack.name` 表示原声带专辑名
 - `soundtrack.tracks[]` 中曲目名统一使用 `name`

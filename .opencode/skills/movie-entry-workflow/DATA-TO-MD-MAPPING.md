@@ -431,7 +431,7 @@
 | data.json 字段 | 映射规则 |
 |----------------|----------|
 | `images.stills[]` | 画廊展示（200px宽） |
-| `images.stillsTotal` | 注释说明 |
+| `images.stillsTotal` | 源站剧照总量说明（不等于本地下载数量） |
 
 ## 音乐区映射（新增）
 

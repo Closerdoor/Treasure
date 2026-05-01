@@ -285,7 +285,6 @@
     },
     "posters": {
       "value": [
-        "poster-main.jpg",
         "poster-01-cn.jpg",
         "poster-03.jpg",
         "poster-04.jpg",
@@ -301,7 +300,7 @@
       "sourceUrl": "https://movie.douban.com/subject/35948919/photos?type=R",
       "crawledAt": "2026-05-01T16:04:00Z",
       "crawlerScript": "playwright-download",
-      "note": "豆瓣海报共79张，下载前11张"
+      "note": "豆瓣海报共79张，下载前10张（不含主海报）"
     },
     "postersTotal": {
       "value": 79,
@@ -332,7 +331,8 @@
       "value": 215,
       "source": "douban",
       "sourceUrl": "https://movie.douban.com/subject/35948919/photos?type=S",
-      "crawledAt": "2026-05-01T16:04:00Z"
+      "crawledAt": "2026-05-01T16:04:00Z",
+      "note": "源站可获取剧照总量，不等于本地已下载文件数量"
     }
   },
   "links": {
