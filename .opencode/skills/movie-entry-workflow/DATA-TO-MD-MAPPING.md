@@ -454,7 +454,7 @@
 
 | data.json 字段 | 映射规则 |
 |----------------|----------|
-| `soundtrack.title` | 专辑名称 |
+| `soundtrack.name` | 专辑名称 |
 | `soundtrack.composer` | 作曲 |
 | `soundtrack.year` | 发行日期 |
 | `soundtrack.tracks[].name` | 曲名 |
@@ -465,7 +465,7 @@
 ```json
 {
   "soundtrack": {
-    "title": "Michael: Songs From The Motion Picture",
+    "name": "Michael: Songs From The Motion Picture",
     "composer": "迈克尔·杰克逊",
     "year": 2026,
     "tracks": [

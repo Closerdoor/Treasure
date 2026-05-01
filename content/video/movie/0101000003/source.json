@@ -212,7 +212,7 @@
   },
   "soundtrack": {
     "value": {
-      "title": "Forrest Gump: The Soundtrack",
+      "name": "Forrest Gump: The Soundtrack",
       "composer": "亚伦·史维斯查",
       "tracks": 32
     },
@@ -296,7 +296,8 @@
   "links": {
     "value": {
       "douban": "https://movie.douban.com/subject/1292720/",
-      "imdb": "https://www.imdb.com/title/tt0109830/"
+      "imdb": "https://www.imdb.com/title/tt0109830/",
+      "tmdb": null
     },
     "source": "merged",
     "sources": [

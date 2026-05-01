@@ -101,7 +101,7 @@
 |------|--------|------|
 | `links.douban` | 豆瓣 | 豆瓣电影链接 |
 | `links.imdb` | 豆瓣 > IMDb | IMDb 链接 |
-| `links.tmdb` | IMDb > OMDb | TMDB 链接 |
+| `links.tmdb` | IMDb > OMDb | TMDB 链接；缺失时统一写 `null` |
 
 ### 系统字段
 

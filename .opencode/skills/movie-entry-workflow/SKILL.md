@@ -619,16 +619,36 @@ node crawlers/omdb.js --id tt11378946 --output raw-omdb-update.json
     "stills": [...],
     "wallpapers": [...]
   },
-  "soundtrack": {...},
+  "soundtrack": {
+    "name": "The Shawshank Redemption (Original Motion Picture Soundtrack)",
+    "composer": "托马斯·纽曼",
+    "composerEn": "Thomas Newman",
+    "year": 1994,
+    "tracks": [
+      { "index": 1, "name": "Introduction", "duration": "0:04" }
+    ]
+  },
   "similar": [...],
   "reviews": [...],
-  "links": {...},
+  "links": {
+    "douban": "https://movie.douban.com/subject/1292052/",
+    "imdb": "https://www.imdb.com/title/tt0111161/",
+    "tmdb": null
+  },
   "module": "video",
   "submodule": "movie",
   "createdAt": "2026-05-01",
   "updatedAt": "2026-05-01"
 }
 ```
+
+说明：
+
+- `images.poster` 永远表示主海报
+- `images.posters` 表示补充海报列表，后续录入时不应再重复包含主海报
+- `links.*` 缺失时统一使用 `null`
+- `soundtrack.name` 表示原声带专辑名
+- `soundtrack.tracks[]` 中曲目名统一使用 `name`
 
 ## 附录 B：source.json 完整结构
 

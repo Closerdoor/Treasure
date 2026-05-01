@@ -197,7 +197,7 @@
   },
   "soundtrack": {
     "value": {
-      "title": "Michael: Songs From The Motion Picture",
+      "name": "Michael: Songs From The Motion Picture",
       "composer": "迈克尔·杰克逊",
       "tracks": 13
     },
@@ -338,7 +338,8 @@
   "links": {
     "value": {
       "douban": "https://movie.douban.com/subject/35948919/",
-      "imdb": "https://www.imdb.com/title/tt11378946/"
+      "imdb": "https://www.imdb.com/title/tt11378946/",
+      "tmdb": null
     },
     "source": "merged",
     "sources": [

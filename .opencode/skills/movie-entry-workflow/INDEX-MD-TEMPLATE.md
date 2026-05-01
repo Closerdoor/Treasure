@@ -178,7 +178,7 @@
 
 | 字段 | data.json 路径 | 展示格式 |
 |------|----------------|----------|
-| 专辑名称 | `soundtrack.title` | `**专辑名称**：{title}` |
+| 专辑名称 | `soundtrack.name` | `**专辑名称**：{name}` |
 | 作曲 | `soundtrack.composer` | `**作曲**：{composer}` |
 | 发行年份 | `soundtrack.year` | `**发行日期**：{year}` |
 | 曲目列表 | `soundtrack.tracks` | 表格形式 |
@@ -214,7 +214,7 @@
 |------|----------------|----------|
 | 豆瓣 | `links.douban` | `[豆瓣电影]({url})` |
 | IMDb | `links.imdb` | `[IMDb]({url})` |
-| TMDB | `links.tmdb` | `[TMDB]({url})`（如有） |
+| TMDB | `links.tmdb` | `[TMDB]({url})`（值不为 `null` 时展示） |
 
 ## 数据来源说明区（必须展示）
 
