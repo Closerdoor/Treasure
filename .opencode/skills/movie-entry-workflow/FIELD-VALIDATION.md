@@ -52,7 +52,14 @@
 |------|------|----------|----------|
 | images.poster | string | 文件存在且 > 200KB | 必须下载高清版本 |
 | images.posters | array | 至少 1 张 | 可后续补充 |
+| images.postersTotal | number | >= images.posters.length | 允许缺失，但建议记录源站总量 |
 | images.stills | array | 至少 1 张 | 可后续补充 |
+| images.stillsTotal | number | >= images.stills.length | 允许缺失，但建议记录源站总量 |
+
+说明：
+
+- `images.postersTotal` / `images.stillsTotal` 是源站可获取总量元数据
+- 它们不要求等于当前本地已下载文件数量，也不要求等于当前数组长度
 
 ### 其他（推荐）
 

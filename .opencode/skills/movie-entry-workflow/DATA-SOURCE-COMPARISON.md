@@ -81,10 +81,16 @@
 |------|:----:|:----:|:--------:|:---------:|:----:|:----:|
 | images.poster | ✅ | ⚠️小图 | ✅ | ✅ | ✅高清 | ✅ |
 | images.posters | ✅多张 | ❌ | ⚠️ | ❌ | ✅高清 | ✅ |
+| images.postersTotal | ✅ | ❌ | ❌ | ❌ | ✅ | ⚠️ |
 | images.stills | ✅多张 | ❌ | ⚠️ | ❌ | ✅ | ✅ |
+| images.stillsTotal | ✅ | ❌ | ❌ | ❌ | ✅ | ⚠️ |
 | images.wallpapers | ✅ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | videos | ✅ | ❌ | ❌ | ❌ | ✅ | ✅ |
 | soundtrack | ❌ | ❌ | ✅完整 | ❌ | ❌ | ✅ |
+
+说明：
+
+- `images.postersTotal` / `images.stillsTotal` 指的是源站可获取总量，不是当前下载文件数
 
 ### 其他
 
