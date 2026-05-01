@@ -1,0 +1,270 @@
+{
+  "id": "0101000002",
+  "title": "迈克尔·杰克逊：巨星之路",
+  "originalTitle": "Michael",
+  "year": 2026,
+  "director": [
+    {
+      "name": "安东尼·福奎阿",
+      "nameEn": "Antoine Fuqua",
+      "avatar": "avatar-antoine-fuqua.jpg",
+      "avatarSource": "wikipedia",
+      "works": ["好家伙", "生死狙击", "伸冤人"]
+    }
+  ],
+  "writer": [
+    {
+      "name": "约翰·洛根",
+      "nameEn": "John Logan",
+      "role": "编剧",
+      "baike": "https://baike.baidu.com/item/约翰·洛根"
+    }
+  ],
+  "cast": [
+    {
+      "name": "贾法尔·杰克逊",
+      "nameEn": "Jaafar Jackson",
+      "role": "迈克尔·杰克逊 Michael Jackson",
+      "avatar": "avatar-jaafar-jackson.jpg",
+      "avatarSource": "wikipedia"
+    },
+    {
+      "name": "尼娅·朗",
+      "nameEn": "Nia Long",
+      "role": "凯瑟琳·杰克逊 Katherine Jackson",
+      "avatar": "avatar-nia-long.jpg",
+      "avatarSource": "wikipedia"
+    },
+    {
+      "name": "朱利亚诺·瓦尔迪",
+      "nameEn": "Juliano Valdi",
+      "role": "小迈克尔·杰克逊 Young Michael Jackson",
+      "avatar": "",
+      "avatarSource": "",
+      "avatarNote": "Wikipedia无此演员页面，待补充"
+    },
+    {
+      "name": "科尔曼·多明戈",
+      "nameEn": "Colman Domingo",
+      "role": "约瑟夫·杰克逊 Joseph Jackson",
+      "avatar": "avatar-colman-domingo.jpg",
+      "avatarSource": "wikipedia"
+    },
+    {
+      "name": "迈尔斯·特勒",
+      "nameEn": "Miles Teller",
+      "role": "约翰·布兰卡 John Branca",
+      "avatar": "avatar-miles-teller.png",
+      "avatarSource": "wikipedia"
+    },
+    {
+      "name": "劳拉·哈里尔",
+      "nameEn": "Laura Harrier",
+      "role": "苏珊·德·帕斯 Suzanne de Passe",
+      "avatar": "avatar-laura-harrier.jpg",
+      "avatarSource": "wikipedia"
+    },
+    {
+      "name": "杰西卡·苏拉",
+      "nameEn": "Jessica Sula",
+      "role": "拉托娅·杰克逊 La Toya Jackson",
+      "avatar": "avatar-jessica-sula.jpg",
+      "avatarSource": "wikipedia"
+    },
+    {
+      "name": "麦克·梅伊斯",
+      "nameEn": "Mike Myers",
+      "role": "沃特·耶特尼科夫 Walter Yetnikoff",
+      "avatar": "avatar-mike-myers.jpg",
+      "avatarSource": "wikipedia"
+    }
+  ],
+  "otherCast": [
+    { "name": "凯林·多瑞尔·琼斯", "nameEn": "KeiLyn Durrel Jones", "role": "比尔·布雷 Bill Bray" },
+    { "name": "肯德里克·桑普森", "nameEn": "Kendrick Sampson", "role": "昆西·琼斯 Quincy Jones" },
+    { "name": "拉伦兹·泰特", "nameEn": "Larenz Tate", "role": "贝瑞·高迪 Berry Gordy" },
+    { "name": "约瑟夫·戴维-琼斯", "nameEn": "Joseph David-Jones", "role": "杰基·杰克逊 Jackie Jackson" },
+    { "name": "贾马尔·亨德森", "nameEn": "Jamal Henderson", "role": "杰梅因·杰克逊 Jermaine Jackson" },
+    { "name": "莱恩·希尔", "nameEn": "Rhyan Hill", "role": "蒂托·杰克逊 Tito Jackson" },
+    { "name": "特雷·霍顿", "nameEn": "Tre Horton", "role": "马龙·杰克逊 Marlon Jackson" },
+    { "name": "卡特琳娜·格兰厄姆", "nameEn": "Katerina Graham", "role": "Diana Ross" },
+    { "name": "德里克·卢克", "nameEn": "Derek Luke", "role": "Johnnie Cochran" }
+  ],
+  "producer": [
+    {
+      "name": "格拉汉姆·金",
+      "nameEn": "Graham King",
+      "role": "制片人",
+      "baike": "https://baike.baidu.com/item/格拉汉姆·金"
+    },
+    {
+      "name": "约翰·布兰卡",
+      "nameEn": "John Branca",
+      "role": "制片人"
+    },
+    {
+      "name": "约翰·麦克莱恩",
+      "nameEn": "John McClain",
+      "role": "制片人"
+    }
+  ],
+  "genre": ["剧情", "音乐", "传记"],
+  "country": "美国",
+  "language": "英语",
+  "runtime": 128,
+  "runtimeEn": 127,
+  "rated": "PG-13",
+  "awards": "2 wins & 1 nomination",
+  "releaseDate": [
+    { "date": "2026-04-24", "location": "美国/中国大陆" },
+    { "date": "2026-04-22", "location": "中国香港" }
+  ],
+  "aka": ["米高积逊(港)", "麦可·杰克森(台)", "迈克尔"],
+  "imdbId": "tt11378946",
+  "doubanId": "35948919",
+  "doubanRating": 7.5,
+  "doubanVotes": 34594,
+  "synopsis": {
+    "text": "影片讲述迈克尔·杰克逊在音乐之外的人生旅程，从他以杰克逊五人组主唱之姿被发掘出惊人天赋的那一刻起，直到他成为一位极具远见的艺人，他以无穷无尽的创作能力激励自己成为全世界最伟大的娱乐巨星。\n\n这部电影同时呈现迈克尔·杰克逊舞台之外的真实人生，并且重现他早期个人演艺生涯中最具代表性的经典表演，这部电影为观众提供最贴近的视角，以前所未见的方式窥探这位流行天王的内心世界。他的故事就此展开。",
+    "note": ""
+  },
+  "videos": [
+    {
+      "title": "中国大陆预告片1：终极版 (中文字幕)",
+      "duration": "01:00",
+      "thumbnail": "video-trailer-01.png",
+      "url": "https://movie.douban.com/trailer/324247/"
+    },
+    {
+      "title": "中国大陆预告片2：定档版 (中文字幕)",
+      "duration": "00:30",
+      "thumbnail": "video-trailer-02.png",
+      "url": "https://movie.douban.com/trailer/324145/"
+    },
+    {
+      "title": "中国大陆预告片3 (中文字幕)",
+      "duration": "00:15",
+      "thumbnail": "video-trailer-03.png",
+      "url": "https://movie.douban.com/trailer/323960/"
+    },
+    {
+      "title": "中国大陆预告片4 (中文字幕)",
+      "duration": "02:17",
+      "thumbnail": "video-trailer-04.png",
+      "url": "https://movie.douban.com/trailer/323591/"
+    },
+    {
+      "title": "预告片5",
+      "duration": "02:17",
+      "thumbnail": "video-trailer-05.png",
+      "url": "https://movie.douban.com/trailer/323590/"
+    }
+  ],
+  "images": {
+    "poster": "poster-main.jpg",
+    "posters": [
+      "poster-main.jpg",
+      "poster-01-cn.jpg",
+      "poster-03.jpg",
+      "poster-04.jpg",
+      "poster-05.jpg",
+      "poster-06.jpg",
+      "poster-07.jpg",
+      "poster-08.jpg",
+      "poster-09.jpg",
+      "poster-10.jpg",
+      "poster-11.jpg"
+    ],
+    "postersTotal": 79,
+    "stills": [
+      "still-01.jpg",
+      "still-02.jpg",
+      "still-03.jpg",
+      "still-04.jpg",
+      "still-05.jpg",
+      "still-06.jpg",
+      "still-07.jpg",
+      "still-08.jpg",
+      "still-09.jpg",
+      "still-10.jpg"
+    ],
+    "stillsTotal": 215,
+    "wallpapers": []
+  },
+  "soundtrack": {
+    "title": "Michael: Songs From The Motion Picture",
+    "composer": "迈克尔·杰克逊",
+    "composerEn": "Michael Jackson",
+    "year": 2026,
+    "tracks": [
+      { "name": "I'll Be There", "artist": "Jackson 5", "duration": "" },
+      { "name": "Never Can Say Goodbye (Single Version)", "artist": "Jackson 5", "duration": "" },
+      { "name": "Who's Lovin' You", "artist": "Jackson 5", "duration": "" },
+      { "name": "Medley: I Want You Back / ABC / The Love You Save", "artist": "The Jacksons", "duration": "" },
+      { "name": "Ben (Live from the 1981 U.S. Tour)", "artist": "The Jacksons", "duration": "" },
+      { "name": "Don't Stop 'Til You Get Enough", "artist": "迈克尔·杰克逊", "duration": "" },
+      { "name": "Beat It", "artist": "迈克尔·杰克逊", "duration": "" },
+      { "name": "Thriller", "artist": "迈克尔·杰克逊", "duration": "" },
+      { "name": "Billie Jean", "artist": "迈克尔·杰克逊", "duration": "" },
+      { "name": "Wanna Be Startin' Somethin'", "artist": "迈克尔·杰克逊", "duration": "" },
+      { "name": "Human Nature", "artist": "迈克尔·杰克逊", "duration": "" },
+      { "name": "Workin' Day and Night", "artist": "迈克尔·杰克逊", "duration": "" },
+      { "name": "Bad (2012 Remaster)", "artist": "迈克尔·杰克逊", "duration": "" }
+    ]
+  },
+  "similar": [
+    { "title": "波西米亚狂想曲", "year": 2018, "rating": 8.6 },
+    { "title": "奥本海默", "year": 2023, "rating": 8.8 },
+    { "title": "极速车王", "year": 2019, "rating": 8.5 },
+    { "title": "摇滚诗人：未知的传奇", "year": 2024, "rating": 6.5 },
+    { "title": "倒数时刻", "year": 2021, "rating": 8.1 },
+    { "title": "气垫传奇", "year": 2023, "rating": 7.5 },
+    { "title": "猫王", "year": 2022, "rating": 6.9 }
+  ],
+  "reviews": [
+    {
+      "source": "豆瓣",
+      "author": "飞风",
+      "date": "2026-04-24",
+      "rating": "力荐",
+      "content": "我艹！看个屁！只拍到1988年的bad的全球巡演？？后面呢！！后面全没了！！我还没看够啊！赶紧拍续集！！！故事算个屁！能在电影院大荧幕上看到他的mv，演唱会，现场，就够了！就够了懂吗！赶紧拍续集！！"
+    },
+    {
+      "source": "豆瓣",
+      "author": "Mr. Infamous",
+      "date": "2026-04-23",
+      "rating": "推荐",
+      "content": "相比金曲，对于MJ前半生平，恰好了解不足，而又意兴不减，毕竟一位黑人巨星在七八十年代的金身塑成，本就交杂家庭伦理、流行趋势、社会氛围等多重议题。电影触及很多未曾想过的地方，除却出道与登顶之年幼，便是他抗争行动的童稚与艰难。一个小孩如何突破控制，争夺自由，保持不同，堪称传奇，而又更显悲凉。"
+    },
+    {
+      "source": "豆瓣",
+      "author": "壹安²",
+      "date": "2026-04-23",
+      "rating": "力荐",
+      "content": "永远且唯一的世界流行之王，视听层面的核爆享受。原来Michael Jackson也会宴请自己的童年。"
+    },
+    {
+      "source": "豆瓣",
+      "author": "Anakin",
+      "date": "2026-04-23",
+      "rating": "还行",
+      "content": "作为这个星球上最大的腕儿，MJ确实值得一部更好的传记片。。"
+    },
+    {
+      "source": "豆瓣",
+      "author": "脑洞惊风雨",
+      "date": "2026-04-23",
+      "rating": "力荐",
+      "content": "这辈子还有几次机会能在这么大的屏幕上看到（贾法尔cos的）MJ贴脸给你唱Billie Jean跳太空步？"
+    }
+  ],
+  "links": {
+    "douban": "https://movie.douban.com/subject/35948919/",
+    "imdb": "https://www.imdb.com/title/tt11378946/",
+    "tmdb": ""
+  },
+  "module": "video",
+  "submodule": "movie",
+  "createdAt": "2026-05-01",
+  "updatedAt": "2026-05-01"
+}

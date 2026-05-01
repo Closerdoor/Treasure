@@ -1,0 +1,375 @@
+{
+  "id": {
+    "value": "0101000002",
+    "source": "system",
+    "note": "系统自动生成，递增序号"
+  },
+  "title": {
+    "value": "迈克尔·杰克逊：巨星之路",
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/35948919/",
+    "crawledAt": "2026-05-01T15:26:00Z",
+    "crawlerScript": "douban-movie.js"
+  },
+  "originalTitle": {
+    "value": "Michael",
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/35948919/",
+    "crawledAt": "2026-05-01T15:26:00Z",
+    "crawlerScript": "douban-movie.js"
+  },
+  "year": {
+    "value": 2026,
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/35948919/",
+    "crawledAt": "2026-05-01T15:26:00Z",
+    "crawlerScript": "douban-movie.js"
+  },
+  "director": {
+    "value": [
+      {
+        "name": "安东尼·福奎阿",
+        "nameEn": "Antoine Fuqua",
+        "avatar": "avatar-antoine-fuqua.png",
+        "works": ["好家伙", "生死狙击", "伸冤人"]
+      }
+    ],
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/35948919/celebrities",
+    "crawledAt": "2026-05-01T15:26:00Z",
+    "crawlerScript": "douban-movie.js"
+  },
+  "writer": {
+    "value": [
+      {
+        "name": "约翰·洛根",
+        "nameEn": "John Logan",
+        "role": "编剧"
+      }
+    ],
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/35948919/celebrities",
+    "crawledAt": "2026-05-01T15:26:00Z",
+    "crawlerScript": "douban-movie.js"
+  },
+  "cast": {
+    "value": [
+      {
+        "name": "贾法尔·杰克逊",
+        "nameEn": "Jaafar Jackson",
+        "role": "迈克尔·杰克逊 Michael Jackson"
+      },
+      {
+        "name": "尼娅·朗",
+        "nameEn": "Nia Long",
+        "role": "凯瑟琳·杰克逊 Katherine Jackson"
+      },
+      {
+        "name": "朱利亚诺·瓦尔迪",
+        "nameEn": "Juliano Valdi",
+        "role": "小迈克尔·杰克逊 Young Michael Jackson"
+      },
+      {
+        "name": "科尔曼·多明戈",
+        "nameEn": "Colman Domingo",
+        "role": "约瑟夫·杰克逊 Joseph Jackson"
+      },
+      {
+        "name": "迈尔斯·特勒",
+        "nameEn": "Miles Teller",
+        "role": "约翰·布兰卡 John Branca"
+      },
+      {
+        "name": "劳拉·哈里尔",
+        "nameEn": "Laura Harrier",
+        "role": "苏珊·德·帕斯 Suzanne de Passe"
+      },
+      {
+        "name": "杰西卡·苏拉",
+        "nameEn": "Jessica Sula",
+        "role": "拉托娅·杰克逊 La Toya Jackson"
+      },
+      {
+        "name": "麦克·梅伊斯",
+        "nameEn": "Mike Myers",
+        "role": "沃特·耶特尼科夫 Walter Yetnikoff"
+      }
+    ],
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/35948919/celebrities",
+    "crawledAt": "2026-05-01T15:26:00Z",
+    "crawlerScript": "douban-movie.js",
+    "note": "主演前8位，头像待从IMDb补充"
+  },
+  "genre": {
+    "value": ["剧情", "音乐", "传记"],
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/35948919/",
+    "crawledAt": "2026-05-01T15:26:00Z",
+    "crawlerScript": "douban-movie.js"
+  },
+  "country": {
+    "value": "美国",
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/35948919/",
+    "crawledAt": "2026-05-01T15:26:00Z",
+    "crawlerScript": "douban-movie.js"
+  },
+  "language": {
+    "value": "英语",
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/35948919/",
+    "crawledAt": "2026-05-01T15:26:00Z",
+    "crawlerScript": "douban-movie.js"
+  },
+  "runtime": {
+    "value": 128,
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/35948919/",
+    "crawledAt": "2026-05-01T15:26:00Z",
+    "crawlerScript": "douban-movie.js",
+    "note": "单位：分钟"
+  },
+  "runtimeEn": {
+    "value": 127,
+    "source": "omdb",
+    "sourceUrl": "https://www.omdbapi.com/?i=tt11378946",
+    "crawledAt": "2026-05-01T16:06:00Z",
+    "note": "IMDb片长，单位：分钟"
+  },
+  "rated": {
+    "value": "PG-13",
+    "source": "omdb",
+    "sourceUrl": "https://www.omdbapi.com/?i=tt11378946",
+    "crawledAt": "2026-05-01T16:06:00Z",
+    "note": "MPAA评级"
+  },
+  "awards": {
+    "value": "2 wins & 1 nomination",
+    "source": "omdb",
+    "sourceUrl": "https://www.omdbapi.com/?i=tt11378946",
+    "crawledAt": "2026-05-01T16:06:00Z"
+  },
+  "releaseDate": {
+    "value": [
+      { "date": "2026-04-24", "location": "美国/中国大陆" },
+      { "date": "2026-04-22", "location": "中国香港" }
+    ],
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/35948919/",
+    "crawledAt": "2026-05-01T15:26:00Z",
+    "crawlerScript": "douban-movie.js"
+  },
+  "aka": {
+    "value": ["米高积逊(港)", "麦可·杰克森(台)", "迈克尔"],
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/35948919/",
+    "crawledAt": "2026-05-01T15:26:00Z",
+    "crawlerScript": "douban-movie.js"
+  },
+  "imdbId": {
+    "value": "tt11378946",
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/35948919/",
+    "crawledAt": "2026-05-01T15:26:00Z",
+    "crawlerScript": "douban-movie.js"
+  },
+  "doubanId": {
+    "value": "35948919",
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/35948919/",
+    "crawledAt": "2026-05-01T15:26:00Z",
+    "crawlerScript": "douban-movie.js"
+  },
+  "doubanRating": {
+    "value": 7.5,
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/35948919/",
+    "crawledAt": "2026-05-01T15:26:00Z",
+    "crawlerScript": "douban-movie.js"
+  },
+  "doubanVotes": {
+    "value": 34594,
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/35948919/",
+    "crawledAt": "2026-05-01T15:26:00Z",
+    "crawlerScript": "douban-movie.js"
+  },
+  "soundtrack": {
+    "value": {
+      "title": "Michael: Songs From The Motion Picture",
+      "composer": "迈克尔·杰克逊",
+      "tracks": 13
+    },
+    "source": "baike",
+    "sourceUrl": "https://baike.baidu.com/item/迈克尔·杰克逊：巨星之路",
+    "crawledAt": "2026-05-01T16:30:00Z",
+    "note": "百度百科音乐原声章节，共13首曲目"
+  },
+  "synopsis": {
+    "value": {
+      "text": "影片讲述迈克尔·杰克逊在音乐之外的人生旅程，从他以杰克逊五人组主唱之姿被发掘出惊人天赋的那一刻起，直到他成为一位极具远见的艺人，他以无穷无尽的创作能力激励自己成为全世界最伟大的娱乐巨星。\n\n这部电影同时呈现迈克尔·杰克逊舞台之外的真实人生，并且重现他早期个人演艺生涯中最具代表性的经典表演，这部电影为观众提供最贴近的视角，以前所未见的方式窥探这位流行天王的内心世界。他的故事就此展开。",
+      "note": ""
+    },
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/35948919/",
+    "crawledAt": "2026-05-01T15:26:00Z",
+    "crawlerScript": "douban-movie.js"
+  },
+  "similar": {
+    "value": [
+      { "title": "波西米亚狂想曲", "year": 2018, "rating": 8.6 },
+      { "title": "奥本海默", "year": 2023, "rating": 8.8 },
+      { "title": "极速车王", "year": 2019, "rating": 8.5 },
+      { "title": "摇滚诗人：未知的传奇", "year": 2024, "rating": 6.5 },
+      { "title": "倒数时刻", "year": 2021, "rating": 8.1 },
+      { "title": "气垫传奇", "year": 2023, "rating": 7.5 },
+      { "title": "猫王", "year": 2022, "rating": 6.9 }
+    ],
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/35948919/",
+    "crawledAt": "2026-05-01T15:26:00Z",
+    "crawlerScript": "douban-movie.js"
+  },
+  "reviews": {
+    "value": [
+      {
+        "source": "豆瓣",
+        "author": "飞风",
+        "date": "2026-04-24",
+        "rating": "力荐",
+        "content": "我艹！看个屁！只拍到1988年的bad的全球巡演？？后面呢！！后面全没了！！我还没看够啊！赶紧拍续集！！！故事算个屁！能在电影院大荧幕上看到他的mv，演唱会，现场，就够了！就够了懂吗！赶紧拍续集！！"
+      },
+      {
+        "source": "豆瓣",
+        "author": "Mr. Infamous",
+        "date": "2026-04-23",
+        "rating": "推荐",
+        "content": "相比金曲，对于MJ前半生平，恰好了解不足，而又意兴不减，毕竟一位黑人巨星在七八十年代的金身塑成，本就交杂家庭伦理、流行趋势、社会氛围等多重议题。电影触及很多未曾想过的地方，除却出道与登顶之年幼，便是他抗争行动的童稚与艰难。一个小孩如何突破控制，争夺自由，保持不同，堪称传奇，而又更显悲凉。"
+      },
+      {
+        "source": "豆瓣",
+        "author": "壹安²",
+        "date": "2026-04-23",
+        "rating": "力荐",
+        "content": "永远且唯一的世界流行之王，视听层面的核爆享受。原来Michael Jackson也会宴请自己的童年。"
+      },
+      {
+        "source": "豆瓣",
+        "author": "Anakin",
+        "date": "2026-04-23",
+        "rating": "还行",
+        "content": "作为这个星球上最大的腕儿，MJ确实值得一部更好的传记片。。"
+      },
+      {
+        "source": "豆瓣",
+        "author": "脑洞惊风雨",
+        "date": "2026-04-23",
+        "rating": "力荐",
+        "content": "这辈子还有几次机会能在这么大的屏幕上看到（贾法尔cos的）MJ贴脸给你唱Billie Jean跳太空步？"
+      }
+    ],
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/35948919/",
+    "crawledAt": "2026-05-01T15:26:00Z",
+    "crawlerScript": "douban-movie.js",
+    "note": "热门短评前5条"
+  },
+  "images": {
+    "poster": {
+      "value": "poster-main.jpg",
+      "source": "douban",
+      "sourceUrl": "https://movie.douban.com/subject/35948919/",
+      "crawledAt": "2026-05-01T15:44:00Z",
+      "note": "豆瓣主海报"
+    },
+    "posters": {
+      "value": [
+        "poster-main.jpg",
+        "poster-01-cn.jpg",
+        "poster-03.jpg",
+        "poster-04.jpg",
+        "poster-05.jpg",
+        "poster-06.jpg",
+        "poster-07.jpg",
+        "poster-08.jpg",
+        "poster-09.jpg",
+        "poster-10.jpg",
+        "poster-11.jpg"
+      ],
+      "source": "douban",
+      "sourceUrl": "https://movie.douban.com/subject/35948919/photos?type=R",
+      "crawledAt": "2026-05-01T16:04:00Z",
+      "crawlerScript": "playwright-download",
+      "note": "豆瓣海报共79张，下载前11张"
+    },
+    "postersTotal": {
+      "value": 79,
+      "source": "douban",
+      "sourceUrl": "https://movie.douban.com/subject/35948919/photos?type=R",
+      "crawledAt": "2026-05-01T16:04:00Z"
+    },
+    "stills": {
+      "value": [
+        "still-01.jpg",
+        "still-02.jpg",
+        "still-03.jpg",
+        "still-04.jpg",
+        "still-05.jpg",
+        "still-06.jpg",
+        "still-07.jpg",
+        "still-08.jpg",
+        "still-09.jpg",
+        "still-10.jpg"
+      ],
+      "source": "douban",
+      "sourceUrl": "https://movie.douban.com/subject/35948919/photos?type=S",
+      "crawledAt": "2026-05-01T16:05:00Z",
+      "crawlerScript": "playwright-download",
+      "note": "豆瓣剧照共215张，下载前10张"
+    },
+    "stillsTotal": {
+      "value": 215,
+      "source": "douban",
+      "sourceUrl": "https://movie.douban.com/subject/35948919/photos?type=S",
+      "crawledAt": "2026-05-01T16:04:00Z"
+    }
+  },
+  "links": {
+    "value": {
+      "douban": "https://movie.douban.com/subject/35948919/",
+      "imdb": "https://www.imdb.com/title/tt11378946/"
+    },
+    "source": "merged",
+    "sources": [
+      {
+        "source": "douban",
+        "fields": ["douban"]
+      },
+      {
+        "source": "douban",
+        "fields": ["imdb"]
+      }
+    ]
+  },
+  "module": {
+    "value": "video",
+    "source": "system",
+    "note": "影视模块"
+  },
+  "submodule": {
+    "value": "movie",
+    "source": "system",
+    "note": "电影子模块"
+  },
+  "createdAt": {
+    "value": "2026-05-01",
+    "source": "system",
+    "note": "录入时间"
+  },
+  "updatedAt": {
+    "value": "2026-05-01",
+    "source": "system",
+    "note": "最后更新时间"
+  }
+}

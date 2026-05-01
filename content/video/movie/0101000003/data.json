@@ -1,0 +1,283 @@
+{
+  "id": "0101000003",
+  "title": "阿甘正传",
+  "originalTitle": "Forrest Gump",
+  "year": 1994,
+  "director": [
+    {
+      "name": "罗伯特·泽米吉斯",
+      "nameEn": "Robert Zemeckis",
+      "avatar": "avatar-robert-zemeckis.jpg",
+      "avatarSource": "wikipedia",
+      "works": ["回到未来", "荒岛余生", "云中行走"]
+    }
+  ],
+  "writer": [
+    {
+      "name": "艾瑞克·罗斯",
+      "nameEn": "Eric Roth",
+      "role": "编剧"
+    },
+    {
+      "name": "温斯顿·格鲁姆",
+      "nameEn": "Winston Groom",
+      "role": "原著"
+    }
+  ],
+  "cast": [
+    {
+      "name": "汤姆·汉克斯",
+      "nameEn": "Tom Hanks",
+      "role": "阿甘 Forrest Gump",
+      "avatar": "avatar-tom-hanks.jpg",
+      "avatarSource": "wikipedia"
+    },
+    {
+      "name": "罗宾·怀特",
+      "nameEn": "Robin Wright",
+      "role": "珍妮·库伦 Jenny Curran",
+      "avatar": "avatar-robin-wright.jpg",
+      "avatarSource": "wikipedia"
+    },
+    {
+      "name": "加里·西尼斯",
+      "nameEn": "Gary Sinise",
+      "role": "邓·泰勒 Dan Taylor",
+      "avatar": "avatar-gary-sinise.jpg",
+      "avatarSource": "wikipedia"
+    },
+    {
+      "name": "麦凯尔泰·威廉逊",
+      "nameEn": "Mykelti Williamson",
+      "role": "布巴·布鲁 Bubba Blue",
+      "avatar": "avatar-mykelti-williamson.jpg",
+      "avatarSource": "wikipedia"
+    },
+    {
+      "name": "莎莉·菲尔德",
+      "nameEn": "Sally Field",
+      "role": "甘普太太 Mrs. Gump",
+      "avatar": "avatar-sally-field.jpg",
+      "avatarSource": "wikipedia"
+    },
+    {
+      "name": "海利·乔·奥斯蒙",
+      "nameEn": "Haley Joel Osment",
+      "role": "小阿甘 Forrest Gump Jr.",
+      "avatar": "avatar-haley-joel-osment.jpg",
+      "avatarSource": "wikipedia"
+    },
+    {
+      "name": "迈克尔·康纳·汉弗莱斯",
+      "nameEn": "Michael Conner Humphreys",
+      "role": "年幼阿甘 Young Forrest",
+      "avatar": "avatar-michael-conner-humphreys.jpg",
+      "avatarSource": "wikipedia"
+    },
+    {
+      "name": "汉娜·豪尔",
+      "nameEn": "Hanna R. Hall",
+      "role": "年幼珍妮 Young Jenny",
+      "avatar": "",
+      "avatarSource": "",
+      "avatarNote": "Wikipedia无头像"
+    }
+  ],
+  "otherCast": [
+    { "name": "库尔特·拉塞尔", "nameEn": "Kurt Russell", "role": "艾维斯·普斯里（配音）" },
+    { "name": "彼得·多布森", "nameEn": "Peter Dobson", "role": "猫王" },
+    { "name": "索尼·施罗耶", "nameEn": "Sonny Shroyer", "role": "布莱恩特教练" },
+    { "name": "理查德·戴萨特", "nameEn": "Richard D'Alessandro", "role": "约翰·列侬" },
+    { "name": "杰弗里·布莱克", "nameEn": "Geoffrey Blake", "role": "长腿漂流者" },
+    { "name": "丹尼尔C.斯崔普", "nameEn": "Daniel C. Striepeke", "role": "越战老兵" },
+    { "name": "大卫·布里斯宾", "nameEn": "David Brisbin", "role": "巴士司机" },
+    { "name": "迪克·史泰尔斯", "nameEn": "Dick Stahl", "role": "巴士司机" },
+    { "name": "山姆·安德森", "nameEn": "Sam Anderson", "role": "历史老师" },
+    { "name": "伊丽莎白·汉克斯", "nameEn": "Elizabeth Hanks", "role": "巴士上的女孩" },
+    { "name": "海利·乔·奥斯蒙", "nameEn": "Haley Joel Osment", "role": "小阿甘（公交站台）" },
+    { "name": "迈克尔·伯吉斯", "nameEn": "Michael Burgess", "role": "越战士兵" },
+    { "name": "特里·温格特", "nameEn": "Terry Wright", "role": "越战士兵" },
+    { "name": "马修·麦克纳", "nameEn": "Matthew MacNabb", "role": "越战士兵" }
+  ],
+  "producer": [
+    { "name": "温迪·芬erman", "nameEn": "Wendy Finerman", "role": "制片人" },
+    { "name": "斯蒂夫·斯塔基", "nameEn": "Steve Starkey", "role": "制片人" },
+    { "name": "史蒂夫·蒂施", "nameEn": "Steve Tisch", "role": "制片人" }
+  ],
+  "genre": ["剧情", "爱情"],
+  "country": "美国",
+  "language": "英语",
+  "runtime": 142,
+  "runtimeEn": 142,
+  "rated": "PG-13",
+  "awards": "Won 6 Oscars. 51 wins & 74 nominations total",
+  "releaseDate": [
+    { "date": "1994-07-06", "location": "美国" },
+    { "date": "1994-10-07", "location": "英国" },
+    { "date": "1994-12-15", "location": "中国香港" }
+  ],
+  "aka": ["福雷斯特·冈普"],
+  "imdbId": "tt0109830",
+  "doubanId": "1292720",
+  "doubanRating": 9.5,
+  "doubanVotes": 2232771,
+  "imdbRating": 8.8,
+  "imdbVotes": 2493306,
+  "synopsis": {
+    "text": "阿甘（汤姆·汉克斯饰）是个智商只有75的低能儿。在学校里为了躲避别的孩子的欺侮，听从一个朋友珍妮（罗宾·怀特饰）的话而开始"跑"。他跑着躲避别人的捉弄。在中学时，他为了躲避别人而跑进了一所学校的橄榄球场，就这样跑进了大学。阿甘被破格录取，并成了橄榄球巨星，受到了肯尼迪总统的接见。\n\n在大学毕业后，阿甘又应征入伍去了越南。在那里，他有了两个朋友：热衷捕虾的布巴和令人敬畏的长官邓·泰勒上尉。这时，珍妮已经堕落，过着放荡的生活。阿甘一直爱着珍妮，但珍妮却不爱他。在战争结束后，阿甘作为英雄受到了约翰逊总统的接见。在一次和平集会上，阿甘又遇见了珍妮，两人匆匆相遇又匆匆分手。在"说到就要做到"这一信条的指引下，阿甘最终闯出了一片属于自己的天空。在他的生活中，他结识了许多美国的名人。他告发了水门事件的窃听者，作为美国乒乓球队的一员到了中国，为中美建交立下了功劳。猫王和约翰·列侬这两位音乐巨星也是通过与他的交往而创作了许多风靡一时的歌曲。最后，阿甘通过捕虾成了一名企业家。为了纪念死去的布巴，他成立了布巴·甘公司，并把公司的一半股份给了布巴的母亲，自己去做一名园丁。\n\n在隐居生活中，他时常思念珍妮。而这时的珍妮早已误入歧途，陷于绝望之中。终于有一天，珍妮回来了。她和阿甘共同生活了一段日子。在一天夜晚，珍妮投入了阿甘的怀抱，之后又在黎明悄然离去。醒来的阿甘木然坐在门前的长椅上，然后突然开始奔跑。他跑步横越了美国，又一次成了名人。在奔跑了许久之后，阿甘停了下来，开始回自己的故乡。在途中，收到了珍妮的信。他立刻去找她。在公交站台候车时，阿甘向他人讲述了他之前的经历。于是他又一次见到了珍妮，还有一个小男孩，那是他的儿子。这时的珍妮已经得了一种不治之症。阿甘和珍妮三人一同回到了家乡，一起度过了一段幸福的时光。珍妮过世了，他们的儿子也已到了上学的年纪。阿甘送儿子上了校车，坐在公共汽车站的长椅上，回忆起了他一生的经历。",
+    "note": ""
+  },
+  "videos": [],
+  "images": {
+    "poster": "poster-main.jpg",
+    "posters": [
+      "poster-01.jpg",
+      "poster-02.jpg",
+      "poster-03.jpg",
+      "poster-04.jpg",
+      "poster-05.jpg",
+      "poster-06.jpg",
+      "poster-07.jpg",
+      "poster-08.jpg",
+      "poster-09.jpg",
+      "poster-10.jpg"
+    ],
+    "postersTotal": 10,
+    "stills": [
+      "still-01.jpg",
+      "still-02.jpg",
+      "still-03.jpg",
+      "still-04.jpg",
+      "still-05.jpg",
+      "still-06.jpg",
+      "still-07.jpg",
+      "still-08.jpg",
+      "still-09.jpg",
+      "still-10.jpg",
+      "still-11.jpg",
+      "still-12.jpg",
+      "still-13.jpg",
+      "still-14.jpg",
+      "still-15.jpg",
+      "still-16.jpg",
+      "still-17.jpg",
+      "still-18.jpg",
+      "still-19.jpg",
+      "still-20.jpg",
+      "still-21.jpg",
+      "still-22.jpg",
+      "still-23.jpg",
+      "still-24.jpg",
+      "still-25.jpg",
+      "still-26.jpg",
+      "still-27.jpg",
+      "still-28.jpg",
+      "still-29.jpg",
+      "still-30.jpg",
+      "still-31.jpg",
+      "still-32.jpg",
+      "still-33.jpg",
+      "still-34.jpg",
+      "still-35.jpg",
+      "still-36.jpg",
+      "still-37.jpg",
+      "still-38.jpg",
+      "still-39.jpg"
+    ],
+    "stillsTotal": 39,
+    "wallpapers": []
+  },
+  "soundtrack": {
+    "title": "Forrest Gump: The Soundtrack",
+    "composer": "亚伦·史维斯查",
+    "composerEn": "Alan Silvestri",
+    "year": 1994,
+    "tracks": [
+      { "index": 1, "name": "Hound Dog", "artist": "Elvis Presley", "duration": "" },
+      { "index": 2, "name": "Rebel Rouser", "artist": "Duane Eddy", "duration": "" },
+      { "index": 3, "name": "(I Don't Know Why) But I Do", "artist": "Clarence 'Frogman' Henry", "duration": "" },
+      { "index": 4, "name": "Walk Right In", "artist": "The Rooftop Singers", "duration": "" },
+      { "index": 5, "name": "Land of 1000 Dances", "artist": "Wilson Pickett", "duration": "" },
+      { "index": 6, "name": "Blowin' in the Wind", "artist": "Bob Dylan", "duration": "" },
+      { "index": 7, "name": "Fortunate Son", "artist": "Creedence Clearwater Revival", "duration": "" },
+      { "index": 8, "name": "I Can't Help Myself (Sugar Pie Honey Bunch)", "artist": "Four Tops", "duration": "" },
+      { "index": 9, "name": "Respect", "artist": "Aretha Franklin", "duration": "" },
+      { "index": 10, "name": "Raindrops Keep Falling on My Head", "artist": "B.J. Thomas", "duration": "" },
+      { "index": 11, "name": "Sloop John B", "artist": "The Beach Boys", "duration": "" },
+      { "index": 12, "name": "California Dreamin'", "artist": "The Mamas & The Papas", "duration": "" },
+      { "index": 13, "name": "For What It's Worth", "artist": "Buffalo Springfield", "duration": "" },
+      { "index": 14, "name": "What the World Needs Now Is Love", "artist": "Jackie DeShannon", "duration": "" },
+      { "index": 15, "name": "Break On Through (To the Other Side)", "artist": "The Doors", "duration": "" },
+      { "index": 16, "name": "Mrs. Robinson", "artist": "Simon & Garfunkel", "duration": "" },
+      { "index": 17, "name": "Volunteers", "artist": "Jefferson Airplane", "duration": "" },
+      { "index": 18, "name": "Let's Get Together", "artist": "Chet Powers", "duration": "" },
+      { "index": 19, "name": "San Francisco (Be Sure to Wear Flowers in Your Hair)", "artist": "Scott McKenzie", "duration": "" },
+      { "index": 20, "name": "Turn! Turn! Turn! (To Everything There Is a Season)", "artist": "The Byrds", "duration": "" },
+      { "index": 21, "name": "Medley: Aquarius/Let the Sunshine In", "artist": "The 5th Dimension", "duration": "" },
+      { "index": 22, "name": "Everybody's Talkin'", "artist": "Harry Nilsson", "duration": "" },
+      { "index": 23, "name": "Joy to the World", "artist": "Three Dog Night", "duration": "" },
+      { "index": 24, "name": "Stoned Love", "artist": "The Supremes", "duration": "" },
+      { "index": 25, "name": "Rainy Day Women #12 & 35", "artist": "Bob Dylan", "duration": "" },
+      { "index": 26, "name": "Mr. President (Have Pity on the Working Man)", "artist": "Randy Newman", "duration": "" },
+      { "index": 27, "name": "Sweet Home Alabama", "artist": "Lynyrd Skynyrd", "duration": "" },
+      { "index": 28, "name": "It Keeps You Runnin'", "artist": "The Doobie Brothers", "duration": "" },
+      { "index": 29, "name": "I've Got to Use My Imagination", "artist": "Gladys Knight & The Pips", "duration": "" },
+      { "index": 30, "name": "On the Road Again", "artist": "Willie Nelson", "duration": "" },
+      { "index": 31, "name": "Against the Wind", "artist": "Bob Seger", "duration": "" },
+      { "index": 32, "name": "Forrest Gump Suite", "artist": "Alan Silvestri", "duration": "" }
+    ]
+  },
+  "similar": [
+    { "title": "肖申克的救赎", "year": 1994, "rating": 9.7 },
+    { "title": "这个杀手不太冷", "year": 1994, "rating": 9.4 },
+    { "title": "美丽人生", "year": 1997, "rating": 9.5 },
+    { "title": "泰坦尼克号", "year": 1997, "rating": 9.5 },
+    { "title": "楚门的世界", "year": 1998, "rating": 9.3 }
+  ],
+  "reviews": [
+    {
+      "source": "豆瓣",
+      "author": "今天小熊不吃糖",
+      "date": "2008-08-12",
+      "rating": "力荐",
+      "content": "羡慕珍妮，不管她多么叛逆、落魄、堕落，永远有阿甘在等她回来"
+    },
+    {
+      "source": "豆瓣",
+      "author": "影志",
+      "date": "2006-02-13",
+      "rating": "力荐",
+      "content": "妈妈说，生活就像一盒巧克力……请不要再续下一句，耳朵听的起了茧子。"
+    },
+    {
+      "source": "豆瓣",
+      "author": "陳",
+      "date": "2009-01-04",
+      "rating": "推荐",
+      "content": "太甜美的美國夢"
+    },
+    {
+      "source": "豆瓣",
+      "author": "林愈静",
+      "date": "2006-04-21",
+      "rating": "力荐",
+      "content": "每年看一遍，每年哭一遍，看看自己幸福还是阿甘幸福！时间：从2003开始每年一遍"
+    },
+    {
+      "source": "豆瓣",
+      "author": "娜莉梦游仙境",
+      "date": "2016-12-09",
+      "rating": "力荐",
+      "content": "傻人有傻福，实际上并不是这样的。在我看来，阿甘的妈妈才是最伟大的人。很多普通人把低智商的孩子早早就放弃了，不让上学，不与别人接触，也许是为了保护自己的孩子，但是这样以后孩子就等于废了……"
+    }
+  ],
+  "links": {
+    "douban": "https://movie.douban.com/subject/1292720/",
+    "imdb": "https://www.imdb.com/title/tt0109830/",
+    "tmdb": "https://www.themoviedb.org/movie/13"
+  },
+  "module": "video",
+  "submodule": "movie",
+  "createdAt": "2026-05-01",
+  "updatedAt": "2026-05-01"
+}

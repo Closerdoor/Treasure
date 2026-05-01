@@ -1,0 +1,49 @@
+﻿{
+    "type":  "standard",
+    "title":  "Michael (2026 film)",
+    "displaytitle":  "\u003ci\u003eMichael\u003c/i\u003e (2026 film)",
+    "namespace":  {
+                      "id":  0,
+                      "text":  ""
+                  },
+    "wikibase_item":  "Q116677364",
+    "titles":  {
+                   "canonical":  "Michael_(2026_film)",
+                   "normalized":  "Michael (2026 film)",
+                   "display":  "\u003ci\u003eMichael\u003c/i\u003e (2026 film)"
+               },
+    "pageid":  70014183,
+    "thumbnail":  {
+                      "source":  "https://upload.wikimedia.org/wikipedia/en/3/37/Michael_%282026_film_poster%29.png",
+                      "width":  260,
+                      "height":  385
+                  },
+    "originalimage":  {
+                          "source":  "https://upload.wikimedia.org/wikipedia/en/3/37/Michael_%282026_film_poster%29.png",
+                          "width":  260,
+                          "height":  385
+                      },
+    "lang":  "en",
+    "dir":  "ltr",
+    "revision":  "1351980308",
+    "tid":  "3ed6a290-4536-11f1-bafc-ae918880998c",
+    "timestamp":  "2026-05-01T08:17:51Z",
+    "description":  "Biographical film by Antoine Fuqua",
+    "description_source":  "local",
+    "content_urls":  {
+                         "desktop":  {
+                                         "page":  "https://en.wikipedia.org/wiki/Michael_(2026_film)",
+                                         "revisions":  "https://en.wikipedia.org/wiki/Michael_(2026_film)?action=history",
+                                         "edit":  "https://en.wikipedia.org/wiki/Michael_(2026_film)?action=edit",
+                                         "talk":  "https://en.wikipedia.org/wiki/Talk:Michael_(2026_film)"
+                                     },
+                         "mobile":  {
+                                        "page":  "https://en.wikipedia.org/wiki/Michael_(2026_film)",
+                                        "revisions":  "https://en.wikipedia.org/wiki/Special:History/Michael_(2026_film)",
+                                        "edit":  "https://en.wikipedia.org/wiki/Michael_(2026_film)?action=edit",
+                                        "talk":  "https://en.wikipedia.org/wiki/Talk:Michael_(2026_film)"
+                                    }
+                     },
+    "extract":  "Michael is a 2026 biographical film directed by Antoine Fuqua and written by John Logan. It follows the life of American singer Michael Jackson, covering the period from his involvement in the Jackson 5 in the 1960s to the Bad tour in the late 1980s. Michael is portrayed by his nephew Jaafar Jackson and as a child by Juliano Krue Valdi, both in their film debuts. The supporting cast includes Nia Long, KeiLyn Durrel Jones, Laura Harrier, Jessica Sula, Mike Myers, Miles Teller, and Colman Domingo.",
+    "extract_html":  "\u003cp\u003e\u003ci\u003e\u003cb\u003eMichael\u003c/b\u003e\u003c/i\u003e is a 2026 biographical film directed by Antoine Fuqua and written by John Logan. It follows the life of American singer Michael Jackson, covering the period from his involvement in the Jackson 5 in the 1960s to the Bad tour in the late 1980s. Michael is portrayed by his nephew Jaafar Jackson and as a child by Juliano Krue Valdi, both in their film debuts. The supporting cast includes Nia Long, KeiLyn Durrel Jones, Laura Harrier, Jessica Sula, Mike Myers, Miles Teller, and Colman Domingo.\u003c/p\u003e"
+}

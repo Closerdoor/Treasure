@@ -1,0 +1,256 @@
+{
+  "id": "0101000001",
+  "title": "肖申克的救赎",
+  "originalTitle": "The Shawshank Redemption",
+  "year": 1994,
+  "director": [
+    {
+      "name": "弗兰克·德拉邦特",
+      "nameEn": "Frank Darabont",
+      "avatar": "avatar-frank-darabont.png",
+      "works": ["肖申克的救赎", "绿里奇迹", "迷雾"]
+    }
+  ],
+  "writer": [
+    {
+      "name": "弗兰克·德拉邦特",
+      "nameEn": "Frank Darabont",
+      "role": "编剧",
+      "baike": "https://baike.baidu.com/item/弗兰克·德拉邦特"
+    },
+    {
+      "name": "斯蒂芬·金",
+      "nameEn": "Stephen King",
+      "role": "原著",
+      "baike": "https://baike.baidu.com/item/斯蒂芬·金"
+    }
+  ],
+  "cast": [
+    {
+      "name": "蒂姆·罗宾斯",
+      "nameEn": "Tim Robbins",
+      "role": "安迪·杜佛兰",
+      "avatar": "avatar-tim-robbins.png"
+    },
+    {
+      "name": "摩根·弗里曼",
+      "nameEn": "Morgan Freeman",
+      "role": "瑞德",
+      "avatar": "avatar-morgan-freeman.png"
+    },
+    {
+      "name": "鲍勃·冈顿",
+      "nameEn": "Bob Gunton",
+      "role": "监狱长诺顿",
+      "avatar": "avatar-bob-gunton.png"
+    },
+    {
+      "name": "威廉·赛德勒",
+      "nameEn": "William Sadler",
+      "role": "海伍德",
+      "avatar": "avatar-william-sadler.png"
+    },
+    {
+      "name": "克兰西·布朗",
+      "nameEn": "Clancy Brown",
+      "role": "上尉哈德利",
+      "avatar": "avatar-clancy-brown.png"
+    },
+    {
+      "name": "吉尔·贝罗斯",
+      "nameEn": "Gil Bellows",
+      "role": "汤米",
+      "avatar": "avatar-gil-bellows.png"
+    },
+    {
+      "name": "马克·罗斯顿",
+      "nameEn": "Mark Rolston",
+      "role": "包格斯",
+      "avatar": "avatar-mark-rolston.png"
+    },
+    {
+      "name": "詹姆斯·惠特摩",
+      "nameEn": "James Whitmore",
+      "role": "老布",
+      "avatar": "avatar-james-whitmore.png"
+    }
+  ],
+  "otherCast": [
+    { "name": "杰弗里·德曼", "nameEn": "Jeffrey DeMunn", "role": "1946地方检察官" },
+    { "name": "拉里·布兰登伯格", "nameEn": "Larry Brandenburg", "role": "斯基特 Skeet" },
+    { "name": "尼尔·吉恩托利", "nameEn": "Neil Giuntoli", "role": "基格 Jigger" },
+    { "name": "布赖恩·利比", "nameEn": "Brian Libby", "role": "弗洛依德 Floyd" },
+    { "name": "大卫·普罗瓦尔", "nameEn": "David Proval", "role": "瞌睡虫 Snooze" },
+    { "name": "约瑟夫·劳格诺", "nameEn": "Joseph Ragno", "role": "厄尼 Ernie" },
+    { "name": "祖德·塞克利拉", "nameEn": "Jude Ciccolella", "role": "守卫梅特 Guard Mert" },
+    { "name": "保罗·麦克兰尼", "nameEn": "Paul McCrane", "role": "守卫特劳特 Guard Trout" },
+    { "name": "芮妮·布莱恩", "nameEn": "Renee Blaine", "role": "安迪·杜佛兰的妻子" },
+    { "name": "阿方索·弗里曼", "nameEn": "Alfonso Freeman", "role": "新囚犯 Fresh Fish Con" },
+    { "name": "V·J·福斯特", "nameEn": "V.J. Foster", "role": "囚犯 Hungry Fish Con" },
+    { "name": "弗兰克·梅德拉诺", "nameEn": "Frank Medrano", "role": "肥仔 Fat Ass" },
+    { "name": "马克·迈尔斯", "nameEn": "Mack Miles", "role": "蒂雷尔 Tyrell" },
+    { "name": "尼尔·萨默斯", "nameEn": "Neil Summers", "role": "皮特 Pete" },
+    { "name": "耐德·巴拉米", "nameEn": "Ned Bellamy", "role": "守卫扬布拉德 Guard Youngblood" },
+    { "name": "布赖恩·戴拉特", "nameEn": "Brian Delate", "role": "守卫德金斯 Guard Dekins" },
+    { "name": "唐·麦克马纳斯", "nameEn": "Don McManus", "role": "守卫威利 Guard Wiley" }
+  ],
+  "producer": [
+    {
+      "name": "妮基·马文",
+      "nameEn": "Niki Marvin",
+      "baike": "https://baike.baidu.com/item/妮基·马文"
+    }
+  ],
+  "genre": ["剧情", "犯罪"],
+  "country": "美国",
+  "language": "英语",
+  "runtime": 142,
+  "releaseDate": [
+    { "date": "1994-09-10", "location": "多伦多电影节" },
+    { "date": "1994-10-14", "location": "美国" }
+  ],
+  "aka": ["月黑高飞(港)", "刺激1995(台)", "地狱诺言", "铁窗岁月", "消香克的救赎"],
+  "imdbId": "tt0111161",
+  "doubanId": "1292052",
+  "doubanRating": 9.7,
+  "doubanVotes": 3281603,
+  "synopsis": {
+    "text": "一场谋杀案使银行家安迪（蒂姆•罗宾斯 Tim Robbins 饰）蒙冤入狱，谋杀妻子及其情人的指控将囚禁他终生。在肖申克监狱的首次现身就让监狱"大哥"瑞德（摩根•弗里曼 Morgan Freeman 饰）对他另眼相看。瑞德帮助他搞到一把石锤和一幅女明星海报，两人渐成患难之交。很快，安迪在监狱里大显其才，担当监狱图书管理员，并利用自己的金融知识帮助监狱官避税，引起了典狱长的注意，被招致麾下帮助典狱长洗黑钱。偶然一次，他得知一名新入狱的小偷能够作证帮他洗脱谋杀罪。燃起一丝希望的安迪找到了典狱长，希望他能帮自己翻案。阴险伪善的狱长假装答应安迪，背后却派人杀死小偷，让他唯一能合法出狱的希望泯灭。沮丧的安迪并没有绝望，在一个电闪雷鸣的风雨夜，一场暗藏几十年的越狱计划让他自我救赎，重获自由！老朋友瑞德在他的鼓舞和帮助下，也勇敢地奔向自由。",
+    "note": "本片获得1995年奥斯卡最佳影片等7项提名。"
+  },
+  "videos": [
+    {
+      "title": "预告片1：25周年经典重映",
+      "duration": "01:30",
+      "thumbnail": "video-trailer-01.png",
+      "url": "https://movie.douban.com/trailer/259258/"
+    },
+    {
+      "title": "预告片2",
+      "duration": "02:13",
+      "thumbnail": "video-trailer-02.png",
+      "url": "https://movie.douban.com/trailer/108756/"
+    }
+  ],
+  "images": {
+    "poster": "poster-main.jpg",
+    "posters": [
+      "poster-01.png",
+      "poster-02.png",
+      "poster-03.png",
+      "poster-04.png",
+      "poster-05.png",
+      "poster-06.png",
+      "poster-07.png",
+      "poster-08.png",
+      "poster-09.png",
+      "poster-10.png",
+      "poster-main.jpg"
+    ],
+    "postersTotal": 149,
+    "stills": [
+      "still-01.png",
+      "still-02.png",
+      "still-03.png",
+      "still-04.png",
+      "still-05.png",
+      "still-06.png",
+      "still-07.png",
+      "still-08.png",
+      "still-09.png",
+      "still-10.png",
+      "still-11.png",
+      "still-12.png",
+      "still-13.png"
+    ],
+    "stillsTotal": 918,
+    "wallpapers": [
+      "wallpaper-01.png",
+      "wallpaper-02.png",
+      "wallpaper-03.png",
+      "wallpaper-04.png"
+    ]
+  },
+  "soundtrack": {
+    "title": "The Shawshank Redemption (Original Motion Picture Soundtrack)",
+    "composer": "托马斯·纽曼",
+    "composerEn": "Thomas Newman",
+    "year": 1994,
+    "tracks": [
+      { "index": 1, "title": "Introduction", "duration": "0:04" },
+      { "index": 2, "title": "End Title", "duration": "3:34" },
+      { "index": 3, "title": "Shawshank Prison", "duration": "1:55" },
+      { "index": 4, "title": "Brooks Was Here", "duration": "2:41" },
+      { "index": 5, "title": "New Fish Arrive", "duration": "1:32" },
+      { "index": 6, "title": "Rock Hammer", "duration": "1:52" },
+      { "index": 7, "title": "An Innocent Man", "duration": "1:58" },
+      { "index": 8, "title": "The Moocher", "duration": "1:36" },
+      { "index": 9, "title": "Suds", "duration": "1:02" },
+      { "index": 10, "title": "Loafing", "duration": "1:06" },
+      { "index": 11, "title": "The Marriage of Figaro / Duettino - Sull'aria", "duration": "2:54" },
+      { "index": 12, "title": "Compass and Guns", "duration": "2:04" },
+      { "index": 13, "title": "The Riddle of Zihuatanejo", "duration": "1:25" },
+      { "index": 14, "title": "The Riddle Solved", "duration": "1:30" },
+      { "index": 15, "title": "The Tunnel", "duration": "1:30" },
+      { "index": 16, "title": "Freedom", "duration": "1:42" }
+    ]
+  },
+  "similar": [
+    { "title": "阿甘正传", "year": 1994, "rating": 9.5 },
+    { "title": "楚门的世界", "year": 1998, "rating": 9.4 },
+    { "title": "当幸福来敲门", "year": 2006, "rating": 9.1 },
+    { "title": "活着", "year": 1994, "rating": 9.3 },
+    { "title": "摔跤吧！爸爸", "year": 2016, "rating": 9.0 },
+    { "title": "我不是药神", "year": 2018, "rating": 9.0 },
+    { "title": "三傻大闹宝莱坞", "year": 2009, "rating": 9.2 },
+    { "title": "心灵捕手", "year": 1997, "rating": 9.0 },
+    { "title": "闻香识女人", "year": 1992, "rating": 9.1 },
+    { "title": "这个杀手不太冷", "year": 1994, "rating": 9.4 }
+  ],
+  "reviews": [
+    {
+      "source": "豆瓣",
+      "author": "如小果",
+      "date": "2008-02-27",
+      "rating": "力荐",
+      "content": "恐惧让你沦为囚犯，希望让你重获自由。——《肖申克的救赎》"
+    },
+    {
+      "source": "豆瓣",
+      "author": "犀牛",
+      "date": "2005-10-28",
+      "rating": "力荐",
+      "content": "当年的奥斯卡颁奖礼上，被如日中天的《阿甘正传》掩盖了它的光彩，而随着时间的推移，这部电影在越来越多的人们心中的地位已超越了《阿甘》。每当现实令我疲惫得产生无力感，翻出这张碟，就重获力量。毫无疑问，本片位列男人必看的电影前三名！回顾那一段经典台词："有的人的羽翼是如此光辉，即使世界上最黑暗的牢狱，也无法长久地将他围困！""
+    },
+    {
+      "source": "豆瓣",
+      "author": "711|湯不餓",
+      "date": "2010-03-27",
+      "rating": "力荐",
+      "content": "筹划了19年的私奔……"
+    },
+    {
+      "source": "豆瓣",
+      "author": "艾小柯",
+      "date": "2006-06-20",
+      "rating": "力荐",
+      "content": "关于希望最强有力的注释。"
+    },
+    {
+      "source": "豆瓣",
+      "author": "Eve|Classified",
+      "date": "2008-05-09",
+      "rating": "力荐",
+      "content": ""这是一部男人必看的电影。"人人都这么说。但单纯从性别区分，就会让这电影变狭隘。《肖申克的救赎》突破了男人电影的局限，通篇几乎充满令人难以置信的温馨基调，而电影里最伟大的主题是"希望"。\n\n当我们无奈地遇到了如同肖申克一般囚禁了心灵自由的那种囹圄，我们是无奈的老布鲁克，灰心的瑞德，还是智慧的安迪？运用智慧，信任希望，并且勇敢面对恐惧心理，去打败它？\n\n经典的电影之所以经典，因为他们都在做同一件事——深入探讨人性。"
+    }
+  ],
+  "links": {
+    "douban": "https://movie.douban.com/subject/1292052/",
+    "imdb": "https://www.imdb.com/title/tt0111161/",
+    "tmdb": "https://www.themoviedb.org/movie/278"
+  },
+  "module": "video",
+  "submodule": "movie",
+  "createdAt": "2026-05-01",
+  "updatedAt": "2026-05-01"
+}
