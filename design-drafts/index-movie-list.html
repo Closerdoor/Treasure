@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1440">
+  <title>个人收藏馆 - 电影列表页设计稿</title>
+  <link rel="stylesheet" href="style-movie-list.css">
+</head>
+<body>
+  <header class="main-nav">
+    <div class="logo">收藏馆</div>
+    <nav>
+      <a href="#video">影视</a>
+      <a href="#book">书</a>
+      <a href="#music">音乐</a>
+      <a href="#game">游戏</a>
+      <a href="#about">关于</a>
+    </nav>
+  </header>
+  <main>
+    <section class="movie-header">
+      <h1>电影</h1>
+      <div class="movie-desc">馆长精选电影，结构化资料浏览</div>
+    </section>
+    <section class="filter-bar">
+      <select><option>全部年份</option><option>2020s</option><option>2010s</option><option>2000s</option></select>
+      <select><option>全部国家</option><option>美国</option><option>中国</option><option>日本</option></select>
+      <select><option>全部类型</option><option>科幻</option><option>剧情</option><option>动画</option></select>
+      <select><option>全部标签</option><option>成长</option><option>经典</option></select>
+      <button class="filter-btn">筛选</button>
+    </section>
+    <section class="movie-list">
+      <div class="movie-card">
+        <img src="https://image.tmdb.org/t/p/w300/8YFL5QQVPy3AgrEQxNYVSgiPEbe.jpg" alt="星际穿越">
+        <div class="movie-info">
+          <div class="movie-title">星际穿越</div>
+          <div class="movie-meta">2014 · Nolan · 科幻</div>
+          <div class="movie-rating">评分：9.5</div>
+          <div class="movie-tags"><span>科幻</span><span>太空</span></div>
+        </div>
+      </div>
+      <div class="movie-card">
+        <img src="https://image.tmdb.org/t/p/w300/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg" alt="盗梦空间">
+        <div class="movie-info">
+          <div class="movie-title">盗梦空间</div>
+          <div class="movie-meta">2010 · Nolan · 悬疑</div>
+          <div class="movie-rating">评分：9.2</div>
+          <div class="movie-tags"><span>悬疑</span><span>梦境</span></div>
+        </div>
+      </div>
+      <div class="movie-card">
+        <img src="https://image.tmdb.org/t/p/w300/6FfCtAuVAW8XJjZ7eWeLibRLWTw.jpg" alt="肖申克的救赎">
+        <div class="movie-info">
+          <div class="movie-title">肖申克的救赎</div>
+          <div class="movie-meta">1994 · Darabont · 剧情</div>
+          <div class="movie-rating">评分：9.7</div>
+          <div class="movie-tags"><span>经典</span><span>成长</span></div>
+        </div>
+      </div>
+      <div class="movie-card">
+        <img src="https://image.tmdb.org/t/p/w300/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg" alt="沙丘">
+        <div class="movie-info">
+          <div class="movie-title">沙丘</div>
+          <div class="movie-meta">2021 · Villeneuve · 科幻</div>
+          <div class="movie-rating">评分：8.8</div>
+          <div class="movie-tags"><span>科幻</span><span>史诗</span></div>
+        </div>
+      </div>
+    </section>
+    <section class="pagination">
+      <button class="page-btn">上一页</button>
+      <span class="page-num">1 / 10</span>
+      <button class="page-btn">下一页</button>
+    </section>
+  </main>
+  <footer>
+    <div>© 2026 个人收藏馆 · 精选影视、书籍、音乐与游戏</div>
+    <div>数据来源于公开社区信息，评论由 Giscus 提供</div>
+  </footer>
+</body>
+</html>

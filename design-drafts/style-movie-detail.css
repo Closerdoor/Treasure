@@ -1,0 +1,127 @@
+body {
+  background: #0a0a0a;
+  color: #f5f5f5;
+  font-family: 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+.main-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #151515;
+  padding: 0 48px;
+  height: 64px;
+  border-bottom: 1px solid #252525;
+}
+.main-nav .logo {
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #fff;
+}
+.main-nav nav a {
+  color: #bbb;
+  text-decoration: none;
+  margin-left: 32px;
+  font-size: 16px;
+  transition: color 0.2s;
+}
+.main-nav nav a:hover {
+  color: #4a9fd8;
+}
+.movie-hero {
+  display: flex;
+  align-items: flex-start;
+  gap: 48px;
+  padding: 48px 120px 0 120px;
+}
+.movie-poster img {
+  width: 320px;
+  height: 460px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px #0008;
+}
+.movie-info {
+  flex: 1;
+}
+.movie-info h1 {
+  font-size: 32px;
+  margin: 0 0 12px 0;
+  font-weight: 700;
+}
+.movie-year {
+  font-size: 20px;
+  color: #aaa;
+  margin-left: 12px;
+}
+.movie-meta {
+  color: #888;
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+.movie-rating {
+  color: #4a9fd8;
+  font-size: 17px;
+  margin-bottom: 10px;
+}
+.movie-tags {
+  margin-bottom: 12px;
+}
+.movie-tags span {
+  background: #222;
+  color: #4a9fd8;
+  border-radius: 12px;
+  padding: 4px 14px;
+  font-size: 14px;
+  margin-right: 8px;
+}
+.movie-brief {
+  color: #bbb;
+  font-size: 16px;
+  margin-top: 10px;
+}
+.movie-section {
+  padding: 32px 120px 0 120px;
+}
+.movie-section h2 {
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+.movie-summary, .movie-curator-note {
+  background: #181c24;
+  color: #eee;
+  border-radius: 8px;
+  padding: 18px 24px;
+  font-size: 16px;
+  line-height: 1.7;
+}
+.movie-gallery {
+  display: flex;
+  gap: 24px;
+}
+.movie-gallery img {
+  width: 220px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px #0006;
+}
+.movie-comments {
+  background: #151515;
+  border-radius: 8px;
+  padding: 24px;
+  color: #aaa;
+  font-size: 15px;
+  margin-top: 8px;
+}
+footer {
+  background: #151515;
+  color: #888;
+  text-align: center;
+  padding: 32px 0 16px 0;
+  font-size: 15px;
+  border-top: 1px solid #252525;
+  margin-top: 60px;
+}

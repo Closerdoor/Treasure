@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>电影列表页卡片设计</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: #0a0a0a;
+      color: #f5f5f5;
+      min-height: 100vh;
+      padding: 40px;
+    }
+
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      color: #888;
+      margin-bottom: 40px;
+    }
+
+    .section {
+      margin-bottom: 60px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #252525;
+    }
+
+    /* ========== 布局 A：网格模式 ========== */
+    .grid-layout {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 20px;
+      padding: 40px 0;
+    }
+
+    .card-grid {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #2a2a2a;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease, z-index 0s;
+      cursor: pointer;
+      position: relative;
+      background: #151515;
+    }
+
+    .card-grid:hover {
+      transform: scale(1.18);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      z-index: 100;
+    }
+
+    .card-grid-poster-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      z-index: 1;
+    }
+
+    .card-grid:hover .card-grid-poster-bg {
+      opacity: 1;
+    }
+
+    .card-grid-poster-wrapper {
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    .card-grid-poster {
+      width: 100%;
+      aspect-ratio: 2/3;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.35s ease;
+    }
+
+    .card-grid:hover .card-grid-poster {
+      opacity: 0;
+    }
+
+    .card-grid-rating-corner {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fbbf24;
+      z-index: 10;
+      transition: opacity 0.25s ease;
+    }
+
+    .card-grid:hover .card-grid-rating-corner {
+      opacity: 0;
+    }
+
+    .card-grid-duration {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #fff;
+      font-family: 'SF Mono', 'Consolas', monospace;
+      z-index: 10;
+      transition: opacity 0.25s ease;
+    }
+
+    .card-grid:hover .card-grid-duration {
+      opacity: 0;
+    }
+
+    .card-grid-info {
+      padding: 14px;
+      transition: opacity 0.25s ease;
+      position: relative;
+      z-index: 2;
+    }
+
+    .card-grid:hover .card-grid-info {
+      opacity: 0;
+    }
+
+    .card-grid-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .card-grid-meta {
+      font-size: 13px;
+      color: #888;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-grid-meta-left {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .card-grid-meta-right {
+      color: #666;
+      font-size: 12px;
+    }
+
+    .card-grid-hover-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 14px;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.85) 50%, rgba(0, 0, 0, 0.4) 80%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .card-grid:hover .card-grid-hover-info {
+      opacity: 1;
+    }
+
+    .hover-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .hover-meta {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 6px;
+    }
+
+    .hover-cast {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .hover-summary {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* ========== 布局 B：列表模式 ========== */
+    .list-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card-list {
+      display: flex;
+      background: #151515;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid #2a2a2a;
+      transition: all 0.3s ease;
+    }
+
+    .card-list:hover {
+      border-color: #3a3a3a;
+    }
+
+    .card-list .poster-col {
+      flex-shrink: 0;
+      width: 120px;
+      display: flex;
+      cursor: pointer;
+    }
+
+    .card-list .poster {
+      width: 100%;
+      height: 100%;
+      min-height: 180px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .card-list .poster-col:hover .poster {
+      transform: scale(1.05);
+    }
+
+    .card-list .info-col {
+      flex: 1;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+    }
+
+    .card-list .title-row {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .card-list .title-cn {
+      font-size: 18px;
+      font-weight: 600;
+      color: #f5f5f5;
+    }
+
+    .card-list .title-original {
+      font-size: 14px;
+      color: #888;
+      font-weight: normal;
+    }
+
+    .card-list .meta-row {
+      font-size: 14px;
+      color: #888;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .card-list .meta-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      background: #1a1a1a;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #aaa;
+    }
+
+    .card-list .meta-tag svg {
+      width: 12px;
+      height: 12px;
+      fill: #666;
+    }
+
+    .card-list .director-row {
+      font-size: 14px;
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-list .director-row svg {
+      width: 14px;
+      height: 14px;
+      fill: #666;
+      flex-shrink: 0;
+    }
+
+    .card-list .cast-row {
+      font-size: 14px;
+      color: #999;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .card-list .cast-row svg {
+      width: 14px;
+      height: 14px;
+      fill: #666;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .card-list .summary-row {
+      font-size: 13px;
+      color: #888;
+      line-height: 1.6;
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+    }
+
+    .card-list .summary-row svg {
+      width: 14px;
+      height: 14px;
+      fill: #666;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .card-list .summary-row span {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-list .rating-col {
+      width: 100px;
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-left: 1px solid #252525;
+      background: #121212;
+    }
+
+    .card-list .rating-main {
+      text-align: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #252525;
+      width: 100%;
+    }
+
+    .card-list .rating-score {
+      font-size: 28px;
+      font-weight: 700;
+      color: #fbbf24;
+    }
+
+    .card-list .rating-label {
+      font-size: 11px;
+      color: #666;
+      margin-top: 2px;
+    }
+
+    .card-list .rating-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .card-list .rating-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+    }
+
+    .card-list .rating-item .source {
+      color: #666;
+    }
+
+    .card-list .rating-item .score {
+      color: #fbbf24;
+      font-weight: 600;
+    }
+
+    .card-list .view-detail {
+      position: absolute;
+      right: 20px;
+      top: 18px;
+      padding: 5px 12px;
+      background: transparent;
+      color: #888;
+      font-size: 13px;
+      font-weight: 500;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid #333;
+    }
+
+    .card-list .view-detail:hover {
+      color: #fbbf24;
+      border-color: #fbbf24;
+    }
+
+    /* ========== 浅色主题 ========== */
+    body.light {
+      background: #f5f5f5;
+      color: #1a1a1a;
+    }
+
+    body.light .card-grid,
+    body.light .card-list {
+      background: #fff;
+      border-color: #e5e5e5;
+    }
+
+    body.light .card-grid:hover,
+    body.light .card-list:hover {
+      border-color: #ccc;
+    }
+
+    body.light .card-grid-meta,
+    body.light .card-list .meta-row,
+    body.light .card-list .summary-row {
+      color: #666;
+    }
+
+    body.light .section-title {
+      border-bottom-color: #e5e5e5;
+    }
+
+    body.light .card-grid-duration {
+      background: rgba(0, 0, 0, 0.75);
+      color: #fff;
+    }
+
+    body.light .card-grid-rating-corner {
+      color: #d97706;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    body.light .card-list .rating-col {
+      background: #f8f8f8;
+      border-left-color: #e5e5e5;
+    }
+
+    body.light .card-list .rating-main {
+      border-bottom-color: #e5e5e5;
+    }
+
+    body.light .card-list .rating-score,
+    body.light .card-list .rating-item .score {
+      color: #d97706;
+    }
+
+    body.light .card-list .view-detail {
+      color: #999;
+      border-color: #ddd;
+    }
+
+    body.light .card-list .view-detail:hover {
+      color: #d97706;
+      border-color: #d97706;
+    }
+
+    body.light .card-list .meta-tag {
+      background: #f0f0f0;
+      color: #666;
+    }
+
+    body.light .card-list .meta-tag svg,
+    body.light .card-list .director-row svg,
+    body.light .card-list .cast-row svg,
+    body.light .card-list .summary-row svg {
+      fill: #999;
+    }
+
+    body.light .card-grid-meta-right {
+      color: #999;
+    }
+
+    /* 主题切换按钮 */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 10px 16px;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 6px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 14px;
+      z-index: 100;
+    }
+
+    body.light .theme-toggle {
+      background: #fff;
+      border-color: #ddd;
+      color: #1a1a1a;
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" onclick="toggleTheme()">切换主题</button>
+
+  <div class="container">
+    <h1>电影列表页卡片设计</h1>
+    <p class="subtitle">展示两种布局模式：网格模式（布局 A）和列表模式（布局 B）</p>
+
+    <!-- 布局 A：网格模式 -->
+    <div class="section">
+      <h2 class="section-title">布局 A：网格模式</h2>
+      
+      <div class="grid-layout">
+        <div class="card-grid">
+          <img class="card-grid-poster-bg" src="../content/video/movie/0101000001/images/poster-main.jpg" alt="">
+          <div class="card-grid-poster-wrapper">
+            <img class="card-grid-poster" src="../content/video/movie/0101000001/images/poster-main.jpg" alt="肖申克的救赎">
+            <div class="card-grid-rating-corner">9.5</div>
+            <div class="card-grid-duration">2:22:00</div>
+          </div>
+          <div class="card-grid-info">
+            <div class="card-grid-title">肖申克的救赎</div>
+            <div class="card-grid-meta">
+              <span class="card-grid-meta-left">1994 · 剧情</span>
+              <span class="card-grid-meta-right">美国</span>
+            </div>
+          </div>
+          <div class="card-grid-hover-info">
+            <div class="hover-title">肖申克的救赎</div>
+            <div class="hover-meta">剧情 · 1994 · 美国</div>
+            <div class="hover-cast">主演：蒂姆·罗宾斯 / 摩根·弗里曼 / 鲍勃·冈顿</div>
+            <div class="hover-summary">一场谋杀案使银行家安迪蒙冤入狱，在肖申克监狱内，他遇见了黑人囚犯瑞德，两人很快成为好友。安迪始终不放弃对自由的向往。</div>
+          </div>
+        </div>
+
+        <div class="card-grid">
+          <img class="card-grid-poster-bg" src="../content/video/movie/0101000001/images/poster-01.png" alt="">
+          <div class="card-grid-poster-wrapper">
+            <img class="card-grid-poster" src="../content/video/movie/0101000001/images/poster-01.png" alt="肖申克的救赎">
+            <div class="card-grid-rating-corner">9.5</div>
+            <div class="card-grid-duration">2:22:00</div>
+          </div>
+          <div class="card-grid-info">
+            <div class="card-grid-title">肖申克的救赎</div>
+            <div class="card-grid-meta">
+              <span class="card-grid-meta-left">1994 · 剧情</span>
+              <span class="card-grid-meta-right">美国</span>
+            </div>
+          </div>
+          <div class="card-grid-hover-info">
+            <div class="hover-title">肖申克的救赎</div>
+            <div class="hover-meta">剧情 · 1994 · 美国</div>
+            <div class="hover-cast">主演：蒂姆·罗宾斯 / 摩根·弗里曼</div>
+            <div class="hover-summary">一场谋杀案使银行家安迪蒙冤入狱，在肖申克监狱内，他遇见了黑人囚犯瑞德。</div>
+          </div>
+        </div>
+
+        <div class="card-grid">
+          <img class="card-grid-poster-bg" src="../content/video/movie/0101000001/images/poster-02.png" alt="">
+          <div class="card-grid-poster-wrapper">
+            <img class="card-grid-poster" src="../content/video/movie/0101000001/images/poster-02.png" alt="肖申克的救赎">
+            <div class="card-grid-rating-corner">9.5</div>
+            <div class="card-grid-duration">2:22:00</div>
+          </div>
+          <div class="card-grid-info">
+            <div class="card-grid-title">肖申克的救赎</div>
+            <div class="card-grid-meta">
+              <span class="card-grid-meta-left">1994 · 剧情</span>
+              <span class="card-grid-meta-right">美国</span>
+            </div>
+          </div>
+          <div class="card-grid-hover-info">
+            <div class="hover-title">肖申克的救赎</div>
+            <div class="hover-meta">剧情 · 1994 · 美国</div>
+            <div class="hover-cast">主演：蒂姆·罗宾斯 / 摩根·弗里曼</div>
+            <div class="hover-summary">一场谋杀案使银行家安迪蒙冤入狱，在肖申克监狱内，他遇见了黑人囚犯瑞德。</div>
+          </div>
+        </div>
+
+        <div class="card-grid">
+          <img class="card-grid-poster-bg" src="../content/video/movie/0101000001/images/poster-03.png" alt="">
+          <div class="card-grid-poster-wrapper">
+            <img class="card-grid-poster" src="../content/video/movie/0101000001/images/poster-03.png" alt="肖申克的救赎">
+            <div class="card-grid-rating-corner">9.5</div>
+            <div class="card-grid-duration">2:22:00</div>
+          </div>
+          <div class="card-grid-info">
+            <div class="card-grid-title">肖申克的救赎</div>
+            <div class="card-grid-meta">
+              <span class="card-grid-meta-left">1994 · 剧情</span>
+              <span class="card-grid-meta-right">美国</span>
+            </div>
+          </div>
+          <div class="card-grid-hover-info">
+            <div class="hover-title">肖申克的救赎</div>
+            <div class="hover-meta">剧情 · 1994 · 美国</div>
+            <div class="hover-cast">主演：蒂姆·罗宾斯 / 摩根·弗里曼</div>
+            <div class="hover-summary">一场谋杀案使银行家安迪蒙冤入狱，在肖申克监狱内，他遇见了黑人囚犯瑞德。</div>
+          </div>
+        </div>
+
+        <div class="card-grid">
+          <img class="card-grid-poster-bg" src="../content/video/movie/0101000001/images/poster-04.png" alt="">
+          <div class="card-grid-poster-wrapper">
+            <img class="card-grid-poster" src="../content/video/movie/0101000001/images/poster-04.png" alt="肖申克的救赎">
+            <div class="card-grid-rating-corner">9.5</div>
+            <div class="card-grid-duration">2:22:00</div>
+          </div>
+          <div class="card-grid-info">
+            <div class="card-grid-title">肖申克的救赎</div>
+            <div class="card-grid-meta">
+              <span class="card-grid-meta-left">1994 · 剧情</span>
+              <span class="card-grid-meta-right">美国</span>
+            </div>
+          </div>
+          <div class="card-grid-hover-info">
+            <div class="hover-title">肖申克的救赎</div>
+            <div class="hover-meta">剧情 · 1994 · 美国</div>
+            <div class="hover-cast">主演：蒂姆·罗宾斯 / 摩根·弗里曼 / 鲍勃·冈顿</div>
+            <div class="hover-summary">一场谋杀案使银行家安迪蒙冤入狱，在肖申克监狱内，他遇见了黑人囚犯瑞德。</div>
+          </div>
+        </div>
+
+        <div class="card-grid">
+          <img class="card-grid-poster-bg" src="../content/video/movie/0101000001/images/poster-05.png" alt="">
+          <div class="card-grid-poster-wrapper">
+            <img class="card-grid-poster" src="../content/video/movie/0101000001/images/poster-05.png" alt="肖申克的救赎">
+            <div class="card-grid-rating-corner">9.5</div>
+            <div class="card-grid-duration">2:22:00</div>
+          </div>
+          <div class="card-grid-info">
+            <div class="card-grid-title">肖申克的救赎</div>
+            <div class="card-grid-meta">
+              <span class="card-grid-meta-left">1994 · 剧情</span>
+              <span class="card-grid-meta-right">美国</span>
+            </div>
+          </div>
+          <div class="card-grid-hover-info">
+            <div class="hover-title">肖申克的救赎</div>
+            <div class="hover-meta">剧情 · 1994 · 美国</div>
+            <div class="hover-cast">主演：蒂姆·罗宾斯 / 摩根·弗里曼 / 鲍勃·冈顿</div>
+            <div class="hover-summary">一场谋杀案使银行家安迪蒙冤入狱，在肖申克监狱内，他遇见了黑人囚犯瑞德。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 布局 B：列表模式 -->
+    <div class="section">
+      <h2 class="section-title">布局 B：列表模式</h2>
+      
+      <div class="list-layout">
+        <div class="card-list">
+          <div class="poster-col">
+            <img class="poster" src="../content/video/movie/0101000001/images/poster-main.jpg" alt="肖申克的救赎">
+          </div>
+          <div class="info-col">
+            <div class="title-row">
+              <span class="title-cn">肖申克的救赎</span>
+              <span class="title-original">The Shawshank Redemption</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-tag">
+                <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11zM9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm-8 4H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
+                1994
+              </span>
+              <span class="meta-tag">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                美国
+              </span>
+              <span class="meta-tag">
+                <svg viewBox="0 0 24 24"><path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/></svg>
+                剧情/犯罪
+              </span>
+            </div>
+            <div class="director-row">
+              <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              <span>导演：弗兰克·德拉邦特</span>
+            </div>
+            <div class="cast-row">
+              <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+              <span>主演：蒂姆·罗宾斯 / 摩根·弗里曼 / 鲍勃·冈顿 / 威廉·赛德勒</span>
+            </div>
+<div class="summary-row">
+              <svg viewBox="0 0 24 24"><path d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"/></svg>
+              <span>简介：一场谋杀案使银行家安迪蒙冤入狱，在肖申克监狱内，他遇见了黑人囚犯瑞德。</span>
+            </div>
+            <a class="view-detail" href="#">查看详情</a>
+          </div>
+          <div class="rating-col">
+            <div class="rating-main">
+              <div class="rating-score">9.5</div>
+              <div class="rating-label">综合评分</div>
+            </div>
+            <div class="rating-list">
+              <div class="rating-item">
+                <span class="source">豆瓣</span>
+                <span class="score">9.7</span>
+              </div>
+              <div class="rating-item">
+                <span class="source">IMDb</span>
+                <span class="score">9.3</span>
+              </div>
+              <div class="rating-item">
+                <span class="source">TMDB</span>
+                <span class="score">8.5</span>
+              </div>
+              <div class="rating-item">
+                <span class="source">烂番茄</span>
+                <span class="score">91%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-list">
+          <div class="poster-col">
+            <img class="poster" src="../content/video/movie/0101000001/images/poster-01.png" alt="肖申克的救赎">
+          </div>
+          <div class="info-col">
+            <div class="title-row">
+              <span class="title-cn">肖申克的救赎</span>
+              <span class="title-original">The Shawshank Redemption</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-tag">
+                <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11zM9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm-8 4H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
+                1994
+              </span>
+              <span class="meta-tag">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                美国
+              </span>
+              <span class="meta-tag">
+                <svg viewBox="0 0 24 24"><path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/></svg>
+                剧情/犯罪
+              </span>
+            </div>
+            <div class="director-row">
+              <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              <span>导演：弗兰克·德拉邦特</span>
+            </div>
+            <div class="cast-row">
+              <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+              <span>主演：蒂姆·罗宾斯 / 摩根·弗里曼</span>
+            </div>
+            <div class="summary-row">
+              <svg viewBox="0 0 24 24"><path d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"/></svg>
+              <span class="summary-text">一场谋杀案使银行家安迪蒙冤入狱，在肖申克监狱内，他遇见了黑人囚犯瑞德。</span>
+            </div>
+            <a class="view-detail" href="#">查看详情</a>
+          </div>
+          <div class="rating-col">
+            <div class="rating-main">
+              <div class="rating-score">9.5</div>
+              <div class="rating-label">综合评分</div>
+            </div>
+            <div class="rating-list">
+              <div class="rating-item">
+                <span class="source">豆瓣</span>
+                <span class="score">9.7</span>
+              </div>
+              <div class="rating-item">
+                <span class="source">IMDb</span>
+                <span class="score">9.3</span>
+              </div>
+              <div class="rating-item">
+                <span class="source">TMDB</span>
+                <span class="score">8.5</span>
+              </div>
+              <div class="rating-item">
+                <span class="source">烂番茄</span>
+                <span class="score">91%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-list">
+          <div class="poster-col">
+            <img class="poster" src="../content/video/movie/0101000001/images/poster-02.png" alt="肖申克的救赎">
+          </div>
+          <div class="info-col">
+            <div class="title-row">
+              <span class="title-cn">肖申克的救赎</span>
+              <span class="title-original">The Shawshank Redemption</span>
+            </div>
+            <div class="meta-row">
+              <span class="meta-tag">
+                <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11zM9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm-8 4H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
+                1994
+              </span>
+              <span class="meta-tag">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                美国
+              </span>
+              <span class="meta-tag">
+                <svg viewBox="0 0 24 24"><path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/></svg>
+                剧情/犯罪
+              </span>
+            </div>
+            <div class="director-row">
+              <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              <span>导演：弗兰克·德拉邦特</span>
+            </div>
+            <div class="cast-row">
+              <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+              <span>主演：蒂姆·罗宾斯 / 摩根·弗里曼</span>
+            </div>
+            <div class="summary-row">
+              <svg viewBox="0 0 24 24"><path d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"/></svg>
+              <span class="summary-text">一场谋杀案使银行家安迪蒙冤入狱，在肖申克监狱内，他遇见了黑人囚犯瑞德。</span>
+            </div>
+            <a class="view-detail" href="#">查看详情</a>
+          </div>
+          <div class="rating-col">
+            <div class="rating-main">
+              <div class="rating-score">9.5</div>
+              <div class="rating-label">综合评分</div>
+            </div>
+            <div class="rating-list">
+              <div class="rating-item">
+                <span class="source">豆瓣</span>
+                <span class="score">9.7</span>
+              </div>
+              <div class="rating-item">
+                <span class="source">IMDb</span>
+                <span class="score">9.3</span>
+              </div>
+              <div class="rating-item">
+                <span class="source">TMDB</span>
+                <span class="score">8.5</span>
+              </div>
+              <div class="rating-item">
+                <span class="source">烂番茄</span>
+                <span class="score">91%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('light');
+    }
+  </script>
+</body>
+</html>
