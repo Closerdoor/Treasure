@@ -697,20 +697,45 @@ node crawlers/omdb.js --id tt11378946 --output raw-omdb-update.json
   "images": {
     "poster": {
       "value": "poster-main.jpg",
-      "source": "omdb",
-      "sourceUrl": "https://www.omdbapi.com/?i=tt0111161",
-      "downloadedFrom": "https://m.media-amazon.com/images/M/...",
+      "source": "douban",
+      "sourceUrl": "https://movie.douban.com/subject/1292052/",
+      "downloadedFrom": "https://img2.doubanio.com/view/photo/l_ratio_poster/public/p480747492.jpg",
       "crawledAt": "2026-05-01T15:30:00Z"
     },
-    "posters": [
-      {
-        "value": "poster-01.png",
-        "source": "douban",
-        "sourceUrl": "https://movie.douban.com/subject/1292052/photos?type=R",
-        "downloadedFrom": "https://img2.doubanio.com/...",
-        "crawledAt": "2026-05-01T15:30:00Z"
-      }
-    ]
+    "posters": {
+      "value": [
+        "poster-01.png",
+        "poster-02.png"
+      ],
+      "source": "tmdb",
+      "sourceUrl": "https://www.themoviedb.org/movie/278/images/posters",
+      "crawledAt": "2026-05-01T15:35:00Z",
+      "note": "补充海报列表，不包含主海报"
+    },
+    "postersTotal": {
+      "value": 149,
+      "source": "douban",
+      "sourceUrl": "https://movie.douban.com/subject/1292052/photos?type=R",
+      "crawledAt": "2026-05-01T15:35:00Z",
+      "note": "源站可获取的补充海报总量，不等于本地已下载文件数量"
+    },
+    "stills": {
+      "value": [
+        "still-01.png",
+        "still-02.png"
+      ],
+      "source": "tmdb",
+      "sourceUrl": "https://www.themoviedb.org/movie/278/images/backdrops",
+      "crawledAt": "2026-05-01T15:40:00Z",
+      "note": "本地已下载的剧照文件列表"
+    },
+    "stillsTotal": {
+      "value": 918,
+      "source": "douban",
+      "sourceUrl": "https://movie.douban.com/subject/1292052/photos?type=S",
+      "crawledAt": "2026-05-01T15:40:00Z",
+      "note": "源站可获取的剧照总量，不等于本地已下载文件数量"
+    }
   },
   "createdAt": {
     "value": "2026-05-01",
