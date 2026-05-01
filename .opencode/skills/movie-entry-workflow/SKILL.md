@@ -316,7 +316,7 @@ node crawlers/baidu-baike.js --title "肖申克的救赎" --output raw-baike.jso
 
 **下载策略**：
 - 主海报：豆瓣正式海报 > Wikipedia > TMDB
-- 海报列表：**TMDB**（前 10 张）
+- 海报列表：**TMDB**（前 10 张，不包含主海报）
 - 剧照：**TMDB backdrops**（前 13 张）
 - 壁纸：豆瓣（前 4 张）
 - 头像：导演 + 主演（前 8 位），优先从 Wikipedia 获取
@@ -646,6 +646,7 @@ node crawlers/omdb.js --id tt11378946 --output raw-omdb-update.json
 
 - `images.poster` 永远表示主海报
 - `images.posters` 表示补充海报列表，后续录入时不应再重复包含主海报
+- `images.postersTotal` 表示补充海报总数，不包含主海报本身
 - `links.*` 缺失时统一使用 `null`
 - `soundtrack.name` 表示原声带专辑名
 - `soundtrack.tracks[]` 中曲目名统一使用 `name`

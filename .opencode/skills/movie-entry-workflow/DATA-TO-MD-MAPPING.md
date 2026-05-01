@@ -411,8 +411,9 @@
 
 | data.json 字段 | 映射规则 |
 |----------------|----------|
-| `images.posters[]` | 画廊展示（160px宽） |
-| `images.postersTotal` | 注释说明 |
+| `images.poster` | 主海报单独展示 |
+| `images.posters[]` | 补充海报画廊展示（160px宽，不重复主海报） |
+| `images.postersTotal` | 补充海报数量说明（不含主海报） |
 
 ### 剧照画廊
 

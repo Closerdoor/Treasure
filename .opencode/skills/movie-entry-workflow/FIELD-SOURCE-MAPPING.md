@@ -89,7 +89,7 @@
 | 字段 | 优先级 | 说明 |
 |------|--------|------|
 | `images.poster` | 豆瓣 > OMDb | 主海报（豆瓣优先，禁止使用OMDb小图） |
-| `images.posters` | 豆瓣 > IMDb | 海报列表 |
+| `images.posters` | 豆瓣 > IMDb | 补充海报列表，不包含 `images.poster` |
 | `images.stills` | 豆瓣 > IMDb | 剧照列表 |
 | `images.wallpapers` | 豆瓣 > IMDb | 壁纸列表 |
 | `videos` | 豆瓣 > IMDb | 预告片列表 |

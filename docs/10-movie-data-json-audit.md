@@ -226,7 +226,7 @@
 - 该调整不改变展示内容，只统一数据字段名
 - 对应的 `source.json` 也应同步使用同一字段命名，避免数据与溯源结构脱节
 
-### 6.2 `images.posters` 是否包含主海报不统一
+### 6.2 `images.poster` 与 `images.posters` 的语义曾不统一
 
 当前发现：
 
@@ -235,9 +235,11 @@
 
 说明：
 
-- 后续需要明确：
-  - `images.poster` 是否永远只代表主海报
-  - `images.posters` 是否包含主海报本身
+- 现已统一规则：
+  - `images.poster` 永远只表示主海报
+  - `images.posters` 只表示补充海报列表，不包含主海报
+  - `images.postersTotal` 只统计补充海报数量，不包含主海报
+- 当前这轮只统一规则文档，不直接修改已有条目中的图片数组内容
 
 ### 6.3 `links.tmdb` 的空值形式不统一
 

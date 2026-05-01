@@ -164,8 +164,8 @@
 | 字段 | data.json 路径 | 展示格式 |
 |------|----------------|----------|
 | 主海报 | `images.poster` | 顶部展示（200px宽） |
-| 海报列表 | `images.posters` | 画廊（160px宽） |
-| 海报总数 | `images.postersTotal` | 注释说明 |
+| 海报列表 | `images.posters` | 补充海报画廊（160px宽，不重复主海报） |
+| 海报总数 | `images.postersTotal` | 补充海报数量说明（不含主海报） |
 
 ### 剧照
 
