@@ -1,0 +1,22 @@
+{
+  "name": "treasure-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "predev": "node ./scripts/sync-assets.mjs",
+    "dev": "astro dev",
+    "prebuild": "node ./scripts/sync-assets.mjs",
+    "build": "astro build",
+    "sync:assets": "node ./scripts/sync-assets.mjs",
+    "preview": "astro preview",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "astro": "^5.8.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  }
+}

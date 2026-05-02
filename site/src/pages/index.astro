@@ -1,0 +1,162 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MovieGridCard from '../components/MovieGridCard.astro';
+import PlaceholderModuleCard from '../components/PlaceholderModuleCard.astro';
+import { loadArchiveMovies } from '../lib/archive';
+import { buildHomePageModel, collectMovieTags, moduleCards } from '../lib/site';
+
+const movies = await loadArchiveMovies();
+const { heroMovie, featuredMovies, recentMovies } = buildHomePageModel(movies);
+const tags = collectMovieTags(movies);
+const activeModule = moduleCards.find((module) => module.state === 'active');
+---
+
+<BaseLayout title="Treasure 资料馆">
+  {heroMovie ? (
+    <section class="home-hero shell">
+      <div class="home-hero__backdrop">
+        <img src={heroMovie.posterUrl} alt={`${heroMovie.title} 海报背景`} />
+      </div>
+
+      <div class="home-hero__inner">
+        <div class="home-hero__main">
+          <p class="eyebrow">Treasure</p>
+          <h1>精选影片</h1>
+          <div class="home-hero__headline-block">
+            <p class="home-hero__focus">{heroMovie.title}</p>
+            <p class="home-hero__summary">{heroMovie.synopsis?.text}</p>
+          </div>
+
+          <div class="home-hero__feature-grid">
+            <a class="home-hero__feature-card" href={heroMovie.path}>
+              <span>本期推荐</span>
+              <strong>{heroMovie.title}</strong>
+              <em>进入影片</em>
+            </a>
+
+            {activeModule ? (
+              <a class="home-hero__feature-card home-hero__feature-card--compact" href={activeModule.href}>
+                <span>馆藏分类</span>
+                <strong>{activeModule.title}</strong>
+                <em>进入分馆</em>
+              </a>
+            ) : null}
+          </div>
+
+          <div class="home-hero__actions">
+            <a class="button button--primary" href="/video">进入影视</a>
+            <a class="button button--ghost" href="/search">搜索</a>
+            <a class="button button--ghost" href="#modules">更多馆藏</a>
+          </div>
+
+          <div class="home-hero__posters" aria-label="精选影片直达入口">
+            {featuredMovies.map((movie, index) => (
+              <a class="home-hero__poster-chip" href={movie.path}>
+                <img src={movie.posterUrl} alt={`${movie.title} 海报卡片`} loading="lazy" />
+                <div>
+                  <strong>{movie.title}</strong>
+                  <span>{index === 0 ? '本期推荐' : index === 1 ? '继续浏览' : '下一部'}</span>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          <div class="home-hero__modules">
+            <div>
+              <span>馆内入口</span>
+              <strong>电影 / 书 / 音乐 / 游戏</strong>
+            </div>
+            <div class="home-hero__module-tags">
+              <a href="/video?tag=剧情">精选影片</a>
+              <a href="/video">最近入馆</a>
+              <a href="#modules">全部分类</a>
+            </div>
+          </div>
+
+          <div class="home-hero__footnote">
+            <span>馆藏索引</span>
+            <p>从电影样板进入，逐步展开整座收藏馆。</p>
+          </div>
+        </div>
+
+        <aside class="home-hero__side">
+          <div class="home-hero__panel">
+            <span>最近入馆</span>
+            <h2>四部影片</h2>
+            <ul>
+              {recentMovies.map((movie) => (
+                <li>
+                  <a href={movie.path}>
+                    <strong>{movie.title}</strong>
+                    <span>{movie.year}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="home-hero__panel home-hero__panel--status">
+            <span>正在浏览</span>
+            <strong>影视分馆</strong>
+            <p>从电影样板开始，继续展开整座收藏馆。</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+  ) : null}
+
+  <section class="shell section-stack">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">影视</p>
+        <h2>精选影片</h2>
+      </div>
+      <a class="section-link" href="/video">进入影视分馆</a>
+    </div>
+
+    <div class="grid-cards">
+      {featuredMovies.map((movie) => (
+        <MovieGridCard movie={movie} />
+      ))}
+    </div>
+  </section>
+
+  <section class="shell section-stack" id="modules">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">分馆入口</p>
+        <h2>四个模块</h2>
+      </div>
+    </div>
+
+    <div class="module-grid">
+      {moduleCards.map((module) =>
+        module.state === 'active' ? (
+          <a class="module-card module-card--active" href={module.href}>
+            <span>{module.slug}</span>
+            <strong>{module.title}</strong>
+            <p>{module.description}</p>
+          </a>
+        ) : (
+          <PlaceholderModuleCard title={module.title} description={module.description} />
+        )
+      )}
+    </div>
+  </section>
+
+  <section class="shell section-stack">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">标签入口</p>
+        <h2>继续浏览</h2>
+      </div>
+      <a class="section-link" href="/search">搜索入口</a>
+    </div>
+
+    <div class="tag-cloud">
+      {tags.map((tag) => (
+        <a href={`/video?tag=${encodeURIComponent(tag)}`}>{tag}</a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

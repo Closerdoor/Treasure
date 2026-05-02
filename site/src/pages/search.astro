@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="搜索入口 | Treasure 资料馆">
+  <section class="shell search-placeholder">
+    <p class="eyebrow">Search</p>
+    <h1>搜索结果页路径已预留，功能稍后接入。</h1>
+    <p>
+      当前按主文档约束，只保留全站搜索入口 UI 与独立 `/search` 页面，不实现真正的搜索索引与结果逻辑。
+    </p>
+
+    <form class="search-placeholder__form">
+      <input type="search" placeholder="先保留入口，不执行搜索" disabled />
+      <button class="button button--primary" type="button" disabled>搜索</button>
+    </form>
+
+    <a class="button button--ghost" href="/video">先去影视分馆浏览</a>
+  </section>
+</BaseLayout>

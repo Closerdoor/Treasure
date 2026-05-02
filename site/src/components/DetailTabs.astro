@@ -1,0 +1,131 @@
+---
+import type { ArchiveMovie } from '../lib/archive';
+
+const { movie } = Astro.props as { movie: ArchiveMovie };
+
+const tabItems = [
+  { id: 'story', label: '详情介绍' },
+  { id: 'credits', label: '演职员' },
+  { id: 'reviews', label: '精彩影评' },
+  { id: 'videos', label: '视频', hidden: !movie.videos?.length },
+  { id: 'images', label: '图片', hidden: !movie.stillGallery.length && !movie.posterGallery.length },
+  { id: 'music', label: '音乐', hidden: !movie.soundtrack?.tracks?.length },
+  { id: 'links', label: '外部来源' }
+].filter((item) => !item.hidden);
+---
+
+<div class="detail-tabs">
+  <nav class="detail-tabs__nav" aria-label="详情标签">
+    {tabItems.map((item, index) => (
+      <a class:list={["detail-tabs__tab", index === 0 && 'is-active']} href={`#${item.id}`}>{item.label}</a>
+    ))}
+  </nav>
+
+  <section class="detail-panel" id="story">
+    <h2>详情介绍</h2>
+    <p>{movie.story?.text}</p>
+    {movie.story?.note && <p class="detail-panel__note">{movie.story.note}</p>}
+  </section>
+
+  <section class="detail-panel" id="credits">
+    <h2>演职员</h2>
+    <div class="credit-grid">
+      {(movie.cast ?? []).map((person) => (
+        <article class="credit-card">
+          <img
+            src={person.avatar ? `/assets/${movie.module}/${movie.submodule}/${movie.id}/${person.avatar}` : '/assets/avatar-placeholder.svg'}
+            alt={person.name}
+            loading="lazy"
+          />
+          <div>
+            <strong>{person.name}</strong>
+            <p>{person.role}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="detail-panel" id="reviews">
+    <h2>精彩影评</h2>
+    <div class="review-stack">
+      {(movie.reviews ?? []).map((review) => (
+        <article class="review-card">
+          <header>
+            <strong>{review.author}</strong>
+            <span>{review.source} · {review.date}</span>
+          </header>
+          <p>{review.content}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  {movie.videos?.length ? (
+    <section class="detail-panel" id="videos">
+      <h2>视频</h2>
+      <div class="media-grid">
+        {movie.videos.map((video) => (
+          <a class="media-card" href={video.url} target="_blank" rel="noreferrer">
+            <div class="media-card__thumb">
+              {video.thumbnail ? (
+                <img src={`/assets/${movie.module}/${movie.submodule}/${movie.id}/${video.thumbnail}`} alt={video.title} loading="lazy" />
+              ) : (
+                <span>Video</span>
+              )}
+            </div>
+            <div>
+              <strong>{video.title}</strong>
+              <p>{video.duration || '外部视频'}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+  ) : null}
+
+  {movie.posterGallery.length || movie.stillGallery.length ? (
+    <section class="detail-panel" id="images">
+      <h2>图片</h2>
+      <div class="image-wall">
+        {[movie.posterUrl, ...movie.posterGallery, ...movie.stillGallery].slice(0, 12).map((image) => (
+          <img src={image} alt={`${movie.title} 图片`} loading="lazy" />
+        ))}
+      </div>
+    </section>
+  ) : null}
+
+  {movie.soundtrack?.tracks?.length ? (
+    <section class="detail-panel" id="music">
+      <h2>音乐</h2>
+      <div class="soundtrack-card">
+        <header>
+          <strong>{movie.soundtrack.name}</strong>
+          <span>
+            {movie.soundtrack.composer}
+            {movie.soundtrack.year ? ` · ${movie.soundtrack.year}` : ''}
+          </span>
+        </header>
+        <ol>
+          {movie.soundtrack.tracks.map((track) => (
+            <li>
+              <span>{track.index ? `${track.index}. ` : ''}{track.name}</span>
+              <span>{track.artist || track.duration || ''}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  ) : null}
+
+  <section class="detail-panel" id="links">
+    <h2>外部来源</h2>
+    <div class="link-list">
+      {Object.entries(movie.links ?? {}).map(([name, href]) =>
+        href ? (
+          <a href={href} target="_blank" rel="noreferrer">{name}</a>
+        ) : null
+      )}
+    </div>
+  </section>
+</div>

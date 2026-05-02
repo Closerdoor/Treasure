@@ -1,0 +1,58 @@
+---
+import SiteFooter from '../components/SiteFooter.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import { siteMeta } from '../lib/site';
+import '../styles/global.css';
+
+const { title = siteMeta.title, description = siteMeta.description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <SiteHeader />
+    <main>
+      <slot />
+    </main>
+    <SiteFooter />
+
+    <script is:inline>
+      const key = 'treasure-theme';
+      const root = document.documentElement;
+      const saved = localStorage.getItem(key);
+      const preferred = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+
+      root.dataset.theme = preferred;
+
+      const syncButtons = () => {
+        document.querySelectorAll('[data-theme-toggle]').forEach((button) => {
+          button.setAttribute('aria-pressed', String(root.dataset.theme === 'light'));
+        });
+      };
+
+      syncButtons();
+
+      document.addEventListener('click', (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLElement)) {
+          return;
+        }
+
+        const button = target.closest('[data-theme-toggle]');
+        if (!button) {
+          return;
+        }
+
+        root.dataset.theme = root.dataset.theme === 'light' ? 'dark' : 'light';
+        localStorage.setItem(key, root.dataset.theme);
+        syncButtons();
+      });
+    </script>
+  </body>
+</html>

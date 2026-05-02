@@ -1,0 +1,16 @@
+---
+const { title, description } = Astro.props as { title: string; description: string };
+---
+
+<article class="placeholder-module-card" aria-disabled="true">
+  <div class="placeholder-module-card__head">
+    <span class="placeholder-module-card__pill">未落地模块</span>
+    <h3>{title}</h3>
+  </div>
+  <p>{description}</p>
+  <div class="placeholder-module-card__ghosts">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</article>

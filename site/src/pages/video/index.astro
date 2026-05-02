@@ -1,0 +1,208 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MovieGridCard from '../../components/MovieGridCard.astro';
+import MovieListCard from '../../components/MovieListCard.astro';
+import { loadArchiveMovies } from '../../lib/archive';
+import { buildVideoViewModel, collectCountries, collectMovieTags, collectYears, filterMovies } from '../../lib/site';
+
+const allMovies = await loadArchiveMovies();
+
+const query = Astro.url.searchParams.get('q') ?? '';
+const submodule = Astro.url.searchParams.get('submodule') ?? '';
+const genre = Astro.url.searchParams.get('genre') ?? '';
+const country = Astro.url.searchParams.get('country') ?? '';
+const year = Astro.url.searchParams.get('year') ?? '';
+const tag = Astro.url.searchParams.get('tag') ?? '';
+const viewModel = buildVideoViewModel({
+  query,
+  submodule,
+  genre,
+  country,
+  year,
+  tag,
+  view: Astro.url.searchParams.get('view') ?? ''
+});
+const view = viewModel.view;
+
+const movies = filterMovies(allMovies, { query, submodule, genre, country, year, tag });
+const years = collectYears(allMovies);
+const countries = collectCountries(allMovies);
+const tags = collectMovieTags(allMovies);
+const genres = [...new Set(allMovies.flatMap((movie) => movie.genre ?? []))].sort();
+const activeFilters = [
+  query ? `搜索: ${query}` : '',
+  submodule ? `子模块: ${submodule}` : '',
+  genre ? `类型: ${genre}` : '',
+  country ? `地区: ${country}` : '',
+  year ? `年份: ${year}` : '',
+  tag ? `标签: ${tag}` : ''
+].filter(Boolean);
+---
+
+<BaseLayout title="影视分馆 | Treasure 资料馆">
+  <section class="shell listing-hero">
+    <p class="eyebrow">Video Collection</p>
+    <h1>影视分馆</h1>
+    <p>
+      按馆藏顺序浏览已收录作品，当前以前台电影样板为核心，继续扩展整座影视资料馆。
+    </p>
+  </section>
+
+  <section class="shell filters-panel">
+    <form class="filters-grid" method="get">
+      <label>
+        <span>搜索</span>
+        <input name="q" type="search" value={query} placeholder="标题、原名、演员" />
+      </label>
+
+      <label>
+        <span>子模块</span>
+        <select name="submodule">
+          <option value="">全部</option>
+          <option value="movie" selected={submodule === 'movie'}>电影</option>
+        </select>
+      </label>
+
+      <label>
+        <span>类型</span>
+        <select name="genre">
+          <option value="">全部</option>
+          {genres.map((item) => (
+            <option value={item} selected={genre === item}>{item}</option>
+          ))}
+        </select>
+      </label>
+
+      <label>
+        <span>地区</span>
+        <select name="country">
+          <option value="">全部</option>
+          {countries.map((item) => (
+            <option value={item} selected={country === item}>{item}</option>
+          ))}
+        </select>
+      </label>
+
+      <label>
+        <span>年份</span>
+        <select name="year">
+          <option value="">全部</option>
+          {years.map((item) => (
+            <option value={String(item)} selected={year === String(item)}>{item}</option>
+          ))}
+        </select>
+      </label>
+
+      <label>
+        <span>标签</span>
+        <select name="tag">
+          <option value="">全部</option>
+          {tags.map((item) => (
+            <option value={item} selected={tag === item}>{item}</option>
+          ))}
+        </select>
+      </label>
+
+      <input type="hidden" name="view" value={view} />
+
+      <div class="filters-actions">
+        <button class="button button--primary" type="submit">应用筛选</button>
+        <a class="button button--ghost" href="/video">清空</a>
+      </div>
+    </form>
+  </section>
+
+  <section class="shell listing-toolbar">
+    <p>共 {movies.length} 条内容，默认按上映时间排序。</p>
+    <div class="listing-toolbar__views" data-view-switcher>
+      <a class:list={[view === 'grid' && 'is-active']} href={viewModel.viewLinks.card} data-view-option="grid">卡片</a>
+      <a class:list={[view === 'list' && 'is-active']} href={viewModel.viewLinks.list} data-view-option="list">列表</a>
+    </div>
+  </section>
+
+  {activeFilters.length ? (
+    <section class="shell active-filter-bar">
+      {activeFilters.map((item) => (
+        <span>{item}</span>
+      ))}
+    </section>
+  ) : null}
+
+  {movies.length ? (
+    <>
+      <section class:list={["shell", "grid-cards", view !== 'grid' && 'is-hidden']} data-view-panel="grid">
+        {movies.map((movie) => (
+          <MovieGridCard movie={movie} />
+        ))}
+      </section>
+
+      <section class:list={["shell", "list-cards", view !== 'list' && 'is-hidden']} data-view-panel="list">
+        {movies.map((movie) => (
+          <MovieListCard movie={movie} />
+        ))}
+      </section>
+    </>
+  ) : (
+    <section class="shell">
+      <article class="empty-state">
+        <p class="eyebrow">Archive Empty</p>
+        <h2>当前筛选下没有匹配条目。</h2>
+        <p>可以先清空筛选，回到默认馆藏继续浏览。</p>
+        <a class="button button--primary" href="/video">返回默认列表</a>
+      </article>
+    </section>
+  )}
+
+  <script is:inline>
+    (() => {
+      const switcher = document.querySelector('[data-view-switcher]');
+      const panels = [...document.querySelectorAll('[data-view-panel]')];
+      if (!(switcher instanceof HTMLElement) || panels.length === 0) {
+        return;
+      }
+
+      const options = [...switcher.querySelectorAll('[data-view-option]')];
+      const applyView = (nextView) => {
+        const isCard = nextView !== 'list';
+
+        panels.forEach((panel) => {
+          if (!(panel instanceof HTMLElement)) {
+            return;
+          }
+
+          const isMatch = panel.dataset.viewPanel === (isCard ? 'grid' : 'list');
+          panel.classList.toggle('is-hidden', !isMatch);
+        });
+
+        options.forEach((link) => {
+          if (!(link instanceof HTMLElement)) {
+            return;
+          }
+
+          link.classList.toggle('is-active', link.dataset.viewOption === (isCard ? 'grid' : 'list'));
+        });
+      };
+
+      const current = new URL(window.location.href).searchParams.get('view');
+      applyView(current === 'list' ? 'list' : 'grid');
+
+      switcher.addEventListener('click', (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLElement)) {
+          return;
+        }
+
+        const link = target.closest('[data-view-option]');
+        if (!(link instanceof HTMLAnchorElement)) {
+          return;
+        }
+
+        event.preventDefault();
+        const nextView = link.dataset.viewOption === 'list' ? 'list' : 'grid';
+        const url = new URL(link.href, window.location.origin);
+        window.history.replaceState({}, '', url);
+        applyView(nextView);
+      });
+    })();
+  </script>
+</BaseLayout>

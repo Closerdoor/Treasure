@@ -1,0 +1,37 @@
+---
+import type { ArchiveMovie } from '../lib/archive';
+import { formatArchiveCardMeta, formatArchiveCardMetaLeft, formatArchiveCardMetaRight, formatArchiveCardRuntime } from '../lib/site';
+
+const { movie, muted = false } = Astro.props as { movie: ArchiveMovie; muted?: boolean };
+const hoverMeta = formatArchiveCardMeta(movie);
+const castLine = movie.castPreview.join(' / ');
+const footerMetaLeft = formatArchiveCardMetaLeft(movie);
+const footerMetaRight = formatArchiveCardMetaRight(movie);
+---
+
+<article class:list={["movie-grid-card", muted && 'is-muted']}>
+  <a class="movie-grid-card__frame" href={movie.path}>
+    <img class="movie-grid-card__poster-bg" src={movie.posterUrl} alt="" aria-hidden="true" loading="lazy" />
+
+    <div class="movie-grid-card__poster-shell">
+      <img class="movie-grid-card__poster" src={movie.posterUrl} alt={`${movie.title} 海报`} loading="lazy" />
+      <span class="movie-grid-card__rating">{movie.aggregateRating ? movie.aggregateRating.toFixed(1) : '--'}</span>
+      <span class="movie-grid-card__runtime">{formatArchiveCardRuntime(movie.runtime)}</span>
+    </div>
+
+    <div class="movie-grid-card__body">
+      <strong class="movie-grid-card__title">{movie.title}</strong>
+      <div class="movie-grid-card__meta-row">
+        <span class="movie-grid-card__meta-left">{footerMetaLeft}</span>
+        <span class="movie-grid-card__meta-right">{footerMetaRight}</span>
+      </div>
+    </div>
+
+    <div class="movie-grid-card__hover">
+      <strong class="movie-grid-card__hover-title">{movie.title}</strong>
+      <p class="movie-grid-card__hover-meta">{hoverMeta}</p>
+      <p class="movie-grid-card__hover-cast">主演：{castLine}</p>
+      <p class="movie-grid-card__hover-summary">{movie.synopsis?.text}</p>
+    </div>
+  </a>
+</article>

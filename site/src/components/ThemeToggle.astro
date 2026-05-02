@@ -1,0 +1,10 @@
+---
+const label = Astro.props.label ?? '切换主题';
+---
+
+<button class="theme-toggle" type="button" data-theme-toggle aria-label={label}>
+  <span class="theme-toggle__rail">
+    <span class="theme-toggle__thumb"></span>
+  </span>
+  <span class="theme-toggle__label">昼 / 夜</span>
+</button>

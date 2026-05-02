@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import DetailTabs from '../../../components/DetailTabs.astro';
+import { loadArchiveMovieById, loadArchiveMovies } from '../../../lib/archive';
+import { formatArchiveLabel } from '../../../lib/site';
+
+export async function getStaticPaths() {
+  const movies = await loadArchiveMovies();
+
+  return movies.map((movie) => ({
+    params: { id: movie.id }
+  }));
+}
+
+const { id } = Astro.params;
+const movie = id ? await loadArchiveMovieById(id) : null;
+
+if (!movie) {
+  throw new Error(`Movie not found: ${id}`);
+}
+
+const sidebarItems = (movie.series?.length ? movie.series : movie.similar ?? []).slice(0, 6);
+const archiveLabel = formatArchiveLabel(movie.module, movie.submodule);
+const platformRatings = [
+  { label: '豆瓣', value: movie.doubanRating },
+  { label: 'IMDb', value: movie.imdbRating },
+  { label: 'TMDB', value: movie.tmdbRating }
+].filter((item) => typeof item.value === 'number');
+---
+
+<BaseLayout title={`${movie.title} | Treasure 资料馆`}>
+  <section class="detail-hero shell">
+    <div class="detail-hero__backdrop">
+      <img src={movie.posterUrl} alt={`${movie.title} 海报`} />
+    </div>
+
+      <div class="detail-hero__main">
+        <div class="detail-hero__poster">
+          <img src={movie.posterUrl} alt={`${movie.title} 海报`} />
+        </div>
+
+        <div class="detail-hero__content">
+          <p class="eyebrow">{archiveLabel}</p>
+          <h1>{movie.title}</h1>
+          <p class="detail-hero__original">{movie.originalTitle} · {movie.year}</p>
+          <p class="detail-hero__synopsis">{movie.synopsis?.text}</p>
+
+        <div class="detail-stats">
+          <div>
+            <span>综合评分</span>
+            <strong>{movie.aggregateRating ? movie.aggregateRating.toFixed(1) : '--'}</strong>
+          </div>
+          <div>
+            <span>时长</span>
+            <strong>{movie.runtime} min</strong>
+          </div>
+          <div>
+            <span>地区</span>
+            <strong>{movie.country}</strong>
+          </div>
+        </div>
+
+        {platformRatings.length ? (
+          <div class="platform-strip">
+            {platformRatings.map((item) => (
+              <div class="platform-strip__item">
+                <span>{item.label}</span>
+                <strong>{Number(item.value).toFixed(1)}</strong>
+              </div>
+            ))}
+          </div>
+        ) : null}
+
+        <dl class="detail-meta">
+          <div><dt>类型</dt><dd>{(movie.genre ?? []).join(' / ')}</dd></div>
+          <div><dt>导演</dt><dd>{movie.directorNames}</dd></div>
+          <div><dt>编剧</dt><dd>{movie.writerNames}</dd></div>
+          <div><dt>主演</dt><dd>{movie.castPreview.join(' / ')}</dd></div>
+          <div><dt>语言</dt><dd>{movie.language}</dd></div>
+          <div><dt>上映</dt><dd>{movie.releaseDateLabel}</dd></div>
+          <div><dt>别名</dt><dd>{(movie.aka ?? []).join(' / ') || '无'}</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="shell detail-layout">
+    <div class="detail-layout__main">
+      <DetailTabs movie={movie} />
+
+      <section class="detail-panel">
+        <h2>评论区</h2>
+        <div class="comment-placeholder">Giscus 将只在详情页接入；当前先保留占位区。</div>
+      </section>
+    </div>
+
+    <aside class="detail-layout__side">
+        <section class="side-panel side-panel--archive">
+          <h2>档案信息</h2>
+          <dl class="archive-facts">
+            <div><dt>ID</dt><dd>{movie.id}</dd></div>
+            <div><dt>模块</dt><dd>{archiveLabel}</dd></div>
+            <div><dt>创建</dt><dd>{movie.createdAt || '未知'}</dd></div>
+            <div><dt>更新</dt><dd>{movie.updatedAt || '未知'}</dd></div>
+          </dl>
+      </section>
+
+      <section class="side-panel">
+        <h2>{movie.series?.length ? '系列作品' : '相似作品'}</h2>
+        <div class="side-stack">
+          {sidebarItems.map((item) =>
+            item.id ? (
+              <a class="side-card" href={`/video/movie/${item.id}`}>
+                <strong>{item.title}</strong>
+                <span>{item.year} · {item.rating ? item.rating.toFixed(1) : '暂无评分'}</span>
+              </a>
+            ) : (
+              <article class="side-card side-card--placeholder">
+                <strong>{item.title}</strong>
+                <span>{item.year} · {item.rating ? item.rating.toFixed(1) : '暂无评分'}</span>
+                <em>暂未收录</em>
+              </article>
+            )
+          )}
+        </div>
+      </section>
+    </aside>
+  </section>
+</BaseLayout>
