@@ -1,0 +1,519 @@
+{
+  "id": {
+    "value": "0101000004",
+    "source": "system",
+    "note": "系统自动生成，递增序号"
+  },
+  "title": {
+    "value": "霸王别姬",
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/1291546/",
+    "crawledAt": "2026-05-02T00:23:00Z",
+    "note": "豆瓣条目标题"
+  },
+  "originalTitle": {
+    "value": "Farewell My Concubine",
+    "source": "omdb",
+    "sourceUrl": "https://www.omdbapi.com/?t=Farewell+My+Concubine&apikey=trilogy",
+    "crawledAt": "2026-05-02T00:21:00Z"
+  },
+  "year": {
+    "value": 1993,
+    "source": "omdb",
+    "sourceUrl": "https://www.omdbapi.com/?t=Farewell+My+Concubine&apikey=trilogy",
+    "crawledAt": "2026-05-02T00:21:00Z"
+  },
+  "director": {
+    "value": [
+      {
+        "name": "陈凯歌",
+        "nameEn": "Chen Kaige",
+        "avatar": "avatar-chen-kaige.jpg"
+      }
+    ],
+    "source": "merged",
+    "sources": [
+      {
+        "source": "douban",
+        "fields": ["name"],
+        "sourceUrl": "https://movie.douban.com/subject/1291546/celebrities"
+      },
+      {
+        "source": "omdb",
+        "fields": ["nameEn"],
+        "sourceUrl": "https://www.omdbapi.com/?t=Farewell+My+Concubine&apikey=trilogy"
+      },
+      {
+        "source": "tmdb",
+        "fields": ["avatar"],
+        "sourceUrl": "https://www.themoviedb.org/movie/10997/cast?language=zh-CN"
+      }
+    ],
+    "crawledAt": "2026-05-02T00:24:00Z"
+  },
+  "writer": {
+    "value": [
+      {
+        "name": "芦苇",
+        "nameEn": "Wei Lu",
+        "role": "编剧"
+      },
+      {
+        "name": "李碧华",
+        "nameEn": "Lilian Lee Pik-Wah",
+        "role": "原著/编剧"
+      }
+    ],
+    "source": "merged",
+    "sources": [
+      {
+        "source": "douban",
+        "fields": ["name"],
+        "sourceUrl": "https://movie.douban.com/subject/1291546/celebrities"
+      },
+      {
+        "source": "tmdb",
+        "fields": ["nameEn", "role"],
+        "sourceUrl": "https://www.themoviedb.org/movie/10997/cast"
+      }
+    ],
+    "crawledAt": "2026-05-02T00:24:00Z"
+  },
+  "cast": {
+    "value": [
+      {
+        "name": "张国荣",
+        "nameEn": "Leslie Cheung",
+        "role": "程蝶衣",
+        "avatar": "avatar-leslie-cheung.jpg"
+      },
+      {
+        "name": "张丰毅",
+        "nameEn": "Zhang Fengyi",
+        "role": "段小楼",
+        "avatar": "avatar-zhang-fengyi.jpg"
+      },
+      {
+        "name": "巩俐",
+        "nameEn": "Gong Li",
+        "role": "菊仙",
+        "avatar": "avatar-gong-li.jpg"
+      },
+      {
+        "name": "葛优",
+        "nameEn": "Ge You",
+        "role": "袁四爷",
+        "avatar": "avatar-ge-you.jpg"
+      },
+      {
+        "name": "英达",
+        "nameEn": "Ying Da",
+        "role": "那坤",
+        "avatar": "avatar-ying-da.jpg"
+      },
+      {
+        "name": "蒋雯丽",
+        "nameEn": "Jiang Wenli",
+        "role": "小豆子娘",
+        "avatar": "avatar-jiang-wenli.jpg"
+      },
+      {
+        "name": "吴大维",
+        "nameEn": "David Wu",
+        "role": "红卫兵",
+        "avatar": "avatar-david-wu.jpg"
+      },
+      {
+        "name": "吕齐",
+        "nameEn": "Qi Lu",
+        "role": "关师傅",
+        "avatar": "avatar-lv-qi.jpg"
+      }
+    ],
+    "source": "merged",
+    "sources": [
+      {
+        "source": "douban",
+        "fields": ["name", "role"],
+        "sourceUrl": "https://movie.douban.com/subject/1291546/celebrities"
+      },
+      {
+        "source": "tmdb",
+        "fields": ["nameEn", "avatar"],
+        "sourceUrl": "https://www.themoviedb.org/movie/10997/cast"
+      }
+    ],
+    "crawledAt": "2026-05-02T00:24:00Z"
+  },
+  "otherCast": {
+    "value": [
+      {
+        "name": "雷汉",
+        "nameEn": "Han Lei",
+        "role": "小四(成年)"
+      },
+      {
+        "name": "童弟",
+        "nameEn": "Tong Di",
+        "role": "张公公"
+      },
+      {
+        "name": "尹治",
+        "nameEn": "Yin Zhi",
+        "role": "小豆子(少年)"
+      },
+      {
+        "name": "马明威",
+        "nameEn": "Ma Mingwei",
+        "role": "小豆子(童年)"
+      },
+      {
+        "name": "费振翔",
+        "nameEn": "Zhenxiang Fei",
+        "role": "小石头(童年)"
+      },
+      {
+        "name": "赵海龙",
+        "nameEn": "Zhao Hailong",
+        "role": "小石头(少年)"
+      }
+    ],
+    "source": "tmdb",
+    "sourceUrl": "https://www.themoviedb.org/movie/10997/cast?language=zh-CN",
+    "crawledAt": "2026-05-02T00:24:00Z"
+  },
+  "producer": {
+    "value": [
+      {
+        "name": "徐枫",
+        "nameEn": "Feng Hsu",
+        "role": "制片人"
+      },
+      {
+        "name": "徐杰",
+        "nameEn": "Jade Hsu",
+        "role": "监制"
+      },
+      {
+        "name": "汤君年",
+        "nameEn": "Jun-Nian Tang",
+        "role": "出品人"
+      }
+    ],
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/1291546/celebrities",
+    "crawledAt": "2026-05-02T00:24:00Z"
+  },
+  "genre": {
+    "value": ["剧情", "爱情", "同性"],
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/1291546/",
+    "crawledAt": "2026-05-02T00:23:00Z"
+  },
+  "country": {
+    "value": "中国大陆 / 中国香港",
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/1291546/",
+    "crawledAt": "2026-05-02T00:23:00Z"
+  },
+  "language": {
+    "value": "汉语普通话",
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/1291546/",
+    "crawledAt": "2026-05-02T00:23:00Z"
+  },
+  "runtime": {
+    "value": 171,
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/1291546/",
+    "crawledAt": "2026-05-02T00:23:00Z",
+    "note": "豆瓣显示 171 分钟；另有 155 分钟美国剧场版"
+  },
+  "rated": {
+    "value": "R",
+    "source": "omdb",
+    "sourceUrl": "https://www.omdbapi.com/?t=Farewell+My+Concubine&apikey=trilogy",
+    "crawledAt": "2026-05-02T00:21:00Z"
+  },
+  "awards": {
+    "value": "Nominated for 2 Oscars. 24 wins & 12 nominations total",
+    "source": "omdb",
+    "sourceUrl": "https://www.omdbapi.com/?t=Farewell+My+Concubine&apikey=trilogy",
+    "crawledAt": "2026-05-02T00:21:00Z"
+  },
+  "releaseDate": {
+    "value": [
+      {
+        "date": "1993-07-26",
+        "location": "中国大陆"
+      },
+      {
+        "date": "1993-01-01",
+        "location": "中国香港"
+      }
+    ],
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/1291546/",
+    "crawledAt": "2026-05-02T00:23:00Z"
+  },
+  "aka": {
+    "value": ["再见，我的妾", "Farewell My Concubine", "Adieu Ma Concubine"],
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/1291546/",
+    "crawledAt": "2026-05-02T00:23:00Z"
+  },
+  "imdbId": {
+    "value": "tt0106332",
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/1291546/",
+    "crawledAt": "2026-05-02T00:23:00Z"
+  },
+  "doubanId": {
+    "value": "1291546",
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/1291546/",
+    "crawledAt": "2026-05-02T00:23:00Z"
+  },
+  "doubanRating": {
+    "value": 9.6,
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/1291546/",
+    "crawledAt": "2026-05-02T00:23:00Z"
+  },
+  "doubanVotes": {
+    "value": 2421261,
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/1291546/",
+    "crawledAt": "2026-05-02T00:23:00Z"
+  },
+  "imdbRating": {
+    "value": 8.1,
+    "source": "omdb",
+    "sourceUrl": "https://www.omdbapi.com/?t=Farewell+My+Concubine&apikey=trilogy",
+    "crawledAt": "2026-05-02T00:21:00Z"
+  },
+  "imdbVotes": {
+    "value": 36364,
+    "source": "omdb",
+    "sourceUrl": "https://www.omdbapi.com/?t=Farewell+My+Concubine&apikey=trilogy",
+    "crawledAt": "2026-05-02T00:21:00Z"
+  },
+  "synopsis": {
+    "value": {
+      "text": "段小楼（张丰毅）与程蝶衣（张国荣）是一对打小一起长大的师兄弟，两人一个演生，一个饰旦，一向配合天衣无缝，尤其一出《霸王别姬》，更是誉满京城，为此，两人约定合演一辈子《霸王别姬》。但两人对戏剧与人生关系的理解有本质不同，段小楼深知戏非人生，程蝶衣则是人戏不分。\n\n段小楼在认为该成家立业之时迎娶了名妓菊仙（巩俐），致使程蝶衣认定菊仙是可耻的第三者，使段小楼做了叛徒，自此，三人围绕一出《霸王别姬》生出的爱恨情仇战开始随着时代风云的变迁不断升级，终酿成悲剧。",
+      "note": "豆瓣剧情简介。"
+    },
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/1291546/",
+    "crawledAt": "2026-05-02T00:23:00Z"
+  },
+  "videos": {
+    "value": [
+      {
+        "title": "Trailer",
+        "duration": "01:34",
+        "thumbnail": "video-trailer-01.jpg",
+        "url": "https://www.youtube.com/watch?v=FFiHfDBt9lE"
+      }
+    ],
+    "source": "tmdb",
+    "sourceUrl": "https://www.themoviedb.org/movie/10997/videos",
+    "crawledAt": "2026-05-02T00:22:00Z",
+    "note": "TMDB 视频列表仅抓到 1 条 Trailer"
+  },
+  "images": {
+    "poster": {
+      "value": "poster-main.jpg",
+      "source": "tmdb",
+      "sourceUrl": "https://www.themoviedb.org/movie/10997?language=zh-CN",
+      "downloadedFrom": "https://image.tmdb.org/t/p/original/vOEkLofQ8N1OdbGs5L87m7Plpw2.jpg",
+      "crawledAt": "2026-05-02T00:22:00Z",
+      "note": "TMDB 中文主海报"
+    },
+    "posters": {
+      "value": [
+        "poster-01.jpg",
+        "poster-02.jpg",
+        "poster-03.jpg",
+        "poster-04.jpg",
+        "poster-05.jpg"
+      ],
+      "source": "tmdb",
+      "sourceUrl": "https://www.themoviedb.org/movie/10997/images/posters",
+      "crawledAt": "2026-05-02T00:22:00Z",
+      "note": "TMDB 海报共 79 张，下载 5 张补充海报"
+    },
+    "postersTotal": {
+      "value": 79,
+      "source": "tmdb",
+      "sourceUrl": "https://www.themoviedb.org/movie/10997/images/posters",
+      "crawledAt": "2026-05-02T00:22:00Z"
+    },
+    "stills": {
+      "value": [
+        "still-01.jpg",
+        "still-02.jpg",
+        "still-03.jpg",
+        "still-04.jpg",
+        "still-05.jpg"
+      ],
+      "source": "tmdb",
+      "sourceUrl": "https://www.themoviedb.org/movie/10997/images/backdrops",
+      "crawledAt": "2026-05-02T00:22:00Z",
+      "note": "TMDB backdrops 共 27 张，下载 5 张剧照"
+    },
+    "stillsTotal": {
+      "value": 27,
+      "source": "tmdb",
+      "sourceUrl": "https://www.themoviedb.org/movie/10997/images/backdrops",
+      "crawledAt": "2026-05-02T00:22:00Z"
+    },
+    "avatars": {
+      "value": [
+        "avatar-chen-kaige.jpg",
+        "avatar-leslie-cheung.jpg",
+        "avatar-zhang-fengyi.jpg",
+        "avatar-gong-li.jpg",
+        "avatar-ge-you.jpg",
+        "avatar-ying-da.jpg",
+        "avatar-jiang-wenli.jpg",
+        "avatar-david-wu.jpg",
+        "avatar-lv-qi.jpg",
+        "avatar-lei-han.jpg"
+      ],
+      "source": "tmdb",
+      "sourceUrl": "https://www.themoviedb.org/movie/10997/cast",
+      "crawledAt": "2026-05-02T00:22:00Z",
+      "note": "本次条目使用 TMDB 头像以绕开 Wikipedia 访问失败"
+    }
+  },
+  "similar": {
+    "value": [
+      {
+        "title": "活着",
+        "year": 1994,
+        "rating": 9.3
+      },
+      {
+        "title": "春光乍泄",
+        "year": 1997,
+        "rating": 9.0
+      },
+      {
+        "title": "楚门的世界",
+        "year": 1998,
+        "rating": 9.4
+      },
+      {
+        "title": "重庆森林",
+        "year": 1994,
+        "rating": 8.8
+      },
+      {
+        "title": "罗马假日",
+        "year": 1953,
+        "rating": 9.1
+      },
+      {
+        "title": "花样年华",
+        "year": 2000,
+        "rating": 8.8
+      }
+    ],
+    "source": "merged",
+    "sources": [
+      {
+        "source": "douban",
+        "fields": ["title", "rating"],
+        "sourceUrl": "https://movie.douban.com/subject/1291546/"
+      },
+      {
+        "source": "omdb",
+        "fields": ["year"],
+        "sourceUrl": "https://www.omdbapi.com/"
+      }
+    ],
+    "crawledAt": "2026-05-02T00:25:00Z"
+  },
+  "reviews": {
+    "value": [
+      {
+        "source": "豆瓣",
+        "author": "momo",
+        "date": "2007-11-21",
+        "rating": "力荐",
+        "content": "陈凯歌可以靠它吃两辈子饭了，现在看来江郎才尽也情有可原"
+      },
+      {
+        "source": "豆瓣",
+        "author": "[己注销]",
+        "date": "2009-07-13",
+        "rating": "推荐",
+        "content": "被“历史”绑架了的两个小人物……\n\n《活着》和《霸王别姬》不是中国电影的起点，而是终点……"
+      },
+      {
+        "source": "豆瓣",
+        "author": "沉歌",
+        "date": "2007-10-14",
+        "rating": "力荐",
+        "content": "他竟当面一语点破：虞姬是真虞姬，霸王是假霸王。"
+      },
+      {
+        "source": "豆瓣",
+        "author": "kingfish",
+        "date": "2006-03-22",
+        "rating": "力荐",
+        "content": "不解,拍出过霸王别姬的人怎能拍出无极来"
+      },
+      {
+        "source": "豆瓣",
+        "author": "蚂蚁没问题",
+        "date": "2009-07-13",
+        "rating": "力荐",
+        "content": "就凭这个，我愿意原谅陈凯歌一切的烂片 你只要伟大过一次就可以了 就凭这个 哥哥你是我心中永远不朽的传奇 你是全世界最大的角儿"
+      }
+    ],
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/1291546/comments?start=0&limit=20&sort=new_score&status=P",
+    "crawledAt": "2026-05-02T00:24:00Z",
+    "note": "豆瓣短评前 5 条"
+  },
+  "links": {
+    "value": {
+      "douban": "https://movie.douban.com/subject/1291546/",
+      "imdb": "https://www.imdb.com/title/tt0106332/",
+      "tmdb": "https://www.themoviedb.org/movie/10997"
+    },
+    "source": "merged",
+    "sources": [
+      {
+        "source": "douban",
+        "fields": ["douban", "imdb"]
+      },
+      {
+        "source": "tmdb",
+        "fields": ["tmdb"]
+      }
+    ]
+  },
+  "module": {
+    "value": "video",
+    "source": "system",
+    "note": "影视模块"
+  },
+  "submodule": {
+    "value": "movie",
+    "source": "system",
+    "note": "电影子模块"
+  },
+  "createdAt": {
+    "value": "2026-05-02",
+    "source": "system",
+    "note": "录入时间"
+  },
+  "updatedAt": {
+    "value": "2026-05-02",
+    "source": "system",
+    "note": "最后更新时间"
+  }
+}

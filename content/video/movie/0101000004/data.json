@@ -1,0 +1,266 @@
+{
+  "id": "0101000004",
+  "title": "霸王别姬",
+  "originalTitle": "Farewell My Concubine",
+  "year": 1993,
+  "director": [
+    {
+      "name": "陈凯歌",
+      "nameEn": "Chen Kaige",
+      "avatar": "avatar-chen-kaige.jpg",
+      "avatarSource": "tmdb"
+    }
+  ],
+  "writer": [
+    {
+      "name": "芦苇",
+      "nameEn": "Wei Lu",
+      "role": "编剧"
+    },
+    {
+      "name": "李碧华",
+      "nameEn": "Lilian Lee Pik-Wah",
+      "role": "原著/编剧"
+    }
+  ],
+  "cast": [
+    {
+      "name": "张国荣",
+      "nameEn": "Leslie Cheung",
+      "role": "程蝶衣",
+      "avatar": "avatar-leslie-cheung.jpg",
+      "avatarSource": "tmdb"
+    },
+    {
+      "name": "张丰毅",
+      "nameEn": "Zhang Fengyi",
+      "role": "段小楼",
+      "avatar": "avatar-zhang-fengyi.jpg",
+      "avatarSource": "tmdb"
+    },
+    {
+      "name": "巩俐",
+      "nameEn": "Gong Li",
+      "role": "菊仙",
+      "avatar": "avatar-gong-li.jpg",
+      "avatarSource": "tmdb"
+    },
+    {
+      "name": "葛优",
+      "nameEn": "Ge You",
+      "role": "袁四爷",
+      "avatar": "avatar-ge-you.jpg",
+      "avatarSource": "tmdb"
+    },
+    {
+      "name": "英达",
+      "nameEn": "Ying Da",
+      "role": "那坤",
+      "avatar": "avatar-ying-da.jpg",
+      "avatarSource": "tmdb"
+    },
+    {
+      "name": "蒋雯丽",
+      "nameEn": "Jiang Wenli",
+      "role": "小豆子娘",
+      "avatar": "avatar-jiang-wenli.jpg",
+      "avatarSource": "tmdb"
+    },
+    {
+      "name": "吴大维",
+      "nameEn": "David Wu",
+      "role": "红卫兵",
+      "avatar": "avatar-david-wu.jpg",
+      "avatarSource": "tmdb"
+    },
+    {
+      "name": "吕齐",
+      "nameEn": "Qi Lu",
+      "role": "关师傅",
+      "avatar": "avatar-lv-qi.jpg",
+      "avatarSource": "tmdb"
+    }
+  ],
+  "otherCast": [
+    {
+      "name": "雷汉",
+      "nameEn": "Han Lei",
+      "role": "小四(成年)"
+    },
+    {
+      "name": "童弟",
+      "nameEn": "Tong Di",
+      "role": "张公公"
+    },
+    {
+      "name": "尹治",
+      "nameEn": "Yin Zhi",
+      "role": "小豆子(少年)"
+    },
+    {
+      "name": "马明威",
+      "nameEn": "Ma Mingwei",
+      "role": "小豆子(童年)"
+    },
+    {
+      "name": "费振翔",
+      "nameEn": "Zhenxiang Fei",
+      "role": "小石头(童年)"
+    },
+    {
+      "name": "赵海龙",
+      "nameEn": "Zhao Hailong",
+      "role": "小石头(少年)"
+    }
+  ],
+  "producer": [
+    {
+      "name": "徐枫",
+      "nameEn": "Feng Hsu",
+      "role": "制片人"
+    },
+    {
+      "name": "徐杰",
+      "nameEn": "Jade Hsu",
+      "role": "监制"
+    },
+    {
+      "name": "汤君年",
+      "nameEn": "Jun-Nian Tang",
+      "role": "出品人"
+    }
+  ],
+  "genre": ["剧情", "爱情", "同性"],
+  "country": "中国大陆 / 中国香港",
+  "language": "汉语普通话",
+  "runtime": 171,
+  "rated": "R",
+  "awards": "Nominated for 2 Oscars. 24 wins & 12 nominations total",
+  "releaseDate": [
+    {
+      "date": "1993-07-26",
+      "location": "中国大陆"
+    },
+    {
+      "date": "1993-01-01",
+      "location": "中国香港"
+    }
+  ],
+  "aka": ["再见，我的妾", "Farewell My Concubine", "Adieu Ma Concubine"],
+  "imdbId": "tt0106332",
+  "doubanId": "1291546",
+  "doubanRating": 9.6,
+  "doubanVotes": 2421261,
+  "imdbRating": 8.1,
+  "imdbVotes": 36364,
+  "synopsis": {
+    "text": "段小楼（张丰毅）与程蝶衣（张国荣）是一对打小一起长大的师兄弟，两人一个演生，一个饰旦，一向配合天衣无缝，尤其一出《霸王别姬》，更是誉满京城，为此，两人约定合演一辈子《霸王别姬》。但两人对戏剧与人生关系的理解有本质不同，段小楼深知戏非人生，程蝶衣则是人戏不分。\n\n段小楼在认为该成家立业之时迎娶了名妓菊仙（巩俐），致使程蝶衣认定菊仙是可耻的第三者，使段小楼做了叛徒，自此，三人围绕一出《霸王别姬》生出的爱恨情仇战开始随着时代风云的变迁不断升级，终酿成悲剧。",
+    "note": "豆瓣剧情简介。"
+  },
+  "videos": [
+    {
+      "title": "Trailer",
+      "duration": "01:34",
+      "thumbnail": "video-trailer-01.jpg",
+      "url": "https://www.youtube.com/watch?v=FFiHfDBt9lE"
+    }
+  ],
+  "images": {
+    "poster": "poster-main.jpg",
+    "posters": [
+      "poster-01.jpg",
+      "poster-02.jpg",
+      "poster-03.jpg",
+      "poster-04.jpg",
+      "poster-05.jpg"
+    ],
+    "postersTotal": 79,
+    "stills": [
+      "still-01.jpg",
+      "still-02.jpg",
+      "still-03.jpg",
+      "still-04.jpg",
+      "still-05.jpg"
+    ],
+    "stillsTotal": 27,
+    "wallpapers": []
+  },
+  "similar": [
+    {
+      "title": "活着",
+      "year": 1994,
+      "rating": 9.3
+    },
+    {
+      "title": "春光乍泄",
+      "year": 1997,
+      "rating": 9.0
+    },
+    {
+      "title": "楚门的世界",
+      "year": 1998,
+      "rating": 9.4
+    },
+    {
+      "title": "重庆森林",
+      "year": 1994,
+      "rating": 8.8
+    },
+    {
+      "title": "罗马假日",
+      "year": 1953,
+      "rating": 9.1
+    },
+    {
+      "title": "花样年华",
+      "year": 2000,
+      "rating": 8.8
+    }
+  ],
+  "reviews": [
+    {
+      "source": "豆瓣",
+      "author": "momo",
+      "date": "2007-11-21",
+      "rating": "力荐",
+      "content": "陈凯歌可以靠它吃两辈子饭了，现在看来江郎才尽也情有可原"
+    },
+    {
+      "source": "豆瓣",
+      "author": "[己注销]",
+      "date": "2009-07-13",
+      "rating": "推荐",
+      "content": "被“历史”绑架了的两个小人物……\n\n《活着》和《霸王别姬》不是中国电影的起点，而是终点……"
+    },
+    {
+      "source": "豆瓣",
+      "author": "沉歌",
+      "date": "2007-10-14",
+      "rating": "力荐",
+      "content": "他竟当面一语点破：虞姬是真虞姬，霸王是假霸王。"
+    },
+    {
+      "source": "豆瓣",
+      "author": "kingfish",
+      "date": "2006-03-22",
+      "rating": "力荐",
+      "content": "不解,拍出过霸王别姬的人怎能拍出无极来"
+    },
+    {
+      "source": "豆瓣",
+      "author": "蚂蚁没问题",
+      "date": "2009-07-13",
+      "rating": "力荐",
+      "content": "就凭这个，我愿意原谅陈凯歌一切的烂片 你只要伟大过一次就可以了 就凭这个 哥哥你是我心中永远不朽的传奇 你是全世界最大的角儿"
+    }
+  ],
+  "links": {
+    "douban": "https://movie.douban.com/subject/1291546/",
+    "imdb": "https://www.imdb.com/title/tt0106332/",
+    "tmdb": "https://www.themoviedb.org/movie/10997"
+  },
+  "module": "video",
+  "submodule": "movie",
+  "createdAt": "2026-05-02",
+  "updatedAt": "2026-05-02"
+}
