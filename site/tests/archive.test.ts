@@ -233,22 +233,23 @@ describe('video index page', () => {
 });
 
 describe('list view styles', () => {
-  it('matches the reference list-view sizing strategy', async () => {
+  it('uses a wider mainstream-style poster column in list view', async () => {
     const source = await fs.readFile(path.join(process.cwd(), 'src', 'styles', 'global.css'), 'utf8');
 
     expect(source).toContain('display: flex;');
-    expect(source).toContain('width: 120px;');
-    expect(source).toContain('min-height: 180px;');
+    expect(source).toContain('width: 142px;');
+    expect(source).toContain('min-height: 200px;');
     expect(source).toContain('width: 100px;');
   });
 });
 
 describe('grid view styles', () => {
-  it('matches the reference card-view sizing strategy', async () => {
+  it('keeps card height fixed while widening the poster viewport', async () => {
     const source = await fs.readFile(path.join(process.cwd(), 'src', 'styles', 'global.css'), 'utf8');
 
-    expect(source).toContain('grid-template-columns: repeat(6, minmax(0, 1fr));');
-    expect(source).toContain('aspect-ratio: 2 / 3;');
+    expect(source).toContain('grid-template-columns: repeat(auto-fit, minmax(214px, 214px));');
+    expect(source).toContain('width: 214px;');
+    expect(source).toContain('height: 302px;');
     expect(source).toContain('transform: scale(1.18);');
     expect(source).toContain('object-fit: cover;');
     expect(source).toContain('padding: 14px;');
