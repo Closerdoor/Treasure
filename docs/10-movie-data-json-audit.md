@@ -105,6 +105,7 @@
 当前稳定出现的字段：
 
 - `synopsis`
+- `story`
 - `similar`
 - `reviews`
 
@@ -113,8 +114,11 @@
 - `synopsis` 已稳定采用对象结构：
   - `text`
   - `note`
+- `story` 已补入为完整剧情对象结构：
+  - `text`
+  - `note`
 - `similar` 和 `reviews` 也已形成稳定数组结构
-- 这部分已经能很好支撑详情页中的介绍、影评、相似作品等区域
+- `synopsis` / `story` 分工后，能更稳定支撑列表摘要与详情页介绍区
 
 ### 3.5 媒体资源
 

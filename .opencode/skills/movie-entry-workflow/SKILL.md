@@ -411,6 +411,7 @@ Invoke-WebRequest -Uri $backdropUrl -OutFile tmdb-backdrops.html
 **内容**：从 data.json 渲染，包含：
 - 基本信息（海报 + 信息列表）
 - 剧情简介
+- 详情介绍
 - 演职员信息（横向卡片布局）
 - 视频预览
 - 图片画廊
@@ -419,6 +420,12 @@ Invoke-WebRequest -Uri $backdropUrl -OutFile tmdb-backdrops.html
 - 精选影评
 - 关联链接
 - 数据来源说明（底部）
+
+内容规则：
+
+- `synopsis` 只用于短简介
+- `story` 用于详情页完整剧情
+- `reviews` 必须优先来自豆瓣长评页或人工筛选后的高质量评语
 
 **图片展示规范**：参考 `IMAGE-SIZE-STANDARD.md`
 - 主演头像：容器 120px，图片 100x100px

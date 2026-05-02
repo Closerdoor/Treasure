@@ -173,6 +173,7 @@ content/video/movie/0101000003/
 ### 8.3 内容分区数据
 
 - `synopsis`
+- `story`
 - `reviews`
 - `videos`
 - `images`
@@ -187,7 +188,13 @@ content/video/movie/0101000003/
 电影详情页当前按以下分区消费结构化数据：
 
 1. 详情介绍
-   - 主要来自 `synopsis`
+   - 主要来自 `story`
+
+补充说明：
+
+- `synopsis` 用于列表页、首页卡片和详情页顶部的短简介
+- `story` 用于详情页 `详情介绍` Tab 的完整剧情
+- `reviews` 应为精选长评或高质量评语，不再使用短评凑数
 
 2. 演职员
    - 主要来自 `director`、`writer`、`cast`、其它职员信息

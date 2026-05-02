@@ -221,6 +221,8 @@ V1 使用传统分页。
 
 - Tab 内容来源于 `data.json`
 - 不直接渲染审阅用 Markdown 页面
+- `详情介绍` Tab 读取 `story`
+- 顶部摘要与列表卡片读取 `synopsis`
 
 ### 5.5 右侧栏
 
