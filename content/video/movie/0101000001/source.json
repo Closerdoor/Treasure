@@ -1,0 +1,501 @@
+{
+  "id": {
+    "value": "0101000001",
+    "source": "system",
+    "note": "系统自动生成，递增序号"
+  },
+  "title": {
+    "value": "肖申克的救赎",
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/1292052/",
+    "crawledAt": "2026-05-02T09:30:00Z",
+    "note": "豆瓣条目标题"
+  },
+  "originalTitle": {
+    "value": "The Shawshank Redemption",
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/1292052/",
+    "crawledAt": "2026-05-02T09:30:00Z"
+  },
+  "year": {
+    "value": 1994,
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/1292052/",
+    "crawledAt": "2026-05-02T09:30:00Z"
+  },
+  "director": {
+    "value": [
+      {
+        "name": "弗兰克·德拉邦特",
+        "nameEn": "Frank Darabont",
+        "avatar": "avatar-frank-darabont.png",
+        "works": ["肖申克的救赎", "绿里奇迹", "迷雾"]
+      }
+    ],
+    "source": "merged",
+    "sources": [
+      {
+        "source": "douban",
+        "fields": ["name"],
+        "sourceUrl": "https://movie.douban.com/subject/1292052/celebrities"
+      },
+      {
+        "source": "manual",
+        "fields": ["nameEn", "avatar", "works"],
+        "sourceUrl": "https://movie.douban.com/subject/1292052/celebrities"
+      }
+    ],
+    "crawledAt": "2026-05-02T09:30:00Z"
+  },
+  "writer": {
+    "value": [
+      {
+        "name": "弗兰克·德拉邦特",
+        "nameEn": "Frank Darabont",
+        "role": "编剧",
+        "baike": "https://baike.baidu.com/item/弗兰克·德拉邦特"
+      },
+      {
+        "name": "斯蒂芬·金",
+        "nameEn": "Stephen King",
+        "role": "原著",
+        "baike": "https://baike.baidu.com/item/斯蒂芬·金"
+      }
+    ],
+    "source": "merged",
+    "sources": [
+      {
+        "source": "douban",
+        "fields": ["name", "role"],
+        "sourceUrl": "https://movie.douban.com/subject/1292052/celebrities"
+      },
+      {
+        "source": "manual",
+        "fields": ["nameEn", "baike"],
+        "sourceUrl": "https://movie.douban.com/subject/1292052/celebrities"
+      }
+    ],
+    "crawledAt": "2026-05-02T09:30:00Z"
+  },
+  "cast": {
+    "value": [
+      {
+        "name": "蒂姆·罗宾斯",
+        "nameEn": "Tim Robbins",
+        "role": "安迪·杜佛兰",
+        "avatar": "avatar-tim-robbins.png"
+      },
+      {
+        "name": "摩根·弗里曼",
+        "nameEn": "Morgan Freeman",
+        "role": "瑞德",
+        "avatar": "avatar-morgan-freeman.png"
+      },
+      {
+        "name": "鲍勃·冈顿",
+        "nameEn": "Bob Gunton",
+        "role": "监狱长诺顿",
+        "avatar": "avatar-bob-gunton.png"
+      },
+      {
+        "name": "威廉·赛德勒",
+        "nameEn": "William Sadler",
+        "role": "海伍德",
+        "avatar": "avatar-william-sadler.png"
+      },
+      {
+        "name": "克兰西·布朗",
+        "nameEn": "Clancy Brown",
+        "role": "上尉哈德利",
+        "avatar": "avatar-clancy-brown.png"
+      },
+      {
+        "name": "吉尔·贝罗斯",
+        "nameEn": "Gil Bellows",
+        "role": "汤米",
+        "avatar": "avatar-gil-bellows.png"
+      },
+      {
+        "name": "马克·罗斯顿",
+        "nameEn": "Mark Rolston",
+        "role": "包格斯",
+        "avatar": "avatar-mark-rolston.png"
+      },
+      {
+        "name": "詹姆斯·惠特摩",
+        "nameEn": "James Whitmore",
+        "role": "老布",
+        "avatar": "avatar-james-whitmore.png"
+      }
+    ],
+    "source": "merged",
+    "sources": [
+      {
+        "source": "douban",
+        "fields": ["name", "role"],
+        "sourceUrl": "https://movie.douban.com/subject/1292052/celebrities"
+      },
+      {
+        "source": "manual",
+        "fields": ["nameEn", "avatar"],
+        "sourceUrl": "https://movie.douban.com/subject/1292052/celebrities"
+      }
+    ],
+    "crawledAt": "2026-05-02T09:30:00Z",
+    "note": "主演与头像按当前条目落库结果整理"
+  },
+  "otherCast": {
+    "value": [
+      { "name": "杰弗里·德曼", "nameEn": "Jeffrey DeMunn", "role": "1946地方检察官" },
+      { "name": "拉里·布兰登伯格", "nameEn": "Larry Brandenburg", "role": "斯基特 Skeet" },
+      { "name": "尼尔·吉恩托利", "nameEn": "Neil Giuntoli", "role": "基格 Jigger" },
+      { "name": "布赖恩·利比", "nameEn": "Brian Libby", "role": "弗洛依德 Floyd" },
+      { "name": "大卫·普罗瓦尔", "nameEn": "David Proval", "role": "瞌睡虫 Snooze" },
+      { "name": "约瑟夫·劳格诺", "nameEn": "Joseph Ragno", "role": "厄尼 Ernie" },
+      { "name": "祖德·塞克利拉", "nameEn": "Jude Ciccolella", "role": "守卫梅特 Guard Mert" },
+      { "name": "保罗·麦克兰尼", "nameEn": "Paul McCrane", "role": "守卫特劳特 Guard Trout" },
+      { "name": "芮妮·布莱恩", "nameEn": "Renee Blaine", "role": "安迪·杜佛兰的妻子" },
+      { "name": "阿方索·弗里曼", "nameEn": "Alfonso Freeman", "role": "新囚犯 Fresh Fish Con" },
+      { "name": "V·J·福斯特", "nameEn": "V.J. Foster", "role": "囚犯 Hungry Fish Con" },
+      { "name": "弗兰克·梅德拉诺", "nameEn": "Frank Medrano", "role": "肥仔 Fat Ass" },
+      { "name": "马克·迈尔斯", "nameEn": "Mack Miles", "role": "蒂雷尔 Tyrell" },
+      { "name": "尼尔·萨默斯", "nameEn": "Neil Summers", "role": "皮特 Pete" },
+      { "name": "耐德·巴拉米", "nameEn": "Ned Bellamy", "role": "守卫扬布拉德 Guard Youngblood" },
+      { "name": "布赖恩·戴拉特", "nameEn": "Brian Delate", "role": "守卫德金斯 Guard Dekins" },
+      { "name": "唐·麦克马纳斯", "nameEn": "Don McManus", "role": "守卫威利 Guard Wiley" }
+    ],
+    "source": "manual",
+    "sourceUrl": "https://movie.douban.com/subject/1292052/celebrities",
+    "crawledAt": "2026-05-02T09:30:00Z",
+    "note": "扩展演员表按当前条目整理"
+  },
+  "producer": {
+    "value": [
+      {
+        "name": "妮基·马文",
+        "nameEn": "Niki Marvin",
+        "baike": "https://baike.baidu.com/item/妮基·马文"
+      }
+    ],
+    "source": "manual",
+    "sourceUrl": "https://movie.douban.com/subject/1292052/celebrities",
+    "crawledAt": "2026-05-02T09:30:00Z",
+    "note": "制片信息按现有条目整理"
+  },
+  "genre": {
+    "value": ["剧情", "犯罪"],
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/1292052/",
+    "crawledAt": "2026-05-02T09:30:00Z"
+  },
+  "country": {
+    "value": "美国",
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/1292052/",
+    "crawledAt": "2026-05-02T09:30:00Z"
+  },
+  "language": {
+    "value": "英语",
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/1292052/",
+    "crawledAt": "2026-05-02T09:30:00Z"
+  },
+  "runtime": {
+    "value": 142,
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/1292052/",
+    "crawledAt": "2026-05-02T09:30:00Z",
+    "note": "单位：分钟"
+  },
+  "releaseDate": {
+    "value": [
+      { "date": "1994-09-10", "location": "多伦多电影节" },
+      { "date": "1994-10-14", "location": "美国" }
+    ],
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/1292052/",
+    "crawledAt": "2026-05-02T09:30:00Z"
+  },
+  "aka": {
+    "value": ["月黑高飞(港)", "刺激1995(台)", "地狱诺言", "铁窗岁月", "消香克的救赎"],
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/1292052/",
+    "crawledAt": "2026-05-02T09:30:00Z"
+  },
+  "imdbId": {
+    "value": "tt0111161",
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/1292052/",
+    "crawledAt": "2026-05-02T09:30:00Z"
+  },
+  "doubanId": {
+    "value": "1292052",
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/1292052/",
+    "crawledAt": "2026-05-02T09:30:00Z"
+  },
+  "doubanRating": {
+    "value": 9.7,
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/1292052/",
+    "crawledAt": "2026-05-02T09:30:00Z"
+  },
+  "doubanVotes": {
+    "value": 3281603,
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/1292052/",
+    "crawledAt": "2026-05-02T09:30:00Z"
+  },
+  "synopsis": {
+    "value": {
+      "text": "银行家安迪被误判入狱，在肖申克监狱与瑞德结下深厚友谊，并凭借冷静头脑在高墙之内为自己争取生存空间。\n\n当翻案希望被再次掐灭，他把多年隐忍、智慧与信念化为一场惊人的自我救赎，也让瑞德重新相信自由并非遥不可及。",
+      "note": "本片获得1995年奥斯卡最佳影片等7项提名。"
+    },
+    "source": "merged",
+    "sources": [
+      {
+        "source": "douban",
+        "fields": ["text"],
+        "sourceUrl": "https://movie.douban.com/subject/1292052/"
+      },
+      {
+        "source": "manual",
+        "fields": ["text"],
+        "sourceUrl": "https://movie.douban.com/subject/1292052/"
+      },
+      {
+        "source": "omdb",
+        "fields": ["note"],
+        "sourceUrl": "https://www.omdbapi.com/?i=tt0111161&apikey=trilogy"
+      }
+    ],
+    "crawledAt": "2026-05-02T09:30:00Z",
+    "note": "短简介基于公开剧情整理，附加提名说明"
+  },
+  "story": {
+    "value": {
+      "text": "1947年，年轻银行家安迪·杜佛兰因妻子及其情人被杀一案被判无期徒刑，押入肖申克监狱。沉默寡言的他很快引起老囚犯瑞德的注意，并通过瑞德弄到石锤、海报等小物件，在残酷秩序里一点点建立自己的生存方式。面对\"姐妹帮\"的欺凌、狱警的暴力和监狱制度的冷酷，安迪始终没有放弃对尊严的维护。\n\n凭借金融与税务知识，安迪先后帮助狱警处理报税问题，也被典狱长诺顿拿来经营账目、洗白黑钱。与此同时，他推动扩建图书馆、为囚犯争取读物和教育机会，让肖申克这座高墙之内第一次出现了真正意义上的精神空间。老布出狱后的崩溃与自尽，也让安迪和瑞德更清楚\"体制化\"对人的吞噬。\n\n后来，年轻囚犯汤米提供了可能证明安迪清白的关键线索。安迪满怀希望去找诺顿申诉，却发现典狱长为了保住自己的利益，宁可枪杀证人，也不愿让他重获自由。所有合法翻案的道路被堵死后，安迪把多年隐忍转化为最后一次行动。\n\n一个暴雨之夜，瑞德才明白石锤、海报与地质学兴趣背后藏着怎样漫长而坚定的计划：安迪用近二十年时间凿开牢墙，沿着下水道逃出生天，并顺手将诺顿的犯罪证据寄给媒体和检察机关。典狱长自尽、狱警被捕，安迪则以假身份取走存款，前往太平洋海边的芝华塔内霍等待新生活。\n\n多年后获假释的瑞德违背\"不再越界\"的承诺，依照安迪留下的线索找到一笔钱和一封信，终于鼓起勇气踏出被制度驯化的人生。他穿越边境来到海边，与正在修船的安迪重逢。",
+      "note": "用于详情页“详情介绍”Tab。"
+    },
+    "source": "manual",
+    "sourceUrl": "https://baike.baidu.com/item/肖申克的救赎",
+    "crawledAt": "2026-05-02T09:30:00Z",
+    "note": "基于百科剧情介绍与现有条目整理的完整剧情"
+  },
+  "videos": {
+    "value": [
+      {
+        "title": "预告片1：25周年经典重映",
+        "duration": "01:30",
+        "thumbnail": "video-trailer-01.png",
+        "url": "https://movie.douban.com/trailer/259258/"
+      },
+      {
+        "title": "预告片2",
+        "duration": "02:13",
+        "thumbnail": "video-trailer-02.png",
+        "url": "https://movie.douban.com/trailer/108756/"
+      }
+    ],
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/1292052/trailer",
+    "crawledAt": "2026-05-02T09:30:00Z",
+    "note": "豆瓣预告片列表整理"
+  },
+  "images": {
+    "poster": {
+      "value": "poster-main.jpg",
+      "source": "douban",
+      "sourceUrl": "https://movie.douban.com/subject/1292052/",
+      "crawledAt": "2026-05-02T09:30:00Z",
+      "note": "豆瓣主海报"
+    },
+    "posters": {
+      "value": [
+        "poster-01.png",
+        "poster-02.png",
+        "poster-03.png",
+        "poster-04.png",
+        "poster-05.png",
+        "poster-06.png",
+        "poster-07.png",
+        "poster-08.png",
+        "poster-09.png",
+        "poster-10.png"
+      ],
+      "source": "douban",
+      "sourceUrl": "https://movie.douban.com/subject/1292052/photos?type=R",
+      "crawledAt": "2026-05-02T09:30:00Z",
+      "note": "豆瓣海报页补充海报，当前保留前10张示例"
+    },
+    "postersTotal": {
+      "value": 149,
+      "source": "douban",
+      "sourceUrl": "https://movie.douban.com/subject/1292052/photos?type=R",
+      "crawledAt": "2026-05-02T09:30:00Z",
+      "note": "源站可获取海报总量，不等于本地文件数量"
+    },
+    "stills": {
+      "value": [
+        "still-01.png",
+        "still-02.png",
+        "still-03.png",
+        "still-04.png",
+        "still-05.png",
+        "still-06.png",
+        "still-07.png",
+        "still-08.png",
+        "still-09.png",
+        "still-10.png",
+        "still-11.png",
+        "still-12.png",
+        "still-13.png"
+      ],
+      "source": "douban",
+      "sourceUrl": "https://movie.douban.com/subject/1292052/photos?type=S",
+      "crawledAt": "2026-05-02T09:30:00Z",
+      "note": "豆瓣剧照页当前已落库样本"
+    },
+    "stillsTotal": {
+      "value": 918,
+      "source": "douban",
+      "sourceUrl": "https://movie.douban.com/subject/1292052/photos?type=S",
+      "crawledAt": "2026-05-02T09:30:00Z",
+      "note": "源站可获取剧照总量，不等于本地文件数量"
+    },
+    "wallpapers": {
+      "value": [
+        "wallpaper-01.png",
+        "wallpaper-02.png",
+        "wallpaper-03.png",
+        "wallpaper-04.png"
+      ],
+      "source": "manual",
+      "sourceUrl": "https://movie.douban.com/subject/1292052/photos",
+      "crawledAt": "2026-05-02T09:30:00Z",
+      "note": "壁纸为现有本地整理结果"
+    }
+  },
+  "soundtrack": {
+    "value": {
+      "name": "The Shawshank Redemption (Original Motion Picture Soundtrack)",
+      "composer": "托马斯·纽曼",
+      "composerEn": "Thomas Newman",
+      "year": 1994,
+      "tracks": [
+        { "index": 1, "name": "Introduction", "duration": "0:04" },
+        { "index": 2, "name": "End Title", "duration": "3:34" },
+        { "index": 3, "name": "Shawshank Prison", "duration": "1:55" },
+        { "index": 4, "name": "Brooks Was Here", "duration": "2:41" },
+        { "index": 5, "name": "New Fish Arrive", "duration": "1:32" },
+        { "index": 6, "name": "Rock Hammer", "duration": "1:52" },
+        { "index": 7, "name": "An Innocent Man", "duration": "1:58" },
+        { "index": 8, "name": "The Moocher", "duration": "1:36" },
+        { "index": 9, "name": "Suds", "duration": "1:02" },
+        { "index": 10, "name": "Loafing", "duration": "1:06" },
+        { "index": 11, "name": "The Marriage of Figaro / Duettino - Sull'aria", "duration": "2:54" },
+        { "index": 12, "name": "Compass and Guns", "duration": "2:04" },
+        { "index": 13, "name": "The Riddle of Zihuatanejo", "duration": "1:25" },
+        { "index": 14, "name": "The Riddle Solved", "duration": "1:30" },
+        { "index": 15, "name": "The Tunnel", "duration": "1:30" },
+        { "index": 16, "name": "Freedom", "duration": "1:42" }
+      ]
+    },
+    "source": "manual",
+    "sourceUrl": "https://www.imdb.com/title/tt0111161/",
+    "crawledAt": "2026-05-02T09:30:00Z",
+    "note": "原声带与曲目单按现有条目整理"
+  },
+  "similar": {
+    "value": [
+      { "id": "0101000003", "title": "阿甘正传", "year": 1994, "rating": 9.5 },
+      { "title": "楚门的世界", "year": 1998, "rating": 9.4 },
+      { "title": "当幸福来敲门", "year": 2006, "rating": 9.1 },
+      { "title": "活着", "year": 1994, "rating": 9.3 },
+      { "title": "摔跤吧！爸爸", "year": 2016, "rating": 9.0 },
+      { "title": "我不是药神", "year": 2018, "rating": 9.0 },
+      { "title": "三傻大闹宝莱坞", "year": 2009, "rating": 9.2 },
+      { "title": "心灵捕手", "year": 1997, "rating": 9.0 },
+      { "title": "闻香识女人", "year": 1992, "rating": 9.1 },
+      { "title": "这个杀手不太冷", "year": 1994, "rating": 9.4 }
+    ],
+    "source": "manual",
+    "note": "手动整理的相似佳作列表，已收录条目优先补站内 id"
+  },
+  "reviews": {
+    "value": [
+      {
+        "source": "豆瓣",
+        "author": "大头绿豆",
+        "date": "2005-05-12",
+        "rating": "力荐",
+        "content": "距离斯蒂芬·金和德拉邦特缔造这部作品已经有十年了。在我眼里，《肖申克的救赎》与信念、自由和友谊有关。它真正动人的地方不在越狱奇观，而在安迪和瑞德如何在体制化的牢狱中保住内心的秩序，并把希望从一句空话变成一条通往海边的路。"
+      },
+      {
+        "source": "豆瓣",
+        "author": "隱居雲上",
+        "date": "2005-07-12",
+        "rating": "力荐",
+        "content": "不同的人看同样的影片会有不同感受。对于无力改变现状的人，这部电影最有力量的地方，在于它提醒你：才华和毅力并不会立刻拯救人生，但会在最漫长的黑夜里替你守住方向。安迪的忍耐不是认命，而是在等待一个真正能改变命运的时刻。"
+      },
+      {
+        "source": "豆瓣",
+        "author": "泠十三",
+        "date": "2019-07-29",
+        "rating": "力荐",
+        "content": "肖申克不只是监狱，也是每个人被规训、被命运判定的位置。安迪的救赎之所以成立，不仅因为他逃出高墙，更因为他拒绝接受\"习惯了就算了\"的人生。电影真正厉害的地方，是让观众在瑞德的变化里看见希望如何从怀疑变成相信。"
+      },
+      {
+        "source": "豆瓣",
+        "author": "aratana",
+        "date": "2007-02-26",
+        "rating": "力荐",
+        "content": "这部电影最难复制的，是它把希望拍成了可以被相信的现实。它不是廉价鸡汤，而是让人在最灰暗的处境里，仍愿意相信自由、尊严和友谊值得被等待。时间越久，它越像一部会在不同年龄反复生效的电影。"
+      }
+    ],
+    "source": "douban",
+    "sourceUrl": "https://movie.douban.com/subject/1292052/reviews",
+    "crawledAt": "2026-05-02T09:30:00Z",
+    "note": "豆瓣影评页精选长评前4条"
+  },
+  "links": {
+    "value": {
+      "douban": "https://movie.douban.com/subject/1292052/",
+      "imdb": "https://www.imdb.com/title/tt0111161/",
+      "tmdb": "https://www.themoviedb.org/movie/278"
+    },
+    "source": "merged",
+    "sources": [
+      {
+        "source": "douban",
+        "fields": ["douban", "imdb"],
+        "sourceUrl": "https://movie.douban.com/subject/1292052/"
+      },
+      {
+        "source": "tmdb",
+        "fields": ["tmdb"],
+        "sourceUrl": "https://www.themoviedb.org/movie/278"
+      }
+    ]
+  },
+  "module": {
+    "value": "video",
+    "source": "system",
+    "note": "影视模块"
+  },
+  "submodule": {
+    "value": "movie",
+    "source": "system",
+    "note": "电影子模块"
+  },
+  "createdAt": {
+    "value": "2026-05-01",
+    "source": "system",
+    "note": "录入时间"
+  },
+  "updatedAt": {
+    "value": "2026-05-02",
+    "source": "system",
+    "note": "最后更新时间"
+  }
+}
