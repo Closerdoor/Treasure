@@ -149,7 +149,7 @@ SQLite 只用于本地内容工坊，不作为线上数据库。
 - `index.md`
 - 必要图片资源
 
-执行细则继续以 `.opencode/skills/movie-entry-workflow/` 下文档为准。
+`.opencode/skills/movie-entry-workflow/` 下文档继续作为电影录入执行参考存在，但不得高于当前 `docs/` 主文档体系。
 
 ### 页面派生数据契约
 
@@ -197,6 +197,12 @@ SQLite 只用于本地内容工坊，不作为线上数据库。
 - `暂未收录` 状态标记
 - 不可点击
 
+#### 电影详情页 `音乐` Tab 数据契约
+
+- `音乐` Tab 当前主要读取 `soundtrack`
+- 最小展示骨架包括：原声带名称、作者 / 作曲、年份、曲目列表
+- 当 `soundtrack` 缺失或曲目为空时，允许隐藏 `音乐` Tab，而不是强制展示空白区块
+
 ## 变更影响矩阵
 
 ### 当 `data.json` 字段语义或结构变化时
@@ -205,10 +211,10 @@ SQLite 只用于本地内容工坊，不作为线上数据库。
 
 - `CONTRACTS.md`
 - `.opencode/skills/movie-entry-workflow/SKILL.md`
-- `FIELD-SOURCE-MAPPING.md`
-- `FIELD-VALIDATION.md`
-- `DATA-TO-MD-MAPPING.md`
-- `INDEX-MD-TEMPLATE.md`
+- `.opencode/skills/movie-entry-workflow/FIELD-SOURCE-MAPPING.md`
+- `.opencode/skills/movie-entry-workflow/FIELD-VALIDATION.md`
+- `.opencode/skills/movie-entry-workflow/DATA-TO-MD-MAPPING.md`
+- `.opencode/skills/movie-entry-workflow/INDEX-MD-TEMPLATE.md`
 - 对应真实条目的 `source.json`
 - 未来前台读取逻辑
 
@@ -219,7 +225,7 @@ SQLite 只用于本地内容工坊，不作为线上数据库。
 - `UI-GUIDE.md`
 - `CONTRACTS.md`
 - `PROJECT.md`（如果影响 V1 范围或主共识）
-- `index.md` 审阅模板和映射文档（如受影响）
+- `.opencode/skills/movie-entry-workflow/INDEX-MD-TEMPLATE.md` 与映射文档（如受影响）
 
 ### 当列表页卡片骨架变化时
 
@@ -241,10 +247,12 @@ SQLite 只用于本地内容工坊，不作为线上数据库。
 
 当前约定如下：
 
-- `docs/CONTRACTS.md` 负责讲“当前项目采用什么数据与模板契约”
+- `docs/CONTRACTS.md` 负责讲“当前项目采用什么数据与模板契约”，并且是当前规范来源
 - `.opencode/skills/movie-entry-workflow/` 负责讲“电影具体如何录入、如何校验、如何生成产物”
 
 如果只是电影录入执行细节变化，不需要把全部细节复制进 `docs/`。
+
+如果 workflow 文档与主文档冲突，应优先修正 workflow 文档以与主文档保持一致。
 
 ## 当前约束总结
 

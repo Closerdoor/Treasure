@@ -1,6 +1,8 @@
 # Treasure Docs
 
-当前有效文档只看下面 5 份，按此顺序阅读：
+本文件只作为主文档入口索引。
+
+当前主规范由下面 5 份文档构成，按此顺序阅读：
 
 1. `PROJECT.md`
    - 项目定位、当前阶段目标、V1 范围、已确认方向、待确认事项
@@ -20,7 +22,6 @@
 
 额外说明：
 
-- 电影录入执行细则不在 `docs/` 主文档体系中维护，而继续以 `.opencode/skills/movie-entry-workflow/` 下文档为准。
-- 如果主文档与 workflow 细则冲突：
-  - 项目方向与产品边界以 `PROJECT.md` / `ARCHITECTURE.md` 为准
-  - 电影录入执行细节以 `movie-entry-workflow` 文档为准
+- `docs/` 下这 5 份主文档是当前项目的唯一规范来源。
+- `.opencode/skills/movie-entry-workflow/` 下文档继续作为电影录入执行参考与下游实现文档存在。
+- 如果主文档与 workflow 文档冲突，应先更新 workflow 文档以对齐当前主文档，而不是反向覆盖主文档。
