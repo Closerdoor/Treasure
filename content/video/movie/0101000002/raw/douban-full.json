@@ -257,7 +257,7 @@
       ],
       "status": "✅ 已获取",
       "sourceUrl": "https://movie.douban.com/subject/35948919/reviews",
-      "note": "热门短评"
+      "note": "豆瓣影评页抓取结果，后续需人工筛选为精选长评/高质量评语"
     },
 
     "links": {
