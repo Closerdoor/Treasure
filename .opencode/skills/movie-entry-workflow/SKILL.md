@@ -13,6 +13,7 @@ description: Use when adding a new movie to the collection - crawls multiple sou
 1. 每个字段都必须有来源记录，数据可追溯、可审计
 2. data.json 与 index.md 字段必须同步（参考 `DATA-TO-MD-MAPPING.md`）
 3. 所有有数据的字段都必须在 index.md 中展示（参考 `INDEX-MD-TEMPLATE.md`）
+4. `story` 必须忠于公开可证实内容：已上映作品写完整剧情，未上映作品只写公开剧情梗概，禁止补写未公开内容
 
 ## 目录结构
 
@@ -427,6 +428,12 @@ Invoke-WebRequest -Uri $backdropUrl -OutFile tmdb-backdrops.html
 - `story` 用于详情页完整剧情
 - `reviews` 必须优先来自豆瓣长评页或人工筛选后的高质量评语
 
+`story` 录入规则：
+
+- 已上映作品：`story` 应覆盖主要人物、关键转折与结局，不能只扩写 `synopsis`。
+- 未上映 / 未公开完整剧情作品：`story` 只能整理公开剧情物料、人物关系与已公开阶段性内容，不能伪造后续事件。
+- 未上映 / 未公开完整剧情作品：必须在 `story.note` 与 `source.json.story.note` 写明“基于公开剧情物料整理，非完整剧情/非完整人生全程”。
+
 **图片展示规范**：参考 `IMAGE-SIZE-STANDARD.md`
 - 主演头像：容器 120px，图片 100x100px
 - 海报：容器 160px，图片 160px宽
@@ -461,7 +468,7 @@ Invoke-WebRequest -Uri $backdropUrl -OutFile tmdb-backdrops.html
 1. **图片数量**：海报、剧照、头像数量
 2. **演职员数量**：主演、其他演员数量
 3. **音乐原声**：曲目数量
-4. **影评数量**：用户评论数量
+4. **影评数量**：精选长评数量
 
 **对比示例**：
 ```
@@ -784,6 +791,7 @@ A: **TMDB > 豆瓣 > IMDb**，TMDB 无防盗链，自动化程度最高
 
 | 日期 | 变更 |
 |------|------|
+| 2026-05-02 | 收紧 `story` 录入边界，要求未上映作品显式标注“基于公开剧情物料整理” |
 | 2026-05-01 | 添加数据完整性检查步骤；添加 TMDB-ID-MAP.md；优化图片爬取优先级 |
 | 2026-05-01 | 添加 TMDB 图片爬取方案；添加 rated、awards、runtimeEn 字段展示 |
 | 2026-05-01 | 初始版本 |

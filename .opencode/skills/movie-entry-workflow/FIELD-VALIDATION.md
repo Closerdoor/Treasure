@@ -35,7 +35,8 @@
 | 字段 | 类型 | 验证规则 | 缺失处理 |
 |------|------|----------|----------|
 | synopsis.text | string | 非空，30-200 字优先 | 从豆瓣/百度百科获取 |
-| story.text | string | 非空，> 120 字符 | 从百度百科/维基百科/人工整理获取 |
+| story.text | string | 非空，已上映作品建议 > 300 字，未上映作品建议 > 120 字 | 从百度百科/维基百科/人工整理获取 |
+| story.note | string | 非空；未上映作品必须明确标注“基于公开剧情物料整理，非完整剧情/非完整人生全程” | 手动整理 |
 
 ## 推荐字段
 
@@ -74,6 +75,13 @@
 | similar | array | 可为空 | 从豆瓣获取 |
 | reviews | array | 可为空，但如有数据应为长评摘录 | 从豆瓣长评页获取 |
 
+`story` 额外规则：
+
+- 已上映作品：应尽量覆盖主要人物、关键转折和结局，不得只复写顶部短简介。
+- 未上映 / 未公开完整剧情作品：只允许整理公开梗概、已公开人物关系和已公开阶段性故事，不得补写未公开后续内容。
+- 未上映 / 未公开完整剧情作品的 `story.note` 必须明确说明内容边界，避免被误认为完整剧情。
+- `story.text` 建议按 3-5 段组织，优先保证可读性和信息完整度，而不是追求字数。
+
 ## 可选字段
 
 | 字段 | 说明 | 来源 |
@@ -97,7 +105,7 @@ function validateData(data) {
   const warnings = [];
   
   // 必填字段检查
-  const required = ['id', 'title', 'originalTitle', 'year', 'genre', 'country', 'runtime', 'imdbId', 'doubanId', 'director', 'cast', 'synopsis'];
+  const required = ['id', 'title', 'originalTitle', 'year', 'genre', 'country', 'runtime', 'imdbId', 'doubanId', 'director', 'cast', 'synopsis', 'story'];
   
   for (const field of required) {
     if (!data[field] || (Array.isArray(data[field]) && data[field].length === 0)) {
@@ -113,6 +121,19 @@ function validateData(data) {
   // 片长验证
   if (data.runtime < 60 || data.runtime > 300) {
     warnings.push(`片长异常: ${data.runtime} 分钟`);
+  }
+
+  // synopsis / story 验证
+  if (!data.synopsis?.text || data.synopsis.text.trim().length < 30) {
+    errors.push('synopsis.text 过短或缺失');
+  }
+
+  if (!data.story?.text || data.story.text.trim().length < 120) {
+    errors.push('story.text 过短或缺失');
+  }
+
+  if (!data.story?.note || !data.story.note.trim()) {
+    warnings.push('story.note 缺失，无法判断剧情整理边界');
   }
   
   // 评分验证
@@ -229,4 +250,5 @@ function validateSourceCoverage(source) {
 
 | 日期 | 变更 |
 |------|------|
+| 2026-05-02 | 收紧 `story` 校验：区分已上映/未上映作品，并要求 `story.note` 标明边界 |
 | 2026-05-01 | 初始版本 |
