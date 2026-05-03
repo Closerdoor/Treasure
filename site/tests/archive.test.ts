@@ -276,14 +276,41 @@ describe('video index page', () => {
 });
 
 describe('movie detail page', () => {
-  it('renders a three-column archive hero with scorecard and archive card', async () => {
+  it('renders a simplified hero with ordered archive facts inside the main information board', async () => {
     const source = await fs.readFile(movieDetailPath, 'utf8');
 
+    expect(source).toContain('class="detail-breadcrumb"');
+    expect(source).toContain('href="/video"');
     expect(source).toContain('detail-hero__poster-column');
-    expect(source).toContain('detail-hero__fact-strip');
-    expect(source).toContain('detail-scorecard');
-    expect(source).toContain('档案卡');
-    expect(source).toContain('外部索引');
+    expect(source).toContain('detail-hero__info-board');
+    expect(source).toContain('detail-hero__masthead');
+    expect(source).toContain('detail-hero__title-line');
+    expect(source).toContain('detail-hero__score-line');
+    expect(source).toContain('detail-hero__facts detail-hero__facts--credits');
+    expect(source).toContain('detail-hero__facts detail-hero__facts--meta');
+    expect(source).toContain('detail-hero__fact-row"><dt>{item.label}</dt><dd>{item.value}</dd></div>');
+    expect(source).toContain('detail-hero__summary');
+    expect(source).toContain('detail-hero__fact-row detail-hero__fact-row--summary');
+    expect(source).toContain('<dt>简介</dt>');
+    expect(source).toContain('const heroSynopsis = movie.synopsis?.text?.replace(/\\n\\s*\\n+/g, \'\\n\').trim();');
+    expect(source).toContain('heroSynopsis');
+    expect(source).toContain('aria-label="影片核心资料"');
+    expect(source).toContain('aria-label="影片主创资料"');
+    expect(source).toContain('const heroMetaRows = [');
+    expect(source).toContain('const heroCreditRows = [');
+    expect(source.indexOf("{ label: '导演'")).toBeLessThan(source.indexOf("{ label: '编剧'"));
+    expect(source.indexOf("{ label: '编剧'")).toBeLessThan(source.indexOf("{ label: '主演'"));
+    expect(source.indexOf("{ label: '主演'")).toBeLessThan(source.indexOf("{ label: '地区'"));
+    expect(source.indexOf("{ label: '地区'")).toBeLessThan(source.indexOf("{ label: '语言'"));
+    expect(source.indexOf("{ label: '语言'")).toBeLessThan(source.indexOf("{ label: '片长'"));
+    expect(source.indexOf("{ label: '片长'")).toBeLessThan(source.indexOf("{ label: '上映日期'"));
+    expect(source.indexOf("{ label: '上映日期'")).toBeLessThan(source.indexOf("{ label: '更多片名'"));
+    expect(source).not.toContain('detail-scorecard');
+    expect(source).not.toContain('platform-strip');
+    expect(source).not.toContain('档案卡');
+    expect(source).not.toContain('外部索引');
+    expect(source).not.toContain('Poster File');
+    expect(source).not.toContain('编号 {movie.id}');
   });
 
   it('keeps detail tabs in archive-first order', async () => {
@@ -332,15 +359,18 @@ describe('movie detail page', () => {
     const source = await fs.readFile(path.join(process.cwd(), 'src', 'components', 'DetailTabs.astro'), 'utf8');
     const styles = await fs.readFile(path.join(process.cwd(), 'src', 'styles', 'global.css'), 'utf8');
 
-    expect(source).toContain('aria-label="卷宗索引导航栏"');
+    expect(source).toContain('aria-label="标题索引导航栏"');
     expect(source).toContain('data-detail-index');
     expect(source).toContain('data-detail-tab={item.id}');
+    expect(source).toContain('data-detail-top');
+    expect(source).toContain('window.scrollTo({ top: 0, behavior: \'smooth\' });');
     expect(source).toContain('IntersectionObserver');
     expect(styles).toContain('top: var(--sticky-offset);');
     expect(styles).toContain('--header-height: 76px;');
     expect(styles).toContain('--detail-index-height: 68px;');
     expect(styles).toContain('.detail-panel[id] {');
     expect(styles).toContain('scroll-margin-top: calc(var(--header-height) + var(--detail-index-height) + 18px);');
+    expect(styles).toContain('.detail-tabs__top-button {');
   });
 });
 

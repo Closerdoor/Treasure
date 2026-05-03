@@ -34,8 +34,8 @@ const tabItems = [
 ---
 
 <div class="detail-tabs">
-  <nav class="detail-tabs__nav" aria-label="卷宗索引导航栏" data-detail-index>
-    <span class="detail-tabs__nav-label">卷宗索引</span>
+  <nav class="detail-tabs__nav" aria-label="标题索引导航栏" data-detail-index>
+    <span class="detail-tabs__nav-label">标题索引</span>
     {tabItems.map((item, index) => (
       <a
         class:list={["detail-tabs__tab", index === 0 && 'is-active']}
@@ -46,12 +46,15 @@ const tabItems = [
         {item.label}
       </a>
     ))}
+    <button class="detail-tabs__top-button" type="button" data-detail-top>
+      回到顶部
+    </button>
   </nav>
 
   <section class="detail-panel" id="story">
     <div class="detail-panel__header">
-      <span class="detail-panel__eyebrow">Story File</span>
       <h2>详情介绍</h2>
+      <span class="detail-panel__eyebrow">Story File</span>
     </div>
 
     {movie.synopsis?.note ? <p class="detail-panel__lead">{movie.synopsis.note}</p> : null}
@@ -65,13 +68,8 @@ const tabItems = [
 
   <section class="detail-panel" id="credits">
     <div class="detail-panel__header">
-      <span class="detail-panel__eyebrow">Credits</span>
       <h2>演职员</h2>
-    </div>
-
-    <div class="detail-panel__toolbar">
-      <span>默认展示中文姓名</span>
-      <span>左右滑动查看更多</span>
+      <span class="detail-panel__eyebrow">Credits</span>
     </div>
 
     <div class="media-rail-shell" data-rail-shell>
@@ -104,16 +102,8 @@ const tabItems = [
   {movie.posterGallery.length || movie.stillGallery.length ? (
     <section class="detail-panel" id="images">
       <div class="detail-panel__header">
-        <span class="detail-panel__eyebrow">Visual Archive</span>
         <h2>图片</h2>
-      </div>
-
-      <div class="detail-panel__toolbar">
-        <span>第一行优先展示海报 / 剧照，第二行展示其它图片</span>
-        <span>
-          海报 {movie.images?.postersTotal ?? movie.posterGallery.length}
-          · 剧照 {movie.images?.stillsTotal ?? movie.stillGallery.length}
-        </span>
+        <span class="detail-panel__eyebrow">Visual Archive</span>
       </div>
 
       <div class="image-rail-shell" data-rail-shell data-rail-sync>
@@ -149,13 +139,8 @@ const tabItems = [
 
   <section class="detail-panel" id="reviews">
     <div class="detail-panel__header">
-      <span class="detail-panel__eyebrow">Selected Notes</span>
       <h2>精彩影评</h2>
-    </div>
-
-    <div class="detail-panel__toolbar">
-      <span>馆内摘录 {movie.reviews?.length ?? 0} 条</span>
-      <span>优先保留可复读、可对照的评论片段</span>
+      <span class="detail-panel__eyebrow">Selected Notes</span>
     </div>
 
     <div class="review-stack">
@@ -178,8 +163,8 @@ const tabItems = [
   {movie.soundtrack?.tracks?.length ? (
     <section class="detail-panel" id="music">
       <div class="detail-panel__header">
-        <span class="detail-panel__eyebrow">Sound Archive</span>
         <h2>音乐</h2>
+        <span class="detail-panel__eyebrow">Sound Archive</span>
       </div>
 
       <div class="soundtrack-card">
@@ -208,13 +193,8 @@ const tabItems = [
   {movie.videos?.length ? (
     <section class="detail-panel" id="videos">
       <div class="detail-panel__header">
-        <span class="detail-panel__eyebrow">Video Materials</span>
         <h2>视频</h2>
-      </div>
-
-      <div class="detail-panel__toolbar">
-        <span>单行展示视频物料</span>
-        <span>左右滑动查看更多</span>
+        <span class="detail-panel__eyebrow">Video Materials</span>
       </div>
 
       <div class="media-rail-shell" data-rail-shell>
@@ -249,8 +229,8 @@ const tabItems = [
 
   <section class="detail-panel" id="links">
     <div class="detail-panel__header">
-      <span class="detail-panel__eyebrow">External Index</span>
       <h2>外部来源</h2>
+      <span class="detail-panel__eyebrow">External Index</span>
     </div>
 
     <div class="link-list">
@@ -313,6 +293,17 @@ const tabItems = [
       nav.addEventListener('click', (event) => {
         const target = event.target;
         if (!(target instanceof HTMLElement)) {
+          return;
+        }
+
+        const topButton = target.closest('[data-detail-top]');
+        if (topButton instanceof HTMLButtonElement) {
+          event.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          if (sections[0]) {
+            setActive(sections[0].id);
+            window.history.replaceState({}, '', '#top');
+          }
           return;
         }
 

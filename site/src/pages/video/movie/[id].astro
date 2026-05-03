@@ -2,7 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import DetailTabs from '../../../components/DetailTabs.astro';
 import { loadArchiveMovieById, loadArchiveMovies } from '../../../lib/archive';
-import { formatArchiveLabel, formatArchiveRuntimeLabel, formatExternalSourceLabel } from '../../../lib/site';
+import { formatArchiveRuntimeLabel } from '../../../lib/site';
 
 export async function getStaticPaths() {
   const movies = await loadArchiveMovies();
@@ -20,35 +20,34 @@ if (!movie) {
 }
 
 const sidebarItems = (movie.series?.length ? movie.series : movie.similar ?? []).slice(0, 6);
-const archiveLabel = formatArchiveLabel(movie.module, movie.submodule);
-const releaseHeadline = [movie.releaseDate?.[0]?.date, movie.releaseDate?.[0]?.location].filter(Boolean).join(' · ');
-const platformRatings = [
-  { label: '豆瓣', value: movie.doubanRating },
-  { label: 'IMDb', value: movie.imdbRating },
-  { label: 'TMDB', value: movie.tmdbRating }
-].filter((item) => typeof item.value === 'number');
-const primaryFacts = [
-  { label: '年份', value: String(movie.year) },
+const titleLine = [String(movie.year), (movie.genre ?? []).join(' / ')].filter(Boolean).join(' | ');
+const heroCreditRows = [
+  { label: '导演', value: movie.directorNames || '待补充' },
+  { label: '编剧', value: movie.writerNames || '待补充' },
+  { label: '主演', value: movie.castPreview.join(' / ') || '待补充' }
+];
+const heroMetaRows = [
   { label: '地区', value: movie.country || '待补充' },
-  { label: '类型', value: (movie.genre ?? []).join(' / ') || '待补充' },
-  { label: '语言', value: movie.language || '待补充' }
+  { label: '语言', value: movie.language || '待补充' },
+  { label: '片长', value: formatArchiveRuntimeLabel(movie.runtime) },
+  { label: '上映日期', value: movie.releaseDateLabel || '待补充' },
+  { label: '更多片名', value: (movie.aka ?? []).join(' / ') || '无' }
 ];
-const archiveFacts = [
-  { label: '馆藏编号', value: movie.id },
-  { label: '模块归属', value: archiveLabel },
-  { label: '创建时间', value: movie.createdAt || '未知' },
-  { label: '更新时间', value: movie.updatedAt || '未知' }
-];
-const externalLinks = Object.entries(movie.links ?? {}).filter((entry): entry is [string, string] => Boolean(entry[1]));
-const collectionSignals = [
-  { label: '海报', value: movie.images?.postersTotal ? `${movie.images.postersTotal}` : String(movie.posterGallery.length || 1) },
-  { label: '剧照', value: movie.images?.stillsTotal ? `${movie.images.stillsTotal}` : String(movie.stillGallery.length) },
-  { label: '影评', value: String(movie.reviews?.length ?? 0) }
-];
+const heroSynopsis = movie.synopsis?.text?.replace(/\n\s*\n+/g, '\n').trim();
 ---
 
 <BaseLayout title={`${movie.title} | Treasure 资料馆`}>
   <section class="detail-hero shell">
+    <nav class="detail-breadcrumb" aria-label="详情页面包屑">
+      <a href="/">首页</a>
+      <span aria-hidden="true">/</span>
+      <a href="/video">影视</a>
+      <span aria-hidden="true">/</span>
+      <a href="/video">电影</a>
+      <span aria-hidden="true">/</span>
+      <strong aria-current="page">{movie.title}</strong>
+    </nav>
+
     <div class="detail-hero__backdrop">
       <img src={movie.posterUrl} alt={`${movie.title} 海报`} />
     </div>
@@ -58,96 +57,50 @@ const collectionSignals = [
         <div class="detail-hero__poster">
           <img src={movie.posterUrl} alt={`${movie.title} 海报`} />
         </div>
-
-        <div class="detail-hero__poster-note">
-          <span>Poster File</span>
-          <strong>{movie.images?.postersTotal ? `${movie.images.postersTotal} 张海报资料` : '馆藏主海报'}</strong>
-        </div>
       </div>
 
       <div class="detail-hero__content">
-        <div class="detail-hero__heading">
-          <p class="eyebrow">{archiveLabel}</p>
-          <div class="detail-hero__signal-row">
-            <span class="detail-hero__signal">编号 {movie.id}</span>
-            {releaseHeadline ? <span class="detail-hero__signal">首映 {releaseHeadline}</span> : null}
+        <div class="detail-hero__info-board">
+          <div class="detail-hero__masthead">
+            <div class="detail-hero__heading">
+              <h1>{movie.title}</h1>
+              <p class="detail-hero__original">{movie.originalTitle || movie.title}</p>
+              <p class="detail-hero__title-line">{titleLine}</p>
+            </div>
           </div>
-          <h1>{movie.title}</h1>
-          <p class="detail-hero__original">{movie.originalTitle || movie.title}</p>
-        </div>
 
-        <div class="detail-hero__intro">
-          <p class="detail-hero__deck">{movie.synopsis?.note || '馆长收录的精选条目，优先展示可供浏览与回看的核心资料。'}</p>
-          <p class="detail-hero__synopsis">{movie.synopsis?.text}</p>
-        </div>
+          <p class="detail-hero__score-line" aria-label="Treasure 评分">
+            <strong class="detail-hero__score-value">{movie.aggregateRating ? movie.aggregateRating.toFixed(1) : '--'}</strong>
+          </p>
 
-        <div class="detail-hero__fact-strip">
-          {primaryFacts.map((fact) => (
-            <div class="detail-hero__fact-chip">
-              <span>{fact.label}</span>
-              <strong>{fact.value}</strong>
-            </div>
-          ))}
-        </div>
+          <div class="detail-hero__divider" aria-hidden="true"></div>
 
-        <div class="detail-hero__collection-strip">
-          {collectionSignals.map((item) => (
-            <div class="detail-hero__collection-card">
-              <span>{item.label}</span>
-              <strong>{item.value}</strong>
-            </div>
-          ))}
-        </div>
-
-        <dl class="detail-meta detail-meta--hero">
-          <div><dt>导演</dt><dd>{movie.directorNames || '待补充'}</dd></div>
-          <div><dt>编剧</dt><dd>{movie.writerNames || '待补充'}</dd></div>
-          <div><dt>主演</dt><dd>{movie.castPreview.join(' / ') || '待补充'}</dd></div>
-          <div><dt>上映</dt><dd>{movie.releaseDateLabel || '待补充'}</dd></div>
-          <div><dt>别名</dt><dd>{(movie.aka ?? []).join(' / ') || '无'}</dd></div>
-        </dl>
-      </div>
-
-      <aside class="detail-hero__sidebar">
-        <section class="detail-scorecard">
-          <span class="detail-scorecard__label">Treasure Score</span>
-          <strong class="detail-scorecard__value">{movie.aggregateRating ? movie.aggregateRating.toFixed(1) : '--'}</strong>
-          <p class="detail-scorecard__meta">{formatArchiveRuntimeLabel(movie.runtime)}{releaseHeadline ? ` · ${releaseHeadline}` : ''}</p>
-
-          {platformRatings.length ? (
-            <div class="platform-strip">
-              {platformRatings.map((item) => (
-                <div class="platform-strip__item">
-                  <span>{item.label}</span>
-                  <strong>{Number(item.value).toFixed(1)}</strong>
-                </div>
-              ))}
-            </div>
-          ) : null}
-        </section>
-
-        <section class="side-panel side-panel--archive side-panel--hero">
-          <h2>档案卡</h2>
-          <dl class="archive-facts">
-            {archiveFacts.map((item) => (
-              <div>
-                <dt>{item.label}</dt>
-                <dd>{item.value}</dd>
-              </div>
+          <dl class="detail-hero__facts detail-hero__facts--credits" aria-label="影片主创资料">
+            {heroCreditRows.map((item) => (
+              <div class="detail-hero__fact-row"><dt>{item.label}</dt><dd>{item.value}</dd></div>
             ))}
           </dl>
-        </section>
 
-        {externalLinks.length ? (
-          <section class="side-panel side-panel--links">
-            <h2>外部索引</h2>
-            <div class="link-list link-list--side">
-              {externalLinks.map(([name, href]) => (
-                <a href={href} target="_blank" rel="noreferrer">{formatExternalSourceLabel(name)}</a>
-              ))}
-            </div>
-          </section>
-        ) : null}
+          <div class="detail-hero__divider" aria-hidden="true"></div>
+
+          <dl class="detail-hero__facts detail-hero__facts--meta" aria-label="影片核心资料">
+            {heroMetaRows.map((item) => (
+              <div class="detail-hero__fact-row"><dt>{item.label}</dt><dd>{item.value}</dd></div>
+            ))}
+          </dl>
+
+          {heroSynopsis ? (
+            <>
+              <div class="detail-hero__divider" aria-hidden="true"></div>
+              <dl class="detail-hero__facts" aria-label="影片简介">
+                <div class="detail-hero__fact-row detail-hero__fact-row--summary">
+                  <dt>简介</dt>
+                  <dd class="detail-hero__summary">{heroSynopsis}</dd>
+                </div>
+              </dl>
+            </>
+          ) : null}
+        </div>
       </div>
     </div>
   </section>
