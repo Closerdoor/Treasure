@@ -171,6 +171,24 @@ export function formatArchiveListPlatformRatings(
     .map(([label, value]) => ({ label, value: typeof value === 'number' ? Number(value).toFixed(1) : value }));
 }
 
+export function formatArchiveRuntimeLabel(runtime?: number) {
+  if (!runtime || runtime <= 0) {
+    return '时长待补充';
+  }
+
+  return `${runtime} 分钟`;
+}
+
+export function formatExternalSourceLabel(name: string) {
+  const labels: Record<string, string> = {
+    douban: '豆瓣条目',
+    imdb: 'IMDb',
+    tmdb: 'TMDB'
+  };
+
+  return labels[name] ?? name;
+}
+
 export function collectMovieTags(movies: ArchiveMovie[]) {
   return [...new Set(movies.flatMap((movie) => movie.tags))].slice(0, 12);
 }

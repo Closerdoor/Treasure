@@ -1,15 +1,20 @@
 ---
 import type { ArchiveMovie } from '../lib/archive';
+import { formatExternalSourceLabel } from '../lib/site';
 
 const { movie } = Astro.props as { movie: ArchiveMovie };
+
+const leadCast = movie.cast ?? [];
+const supportCast = movie.otherCast ?? [];
+const imageItems = [movie.posterUrl, ...movie.posterGallery, ...movie.stillGallery];
 
 const tabItems = [
   { id: 'story', label: '详情介绍' },
   { id: 'credits', label: '演职员' },
-  { id: 'reviews', label: '精彩影评' },
-  { id: 'videos', label: '视频', hidden: !movie.videos?.length },
   { id: 'images', label: '图片', hidden: !movie.stillGallery.length && !movie.posterGallery.length },
+  { id: 'reviews', label: '精彩影评' },
   { id: 'music', label: '音乐', hidden: !movie.soundtrack?.tracks?.length },
+  { id: 'videos', label: '视频', hidden: !movie.videos?.length },
   { id: 'links', label: '外部来源' }
 ].filter((item) => !item.hidden);
 ---
@@ -22,38 +27,138 @@ const tabItems = [
   </nav>
 
   <section class="detail-panel" id="story">
-    <h2>详情介绍</h2>
-    <p>{movie.story?.text}</p>
+    <div class="detail-panel__header">
+      <span class="detail-panel__eyebrow">Story File</span>
+      <h2>详情介绍</h2>
+    </div>
+
+    {movie.synopsis?.note ? <p class="detail-panel__lead">{movie.synopsis.note}</p> : null}
+
+    <div class="detail-story-flow">
+      <p>{movie.story?.text ?? movie.synopsis?.text}</p>
+    </div>
+
     {movie.story?.note && <p class="detail-panel__note">{movie.story.note}</p>}
   </section>
 
   <section class="detail-panel" id="credits">
-    <h2>演职员</h2>
-    <div class="credit-grid">
-      {(movie.cast ?? []).map((person) => (
-        <article class="credit-card">
-          <img
-            src={person.avatar ? `/assets/${movie.module}/${movie.submodule}/${movie.id}/${person.avatar}` : '/assets/avatar-placeholder.svg'}
-            alt={person.name}
-            loading="lazy"
-          />
+    <div class="detail-panel__header">
+      <span class="detail-panel__eyebrow">Credits</span>
+      <h2>演职员</h2>
+    </div>
+
+    <div class="credit-ledger">
+      <section class="credit-ledger__group">
+        <header>
+          <strong>导演 / 编剧</strong>
+          <span>核心创作信息</span>
+        </header>
+
+        <dl class="credit-ledger__facts">
           <div>
-            <strong>{person.name}</strong>
-            <p>{person.role}</p>
+            <dt>导演</dt>
+            <dd>{movie.directorNames || '待补充'}</dd>
           </div>
-        </article>
-      ))}
+          <div>
+            <dt>编剧</dt>
+            <dd>{movie.writerNames || '待补充'}</dd>
+          </div>
+          <div>
+            <dt>制片</dt>
+            <dd>{(movie.producer ?? []).map((person) => person.name).join(' / ') || '待补充'}</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="credit-ledger__group">
+        <header>
+          <strong>主要演员</strong>
+          <span>核心角色阵容</span>
+        </header>
+
+        <div class="credit-grid">
+          {leadCast.map((person) => (
+            <article class="credit-card">
+              <img
+                src={person.avatar ? `/assets/${movie.module}/${movie.submodule}/${movie.id}/${person.avatar}` : '/assets/avatar-placeholder.svg'}
+                alt={person.name}
+                loading="lazy"
+              />
+              <div>
+                <strong>{person.name}</strong>
+                <p>{person.role || person.nameEn || '演员'}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      {supportCast.length ? (
+        <section class="credit-ledger__group">
+          <header>
+            <strong>其他演员</strong>
+            <span>扩展角色表</span>
+          </header>
+
+          <div class="support-cast-list">
+            {supportCast.slice(0, 18).map((person) => (
+              <article class="support-cast-item">
+                <strong>{person.name}</strong>
+                <span>{person.role || person.nameEn || '演员'}</span>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
     </div>
   </section>
 
+  {movie.posterGallery.length || movie.stillGallery.length ? (
+    <section class="detail-panel" id="images">
+      <div class="detail-panel__header">
+        <span class="detail-panel__eyebrow">Visual Archive</span>
+        <h2>图片</h2>
+      </div>
+
+      <div class="detail-panel__toolbar">
+        <span>精选展示 {Math.min(imageItems.length, 12)} 张</span>
+        <span>
+          海报 {movie.images?.postersTotal ?? movie.posterGallery.length}
+          · 剧照 {movie.images?.stillsTotal ?? movie.stillGallery.length}
+        </span>
+      </div>
+
+      <div class="image-wall image-wall--detail">
+        {imageItems.slice(0, 12).map((image, index) => (
+          <figure class:list={["image-wall__item", index === 0 && 'is-featured']}>
+            <img src={image} alt={`${movie.title} 图片 ${index + 1}`} loading="lazy" />
+          </figure>
+        ))}
+      </div>
+    </section>
+  ) : null}
+
   <section class="detail-panel" id="reviews">
-    <h2>精彩影评</h2>
+    <div class="detail-panel__header">
+      <span class="detail-panel__eyebrow">Selected Notes</span>
+      <h2>精彩影评</h2>
+    </div>
+
+    <div class="detail-panel__toolbar">
+      <span>馆内摘录 {movie.reviews?.length ?? 0} 条</span>
+      <span>优先保留可复读、可对照的评论片段</span>
+    </div>
+
     <div class="review-stack">
       {(movie.reviews ?? []).map((review) => (
         <article class="review-card">
+          <span class="review-card__mark">摘录</span>
           <header>
-            <strong>{review.author}</strong>
-            <span>{review.source} · {review.date}</span>
+            <div>
+              <strong>{review.author}</strong>
+              <span>{review.source} · {review.date}</span>
+            </div>
+            {review.rating ? <em>{review.rating}</em> : null}
           </header>
           <p>{review.content}</p>
         </article>
@@ -61,9 +166,43 @@ const tabItems = [
     </div>
   </section>
 
+  {movie.soundtrack?.tracks?.length ? (
+    <section class="detail-panel" id="music">
+      <div class="detail-panel__header">
+        <span class="detail-panel__eyebrow">Sound Archive</span>
+        <h2>音乐</h2>
+      </div>
+
+      <div class="soundtrack-card">
+        <header>
+          <div>
+            <strong>{movie.soundtrack.name}</strong>
+            <span>
+              {movie.soundtrack.composer}
+              {movie.soundtrack.composerEn ? ` / ${movie.soundtrack.composerEn}` : ''}
+            </span>
+          </div>
+          <em>{movie.soundtrack.year ? `${movie.soundtrack.year}` : '原声资料'}</em>
+        </header>
+        <ol>
+          {movie.soundtrack.tracks.map((track) => (
+            <li>
+              <span>{track.index ? `${track.index}. ` : ''}{track.name}</span>
+              <span>{track.artist || track.duration || ''}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  ) : null}
+
   {movie.videos?.length ? (
     <section class="detail-panel" id="videos">
-      <h2>视频</h2>
+      <div class="detail-panel__header">
+        <span class="detail-panel__eyebrow">Video Materials</span>
+        <h2>视频</h2>
+      </div>
+
       <div class="media-grid">
         {movie.videos.map((video) => (
           <a class="media-card" href={video.url} target="_blank" rel="noreferrer">
@@ -84,46 +223,16 @@ const tabItems = [
     </section>
   ) : null}
 
-  {movie.posterGallery.length || movie.stillGallery.length ? (
-    <section class="detail-panel" id="images">
-      <h2>图片</h2>
-      <div class="image-wall">
-        {[movie.posterUrl, ...movie.posterGallery, ...movie.stillGallery].slice(0, 12).map((image) => (
-          <img src={image} alt={`${movie.title} 图片`} loading="lazy" />
-        ))}
-      </div>
-    </section>
-  ) : null}
-
-  {movie.soundtrack?.tracks?.length ? (
-    <section class="detail-panel" id="music">
-      <h2>音乐</h2>
-      <div class="soundtrack-card">
-        <header>
-          <strong>{movie.soundtrack.name}</strong>
-          <span>
-            {movie.soundtrack.composer}
-            {movie.soundtrack.year ? ` · ${movie.soundtrack.year}` : ''}
-          </span>
-        </header>
-        <ol>
-          {movie.soundtrack.tracks.map((track) => (
-            <li>
-              <span>{track.index ? `${track.index}. ` : ''}{track.name}</span>
-              <span>{track.artist || track.duration || ''}</span>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </section>
-  ) : null}
-
   <section class="detail-panel" id="links">
-    <h2>外部来源</h2>
+    <div class="detail-panel__header">
+      <span class="detail-panel__eyebrow">External Index</span>
+      <h2>外部来源</h2>
+    </div>
+
     <div class="link-list">
       {Object.entries(movie.links ?? {}).map(([name, href]) =>
         href ? (
-          <a href={href} target="_blank" rel="noreferrer">{name}</a>
+          <a href={href} target="_blank" rel="noreferrer">{formatExternalSourceLabel(name)}</a>
         ) : null
       )}
     </div>

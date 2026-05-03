@@ -2,7 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import DetailTabs from '../../../components/DetailTabs.astro';
 import { loadArchiveMovieById, loadArchiveMovies } from '../../../lib/archive';
-import { formatArchiveLabel } from '../../../lib/site';
+import { formatArchiveLabel, formatArchiveRuntimeLabel, formatExternalSourceLabel } from '../../../lib/site';
 
 export async function getStaticPaths() {
   const movies = await loadArchiveMovies();
@@ -21,11 +21,30 @@ if (!movie) {
 
 const sidebarItems = (movie.series?.length ? movie.series : movie.similar ?? []).slice(0, 6);
 const archiveLabel = formatArchiveLabel(movie.module, movie.submodule);
+const releaseHeadline = [movie.releaseDate?.[0]?.date, movie.releaseDate?.[0]?.location].filter(Boolean).join(' · ');
 const platformRatings = [
   { label: '豆瓣', value: movie.doubanRating },
   { label: 'IMDb', value: movie.imdbRating },
   { label: 'TMDB', value: movie.tmdbRating }
 ].filter((item) => typeof item.value === 'number');
+const primaryFacts = [
+  { label: '年份', value: String(movie.year) },
+  { label: '地区', value: movie.country || '待补充' },
+  { label: '类型', value: (movie.genre ?? []).join(' / ') || '待补充' },
+  { label: '语言', value: movie.language || '待补充' }
+];
+const archiveFacts = [
+  { label: '馆藏编号', value: movie.id },
+  { label: '模块归属', value: archiveLabel },
+  { label: '创建时间', value: movie.createdAt || '未知' },
+  { label: '更新时间', value: movie.updatedAt || '未知' }
+];
+const externalLinks = Object.entries(movie.links ?? {}).filter((entry): entry is [string, string] => Boolean(entry[1]));
+const collectionSignals = [
+  { label: '海报', value: movie.images?.postersTotal ? `${movie.images.postersTotal}` : String(movie.posterGallery.length || 1) },
+  { label: '剧照', value: movie.images?.stillsTotal ? `${movie.images.stillsTotal}` : String(movie.stillGallery.length) },
+  { label: '影评', value: String(movie.reviews?.length ?? 0) }
+];
 ---
 
 <BaseLayout title={`${movie.title} | Treasure 资料馆`}>
@@ -34,52 +53,101 @@ const platformRatings = [
       <img src={movie.posterUrl} alt={`${movie.title} 海报`} />
     </div>
 
-      <div class="detail-hero__main">
+    <div class="detail-hero__main">
+      <div class="detail-hero__poster-column">
         <div class="detail-hero__poster">
           <img src={movie.posterUrl} alt={`${movie.title} 海报`} />
         </div>
 
-        <div class="detail-hero__content">
-          <p class="eyebrow">{archiveLabel}</p>
-          <h1>{movie.title}</h1>
-          <p class="detail-hero__original">{movie.originalTitle} · {movie.year}</p>
-          <p class="detail-hero__synopsis">{movie.synopsis?.text}</p>
+        <div class="detail-hero__poster-note">
+          <span>Poster File</span>
+          <strong>{movie.images?.postersTotal ? `${movie.images.postersTotal} 张海报资料` : '馆藏主海报'}</strong>
+        </div>
+      </div>
 
-        <div class="detail-stats">
-          <div>
-            <span>综合评分</span>
-            <strong>{movie.aggregateRating ? movie.aggregateRating.toFixed(1) : '--'}</strong>
+      <div class="detail-hero__content">
+        <div class="detail-hero__heading">
+          <p class="eyebrow">{archiveLabel}</p>
+          <div class="detail-hero__signal-row">
+            <span class="detail-hero__signal">编号 {movie.id}</span>
+            {releaseHeadline ? <span class="detail-hero__signal">首映 {releaseHeadline}</span> : null}
           </div>
-          <div>
-            <span>时长</span>
-            <strong>{movie.runtime} min</strong>
-          </div>
-          <div>
-            <span>地区</span>
-            <strong>{movie.country}</strong>
-          </div>
+          <h1>{movie.title}</h1>
+          <p class="detail-hero__original">{movie.originalTitle || movie.title}</p>
         </div>
 
-        {platformRatings.length ? (
-          <div class="platform-strip">
-            {platformRatings.map((item) => (
-              <div class="platform-strip__item">
-                <span>{item.label}</span>
-                <strong>{Number(item.value).toFixed(1)}</strong>
-              </div>
-            ))}
-          </div>
-        ) : null}
+        <div class="detail-hero__intro">
+          <p class="detail-hero__deck">{movie.synopsis?.note || '馆长收录的精选条目，优先展示可供浏览与回看的核心资料。'}</p>
+          <p class="detail-hero__synopsis">{movie.synopsis?.text}</p>
+        </div>
 
-        <dl class="detail-meta">
-          <div><dt>类型</dt><dd>{(movie.genre ?? []).join(' / ')}</dd></div>
-          <div><dt>导演</dt><dd>{movie.directorNames}</dd></div>
-          <div><dt>编剧</dt><dd>{movie.writerNames}</dd></div>
-          <div><dt>主演</dt><dd>{movie.castPreview.join(' / ')}</dd></div>
-          <div><dt>语言</dt><dd>{movie.language}</dd></div>
-          <div><dt>上映</dt><dd>{movie.releaseDateLabel}</dd></div>
+        <div class="detail-hero__fact-strip">
+          {primaryFacts.map((fact) => (
+            <div class="detail-hero__fact-chip">
+              <span>{fact.label}</span>
+              <strong>{fact.value}</strong>
+            </div>
+          ))}
+        </div>
+
+        <div class="detail-hero__collection-strip">
+          {collectionSignals.map((item) => (
+            <div class="detail-hero__collection-card">
+              <span>{item.label}</span>
+              <strong>{item.value}</strong>
+            </div>
+          ))}
+        </div>
+
+        <dl class="detail-meta detail-meta--hero">
+          <div><dt>导演</dt><dd>{movie.directorNames || '待补充'}</dd></div>
+          <div><dt>编剧</dt><dd>{movie.writerNames || '待补充'}</dd></div>
+          <div><dt>主演</dt><dd>{movie.castPreview.join(' / ') || '待补充'}</dd></div>
+          <div><dt>上映</dt><dd>{movie.releaseDateLabel || '待补充'}</dd></div>
           <div><dt>别名</dt><dd>{(movie.aka ?? []).join(' / ') || '无'}</dd></div>
         </dl>
+      </div>
+
+      <aside class="detail-hero__sidebar">
+        <section class="detail-scorecard">
+          <span class="detail-scorecard__label">Treasure Score</span>
+          <strong class="detail-scorecard__value">{movie.aggregateRating ? movie.aggregateRating.toFixed(1) : '--'}</strong>
+          <p class="detail-scorecard__meta">{formatArchiveRuntimeLabel(movie.runtime)}{releaseHeadline ? ` · ${releaseHeadline}` : ''}</p>
+
+          {platformRatings.length ? (
+            <div class="platform-strip">
+              {platformRatings.map((item) => (
+                <div class="platform-strip__item">
+                  <span>{item.label}</span>
+                  <strong>{Number(item.value).toFixed(1)}</strong>
+                </div>
+              ))}
+            </div>
+          ) : null}
+        </section>
+
+        <section class="side-panel side-panel--archive side-panel--hero">
+          <h2>档案卡</h2>
+          <dl class="archive-facts">
+            {archiveFacts.map((item) => (
+              <div>
+                <dt>{item.label}</dt>
+                <dd>{item.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+
+        {externalLinks.length ? (
+          <section class="side-panel side-panel--links">
+            <h2>外部索引</h2>
+            <div class="link-list link-list--side">
+              {externalLinks.map(([name, href]) => (
+                <a href={href} target="_blank" rel="noreferrer">{formatExternalSourceLabel(name)}</a>
+              ))}
+            </div>
+          </section>
+        ) : null}
       </div>
     </div>
   </section>
@@ -95,18 +163,9 @@ const platformRatings = [
     </div>
 
     <aside class="detail-layout__side">
-        <section class="side-panel side-panel--archive">
-          <h2>档案信息</h2>
-          <dl class="archive-facts">
-            <div><dt>ID</dt><dd>{movie.id}</dd></div>
-            <div><dt>模块</dt><dd>{archiveLabel}</dd></div>
-            <div><dt>创建</dt><dd>{movie.createdAt || '未知'}</dd></div>
-            <div><dt>更新</dt><dd>{movie.updatedAt || '未知'}</dd></div>
-          </dl>
-      </section>
-
       <section class="side-panel">
         <h2>{movie.series?.length ? '系列作品' : '相似作品'}</h2>
+        <p class="side-panel__intro">继续沿着同一批馆藏线索浏览。</p>
         <div class="side-stack">
           {sidebarItems.map((item) =>
             item.id ? (

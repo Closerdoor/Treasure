@@ -6,11 +6,13 @@ import { computeAggregateRating, loadArchiveMovies, syncArchiveAssets } from '..
 import {
   buildHomePageModel,
   buildVideoViewModel,
+  formatArchiveRuntimeLabel,
   formatArchiveCardMeta,
   formatArchiveCardMetaLeft,
   formatArchiveCardMetaRight,
   formatArchiveCardRuntime,
   formatArchiveLabel,
+  formatExternalSourceLabel,
   formatArchiveListPlatformRatings,
   formatArchiveListFacts,
   resolveVideoView
@@ -18,6 +20,7 @@ import {
 
 const tempDirs: string[] = [];
 const videoIndexPath = path.join(process.cwd(), 'src', 'pages', 'video', 'index.astro');
+const movieDetailPath = path.join(process.cwd(), 'src', 'pages', 'video', 'movie', '[id].astro');
 
 afterEach(async () => {
   await Promise.all(
@@ -156,6 +159,22 @@ describe('formatArchiveCardRuntime', () => {
   });
 });
 
+describe('formatArchiveRuntimeLabel', () => {
+  it('formats runtime for detail-page archive labels', () => {
+    expect(formatArchiveRuntimeLabel(142)).toBe('142 分钟');
+    expect(formatArchiveRuntimeLabel()).toBe('时长待补充');
+  });
+});
+
+describe('formatExternalSourceLabel', () => {
+  it('maps known source keys to reader-facing labels', () => {
+    expect(formatExternalSourceLabel('douban')).toBe('豆瓣条目');
+    expect(formatExternalSourceLabel('imdb')).toBe('IMDb');
+    expect(formatExternalSourceLabel('tmdb')).toBe('TMDB');
+    expect(formatExternalSourceLabel('wikipedia')).toBe('wikipedia');
+  });
+});
+
 describe('formatArchiveListFacts', () => {
   it('formats the list meta row as year country and genre only', () => {
     expect(
@@ -241,6 +260,28 @@ describe('video index page', () => {
     expect(source).toContain('当前第 {currentPage} / {totalPages} 页');
     expect(source).not.toContain("{ label: '热度'");
     expect(source).not.toContain("{ label: '标签'");
+  });
+});
+
+describe('movie detail page', () => {
+  it('renders a three-column archive hero with scorecard and archive card', async () => {
+    const source = await fs.readFile(movieDetailPath, 'utf8');
+
+    expect(source).toContain('detail-hero__poster-column');
+    expect(source).toContain('detail-hero__fact-strip');
+    expect(source).toContain('detail-scorecard');
+    expect(source).toContain('档案卡');
+    expect(source).toContain('外部索引');
+  });
+
+  it('keeps detail tabs in archive-first order', async () => {
+    const source = await fs.readFile(path.join(process.cwd(), 'src', 'components', 'DetailTabs.astro'), 'utf8');
+
+    expect(source.indexOf("{ id: 'images', label: '图片'")).toBeLessThan(source.indexOf("{ id: 'reviews', label: '精彩影评'"));
+    expect(source).toContain('credit-ledger');
+    expect(source).toContain('support-cast-list');
+    expect(source).toContain('image-wall--detail');
+    expect(source).toContain('formatExternalSourceLabel');
   });
 });
 
