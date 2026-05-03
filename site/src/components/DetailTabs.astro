@@ -5,8 +5,22 @@ import { formatExternalSourceLabel } from '../lib/site';
 const { movie } = Astro.props as { movie: ArchiveMovie };
 
 const leadCast = movie.cast ?? [];
-const supportCast = movie.otherCast ?? [];
-const imageItems = [movie.posterUrl, ...movie.posterGallery, ...movie.stillGallery];
+const creditsCarousel = [
+  ...(movie.director ?? []).map((person) => ({
+    ...person,
+    jobLabel: '导演'
+  })),
+  ...(movie.writer ?? []).map((person) => ({
+    ...person,
+    jobLabel: person.role || '编剧'
+  })),
+  ...leadCast.map((person) => ({
+    ...person,
+    jobLabel: person.role || '演员'
+  }))
+];
+const primaryImageItems = [movie.posterUrl, ...movie.posterGallery, ...movie.stillGallery];
+const secondaryImageItems = movie.wallpaperGallery;
 
 const tabItems = [
   { id: 'story', label: '详情介绍' },
@@ -20,9 +34,17 @@ const tabItems = [
 ---
 
 <div class="detail-tabs">
-  <nav class="detail-tabs__nav" aria-label="详情标签">
+  <nav class="detail-tabs__nav" aria-label="卷宗索引导航栏" data-detail-index>
+    <span class="detail-tabs__nav-label">卷宗索引</span>
     {tabItems.map((item, index) => (
-      <a class:list={["detail-tabs__tab", index === 0 && 'is-active']} href={`#${item.id}`}>{item.label}</a>
+      <a
+        class:list={["detail-tabs__tab", index === 0 && 'is-active']}
+        href={`#${item.id}`}
+        data-detail-tab={item.id}
+        aria-current={index === 0 ? 'true' : 'false'}
+      >
+        {item.label}
+      </a>
     ))}
   </nav>
 
@@ -47,69 +69,35 @@ const tabItems = [
       <h2>演职员</h2>
     </div>
 
-    <div class="credit-ledger">
-      <section class="credit-ledger__group">
-        <header>
-          <strong>导演 / 编剧</strong>
-          <span>核心创作信息</span>
-        </header>
+    <div class="detail-panel__toolbar">
+      <span>默认展示中文姓名</span>
+      <span>左右滑动查看更多</span>
+    </div>
 
-        <dl class="credit-ledger__facts">
-          <div>
-            <dt>导演</dt>
-            <dd>{movie.directorNames || '待补充'}</dd>
-          </div>
-          <div>
-            <dt>编剧</dt>
-            <dd>{movie.writerNames || '待补充'}</dd>
-          </div>
-          <div>
-            <dt>制片</dt>
-            <dd>{(movie.producer ?? []).map((person) => person.name).join(' / ') || '待补充'}</dd>
-          </div>
-        </dl>
-      </section>
-
-      <section class="credit-ledger__group">
-        <header>
-          <strong>主要演员</strong>
-          <span>核心角色阵容</span>
-        </header>
-
-        <div class="credit-grid">
-          {leadCast.map((person) => (
-            <article class="credit-card">
-              <img
-                src={person.avatar ? `/assets/${movie.module}/${movie.submodule}/${movie.id}/${person.avatar}` : '/assets/avatar-placeholder.svg'}
-                alt={person.name}
-                loading="lazy"
-              />
-              <div>
-                <strong>{person.name}</strong>
-                <p>{person.role || person.nameEn || '演员'}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      {supportCast.length ? (
-        <section class="credit-ledger__group">
-          <header>
-            <strong>其他演员</strong>
-            <span>扩展角色表</span>
-          </header>
-
-          <div class="support-cast-list">
-            {supportCast.slice(0, 18).map((person) => (
-              <article class="support-cast-item">
-                <strong>{person.name}</strong>
-                <span>{person.role || person.nameEn || '演员'}</span>
-              </article>
-            ))}
-          </div>
-        </section>
-      ) : null}
+    <div class="media-rail-shell" data-rail-shell>
+      <div class="rail-fade rail-fade--left" aria-hidden="true"></div>
+      <div class="media-rail media-rail--credits" data-rail-track>
+        {creditsCarousel.map((person) => (
+          <article class="credit-rail-card">
+            <img
+              src={person.avatar ? `/assets/${movie.module}/${movie.submodule}/${movie.id}/${person.avatar}` : '/assets/avatar-placeholder.svg'}
+              alt={person.name}
+              loading="lazy"
+            />
+            <div class="credit-rail-card__body">
+              <strong>{person.name}</strong>
+              <span>{person.jobLabel}</span>
+            </div>
+          </article>
+        ))}
+      </div>
+      <button class="rail-advance rail-advance--prev" type="button" aria-label="查看更前面的演职员" data-rail-prev>
+        <span aria-hidden="true">‹</span>
+      </button>
+      <button class="rail-advance rail-advance--next" type="button" aria-label="查看更多演职员" data-rail-next>
+        <span aria-hidden="true">›</span>
+      </button>
+      <div class="rail-fade rail-fade--right" aria-hidden="true"></div>
     </div>
   </section>
 
@@ -121,19 +109,40 @@ const tabItems = [
       </div>
 
       <div class="detail-panel__toolbar">
-        <span>精选展示 {Math.min(imageItems.length, 12)} 张</span>
+        <span>第一行优先展示海报 / 剧照，第二行展示其它图片</span>
         <span>
           海报 {movie.images?.postersTotal ?? movie.posterGallery.length}
           · 剧照 {movie.images?.stillsTotal ?? movie.stillGallery.length}
         </span>
       </div>
 
-      <div class="image-wall image-wall--detail">
-        {imageItems.slice(0, 12).map((image, index) => (
-          <figure class:list={["image-wall__item", index === 0 && 'is-featured']}>
-            <img src={image} alt={`${movie.title} 图片 ${index + 1}`} loading="lazy" />
-          </figure>
-        ))}
+      <div class="image-rail-shell" data-rail-shell data-rail-sync>
+        <div class="rail-fade rail-fade--left" aria-hidden="true"></div>
+        <div class="image-rail-stack">
+          <div class="image-rail image-rail--primary" data-rail-track>
+            {primaryImageItems.map((image, index) => (
+              <figure class="image-rail__item image-rail__item--primary">
+                <img src={image} alt={`${movie.title} 海报或剧照 ${index + 1}`} loading="lazy" />
+              </figure>
+            ))}
+          </div>
+
+          <div class="image-rail image-rail--secondary" data-rail-track>
+            {(secondaryImageItems.length ? secondaryImageItems : primaryImageItems.slice(0, 8)).map((image, index) => (
+              <figure class="image-rail__item image-rail__item--secondary">
+                <img src={image} alt={`${movie.title} 其它图片 ${index + 1}`} loading="lazy" />
+              </figure>
+            ))}
+          </div>
+        </div>
+
+        <button class="rail-advance rail-advance--prev rail-advance--stacked" type="button" aria-label="查看更前面的图片" data-rail-prev>
+          <span aria-hidden="true">‹</span>
+        </button>
+        <button class="rail-advance rail-advance--next rail-advance--stacked" type="button" aria-label="查看更多图片" data-rail-next>
+          <span aria-hidden="true">›</span>
+        </button>
+        <div class="rail-fade rail-fade--right" aria-hidden="true"></div>
       </div>
     </section>
   ) : null}
@@ -203,22 +212,37 @@ const tabItems = [
         <h2>视频</h2>
       </div>
 
-      <div class="media-grid">
-        {movie.videos.map((video) => (
-          <a class="media-card" href={video.url} target="_blank" rel="noreferrer">
-            <div class="media-card__thumb">
-              {video.thumbnail ? (
-                <img src={`/assets/${movie.module}/${movie.submodule}/${movie.id}/${video.thumbnail}`} alt={video.title} loading="lazy" />
-              ) : (
-                <span>Video</span>
-              )}
-            </div>
-            <div>
-              <strong>{video.title}</strong>
-              <p>{video.duration || '外部视频'}</p>
-            </div>
-          </a>
-        ))}
+      <div class="detail-panel__toolbar">
+        <span>单行展示视频物料</span>
+        <span>左右滑动查看更多</span>
+      </div>
+
+      <div class="media-rail-shell" data-rail-shell>
+        <div class="rail-fade rail-fade--left" aria-hidden="true"></div>
+        <div class="media-rail media-rail--videos" data-rail-track>
+          {movie.videos.map((video) => (
+            <a class="video-rail-card" href={video.url} target="_blank" rel="noreferrer">
+              <div class="video-rail-card__thumb">
+                {video.thumbnail ? (
+                  <img src={`/assets/${movie.module}/${movie.submodule}/${movie.id}/${video.thumbnail}`} alt={video.title} loading="lazy" />
+                ) : (
+                  <span>Video</span>
+                )}
+              </div>
+              <div class="video-rail-card__body">
+                <strong>{video.title}</strong>
+                <p>{video.duration || '外部视频'}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+        <button class="rail-advance rail-advance--prev" type="button" aria-label="查看更前面的视频物料" data-rail-prev>
+          <span aria-hidden="true">‹</span>
+        </button>
+        <button class="rail-advance rail-advance--next" type="button" aria-label="查看更多视频物料" data-rail-next>
+          <span aria-hidden="true">›</span>
+        </button>
+        <div class="rail-fade rail-fade--right" aria-hidden="true"></div>
       </div>
     </section>
   ) : null}
@@ -237,4 +261,164 @@ const tabItems = [
       )}
     </div>
   </section>
+
+  <script is:inline>
+    (() => {
+      const nav = document.querySelector('[data-detail-index]');
+      if (!(nav instanceof HTMLElement)) {
+        return;
+      }
+
+      const tabs = [...nav.querySelectorAll('[data-detail-tab]')].filter((tab) => tab instanceof HTMLAnchorElement);
+      const sections = tabs
+        .map((tab) => {
+          const id = tab.getAttribute('data-detail-tab');
+          const section = id ? document.getElementById(id) : null;
+          return section instanceof HTMLElement ? { id, tab, section } : null;
+        })
+        .filter(Boolean);
+
+      if (!sections.length) {
+        return;
+      }
+
+      const setActive = (id) => {
+        sections.forEach((item) => {
+          const isActive = item.id === id;
+          item.tab.classList.toggle('is-active', isActive);
+          item.tab.setAttribute('aria-current', String(isActive));
+        });
+      };
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((entry) => entry.isIntersecting)
+            .sort((left, right) => right.intersectionRatio - left.intersectionRatio)[0];
+
+          if (!(visible?.target instanceof HTMLElement)) {
+            return;
+          }
+
+          setActive(visible.target.id);
+        },
+        {
+          rootMargin: '-24% 0px -58% 0px',
+          threshold: [0.12, 0.25, 0.5, 0.75]
+        }
+      );
+
+      sections.forEach((item) => observer.observe(item.section));
+
+      nav.addEventListener('click', (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLElement)) {
+          return;
+        }
+
+        const link = target.closest('[data-detail-tab]');
+        if (!(link instanceof HTMLAnchorElement)) {
+          return;
+        }
+
+        const id = link.getAttribute('data-detail-tab');
+        const section = id ? document.getElementById(id) : null;
+        if (!(section instanceof HTMLElement)) {
+          return;
+        }
+
+        event.preventDefault();
+        setActive(id);
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        window.history.replaceState({}, '', `#${id}`);
+      });
+
+      document.querySelectorAll('[data-rail-shell]').forEach((shell) => {
+        if (!(shell instanceof HTMLElement)) {
+          return;
+        }
+
+        const rails = [...shell.querySelectorAll('[data-rail-track]')].filter((rail) => rail instanceof HTMLElement);
+        const prevButton = shell.querySelector('[data-rail-prev]');
+        const nextButton = shell.querySelector('[data-rail-next]');
+
+        if (!rails.length || !(prevButton instanceof HTMLButtonElement) || !(nextButton instanceof HTMLButtonElement)) {
+          return;
+        }
+
+        let syncing = false;
+
+        const syncButtons = () => {
+          const currentScroll = Math.max(...rails.map((rail) => rail.scrollLeft));
+          const maxScroll = Math.max(...rails.map((rail) => Math.max(0, rail.scrollWidth - rail.clientWidth)));
+          const isAtStart = currentScroll <= 4;
+          const isAtEnd = currentScroll >= maxScroll - 4;
+
+          prevButton.hidden = isAtStart;
+          nextButton.hidden = maxScroll <= 8 || isAtEnd;
+          shell.toggleAttribute('data-can-scroll-left', !isAtStart);
+          shell.toggleAttribute('data-can-scroll-right', !(maxScroll <= 8 || isAtEnd));
+        };
+
+        const queueSync = () => window.requestAnimationFrame(syncButtons);
+
+        prevButton.addEventListener('click', () => {
+          const step = Math.max(Math.max(...rails.map((rail) => rail.clientWidth)) * 0.72, 220);
+          rails.forEach((rail) => {
+            rail.scrollBy({ left: -step, behavior: 'smooth' });
+          });
+        });
+
+        nextButton.addEventListener('click', () => {
+          const step = Math.max(Math.max(...rails.map((rail) => rail.clientWidth)) * 0.72, 220);
+          rails.forEach((rail) => {
+            rail.scrollBy({ left: step, behavior: 'smooth' });
+          });
+        });
+
+        rails.forEach((rail) => {
+          rail.addEventListener('scroll', () => {
+            if (syncing || !shell.hasAttribute('data-rail-sync')) {
+              queueSync();
+              return;
+            }
+
+            syncing = true;
+            rails.forEach((peer) => {
+              if (peer !== rail) {
+                peer.scrollLeft = rail.scrollLeft;
+              }
+            });
+            syncing = false;
+            queueSync();
+          }, { passive: true });
+        });
+
+        window.addEventListener('resize', queueSync);
+
+        rails.forEach((rail) => {
+          rail.querySelectorAll('img').forEach((image) => {
+            if (!(image instanceof HTMLImageElement)) {
+              return;
+            }
+
+            if (image.complete) {
+              return;
+            }
+
+            image.addEventListener('load', queueSync, { once: true });
+            image.addEventListener('error', queueSync, { once: true });
+          });
+        });
+
+        if ('ResizeObserver' in window) {
+          const resizeObserver = new ResizeObserver(queueSync);
+          rails.forEach((rail) => resizeObserver.observe(rail));
+        }
+
+        queueSync();
+        window.setTimeout(queueSync, 120);
+      });
+    })();
+  </script>
 </div>

@@ -74,6 +74,18 @@ describe('loadArchiveMovies', () => {
     expect(shawshank?.path).toBe('/video/movie/0101000001');
     expect(shawshank?.posterUrl).toBe('/assets/video/movie/0101000001/poster-main.jpg');
   });
+
+  it('maps wallpaper assets for the secondary image rail', async () => {
+    const movies = await loadArchiveMovies();
+    const shawshank = movies.find((movie) => movie.id === '0101000001');
+
+    expect(shawshank?.wallpaperGallery).toEqual([
+      '/assets/video/movie/0101000001/wallpaper-01.png',
+      '/assets/video/movie/0101000001/wallpaper-02.png',
+      '/assets/video/movie/0101000001/wallpaper-03.png',
+      '/assets/video/movie/0101000001/wallpaper-04.png'
+    ]);
+  });
 });
 
 describe('buildHomePageModel', () => {
@@ -278,10 +290,57 @@ describe('movie detail page', () => {
     const source = await fs.readFile(path.join(process.cwd(), 'src', 'components', 'DetailTabs.astro'), 'utf8');
 
     expect(source.indexOf("{ id: 'images', label: '图片'")).toBeLessThan(source.indexOf("{ id: 'reviews', label: '精彩影评'"));
-    expect(source).toContain('credit-ledger');
-    expect(source).toContain('support-cast-list');
-    expect(source).toContain('image-wall--detail');
+    expect(source).toContain('media-rail media-rail--credits');
+    expect(source).toContain('data-rail-shell');
+    expect(source).toContain('data-rail-track');
+    expect(source).toContain('video-rail-card');
+    expect(source).toContain('image-rail-stack');
+    expect(source).toContain('image-rail image-rail--primary');
+    expect(source).toContain('image-rail image-rail--secondary');
+    expect(source).toContain('data-rail-sync');
     expect(source).toContain('formatExternalSourceLabel');
+  });
+  it('uses hover-revealed advance buttons for image rails instead of visible scrollbars', async () => {
+    const source = await fs.readFile(path.join(process.cwd(), 'src', 'components', 'DetailTabs.astro'), 'utf8');
+    const styles = await fs.readFile(path.join(process.cwd(), 'src', 'styles', 'global.css'), 'utf8');
+
+    expect(source).toContain('data-rail-prev');
+    expect(source).toContain('data-rail-next');
+    expect(source).toContain("prevButton.hidden = isAtStart;");
+    expect(source).toContain("nextButton.hidden = maxScroll <= 8 || isAtEnd;");
+    expect(source).toContain("rail.scrollBy({ left: step, behavior: 'smooth' });");
+    expect(source).toContain("rail.scrollBy({ left: -step, behavior: 'smooth' });");
+    expect(source).toContain("if (syncing || !shell.hasAttribute('data-rail-sync')) {");
+    expect(source).toContain('new ResizeObserver(queueSync)');
+    expect(source).toContain("image.addEventListener('load', queueSync, { once: true });");
+    expect(source).toContain('window.setTimeout(queueSync, 120);');
+    expect(styles).toContain('.media-rail::-webkit-scrollbar,');
+    expect(styles).toContain('scrollbar-width: none;');
+    expect(styles).toContain('.image-rail::-webkit-scrollbar {');
+    expect(styles).toContain('.rail-advance {');
+    expect(styles).toContain('.rail-advance--prev {');
+    expect(styles).toContain('.rail-advance--next {');
+    expect(styles).toContain('.rail-fade {');
+    expect(styles).toContain('.media-rail-shell,');
+    expect(styles).toContain('max-width: 100%;');
+    expect(styles).toContain('overflow: hidden;');
+    expect(styles).toContain('[data-can-scroll-left]:hover .rail-fade--left');
+    expect(styles).toContain('.media-rail-shell:hover .rail-advance');
+    expect(styles).toContain('.rail-advance--stacked');
+  });
+  it('adds a sticky archive index with scroll-aware tab state hooks', async () => {
+    const source = await fs.readFile(path.join(process.cwd(), 'src', 'components', 'DetailTabs.astro'), 'utf8');
+    const styles = await fs.readFile(path.join(process.cwd(), 'src', 'styles', 'global.css'), 'utf8');
+
+    expect(source).toContain('aria-label="卷宗索引导航栏"');
+    expect(source).toContain('data-detail-index');
+    expect(source).toContain('data-detail-tab={item.id}');
+    expect(source).toContain('IntersectionObserver');
+    expect(styles).toContain('top: var(--sticky-offset);');
+    expect(styles).toContain('--header-height: 76px;');
+    expect(styles).toContain('--detail-index-height: 68px;');
+    expect(styles).toContain('.detail-panel[id] {');
+    expect(styles).toContain('scroll-margin-top: calc(var(--header-height) + var(--detail-index-height) + 18px);');
   });
 });
 

@@ -47,6 +47,7 @@ export type MovieRecord = RatingInput & {
     poster?: string;
     posters?: string[];
     stills?: string[];
+    wallpapers?: string[];
   };
   soundtrack?: {
     name?: string;
@@ -70,6 +71,7 @@ export type ArchiveMovie = MovieRecord & {
   posterUrl: string;
   posterGallery: string[];
   stillGallery: string[];
+  wallpaperGallery: string[];
   aggregateRating: number | null;
   yearLabel: string;
   releaseDateLabel: string;
@@ -134,6 +136,7 @@ function normalizeMovie(movie: MovieRecord): ArchiveMovie {
     posterUrl: buildPosterUrl(movie),
     posterGallery: buildAssetUrls(movie, movie.images?.posters),
     stillGallery: buildAssetUrls(movie, movie.images?.stills),
+    wallpaperGallery: buildAssetUrls(movie, movie.images?.wallpapers),
     aggregateRating: computeAggregateRating(movie),
     yearLabel: String(movie.year),
     releaseDateLabel: formatReleaseDateLabel(movie.releaseDate),
