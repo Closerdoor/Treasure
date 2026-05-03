@@ -1,5 +1,4 @@
 ---
-import SiteFooter from '../components/SiteFooter.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import { siteMeta } from '../lib/site';
 import '../styles/global.css';
@@ -20,7 +19,6 @@ const { title = siteMeta.title, description = siteMeta.description } = Astro.pro
     <main>
       <slot />
     </main>
-    <SiteFooter />
 
     <script is:inline>
       const key = 'treasure-theme';

@@ -230,6 +230,15 @@ describe('video index page', () => {
     expect(source).toContain('<MovieGridCard movie={movie} />');
     expect(source).toContain('<MovieListCard movie={movie} />');
   });
+
+  it('renders compact filter rows and pagination UI', async () => {
+    const source = await fs.readFile(videoIndexPath, 'utf8');
+
+    expect(source).toContain('archive-search-bar');
+    expect(source).toContain('filter-link-rows');
+    expect(source).toContain('pagination-bar');
+    expect(source).toContain('当前第 {currentPage} / {totalPages} 页');
+  });
 });
 
 describe('list view styles', () => {

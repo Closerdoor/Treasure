@@ -29,6 +29,11 @@ const years = collectYears(allMovies);
 const countries = collectCountries(allMovies);
 const tags = collectMovieTags(allMovies);
 const genres = [...new Set(allMovies.flatMap((movie) => movie.genre ?? []))].sort();
+const page = Math.max(1, Number.parseInt(Astro.url.searchParams.get('page') ?? '1', 10) || 1);
+const pageSize = 12;
+const totalPages = Math.max(1, Math.ceil(movies.length / pageSize));
+const currentPage = Math.min(page, totalPages);
+const pagedMovies = movies.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 const activeFilters = [
   query ? `搜索: ${query}` : '',
   submodule ? `子模块: ${submodule}` : '',
@@ -37,83 +42,79 @@ const activeFilters = [
   year ? `年份: ${year}` : '',
   tag ? `标签: ${tag}` : ''
 ].filter(Boolean);
+
+const filterRows = [
+  { label: '热度', key: 'tag', options: ['经典', '高分', '冷门'] },
+  { label: '类型', key: 'genre', options: genres.slice(0, 12) },
+  { label: '地区', key: 'country', options: countries.slice(0, 14) },
+  { label: '年份', key: 'year', options: years.slice(0, 16).map(String) },
+  { label: '标签', key: 'tag', options: tags.slice(0, 10) }
+] as const;
+
+function buildVideoPageHref(overrides: Record<string, string>) {
+  const params = new URLSearchParams({
+    q: query,
+    submodule,
+    genre,
+    country,
+    year,
+    tag,
+    view,
+    page: String(currentPage)
+  });
+
+  Object.entries(overrides).forEach(([key, value]) => {
+    if (!value) {
+      params.delete(key);
+      return;
+    }
+
+    params.set(key, value);
+  });
+
+  if (params.get('page') === '1') {
+    params.delete('page');
+  }
+
+  return `/video?${params.toString()}`;
+}
 ---
 
 <BaseLayout title="影视分馆 | Treasure 资料馆">
-  <section class="shell listing-hero">
-    <p class="eyebrow">Video Collection</p>
-    <h1>影视分馆</h1>
-    <p>
-      按馆藏顺序浏览已收录作品，当前以前台电影样板为核心，继续扩展整座影视资料馆。
-    </p>
-  </section>
-
-  <section class="shell filters-panel">
-    <form class="filters-grid" method="get">
-      <label>
-        <span>搜索</span>
-        <input name="q" type="search" value={query} placeholder="标题、原名、演员" />
-      </label>
-
-      <label>
-        <span>子模块</span>
-        <select name="submodule">
-          <option value="">全部</option>
-          <option value="movie" selected={submodule === 'movie'}>电影</option>
-        </select>
-      </label>
-
-      <label>
-        <span>类型</span>
-        <select name="genre">
-          <option value="">全部</option>
-          {genres.map((item) => (
-            <option value={item} selected={genre === item}>{item}</option>
-          ))}
-        </select>
-      </label>
-
-      <label>
-        <span>地区</span>
-        <select name="country">
-          <option value="">全部</option>
-          {countries.map((item) => (
-            <option value={item} selected={country === item}>{item}</option>
-          ))}
-        </select>
-      </label>
-
-      <label>
-        <span>年份</span>
-        <select name="year">
-          <option value="">全部</option>
-          {years.map((item) => (
-            <option value={String(item)} selected={year === String(item)}>{item}</option>
-          ))}
-        </select>
-      </label>
-
-      <label>
-        <span>标签</span>
-        <select name="tag">
-          <option value="">全部</option>
-          {tags.map((item) => (
-            <option value={item} selected={tag === item}>{item}</option>
-          ))}
-        </select>
-      </label>
-
+  <section class="shell filters-panel filters-panel--compact">
+    <form class="archive-search-bar" method="get">
+      <input name="q" type="search" value={query} placeholder="搜索标题、原名、演员" />
       <input type="hidden" name="view" value={view} />
-
-      <div class="filters-actions">
-        <button class="button button--primary" type="submit">应用筛选</button>
-        <a class="button button--ghost" href="/video">清空</a>
-      </div>
+      <button class="button button--primary" type="submit">搜索</button>
+      <a class="button button--ghost" href="/video">清空</a>
     </form>
+
+    <div class="filter-link-rows">
+      {filterRows.map((row) => (
+        <div class="filter-link-row">
+          <span class="filter-link-row__label">{row.label}</span>
+          <div class="filter-link-row__options">
+            {row.options.map((item) => {
+              const isActive =
+                (row.key === 'genre' && genre === item) ||
+                (row.key === 'country' && country === item) ||
+                (row.key === 'year' && year === item) ||
+                (row.key === 'tag' && tag === item);
+
+              return (
+                <a class:list={["filter-link-row__option", isActive && 'is-active']} href={buildVideoPageHref({ [row.key]: isActive ? '' : item, page: '1' })}>
+                  {item}
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+    </div>
   </section>
 
   <section class="shell listing-toolbar">
-    <p>共 {movies.length} 条内容，默认按上映时间排序。</p>
+    <p>共 {movies.length} 条内容，当前第 {currentPage} / {totalPages} 页。</p>
     <div class="listing-toolbar__views" data-view-switcher>
       <a class:list={[view === 'grid' && 'is-active']} href={viewModel.viewLinks.card} data-view-option="grid">卡片</a>
       <a class:list={[view === 'list' && 'is-active']} href={viewModel.viewLinks.list} data-view-option="list">列表</a>
@@ -131,16 +132,26 @@ const activeFilters = [
   {movies.length ? (
     <>
       <section class:list={["shell", "grid-cards", view !== 'grid' && 'is-hidden']} data-view-panel="grid">
-        {movies.map((movie) => (
+        {pagedMovies.map((movie) => (
           <MovieGridCard movie={movie} />
         ))}
       </section>
 
       <section class:list={["shell", "list-cards", view !== 'list' && 'is-hidden']} data-view-panel="list">
-        {movies.map((movie) => (
+        {pagedMovies.map((movie) => (
           <MovieListCard movie={movie} />
         ))}
       </section>
+
+      <nav class="shell pagination-bar" aria-label="列表分页">
+        <a class:list={["pagination-bar__button", currentPage === 1 && 'is-disabled']} href={currentPage === 1 ? buildVideoPageHref({ page: '1' }) : buildVideoPageHref({ page: String(currentPage - 1) })}>上一页</a>
+        <div class="pagination-bar__pages">
+          {Array.from({ length: totalPages }, (_, index) => index + 1).map((item) => (
+            <a class:list={["pagination-bar__page", item === currentPage && 'is-active']} href={buildVideoPageHref({ page: String(item) })}>{item}</a>
+          ))}
+        </div>
+        <a class:list={["pagination-bar__button", currentPage === totalPages && 'is-disabled']} href={currentPage === totalPages ? buildVideoPageHref({ page: String(totalPages) }) : buildVideoPageHref({ page: String(currentPage + 1) })}>下一页</a>
+      </nav>
     </>
   ) : (
     <section class="shell">
