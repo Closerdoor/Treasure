@@ -1079,6 +1079,52 @@ select {
   gap: 18px;
 }
 
+.submodule-filter-panel {
+  display: grid;
+  gap: 14px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--bg-soft) 76%, transparent);
+}
+
+.submodule-filter-panel__label {
+  color: var(--muted);
+  font-size: 0.92rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.submodule-filter-panel__options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.submodule-filter-panel__option {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg-elevated) 88%, transparent);
+  color: var(--muted);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.submodule-filter-panel__option.is-active {
+  color: var(--text);
+  background: color-mix(in srgb, var(--accent) 24%, var(--bg));
+  border-color: color-mix(in srgb, var(--accent) 34%, var(--line));
+}
+
+.submodule-filter-panel__option.is-disabled {
+  opacity: 0.4;
+}
+
 .filter-link-row {
   display: flex;
   align-items: flex-start;
@@ -1773,6 +1819,10 @@ select {
   .filter-link-row {
     flex-direction: column;
     gap: 10px;
+  }
+
+  .submodule-filter-panel {
+    padding: 16px;
   }
 
   .filter-link-row__label {

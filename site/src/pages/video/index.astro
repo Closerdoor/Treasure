@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import MovieGridCard from '../../components/MovieGridCard.astro';
 import MovieListCard from '../../components/MovieListCard.astro';
 import { loadArchiveMovies } from '../../lib/archive';
-import { buildVideoViewModel, collectCountries, collectMovieTags, collectYears, filterMovies } from '../../lib/site';
+import { buildVideoViewModel, collectCountries, collectYears, filterMovies } from '../../lib/site';
 
 const allMovies = await loadArchiveMovies();
 
@@ -12,23 +12,27 @@ const submodule = Astro.url.searchParams.get('submodule') ?? '';
 const genre = Astro.url.searchParams.get('genre') ?? '';
 const country = Astro.url.searchParams.get('country') ?? '';
 const year = Astro.url.searchParams.get('year') ?? '';
-const tag = Astro.url.searchParams.get('tag') ?? '';
 const viewModel = buildVideoViewModel({
   query,
   submodule,
   genre,
   country,
   year,
-  tag,
   view: Astro.url.searchParams.get('view') ?? ''
 });
 const view = viewModel.view;
 
-const movies = filterMovies(allMovies, { query, submodule, genre, country, year, tag });
+const movies = filterMovies(allMovies, { query, submodule, genre, country, year });
 const years = collectYears(allMovies);
 const countries = collectCountries(allMovies);
-const tags = collectMovieTags(allMovies);
 const genres = [...new Set(allMovies.flatMap((movie) => movie.genre ?? []))].sort();
+const submodules = [
+  { value: 'movie', label: '电影', enabled: true },
+  { value: 'series', label: '电视剧', enabled: false },
+  { value: 'documentary', label: '纪录片', enabled: false },
+  { value: 'animation', label: '动漫', enabled: false },
+  { value: 'short', label: '短片', enabled: false }
+];
 const page = Math.max(1, Number.parseInt(Astro.url.searchParams.get('page') ?? '1', 10) || 1);
 const pageSize = 12;
 const totalPages = Math.max(1, Math.ceil(movies.length / pageSize));
@@ -39,16 +43,13 @@ const activeFilters = [
   submodule ? `子模块: ${submodule}` : '',
   genre ? `类型: ${genre}` : '',
   country ? `地区: ${country}` : '',
-  year ? `年份: ${year}` : '',
-  tag ? `标签: ${tag}` : ''
+  year ? `年份: ${year}` : ''
 ].filter(Boolean);
 
 const filterRows = [
-  { label: '热度', key: 'tag', options: ['经典', '高分', '冷门'] },
   { label: '类型', key: 'genre', options: genres.slice(0, 12) },
   { label: '地区', key: 'country', options: countries.slice(0, 14) },
-  { label: '年份', key: 'year', options: years.slice(0, 16).map(String) },
-  { label: '标签', key: 'tag', options: tags.slice(0, 10) }
+  { label: '年份', key: 'year', options: years.slice(0, 16).map(String) }
 ] as const;
 
 function buildVideoPageHref(overrides: Record<string, string>) {
@@ -58,7 +59,6 @@ function buildVideoPageHref(overrides: Record<string, string>) {
     genre,
     country,
     year,
-    tag,
     view,
     page: String(currentPage)
   });
@@ -84,10 +84,29 @@ function buildVideoPageHref(overrides: Record<string, string>) {
   <section class="shell filters-panel filters-panel--compact">
     <form class="archive-search-bar" method="get">
       <input name="q" type="search" value={query} placeholder="搜索标题、原名、演员" />
+      <input type="hidden" name="submodule" value={submodule} />
+      <input type="hidden" name="genre" value={genre} />
+      <input type="hidden" name="country" value={country} />
+      <input type="hidden" name="year" value={year} />
       <input type="hidden" name="view" value={view} />
       <button class="button button--primary" type="submit">搜索</button>
       <a class="button button--ghost" href="/video">清空</a>
     </form>
+
+    <div class="submodule-filter-panel">
+      <span class="submodule-filter-panel__label">子模块</span>
+      <div class="submodule-filter-panel__options">
+        {submodules.map((item) => {
+          const isActive = submodule === item.value || (!submodule && item.value === 'movie');
+
+          return item.enabled ? (
+            <a class:list={["submodule-filter-panel__option", isActive && 'is-active']} href={buildVideoPageHref({ submodule: item.value, page: '1' })}>{item.label}</a>
+          ) : (
+            <span class="submodule-filter-panel__option is-disabled">{item.label}</span>
+          );
+        })}
+      </div>
+    </div>
 
     <div class="filter-link-rows">
       {filterRows.map((row) => (
@@ -98,8 +117,7 @@ function buildVideoPageHref(overrides: Record<string, string>) {
               const isActive =
                 (row.key === 'genre' && genre === item) ||
                 (row.key === 'country' && country === item) ||
-                (row.key === 'year' && year === item) ||
-                (row.key === 'tag' && tag === item);
+                (row.key === 'year' && year === item);
 
               return (
                 <a class:list={["filter-link-row__option", isActive && 'is-active']} href={buildVideoPageHref({ [row.key]: isActive ? '' : item, page: '1' })}>

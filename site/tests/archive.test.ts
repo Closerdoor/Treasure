@@ -235,9 +235,12 @@ describe('video index page', () => {
     const source = await fs.readFile(videoIndexPath, 'utf8');
 
     expect(source).toContain('archive-search-bar');
+    expect(source).toContain('submodule-filter-panel');
     expect(source).toContain('filter-link-rows');
     expect(source).toContain('pagination-bar');
     expect(source).toContain('当前第 {currentPage} / {totalPages} 页');
+    expect(source).not.toContain("{ label: '热度'");
+    expect(source).not.toContain("{ label: '标签'");
   });
 });
 
