@@ -1,0 +1,3075 @@
+[
+  {
+    "id": "0101000005",
+    "module": "video",
+    "submodule": "movie",
+    "schemaType": "live_action_movie",
+    "path": "/video/movie/0101000005",
+    "title": "肖申克的救赎1",
+    "originalTitle": "The Shawshank Redemption",
+    "year": 1994,
+    "country": "美国",
+    "language": "英语",
+    "runtime": 142,
+    "synopsis": {
+      "text": "银行家安迪被误判入狱，在肖申克监狱与瑞德结下深厚友谊，并凭借冷静头脑在高墙之内为自己争取生存空间。\n\n当翻案希望被再次掐灭，他把多年隐忍、智慧与信念化为一场惊人的自我救赎，也让瑞德重新相信自由并非遥不可及。",
+      "note": "本片获得1995年奥斯卡最佳影片等7项提名。"
+    },
+    "story": {
+      "text": "1947年，年轻银行家安迪·杜佛兰因妻子及其情人被杀一案被判无期徒刑，押入肖申克监狱。沉默寡言的他很快引起老囚犯瑞德的注意，并通过瑞德弄到石锤、海报等小物件，在残酷秩序里一点点建立自己的生存方式。面对\"姐妹帮\"的欺凌、狱警的暴力和监狱制度的冷酷，安迪始终没有放弃对尊严的维护。\n\n凭借金融与税务知识，安迪先后帮助狱警处理报税问题，也被典狱长诺顿拿来经营账目、洗白黑钱。与此同时，他推动扩建图书馆、为囚犯争取读物和教育机会，让肖申克这座高墙之内第一次出现了真正意义上的精神空间。老布出狱后的崩溃与自尽，也让安迪和瑞德更清楚\"体制化\"对人的吞噬。\n\n后来，年轻囚犯汤米提供了可能证明安迪清白的关键线索。安迪满怀希望去找诺顿申诉，却发现典狱长为了保住自己的利益，宁可枪杀证人，也不愿让他重获自由。所有合法翻案的道路被堵死后，安迪把多年隐忍转化为最后一次行动。\n\n一个暴雨之夜，瑞德才明白石锤、海报与地质学兴趣背后藏着怎样漫长而坚定的计划：安迪用近二十年时间凿开牢墙，沿着下水道逃出生天，并顺手将诺顿的犯罪证据寄给媒体和检察机关。典狱长自尽、狱警被捕，安迪则以假身份取走存款，前往太平洋海边的芝华塔内霍等待新生活。\n\n多年后获假释的瑞德违背\"不再越界\"的承诺，依照安迪留下的线索找到一笔钱和一封信，终于鼓起勇气踏出被制度驯化的人生。他穿越边境来到海边，与正在修船的安迪重逢。"
+    },
+    "director": [
+      {
+        "personCode": "p000001",
+        "name": "弗兰克·德拉邦特",
+        "nameEn": "Frank Darabont",
+        "role": "导演",
+        "avatarPath": "people/p000001-avatar.png",
+        "profileLink": "https://baike.baidu.com/item/弗兰克·德拉邦特"
+      }
+    ],
+    "writer": [
+      {
+        "personCode": "p000001",
+        "name": "弗兰克·德拉邦特",
+        "nameEn": "Frank Darabont",
+        "role": "编剧",
+        "avatarPath": "people/p000001-avatar.png",
+        "profileLink": "https://baike.baidu.com/item/弗兰克·德拉邦特"
+      },
+      {
+        "personCode": "p000002",
+        "name": "斯蒂芬·金",
+        "nameEn": "Stephen King",
+        "role": "原著",
+        "profileLink": "https://baike.baidu.com/item/斯蒂芬·金"
+      }
+    ],
+    "cast": [
+      {
+        "personCode": "p000003",
+        "name": "蒂姆·罗宾斯",
+        "nameEn": "Tim Robbins",
+        "role": "安迪·杜佛兰",
+        "avatarPath": "people/p000003-avatar.png"
+      },
+      {
+        "personCode": "p000004",
+        "name": "摩根·弗里曼",
+        "nameEn": "Morgan Freeman",
+        "role": "瑞德",
+        "avatarPath": "people/p000004-avatar.png"
+      },
+      {
+        "personCode": "p000005",
+        "name": "鲍勃·冈顿",
+        "nameEn": "Bob Gunton",
+        "role": "监狱长诺顿",
+        "avatarPath": "people/p000005-avatar.png"
+      },
+      {
+        "personCode": "p000006",
+        "name": "威廉·赛德勒",
+        "nameEn": "William Sadler",
+        "role": "海伍德",
+        "avatarPath": "people/p000006-avatar.png"
+      },
+      {
+        "personCode": "p000007",
+        "name": "克兰西·布朗",
+        "nameEn": "Clancy Brown",
+        "role": "上尉哈德利",
+        "avatarPath": "people/p000007-avatar.png"
+      },
+      {
+        "personCode": "p000008",
+        "name": "吉尔·贝罗斯",
+        "nameEn": "Gil Bellows",
+        "role": "汤米",
+        "avatarPath": "people/p000008-avatar.png"
+      },
+      {
+        "personCode": "p000009",
+        "name": "马克·罗斯顿",
+        "nameEn": "Mark Rolston",
+        "role": "包格斯",
+        "avatarPath": "people/p000009-avatar.png"
+      },
+      {
+        "personCode": "p000010",
+        "name": "詹姆斯·惠特摩",
+        "nameEn": "James Whitmore",
+        "role": "老布",
+        "avatarPath": "people/p000010-avatar.png"
+      }
+    ],
+    "otherCast": [
+      {
+        "personCode": "p000011",
+        "name": "杰弗里·德曼",
+        "nameEn": "Jeffrey DeMunn",
+        "role": "1946地方检察官"
+      },
+      {
+        "personCode": "p000012",
+        "name": "拉里·布兰登伯格",
+        "nameEn": "Larry Brandenburg",
+        "role": "斯基特 Skeet"
+      },
+      {
+        "personCode": "p000013",
+        "name": "尼尔·吉恩托利",
+        "nameEn": "Neil Giuntoli",
+        "role": "基格 Jigger"
+      },
+      {
+        "personCode": "p000014",
+        "name": "布赖恩·利比",
+        "nameEn": "Brian Libby",
+        "role": "弗洛依德 Floyd"
+      },
+      {
+        "personCode": "p000015",
+        "name": "大卫·普罗瓦尔",
+        "nameEn": "David Proval",
+        "role": "瞌睡虫 Snooze"
+      },
+      {
+        "personCode": "p000016",
+        "name": "约瑟夫·劳格诺",
+        "nameEn": "Joseph Ragno",
+        "role": "厄尼 Ernie"
+      },
+      {
+        "personCode": "p000017",
+        "name": "祖德·塞克利拉",
+        "nameEn": "Jude Ciccolella",
+        "role": "守卫梅特 Guard Mert"
+      },
+      {
+        "personCode": "p000018",
+        "name": "保罗·麦克兰尼",
+        "nameEn": "Paul McCrane",
+        "role": "守卫特劳特 Guard Trout"
+      },
+      {
+        "personCode": "p000019",
+        "name": "芮妮·布莱恩",
+        "nameEn": "Renee Blaine",
+        "role": "安迪·杜佛兰的妻子"
+      },
+      {
+        "personCode": "p000020",
+        "name": "阿方索·弗里曼",
+        "nameEn": "Alfonso Freeman",
+        "role": "新囚犯 Fresh Fish Con"
+      },
+      {
+        "personCode": "p000021",
+        "name": "V·J·福斯特",
+        "nameEn": "V.J. Foster",
+        "role": "囚犯 Hungry Fish Con"
+      },
+      {
+        "personCode": "p000022",
+        "name": "弗兰克·梅德拉诺",
+        "nameEn": "Frank Medrano",
+        "role": "肥仔 Fat Ass"
+      },
+      {
+        "personCode": "p000023",
+        "name": "马克·迈尔斯",
+        "nameEn": "Mack Miles",
+        "role": "蒂雷尔 Tyrell"
+      },
+      {
+        "personCode": "p000024",
+        "name": "尼尔·萨默斯",
+        "nameEn": "Neil Summers",
+        "role": "皮特 Pete"
+      },
+      {
+        "personCode": "p000025",
+        "name": "耐德·巴拉米",
+        "nameEn": "Ned Bellamy",
+        "role": "守卫扬布拉德 Guard Youngblood"
+      },
+      {
+        "personCode": "p000026",
+        "name": "布赖恩·戴拉特",
+        "nameEn": "Brian Delate",
+        "role": "守卫德金斯 Guard Dekins"
+      },
+      {
+        "personCode": "p000027",
+        "name": "唐·麦克马纳斯",
+        "nameEn": "Don McManus",
+        "role": "守卫威利 Guard Wiley"
+      }
+    ],
+    "producer": [
+      {
+        "personCode": "p000028",
+        "name": "妮基·马文",
+        "nameEn": "Niki Marvin",
+        "role": "制片人",
+        "profileLink": "https://baike.baidu.com/item/妮基·马文"
+      }
+    ],
+    "genre": [
+      "剧情",
+      "犯罪"
+    ],
+    "tags": [],
+    "aka": [
+      "月黑高飞(港)",
+      "刺激1995(台)",
+      "地狱诺言",
+      "铁窗岁月",
+      "消香克的救赎"
+    ],
+    "releaseDate": [
+      {
+        "date": "1994-09-10",
+        "location": "多伦多电影节"
+      },
+      {
+        "date": "1994-10-14",
+        "location": "美国"
+      }
+    ],
+    "imdbId": "tt0111161",
+    "doubanId": "1292052",
+    "tmdbId": "278",
+    "doubanRating": 9.7,
+    "images": {
+      "poster": "poster-main.jpg",
+      "posters": [
+        "poster-01.png",
+        "poster-02.png",
+        "poster-03.png",
+        "poster-04.png",
+        "poster-05.png",
+        "poster-06.png",
+        "poster-07.png",
+        "poster-08.png",
+        "poster-09.png",
+        "poster-10.png"
+      ],
+      "stills": [
+        "still-01.png",
+        "still-02.png",
+        "still-03.png",
+        "still-04.png",
+        "still-05.png",
+        "still-06.png",
+        "still-07.png",
+        "still-08.png",
+        "still-09.png",
+        "still-10.png",
+        "still-11.png",
+        "still-12.png",
+        "still-13.png"
+      ],
+      "wallpapers": [
+        "wallpaper-01.png",
+        "wallpaper-02.png",
+        "wallpaper-03.png",
+        "wallpaper-04.png"
+      ],
+      "postersTotal": 149,
+      "stillsTotal": 918,
+      "assetDir": "video/movie/0101000005"
+    },
+    "videos": [
+      {
+        "title": "预告片1：25周年经典重映",
+        "duration": "01:30",
+        "thumbnail": "video-trailer-01.png",
+        "url": "https://movie.douban.com/trailer/259258/"
+      },
+      {
+        "title": "预告片2",
+        "duration": "02:13",
+        "thumbnail": "video-trailer-02.png",
+        "url": "https://movie.douban.com/trailer/108756/"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "大头绿豆",
+        "source": "豆瓣长评",
+        "date": "2005-05-12 20:44:13",
+        "content": "距离斯蒂芬·金（Stephen King）和德拉邦特（Frank Darabont）们缔造这部伟大的作品已经有十年了。我知道美好的东西想必大家都能感受，但是很抱歉，我的聒噪仍将一如既往。在我眼里，肖申克的救赎与信念、自由和友谊有关。［1］信 念瑞德（Red）说，希望是危险的东西，是精神苦闷的根源。重重挤压之下的牢狱里呆了三十年的他的确有资格这么说。因为从进来的那一天起，狱长就说过，「把灵魂交给上帝，把身体交给我。」除了他能弄来的香烟和印着裸女的扑克牌，任何其他异动在这个黑暗的高墙之内似乎都无法生长。然而安迪（Andy）告诉他，「记住，希望是好事——甚至也许是人间至善。而美好的事永不消失。」所以安迪能够用二十年挖开瑞德认为六百年都无法凿穿的隧洞。当他终于爬出五百码恶臭的污水管道，站在瓢泼大雨中情不自禁的时候，我们仿佛看到信念刺穿重重黑幕，在暗夜中打了一道夺目霹雳。亮光之下，我们懦弱的灵魂纷纷在安迪张开的双臂下现形，并且颤抖。庸常生活里的我们，似乎已经习惯了按部就班，习惯了先说「那不可能」，习惯了没有奇迹，习惯了，习惯了。可是正如《飞越疯人院》（One Flew over the Cuckcoo’s Nest）中说的那样，「不试试，怎么知道呢？」试着留住一些信念，在它们丧失殆尽之前。它们也许无法最终实现，也许无法让我们更有意义的活着——甚至对于我自己而言，它们只会愈加带给我来更多的虚无感。然而我知道我有多需要这样的虚伪与自欺，因为你可以说我在做梦，但我不会是仅有的一个。——我们已经看到监狱长打开藏有安迪凿石锤的《圣经》时，翻至那页正是《出埃及记》。这个章节详细描述了犹太教徒逃离埃及的过程。［2］自 由我到今天也始终不明白，这两个意大利女人在唱什么。事实上，我也不想去明白。有些东西不说更好。我想，那是非笔墨可形容的美境。然而却令你如此心伤。那声音飞扬，高远入云，超过任何在禁锢中的囚犯们所梦，仿佛一只美丽的小鸟，飞入这灰色的鸟笼，让那些围墙消失，令铁窗中的所有犯人，感到一刻的自由。当安迪不顾一切地在监狱的喇叭里放《费加罗的婚礼》（Le Nozze di Figaro）时，镜头缓缓划过正在广场上放风的犯人们和狱警们。他们叫人感动地静立当地，抛却所有愤懑、狠毒和怨怼，沐浴着我从未觉得如此自由的阳光。莫扎特的乐声铺洒在这些人们身上，来自俗世的美妙音符似乎将他们都濯洗得纯净无比。强者自救，圣者渡人。我这才明白安迪的用意。修屋顶的时候，他为大家争取来啤酒，事实上是为大家争取到那种像在修缮自家的屋顶一般自在的感觉，所以他不喝酒，微笑却带着巨大的幸福；放费加罗的婚礼，也是要唤醒他们已丧失殆尽的自由感。然而强者终究是少数。自由面前，更多的人们纷纷选择禁锢。在监狱图书馆呆了五十年的布鲁克斯（Brooks），为了不被假释，竟然想通过伤害狱友来达到留在监狱的目的。很奇怪吗？自由本来应该是人们向往和追求的东西。可是布鲁克斯们却早已经被监狱的规则之下规则了自己，他们需要规则，需要秩序，如果没有它们，甚至无法生存。「监狱里的高墙实在是很有趣。刚入狱的时候，你痛恨周围的高墙；慢慢地，你习惯了生活在其中；最终你会发现自己不得不依靠它而生存。这就是体制化。」假瑞德之口，斯蒂芬·金直指卑微。布鲁克斯得到了身体的自由，灵魂却已经被无可挽回地体制化。他终于没有能够摆脱对自由无法适应的困境，悬梁自尽。而睿智如瑞德，在出狱之后也悲哀地发现，自己竟然连撒尿都要向经理报告，否则一滴尿都挤不出来。他也考虑如何违规以便回到监狱，甚至考虑与 布鲁克斯一样离开。要么忙着生活，要么忙着等死（Busy for living,  or busy for death）。步履匆匆的人们也许应该偶尔驻足，跳出来看看自己的模样。我们终会知道，习惯于服从规则的人们将付出巨大代价来习惯本来属于每一个个体的自由。 ［3］友 谊此片无关爱情，除了背叛。有的只是监狱中的男人间的友谊。瑞德和安迪的那种友谊置放在高墙之下，似乎比我们纷繁俗世中的友情来得更加纯粹和干净。他们都是内敛的人，然而洞悉一切，心意契合。我喜欢这种感情。所以在他们终于相会在太平洋小岛的阳光沙滩之上的时候，忍不住一人笑了。如果我在肖申克，我会是谁？如果你在肖申克，你又会是谁？我的新鲜公号",
+        "url": "https://movie.douban.com/review/1000369/",
+        "title": "十年·肖申克的救赎"
+      },
+      {
+        "author": "隱居雲上",
+        "source": "豆瓣长评",
+        "date": "2005-07-12 11:23:39",
+        "content": "周末看了一部美国影片《肖申克的救赎》（《The Shawshank Redemption》）讲的是一位因冤案入狱的年轻银行家在牢中如何追寻自由的故事。不同的人看同样的影片可能都有不同的感受。对于目前无力改变现状的我，看完这部影片后最深的感受就是：才华、毅力两样，是任何人在任何境况下得到自由的最佳通途。片中的年轻银行家，凭着对银行财务知识的精通，在狱中，不仅为自己赢得了生命的安全、些许的自由，更为狱友争取到了物质、精神上的利益。也正因为对财务的精通，也使得男主角最后彻底击败残暴、阴险的狱长，并且使自己获得物质上的自由。另一方面，看看那六年每周不懈的申请信、N年每周两封的申请信、用那“600年也挖不出隧道”的石斧日日不懈掘出的隧道、雷电声中用石块砸破的下水管道、边呕吐边匍匐爬过的500吗长的的恶臭的下水道……这一切无不深深刻画一个词：毅力。任何一个人，想要最后获得蓝天白云下的自由，一定一定要具备这两样的－－过人的才华、坚韧的毅力。我也终于悟出为什么我目前还在郁闷的原因：第一：没有拿得出手的才华小时候很喜欢画画，但长大后专心读圣贤书，高考，画笔再也没有提起过。大学时学医，但是学医的日子被我用来学吉他、读闲书。工作之后，吉他没有时间去练，自然荒废。一直以来，也断断续续、打渔晒网地练习过书法、篆刻、素描、漫画、photoshop、flash、Dreamweaver、园艺……等等感兴趣的事，可是，无论哪个，都是典型地浅尝辄止，中途放弃的原因虽然各不相同，但说起来，最后都是没能坚持。所以，我基本上就是那种什么都会一点，什么都拿不出手来的人。第二：没有坚韧的毅力其实从上面就可以看出来了，那么多爱好，那么多尝试，最后都止于我的半途而废。假使有一样能坚持半年，那结果都很不一样了。我是那种典型的“无志人常立志”。我有一个笔记簿，专门用来写计划的。不知道别人有没有这样一个本子，我是不得不专门辟一个这样的小簿子，因为每过一段时间，我订的那计划都会更新一下。其实每次订计划的时候，都希望自己能一直做下去的，但是，……知道自己没常性，所以最近的一次计划订了之后，我在计划后面郑重写下：“希望能坚持三个月”－－结果，一个月后，这几个字让我写新计划的时候没勇气去看前面。在豆瓣上看到人家为《肖申克的救赎》写的影评，对影片情节、表演、内涵等分析之精辟，令我惭愧。可是，我还是躲在一边偷偷写下了这篇文字。纵使我文字功底很差，纵使我思想肤浅得可以，但是每个小人物对任何事物都有权利拥有她的感受－－况且是如此美好的事物。这部影片对我触动之大，在于，第一次，我晓得了自己一直那么努力、却一直在郁闷的原因。也许，有人和我有同感？",
+        "url": "https://movie.douban.com/review/1001258/",
+        "title": "终于找到了郁闷人生的原因――观《肖申克的救赎》有感"
+      },
+      {
+        "author": "泠十三",
+        "source": "豆瓣长评",
+        "date": "2019-07-29 12:54:13",
+        "content": "原文转自：我们都是肖申克里等待救赎的灵魂01“你来对地方了，这里人人都无罪。”Red笑着对Andy说。这个杀妻的银行家，因谋杀妻子和她的情夫，被判处终身监禁。尽管被关进了这座叫肖申克的监狱，他依然极力否认。犯人经过审判，被判处有罪，他们被关进监狱。在这里，脱胎换骨成为一个好人，才能走出去。监狱是惩戒他们的地方，也是救赎他们的地方。可若想得到真正的救赎，前提是他们得承认自己有罪。天主教教义里，基于对爱的违背程度，将人类的恶行归于七罪宗：傲慢、嫉妒、暴怒、懒惰、贪婪、暴食和色欲。人是带着原罪降生的。可世人不觉得自己有罪，就像肖申克里，犯人都自认无罪。这世间又无疑不是一座巨大的监狱，围墙外面的是自由、幸福和爱。我们都被关在肖申克里。终其一生望着外面的世界，却死不悔改。02典狱长诺顿总是手持一本圣经，他训诫新来的犯人们，“把信仰寄托给神，把贱命交付于我。”在肖申克里，他拥有绝对的权威，仿佛是神的化身，来教化这些邪恶之人。就像他曾对Andy说，圣经里他最喜欢的是这句，“我是世界的光，跟从我的，就不在黑暗里走，必要得跟着生命的光。”可他那精致西装里藏着的是道貌岸然。他靠着这些犯人们，谋取了一笔笔黑钱。又靠着Andy，将这一笔笔黑钱洗白。他自认为是主，这些犯人们的命运皆由他来书写。因此，当Andy找到证人汤米可以为自己洗刷罪名的时候，诺顿害怕贪污的事东窗事发，也无法接受从此再无源源不断的黑钱流入。他气急败坏，让警备队长海利将汤米射杀，罪名是企图越狱。黑账本藏在他那幅写有“主的审判迅速降临”挂画后的保险箱里。他春风得意，又狂妄自大，他从未所知，自己早已触犯了七罪宗里最严重的罪责——傲慢。他凶残，滥用权力，自诩为神，可终究不是神。在肖申克里，他只审判别人，却从未审视过自己的内心。权利蒙蔽了他的心，金钱遮住了他的眼，越陷越深。这份傲慢最终将他反噬，主的审判迅速降临，肖申克成了他的临终之地。03Andy很特别。这一点，从他刚到肖申克的时候，Red就发现了，“他的步伐和谈吐简直是异类，他像在公园散步，无忧无虑，仿佛身披隐形衣。”Andy的确与众不同。这部电影之所以伟大，很重要的一个原因在于，它所描绘出的这个人物Andy，本身就是伟大的。他坚毅，花费了快20年挖通了一所通往自由的隧道。很多人都被Andy最终越狱成功，在艰难爬过那五百码肮脏恶臭的下水管道后，迎着雷雨，重新拥抱自由的那一幕感动到热泪盈眶。我却被他漫不经心的一句话所深深震撼。他为了扩建监狱的图书馆，在明知不可能的情况下，每周给州议会写一封信申请拨款，一连写了六年，最终获得了200美金的赞助和一些旧书的捐赠。他笑了，说，“我只写了六年。”Andy的坚持的确令人敬佩，可更可怕的是，他从未对自己的付出要求得到什么回馈。他不需要胜利与成功去给予自己满足感和动力，他就是惯性一般地去做，任何的获得，仿佛都是意外之喜。从此，他开始一周寄两封信，最终州议会决定每年给肖申克图书馆500美元好让Andy封笔。强者自救，圣者渡人。比起披着神的外衣，内里却是邪恶撒旦的典狱长诺顿，Andy更像是神的化身。他来到肖申克受难，意为救赎众人的心灵。他冒着生命危险，靠着自己银行家的从业经验，自荐为警备队长海利免费填写税单。凭此，他为他的伙伴们赢来了一人三瓶冰镇啤酒。“阳光洒肩头，仿佛自由人，像在修缮自家屋顶，我们像是造物之主般自在。”Red和他的朋友们喝着啤酒，在这一刻，仿佛体会到了丢失已久的自由。而Andy，独自坐在凉荫下，嘴角挂着一丝奇异的微笑，静静地看着他们享受这份自在。他在州议会捐赠的旧物里，找到了一张唱片，冒着被关禁闭的风险，把音乐外放了出来，让整个监狱的人都听到了那首美妙的古典音乐。Red说自己年轻时吹口琴，可如今没兴致了，在牢里也没意义。Andy却说，“就是在这里才有意义，有音乐才不会忘记，世上有些东西，是石墙关不住的。在人的内心，有他们管不到的东西，是完全属于你的。”他扩建监狱里的图书馆，接洽读书会、慈善团体，论斤买入旧书。越来越多的犯人们在这里读书、看报、听音乐。他教犯人们识字，帮助他们考取高中文凭。在人最没有自由，最得不到尊重的时候，Andy不断地给他们找寻生存的意义，这就是他19年牢狱生活里所做的事。当汤米出现，可以作为证人洗刷他罪名的时候，他看到了重获新生的光。可很快，这束光就被典狱长诺顿掐灭了。诺顿命令海利将汤米射杀，这世上，再无人可以证明Andy是无罪的了。19年的冤狱生活，他的余生，是否还要继续在监狱里度过？在被关了2个月的独囚禁闭后，很多事，他想明白了。“我太太说我是个很难理解的人，像一本合起来的书，整天这样抱怨。她很漂亮，老天，我是多么爱她啊，只是不知道如何表达。”“对，是我杀了她，虽然不是我开的枪，但是我害她离我而去，她就是因我而死的。”Andy对Red这样说着，更像是在忏悔。Red安慰他说，“但你不是杀人犯，也许不算是好丈夫，可以后悔，但你无罪。”Andy恍若圣人，所言所行隐隐似神，可他依然只是个凡人。肖申克里的Andy看起来如此克制又冷静，可他有七情六欲，也带着原罪降生。在得知妻子出轨，与那个高球教练厮混在一起，要和自己离婚之后，他抑制不住地暴怒。他大醉，将子弹装进了枪。尽管最终他没有杀人，可地上洒落的子弹和酒瓶碎片上沾满了他的指纹，他无力说清。从踏进肖申克的那一刻起，他就从未承认过自己的罪行。可十九年后，他却恍然大悟，不是我开的枪，却是我杀的她。那条通往自由的隧道，他早已挖好，他在等待。等待这一刻，“老婆和她情夫不是我杀的，我犯的错已偿清。”他用十九年，救赎了自己。没人可以关住他，除非是他将自己束缚。十九年后的这一刻，他最终放下了仇恨，解放了自己。他知道，是时候离开了。04Andy曾问过Red，为何叫这个名字。Red只淡淡地回应他，大概因为我是爱尔兰人吧。Red是英文单词救赎Redemption的前三个字母。事实上，他是这部电影真正的主角，他代表着我们平凡的大多数人。当Andy初入肖申克的时候，Red已经在这里待了20年。他算是这里的老油条了，除了没有自由，在监狱里的日子过得还算不错，起码不会受到欺负。他有一帮朋友，也有着一点本事，肖申克里的人都要通过他去买外面的东西。这样的人，在监狱里度过了20年，在他的身上，已经丝毫看不出一点戾气。可他就像我们大多数人一样，犯了“懒惰”的罪。这种懒惰不是指身体上的懒惰，而是怯懦，是固地自封，是不满眼前现状却依然安于现状，是一步步朝着不作任何承担的惰性生活迈进。自由意味着责任，正因为如此，虽然我们都向往和追求自由，可事实上，我们都惧怕自由。他对Andy说，“希望是危险的东西，希望能把人弄疯，希望无用，你最好认命。”因为不抱任何希望，也就不会有失望。因为大概率得不到，就在心里把它彻底否认，如此，就可以心安理得地不去做任何努力和改变。当年迈的布鲁克获得假释出狱，在监狱里待了五十年的他，已经无法适应外面的世界，最终选择结束了自己的生命。Red说，“监狱是个奇怪的地方。起先你恨它，然后习惯它，更久后，你离不开它。这就是体制化。”可围住人、囚困人的从不只是监狱。Red在他被监禁了30年的时候，申请假释再次被驳回，Andy送给了他一个礼物，是支口琴。他希望Red终有一天走出肖申克的时候，不要走上布鲁克的老路。他希望这支口琴能给他带来力量。晚上熄灯后，Red反复抚摸着这支口琴，放到嘴边，最终还是没有吹响。后来，Andy越狱成功，再后来，在Red服刑40年后，他终于获得了假释的机会。在肖申克里待了40年，如今，他终于走出去了。可像布鲁克一样，他无法适应外面的生活，他也想过自杀。即使离开了监狱，事实上，他也无时无刻不被肖申克囚禁着。他最终没有死，是因为他心里还遵守着与Andy的约定。他买了指南针，坐车去了巴克斯顿，找到了那棵大树，在树下挖出了Andy留给他的东西。是一些钱和Andy写给他的一封信：“既然走了这么远的路，干脆再走远一点吧，你还记得那个地方的名字，是吗？”“记住，Red，心怀希望是一件好事，也许是人间至善，而美好的事物永不消逝。”他违反了假释条例，私自出城，买了票，踏上了一条未知的道路。可这一次，他不再害怕了。“要么忙于生存，要么赶着去死。”“我激动得坐不住不停地想，自由人才会这么兴奋吧，踏上未知旅程的自由人。”“我希望成功越过边界，我希望能跟老友握握手，我希望太平洋如梦中一般蓝。”这一刻，他不再畏惧未知，只有对美好的憧憬。这一刻，他挣脱了心中的枷锁，自由了。这一刻，他终于走出了肖申克。05电影里有句经典的台词：“有种鸟是关不住的，它的每一片羽毛上都洒满了自由的光辉。”自由对于人来说，究竟意外着什么？我们每个人都多少被那傲慢、嫉妒、暴怒、懒惰、贪婪、暴食和色欲试炼着，它们损害人类的灵性，让我们自己受伤，也伤害着那些我们所爱的人们。我们终其一生与外界抗争，我们常常以为是外界的一切剥夺了我们的幸福与爱，我们恨关住了我们的肖申克。可事实上，是我们自己一直在抗拒，是我们自己把幸福与爱推远，总是要到彻底失去的时候才去审视自己的内心。Andy早就把洞挖好了，他却迟迟没走。Red获得了假释，他拥有了自由，却想要结束自己的生命。因为那时的他们，心结未解。当我们真正与自己和解，或许那时才能获得真正的自由。否则，不过是逃出了一个牢笼，又进入到一个更大的牢笼里罢了。就像有些鸟，即使飞出了牢笼，也一样被天空束缚着。",
+        "url": "https://movie.douban.com/review/10350620/",
+        "title": "《肖申克的救赎》到底“救赎”了什么？"
+      },
+      {
+        "author": "aratana",
+        "source": "豆瓣长评",
+        "date": "2007-02-26 10:38:45",
+        "content": "一、缘起从来没想过给《肖申克的救赎》写一篇影评，也许是生怕暴露自己只是个不谙世事的初级影迷，也许是对这样一部无法复制的影片真的不愿去过多地提起。然而一场出其不意的重感冒让我只能卧床裹被，已没有了力气去消化我那些故作高深、一直收着却懒得去看的电影，不期然地拿起《肖申克的救赎》，没想着再去感动自己一把，只是北方冬天的午后，我们就这样莫名地重遇。二、记忆有一些电影可遇不可求。这“遇”只能是不期然地偶遇，有准备的相遇会让一切黯然失色。忘了是哪一年，我莫名地租来一张名叫《刺激1995》的VCD，那时不知道谁是蒂姆•罗宾斯，谁是摩根•弗里曼，还只知道整天追着刘德华、王菲打转，一切都像是老天的意旨，我就那么莫名地、无知无觉地、静静地看完了影片。从此以后，我固执地相信了电影能够带来的一样感受，叫幸福。这幸福感在那一瞬间击中了我的全身——当安迪从肮脏的管道中逃出生天的那一瞬间，我不明所以、全身无力、无法言语。三、微笑再看《肖申克的救赎》，我理解了安迪那安详而神秘的微笑。一次是为狱友赢得冬日里冰凉的啤酒，一次是给狱友播放天籁般的歌声。安迪的眼神虚渺而淡定，嘴角挂着若有似无的微笑。他不惜用一个月的幽闭来换取的，不止是自由的感觉。就像我再也不想被《勇敢的心》蛊惑一样，当华莱士喊出freedom的时候，那一瞬间虽然热血沸腾，但渐渐冷却后却显得无比苍白。我们需要自由么，我们仅仅需要自由么，我们需要的是什么样的自由呢？此刻，我只被安迪安详而神秘的微笑感动。四、希望这两个字如此庸常。然而安迪告诉瑞德，希望是人间至善。比生命可贵的也许是爱情，比爱情可贵的也许是自由，但比自由可贵的，只能是希望。无论生命如何不堪，都不是可以绝望的理由。瑞德口口声声的体制化要了老布的命，而当瑞德也想要步老布的后尘时，安迪的话化解了他的宿命，不是么，要么忙着活，要么忙着死，如此而已。五、活着为什么活着，没有标准的答案，因为活着不由自主。然而怎么样活着，人的历史里却给出了泾渭分明的活法。安迪又给了我们一次为真善美而活着的理由，就像监狱长给了我们为假恶丑而活着的理由一样。真是智慧，是安迪一手建起的监狱图书馆，是他笼络监狱长和狱警的手段，没有智慧，他只能听天由命。善是爱与仇，是安迪为狱友们争取来的啤酒和音乐，是监狱长饮弹自尽时我们的击掌称快。美是希望，是安迪安详而神秘的微笑，是爬出臭水管时的雨中重生，是墨西哥海湾安宁的蓝。六、现实现实是，我依然在病中，感冒虽然微小，可犯起混来也让人痛不欲生。这和安迪20年的隐忍没法比，更别说瑞德40年的宿命了。病可以治愈，命运呢？安迪不给我人定胜天的癔想，人怎么能胜得了天？安迪也不给我战胜自己的癔想，坐在凳子上的人如何搬得起凳子？安迪让我相信了希望。他让我相信，即便挖掘地道的计划失败了，他依然会保留着希望；即便面对无法挽回的死亡，他依然有任谁也不能遏止的坚守，就像谁也夺不走他脑海中的莫扎特一样。七、想像所以有时候会想，如果这个片子是以悲剧结束会不会更好。凡俗如我，当然不会觉得更好。虽然那样也许更能体现出人性的伟大，却不是太让人伤感了么；虽然那样也许就能获得那个该死的奥斯卡了，却不是太残忍了么。虽然在绝望中看出的希望决不仅仅是什么逃生，我们却仍然愿意看到这样的结局。因为，与其说我们面对的是死，不如说我们面对的是生，在生的路上，希望就是现实。就像那片湛蓝的海，原本就是我们生的地方。",
+        "url": "https://movie.douban.com/review/1127585/",
+        "title": "《肖申克的救赎》：1994—2007，希望就是现实"
+      },
+      {
+        "author": "蓑笠翁",
+        "source": "豆瓣长评",
+        "date": "2005-09-25 16:27:41",
+        "content": "现在好象比较时兴将人分为体制内和体制外的人,体制外的人通常有某种优越感,似乎自己的人格才是独立的.可实际上,真正愿意做体制外的人还是很少的,而且是很痛苦的.余杰北大硕士毕业后差一点进了他想进的国家图书馆作一个体制内的人,可由于他写了一些比较反体制的文章,最后还是被迫做了一个体制外的人,一个自由作家,所以他牢骚不断.<The Shawshank Redemption>里面,那个图书管理员老布在被囚禁了大半生以后终于获得了自由,然而他在自由的世界中却不知所措,无时无刻不想回到那个剥夺他自由却让他习惯了的肖申克监狱,最后他终于上吊自杀了.于是,摩根•弗里曼演的阿瑞就发表了他对institutionalization(体制化)这个词的见解,他将监狱说成一个institutionalization的场所,他说:一开始你恨(hate)它,它剥夺了你的自由;接着你会慢慢的习惯( get used to)它,熟悉它;最后你会离不开它,离开它你将象老布一样不知所措.相信我们中间的许多人,尤其是体制内的已经工作过许多年的人都很有感触.我们所在的那个叫做\"单位\"的地方又何尝不是一个institutionalization的地方?何尝不是一个监狱?大部分的人就象老布,最终在这个institutionalization中沉沦了下去;有些人就象阿瑞,差一点沉沦了下去,可是命运对他不薄,他结识了安迪这样的朋友,最后终于获得了自由,肉体的以及内心的自由;只有极少数的人才象安迪那样，他有着坚强的意志和对自由的不死的向往，凭着自己的毅力和智慧，不仅在监狱中做了许多别人不可能做成的事情，为狱友们挣啤酒，为狱吏们们报税，建设监狱图书馆；最终他逃出了监狱，并将那个穷凶极恶的典狱长告翻，过上了自由的生活…….其实，人生的过程就是一个摆脱institutionalization(体制化)的过程，这个institutionalization不仅仅是我们身处的那个“单位”，更是我们内心里面无数的“监狱”。",
+        "url": "https://movie.douban.com/review/1005528/",
+        "title": "人生的过程就是一个摆脱institutionalization(体制化)的过程"
+      },
+      {
+        "author": "油爆虾",
+        "source": "豆瓣长评",
+        "date": "2006-08-03 23:24:54",
+        "content": "* 是否记得片尾有一行字幕\"In memory of Allen Greene\"？翻译成中文就是\"纪念AllenGreene \"。Allen Greene是《肖申克的救赎》编导Frank Darabont的经纪人，在影片完成的前夕死于AIDS的并发症。 * 是否记得刚来到监狱的新囚犯们走下囚车时，嘲笑他们的人群中有一个年轻的黑人？该演员就是片中主角老黑人Red的扮演者Morgan Freeman的儿子。 * 老黑人Red的刑事档案上的照片不是扮演者Morgan Freeman本人的，而是他儿子的照片 * 是否记得凶横的哈德利队长几乎将安迪推下房顶的那个场景？其实演员们被一根保险 律 拴着，很安全。 * 是否记得三姐妹之一的伯格斯（Bogs）被队长打残废后送入救护车的情节？在拍摄过程中，那个老得掉牙的救护车抛锚了，在画面中的移动其实是工作人员的人力牵引。 * 是否记得安迪驾驶着红色敞篷车在墨西哥山路上飞驰的镜头？那是一部1969年产的Pontiac GTO ，而影片中的年代还在1966年。摄制组曾经联系了一部1965年的Mustang，但是车主在最后时刻变卦了 * 是否记得在鲨堡监狱的第一晚，老囚犯们不停地嘲笑、喧哗，企图惊吓新囚犯的情节？在拍摄过程中，因为临时演员不够用，还动用了拍摄现场的保安也来制造喧哗的气氛。 * 是否记得安迪在谋杀发生的那个夜晚里坐在自己的车里，有一个双手上子弹的特写镜头？其实那双手是编导Frank Darabont的，因为原先的剧本里没有设计这个镜头，是事后补拍的。 * 是否记得安迪和老黑人Red第一次在操场上相遇的情节（Red在和其他人玩棒球）？因为拍摄的时候出现了无数的问题，这个场景竟然花费了一整天的时间来反复拍摄才让导演觉得完美。 * 影片中的鲨堡监狱一排排的囚室，并不是真正的监狱囚室，而是仿造旧的鲨堡监狱的结构在一个仓库里搭建的布景。 * 是否记得安迪在雪中行走的镜头？那些雪花其实是土豆薄片。 * 是否记得安迪叫Red去寻找的那堵长长的石头墙？那也是摄制组自行搭建的，因为导演找不到实际的\"长长的石墙\" * 是否记得影片开头那个喊\"熄灯\"的监狱警卫？他在实际生活中也是一名监狱警卫。 * 是否记得汤米（安迪的学生，被开枪打死的那个）来到鲨堡时，同一囚车中坐在他身后的黑人囚犯？那个人在实际生活中是俄亥俄州少管所的典狱官。 * 是否记得安迪用来敲破下水道的那块石头？其实最初的设计是让安迪用他的小石锤的，但后来发现小石锤不足以敲破下水道，才改换成了石头 * 安迪在下水道中爬行时脸上及管道中的污渍其实都是巧克力浆 * 是否记得那句台词\"有些鸟是不会被关住的\"（Some birds aren't meant to be caged，直译是：有些鸟是无意被笼养的）？剧本原先设计了一个图书管理员老布养的那只乌鸦又飞回鲨堡、死后被安迪和Red发现的情节（比喻老布像这只鸟一样只适合笼养而不能在外面生存），还设计了囚犯们在操场为这只鸟举行葬礼以悼念自杀的老布的场景 * 是否记得最后一个场景中安迪和Red在海滩上重逢并拥抱的镜头？这在剧本中原是不存在的，因为原著小说中并没有这段情节。这是导演在其合伙人的坚持下违心添加的，而且甚至在拍摄完后还一度企图剪掉。幸亏在试看样片的时候，观众们非常喜爱，导演才因此做出了让步，决定保留这段情节。后来的观众们才因此有幸观看到这令人喜悦且热泪盈眶的结局场面。 补充 * Tommy Williams（因为偷电视而被判两年的小伙子）这一角色本来是给布拉德·彼特准备的 * 片中扮演Thomas Williams（即“Tommy”）的Gil Bellows，曾在1997年的当红电视剧集《Ally McBeal》扮演了一个类似角色William Thomas * 安迪牢房的墙上贴着一张爱因斯坦的照片，扮演安迪的蒂姆·罗宾斯（Tim Robbins）曾在幻想电影《I.Q.》中扮演爱因斯坦 * 摩根·弗里曼扮演的那位赢得迟来自由的老者名叫Red，即英文单词“救赎”（Redemption，也是本片片名)的前三个字母 * 在斯蒂芬·金的原著小说中，Red是个爱尔兰人。在选用摩根·弗里曼扮演Red之后，他们去掉了这句台词“也许因为我是个爱尔兰人” * 美国防止虐待动物协会（The American Society for the Prevention of Cruelty to Animals）全程监督影片拍摄工作，有一场戏是布鲁克斯给他的乌鸦喂蛆虫，ASPCA当即认为这对蛆蛆是不“人道”的，并要求他们改用一只自然死亡的蛆，他们只好从命 * 在开场的法庭戏中，安迪说自己把枪扔进了Royal河，在斯蒂芬·金的另一本小说《站在我旁边》（Stand By Me）中，逃亡的孩子们穿过了同一条河 * 如影片所示，该片情节与大仲马的《基督山伯爵》有诸多相似之处 * 沃登·诺顿哼的调子是“坚固保障”，这是一首教会圣诗，作者是基督教改革先锋/信义会创始人马丁·路德。 * 当沃登·诺顿打开藏有安迪凿石锤的《圣经》时，打开的那页正是《出埃及记》，这个章节详细描述了犹太教徒逃离埃及的过程 * 该片的意大利版要比美国版少15分钟，删去了结尾简要交待安迪自由生活的片断 * 在全球最大的互联网电影数据库IMDB中，该片始终雄据着Top 250排行榜的第二位（第一位是《教父》），多达73290位来访者给本片投票，总分9分（满分10），其中更有超过51%的用户（37486）给它打了最高分10分",
+        "url": "https://movie.douban.com/review/1062920/",
+        "title": "《肖申克的救赎》的一些幕后花絮"
+      },
+      {
+        "author": "附离",
+        "source": "豆瓣长评",
+        "date": "2012-05-31 22:40:33",
+        "content": "打一颗星并不是因为这部片很差，只是不明白怎么会是豆瓣电影里的头牌。用极端的踩来平衡下极端的捧。N年前看的片子，当时觉得真不错。具体不错在哪里？或许是因为结局不错，主人公最终成功越狱到达梦想之地，观影者借以给自己希望，以为自己也能达到自由的彼处。第一次看完后其实只记得了故事情节大概和那无比美妙的结局。多年后看到豆瓣评分介高，揣着“有那么好吗”的疑问，忍不住重温了一遍。依然觉得这是个精彩的电影，依然不明白为什么豆瓣分数给得这么高。影片中，牢狱生活到点起床集合，到点熄灯睡觉，还有图书管理员分发书来看，突然闪现的念头是这样有规律的生活其实挺像学生时期的寄校生活。想到学校鸟笼大的宿舍挤八个人还上下铺，就顺便调侃下牢房能单间，真幸福。如果说主人公Andy的毅力和坚持不懈，我们常人只要努力也可以做到。那么他的天才加全才已经不是常人单纯想要靠努力就能达到的。不得不承认有基因这种东西的存在。圣经信口背来，第几章第几节记得一清二楚，印证了一句名言：天才必是记忆力极好之人。所以作为一个银行家熟知税务章程事项自然不在话下，会计活对他来说是小菜一碟。还是个地质学热爱者，很懂石头，似乎是雕刻家，又懂音乐，也很会教书。被深深打击到了。因为像我这样过目就忘的人是很容易妒忌记忆力好的人的。像这样的天才花几个月时间记得滚瓜烂熟的，常人得花个几年，天才一年间熟读的书，常人要花一辈子，于是人的学识深度和广度的差距就这么显现出来了。Andy这样的人是人中神品，就如同乔布斯之类，不是常人读几本励志书看几部励志电影能达到的境界。可是常人容易为这样的天才及天才的成功激动。搞不懂激动个什么劲，又不是我们拥有高智商外还付出牛逼百倍的努力。或许给这部片那么多的五星是因为它讲出了我们对自由的渴望并实现了我们自由的希望。可看了两遍后发觉其实它给了大多数无天赋无毅力的普通人无法自由的绝望。像主人公这样的天才靠毅力靠天赋也要花近二十年青春已流逝的时间去搭建自由的高塔，那些鲜有天赋却坚持不懈的人在临终闭眼前能实现愿望也算够万幸。而多数双无的普通人只会在看到自由的海市蜃楼时瞎兴奋一下。我说多数人没能力自由，这“能力”，不仅仅是IQ、EQ之类的资质，还有一个人内心对自由到底有多少的渴望和尊重，让自己获得自由不是基于破坏别人的自由。自由亦不是众人无病呻吟地把它当作嘴上的追求和梦想，而内心却是“我爱体制，它给我保障给我安全感”。与其说给这部电影评一颗星，倒不如说我们这些人只值一颗星：口口声声说着向往自由，抱怨体制化，实则心甘情愿地享受着体制化带来的好处；我们叫喊着崇尚自由，却在节假日欢笑着挤在人堆里去动物园海洋馆看那些被关起来的动物和它们的表演，以为动物都爱被囚禁起来给人看给人表演呢。这时如果我们还能欢笑，那就请别说我们多渴望多尊重自由，也不配给这部电影五星。——以此文写给自己，激励自己和那些同样缺乏或快失去毅力的人，如Andy般坚持下去，终有一天获得自己内心想要的那份自由！",
+        "url": "https://movie.douban.com/review/5449290/",
+        "title": "没能力自由，谈什么自由 —— 其实你没那么渴望自由"
+      },
+      {
+        "author": "刘泽宇",
+        "source": "豆瓣长评",
+        "date": "2017-10-05 22:18:05",
+        "content": "个人感觉，《肖申克的救赎》（The Shawshank Redemption）中的Redemption的意思是“赎回;偿还;补救”，因此“救赎”非常完美地解释了这部电影的主题，围绕“救赎”主题的是：1，安迪对自己的救赎：从一开始不让自己沦陷于监狱生活，到对“姐妹花”的不懈奋力抗争，到为自己的信念而坚持写信、挖洞等，到最后在挖好隧道后一开始并不急于越狱，因为他对自己的救赎并非“越狱”而是一份对自己信念的坚持，坚持自己的清白。所以最后的决然越狱其实是对自己的最终救赎——“我本无罪，我需要自由”。2，安迪对狱友的救赎：给予狱友在监狱里前所未有的啤酒、音乐、舒适的图书馆；给予年轻的狱友汤米·威廉斯教育；给予他的好朋友瑞德心灵慰藉和对人生的深深思考——“get busy living or get busy dying.”这些给予实际上是对他们的一种精神上的救赎，点燃一个人对生活的希望无疑是对他的救赎。3，安迪对肖申克监狱的救赎：因为有了安迪，“姐妹花”被以恶制恶了；监狱里出现了音乐、舒适的图书馆；典狱长等人的丑恶脸面被揭下，监狱变得干净了一些。最后，我很喜欢这部影片。",
+        "url": "https://movie.douban.com/review/8848890/",
+        "title": "关于“救赎”"
+      },
+      {
+        "author": "無腳之鳥.",
+        "source": "豆瓣长评",
+        "date": "2016-12-26 20:56:11",
+        "content": "今天是我第二次看这部电影。第一次看的时候我才十五岁，那时阅片量少，所以没有怎么看到这部电影的意义所在，只是觉得安迪好牛。今天重看经典，真是涨了不少知识。安迪的那种精神着实让人敬畏，即使你身在监狱里，即使被判了终身监禁，你也不能对生活失去希望。我觉得这或多或少与安迪的背景有关系。他曾是一个银行家，说明受过良好的教育，三观正。思想是重要的，正是对生活充满了希望，梦想的力量让安迪二十年如一日在墙壁上凿出了一个救赎通道。而且凭借着对财务方面的知识，在监狱中风生水起，监狱长才看中了他，他才能搞到监狱长的赃款逃到墨西哥，并把证据提供给报社，警察一锅端了监狱长和警卫长，以绝后患。可见知识的重要性。片尾安迪和瑞德的对话太经典了。当安迪说出自己想去墨西哥的太平洋沿岸开一家旅馆度此生的梦想时，可以说瑞德是懵的，这怎么可能呢？一个被判了终身监禁的人说出这句话就是在做白日梦吧！这就是差距，思想的差距，价值的差距。人被高墙困住不可怕，因为有些人是困不住的。羽毛丰满的鸟儿永远属于天空，关不住的。但是思想若被高墙困住，人也会深陷其中。",
+        "url": "https://movie.douban.com/review/8255351/",
+        "title": "思想改变人生"
+      },
+      {
+        "author": "仰山雪",
+        "source": "豆瓣长评",
+        "date": "2018-03-08 11:05:16",
+        "content": "1．It takes a strong man to save himself, and a great man to save another.\n\n强者救赎自己，圣人普度他人。\n\n2．Hope is a good thing, maybe the best of things, and no good thing ever dies.\n\n希望是美好的，也许是人间至善，而美好的事物永不消逝。\n\n3．I find I'm so excited. I can barely sit still or hold a thought in my head. I think it the excitement only a free man can feel.\n\n我发现自己是如此的激动，以至于不能静静地坐下来思考。\n\n4．Fear can hold you prisoner. Hope can set you free.\n\n懦怯囚禁人的灵魂，希望可以让你自由。\n\n5．Prison life consists of routine, and then more routine.\n\n监狱生活充满了一段又一段的例行公事。\n\n6．These walls are kind of funny like that. First you hate them, then you get used to them. Enough time passed, get so you depend on them. That's institutionalized.\n\n刚入狱的时候，你痛恨周围的高墙；慢慢地，你习惯了生活在其中；最终你会发现自己不得不依靠它而生存。这就是体制化。\n\n7．I guess it comes down to a simple choice: get busy living or get busy dying.\n\n生命可以归结为一种简单的选择：要么忙于生存，要么赶着去死。\n\n8．I have to remind myself that some birds aren’t meant to be caged.\n\n有些鸟是不能关在笼子里的。\n\n9．There’s not a day goes by I don’t feel regret.\n\n我无时无刻不对自己的所作所为深感内疚。\n\n10．Hope is a dangerous thing. Hope can drive a man insane.\n\n希望是件危险的事。希望能叫人发疯。\n\n11．I have no idea to this day what those two Italian ladies were singing about.\n\n那些声音直插云霄，飞得比任何一个人敢想的梦还要遥远。",
+        "url": "https://movie.douban.com/review/9209422/",
+        "title": "经典台词整理"
+      },
+      {
+        "author": "文泽尔",
+        "source": "豆瓣短评",
+        "date": "2008-01-14 01:53:08",
+        "content": "人的生命不过是从一个洞穴通往另一个世界..然后在那个世界的雨中继续颤抖.i hope",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "如小果",
+        "source": "豆瓣短评",
+        "date": "2008-02-27 21:43:23",
+        "content": "恐惧让你沦为囚犯，希望让你重获自由。——《肖申克的救赎》",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "犀牛",
+        "source": "豆瓣短评",
+        "date": "2005-10-28 00:28:07",
+        "content": "当年的奥斯卡颁奖礼上，被如日中天的《阿甘正传》掩盖了它的光彩，而随着时间的推移，这部电影在越来越多的人们心中的地位已超越了《阿甘》。每当现实令我疲惫得产生无力感，翻出这张碟，就重获力量。毫无疑问，本片位列男人必看的电影前三名！",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "理想多钱一斤啊",
+        "source": "豆瓣短评",
+        "date": "2009-10-07 19:58:08",
+        "content": "Hope is a good thing, and maybe the best thing of all.",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "Doublebitch",
+        "source": "豆瓣短评",
+        "date": "2007-12-24 17:50:21",
+        "content": "绝对是期待过高导致有点失望",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "711|湯不餓",
+        "source": "豆瓣短评",
+        "date": "2010-03-27 21:30:29",
+        "content": "策划了19年的私奔……",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "艾小柯",
+        "source": "豆瓣短评",
+        "date": "2006-06-20 03:18:55",
+        "content": "关于希望最强有力的注释。",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "Eve|Classified",
+        "source": "豆瓣短评",
+        "date": "2008-05-09 23:15:34",
+        "content": "“这是一部男人必看的电影。”人人都这么说。但单纯从性别区分，就会让这电影变狭隘。《肖申克的救赎》突破了男人电影的局限，通篇几乎充满令人难以置信的温馨基调，而电影里最伟大的主题是“希望”。经典的电影之所以经典，因为他们都在做同一件事——让你从不同的角度来欣赏希望的美好。",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "寂地",
+        "source": "豆瓣短评",
+        "date": "2006-01-02 23:57:15",
+        "content": "超级喜欢超级喜欢,不看的话人生不圆满.",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "快乐人生",
+        "source": "豆瓣短评",
+        "date": "2018-01-04 11:51:34",
+        "content": "不愧是好莱坞大片，一环扣一环，没想到最后不但逃出生天还偷偷把典狱长的贪污转移了出来，证据也送达了出去，帮助了曾经关心过自己的人，情节安排的巧妙，演员演绎的也好。",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "John Chard",
+        "source": "TMDB",
+        "date": "July 10, 2016",
+        "content": "Some birds aren't meant to be caged. The Shawshank Redemption is written and directed by Frank Darabont. It is an adaptation of the Stephen King novella Rita Hayworth and Shawshank Redemption. Starring Tim Robbins and Morgan Freeman, the film portrays the story of Andy Dufresne (Robbins), a banker who is sentenced to two life sentences at Shawshank State Prison for apparently murdering his wife and her lover. Andy finds it tough going but finds solace in the friendship he forms with fellow inmate Ellis \"Red\" Redding (Freeman). While things start to pick up when the warden finds Andy a prison job more befitting his talents as a banker. However, the arrival of another inmate is going to vastly change things for all of them. There was no fanfare or bunting put out for the release of the film back in 94, with a title that didn't give much inkling to anyone about what it was about, and with Columbia Pictures unsure how to market it, Shawshank Redemption barely registered at the box office. However, come Academy Award time the film received several nominations, and although it won none, it stirred up interest in the film for its home entertainment release. The rest, as they say, is history.",
+        "url": "https://www.themoviedb.org/review/578193f29251417c28001764?language=en-US",
+        "title": null
+      },
+      {
+        "author": "elshaarawy",
+        "source": "TMDB",
+        "date": "April 29, 2016",
+        "content": "very good movie 9.5/10 محمد الشعراوى",
+        "url": "https://www.themoviedb.org/review/5723a329c3a3682e720005db?language=en-US",
+        "title": null
+      },
+      {
+        "author": "tmdb73913433",
+        "source": "TMDB",
+        "date": "November 11, 2017",
+        "content": "Make way for the best film ever made people. Make way.",
+        "url": "https://www.themoviedb.org/review/5a0712aec3a3687914014a4b?language=en-US",
+        "title": null
+      },
+      {
+        "author": "thommo_nz",
+        "source": "TMDB",
+        "date": "May 1, 2018",
+        "content": "There is a reason why this movie is at the top of any popular list your will find. Very strong performances from lead actors and a story line from the literary brilliance of Stephen King. Sufficient drama and depth to keep you interested and occupied without stupefying your brain. It is the movie that has something for everyone.",
+        "url": "https://www.themoviedb.org/review/5ae800510e0a264fa7000c70?language=en-US",
+        "title": null
+      },
+      {
+        "author": "Andrew Gentry",
+        "source": "TMDB",
+        "date": "October 18, 2018",
+        "content": "It's still puzzling to me why this movie exactly continues to appear in every single best-movies-of-all-time chart. There's a great story, perfect cast, and acting. It really moves me, but yet, there's no unique vibe or something - there are thousands of other ones as good as this one.",
+        "url": "https://www.themoviedb.org/review/5bc8a200c3a36829c8019817?language=en-US",
+        "title": null
+      },
+      {
+        "author": "Matthew Dixon",
+        "source": "TMDB",
+        "date": "July 30, 2019",
+        "content": "I will not say that the film is predictable, because it is not quite so, due to the fact that we only know Andy’s intentions at the end. I don’t know the reason why some localizers decided to spoil the impression for audiences in translation.",
+        "url": "https://www.themoviedb.org/review/5d3fff0c34e1521fb8e86abf?language=en-US",
+        "title": null
+      },
+      {
+        "author": "JPV852",
+        "source": "TMDB",
+        "date": "September 18, 2021",
+        "content": "First time seeing this in probably close to 20 years. Forgot how excellent of a movie this was, amazing all around from the performances, Morgan Freeman and Tim Robbins especially, with a roller coaster of emotions. The writing and direction from Frank Darabont was precise and just all around fantastic.",
+        "url": "https://www.themoviedb.org/review/6146448055c9260067f415ab?language=en-US",
+        "title": null
+      },
+      {
+        "author": "LƛȤƛƦꪡƬƑ",
+        "source": "TMDB",
+        "date": "January 14, 2023",
+        "content": "No 1 movie for all the time",
+        "url": "https://www.themoviedb.org/review/63c2f7f28efe7300a0eb7304?language=en-US",
+        "title": null
+      },
+      {
+        "author": "drystyx",
+        "source": "TMDB",
+        "date": "April 3, 2023",
+        "content": "This is much more predictable and Hollywood than a King novel. This story of another man wrongfully in prison for murder joins the list of many other prison films. I won't say it is a bad movie, but it is a very safe and formula movie for me.",
+        "url": "https://www.themoviedb.org/review/642af2ffc0a30800774eb399?language=en-US",
+        "title": null
+      },
+      {
+        "author": "Sanjeev0805",
+        "source": "TMDB",
+        "date": "June 29, 2023",
+        "content": "This movie is great",
+        "url": "https://www.themoviedb.org/review/649dc3f9c072a2014faf13ce?language=en-US",
+        "title": null
+      },
+      {
+        "author": "Malcolm Knox",
+        "source": "烂番茄 · Sydney Morning Herald",
+        "date": "2026-04-29",
+        "content": "Moving, absorbing and a grand platform for the less-is-more talents of Robbins and Freeman, two of the best going around.",
+        "url": "https://www.newspapers.com/article/the-sydney-morning-herald-the-shawshank/196509718/",
+        "title": null
+      },
+      {
+        "author": "M.N. Miller",
+        "source": "烂番茄 · AwardsWatch",
+        "date": "2024-09-27",
+        "content": "[The Shawshank Redemption] is the cinematic equivalent of therapy, showcasing the power of vulnerability.",
+        "url": "https://awardswatch.com/the-shawshank-redemption-at-30-the-enduring-classic-proves-it-can-make-it-on-the-outside/",
+        "title": null
+      },
+      {
+        "author": "Calum Cooper",
+        "source": "烂番茄 · Cinerama Film",
+        "date": "2024-09-25",
+        "content": "The Shawshank Redemption is as beautiful and genuine now as it was in its initial overlooked run.",
+        "url": "https://cineramafilm.com/2024/09/24/the-shawshank-redemption-1994/",
+        "title": null
+      },
+      {
+        "author": "Grant Hermanns",
+        "source": "烂番茄 · Screen Rant",
+        "date": "2024-09-23",
+        "content": "Frank Darabont's The Shawshank Redemption is not only still one of the best Stephen King adaptations, but also a wonderful exploration of hope.",
+        "url": "https://screenrant.com/the-shawshank-redemption-movie-review/",
+        "title": null
+      },
+      {
+        "author": "Adam Kempenaar",
+        "source": "烂番茄 · Filmspotting",
+        "date": "2024-09-20",
+        "content": "Deakins’s work here began his run of 16 Oscar nominations... it’s a crucial part of Shawshank’s enduring legacy.",
+        "url": "https://www.filmspotting.net/episodes-archive/2024/9/20/983-the-shawshank-redemption-at-30-fail-safe-lumet-4",
+        "title": null
+      },
+      {
+        "author": "Josh Larsen",
+        "source": "烂番茄 · LarsenOnFilm",
+        "date": "2024-09-16",
+        "content": "... a faith-based movie without any faith.",
+        "url": "https://larsenonfilm.com/the-shawshank-redemption",
+        "title": null
+      },
+      {
+        "author": "Dan Buffa",
+        "source": "烂番茄 · Ramble On With Buffa (Substack)",
+        "date": "2024-05-07",
+        "content": "Darabont cut right to the heart of a flock of human birds trapped in a giant cage, under the watch of a corrupt warden and terrifyingly sinister guard. It was serious, certain, and made you laugh. Freeman's legend has never shined brighter.",
+        "url": "https://dailydoseofbuffa.substack.com/p/why-shawshank-redemption-sits-at?utm_source=publication-search",
+        "title": null
+      },
+      {
+        "author": "Jonathan Romney",
+        "source": "烂番茄 · Guardian",
+        "date": "2024-03-04",
+        "content": "If this is a feel-good movie -- and by the end it certainly is -- then at least it challenges us to dig deep for those good feelings when everything inside those mausoleum walls is unrelievedly harsh and grey.",
+        "url": "https://www.newspapers.com/article/the-guardian-the-shawshank-redemption/139053835/",
+        "title": null
+      },
+      {
+        "author": "Jay Boyar",
+        "source": "烂番茄 · Orlando Sentinel",
+        "date": "2024-03-04",
+        "content": "The Shawshank Redemption is both resigned and inspirational, grittily realistic and vaguely surreal, matter-of-fact and operatic. Somehow, these opposites are combined into a remarkably smooth and lyrical composition.",
+        "url": "https://www.newspapers.com/article/the-orlando-sentinel-the-shawshank-redem/139045334/",
+        "title": null
+      },
+      {
+        "author": "Adam Mars-Jones",
+        "source": "烂番茄 · Independent (UK)",
+        "date": "2024-03-04",
+        "content": "The sad thing is that The Shawshank Redemption, a so-so film, would have made a terrific little movie. A pacier project would have given us less time to notice sentimentalities.",
+        "url": "https://www.newspapers.com/article/the-independent-the-shawshank-redemption/139053951/",
+        "title": null
+      }
+    ],
+    "soundtrack": {
+      "albums": [
+        {
+          "name": "The Shawshank Redemption (Original Motion Picture Soundtrack)",
+          "note": "托马斯·纽曼 / Thomas Newman",
+          "coverImage": null,
+          "releaseDate": "1994",
+          "type": "soundtrack",
+          "tracks": [
+            {
+              "name": "Introduction",
+              "artist": null,
+              "duration": "0:04"
+            },
+            {
+              "name": "End Title",
+              "artist": null,
+              "duration": "3:34"
+            },
+            {
+              "name": "Shawshank Prison",
+              "artist": null,
+              "duration": "1:55"
+            },
+            {
+              "name": "Brooks Was Here",
+              "artist": null,
+              "duration": "2:41"
+            },
+            {
+              "name": "New Fish Arrive",
+              "artist": null,
+              "duration": "1:32"
+            },
+            {
+              "name": "Rock Hammer",
+              "artist": null,
+              "duration": "1:52"
+            },
+            {
+              "name": "An Innocent Man",
+              "artist": null,
+              "duration": "1:58"
+            },
+            {
+              "name": "The Moocher",
+              "artist": null,
+              "duration": "1:36"
+            },
+            {
+              "name": "Suds",
+              "artist": null,
+              "duration": "1:02"
+            },
+            {
+              "name": "Loafing",
+              "artist": null,
+              "duration": "1:06"
+            },
+            {
+              "name": "The Marriage of Figaro / Duettino - Sull'aria",
+              "artist": null,
+              "duration": "2:54"
+            },
+            {
+              "name": "Compass and Guns",
+              "artist": null,
+              "duration": "2:04"
+            },
+            {
+              "name": "The Riddle of Zihuatanejo",
+              "artist": null,
+              "duration": "1:25"
+            },
+            {
+              "name": "The Riddle Solved",
+              "artist": null,
+              "duration": "1:30"
+            },
+            {
+              "name": "The Tunnel",
+              "artist": null,
+              "duration": "1:30"
+            },
+            {
+              "name": "Freedom",
+              "artist": null,
+              "duration": "1:42"
+            }
+          ]
+        }
+      ]
+    },
+    "series": [],
+    "similar": [
+      {
+        "id": "0101000003",
+        "title": "阿甘正传",
+        "year": 1994,
+        "rating": 9.5
+      },
+      {
+        "title": "楚门的世界",
+        "year": 1998,
+        "rating": 9.4
+      },
+      {
+        "title": "当幸福来敲门",
+        "year": 2006,
+        "rating": 9.1
+      },
+      {
+        "title": "活着",
+        "year": 1994,
+        "rating": 9.3
+      },
+      {
+        "title": "摔跤吧！爸爸",
+        "year": 2016,
+        "rating": 9
+      },
+      {
+        "title": "我不是药神",
+        "year": 2018,
+        "rating": 9
+      },
+      {
+        "title": "三傻大闹宝莱坞",
+        "year": 2009,
+        "rating": 9.2
+      },
+      {
+        "title": "心灵捕手",
+        "year": 1997,
+        "rating": 9
+      },
+      {
+        "title": "闻香识女人",
+        "year": 1992,
+        "rating": 9.1
+      },
+      {
+        "title": "这个杀手不太冷",
+        "year": 1994,
+        "rating": 9.4
+      }
+    ],
+    "links": {
+      "douban": "https://movie.douban.com/subject/1292052/?suggest=%E8%82%96%E7%94%B3%E5%85%8B%E7%9A%84%E6%95%91%E8%B5%8E",
+      "imdb": "https://www.imdb.com/title/tt0111161/",
+      "tmdb": "https://www.themoviedb.org/movie/278"
+    },
+    "quotes": [],
+    "createdAt": "2026-05-01",
+    "updatedAt": "2026-05-04",
+    "status": "published"
+  },
+  {
+    "id": "0101000006",
+    "module": "video",
+    "submodule": "movie",
+    "schemaType": "live_action_movie",
+    "path": "/video/movie/0101000006",
+    "title": "星际穿越",
+    "originalTitle": "Interstellar",
+    "year": 2014,
+    "country": "美国",
+    "language": "英语",
+    "runtime": 169,
+    "synopsis": {
+      "text": "在作物枯萎、尘暴肆虐的近未来地球，人类正逼近生存边缘。前 NASA 飞行员库珀受命率领队伍穿越土星附近的虫洞，前往遥远星系寻找新的可居住家园。"
+    },
+    "story": {
+      "text": "不久的将来，地球上的农作物因为气候转变及枯萎病而失收。前美国国家航空航天局工程师和航天飞机驾驶员约瑟·库珀（Joseph Cooper，马修·麦康纳饰）被迫成为农民以协助解决粮食危机。库珀的10岁女儿墨菲（Murphy，麦肯基·弗依饰）发现其房间的书架上的书本无故掉到地上，认为这是灵异现象。不久后，一场沙尘暴在墨菲的房间中留下二进制坐标，二人开车到达坐标位置后发现那是北美空防司令部，现已成为美国国家航空航天局的秘密基地。\n\n秘密基地负责人布兰德教授（Dr. Brand）向库珀透露土星附近出现了虫洞，认为外星智慧生命有意协助人类前往遥远星系移居。总署在约十年前已派遣了十二名科学家穿越该虫洞，各自降落在多个被认为有居住可能性的行星上，传送回来的资料显示其中一个以黑洞“卡冈图雅”（Gargantua）为中心的行星系统中有三颗星球可能适合人类移居。行星各自以降落在当地的科学家名字命名：米勒（Miller）、埃德蒙斯（Edmunds）和曼恩（Mann）。\n\n库珀答应布兰德教授的要求，担任航天器永恒号（Endurance）的驾驶员前往执行拉撒路计划（Lazarus mission）：A计划为确认星球适合人类居住后，透过布兰德教授的重力方程协助地球人前往殖民；B计划为带着多个人类胚胎殖民外星，留在地球的人类则会灭绝。墨菲因担心库珀一去不回而深感愤怒，库珀亦不顾劝阻与布兰德教授的女儿艾米莉亚（Amelia，安妮·海瑟薇饰）、物理学家罗密利（Romilly）、地质学家道尔（Doyle）和两个机器人塔斯（TARS）与凯斯（CASE）前往太空登上永恒号启程。\n\n众人先通过虫洞前往米勒星，除罗密利与塔斯外的一众成员乘坐徘徊者号（Ranger）降落星球后，发现地表只有一片汪洋，黑洞的潮汐力引起的巨型海啸使道尔丧生并延误了回程，二人返回永恒号后发现，他们在星球上大约停留了三个钟头，然而对永恒号上的罗密利来说则是二十三年之久。\n\n众人经一番争论后决定前往曼恩星球，该星球严寒且大气中充满氨气。此时墨菲（杰西卡·查斯坦饰）已是库珀离开地球的年龄，加入了美国国家航空航天局协助布兰德教授解开拯救地球人所需要的重力方程，但教授在健康恶化弥留之际向墨菲承认A计划不可能实现。另一边，曼恩博士（马特·达蒙饰）被众人从人工睡眠中唤醒后表示方程因缺乏黑洞引力奇点的数据而无法完成，因此永恒号的真正目的并非拯救地球人类。库珀因此十分愤怒，打算放弃计划。在稍后的任务中，曼恩表示所有宜居数据均假，目的是希望宇航局能派人前来救他，并在打斗中打破库珀的氧气面罩。\n\n曼恩丢下库珀等死后夺取徘徊者号驶向永恒号，同时罗密利因试图从被曼恩拆解的机器人奇普（KIPP）中取得资料，触动其设下的陷阱引发爆炸身亡。艾米莉亚救回库珀后，二人乘坐着陆器追赶曼恩。曼恩在永恒号未完全对接的情况下打开气闸，产生的失控减压使他身亡并导致永恒号失控旋转，库珀成功对接永恒号并努力使其稳定下来。永恒号上的资源已不足以返回地球，且其已被卡冈图雅黑洞的引力捕获。两人于是发射出塔斯，让它收集黑洞引力奇点的数据，并计划通过重力助推将永恒号推向埃德蒙斯星实行B计划。为减少永恒号质量以让艾米莉亚逃生，库珀让自己驾驶的徘徊者号于耗尽燃料后分离进入黑洞。\n\n其弹射逃生后，发现自己进入一个由未来人类创造的四维超正方体，得知自己正是儿时墨菲遇上的“幽灵”。他利用重力与儿时的墨菲交流，引导自己参与拉撒路计划以拯救人类，并把塔斯取得的黑洞数据通过引力波以摩斯密码的形式传送给墨菲的手表。成年墨菲在回忆此事时终于发现父亲留给她的讯息，完成了布兰德教授的方程使人类得以离开地球，前往一个环绕着土星运行的空间站居住。四维超正方体空间在数据传送完毕后关闭，库珀通过虫洞被传送回土星并被人类救起。库珀在空间站上与年老垂死的墨菲重逢，墨菲说服他去宜居的埃德蒙斯星球上寻找艾米莉亚。最终库珀与塔斯搭乘一艘次世代漫游者号前往埃德蒙斯星。"
+    },
+    "director": [
+      {
+        "personCode": "p000098",
+        "name": "克里斯托弗·诺兰",
+        "nameEn": "Christopher Nolan",
+        "role": "导演",
+        "avatarPath": "people/p000098-avatar.jpg",
+        "avatarSource": "wikipedia"
+      }
+    ],
+    "writer": [
+      {
+        "personCode": "p000099",
+        "name": "乔纳森·诺兰",
+        "nameEn": "Jonathan Nolan",
+        "role": "编剧",
+        "avatarPath": "people/p000099-avatar.jpg"
+      },
+      {
+        "personCode": "p000098",
+        "name": "克里斯托弗·诺兰",
+        "nameEn": "Christopher Nolan",
+        "role": "编剧",
+        "avatarPath": "people/p000098-avatar.jpg"
+      }
+    ],
+    "cast": [
+      {
+        "personCode": "p000100",
+        "name": "马修·麦康纳",
+        "nameEn": "Matthew McConaughey",
+        "role": "库珀 Cooper",
+        "avatarPath": "people/p000100-avatar.jpg",
+        "avatarSource": "wikipedia"
+      },
+      {
+        "personCode": "p000101",
+        "name": "安妮·海瑟薇",
+        "nameEn": "Anne Hathaway",
+        "role": "艾米莉亚·布兰德 Amelia Brand",
+        "avatarPath": "people/p000101-avatar.jpg",
+        "avatarSource": "wikipedia"
+      },
+      {
+        "personCode": "p000102",
+        "name": "杰西卡·查斯坦",
+        "nameEn": "Jessica Chastain",
+        "role": "成年墨菲 Murph",
+        "avatarPath": "people/p000102-avatar.jpg",
+        "avatarSource": "wikipedia"
+      },
+      {
+        "personCode": "p000103",
+        "name": "迈克尔·凯恩",
+        "nameEn": "Michael Caine",
+        "role": "布兰德教授 Professor Brand",
+        "avatarPath": "people/p000103-avatar.jpg",
+        "avatarSource": "wikipedia"
+      },
+      {
+        "personCode": "p000104",
+        "name": "卡西·阿弗莱克",
+        "nameEn": "Casey Affleck",
+        "role": "成年汤姆 Tom",
+        "avatarPath": "people/p000104-avatar.jpg",
+        "avatarSource": "wikipedia"
+      },
+      {
+        "personCode": "p000105",
+        "name": "韦斯·本特利",
+        "nameEn": "Wes Bentley",
+        "role": "道尔 Doyle",
+        "avatarPath": "people/p000105-avatar.jpg",
+        "avatarSource": "wikipedia"
+      },
+      {
+        "personCode": "p000106",
+        "name": "麦肯吉·弗依",
+        "nameEn": "Mackenzie Foy",
+        "role": "幼年墨菲 Murph (10 Yrs.)",
+        "avatarPath": "people/p000106-avatar.jpg",
+        "avatarSource": "wikipedia"
+      },
+      {
+        "personCode": "p000107",
+        "name": "大卫·吉雅西",
+        "nameEn": "David Gyasi",
+        "role": "罗米利 Romilly",
+        "avatarPath": "people/p000107-avatar.jpg",
+        "avatarSource": "tmdb"
+      },
+      {
+        "personCode": "p000108",
+        "name": "比尔·欧文",
+        "nameEn": "Bill Irwin",
+        "role": "TARS（配音）",
+        "avatarPath": "people/p000108-avatar.jpg",
+        "avatarSource": "wikipedia"
+      }
+    ],
+    "otherCast": [
+      {
+        "personCode": "p000109",
+        "name": "艾伦·伯斯汀",
+        "nameEn": "Ellen Burstyn",
+        "role": "年老墨菲 Murph (older)",
+        "avatarPath": "people/p000109-avatar.jpg"
+      },
+      {
+        "personCode": "p000110",
+        "name": "约翰·利思戈",
+        "nameEn": "John Lithgow",
+        "role": "唐纳德 Donald",
+        "avatarPath": "people/p000110-avatar.jpg"
+      },
+      {
+        "personCode": "p000111",
+        "name": "提摩西·柴勒梅德",
+        "nameEn": "Timothee Chalamet",
+        "role": "少年汤姆 Tom (15 Yrs.)",
+        "avatarPath": "people/p000111-avatar.jpg"
+      },
+      {
+        "personCode": "p000112",
+        "name": "马特·达蒙",
+        "nameEn": "Matt Damon",
+        "role": "曼恩 Mann",
+        "avatarPath": "people/p000112-avatar.jpg"
+      },
+      {
+        "personCode": "p000113",
+        "name": "托弗·戈瑞斯",
+        "nameEn": "Topher Grace",
+        "role": "盖蒂 Getty",
+        "avatarPath": "people/p000113-avatar.jpg"
+      },
+      {
+        "personCode": "p000114",
+        "name": "乔什·斯图尔特",
+        "nameEn": "Josh Stewart",
+        "role": "CASE（配音）",
+        "avatarPath": "people/p000114-avatar.jpg"
+      }
+    ],
+    "producer": [
+      {
+        "personCode": "p000115",
+        "name": "艾玛·托马斯",
+        "nameEn": "Emma Thomas",
+        "role": "制片人"
+      },
+      {
+        "personCode": "p000116",
+        "name": "琳达·奥布斯特",
+        "nameEn": "Lynda Obst",
+        "role": "制片人"
+      },
+      {
+        "personCode": "p000098",
+        "name": "克里斯托弗·诺兰",
+        "nameEn": "Christopher Nolan",
+        "role": "制片人",
+        "avatarPath": "people/p000098-avatar.jpg"
+      }
+    ],
+    "genre": [
+      "剧情",
+      "科幻",
+      "冒险"
+    ],
+    "tags": [],
+    "aka": [
+      "星际启示录",
+      "星际效应"
+    ],
+    "releaseDate": [
+      {
+        "date": "2014-10-26",
+        "location": "洛杉矶首映"
+      },
+      {
+        "date": "2014-11-05",
+        "location": "美国"
+      },
+      {
+        "date": "2014-11-07",
+        "location": "英国"
+      }
+    ],
+    "imdbId": "tt0816692",
+    "doubanId": "1889243",
+    "tmdbId": "157336",
+    "imdbRating": 8.7,
+    "rottenTomatoes": 7.3,
+    "metascore": 7.4,
+    "rated": "PG-13",
+    "awards": "Won 1 Oscar. 45 wins & 148 nominations total",
+    "images": {
+      "poster": "poster-main.jpg",
+      "posters": [
+        "poster-01.jpg",
+        "poster-02.jpg",
+        "poster-03.jpg",
+        "poster-04.jpg"
+      ],
+      "stills": [
+        "still-01.jpg",
+        "still-02.jpg",
+        "still-03.jpg",
+        "still-04.jpg",
+        "still-05.jpg",
+        "still-06.jpg"
+      ],
+      "wallpapers": [],
+      "postersTotal": 250,
+      "stillsTotal": 169,
+      "assetDir": "video/movie/0101000006"
+    },
+    "videos": [],
+    "reviews": [
+      {
+        "author": "QuiteThrilling",
+        "source": "豆瓣长评",
+        "date": "2014-11-07 00:31:01",
+        "content": "先推一篇视角独特的影评：被忽略的阿弗莱克 http://www.douban.com/note/450035111/===================================图书管理员又在历史上留下了可歌可泣的一页。五星只代表力荐，不代表满分。嫌这部电影不够硬的同学，不管你是文科生、理科生，还是特别特别厉害的、无处不在无孔不入的宇宙级科幻小说《三体》粉，Kip Thorne会出一本解释片中科学设定的书《The Science of Interstellar》http://book.douban.com/subject/26253662/，你们可以等书面世，另外在reddit讨论的学神们要不要再去看遍电影啊？事实是，这部电影尽管有Kip Thorne这样的物理学巨擘保驾护航，却意外的好懂亲民，我就算想写高哔格影评分析剧情都不知道哪里入手，简单地说，就是地球快咽气的时候，NASA发现土星附近出现了一个虫洞，虫洞只能人为制造，尽管不清楚到底谁干的，但是虫洞可以大大缩短宇宙旅行距离，因此人类有了寻找新家园的可能性。第一批派出的探索者有三个反馈了积极信号，于是主角团就穿越虫洞找这三颗星球。在前两个星球历险后，燃料不足以支撑回程，所以Cooper利用黑洞引力让Brand去找第三颗，自己则随着脱离的舱体进入黑洞。后来发现黑洞内部的世界由五维度生物（未来人类）制造，而就是他们引导着过去的人类拯救自己，Cooper领悟后开始当图书管理员引导自己并传给女儿信号，最终解决重力难题，拯救了大家。本片在理念上没有硬伤，乔纳森诺兰对情节中一些“bug”的解释我翻译好后会放在影评结束的部分，下面是一些大家可能感兴趣的细节：1、交通工具不断旋转的环状结构飞船是母舰Endurance，在拉撒路任务的第一阶段相当于一个空间站，不断传回虫洞那头的消息。它有3组共12个太空舱，包括4个引擎、4个永久舱室（比如实验室、科学家的居住舱和驾驶舱）、4个携带殖民物资可脱离母舰的舱室。Ranger飞船有两艘（小说设定），主角们搭乘Ranger1号登上了Endurance，以后也一直用的1号。在Mann博士的星球，Mann用计把主角们引离1号，抢夺1号后强行和Endurance对接未果，1号报销。而在黑洞附近，Cooper搭乘了Ranger2号把自己推射进黑洞，得以让Endurance继续前行。Lander是用于运载携带殖民物资太空舱的登陆船（小说设定，两艘），体型庞大宛若运输机，就是Brand开去救Cooper的那艘。后来这个庞然大物愣是赶上了Endurance的旋转节奏，和其达到相对静止后对接了上去。在Endurance滑过黑洞的时候，为了给母舰减重/节省燃料，TARS操控的它和Cooper搭乘的Ranger2号一起脱离了母舰。2、TARS和CASE这两个是军用机器人，外表貌似致敬2001里无处不在的黑石碑。它们拥有通过磁力枢纽拼合起来的四个主块，每个主块又能延展出更多的小磁力长方体，所以不但能奔跑、公主抱，还可以伸出灵巧的小手指“手动”操作飞船对接。诺兰就是为了避免以往科幻片对机器人相当独断的设计理念（尽量拟人化），才设计出了俄罗斯方块般的萌物，日后也许可以出手办。尽管看似黑石碑，但是幽默感和绝对服从让其显得特别可爱，在经历了2001里的HAL后，你还想要求人工智能怎么样。在片场这两个机器人由喜剧演员Bill Irwin手动操纵，方法如同操纵牵线木偶，后期他的身影会被抹去。机器人如此生龙活虎，这位功不可没。同时他也是话唠TARS的配音。TARS的小伙伴，优雅寡言的CASE是Josh Stewart配音的，没错，就是TDKR里贝恩的一号小跟班，戴红领巾的小哥（http://movie.douban.com/celebrity/1004844/）。3、黑洞和虫洞，两个计划黑洞和虫洞是完全不同的两个概念。Kip是个好老师，可以把复杂的理念解释得很清楚。影片里相当形象地解释了虫洞。它就是借助空间折叠、连接超远距离两个地点的快速通道，所以太空旅行的时间可以大大缩短，这也是拉撒路任务最关键的部分。虫洞的能量场并不稳定，而且通常很细小，不足以通过飞船，但科学家们认为可以通过反物质的负能量去中和，强化其结构、稳定其能量场，使其足以容纳飞船穿过（只有负能量才能维持虫洞的开启状态）。所以，不要说现在虫洞不存在，那是因为我们的科技水平不够。但是在未来，通过虫洞进行星际旅行的可能性是有的。黑洞吸收一切物质，谁也不放过。主角们在燃料快耗尽的情况下，利用黑洞的超强引力靠近最后一个星球，如果你玩了配合电影发行的app，就知道此时只需要控制方向，别让飞船离黑洞太近（会被吸）或者脱离轨道（会遗失太空）。最后应该是利用了Ranger2号和Lander的最后一点燃料及其脱离产生的反作用力给Endurance提供向前的动力。人们对黑洞事件视界（event horizon）之内的事情一无所知，正因为一无所知，所以理论上编剧们怎么玩都行。最近看了探索频道的纪录片《星际穿越的科学》，其中提到宇航员如果接近黑洞，标准结局是被拉成面条，但是后一句又紧接着提到“涉及到黑洞时，任何物理定律都是不顶用的，对于到底会发生什么，我们真的不知道”。两个计划的关键在于重力，我猜，这具体来说就是如何把地球上的人/一定数量的人送上殖民星球繁衍后代。B计划的5000受精卵非常现实、可行，同时也很冷冰冰，不但把第一拨殖民者当成了单纯的生育工具，也放弃了地球上的所有人类。所以从人情上看，A计划比较让人舒心。虫洞出现后，NASA开始建设这个地下掩体（前身是NORAD，北美防空司令部），作为发射井，也作为未来的空间站，但是要把如此巨大的空间站送上太空并不容易，现在的人类科技无法达到如此水平，因为我们对重力的研究还不够透彻，我们需要关于黑洞里奇点的一切资料。这在Brand爹看来毫无希望，所以A计划一开始只是个忽悠人的幌子。空间站的建设也解释了为何人类的美好明天来得如此之快——因为我们早就有所准备了，当时所需要的，只是操纵重力的方法而已。4、黑洞里发生了什么/我们的未来怎么样马修的几个惊诧脸镜头配合光怪陆离的黑洞内部景象，相当明确地体现了导演致敬库布里克的少女心。这里发生的事情超出了三次元人类的认知，是打破次元墙、混淆时空的存在。层层叠叠的嵌套时空不由让人想起了Inception和诺兰处女作Doodlebug。看来折叠、旋转、重力/物理规则的改变确实是他的菜。对于这一切混乱，剧本将其推给了五维度生物——未来人类。是未来的人类制造了虫洞拯救过去的自己、未来的Cooper领悟了这个道理后发暗号引导自己上船。Kip Thorne把关的剧本都没解释具体原理，说明这里的具体原理显然不需要我们理解，我们只要知道是这么一回事就好了。按照乔纳森的解释，黑洞的视界之内相当于有一个信箱，可以接收来自未来的信件，你只有到达黑洞才能发现这个信箱，而这个信箱也只能放在黑洞里，借由重力和一些特殊条件（比如爱）才能达到信息传递的目的。黑洞里叠加了各种时空，未来人类把所有需要的数据和方程都通过TARS之口告诉了Cooper，Cooper再以铁杵磨成针的毅力把信息翻成摩斯电码传给女儿的手表。简单地说，就是未来的某个时刻，人类要做一件拯救祖先的事情，不做不可以，如果不做的话自己就不存在。这样一说是不是像因果律武器？先达成“人类存活”这个结果，再导出拯救自己的过程。因为黑洞里时空可随意操纵，所以一切都好说_(:з」∠)_英灵Cooper，对界宝具为因果律武器：那一年送给女儿的表aka.跨维度之表。在这件任务完成后，信箱关闭，Cooper通过某条快速通道被抛到了土星附近，即虫洞的这一头，时间这种概念在事关黑洞的时候显得无关紧要，所以大家不必在乎这一瞬间过去了多久，按照结尾处男主的岁数推断，大概这黑洞一来一去100年过去了。总之，因为一切皆有可能（积极版墨菲定律），所以男主在茫茫宇宙中被拯救也是可能的——因为人类在此期间星际旅行的技术已成熟，而空间站又环绕土星，那么显然Cooper和TARS是被故意丢在那里的。他醒来时所在的空间站是人类暂时栖居的新家园之一，基于Murph攻克的重力难题升空。Brand幸运地发现男朋友（死了）的星球适合生存，因此那颗星球将成为人类的殖民地，而片尾也暗示男主将带着TARS开始新的征程。技术性的讲完了，我的心情也稍微平静了一点，没有刚开始那种怅然了，接下来是我的个人感受。我知道这部电影算是会有争议的那一种，有人会称其神作，有人会大失所望，所以各自保留观点吧。现在想想Interstellar还是翻成星际之间好，星际穿越好像只注重穿越虫洞（在电影里其实不是那么重要，只是个基本设定），“之间”却注重距离与联系，回味无穷。↓首先我们恭喜导演完成了一个让人惊叹的突破——尽管Cooper是个鳏夫，这意味着男主仍然是死老婆的命，但是这部里的女性角色居然都活着且不是坏人。这就让马特达蒙的所有戏份都让人忍俊不禁。他的角色自拍摄起就被渲染得太过神秘，冰岛拍摄时和四人主角团钻一个帐篷密谋、几部预告里都没有出现他的脸（只有背影）、他的角色几乎未被谈起以至于人们以为他只是贡献了声音报个倒计时什么的——万万没想到一脸憨厚的马达承担了“人性阴暗面”部分。没错，他就是人类版HAL，前半部电影一直在夸赞Mann博士有多棒，就如2001里HAL是公认的最强电脑一样。这张朴实的脸给人一种格外可靠的感觉，不过却被恰到好处的BGM出卖了（山巅对话的配乐一直很诡异，我差点以为那是马达的flag，比如他说了一半就会被风吹起的石头削了脑袋之类的）。科幻片硬核到一定境界就变成了恐怖片（比如2001），也许关于剧情大家会争论不休，然而对配乐肯定是一致好评。汉斯似乎很久没写过如此平和却直击人心的音乐了，当初的情况是——“我能说的只有这些：在我开始之前，也就是今年一月份的时候，克里斯跟我说‘汉斯，我会为你写一页纸的文字，然后给你一天时间，你只要把这页纸带给你的任何想法都写进音乐，无论是什么。’那页纸和电影一点关系都没有……准确地说，克里斯那天写下的东西，或者说他希望从我这得到的东西，更多是关于我自己的故事，而非电影情节相关。他真的深知如何触动我的内心（get under my skin）。这就是我们之间的游戏。”如果这部电影让你不止一次潸然泪下，父女的演技是一方面，配乐则同样是胜负手。配乐讲述了汉斯自己的故事，那里有回忆和感性的力量，饱含着无止境的汹涌情绪，这些情绪凝练成了与电影相称的心境——超越时空的爱。这个非常G级的主题可能会让部分观众失望。诺兰是复杂叙事、烧脑剧情、悬念、反转的代名词，可以说是大卫芬奇的光明版，前提是他和大卫芬奇共同具备的特点——出乎意料的狡黠和对人心的洞察。然而星际穿越既没有格外意外的段落（来自未来的消息+反叛的好人都谈不上创新），居然还爱满人间，似乎真的更适合斯皮尔伯格。然而从一系列的访谈里我们得知，诺兰，抛开以往那些辛辣，其实是个行事果断的古典派，对老少咸宜的家庭片感情深厚，一旦得到最顶级的资源，立刻会着手干自己想干的事。在华表殷切的“买买买，你要什么我们都给你”的鼓励下，他拍出了这部好莱坞没有公司敢交给任何导演拍摄的电影：——一部绝对现实主义的硬科幻，它硬到制片人/编剧是与霍金齐名的物理学家，履历表里赫然有一篇《虫洞，时间机器与弱能量条件》；它现实到飞船内部几乎全是模拟信号而非酷炫至极的数字信号，而主创们认为最超越现实的东西居然是其他太空探险片飞船最基本的设定：休眠舱，影片主题则是如今人类也在面临的难题：饥荒与沙尘暴；它朴素到一块绿幕都不用，能实景则实景，能模型则模型，不能模型用投影，总之要让演员真的和场景互动，就是在这样的条件下它也制造了最炫目的太空奇景，让观众如临其境心潮澎湃，当布满星辰的空间如壁纸般折叠时，当神秘的球形虫洞隐隐向Endurance召唤时，当可怖却美到让人心悸的黑洞将渺小的飞船吞噬时，那些时刻会成功引燃每个人对太空的向往、对自身存在的思索——你找不到比它更硬、更现实、更不闪耀的科幻片了，它甚至没用一点小花招，连真空里的无声环境也是真的无声，我是说，真的无声。制片厂不允许电影里不用一点音轨，因为绝对寂静会让观众恐慌，诺兰一拍桌子说太好了，就要这个效果……就是这样一部完全基于现实、由著名mind-fuck导演制作的电影，却拥有最不可思议的两个内核：爱，以及神棍般的拯救方案。这让刚才那一段的铺垫成了无关紧要的细节，管你是多高大上的严谨学术设定，总之一切设定为剧情服务，而在绝对现实的基调下，影片用完全跳脱现实认知的方法给出了一个happy ending。这是诺兰一开始就打算好的，他想描绘一个触手可及的未来，和一个完全“跳脱”的结局，和先前铺垫的未来一点都不相称。不巧的是，高维度生命的介入，这点2001已经用过了。如果我没看过2001，我可能觉得这种处理方式十分天才，可是我们都认识Dave和黑石碑，都经历过不明觉厉的黑屏和精神污染MAX的银河映像，所以，即便这次看到了完全不同的视野、叹为观止的嵌套书架——有棱有角、冰冷、机械，诺兰的一贯风格，在盗梦里已经体现得淋漓尽致了——可它还是让人一直想起库布里克。而父女隔时空交流，尽管在影片的设定下很科学，却还是让人感到“这一点都不科学”，突如其来的美丽新世界也超前得太多了，一瞬间惊出一身冷汗以为Cooper在做梦。仔细想来这倒是说得通，Cooper在黑洞里是无视物理法则的开挂状态，未来人类开一条快速通道就能瞬间拯救他，只要他传达出信息完成了任务。而有可能被口诛笔伐的交叉剪辑段落：图书管理员Cooper和回忆往事的科学家Murph，如果你质疑“时间怎么可能那么巧，这两人居然同步了？”，那么请记住，时空不是定量，黑洞里的时空可以选择、干涉，两人并非“同时”，而是Cooper找到/挑出了那个时刻的女儿。感觉很厉害的样子，和现实主义差好远，可一旦扯进来自未来的高维度生物，一切皆有可能。这真是个相当方（偷）便（懒）的设定啊。撇开这点不谈，我不满意的大概是——喂，Doyle便当发得好随便，为了推进剧情居然站在原地等便当？其实完全可以表现为“Doyle一刻都没耽误、用尽全力想上船但还是被卷走了”，不知为何要让他发呆。还有，那段放火烧田/冰原摔跤的交叉剪辑比较怪异，前者的戏剧冲突太浅，根本无法和后者相提并论，哥哥的态度很匪夷所思，似乎是为了制造冲突而冲突，有点夸张了。至于担负起以往女主角任务（黑化并/或死去）的马达，这次的阴暗设置和之前的诺兰作品比有点小巫见大巫，也算不上旅程中的最大危机，而且笑果还挺足的，也许导演更擅长写邪恶的女人。尽管如此，那句“50%是我这些年来最大的概率”还是让人唏嘘不已。Mann博士曾经代表了人类最美好的一面，无畏、大爱、探索与牺牲精神，他就是开拓者和先驱者的典范，然而终究敌不过孤寂和生存本能。你甚至在责备他之前也要犹豫一下——他想干掉Cooper，完全是因为Cooper想回家，而任务则需要Endurance继续前行。当然，这一切都建立在Mann谎言的基础上。这就是人类，时而伟大，时而懦弱。不过这些设定也只是旅途中的坎坷而已。这部太空探险片里没有光怪陆离的外星生物、叛变邪恶的AI、酣畅淋漓的空战，有的只是最真实的目的、最艰难的抉择和最现实的挑战，这就是触手可及的未来、人类最可能遇到的麻烦，尽管如此，诺兰还是从开始就下定决心给我们好结局。“我想给本片注入一点阿波罗精神。” 他说，他们那个年代的人伴随着NASA的航天项目长大，那时人们向往太空，不懈探索，如今却固守地球，令人沮丧——这部电影不仅关于爱，也关于导演希望全人类都坚持的梦想，探索、开拓、冲出太阳系、冲出银河系，我们不该葬身于地球。导演把他的太空梦，他对6、70年代宇宙探索黄金时代的回忆，他对人类进取心的深刻感情通通写进了电影，这可能会激起又一波思想火花，或在未来科学家的心中埋下火种，或让更多人梦想扎进星空。那么多科幻片描绘的场景距离我们如此之远，看起来遥不可及，然而这一部似乎就在我们触手可及的地方，只要更多人为此努力，我们的足迹一定会行至更远。Brand教授反复念及的诗句：Do not go gentle into that good night. Old age should burn and rave at close of day. 这就是指引人类的明灯，同时也是诺兰向观众传达的意思，如果TDK三部曲还不够表现他的燃向少年心，那么这部则让其初心彻底暴露——原来仍然是爱的战士啊。所有震撼视听的异世界好像都不及Cooper对女儿突破次元的爱。Brand认为，爱不是虚无缥缈的设定，现在我们的理解有限，也许在更高的次元，爱可以被量化。是的，爱是推动一切的关键要素，影片的两个关键词分别是爱与重力，唯有这两者可以穿越时空。为什么Cooper父女会被选中？因为地球上没有任何一个人能做到他们这样，只有Murph才会念念不忘父亲的任务和信念，这种牵挂如此之深，以至于黑洞那头的人可以利用这丝牵挂完成信息的传递。如果这种爱不够强大，那么Murph也不会回到儿时的房间看表了，何谈拯救人类。三刷时也特别注意到成年Murph和哥哥大吵一架后的转折，她在路上看到了两个灰头土脸的孩子，趴在卡车后面没精打采地望着她。如果地球得不到拯救，这些孩子将是最后一代，呼吸着沙尘，啃着早晚要病死的玉米，目光所及之处皆尘土，这些将构成他们最后的记忆，人类最后的记忆。Murph就在那时领悟到自己不能“坐以待夜”，就算拯救不了全人类，至少她可以救嫂子和小Coop，所以她才猛打方向盘，决心最后一搏。她在地球上为家人的生存而战，虫洞那头，她的父亲正为了同一个目标准备牺牲自我。因此人类的梦想终究以爱为动力，就如远在美国的儿女牵动着Limbo里的Cobb，而哥谭则牵动着布鲁斯韦恩。最后以先行预告里的台词做结，向主创们致敬，也向具有探索精神的人类致敬。We've always defined ourselves by the ability to overcome the impossible一直以来，我们通过战胜不可能来定义自我And we count these moments我们得算上这些时刻These moments when we dare to aim higher这些时刻我们敢于瞄准更高的目标to break barriers来打破屏障to reach for the stars以触碰星辰to make the unknown known让未知变成已知We count these moments as our proudest achievements我们把这些时刻看做最骄傲的成就But we lost all that但我们失去了那一切And perhaps we've just forgotten也许我们只是忘记了that we are still pioneers我们依然是先驱者and we've barely begun我们几乎才刚刚起航and that our greatest accomplishments cannot be behind us我们最伟大的成就绝不会属于过去that our destiny lies above us我们的命运横亘于头顶的未来=======乔纳森解释为何未来人类不通过一种更容易理解的方式向过去传达信息：用重力传达信息只能在特定的空间内。在2001里，黑石碑埋在月球上，是因为只有科技发展到一定水平的文明才能到达月球、找到石碑。这就像一个测试。如果你真能把它挖出来，说明你的科技水平已经达到了要求，那么你就得到了如何往更高层面发展的指示。而星际穿越里则是不同的情况，那就是交流/重力是极其复杂的现象，只能在最极端的空间里才能达成。也就是说，你可以想象一个信箱，这个信箱可以接收来自未来的信件，然而这个信箱在黑洞的事件视界内，你甚至不知道它就在那儿）一篇克里斯的访谈：http://site.douban.com/134535/widget/notes/12885672/note/449946943/Q：网友们已经试图指出《星际穿越》的漏洞了。你有没有觉得这种流于表面的咬文嚼字有点蠢？毕竟这只是一部电影。N：老实说，我还没去看他们试图指出了哪些漏洞，所以我还没办法逐条解释。我的电影在某些方面总是被以一种高得奇怪的标准衡量，而其他所有人的电影也没被这么对待过——这我可以接受。人们总是控诉我的电影有情节漏洞，我非常清楚那些漏洞的存在，而且会很清楚人们何时会发现，但他们一般发现不了。不过大家在质疑哪些科学问题呢？那可是基普的专业领域啊。ps. 本片预算为1.65亿，本来华纳和派拉蒙想给两亿，导演说要两亿干嘛？又用不完……为什么用不完？诺兰曾打电话问扎克“（拍钢铁之躯时）你们种了多少玉米？”，扎克说，种了300亩，花了好大一笔预算啊！诺兰于是让剧组种了500亩，然后把玉米卖掉了，还赚了一笔。pps. 四刷过后我觉得完成了又一次和2001的神交。诺兰是库布里克最伟大的粉丝，不服也不跟你们战。",
+        "url": "https://movie.douban.com/review/7181757/",
+        "title": "当你想描写一个触手可及的未来，然而却……"
+      },
+      {
+        "author": "便便",
+        "source": "豆瓣长评",
+        "date": "2014-11-05 15:13:13",
+        "content": "11.4号70mm IMAX场，提前接近一个月就订好了票，连基友都没有带就准备一个人静静地观赏这场电影，免得到时候在回去的路上听人balabala说哪里不好看、又比不上哪部电影之类的废话。好吧，其实是因为基友品味太差，只喜欢R.I.P.D这种类型的片，实在提不起兴趣提前一个月订这种高质量电影的票。  今天最后提前半个小时就到了场，然后发现中间的位置居然已经被全占了，卧槽，都是提前一个小时就来了么。最后只好选择坐在了最科学的观影位置，黄金分割线上！  哦也，下面进入正题。。下面是没有具体情节剧透的观影感。  有几个基友问我好不好看，其实我有点不知道怎么回答。好看当然是好看，但这又不是好看两个字能够涵盖的。把Interstellar总结为好看，我对自己的语言能力又开始纠急。    首先，这不是一部想象力爆棚的电影，那部叫做Inception，但这是一部敢想的电影。关于星际的电影，都恐怖异常。即便把标题告诉你，你也不知道，不敢想剧本可能会讲啥；把剧本想出来之后，即使把它摆在别的导演面前，也不会有人敢去拍这部电影；即使有人敢去拍这部电影，也不会有公司愿意给他2亿美元加1亿美元宣传费让他去拍这部电影，也不会超明星的背后团队协助他拍这部电影，Hans Zimmer, Kip Thorne；也玩不出这技术（不要说居然还没用绿幕）；也招不来Matthew, Anne Hathaway, Jessica Chastain, Matt Damon, Michael Caine这样的主演。除了诺兰，整个好莱坞有这个技术、有这个实力的，可能就只有一个卡梅隆了。别的人，想也不敢想。  关于和其他电影的对比，单看这部电影，你可以觉得它有瑕疵，但真的不能把它和其他电影对比，一对比发现差距太大，直接5星。Gravity算是关于太空的好电影了，但是与Interstellar相比，那些在空间站中倒来倒去的小玩意儿就跟过家家一样。Gone Girl算是今年目前为止最不错的电影了，但芬奇还是属于不敢想的类型，或者说他和诺兰厉害在两个不同的领域。他和诺兰的区别，就好像是Mark Zuckerberg 和 Elon Musk 的区别一样，两个人都很能赚钱，但是我还是喜欢火箭多一些。  一开始，我以为这部电影将会是诺兰突破的一部。他的电影多是有着奇思妙想（Prestige），又有把叙事的技巧运用到极致的Momento。但这部电影的前半部分让我以为这会是一部大巧不工的作品，以为诺兰的技术已经到了可以摒弃一切叙事技术的境界。因为故事本身已经拥有足够的磁性，不需要再增添其他的枝节，否则就是画蛇添足。因此，我觉得电影的前半部分是杰作，而后半部分是技术上的好作品，（无论是从故事的创意、还是电影的技巧上来说），但却是诺兰自我的枷锁。他无法摆脱要运用那些小花样的欲望，但在人类存亡和星际旅行这样宏大的主题面前，那些反转真的没有引起太大的感觉。虽然很有意思，但是降了一个档次的有意思。  儿童时候的Murphy是叫做Mackenzie Foy的小女孩演的，在trailer里面看不出来特别漂亮，只是觉得选角不错，果然和Jessica Chastain长得很像。但在电影里面真的是美爆了，好想亲亲她的脸，哎，萝莉控真是没救了。。  本来以为Jessica Chastain估计会因为这部片终于爆红，她虽然有The Help和Zero Dark Thirty两部名片在手，已有很大名气，但这两部片都比较偏冷门，Interstellar估计才会让她真正地广为人知。但她在这部片里面的角色其实没特别出彩，所以估计以后她还只会是我一个人的最爱，嘿嘿；）。  “所有的光芒、与荣耀都将汇聚在Matthew的身上”。其实我只是想说Matthew在里面的表现太抢眼了，其他人都沦为路人，即使是Anne Hathaway，也只有在最最后一段让我稍微为之感动了一下。不过影帝影后的名头真的不是盖的，这两位在里面的演技爆棚，有几段比较揪心的，让我把装薯条的盒子抠坏了。哎，我就是比较专注。  很喜欢AH在里面关于爱的台词. If we don't understand love, what if love is another dimension, what if love is something that transcends space, time, gravity.真心不太记得具体是啥了，但诺兰所有电影里面对爱的主题的执着真的是让人印象深刻。  =================剧透的分割线========================================================================    有点晚了，写不动了。最重要的一个反转剧情估计就是Matt Damon作为曾经在地球上最好的宇航员，最被信任的一个先驱队成员，却为了自己的生命，发回自己所在的星球的是非常适宜居住的假信息。我想说的是，Matt Damon的角色其实和Matthew的角色是对立的，也是诺兰常用的一个手段，他们两个的角色，其实就和DK里面Harvey Dent 和 Batman 的角色一样。当两个人都失去了Rachel的时候，Harvey Dent选择了堕落成为追求无条件的公平的双面人，而Batman选择了继续坚持原有的信念，他们忍受着同样的痛苦。Matt Damon 和 Matthew 有着同样地对生存的渴望，一个就是为了活着（可能也有什么其他原因，但电影觉得没必要讲），一个为了回去见女儿。但Matt选择了制造假的信息，以全人类的未来为赌注，换取自己的生存，而 Matthew 毅然将自己当做是宇航飞船的负重，把自己抛弃在黑洞中。这个的对比，尤其在说明Matt Damon是曾经最优秀的宇航员，是其他先驱队员的精神领袖之后，显得尤为强烈。 更让人理解主角的选择其实是多么的艰难。======================== 全剧透 ============================  未来的地球，到处都刮起了北京的沙尘暴，很多植物开始无法挽救的死亡，人类终于醒悟，“赫鲁晓夫是对的！”，开始大种玉米。最缺稀的职业是农民；没有军队；没有竞争。（怎么突然感觉有点奇怪，我是在描述美帝么。。）我们的主角Matthew就是一名农民，不过他不是一般的农民，他是前NASA飞行员农民。    他和他的女儿Murphy，儿子，还有岳父住在一起。（那两个名字都不记得了，whatever，对吧，改：儿子叫Tom, per 饭‘s comment）。他们住在一个非常普通的美国大农村中的house里面，真的是非常非常普通，除了他女儿的房间其实是一个连接着在黑洞中的一个五维空间的通道之外，和其他房子没什么区别。  Murphy先是发现房间里面的书有时候会无缘无故地掉下来，她跟爸爸说是有鬼，Matthew作为一名Engineer，（对。。他还是Engineer）告诉她要用科学的方法探究这件事情。  另外，这时候地球生活非常严酷，社会资源短缺，时不时会有非常严重的沙尘暴，一次沙尘暴中，Murph忘关自己房间的窗，沙尘暴吹了进来，沙子落在地面上形成了一条条的有规律的条纹。Matthew研究了一下，发现这个奇特的现象是由于一种奇怪的重力作用引起的，而这些条纹其实是2进制的编码，代表一个地理位置。  他驱车前往那个地点，女儿想跟着来，他怕危险，不让。结果车开出去一段路之后，发现女儿早已经藏在副驾驶座上的一大堆杂物底下。两个人一起到了那个地点，结果你猜他们发现了什么，没错，一只野生的安妮海瑟薇！哦，好像是野生的安妮海瑟薇把他们给抓了起来。  经过一番误解、争辩、屈服、然后协调的“正常”电影类型结识新朋友Protocol之后，Matthew才知道这个地方NASA最后的秘密根据地。他见到了安妮海瑟薇的父亲，同时也是他以前的导师，Michael Caine。Michael Caine 跟他讲了NASA拯救地球的计划，NASA已经发现地球目前仅有的作物也会逐渐一一灭绝，人类如果留在地球上，最后的结局将是窒息而死（是因为没有了光合作用么？）。但在十几年前，NASA发现在太阳系内，出现了一个虫洞，这颗虫洞连接着另外一个星系，虫洞另一端的附近，就有着12个可能适宜人类居住的星球。The grand plan to save human race 就是要迁移到另一个适宜居住的星球上去。\"Mankind was born on Earth. It was never meant to die here.\"  他们把制造出这个虫洞帮助人类，以及用那个奇特的重力场形成的沙子条纹传递这个地点给Matthew的生物叫做“They”。  已有由Dr. Mann带领的12名先驱队员出发去探索哪颗星球更适宜人居住，在上面做初步的调查，一人一颗星球，然后把信息发回来。每个人都作出了巨大的牺牲，因为除非他们所在的星球适宜居住，可能不会有人再将他们接回去。Plan A 是Michael Caine扮演的教授将要解决一个gravity的问题，可以将剩余的人类都带去到新的星球去。Plan B是，抛弃旧地球的人类，飞船将携带着上百的人类胚胎，在新的星球重新孵化出新的人类。  当然，万事具备，只欠Pilot。Matthew就是那个pilot.   Matthew决定要离开家人，拯救人类，他告别女儿，但女儿始终不肯原谅他离开，女儿告诉他，她解开了那个书架掉落的书的秘密，是摩斯密码“Stay”的意思。但Matthew还是走了，开着卡车离开了家，看着副驾驶座上的一堆杂物，翻开，却没有女儿的身影。  插播一段评论，不得不说诺兰是讲故事超级高手，是一帧画面都没有浪费。和普通的灾难片不一样，诺兰一直都没有用上帝视角来介绍这场灾难是怎么严重，是怎么回事儿。就是在Matthew的日常对话中，在和老师谈论女儿“太聪明”的问题时，在看棒球遇到超级沙尘暴，等等，描述完了灾难。同时也使得他和女儿的感情被充分地刻画，very solid。最后离开时，翻开驾驶座上的毯子想看看女儿在不在的细节，让人非常想落泪。    不过这样的缺点就是，最后要通过NASA必须需要Matthew做驾驶员等等一系列非常牵强的情节，终于把我们主角顺利带入太空。而且还涉及到后面我想说的一个我目前想到的最大的漏洞，最后再说吧。    进入太空这段就没什么好说的了，就是享受各种太空画面吧。那个机器人也蛮有意思的。哦，在飞船的一行人有Matthew，Anne, Wes Bentley, 还有个黑人。。（我真心没有歧视，好吧，他叫David Gyasi，真心不认识）。接着他们穿过了虫洞，在穿过虫洞的时候，在扭曲的空间里，Anne Hathaway说她碰到了“They”的手。好吧，whatever。  到达另一个星系之后，为了节省燃料，他们先探索了离黑洞很接近的一个星球，据在这个星球的先遣队员传来的信息，这里很适合居住。不利的因素是，由于离黑洞比较近，时间扭曲的比较厉害，在这个星球的一个小时，相当于外界的7年。他们迅速降落在这个星球上，貌似在一片水域上，水，very promising。但是先遣队员居住的基地，以及各种设备，全都散落在水域的各个地方，人也找不着。哎，懒得说这么细了。以为远处是山的东西，其实一个巨大的浪，一个浪打过来，把Wes Bentley打死了。没数据，没法决定，飞船还给进水了，耽误好久，好容易飞船恢复了过来，赶紧离开。回到在绕着黑洞盘旋的主飞船上之后（在地球同样时间流速的地方），发现已经过去了20多年。  飞船神奇地还可以收到地球发过来的信息。这时候就是Matthew飚演技的时候，儿子已经娶妻生子，成为了一名合格的农民，而且已经放弃了父亲还活着的希望。女儿还是没有原谅他，但终于在和他同岁的那一天，向他发来了一段录像，希望他能会来该有多好。  由于耗去了太多的时间，飞船的能源所剩无几，只够探索附近的一个星球然后回去，或者探索附近的两个星球然后回不去两种情况。剩下的三个人要决定去哪个星球。Matthew希望去Dr. Mann所在的那个星球，据Dr. Mann所说，那个星球非常适宜居住，而且Dr. Mann作为领袖，按理来说非常可信。Anne Hathaway希望去另一个星球，但是由于她爱探索那个星球的那个人（再次不记得名字），她的意见受到了质疑，被否决了。这也是Anne Hathaway飙演技说爱可能是另一个Dimension的地方。  到了Dr. Mann所在的星球，一片冰原，连云都结冰了。找到了Dr. Mann, Matt Damon饰。（请准备好接受一系列的反转情节。）首先，Anne和Matthew通过机器人接到了地球的视频，Anne的父亲，Michael Caine演的那个教授死了。原来，教授所说的Plan A一直都是一个骗局。他早已解开了关于Gravity的方程，但是没有黑洞的数据，是不可能得出答案的。所以其实一直只有Plan B。地球上的人只能等死。Matthew的女儿质疑父亲是不是一直都知道这件事，但把她留着地球上等死。哦，忘了说，Matthew的女儿，Murphy成了那个教授的弟子，长大后成了他的左右手，是继任的物理学家。大家收拾情绪，Dr Mann说在地表附近，有非常适合居住的地方。于是大家准备在那里培育人类的下一代了。  Matthew和Dr Mann一起准备去他所说的那个适宜居住的地表的地点，其实根本不存在，Dr Mann知道伪造这个星球适宜居住是能让有人来救他的唯一方式。在他们离开基地一段距离之后，Dr Mann暗算了Matthew，但Matthew凭借强大的意志挺了过来，警告了Anne，Anne过来救了Matthew。另外一个黑人在基地里碰到了Dr Mann设下的陷阱，被炸死了。Dr Mann抢先一步，偷走了一部飞船，想要抢先进入然后控制在外太空的主飞船。Matthew和Anne驾驶的飞船紧追其后。Dr Mann在no zuo no die地没对接好飞船就想强行进入主飞船失败后，导致主飞船一侧被毁，并被撞地偏离轨道。紧接着是一段整部电影最刺激的，再不可能的情况下，Matthew完成飞船对接的情节，拯救了飞船上存有的人类胚胎。感谢Hans Zimmer！没有你就没有诺兰！ 他们现在只能向最后一颗附近的星球进发，燃料所剩无几，而他们要利用黑洞balabala怎么样，才能用剩下的燃料到达那颗星球，Matthew也别想回去见女儿了，不可能了。最后为了摆脱黑洞的引力，Matthew让自己乘坐的，以及另一个机器人乘坐的探险飞船脱离了主飞船，减少负重，好让Anne Hathaway能够到达最后一个星球。  Matthew在黑洞中不停地掉落，最后到达了一个奇异的空间。这就是那个前面说的连接他女儿房间的5维空间。这是一个3维空间的5维空间。就是说可以在三维空间中穿梭不同的时间，另外一维是gravity。 原来那个造成他女儿房间内的各种奇怪现象的人是他自己，他醒悟到其实没有“They”，那个创造出来虫洞的，和这个空间的生物，可能就是很久以后的人类。而利用引力摆出条形沙子传达地点的是他自己，最后用掉落的书组成“Stay”的莫斯密码的也是他自己，因为他后悔了，他不再想离开女儿。  这时候地球处于最绝望的时刻，他的女儿Murphy在知道真相之后，依旧决心要找那个方程的解，她意识到这时候唯一能帮助她的，可能就是她小时候那个奇特的房间。她回到房间，想起来父亲临走前给她那个表。表的秒针一直在不停的跳动。  那个机器人同时也掉落在了黑洞中并收集到了所需要的信息，Matthew通过秒针把信息用莫斯密码传递给Murphy，Murphy回想起小时候的一切，意识到了从前其实一直是父亲在和她交流，也明白了跳动的秒针的含义。最后通过这些信息，解开了方程。  5维空间崩塌，Matthew在病房中醒来，他在最后时刻被乘搭着地球幸存者的、凭借他女儿理论支持制造的Cooper Station救了。黑洞中的时间难以测量，他在5维空间或者说黑洞中的一段时间，其实在地球上已经过去了许久。他见到了老去了，躺在病床上的女儿。  或许这时最需要他的人不在这个地方，不再是他的女儿，最需要他的人在另一个星系的那个星球，Anne Hathaway一个人承担着全人类的希望，她不知道地球上的人已经得救，孤独地在这个星球上，培育着下一代的人类。Matthew悄悄地开走了一艘飞船，驶向那个星球。（完）  先让我感慨一下，我居然他妈写完了！卧槽，这么鸡巴长，以后再也不敢这种事儿了。  结局将最被人诟病，最后成为了一个cliche的大团圆结局。虽然一切都可以解释，黑洞将时间扭曲，所以Matthew在太空中短暂的生存时间，在外界地球以足够让人类做出拯救自我的cooper station。既然“They”可以在黑洞中制造出5维空间，当然也可以把Matthew从另一个星系送回太阳系，送到cooper station可以拯救的地方。Murphy需要一些运气才能刚好从Matthew开始发莫斯密码的时候就意识到手表在传递信息，不过或许并不需要所有信息就可以得出结论，或者Matthew重复传输了多次。这些细节都不重要了。。不过以后要把懂莫斯密码作为宇航员必备技能。。  不过结局这个东西，本来就是一个很奇怪的玩意儿。故事源于生活，生活是没有结局的。电影硬要加个结局，实在是很蛋疼的事情。所以有时结局不会让人满意，也是可以理解的。看过的几部Stanley Kubrick的电影，就没个正常结局的。所以，请忽视结局。======================= 漏洞 =============================（这段纯属错误，请跳过。。）  这是在重述情节时突然意识到的。  Matthew后来希望自己不要来星际旅行，希望Murphy能把自己留下来，他后来传达给Murphy的信息是“Stay”。在五维空间他痛苦流涕地说 make him stay. don't go..     但几秒钟之前同样是他自己用重力把NASA的地址传达给了自己。不传地址不就没有留下还是走的事情了么。不就一直都会留在Murphy身边么。。这难道就是传说中的精分？！  好吧，诺兰，我错了，我不应该挑你的错。但处女座，你懂得！！=================== 2 刷确定自己错了无漏洞========================发现我果然错了，就像大家指出的那样，记反了顺序还有忽略了一些重要情节。。有错要认错，所以我还是把错留在上面吧。。真实的剧情原来是！。。Matthew先留下了Stay，因为刚掉进黑洞的时候，特别后悔离开。之后突然联系上了机器人，知道已经收集到了数据，可能可以使用这些数据拯救地球上的人类。于是这时他有理由离开地球，而且也应该离开地球，这样才可能救自己的女儿。Matthew后来灵光一闪，意识到其实是\"we brought us here.\" 于是赶紧把NASA的地址给自己传过去了。以上基本综合评论。lz去看的时候还抱着一丝侥幸心理，结果华丽丽地错到了家。还暴露了自己老年痴呆的问题。。非常严重。。不过幸好应该都不认识我，应该。。谢谢大家的解释！同时也抱歉让大家花时间解释完全是我自己的理解错误。。=========================================================第二次看果然没有第一次看的时候那么感情强烈了。不过Matthew在离开的时候掀开副驾驶座上毛毯没有发现女儿那段，和看积了23年的录像的情节还是让人非常感动。其实我也不知道第二遍到底要看什么，（实际上主要是想看自己错没错。。），可能就是想再次沉浸在诺兰的科幻世界中。比较独特的是，这次看居然对Dr. Mann产生了一丝的同情。第一次的时候，听Dr. Mann在那儿碎碎念什么生存意志，只是觉得这对话怎么这么奇怪，不会有什么不好的事儿马上要发生在Matthew身上吧。而这次意识到这其实是Dr. Mann想为自己的行为开脱，他屈服在了人类最强大的力量，求生的意志面前，实在情有可原（貌似也是诺兰喜欢重复的主题，当时立马有种DKR的即视感。）。英雄可能能在某一个时刻作出牺牲自己的决定，然后牺牲了，也就成了英雄，但他可能也难以在几年的时间中时时刻刻都坚持这种想法。和朋友讨论，他说诺兰给这些人物命名，可能都有各自的含义。Dr. Mann可能就指得是人，人性。同样，Murph，（what can happen will happen.） 或许代表着奇迹。在Matthew和Anne刚入太空的时候，貌似有一个小小的伏笔，他们两个在马上进入休眠前聊天，Anne说之后可能会遇到很多困难，但不会遇到邪恶，因为参加这个任务的人都可以说是人类中最优秀的人。于是库布里克刻画了机器的邪恶，诺兰刻画了人性的邪恶。再补充一些之前遗漏的细节：   Matthew选择牺牲自己，是因为没有足够的给养可以让两个人在新的星球生存下去。   那个隐秘的NASA总部整个就是一个在建造中的巨型空间站。Prof. Brand(Michael Caine)研究的是采集以及利用重力(harness gravity)，可能只有这样才能让一个庞然巨物进入太空吧。  关于他的研究，最后方程早已解出，但是需要关于奇点（singularity）的数据，否则就无解。关于奇点，电影里面的解释是它是在黑洞的内部，如果把黑洞比作一个蚌，奇点就是里面的珍珠。所以要获得关于奇点的数据，必须要进入黑洞，但任何东西进入黑洞之后都无法逃逸，因此，人类所知的任何方法都无法获得这个数据。（虽然说Cooper掉进去又出来了，但是他出来的时候地球上的时间已经过去了90年左右，如果不是用无视时间的gravity传播数据，地球上的人类可能早已经灭绝。。。尝试找茬再次失败。。）  楼主好无聊，算了下Matthew一家的年龄，Matthew走的时候女儿10岁，儿子15岁，到达土星的过程中休眠了2年，然后第一颗星球用了23年，回来之后看录像说女儿说她和他同岁了。所以他走的时候最大年龄是33岁。18岁就生了儿子，好早。。(改：下面评论说没有计算穿越虫洞的时间蛮有道理的。。所以就没法计算年龄了。。）  话说，最后回到cooper station一句也没问儿子，连生死都不关心，虽然估计不可能活着了，但这做儿子的也得挺心寒的。。    看大家讨论Stay，那个坐标，和最后传给Murph的关于奇点的数据，楼主想解释下分别都是用什么方式传递了。。请原谅处女座的较真儿。。  stay是以莫斯密码形式传递的，一排书代表Dash（----），一两本书代表dot （。）  坐标是二进制表达（Binary representation），粗的沙子线代表1，细的沙子线代表0。  最后传给Murph的数据是用莫斯密码传递的。  除了Stay，其他两个都是由那个机器人（应该是TARS吧）翻译成相应的形式，然后告诉Matthew的。不然美国人数学这么差，怎么handle得了;)  然后还有一个细节是，最后五维空间崩塌之后，Cooper穿过虫洞（顺便摸了摸安妮海瑟薇的小手儿），最后长眠于宇宙的画面，旁边是土星的光环，其实仔细看，可以看到在远处，黑暗深处有两个地方在闪光，应该就是最后救了Cooper的Ranger飞船，预示着其实Cooper会得救。  另外一个比较有意思的地方是汽车爆胎之后，Cooper和女儿谈话的时候，lz发现Murph把常用的铅笔插在了头发里面。（还有这张剧照 http://movie.douban.com/photos/photo/2205392045/ ）我好无聊。。  关于Endurance的设计，根据剧照分析，应该是有两个Ranger （http://movie.douban.com/photos/photo/2209406446/）竖着插在中间：（http://movie.douban.com/photos/photo/2209406479/）。然后应该有两个Lander（http://movie.douban.com/photos/photo/2209406460/ ）分别贴在中间柱子的两侧，和竖着的Ranger成垂直状。（http://img5.douban.com/view/photo/raw/public/p2183645289.jpg）（不知道为什么第二张里面只有一个Lander。。）（完）",
+        "url": "https://movie.douban.com/review/7179454/",
+        "title": "Interstellar 观影感+全剧透+2刷发现果然没漏洞。。"
+      },
+      {
+        "author": "更深的白色",
+        "source": "豆瓣长评",
+        "date": "2014-11-06 22:35:00",
+        "content": "Spoiler Alert在我们进入对“Interstellar”的具体讨论之前，也许需要对诺兰导演进行一个小小的总结和分析——他也许是我们这个时代最能兼具票房号召力和影迷人气的导演。如果我们抛开影视工业的层面，仅仅从个人才华上分析诺兰的成功，那么他最大的优点和长处在哪？或者说，诺兰的电影到底好在哪？我认为是对叙事结构的精巧设计。很多导演都会采用非线性叙事， 但毫无疑问诺兰是其中的佼佼者。以我个人最喜欢的诺兰作品“Memento”为例，同一主角的两条故事线，故事被分割为碎片，一条顺序发生，一条则是真正的逆时进行。就好像一根由两端分别点燃的线绳，逐渐在填满火药的中点交汇，爆发出了最后的火花。这样的设计需要主创具有极其清醒的头脑，故事的细节必须被小心的设计，才能在最后的交汇处给予观者以智识的快感。不同于普通非线性叙事的形式美感，诺兰的作品具有某种数学式的精妙美学。而精巧结构中蕴藏着更加奇妙的现象：结构本身所存在的张力自然地渗透进入了叙事之中，故事的展开显得水到渠成。当然，这与类型上的悬疑片特点有关，观者在终于捋顺结构的同时，也就同时释放了悬念，得到双重的满足。一些广受好评的诺兰电影都具有结构复杂精巧的特点，例如“Inception”的五重梦境。当然黑暗骑士三部曲不符合这个范式，在这三部电影里，诺兰体现的是对既有题材的主题改造深化能力。但如果我们从另一个角度来看他的作品，会发现，在结构之外，诺兰其实是相当好莱坞叙事的（或者称之为“通俗”）。“Inception”的每层梦境中的故事都是一个完整的、cliché的好莱坞故事。而黑暗骑士系列则也是对好莱坞既有主题的化用（善恶模糊、社会运动），创新之处只在排列组合。从这个角度来看，依然是把握结构的能力。终于，让我们用这样的角度审视“interstellar”，在这部电影里，诺兰的创新体现在哪里？当然，在故事的主题上，不出意料的传统：父女之间的感情是贯穿始终的着力点和落脚点，虽然诺兰在访谈中表现了对“2001 Space Odyssey”的推崇，但他显然没有拍摄元叙事电影的勇气，还是选择了最安全的亲情作为情感主线。诺兰甚至不惜用将近一个小时的篇幅来铺垫二人的关系，这在一部以星际旅行为卖点的科幻影片中是多么的大胆。那么创新在哪里？我认为是罕见的“硬”科幻元素。有基普·索恩做科学顾问，interstellar里涉及的科学细节都存在严肃的理论基础，电影中的人物用大量的科学术语告诉现实中的观众，我们所做的一切都是可能的，只是还没有实现而已。而如果观众们回去查“虫洞”、“奇点”的维基百科，则又会印证影片里的情节。但问题出现了，科学基础的严谨性在某种程度上只能代表影片的严肃性追求，甚至可以当做宣传卖点，但不能起到如精巧结构或主题创新的作用，即成为影片的真正驱动力。事实上在Interstellar主题方面是有新的发掘空间的，即人类对待地球的态度——是矿洞还是家园（恰好可以跟去年的“gravity”形成互文）？但诺兰在这个角度的探索浅尝辄止，又在最后以一种偷懒的方式解决了这个矛盾(我们将在后面提到)，而把情感重心完全放在了父女情上。这个主题是如此的主流，也就不得不考验诺兰在一个通俗框架里驾驭电影的能力了。可正如许多影评家批评的那样，诺兰在技术环节（叙事技巧、调度剪辑）上从来不是一流的。前三分之一的地球生活戏，只是略显拖沓，但你也可以说是扎实细致。但星际旅行之后，情节在技术细节和情感线索之间就显得有些顾此失彼。这样的缺点在影片的结尾体现得尤为明显：Cooper进入五维空间，与Tars进行了大量的、原理性的讨论，可以说是揭开科学性谜底的关键情节。但此时叙事重心突然转到了父女二人通过奇点的沟通上，而此时我满脑子还在试图用Cooper刚才的台词串联起电影的科学逻辑，几乎错过了这个情感高潮。另一个问题存在于情感线索本身，Cooper的挣扎在于是信守与女儿的承诺，还是为了任务牺牲自己？更进一步的则如Dr Mann所说，是选择对亲人的小爱还是对人类的大爱？但所有的这些矛盾，诺兰都用巧合而不是人物的内在动力解决了：恰巧燃料不足要求Cooper必须牺牲自己（两难抉择被虚置）、恰巧刚好进入奇点与女儿沟通解开她的心结（情感冲突被解决）、而最后的巧合更是夸张到了又能从黑洞中出来再次见到女儿。情感线当然圆满，重逢的场景当然煽情，可这样也就失去了借人物挣扎让我们借机审视自身的机会。作为星际旅行电影，另外一个吸引人的关键是利用视觉呈现，带我们进入浩瀚的太空。在这点上，Interstellar显然无法与去年的gravity相提并论。但伴随着Hans Zimmer的配乐，以及对黑洞外观的高科学性模拟，还是让人非常愉悦震撼的。但诺兰再次在自己不擅长的动作戏调度剪辑上表现出了粗糙。以Miller行星的戏为例，当他们发现远方的并不是山而是巨浪时（顺便说我觉得是全片最具表现力的镜头），电影缺乏镜头来交待飞船、两名宇航员、记录仪和巨浪之间的位置和距离关系，观众也就因而不知道Brand去取记录仪的危险性。在之后的整个过程中，镜头在呆板的中景近景间切换，每个景别都是一个人物的单独画面，信息量极其不足，使得观众丧失了感同身受的紧迫感。当然这个场景里更让人匪夷所思的是，为什么不一开始就让机器人去取？以及为什么另一名宇航员干等着不跑向飞船导致自己最终牺牲？同样无法让人满意的还有Cooper和Dr Mann的打斗戏。大卫·波德维尔所总结出的诺兰所擅长的一点是交叉剪辑。而影片的最后部分出现了一段堪称大型的交叉剪辑：一边是Cooper从追Endurance到进入黑洞，一边是女儿烧掉哥哥玉米田，折返回老屋要接走哥哥妻儿。这段体现了诺兰的水准，在画面风格上，地球上的昏黄紧张喧嚣感，和星际空间的孤寂黑暗感，形成了强烈对比，但内在都充满了紧张感和悲壮感，映衬了“不坐等黑夜”的拼搏主动精神。但当Cooper进入五维空间之后，交叉剪辑还在延续，也是电影所设想的高潮，但因为种种原因，相较于物理的丰富维度，这段的情感就显得非常扁平。其一是上述的理论消化时间造成的观众难以进入情境，而且在影片的理论空间下，既然gravity可以超越时间，也就并没有女儿解密的紧迫性，交叉剪辑事实上并不是时间上的并置，那此时的情感张力也就显得做作了。当然，依靠巧合而非人物内在动力解决矛盾的偷懒，也是造成这种扁平的重要原因。结尾处的煽情场景，则更加套路化，显得异常平庸。且让观众难以接受的是，在结尾部分，除了父女相见的煽情，也只有轨道站上的奇观展示（而且相当敷衍了事）。叙事维度的缺乏同样体现在人物的扁平，儿子的角色有存在的必要吗？他在观众心中和父亲心中一样没有存在感，而Dr Mann则又是一个本可挖掘，但语焉不详的人物。当然所有的重心都集中在了父女二人身上，可如此宏大的故事架构，视角太过狭窄实在是让人感到遗憾。所以诺兰真的这么糟吗？当然不是，即使在这部电影里，他所体现出的严肃的态度依然是现在大多数导演缺乏的。在星际旅行这个题材上，他没有陷入一些我并不喜欢的科幻片的幼稚性窠臼中，而是以惯有的认真态度，打造了一个没有印第安人式外星人的、具备现实性的故事。而这个故事本身如果能讲得精炼点，也算是大制作中的佳篇。但严肃性从来不能取代艺术性，电影让我们审视外部世界的同时，更吸引人的功能是让我们审视自己的内心，而这是interstellar所缺乏的。造成这种缺乏的原因在于电影本身维度的匮乏，诺兰在缺乏一个基础性构建的情况下，是难以真正以电影的方式扩展电影自身内涵的。这一点在“The Dark Knight Rises”中已有体现，Interstellar则是他作为导演的缺点的更加集中的体现而已。正如一个后现代主义建筑师，如果脱离了结构上的花巧，设计方正的国际主义建筑时，那些以往被掩盖了的采光、舒适性上的缺点就会显得刺眼。所以我反对对诺兰的造神运动，神的特点是无所不能，而优秀的电影导演应该时刻清醒地认识到，什么是自己擅长的，什么是自己不擅长的，如何扬长避短。",
+        "url": "https://movie.douban.com/review/7181668/",
+        "title": "诺兰的维度"
+      },
+      {
+        "author": "perceptor",
+        "source": "豆瓣长评",
+        "date": "2014-11-09 01:20:42",
+        "content": "小时候居住的城市有着令人惊叹的重工业和灰黄色的天空，在夜晚，除了朦胧的月球，偶尔也只能一瞥天狼星和金星摇曳的身姿。第一次与银河的会面是在天文馆的投影穹幕里，外表奇异的投影仪冷静的转动，将无数光点铺满头顶。这固然比不上若干年后在海滨散步时与这条雄伟光带真身那场震撼的不期而遇，但足以让我在儿时就感受到了康德式的感动：让人肃然起敬的，不仅仅是老师家长的教诲，还有头顶这片神秘诱人的天空。很长一段时间，几乎不放过任何太空和宇宙题材的书籍与影视作品。时至今日，也仍然会为一部电影的上扬而激动，有星空，有诺兰，夫复何求。在几个月的关注后，终于得以一睹诺兰在Interstellar之中构建的太空世界。些许是期望过高，对影片本身的观感略复杂。即使观影时面对太空一直血脉贲张，回想时仍然会稍觉有所缺憾。对于诺兰而言，个人以为，这部电影应该能够更好。抛去个人的吹毛求疵，却还是愿意为电影打上五星，并非作为诺兰的粉丝，而是那遥远星空的粉丝。一   旅途的终点这部影片的内核是一部亲情剧，是一则关于父亲和女儿之间的爱与承诺的故事。影片让人类最真实最温暖的情感与守候自然地渗入到太空移民这样一个宏大而充满悲壮感的人类史诗当中。在一个宏大的叙事中包裹真诚的情感，这正是诺兰所擅长的，其操控和表达无疑已经出神入化。在本片中，拯救子女与人类未来的使命感，与父女之间相互守候的深情，对立统一地构成了古典的戏剧冲突，并几乎时刻作为主人公的动机推进剧情。本片的三幕式推进与情感线索密不可分。开端时，父女生活先行铺垫了二人的感情以及必要的伏笔。前NASA飞行员Cooper本来在生态环境日趋恶化的地球上作为农民养家糊口，与岳父和一儿一女共同生活，而与古灵精怪的女儿Murphy尤其性情相投。在女儿房间“幽灵”这一超自然存在的启示下，Cooper父女发现了远避人世的NASA和他们暗中筹划的计划。Cooper接受了Brand教授的任务，其主要动机仍是保护自己的孩子和他们的未来，但女儿对此并不认可。在Cooper离开时，原本融洽的父女亲情由此断裂，二人的沟通也随着父女空间和时间上不可逾越的距离而渐趋消逝二人在空间和情感上产生分离。在发展与对抗阶段，Cooper一行乘坐Endurance号进行的探索任务作为主线，却接连遭受重大挫折，对任务的责任与对女儿的承诺逐渐开始冲突。由于黑洞时间延迟效应的影响，Murphy已长大并辅助Brand教授理论研究，作为副线的中心人物登场。整个计划真相的揭露，使其对人类未来的信心产生动摇，而对父亲的矛盾心情与日俱增。在中后段的蒙太奇的交接中，父女二人的命途同时进入低谷，遭遇生死与信任的重大危机，但仍然在各自的时空中进行着顽强的抗争。结局或解决篇中，Cooper和Murphy的双线最终在叙事和情感上汇流统一。Cooper关键时刻舍弃自我，而选择了保全Amelia和人类的未来；Murphy从迷惘中振作，决定回到对父亲情感与回忆的起点寻找一线希望。但殊途同归，被吸入黑洞的Cooper发现身处奇异的多维世界，重新和女儿心意相通，并意识到了自己的真正使命；Murphy感应到父亲的思念，借助Cooper利用重力传递的信息，获得了掌控重力理论的关键数据。当然，被时间和空间分隔的二人最终还是得以重新相聚，Cooper履行了自己回家的诺言，Murphy的理论拯救了人类。再会之后，Cooper再一次踏上旅途，无所牵挂地前往Amelia所在的人类新家园。这个故事演绎的是一段的的确确穿越了时间与空间的父女真情，虽然“穿越时空的爱”这一题材已经被无数言情奇幻网络小说搞得烂大街，但本片却能让人潸然泪下，因为它如此纯粹而真实，和我们的生活如此相似。Cooper没有怀抱“我的征途是星辰大海”的凌云壮志，只是想赶快完成任务尽早回到女儿身边陪伴她成长。在人类危急存亡之秋，Murphy最终选择的避风港仍然是和父亲有着最多回忆的地方。2001年曾经有一部动画短片《父与女》，片长仅8分钟，故事很简单：父亲在最后一个拥抱后坐船离去，女儿日复一日地来到湖边守望父亲的归来，直到长大，结婚，老去。已经是老妇人的女儿最终来到业已干涸的湖中，找到父亲离去的船，躺到里面，像回到父亲怀中。这份生命的守候，同样跨越了Murphy的一生，但幸运的是，她知道父亲一直没有放弃，即便横亘亿万光年，父亲也在试图守候着她，这份信念也最终支持她见到父亲最后的那一面。对Cooper而言，他对于承诺和任务所有的坚持，都是出于爱。航程的灯塔，旅途的终点，始终是女儿所在的地方。二   群星与管风琴作为一部太空题材的科幻片，天体奇观的展示便是影片光鲜的外衣。无论是气体巨人土星美丽的圆环，球状虫洞中被引力透镜扭曲的星云影像，抑或巨大黑洞外旋转的吸积盘如熠熠发光的丝带，以及类地行星上的滔天巨浪和冰云万里凝，无一不让人屏息或惊叹。对个人而言略为遗憾的是，片中并未给群星和银河呈现出令人心向神往的远景特写。这也许是导演的本意，可能诺兰并不愿以这种老套的方式来讨好观众，而更着重于通过特定的展示方法来保持基调一致。这似乎有着向《太空漫游2001》致敬的意味，大部分关于太空的镜头并非人的视角出发，我们看到的只是飞船外壳之外静谧而空旷的黑暗空间，冰冷且了无生机。虽然没能一睹银河系群星摄人心魄的光辉，本片的阵容却真的是群星璀璨。除了诺兰的老搭档迈克尔凯恩和安妮海瑟薇出演了Brand父女，男主Cooper则由近年来风头正盛的马修麦康纳担纲，唯一算得上反派的队友销售员Dr. Mann则找来了马特达蒙。马修麦康纳的演技自然不必多言，带有南方口音的低沉深情的音色很契合Cooper的角色定位，说不定算是代替了故意压低了声音的蝙蝠侠而被诺兰相中。值得一提的是，马修麦康纳多年前曾在著名天体物理学家卡尔萨根编剧的科幻电影《接触》（Contact）中作为男主角。《接触》和本片同为太空题材，在科幻界也可算是具有里程碑的地位，让马修担任男主估计也同样算是一种致敬吧。Murphy中年阶段的扮演者杰西卡查斯坦名气不那么大，至少我之前是没有看过她的作品，在片中有限的戏份之内表演也做得相当不错。童年Murphy个性十足，聪敏伶俐，而且小演员Mackenzie Foy和杰西卡查斯坦甚是相似，选角32个赞。老年Murphy虽然只有最终一场父女团聚的戏，包含沧桑的声线中夹带着浓浓的爱意，感人至深。由于影片不吝笔墨地把戏份都给了Cooper父女，其他配角的表现力和存在感被大幅削弱，个人觉得多少有些浪费这一班底。老戏骨们自然都不会有表演方面的问题，问题主要在于发挥的空间和人物的设定。凯恩的Brand教授斯文彬彬，深藏不露，片中Brand教授为了greater good炮制了人类移民的骗局，这是一个本应更集具矛盾对抗与一身的人物，却没有得到更多表现，只好解释为篇幅有限或其城府之深。教授和女儿Amelia同样是父女之情，因为没有主角光环也只好沦为陪衬。Amelia的情感空缺就转给了一位探险的先驱者Edmond来填补，和Cooper一样有着自己的私心，但作为第二女主，她的内心戏也的确太少。有趣的是，出身为宇航员且身科学世家的Amelia在飞船上发表了一段关于“爱和重力一样穿越维度”的陈述，这部分感觉多少弄巧成拙，也许对于本人这种理工宅槽点太强，有些出戏——原来爱是第五基本作用力，爱心驱动引擎的宇宙飞船听上去也很棒呢。嘛，人家还是小女生，理解就好。持久号的其他两名船员，Romilly和Doyle都是地球科学家的翘楚，在影片中皆不幸遇难。Doyle死得很冤，在大浪卷来时他是离舱门最近的人，在机器人CASE去救Amelia时发扬女士先走的绅士精神，最终惨遭编剧毒手，造成了无意义的损失。Romilly其实也很冤，尽职尽责的老实人却被队友Dr. Mann坑杀。综合全片看来，二位成为英烈只好说是剧情需要，Amelia最后可是要孤身一人等着Cooper到来的。Dr. Mann的转变也很戏剧化，但也算合理，因为他疯了。作为初期探险者中的唯一幸存者，被寂寞和恐惧折磨到发疯，于是先是抛弃科学家底线搞起数据造假，吸引其他人的救援。其之后突破人类底线的行为则不可理喻，既然已经得救，老老实实地认怂别人也不会说什么，却非打着拯救人类的旗号杀光队友。逃跑的时候好歹拉上女神海瑟薇啊，好歹有个帮手还可以繁衍人类。飞船对接时上演星际级作死，害人害己，万幸主角有外挂。这些被剧情牺牲的配角，其刻画缺失造成的空位则留给了机器人TARSE填补。TARSE的角色类似《2001太空漫游》的HAL，但对人类忠心不二。TARSE闲暇时插科打诨调节气氛，关键时刻又能挺身而出英雄救美，不但凭借高超的技巧完成了高速旋转下的空间对接，最后还测得了核心的数据拯救了人类。这样一个满嘴跑火车，跑姿喜感十足的机器人在风头上无疑大大压过了其他的配角。其重要程度和光环加成已经赶超星球大战中的R2D2，直逼哆啦A梦。剧情和表演构建了影片的骨架，丰富的影像表现渲染了绮丽的外观，Hanz Zimmer的配乐则更深刻的塑造了影片的气质。电影伊始，Cooper凝望玉米田的镜头缓缓展开，配以背景管风琴低沉肃穆的长啸。同理查德施特劳斯交响诗《查拉斯图特拉如是说》第一段日出中管风琴的演绎类似，一种冥冥中苍凉而黑暗的力量开始蔓延。管风琴由此开始贯穿全片，从地球到太空。管风琴与宗教音乐气质上的契合以及历史上的密不可分，使得整个片子也浸染上了一层宗教式宿命与救赎的主题色彩。管风琴轰鸣中蕴含的高高在上的力量，和浩瀚未知的宇宙在人内心的投影一样，都是值得敬畏的存在。片中管风琴的录音来自伦敦一教堂中一台90年历史的管风琴，在教堂独特的声学环境中，管风琴的音色尤为摄人心魄。此外，Zimmer还加入了34个弦乐单位，24个木管单位，4部钢琴以及合唱团。但很明显这些都是为了与管风琴相配合，弦乐恰如其分的烘托，木管空灵的奇特声效，人声的反复与异化，将人类命运与太空的互动渲染得更加诡秘，为未知之境渲染出超验般的深邃。三   虫洞，黑洞以及关于时空的一切从本片的设定可以看出试图成为一部硬科幻经典的决心。并不过分夸张的生态恶化，距离现在并不遥远，由于人类衰亡而导致的科技停滞，舍弃了华而不实设计感的宇宙飞船，都十分真实而合乎情理。太空中主动的消音，行星上探测到的水和氨气结晶，也都符合科学原理。不能够解释的部分则统统推给了“他们”，身份不明而掌握着未知力量的地球的援助者。对于虫洞，黑洞这两种我们目前还无法获取一手材料的天体（前者甚至只停留在理论中），当然可供编导发挥的空间会更大一些。但根据我们已有的认知，尤其是一些为科学界广泛接受的知识，很多设定的细节还是出现了较大的偏差。虽然较真行为显得很不知趣，但是吐槽的过程并不无聊。1. 虫洞虫洞又名爱因斯坦-罗森桥，是一个假想的概念，是指连接时空中两点的隧道。片中Romilly用纸张进行的解释很直观，另一个比喻是将时空比作苹果的表皮，虫子在内部打洞连接表皮的不同位置。虫洞的理论得益于爱因斯坦的广义相对论。从概念上很容易推想出虫洞必然是高出三维时空的维度世界。科学家们至今尚未观测到虫洞的存在，但在理论上做出了许多有益的探讨，比如其产生和维持的条件。根据目前一种主流观点，虫洞由于其本身的不稳定特性很难维系，需要负的能量进行补充，且尺度越大越不稳定。也有研究人员做出了其他的计算结果，认为虫洞可以存在而不需额外条件，但由于高维空间的卷缩，尺度可能会非常小。理论和实验观测的进一步验证都尚需时日。如果按照定义，虫洞实际上即三维时空的扭曲，那么这种扭曲很可能像黑洞一样产生很大的引力。如果要实现一个能够让宏观飞行器通过的虫洞，其入口附近的时空曲率必须足够缓，否则试图通过其中的物质便会因为各处受到的引力大小不同而被撕裂。而要实现如此平缓的入口，其半径要达到数十数百光年。所以如果是这样一个虫洞，凭借片中化学燃料动力的飞行器想要穿越并达到另一端也需要几十万年以上的时间。如果再计入由于重力变化产生的延时效应则会更长。因此，片中的虫洞似乎和我们目前认为的虫洞有很大差异，五维生物的“他们”果然厉害。2. 黑洞黑洞想必公众们已经耳熟能详了，和虫洞一样是科幻界的明星，但对于黑洞的研究要多得多，尤其是家喻户晓的霍金就是黑洞的著名研究者。黑洞作为大型恒星在自身引力作用下坍缩形成的天体，具有匪夷所思的引力，甚至光子也无法逃脱其附近强大的引力场。最为人熟知的是恒星级的史瓦西黑洞，不带电且不旋转。其外层的临界面成为“视界”，即片中出现的名词，在视界表面，只有光速移动的物体能够逃离黑洞的引力。视界包围的球体的半径，则称为史瓦西半径，与质量成正比。黑洞的核心“奇点”则隐匿在视界深处。在黑洞的重力作用下，星际物质被吸引并以黑洞为中心螺旋运动，并在加速和摩擦过程中产生辐射，形成光辉夺目的“吸积盘”。本片请到的执行制片之一是大牛Kip Throne，和霍金齐名的理论物理学家，其在重力，天体物理和黑洞的研究领域内都做出了杰出的贡献。请他坐镇也正是为了保证影片中科学设定尽可能贴近真实。十分感谢豆友电光侠是大花指出了之前版本的影评中本人关于黑洞的几个自以为是的错误。错误的原因即是把影片中出现的Gargantua这样一个高速旋转的超大质量黑洞主观臆测成了普通的恒星级黑洞。在此正好也半桶水地扯两句权当科普。黑洞依据质量可分为几类，微型黑洞由于尺度小和稳定性差等原因难以观测，在星际空间中更多的稳定黑洞则可以分为恒星级黑洞（Stellar black hole）和超大质量黑洞（Supermassive black hole）。前者的质量一般是太阳质量的几倍到几十倍，后者的质量则高达太阳的几十万倍到几十倍。一般而言，恒星级黑洞通常是由于巨型天体被自己引力作用下崩溃而形成的。超大质量黑洞的形成原因更为复杂，经常出现于星系的中心，如银河系核心那颗四百万太阳质量的黑洞。恒星级规模的史瓦西黑洞可能是在科普书刊影视作品中曝光率最高的，具有中等质量，有限的视界大小，视界内部的高密度，强大的潮汐力（由于距中心位置不同导致的重力差异）等特点。而对于一个超大质量的黑洞巨人而言，因为其史瓦西半径很大但质量又集中于内核，因此其平均密度其实很小，同时在其视界范围之外的潮汐力也因此微弱。因此片中Cooper得以穿过视界而没有被潮汐力扯断。当然，如果没有五维生命体的额外照顾，即便可以逃过被吸积盘中的等离子体碾磨，被黑洞捕获的Cooper终将还是很可能面临被潮汐力扯成面条的命运，这一效应被天体物理学家们形象地称为Spaghettification。影片中黑洞的另一个特点是高速旋转，根据广义相对论求解结果，这个黑洞应该是一个Kerr黑洞。其高速旋转造成的参考系拖曳效应会导致惊人的时间延时效应，在影片中时间延迟高达六万倍。如果对于一个无旋转的黑洞，根据相对论所推导的引力延时公式:t_0 = t_f * square_root( 1 - r_0 / r )，（其中t_0为引力场中观察者所在位置的时间，t_f为远离引力场的正常时间，r_0即史瓦西半径，r是观察者距离引力体的位置），在远离视界的行星表面，将不会有特别巨大的延迟效应。值得一提的是，此类Kerr黑洞具有两个层面：一个扁球形的能层，和一个球形的视界，以及一个环形的“奇点”。这些结构被认为可能与虫洞的一些特征类似，说不定“他们”便是通过这种方式很聪明地让Cooper避开奇点，并远程传送其到木星附近。而在黑洞两个层面之间的部分称为能球（Ergosphere），据理论研究，可以通过向黑洞转动的反方向向能球中投入质量，从而获得黑洞自身的一部分转动能。此即能球名字的来源，也是科学家们从Kerr黑洞汲取能量的根基。影片中Cooper让Amelia逃生的方案应该即是基于此，通过舍弃两艘太空船，使Endurance号增加额外的动能逃离黑洞并抵达Edmund的星球的。但对于以黑洞为核心的这个星系，有些不合理的地方则在于几颗行星的设计。那颗水行星上有着周期性的万丈巨浪和齐膝深的平静处，这个黑洞微弱潮汐力的设定似乎有些不符，不然行星本身也会受到巨大影响。另外，即使是来自吸积盘的辐射能够温暖星球保持水的液态成分，但也同样会受到漫天飞舞的星际物质的亲密接触。何况其也迟早会被吸入吸积盘，化成齑粉。之后科学家们痛定思痛，也吐槽到这样星球不会产生生命云云。那么问题来了，在黑洞旁边的行星（Dr. Mann的行星也处于影响范围之内），为什么会被作为考察对象。莫非在这样一个万马齐喑全民种田的时代，人类文明的退步导致即便是顶尖的科学家也忽视了恒星对于生命重要性与黑洞的厉害；或是前期的考察让人们们却对黑洞有了新的认知，但Endurance号的遭遇显然是对于这或天真或傲慢的自以为是狠狠的打脸。3. 重力和因果律这些内容严格将来算不上漏洞，毕竟这些都是超出人类目前认知范畴的东西，但影片的阐释方式却难以令人信服。时间这个东西至今科学家们没有搞清楚，甚至连真实与否都在辩论不休。时间这一维度毕竟过于特殊，所以在科学问题的处理上大家都是慎之又慎。但本片所设定的五维生物显然对此不屑一顾，随手便能把Cooper丢到四维空间中，让他自我觉醒并成为推动自己行为的幽灵，当然也顺便把因果律喂了狗。如果Cooper没接受NASA的任务，就不会进入黑洞并指引过去的自己找到NASA，所以这一切必须发生。其中的每个环节即是原因，亦是结果。这种充满矛盾的时间环状连续体是时间穿越的祖父佯谬的变体，几十年来活跃于各种涉及时间穿越的作品中，不胜枚举，如回到未来系列，哈利波特第三部等。当然这种处理自洽地解决了电影中的矛盾，成功回收了伏线，在情感上也获得了圆满。至于解释，去问高维生物好了。另外一个有些仓促的细节在于结局处Cooper和Murphy之间沟通的段落。躲在书架背后的Cooper除了撞书架，居然获得了重力操控的技能。对于这一点影片同样没有给出任何的解释。便见得Cooper突然洞悉天意，悟得一阳指和六脉神剑的招式，一点一划，房间中的沙石便整齐划一地排出二进制的编码，手表秒针便跳起莫尔斯码之舞。Cooper的儿子Tom刚刚被妹妹放火烧了田地，怒气冲冲地回来理论，却也如同被点了穴一般，被Murphy拿着一只指针抽搐的手表便拦了下来。既然Cooper有此等神通，为何一开始不发送个信息亮明身份?很简单，时空连续，历史不能改变，只能重复。站在编剧一边试图解释下的话，只能把Cooper的技能也当成五维生物的赠品好了，限制了其使用方式。整个故事里决定人类生死存亡的最关键的钥匙牢牢地掌控在Cooper父女手中。Cooper英明神武，九死一生，Murphy坚毅果敢，冰雪聪明，父女携手，其利断金。反观纠结于内心选择的老教授，卖队友和被队友卖的宇航员，殒身不恤的先驱者，以及被困于地球上挣扎着的人们，大概可以不负责任的揣测一下，如果“他们”真的是人类的未来，那他们一定是Cooper家族的后裔吧。四 水沟与星空“我们都身处水沟之中，但有些人却仰望星辰。”王尔德如是说。从洪荒时代起，人类便从未停止过对头顶星空的眺望。遥远的群星一直指引并见证着人类文明的成长，拉近着二者之间的距离。影片开端主人公眼前那一片广袤的翠绿田野，和结尾处飞船所奔向的浩渺繁星之所在，正是代表着人类文明两极的意象——老去的故土与新的理想乡，文明古老开端的农业与最先进科技凝结的星际旅行，过去与未来。Cooper的历险便是从这片田野开始，最终投身太空。他的背后，是无数个在泥泞中也要仰望星辰的少数人；他的所及，是无数先驱智慧与意志拓展的疆界。Cooper骨子里仍然沸腾着不安的血液，他反对学校对阿波罗计划的污蔑，反对人类的守成。Cooper的胸腔里，跳动着的是儿女和人类共同的未来。Brand教授致死都在反复吟诵着英国诗人Dylan Thomas的诗句：Do not go gentle into that good night, Old age should burn and rave at close of day; Rage, rage against the dying of the light...Brand教授弥留之际发出这最后的怒吼之时，人类移民计划濒于破灭，群星彼端的Cooper正步入死亡陷阱。Dylan的这首诗没有找到好的译作，也许是原诗中燃烧的文字难以在韵律上准确的传达，但精神上与千年前古人的“老骥伏枥，志在千里”遥遥相通。面对死亡幽暗的宁静，生命最本真的欲望会燃烧爆发。Dylan的这首诗，不仅仅是Brand教授的倔强与不甘，不仅仅是Cooper的性命相搏，更是人类对命运的最后抗争：“人类发源于此，却绝不会在此终结。”这和所有伟大的探索故事一样惊心动魄，兼具豪情和悲壮，却更加贴近生命，是文明断绝退路的殊死一搏，混杂着希冀与绝望。然而，即便本片中人类迎来了光明的结局，却仍然不禁为此伤感。在父亲穿越到银河的彼端，到达群星的尽头之后，最终回到的却仍是心中挂念的家人身边。那个原样保留的房屋，屋外却没有曾经的湛蓝天空和青纱帐，也没有曾经挚爱亲人的安息之所，温馨的同时散发着一丝是物是人非的苍凉。不知本片是否借助这个爱与守护的主题有所隐喻，却隐约能从中体会到一点人与地球相似的羁绊。浪迹天涯后落叶归根，甚至出师未捷的狐死首丘，相比山河破碎下背井离乡，总会多一份归宿感的慰藉。探索，征服，殖民，四海为家，固然豪气万丈，但以目前科技水平看来，踏出家门却仍尚需时日；而与此同时，人类的家园却至少已是疾在腠理，不可不医。倘若没有像电影中这般得贵人相助，近距离开个传送门，附赠科学入门手册，恐怕最后豪情尽失，惟余悲哀而已。也许，我们早晚要面临离开，但愿我们能有充足的时间准备好，也但愿这个原因不是我们自己罢。",
+        "url": "https://movie.douban.com/review/7184428/",
+        "title": "银河彼端，群星尽头"
+      },
+      {
+        "author": "没电影活不了",
+        "source": "豆瓣长评",
+        "date": "2014-05-02 16:37:42",
+        "content": "诺兰的新作「星际穿越」基于美国理论物理学家基普·索恩的理论成果，而他的理论成果基本都在他的著作「黑洞与时间弯曲」一书中，本文的科学知识基本都是我在这本著作中看到总结的。该片剧情将涉很多的科学概念，包括虫洞、黑洞理论、相对论，万有引力等等。一、黑洞基帕·索恩在「黑洞与时间弯曲」这本著作的开篇讲了一个一支太空探险队在太空中探索黑洞的经历，故事挺无趣的，基本上就是形象地说了现代科学家对黑洞的研究成果：1.什么是黑洞黑洞是空间中有着强大引力的超高密度的天体，假如太阳质量不变，大小却变成乒乓球那样，这就是太阳坍缩成了黑洞。黑洞的特点就是有进无出，即：①任何东西都可以掉进黑洞，黑洞外围有一层“事件视界”，任何东西只要过了这个“视界”，都要掉进黑洞。②任何东西都不可能从黑洞里逃出来，包括光。另外，因为没有光从黑洞逃出，故无法直接观测黑洞，但是从物体被黑洞吸入之前放出的紫外线、X射线等边缘信息可以获取黑洞的存在。2.黑洞潮汐力一只很大的飞船飞向一个天体，飞船头部距离天体比较近，受到的引力比较大，而尾部距离天体比较远，受到的引力比较小，头部和尾部的引力大小的差距，就会在飞船中间产生撕扯的拉力，这个拉力就是潮汐力。如果天体是黑洞，质量非常大，飞船距离黑洞距离越小时，造成的引力差就会越大，这就是黑洞潮汐力。这个力甚至可以把飞船撕成碎片。飞船里的宇航员也同样会受到潮汐力的作用，对于一般我们接触的物体，即使我们到达它的表面所产生的潮汐力也没有多大，但是，如果是黑洞这种超大质量超大密度的天体，则有可能产生很大的潮汐力将物体撕碎。这个感觉很有可出现在电影剧情中。（其实第一个星球上的巨浪就是由黑洞巨大的潮汐力造成的。）二、虫洞下面就说说「黑洞与时间弯曲」的第十四章虫洞和时间机器这一章的内容：首先，基帕·索恩说了一件他的趣事：1985年，基帕·索恩接到多年老朋友卡尔·萨根的求助。卡尔写了一本科幻小说，希望把小说里的科学理论写的准确一点，想让基帕·索恩指点一下。基帕发现书中的女主角居然掉进黑洞然后时空穿越了，这是不可能发生的。于是基帕写信建议卡尔要依靠虫洞做星际旅行。卡尔欣然接受建议，那小说叫「Contact」。后来被拍成电影叫「超时空接触」，也是马修主演，评价很好。然后基帕·索恩开始讲虫洞：1.虫洞在哪里关于虫洞有三种说法：一是虫洞是宇宙中相距遥远的两点间的一条捷径，就是一个苹果，虫子沿着苹果表面走远了，可是如果虫子挖洞从苹果里面走就近多了，顾明思议，虫子为了抄近路而在苹果里挖的洞。二是虫洞是连接黑洞和白洞或黑洞与黑洞的管道，故在黑洞里能找到虫洞。（白洞：黑洞死亡会变成一个白洞，喷射出之前黑洞吸入的物质）三是虫洞是时空隧道，能进行时空旅行。没人见过虫洞，有人说我们周围到处都是虫洞，又有人说黑洞里有虫洞，基帕·索恩在书里又说我们可以自己构建虫洞。2.负能量物质虫洞在某个时刻产生，短暂地打开，然后关闭、消失。从产生到消失，时间极短，短到没有事物能在这么短的时间内从一个洞口穿到它另一个洞口。所以我们能利用虫洞进行时空旅行前提是有办法使虫洞一直开着，不让它消失。基帕·索恩觉得有某种奇异物能贯穿虫洞，使虫洞一直开着。这种奇异物和人类所见的任何物质都大不一样，它具有负能量。要实现负能量其实并不难，参照系不同便可实现。在飞船以接近光速的速度接近虫洞时，虫洞周围的能量自然就成了负的。故要进入虫洞，飞船的速度必须接近光速。3.时间机器假定我们能找到虫洞并且有某种负能量可以让它一直开着，那么虫洞就可以是一个时间机器。飞船要进入虫洞，其速度要接近光速。根据爱因斯坦的相对论原理，如果你在太空中的速度足够快，可以做到在太空中呆了几十天，地球上却已经过了几十年，做到古人所说的天上一天地上一年，即如果你2014年坐飞船接近光束进行时空旅行一个月后，回到地球，这时发现地球已经是2044年，这就实现了穿越到未来。故我们可以猜想剧情，等主角们穿越到其他星际空间完成任务后，回到地球，他们的儿女都和主角们一样大年龄了。目前的科学理论表明，回到过去是不能实现的。4.母子怪圈虽然回到过去没有科学依据支持，但科幻片毕竟是科幻的，所以出现回到过去的剧情也是有可能的。这时就有一个每部有关穿越时空的科幻片都面临的问题：假如我有时间机器（虫洞或者别的），我就能够回到过去母亲怀我之前把她杀死。此时，母亲死了，我就不会出世，那又怎么会有我穿越时空来杀母亲呢？这时就有这样一个矛盾出现了。对于这个矛盾，有两种处理方法：①因果循环观点：历史不可改变，我虽然想杀母亲，但会有外界因素使我不能成功。或者说，过去某时某人死了，我回到过去想救某人，会有其他因素阻止我救人，甚至我的出现就是那个人死的原因。②平行宇宙观点：时空不是唯一存在的，而是有无数个时空平行的存在，它们彼此之间一般情况是无法产生联系的。这种观点普遍被人接受。那么我只是穿越到另一个平行宇宙，杀死了那一个时空的母亲，并不影响我穿越前那个宇宙的母亲。也就是说我只是穿越到别的时空去了一趟而已，而不是回到过去或未来，更无所谓改变历史。星际穿越如果出现这种情况，诺兰会不会有什么不同于以上两种说法的新颖处理方法没有呢？三、多维空间（这一点是观影后补的-2014.11.16）上面的问题的答案是肯定的，新颖的处理方法就是运用五维空间。下面说说我所理解的多维空间。一维空间是线，由点组成。二维空间是面，由线组成。三维空间是体，由面组成。人就是三维生物。四维空间是时空，由体组成。即物体花费时间移动形成时空。如一个人由小孩变成大人，这是一个四维事件。五维空间由时空组成，如小明长大成了厨师是一个时空，小明长大成了老师是一个时空，小明长大成了警察是一个时空等等，而且不但有小明还有小红、小白、小黑小黄等等等，把这些时空当成物体放在一个空间里成了五维空间。六维空间是由五维空间组成的，七维空间是由六维空间组成的，八维空间是七维空间组成的，以此类推。讲解视频：http://www.56.com/u71/v_NjU2MjIyNzY.html尾言不知道这些内容并不影响观影，但知道这些知识肯定是对观影有所帮助的。目前我们对黑洞和虫洞的了解很多都停留在猜想上，这也让电影有很大的发挥空间。我觉得电影里的科学理论不应该是观影障碍，你不是科学家，你只要去相信去遵循作者的设定就好，重点本来就是在人性和情感上。观影之前最好先看一下以下五部极可能对诺兰的「星际穿越」有所影响的影片：1.超时空接触：这部片与星际穿越有很大渊源2.黑洞频率：儿子在无意中通过一台老式的无线电与三十年前的父亲联系上了3.十二猴子：未来不可改变，挣脱不了的4.星球大战：这部片激励了很多名导，包括诺兰5.2001太空漫游：从预告中就可以看出星际穿越有很多致敬老库的地方",
+        "url": "https://movie.douban.com/review/6655287/",
+        "title": "科普黑洞虫洞，备战星际穿越"
+      },
+      {
+        "author": "黄青蕉",
+        "source": "豆瓣长评",
+        "date": "2014-11-18 19:51:59",
+        "content": "最近诺兰粉真是越来越猖狂惹。早先拍蝙蝠侠估计算借了现代名著的光，群众基础本来就广，红了也算不得百分百英雄好汉，就算前面还有记忆碎片，那也毕竟没有上过天朝院线，没有得过奥斯卡或者永远得不到奥斯卡的男神主演，更别提情节不照着豆瓣剧透贴掰开了揉碎了一帧帧回顾着看简直不知道在演什么。那时候的诺兰粉，不独是偶像出处有些渺茫，连偶像先前的作品也渺茫。独有和别人口角的时候，间或瞪着眼睛道：“我们先前——比你阔的多啦！你算是什么东西！”现在呢，了不起啦，致命魔术啦，盗梦空间啦，星际穿越啦，智力的顶峰！视觉的盛宴！票房的奇迹！我看懂我牛逼！我看不懂偷偷百度剧情全解秘然后假装看懂我也牛逼！别人看不懂我到他面前去现买现贩时间简史多维宇宙定理更是大大的牛逼！这个时候，诺兰粉们终于阔起来了，于是又可以鄙薄其他那些拿他们玩笑的人。譬如人们说“这片看上去好像三体呢”，他们就想：这是错的，可笑！又或者人们说“这片看上去也好像2001太空漫游呢”，他们想：这也是错的，可笑！至于那些挑bug的人，更是不可饶恕；诺兰粉跳过去，给了他们一个嘴巴。“你怎么会看诺兰！——你那里配看诺兰！”哎，诺兰怎么还不去造手机呢。LAMPHONE. NB1，2.3GHz高通骁龙800处理器、3GB RAM、64GB ROM，提供屁沟下巴纹解锁技术，内置每日一烧脑智力检测小游戏、我兰超宽屏脸部特写屏保，再发点限量版外接移动冲洗设备，照片拍完直接生成胶片吐出来，分分钟几千万上下，还有老罗什么事儿啊。这么一想导演还是有情怀有节操有理想的，虽然玩我骗我，一百块还得我买张电影票送给他，但他坐拥教众千万，居然还是老实本分的拍着电影，不搞电视剧，不造怪小说，更不卖手机，光是这一点就值得J.J. Abrams之流深度学习啊。说回电影，首先要强烈谴责那些第一批观影归来跟打了鸡血一样往影评里盖“烧脑”两个字的同学们，现在的年轻人啊也不知道是怎么了，动不动就烧脑，动不动就烧脑，大脑熔点是有多低，咱们念初中的时候都不看科幻世界吗？嫌里面的连载长，哪怕看看封面故事也好啊。王晋康《新安魂曲》：http://tieba.baidu.com/p/816501821呵呵，眼熟吗？嘛虽然字里行间充满了王老师最擅长的扁平化人设、棒读型对白和自我陶醉型科普大联欢，但是举例这个12年前在科幻世界上一抓一大把王老师自己都反复写过好几次的国产科幻小说就是想告诉大家，此电影牛逼之处并不在设定上，连我这种初中二年级数学不及格的死文科生都已经看得要不要惹。设定眼熟，主题也够俗气，什么能拯救宇宙，什么能保护人类，什么能穿越时空，这个神奇的力量，叫做爱呀！妈鸡，虽然这个梗部部电影都要用，堪称电影剧本创作第一烂桥，但是也不用专门写一段台词念出来吧！当年第五元素的时候吕克贝松也这么干了，你们不是开嘲讽开得很欢吗，现在一个两个搁那擦眼泪是几个意思？而且诺兰这个人也很讨厌的，老爱整一些什么特斯拉造人啊多重梦境啊黑洞啊五维空间啊的高大上射定，可是射完之后，大家问，为什么会这样呢？原理是什么呢？怎么做到的呢？三个字，不解释，四个字，爷爷高兴，五个字，就这么任性。当然大多数拍科幻的导演也都是这么任性，但是人家老实呀，人家就承认一切为情节服务，我就是来骗你们嗷嗷鼓掌的。人家没有下巴一抬，俾睨众生，用融合了高中数学班主任和抖S女王的高冷表情说，你们看我这拍的是硬科幻啊，我们拍完电影还要发论文啊，你们看电影之前理论物理过六级了吗，不过就不要买票了啊。傲娇半天，结果进去一看，“爱是Love，爱是Amor，爱是Rarc，爱是爱心，爱是Love，爱是人类最美丽的语言，爱是正大无私的奉献”（以上请山顶的朋友们拍手唱起来）看着硬，摸着软，这不就是电影界的知乎，导演里的果壳，喊开麦啦的姬十三吗？当然啦，即使这样我也会给电影打高分的，水军不用赶来骂了，我替你们把话说了还不行吗——作为一个普通观众，我觉得画面震撼，音乐震撼，感情震撼，憋尿也憋得震撼，娱乐之外还引发了深深的思考，这样就足够了，楼主这样阴阳怪气，一通瞎扯，一看就是哗众取宠，诺兰导演跟你有多大仇？说吧，你是哪边的粉派出来的黑？这个时候，我低头看看胸前的芬奇粉三冠勋章认证，微微一笑，深藏功与名。",
+        "url": "https://movie.douban.com/review/7197702/",
+        "title": "如果要给星际穿越一个分级，我把它分为【逼级片】"
+      },
+      {
+        "author": "Granite Lee",
+        "source": "豆瓣长评",
+        "date": "2014-11-10 02:17:23",
+        "content": "已经有好多小伙伴写过剧透了，但是，楼主可是花了一夜时间吐血整理的100%细节剧情啊，请大家轻喷。。。在不久的未来，人类面临着巨大的生存危机。地球资源枯竭，环境恶化，将无法维持人类的生存。因为枯萎病加剧，农作物难以维持其生存，粮食产量急剧下降。同时，世界环境恶化，沙尘暴加剧，土地变得日益贫瘠。世界的发展格局发生了重大的变化，工业社会退化为农业社会。人们将更多的经历放在如何生存更多的粮食来解决饥荒问题。（末日的来临，太接地气，帝都被黑出翔，你是风儿，我是沙，吹得尼玛找不到家。）男主Cooper是一名优秀的前NASA航空飞行员，同时也是一名出色的工程师。由于环境恶化，人类社会的巨变，不得不回家种地糊口，当了一名出色的农民。Cooper有两个孩子，一个小闺女Murph, 一个儿子Tom，老婆死的早，跟岳父Donald住在一个破旧的农家house里。日子过得有些清苦，但也还算过得去。Copper非常爱他的孩子，很关心孩子们的教育，并且也是孩子们的好朋友。（不顾毁坏玉米地，一起去追个飞机啥的。故事看到这，尼玛肯定觉得这尼玛和科幻片有毛关系，感觉好像是家庭伦理剧啊！！）有一天，Murph发现家里的书无缘无故的从书橱里掉了出来，弄坏了爸爸的登月器模型，她觉得家里有鬼魂，而且这个鬼魂想传达一些信息给她。Murph和Cooper说了家里有鬼的事，老爸告诉她没有什么牛鬼蛇神，我们要用科学的态度来看问题，不要相信封建迷信。聪明的小Murph就试图用科学的方式来破解这些秘密。有一天从学校开完家长会，回来的路上遇到了沙尘暴，父女两急忙回家躲避风暴，在准备关窗户的时候，Cooper发现从天花板落下的灰尘，受到一些异常的重力影响，形成了有规律的条形图案。工程师出生的他，很快发现这些条纹代表了一些摩斯码（Morse Code)，而这些密码标明了一个地理坐标，Cooper三下五除二就找到了这个位置，也不知道为什么，航空飞行员出身的他想要去一探究竟，而且为了Murph的安全，不让她一起去，但是小Murph还是偷偷躲进了车里和老爸一起去探险了。（我去上了个厕所回来，父女两就准备走了！！！大无畏的科学探险精神！！我完全没看明白是啥事就要走了！！房子那么旧了，难道不是房顶漏了才有条纹！！！！Cooper开挂了一下子就知道是啥回事，说走咱就走，风风火火闯九州哦！！！）父女俩找到密码所指示的地方，被一个大铁网门锁着，Cooper下车准备敲门去看看究竟，正在这时，一束强光出现，（吓我一跳）Copper倒下了，Murph被不明身份的人带走。Cooper醒来后面对着一个像铁板一样的智能机器人，机器人叱问他是怎么找到这个地方的，Cooper反问他我的女儿在哪。正在这时，Amelia (安妮海瑟薇，就叫Amelia海瑟薇吧，反正也记不住她的名字，反正她是Dr.Brand的女儿)华丽出场，“你的女儿很安全，我们这是NASA！我老爹是Dr.Brand，你认识的！！是你的导师哦！！这里是NASA的秘密基地哦！”下一幕Dr.Brand华丽出场，并且围着一桌子人，大家讨论着NASA为解决世界末日危机所采用的方案。我们需要你来开太空船去宇宙拯救世界！接着一面墙划开，出现了一个吊大的航天火箭！接着Dr.Brand老师给学生Cooper讲了几个科学问题，接着Cooper接受开巨屌太空船的任务，接着和三个小伙伴，安妮海瑟薇,一个黑人物理学家Romilly, 一个地理学家Doyle，两个前面出现的智能碉堡机器“人”CASE和TARS就出发了！！（这尼玛都太巧了吧！！！老板要见学生不用搞得这么玄乎吧！为什么这么巧！！这都是上天安排的缘分？？这真的是缘分吗？？？看到这里，我内心暗暗的发出了一声卧槽。。诺兰你要坑爹吧！！！）画面回到大农场！Murph知道老爸要去执行任务，不希望老爸去，因为老爸一去什么时候回来还不知道，她最近一直在观测房子的超自然力量，Murph找到的信息是 STAY！她希望老爸留下了！但是老爸为了大义，全人类的存亡，必须去执行太空探险的任务，父女两感情出现裂痕。经典的一段伏笔，Murph问Cooper你什么时候能回来，Cooper用相对论解释，我去太空旅行，我回来的时候咱们两个看起来差不多年龄呢。Murph哭着说那还要好久啊，我才十岁。。。。老爸说我一定会回来的！！走的时候给了女儿一块手表！！======================分割线=========================前方高能！！！！！技术宅轻草！！！！！（下面解释Dr.Brand给Cooper上课的一段内容，小伙伴们很容易迷糊的）Dr.Brand和NASA的科学家发现，近几十年，在太阳系土星（Saturn)轨道附近发现了一个虫洞（wormhole)，虫洞是连接两个时空的隧道，也就是连接了另外一个“银河系”。没有人知道这个虫洞是怎么来的，就像没有人知道为什么Cooper和Murph会在家里发现异常的重力场一样，他们把这种神秘的力量称为“they”，并且相信这是五次元世界的生物所创造的虫洞来为人类摆脱危机。Cooper将驾驶Endurance太空船去完成一项重要的任务！NASA在这之前已经启动了一项名为“Lazarus”的太空计划，先后通过虫洞派送了12名宇航员去探索虫洞另一端的宇宙，目的是为了找到适合人类居住的星球为了之后全人类移居，以此来解决目前人类面临的生存危机。12名宇航员基本是有去无回。Lazarus的数据回馈显示，有三个星球适合人类的繁衍，分别为Miller， Edmunds，和Mann，这些星球以发现他们的宇航员名字来命名的（这里容易搞混）。另外，Dr.Brand告诉Cooper他有两个plan来解决人类生存危机。Plan A：Cooper驾驶太空船去探寻这三个星球，确认一个适合人类生存的星球后，返回地球，NASA同时研发出一个巨型太空船将人类迁移到新的星球上去。这样Cooper就可以拯救他的家庭。Plan B：他们驾驶太空船去找到一个适合人类的星球，并带去人类胚胎（population bomb)，用受精胚胎在新的星球上进行人类培养(repopulation)。Cooper不想这么做，因为他答应自己的女儿一定会回来。但是，Plan A的成功与否还取决于Dr.Brand能否成功解决一个困扰他多年的物理问题，“人类如何能共时性地克服地球重力的影响”（文科生的我已经不知道自己在说什么了）。如果这个问题不能克服，那么即使牺牲地球上的人类，人类也能得到繁衍，即Plan B。Dr.Brand答应Cooper会想尽一切办法实行 Plan A. Cooper和安妮海瑟薇一行四人踏上对未知宇宙探索去完成拯救人类的重要使命！探索宇宙的也就是星际穿越的过程可以分为几个重要的故事段落。。（楼主整理的好辛苦啊！！！）第一段！冲出地球对接Endurance。Cooper可谓是技术过硬，成功完成了他们驾驶的Ranger一号飞船和Endurance太空船的对接（这里为后面会更激动的对接埋下伏笔）。将人类“备胎”带到了Endurance太空船上。Endurance之前一直是一个靠近地球的空间站，这次作为母舰，有足够他们完成这次探险任务的补给。他们检查了一下情况，准备出发！（地球的景色很好！没有感觉到沙尘暴啊！楼主也想做太空船啊，整个电影节奏不一样了，有木有！！！）第二段！穿越虫洞到达另外星系。Cooper驾驶的Endurance太空船离地球越来越远，飞过了大半个太阳系到达了离土星附近的虫洞，准备进行穿越。这时候物理学家Romilly给Cooper进行了一次科普，解释了一下为什么穿越虫洞可以去到另外一个星系。（技术宅们快来拯救我吧！！穿越虫洞的过程非常刺激，感觉被抽水马桶抽走了一样！特效非常华丽，楼主由于坐的很靠前，头部产生了轻微的眩晕感，大家注意安全哦）在穿越虫洞的过程中，安妮海瑟薇感觉到了高维生物的迹象！她相信这是五次元世界的生物创造出的虫洞来解救人类。其他的小伙伴都惊呆了。第三段！到达另外星系，开始寻找适合人类居住的星球。Endurance首先跟踪了从Miller星球发出来的信号，准备去Miller星球一探究竟。但是他们很快发现一个问题，Miller星离附近一个巨星，也就是传说中的黑洞，特别靠近，受到重力的影响，这个星球上的时间会变慢，在上面带一个小时地球上过七年 （有没有神仙的感觉！！天上一天，地上一年哦，我们的老祖祖早就发现了世界的真谛啊！！！！）Cooper觉得很操蛋，想快去快回，不想拖延返回地球的时间。他们决定让物理学家Romilly留守母舰，剩下三人去一探究竟。飞船冲破大气层到达Miller星，发现了一望无际的水！！这是非常有利的信息！根据信号找不到之前来探索的太空船，但是他们发现了散落的太空船残骸，就在这时，像山一样的巨浪打了过来，由于受到重力场的作用，这个星球上形成摧毁力极强的巨浪。由于安妮海瑟薇想拿回Miller留下的数据盒子，耽误了登船的时间，巨浪打来，龙套地理学家Doyle挂了。。。Cooper带着安妮海瑟薇驾着飞船飞离了Miller星。。。（这一段还是很刺激的！智能机器人相当给力！！别看他是一个铁板，可以很灵活的哦！！）第四段！失落返回母舰，泪点爆发。由于巨浪的干预，Cooper驾驶飞船晚回来了一个小时，熟练的驾驶成功完成对接。门打开了，Romilly站在那里，神情呆滞，说“已经过来二十三年了，你们终于回来了！”其实，对于Cooper他们来说只过了三个多小时。由于重力的作用，母舰Endurance上的时间和地球上是一样的。也就是说，地球上Cooper的孩子们已经过了二十三年。这时，物理学家告诉他们，在他们离开的时候，地球传来他们家人的信息。Cooper坐在屏幕前，看到了儿子Tom给自己的留言，从少年到成年，再到成为父亲，grandpa去世。。泪奔了！！最后是Copper女儿的留言。“爸，你说你回来的时候，咱们可能一样年龄了，可是现在我和你走的时候一样年龄，你还没有回来！我今天过生日，希望你在这里！“泪奔。。（电影从这里开始感觉高大上了！科幻和亲情人性交织在一起，开始感觉是个好故事了）插曲：我们来讲讲Cooper的小女儿Murph，这妹子从小就感觉很吊。在这二十三年来，成为了Dr.Brand的助手，可能也因为Dr.Brand觉得愧对Cooper,对Murph也是很关心的。Murph帮助Dr.Brand致力于解决之前提到重力问题。二十三年还是挺久的，Dr.Brand身体渐渐不行了，他其实早在几十年年前就把能解的公式都解了，去解决那个至关重要的重力问题，他发现，问题的最终解决需要从黑洞中获得singularity的相关数据（理论帝赶紧来解救我啊！！我已经不知道自己在说什么了），但是这些数据是不可能获得的。于是他得出结论，Plan A game over。我们还是要靠Plan B。也就是说，地球上所有的人都要死呢啊。人类备胎才是希望。在临死前，Dr.Brand告诉了Murph公式是不可能解出来的，因为没有数据。Murph精神奔溃，觉得自己老爸可能是知道地球早晚会灭亡，才抛弃自己和哥哥的。同时，地球上的环境越来越来恶化，btw， 哥哥Tom继承了老爹的衣钵，成为了一名合格农民，在老房子过着末日生活。愤愤不平的Murph发信通知了安妮海瑟薇老爹的死讯，在最后质问她是不是早就知道Plan A其实就是个谎言。。(老头子好歹你也是个科学家啊，怎么能骗人呢啊，人与人基本的信任在哪啊啊啊！！骗子，都是骗子啊)第五段！收拾情绪，重新出发去探索。Cooper感觉在一瞬间经历了自己孩子的成长，哭的和个泪人一样，但是科学的探索和人类的命运还是摆在他面前。他还要继续下去。经过分析Miller星上的数据，他们三个人需要做出一个重要的决定，那就是下一个地方去哪？由于Cooper不知道Plan A已经报销了，他还是一心希望回到地球和家人团聚，因为他答应过女儿一定回来。但是Endurance的补给只能满足两种情况，第一，去探索剩下的两个星球，然后留在那里，用人类备胎培育新的人类。第二，去探索一个星球，碰运气，如果恰好这里环境适合人类生存，就进行人类备胎培育，同时Cooper还可以回到地球，去完成Plan A。剩下的两个星球是Edmunds和Mann。物理学家建议投票决定去哪个地方，安妮海瑟薇觉得应该去Edmunds，（楼主走神了这里，好像是说她和之前去那里的宇航员有什么联系之类的，所以她想去，然后她讲了一堆理论，说什么人类的感情也许就是另一个维度的现在之类的，反正楼主的大脑已经overload了。。。小伙伴自己去想吧）Cooper建议去Mann，因为Dr.Mann是之前Lazarus计划的领导人，发回来的信息应该比较靠谱，最后，他们决定去Mann。（人性罪恶马上要开始了！！）第六段！Cooper撕逼Dr.Mann。到达Mann星以后，他们发现这里是一片冰原，连云彩也能结冰。他们成功找到了Mann，并唤醒了在睡眠仓中的他。Mann醒来后非常激动，像是地下党找到了组织一样。Mann告诉他们这里可以进行备胎培育，Cooper很高兴啊，说好啊，那培育完我就可以回地球了！在这时，智能机器人接收到了从地球传来的信息，Murph告诉安妮海瑟薇你老爹去世了，而且挑明，Plan A就行不通，你们是不是早就知道！我爹到底知不知道！安妮海瑟薇也是丈二和尚摸不着头脑，Cooper很是震惊，坚定了要回地球和儿女解释清楚。Dr.Mann早就知道Plan A行不通，劝他们不要回地球了，回去也是照样挂，地球毁灭是早完的事。Dr.Mann说他发现在冰层下有个地方非常适合培育人类，就带着Cooper去看看，其他人准备设施回母舰去取备胎。就在这时，Dr.Mann表明了真相，尼玛这个星球其实不适宜人类生存，他害怕死，造假了信息，希望有人来接他！！但是他知道，回地球也是死路一条，于是他不惜想干死Cooper一队人，因为这样就没有人知道他造假了信息吸引人过来救他,而他可以带着备胎去寻找适合人类的星球。两个人扭打了起来，Dr.Mann把Cooper的头罩搞破，自己驾着飞船飞回母舰。千军一发之际，安妮海瑟薇驾着补给船救了Cooper，但是龙套物理学家被Dr.Mann搞的炸弹炸死了。Cooper和安妮海瑟薇驾着补给小破船去追赶Dr.Mann。第七段！全剧科幻场景高潮。Dr.Mann驾驶的飞船无法和母舰成功完成对接 （那么问题就来了，对接技术哪家强？）Cooper警告Dr.Mann不要强行进入母舰，不然后果不堪设想。Dr.Mann哪里管那么多，硬是打开了舱门，由于对接不好，压力瞬间爆表，Dr.Mann挂了，死之前还说，我是为了全人类！！全剧高潮，由于爆炸，母舰Endurance受损，旋转速度加剧，蓝翔毕业的Cooper驾驶着补给小船，也旋转了起来，达到和母舰相同的频率和速度，已完成对接。（很刺激哦，楼主看的晕了，看大屏的小盆友不要学楼主坐的太靠前，不然会吐的）惊险刺激，好莱坞大片的节奏，Cooper完成了对接，安妮海瑟薇赶紧去检查备胎有没有毁坏，感谢主，备胎完好无损哦。第八段！英雄救美。Cooper和安妮海瑟薇的使命感告诉他们，人类的希望就在我们身上了。母舰受损，剩余的燃料已经不足以回到地球了，Cooper放弃了回到地球的想法。他们决定去Edmunds，人类最后的希望。Cooper和安妮海瑟薇制定了一个计划，借助黑洞的引力节省燃料可以达到Edmunds，他们同时必须要减少负重，不然无法摆脱黑洞的强大吸力，他们决定让智能机器人TARS驾驶一个飞船推进母舰，然后投弃TARS到黑洞去收集singularity的数据然后发回地球。在计划的实施过程中，Cooper在完成助推后，将自己驾驶的飞船也投弃了为了减少母舰的重量，以摆脱黑洞的吸力。（英雄主义！！安妮海瑟薇泪洒天际）安妮海瑟薇驾驶着母舰向人类最后的希望Edmunds进发。======================又有分割线=====================影片到这里结束，其实也可以！英雄主义悲情的结局，我是买单的，但是故事前面拍那么多家庭生活不就白拍了！！！事实证明，诺兰是个玩细节玩到骨子里的大师。。。我们的故事才刚刚开始。。。Cooper在飞船被黑洞吸力摧毁之前，弹出了飞船仓，自己在浩瀚的星际中掉进了黑洞。（影片到了真正科幻的地方，前面讲到天文学概念很多技术宅都是买单的，那么下面，就是纯想象了，每个人都可能会有不同的看法）这时，他发现自己掉进了一个不存在时间概念的静止多维空间，在这个空间里，时间不在是线性的存在。（由于黑洞和引力gravity之间有着复杂的关系，目前的科学技术还不能完全认知，这就给我们留下了足够的想象空间，引力和时间之间的关系相对论里有提过，楼主不是技术宅，不敢乱说，但是知道引力和时间之间是有联系的。也就是说，当Cooper经历黑洞的时候，时间的概念完全被颠覆了）Cooper意识到未来人类就是作为多维生物的存在，那么地球的毁灭也就只是一个小插曲而已。人类的未来是一种多维的存在。（楼主已经快挂了）也就是说，人类可以穿越时间和空间，打开虫洞，来拯救自己，传说中的“they”就是未来人类自己。然后，电影给出了鲜活的栗子，Cooper在没有时间概念空间概念的状态中，连接到了自己家里书房，也就是Murph小时候认为有鬼魂出现的地方。 （这里不要问楼主为什么这么巧就能连接到书房，楼主也不知道，还躲在书架后面）插曲：Murph这个时候（不应该用这个时候了，时间全乱了）回到自己小时候的家，想要劝说哥哥离开，不然一家人都会挂了。哥哥比较固执，不愿离开，还出手打了Murph的小男友。不拉不拉。。然后Murph回到小时候的那个房间，想要想出办法去解决Dr.Brand没有解决的问题。她找到小时候记得笔记，爸爸送给自己的手表，在不停的想！Cooper在那个神奇的时空里，看到Murph,连接到所有的时间点。（有些玄乎，不知道为啥，小伙伴们可以看楼下其他人的解释哦，楼主读书少，怕说错咯）他通过推书架上的书，伸手啥的，给Murph留下了信息。也就是说，Cooper自己告诉小Murph和他自己说不要走，要STAY。他给自己留了信息引导自己去找到了NASA接受任务。（技术宅会呵呵笑这里，太玄乎了吧，我觉得其实不是Cooper伸手啥的就能影响什么，而是他的意念和感情改变的重力影响，从而影响了的时间点上发生的事情，之前楼主没看懂那块，安妮海瑟薇不是说感情和爱也可以是一个维度嘛，自己琢磨吧，影片到这里，已经脑洞全开！）他也制造了安妮海瑟薇在穿越虫洞时看到高维现象。所有发生过得一切全部都是他自己影响的 （想想这句话，因果律已经没有了。。因为时间的概念不存在了）Cooper通过留给Murph的手表传递了信息给Murph，同时智能机器人TARS也成功传回了数据。Murph此时也意识到这一切，其实父亲就是鬼魂，这都是是父亲留给自己的讯息，（物理学家就是脑洞大啊，啥都敢想呢啊）她破译了手表中暗含的摩斯码，成功的解决的重力方程问题。这样地球上的人类就有救了，Cooper此时意识都这一切都是自己使命，然后晕到在神奇的高维世界里。镜头一转，Cooper醒来，躺在病床上，（我心里卧槽了一下，不会是做了个梦）医生说，你现在已经124岁了，很老了呢，我们在虫洞附近发现了你，并救下了你，欢迎来到Cooper Station！ Cooper内心暗喜，亏着哥拯救了全人类啊，以我的名字命名的太空站啊！医生说，准确的说是以你闺女的名字命名的，哈哈。并说你闺女过几周会过来看你。在太空站，Cooper之前的房子被改造成了展览馆，向大家诉说着过去的故事。Cooper也为人类的进步感到惊叹。（我们现在可是高维生物了呢）到了让楼主最泪奔的点！！！医生领Cooper去见Murph,门一打开，一大堆人站在里面，病床上躺着一个垂垂老矣的Murph，她已经近百岁了。。。。而Cooper还是年轻的样子。。。他握着Murph的手，眼里是惊讶，是叹息，是无奈。。。Murph说，我知道你会回来的，你救了我们。。（泪点全奔啊）接着说，你不应该在这，No parents want to watch their children die。。。。白发人不应该送黑发人。。。（可是谁是白发人，谁是黑发人呢）。。。你该走！Cooper问，我又能去哪？Murhp点醒了他，你应该去找安妮海瑟薇！！！！！Cooper偷了NASA一架飞船，（为啥要偷呢，不知道）去找安妮海瑟薇去了！这时候镜头一转，在Edmunds星球上，安妮海瑟薇呼唤着，人类的希望。她背后，人类备胎正在新的基地里培育着。。。结束。。====================最后的分割线======================后记：看到有很多文青给Interstellar差评的，我就想吐槽几句。。。你们给差评基本有如下几个观点：1. 剧情问题。有些文青认为剧情太拖沓，接近三个小时，尤其是前面的剧情。再就是科幻片干毛要讲那么多过于煽情的情亲戏，不喜欢太多的亲情设定。2. 技术问题。有些技术文青专注挑一些技术性的问题，跟大家讲个公式说明剧情不合理啥的。跟三体作比较，觉得Interstellar太小儿科了。3. 电影艺术问题。有些电影文青拿Interstellar和2001太空漫游做个比较，跟诺兰之前的片子做比较，跟Contact做比较。觉得Interstellar在立意上没有2001高，艺术价值一般。4. 脑残粉问题。有些正义文青觉得豆瓣上的评分太高了，没看片就直接打一星了，想平衡一下评分。楼主想说。。。。。。。。1. 尼玛剧情设置已经很合理好吧！！尼玛拍纯科幻，有些傻逼说没人情味，Interstellar的意义就在于把科幻和人的情感放在一起了，看电影的是人好吧！！！！我不得不说情亲的戏份确实有些过，但是这也是真真实实感人的部分，不至于像看完2001一样在想，卧槽这说的是啥？？2. 技术文青你们去搜搜Kip Thorne是谁！！！！尼玛班门弄斧还挑毛病说黑洞不是这个样啦 不拉巴拉的。。。三体是牛逼，要是以后谁能把三体拍成电影，我想诺兰是一位，第二我都不知道是谁。。。3. 别没事老拿电影比来比去，看电影多了不起啊。我觉得好电影就是去电影院花钱看了，觉得花的钱值，你能感受到导演，演员的诚意，就是好电影！！我也知道。。。评论家嘛。。不挑出点毛病，是不会觉得自己有存在的价值的！！！！4. 没看电影直接打一分的人，哥只想说。。。呵呵楼主是诺兰脑残粉，在这里随便瞎说几句，每个人都有每个人的看法，我就是自己吐槽，无意攻击谁。。",
+        "url": "https://movie.douban.com/review/7185648/",
+        "title": "Interstellar100%细节剧透，看完再来看剧透！！"
+      },
+      {
+        "author": "Royce",
+        "source": "豆瓣长评",
+        "date": "2014-11-17 23:05:30",
+        "content": "李硕：“决定我们行为的，终究是我们的情感。”——题记        诺兰新片一出，各路讨论纷纷聚焦在黑洞是啥、相对论咋回事、什么是五维空间等物理学原理上，文青影评家们终于找到了秀逼格的创新点，这时候要不懂平行宇宙你都不好意思上豆瓣，而理聪们给影片测bug的技能则更不知道高到哪里去了，他们津津乐道那些科学漏洞的同时貌似诺兰真的就too simple了。        然而，电影终究是艺术作品，虽然是基于科学原理的“硬科幻”，但所有设定都掌握在导演的手中，人家只是在艺术作品的框架内利用科学、表现科学，那堆公式到底咋回事、表现得准不准其实根本不是重点。科学原理与技术细节必须在作品中为导演所构造的故事服务，而诺兰牛逼就牛逼在，他构造的这个故事，人们压根没法讨论“如果”。        当我们看电影时，到了某一高潮时刻或关键点，常常会想，如果主角做出了另一种选择会怎样，如果发生了另一种情况会如何……然而，在这部电影里，当你为其中的某一节点思考另一种可能时，整部影片就没了，甚至，在这个世界观之下的整个世界都不存在了。        比如在本片的转折点，他们从覆满海水的星球脱身后，两位主角争论下一站去哪，这场争论明显是感性和理性之争，库珀更相信数据，相信科学权威曼恩，而布兰德遵从感觉，她说，爱也许是更高层次的我们无法理解的东西。最终库珀选择了前者，虽然后来证实这是一个巨大的错误，但如果他们听从布兰德的意见驶向艾德蒙斯星，那么库珀就不会掉进五维空间，也就不会给自己发送NASA位置坐标，没有坐标他就不会见到老教授更不会向星际出发，整个故事就根本不会发生。        同样，如果墨菲的哥哥汤姆没有守着那老房子、如果库珀当初真的依着女儿的意愿而没有离开，如果老教授没说谎……那这一切也都不会发生。诺兰把整个故事设计成了一个环形的结构，这个环形结构上的角色根本没有其他选择。        根据这个环形，诺兰告诉我们，现在的行为不仅是过去决定的，也可能是未来决定的，未来留给现在的线索驱使我们做出当下的行为。        几十年之后掉进五维空间的库珀给几十年前的自己留下了出发的线索，让一切不得不发生。也正是N年之后的五维人类——未来的“我们”，把库珀带进这个五维空间，让库珀可以给女儿传递黑洞数据。过去和未来连成一个环，这个环不仅仅像0这样简单，它类似无数个8字环环相扣，人类生命就这样不断进化发展。        这宏伟的构造直接向我们当前所认知的因果律发出挑战，让我们重新思考“偶然和必然”这个老生常谈的哲学话题。我们始终坚信，现在是由过去决定的，果永远在因之后，若发生和过去毫无联系的事情，则称之为“偶然”、“随机”或者其他什么感性的东西。但诺兰说，你当前的行为有可能是未来的你与现在的你进行沟通并留下暗示之后的结果。        这固然很神棍，所以诺兰才引入了物理学的种种概念做出合理解释。当然，人家说的根本不是物理上的事儿。造就这一切的，是他的儿子，那个合格的农民汤姆。        想想库珀离开之前，和汤姆紧紧拥抱，并且告诉儿子：“帮我看好我的地！”        就为这一句话，汤姆付出了一生，甚至第一个孩子病死、妻子和第二个孩子重病也不曾动摇。这不仅仅是为了承诺，当他关掉视频录像的一刻，他就断定爸爸不会回来了。他坚守的是属于自己的土地。        所以，当我第二次在电影院看这部电影时，演到汤姆目送父亲开车离开的镜头，画面上只有汤姆的背影和大片的农田，声音是火箭发射的倒计时，我的泪水早已止不住地奔涌出来。你若是看不懂这个，绝逼认为我的泪点很奇怪。        接下来就是这个美国red neck的必然。是他在极端严苛的环境下保护住了家里的土地、房子和妹妹的书架——五维空间和地球的交接口。如果没有他二十几年的坚守，他妹妹墨菲怎么可能再次回到原来的房间，怎么可能收到父亲的信号，收不到信号人都他妈死光了，五维人还能进化出来吗？进化不出来库珀就不能掉进五维空间就不能给自己传递坐标也就不能出发飞向太空……可能整个世界就没有了。        说到这，你们还以为拯救世界的是墨菲或者库珀？        拯救世界的其实是那个看起来最笨最傻最没存在感的酱油角色汤姆啊！        库伯出发前，和岳父坐在屋前聊天时候说：“人类有探索者也有守护者。”如果库珀是勇敢的探索者，那么他的儿子就是守护者。当探索者要出发时，是守护者给了他最强有力的支持，他们共同代表着人类的精神。豆瓣上居然有人说汤姆这个角色表现了人类的愚蠢与无能为力，大哥你高中语文课上多了吗？        当成年墨菲收到父亲发来的摩尔斯电码之后挥着手表从屋子里冲出来拥抱哥哥的时候，你看这位守护者的眼神，没有兴奋没有冲动，依旧是那样的坚定。再想想父亲离开时汤姆远望的背影，眼泪再一次夺眶而出。        诺兰注定是热爱土地的，探索者们到达的三颗星球，前两颗分别布满了洪水和坚冰，而最后安妮海瑟薇到达的艾德蒙斯星，却是广阔的黄土，那才是人类的希望。影片最后一个镜头，安妮海瑟薇摘下宇航头盔转身走远的背影，居然和汤姆远望父亲离开时的背影如此相似。而人类之所以能到达那里，并不取决于过去与未来、因与果、偶然与必然的逻辑设定，也无关各种物理规律科学知识，而是来自于保守故土的信念和对至亲的承诺——儿子守护着帮父亲看地的承诺，父亲守护着回来陪女儿的承诺，他们共同守护着对家园的承诺。        这种坚守只来源于人类最原始的情感。这里引用微博上@大咕咕咕鸡老师一句话——“无论如何即使穿越时空也要回老家种玉米的信念支撑他飞过亿万光年！”看到这你才能吼出这个影片看起来烂俗却牛逼透了的主旨——爱是穿越时空的幽灵！        最终只有墨菲理解了父亲。在影片开头，巨大沙尘来临前的棒球场上，墨菲曾说：“外公说你讨厌种田。”而最终，墨菲告诉后代们，父亲喜欢种田。        父亲是真的喜欢种田，因为那是属于他自己的家园。",
+        "url": "https://movie.douban.com/review/7196512/",
+        "title": "Cooper的儿子，老农民汤姆才是救世主！"
+      },
+      {
+        "author": "李嘉月",
+        "source": "豆瓣长评",
+        "date": "2021-05-12 18:18:42",
+        "content": "「时间轴」☟编者按→剧情梳理→概念解释→最烧脑的时空悖论→平行时空→细节全解析→无人机寓意→关于科幻片📎文章稍长，建议先转后看 编者按——有些东西乍看起来平平无奇，但其中蕴含巨量的信息。《星际穿越》整部影片的画面可谓精简到极致，往往单一的空间站、巨大的星体、漫长的黑夜，无边的孤独，就构成了完整的镜头。然而，星际穿越每1分钟的镜头耗价高达97.6万美元，所有的信息都隐藏在极致的简约之后。这种宏大的内敛和克制，有点类似老刘对三体的描写：它的海量信息是隐藏在深处的，汪淼能感觉到，但说不清。他突然悟出，《三体》的不寻常在于，与其他的游戏相比，它的设计者是反其道而行之——一般游戏的设计者都是尽可能地增加显示的信息量，以产生真实感；但《三体》的设计者却是在极力压缩信息量，以隐藏某种巨大的真实，就像那张看似空旷的天空照片。庞杂精细并不等同于内涵丰富，而恰恰是删繁就简的克制，放大了科幻本身所含的哲学命题对观众的冲击力，令剧情更加烧脑。更遑论这部电影着力描写一个五维时空，远远超出了作为三维存在的我们的认知极限。\n我们试图理解五维，相当于蚂蚁试图理解球体，只是平面圆模样的投影。而且，即便蚂蚁知道了球体并非如投影表现是个平面圆，那也没办法想象球体本身。同理，三维的因果律根本无法解释这部影片的时空关系。如果就是头铁，就是要用因果律，那么必然陷入时空悖论，脑细胞死一大片头秃成灯泡也决计想不明白。1 / 7剧情梳理在正式分析《星际穿越》的烧脑细节之前，咱们先回顾一下剧情：地球陷入末日危机，各类农作物患枯萎病，人类面临肆虐的沙尘暴和大饥荒，眼看走向灭亡。前NASA宇航员在家务农，也就是男主库珀，他接连在自己的最爱——女儿墨菲的书房发现奇怪的重力场现象：书无故掉出书柜，天花板掉灰尘，摆成特殊形状。女儿将灵异事件理解为幽灵，但男主不相信幽灵的存在。之后男主破译灰尘密码，得到一个坐标，然后带着女儿前往，发现坐标所在地是一个科研机构。在那里男主认识了老教授和他女儿布兰德博士，并得知，前NASA成员仍秘密进行拯救人类的计划。他们发现“虫洞”另一端有3个可能适合人类居住的星球。于是，男主和队员上路，去确认究竟哪个星球适合作为人类新家园。此时教授有两个计划，A计划是得到地心引力算法和黑洞数据后建立空间站拯救地球所有人。B计划是抛弃地球所有人带受精卵移民外星球。教授让男主先去执行计划B，约定男主传回黑洞数据的时候自己也研究出来引力算法，然后再执行计划A。而实际上教授认为计划A是不可能实现的。男主与女儿告别，而女儿说自己解开了书架掉落书本的密码，是“stay”，但男主还是走了。男主和另外3个队友踏上了穿越星际的旅程。他们穿过虫洞到达银河系以外的新星系。在虫洞中，他们看到了时空畸变，布兰德还和时空畸变中的“他们”“握了手”。在这个新星系中有1个黑洞卡冈图亚 (Gargantua)和3颗可能适合人类生存的星球，分别是米勒星球、曼恩星球和艾德蒙斯星球（以首批登陆星球的科学家名字命名）。他们选择的第一站是离他们最近的米勒星球。米勒星球处在黑洞引力范围零界点的附近，由于受到黑洞巨大引力的拉扯，这颗星球的时间变慢了，它的1小时相当于地球的7年。用切入米勒星球轨道的方法登陆要耗费很多的地球时间，到那个时候有可能地球的人类己经灭绝，无法实现人类移民的A计划。于是库珀想避开时间畸变区，进入和米勒轨道平行的轨道，到达米勒星球上空，直接登录，然后带回样品资料返回空间站研究。按此计划可以节约很多时间，只需要约两年时间，但缺点是更费燃料。他们留下了罗米利在空间站研究黑洞，其余3人——男主库珀、女主布兰德和队友多伊尔去探索米勒星球。顺利登陆。但这颗星球，除了汪洋，什么都没有。因为这颗星球靠近黑洞，黑洞的引力拉扯潮汐，因此产生巨浪。巨浪的周期差不多是一个小时，而布兰德行动失误，花费了余外的时间，导致队友牺牲和飞船故障。他们多花了一个小时排水才让飞船重新启动，在第二次巨浪来之前，惊险逃生。这次行动，他们付出了地球23年时间和队友牺牲的惨重代价。与此同时的地球，时间已经过了23年，男主的女儿长大，成为教授的副手。教授临死前告诉墨菲，他早就解开了方程，但是黑洞数据不可能得到，所以一开始就只有殖民外星球的方案B，地球人只能等死。镜头再回到太空。因为此次行动的失误，飞船燃料不足，所以接下来的行动只能从余下的两个星球中选一个，以保证剩余足够的燃料返回地球。在路线选择上，库珀认为曼恩星球的数据更可靠，而布兰德认为曼恩星球和米勒星球一样，都在黑洞附近，不可能产生奇迹。于是俩人产生分歧，男主觉得布兰德想去艾德蒙斯星球只是因为她男朋友在那儿；而女主认为男主只想自私的返回地球和女儿团聚。实际上，男主的目的是实现A计划，救更多活着的人，当然也包括女儿墨菲。不过，布兰德在米勒星球犯的错误导致她没能赢得这场讨论，只能按照库珀的意见去了曼恩星球。天道好轮回，苍天绕过谁。上次女主犯错，这次轮到男主。正如布兰德所说，曼恩星球没有奇迹。所有的数据都是曼恩为了让自己获救而伪造成的。曼恩一开始就知道A计划无法实现，因为无法进入黑洞获得黑洞引力数据。为了偷飞船逃生，曼恩进行了一系列操作，包括给机器人设置自曝程序炸死那个独自在空间站研究黑洞23年的黑人科学家罗米利，把男主骗出去杀掉。当然我们的男主没死成，反而向女主传递消息并获救。女主开飞行器救男主的时候，曼恩偷飞船前往空间站，但空间站爆炸，曼恩领盒饭。之后男主利用高超的驾驶技术救回空间站。此时男女主之间的关系得到缓和。然而一波未平一波又起，当他们沉浸在胜利的善悦中时，突然发现空间站己经滑入了黑洞的引力范围。想要逃出生天，别无选择，他们只能利用黑洞的「引力弹弓效应」，将空间站射向艾德蒙斯星球，否则将被黑洞吞食。但代价是机器人塔斯和库珀作出牺牲，与空间站分离。分离瞬间，女主get到男主的大爱。话说男主进入黑洞经过奇点，竟然神奇的活了下来，并进入一个奇异的空间，也就是“他们”在五维空间里放置的三维化空间，俗称「超立方体」。在这个空间中，若干个四维空间不断重叠，重合在一起。男主可以任意切换到一个四维空间中。他在超立方体中看到了女儿曾经的生活，想到自己被困在这么个鬼地方，拯救世界的任务也没完成。特别后悔，早知道当年自己不走了，留在地球陪伴女儿长大多好。于是通过引力按规律移动女儿架子上的书，书掉在地上，就是影片开头幽灵和密码stay的秘密。女儿破译出幽灵留下的讯息，劝说当时的男主不要走，但男主不听。过去在未来还是按照原本的轨迹发生了。然后，同在五维空间的机器人发来消息（虽然机器人和男主在同一五维空间中，但高维规则，彼此看不见，只能通话），告诉他拿到了黑洞数据。男主此时悟了。觉得“他们”就是未来的地球人，地球有救了，于是给立方体里的另一个自己传递灰尘坐标（对应片头屋里掉落灰尘），再通过自己送给女儿的表的指针，用摩斯密码，把黑洞数据传递过去。这种默契，这种心灵的感知，就是爱。根据影片设定，爱是可以穿越宇宙时空的一种特殊力量，没有任何证据，但是你知道爱就在那里。镜头再来到另一端的地球。墨菲拿到量子数据后解开引力公式，找到拯救地球人类的方法。然后超立方体消失，库珀穿越黑洞和虫洞，返回太阳系。其中，在库珀穿回太阳系的过程中，他看见了当初进入虫洞的他们自己，并且在时间畸变中和布兰德“握了手”。这也证实了库珀所说了“他们”其实就是“我们”，是未来的人类。由于黑洞和地球的时间差，墨菲己经成功建造了四维空间站，将人类移民到了太空站。空间站也在土星附近（方便穿越虫洞），因此，库珀和塔斯被空间站发现并且获救。男主醒来后发现自己躺在病床上，来到墨菲建造的空间站。此时地球时间己过百年，库珀的地球年龄己经124岁了，而实际年龄只长了几岁。与此同时，他的女儿墨菲己经是一个将近100岁的老太婆了。当他用37岁的身体，看到已经百岁高龄、儿孙满堂的爱女，他知道自己赢得了时间，却失去了陪伴爱女成长的最宝贵的经历。墨菲告诉他，人不能看着自己的儿女离世，要他去外太空寻找跟他一样年轻而孤独的布兰德。于是库珀和机器人塔斯偷开一辆飞船，去往艾德蒙斯星球，再次飞向不可知的太空…………影片最后，女主抵达艾德蒙斯星球，并摘下头盔，预示人类文明将在新的家园延续下去。\n 2 / 7概念解释解释几个概念：①引力弹弓效应：宇宙飞船利用行星的引力场来达到加速的目的,行星的引力就像弹弓一样把宇宙飞船弹射出去。类似小时候玩过的弹弓，我们用力的往后拉皮筋，再一松手它便会快速的弹出去。在电影中到应用就是，让黑洞把他们拉近到经过计算的临界点，飞船瞬间点火，利用引力弹弓效应，把飞船射向新的星球。②螺旋式下降减速影片中飞行器在广阔的海面上进行螺旋式下降，这是因为螺旋式下降要比直线下降距离长，在急速下降的情况下通过延长下降距离，也就是延长空气对飞船的阻力时间，达到大气对飞船下降阻力的持续，从而减缓下落的速度。③奇点奇点就是一个密度无限大，体积无限小的点。奇点，是宇宙大爆炸之前宇宙存在的一种形式。它具有一系列奇异的性质，无限大的物质密度、无限弯曲的时空和无限趋近于0的熵值等。现代任何物理数学定理在奇点上都失效。★3 / 7全片最烧脑的时空悖论先分析一下大家最困惑的「时空悖论」问题。提前声明，几乎任何一部有关时间旅行的科幻片都逃脱不了时空悖论的讨论。这里只是结合影片所涉及的高维时空关系而言的具体问题具体分析。大家用三维因果律思考时间旅行，必然陷入时空悖论的死循环。比如，为什么地球人类被拯救，是因为未来人类帮忙放置虫洞；为什么未来人能够放置虫洞，是因为地球人类被拯救后繁衍成高维文明。按此思考，电影的因果链就是一个「莫比乌斯环」，根本没办法厘清。之所以这样说，是因为虽然这是逻辑严密的闭环，但受低维局限，我们只能看到这个逻辑链的投影，就像最开始我说过的，蚂蚁只能看到球体的平面圆投影。既然我们认为它是无解的死循环，那么影片对我们而言始终存在时空悖论。我们越深入思考，越觉得电影建立在BUG上，一方面这非常不符诺兰导演的职业操守，另一方面难题想不通真的很令人抓狂。但这一切真的是无解的BUG吗？要知道，导演着力表现的是一个五维空间，并不是简单的直线式的时空穿梭。如果说三维空间中的时间是一条不可逆的直线，那四维空间中时间应该就是一个平面，五维空间中时间就是立方的状态。也就是说五维空间中的时间可以看得见摸得着，可以随意塑造形状，比如把不同方位上的少量的时间堆积起来变成更大的时间，把大量的时间拆分为小块，扔在不同的方位。整部影片因为高维度设定，因此根本无法适用三维因果律。我们必须跳出三维的思维模式。至于怎么跳出，其实导演已经说得很明白了，那就是「墨菲定律」。\n墨菲定律是理解影片时空关系的题眼，“只要有可能的事，就一定会发生”。这个有点像「宿命论」，在三维世界里形而上学，但却可以解释五维的时空逻辑。明确3点：1、三维的时间是一条线，具有因果律（不适用高维时空）。2、影片不存在平行宇宙的概念。3、时间线不允许有悖论产生。想理解五维时空关系，那么，不要追溯它因何发生，其果为何，这是无解的死循环。你只需要知道，已经发生的，就是原本应该发生，也是必然会发生。举个例子，墨菲小时候遇幽灵的情节，按直线式因果律思考，很容易理解成男主库珀穿越到未来，向过去的女儿传递信息。这样想是错的，因为无论在哪个维度，人类都不可能改变历史。虽然墨菲小时候遇到未来的男主，但这本身就是历史的一部分。在过去这是已经发生的，所以在未来这是必然发生的，那么事情原本就应该这样发生。对于未来人类来说，他们做的并非改变历史，而是按照历史发生的事情做了他们该做的而已。之所以未来人能这样做，是因为高维度的人类能够看到低维度人类的过去将来，就像编剧能看到角色的人生轨迹。编剧想要修改一下，所以在某个节点放上关键事件，改变了整个轨迹的方向。再比如，电影中枯萎病威胁下的人类可以视作当前处于某种绝境中的蚂蚁，如果溪水淹没蚂蚁的窝，蚂蚁只能等死，这时，一个普通人类发现了，直接把溪水改道，从而让蚂蚁能够顺利转移，在蚂蚁看来这个人类就是高维度的生命。虽然蚂蚁的未来被改变了，但人类并没有改变历史本身。在五维空间中，不存在时间先后顺序和因果关系，所以蚂蚁是怎样成为人类的这个因果律问题在五维空间里根本没有意义。 4 / 7影片不存在平行时空的设定为了搞清楚因果律导致的时空悖论，很多人会从平行时空的角度思考。平行时空有点类似诺斯替主义。博尔赫斯在《环形废墟》中指出分有说，认为宇宙模型是数轴式的向两端无限的延伸，而原点可以在任何位置上。用平行时空这个概念确实可以解释时空悖论，然而实际上，星际穿越导演根本没有设定平行时空这个存在，不涉及无限衍生时空。而且结合影片内容来讲，未来人类完全没必要拯救它的平行时空，就好像指数级分裂的细胞没必要对母细胞念念不忘。星际穿越的故事只在单一「场」发生，无论五维还是三维都隶属于同一「场」。 5 / 7细节全解析除了上面我提到的时空悖论问题，《星际穿越》还有很多小细节值得解读。Ⅰ- 为什么影片中飞行器在太空里一直旋转？用旋转产生向心力模拟地球引力。飞船在旋转过程中，恰恰产生的就是这样一种惯性离心力。根据广义相对论的‘等效原理’，惯性离心力可以代替重力。根据影片叙述，旋转可以让飞船产生与地球表面相仿的重力，这就让宇航员在太空中找到如履平地的感觉。”“对于星际航行而言，重力不仅是舒适需要，更关乎生命健康。”长期失重不可避免地会带来宇航员肌萎缩、骨疏松等问题，因此制造“人工重力”是必要的。Ⅱ- 为什么老教授觉得不可能获得黑洞数据，以及为什么男主进入黑洞没死？根据霍金的理论，别说进入了，就算接近黑洞的人都会被黑洞的超引力给撕碎，但在基普索恩看来，对于黑洞我们都只是通过无穷多的数据来证实，但实际上黑洞到底怎样是无从得知的，所以基普索恩黑洞理论，最后男主和机器人TARS都活下来了。Ⅲ- 老教授的公式怎么回事，以及为什么临终前说自己撒了弥天大谎？由于地球上爆发了非常严重的枯萎病，为了避免灭绝，人类需要离开地球，在宇宙中寻找新的宜居星球。对此，老教授制定了两个计划。计划A，把全人类带离地球，并送到其他的宜居星球上生存。计划B，出去寻找宜居星球的宇航员不再回来，他们携带的人类受精卵将会在其他星球上开始新的生活，地球上的人类只能自生自灭。计划A当然是最好的选择，但想要实现需要解决一个巨大的问题，那就是如何把全人类转移到太空中？多年前出现的引力异常现象，引起老教授的注意，他意识到引力可以被控制。如果引力能够被控制，把全人类以及巨大的空间站送入太空中就不成问题。老教授一直在研究引力方程，经过多年的努力，他终于了解开了这个方程的一半。由于无法调和量子力学和相对论，这个引力方程还无法使用，需要黑洞的内部数据，需要了解奇点才能完全解开方程。然而，黑洞的事件视界把黑洞内外的时空隔开，禁止外界观测者看到黑洞的内部，位于黑洞中心的奇点不会裸露在时空中。无法获取黑洞的内部数据，这意味着引力方程是不可能完全解开的，所以控制引力也就无法实现。老布兰德教授早就知道了这一点，但他对大家隐瞒了。他对外声称自己很快就能完全解开这个方程，只要找到宜居星球，人类很快就能搬过去。他深知让人类联合起来牺牲自我和家人去拯救其他人是不现实的，所以他向大家撒了弥天大谎。自始至终，A计划都是不可能实现的，只是一个幌子。老教授选择泯灭了自己的人性，试图以B计划来使人类种族能够在宇宙中延续下去。几乎所有人都不知道这一点，只有先前出发去寻找宜居星球的曼恩博士知道。当然，PlanB也不确定最终能否实现。一开始知道真相的教授真实目的就是执行PlanB，而实际上他本身对这PlanB能否实现也是怀疑态度的（后面教授第一在基地见到墨菲的话中有暗示“自己不确定女儿是死是活，但每次去录想说的话会让自己好过一点，支撑自己相信他们活着的是老头的信念”），光靠传回来的数据是没法判定哪个星球宜居的，但与其等死还不如让女儿去外面冒险一次，这就是老头不断重复那首诗的意思。不过，由于卡冈图雅黑洞的奇点是一个温和的奇点，库珀得以安全进入黑洞中，并把黑洞的奇点数据传送给他的女儿。最终，获得黑洞内部数据的墨菲在老教授的研究基础上解开了引力方程，从而拯救了全人类。Ⅳ-为什么宇宙探险小分队先去了米勒星球？三个星球距离黑洞的远近顺序是米勒星球、曼恩和埃德蒙斯。而且从数据的传递来看，米勒是很可能宜居的。而他们从虫洞出来后，首先就会先利用黑洞的超强吸引力，登陆米勒星球，节省燃料。而米勒的重力是地球的130%，是距离那个黑洞最近的星球，所以就不难解释在那个星球上为什么会有那么大的巨浪，因为牵引力因素产生大规模潮汐。Ⅴ-为什么优先选择曼恩星球而不是埃德蒙斯星球？首先是因为从信号上来看，埃德蒙斯信号已经断了，而曼恩信号还在继续，其次是因为曼恩履历更牛掰，所以理论上最可靠，最后是因为在经过米勒星球的折腾，原来的燃料已经不可能支持他们在探险完埃德蒙斯星球后再次返回地球，而男主是想全家团聚的，还有就是从男主的心理来看，女主布兰德是有私心的，因为他的男人可能还在休眠。综合考虑，最后选择了曼恩星球。Ⅵ- 曼恩为什么要杀死男主？首先曼恩不想死，“对人的思念是人类无法逾越的障碍”。曼恩传递「自己所在的星球是宜居的」这个虚假消息给地球，目的就是让地球派人过来，那么自己就有机会返回地球。曼恩星球的引力是地球的70%，所以有的冰川漂浮在半空中，女主从那么高的地方跳下去也不会崴到脚。至于为什么曼恩知道男主计划返回地球还要杀男主呢？这是出于英雄主义，如果男主把曼恩为求生而传递虚假消息这件事告诉地球上的人，他哪里还有脸活下去，不得被唾沫星子淹死。所以曼恩打算自己一个人回去，然后去用一个谎言去圆另外一个谎言。Ⅶ- 罗米利为何会被炸死？曼恩探索星球带的机器人基普拥有真实数据，为了掩饰自己的谎言，曼恩就让机器人报废了。并且在报废机器人时，曼恩设定了自毁程序（最后男主在修TARS的时候，TARS开的那个玩笑，说明机器人是有自毁程序的），如果罗米利修理机器人并接触真实数据，他就会被炸死。人类指纹能够修复机器人数据，所以罗米利摁下指纹的同时，被炸上天。Ⅷ-曼恩飞船在没有锁定对接时，为什么打开舱门爆炸了？曼恩在驾驶飞船方面经验不如男主，所以没有对接成功。飞船内有恒定气压，强行打开舱门就会有气压差，压强过大。Ⅸ-男主利用引力弹弓效应送女主出黑洞时，为什么分离飞行器？不能一起离开吗？一是燃料不够；二是牛顿第三定律，飞船需要通过分离飞行器反向推进获得足够动能。而分离飞行器只能手动操作（自动操作系统在曼恩不完全对接后开舱门毁掉了）；三是黑洞是温和黑洞，因此存在获取奇点数据传回地球拯救人类的可能性。男主抱着一线生机和机器人塔斯一起进入黑洞。Ⅹ-分析男主给女儿留下stay、航天局坐标和奇点数据的情节传递stay信息的时候，男主以为plan A注定失败，地球人必死无疑，因此后悔离开女儿来冒险了。后来男主跟机器人联系上，TARS告诉男主收集到黑洞数据，有了这数据就能实现plan A。另外，TARS说“他们”并不是让男主来改变历史，所以男主必须让自己到NASA去，毕竟如果当年没有去NASA就没法实现plan A。所以男主在超立方体内向女儿传递航天局坐标和黑洞奇点参数，就像之前发生的那样。Ⅺ-男主是如何破译沙子坐标的？墨菲一直坚信在她的房间里有个看不见的人（幽灵）向她传递信息，对于书柜的异常，她尝试用摩斯码去破译，而男主则认为“书柜可不会来跟你交流什么信息”。到了棒球赛那天沙尘暴，父女俩同时目睹了房间里沙尘掉落的异象，之后男主发现异象是由重力异常造成，在墨菲摩斯码的提示下想到二进制，进而得到NASA的地理坐标。用薄厚不一的沙子来表示坐标，也就是二进制码，粗线＝1，细线＝0。（不适用于现实，只是电影的表现手法。库珀还对墨菲说“是你引导我（找到了这个答案）”，这使墨菲认为父亲的离开是她一手造成的。既然地理坐标是有用的，那她破译的“stay”信息应该也是有明确目的，所以她试图用这个信息阻止男主离开。Ⅻ-地球上的重力异常现象咋回事？男主在超立方体中努力对应地球时间线时合理的前后误差。因为时间线是平铺的，所以他对表针操作的影响很有可能溢出到其他的时间点，导致近期时间线内经常发生重力异常事件。 6 / 7解读无人机的寓意及其它影片一开始无人机出现的作用：☟1.解释背景，航天局已经解散10年时间；2.悬念男主身份（此时并没有亮明），高端科技男；3.暗示男主家附近有重力异常现象出现无人机的隐喻：☟男主和两个孩子开车去学校，发现了一架印度的无人机。男主抓住了它，拆了它的电池，这时墨菲一脸不高兴地说了这句台词——Can’t we just let it go?我们放过它不行吗？其实无人机代表男主自己。当时，地面控制中心早已关闭，无人机默默飞行了10年，没有人知道。如果不是男主，它可能会永远飞下去。无人机是孤独的、无助的，它在寻找什么（looking for something），浪漫而凄凉。墨菲对对一架无生命的机器有些许同情之心，然而现实是冷酷的、无奈的。男主等人的太空探险也是一样。他们同样在寻找，同样是孤独的。他们穿过虫洞之后便杳无音讯。按照地球时间，仅仅在米勒星球，他们就度过了23年。人们只知道他们在宇宙深处飞行，却不知道发生了什么。随着时间推移，男主库珀成了一种记忆。儿子Tom在视频留言里，同样也说了：“I guess I’m letting you go.”（我还是让你走吧。）这是重要暗示，和墨菲之前的话相呼应。面对现实（他们可能早已遇难，永远回不来），地球的人们只好让他们远去。在这个结构里，男主库珀和无人机的命运重合，无人机隐喻男主自己。拉撒路计划的隐喻：☟男主一行人的太空探险活动被老教授称之为拉撒路计划（Lazarus）。拉撒路是圣经中记载的死而复生的人物，他已经死了，但耶稣断言他会复活。而四天后他竟然真的从山洞里走出来，证明了耶稣的神迹。死而复生，隐喻了进入黑洞的男主将会生还，以及末日的人类终将存活。三个星球的隐喻：☟米勒星球：这个星球上引力大于地球，大气稀薄，整个星球表面布满了水。这是暗示在生命诞生前古老的地球曼恩星球：大气氨含量高，地表冰封，这是暗示毁灭后重回冰河世纪的地球艾德蒙斯星球：人类历经千辛万苦寻找的最适合生存的尚未被破坏的完美星球，也就是说纵使人类能够穿越星际，在千亿个星系中寻找适合人类生存的星球，还要那个最适合的阶段才行，这是多么苛刻的条件才能匹配到。隐喻/暗语：当我们居住在这颗行星时，我们的任何破坏都会让这个家园在逐渐消逝，想要找到一个替代品的可能性很低，所以要珍惜我们的这颗星球。 7/ 7当人们迷恋科幻片时，人们迷恋的到底是什么？科技因建立在不可辩驳、抽象的科学原理之上，所以大多数人只能隔着壁垒，远远张望，终生都难以踏入。科幻电影却打破这个壁垒，在大众与艰涩难懂、生人勿近的科学奥义之间搭建起桥梁。芦苇般的人类，却试图用弱小的命运挑战庞大的未知，想要在此岸眺望彼岸。当远方的存在横亘于前，人们不免产生一种莫名无措的抽离感，就如同在时空荒芜中被紧攫住呼吸，陷入久久的怅然若失。当人们迷恋科幻片时，人们迷恋的到底是什么？我认为，除了直观的美学感受，比如历史化为乌有的幻灭感、命运的渺小，岁月的逝去，还有更深层次的东西，就像冰冷的钢甲和无情的科技怪物内里，那些柔软温情的人性，以及生死绝境里的希望之光。优秀的科幻使人们感受到宇宙、生命等命题之宏大，让人们暂时抽身于冗杂的生活，仰望星空（怀疑思考人生）不过嘛，似乎，绝大多数优秀科幻片都是人家国外滴……国内科幻电影一直都半死不活，稀松且参差，好像能拿出来说的只有《流浪地球》一部。而且，大家对国产科幻片的态度就像对国足一样，千言万语，不如一句呵呵。事先声明，这里没有崇洋媚外和拉踩的意思。国内也想做好科幻片的，钱花了不少，特效也及格，但就是事与愿违。比如某堡垒，披着科幻片外衣，继续讲赤裸煽情狗血演技炸裂的故事。为啥呢？科幻片差在哪呢？这是个大问题。下面一段话很有意思：在一项著名的实验中，科学家把电极连接到几只大鼠的脑部，大鼠只要踩下踏板，就能制造出兴奋的感觉。接着，当他们让大鼠在美味的食物和踩踏板中二选一时，大鼠宁愿选择踩踏板。这几只大鼠一次又一次踩下踏板，直到因为饥饿和疲惫而倒地不起。出品方低估了自己电影品质的劣质，也低估了市场的审美，同时一大群投机者掌权影视市场横行霸道。投机者掌握了盈利秘诀，于是不断生产迎合观众口味、能煽情、模式单一的片子，观众看一次爽一次，就像踩电极踏板的大鼠一样。",
+        "url": "https://movie.douban.com/review/13542018/",
+        "title": "《星际穿越》深度全解析｜观看烧脑科幻神作，请务必读懂细节!"
+      },
+      {
+        "author": "艾小柯",
+        "source": "豆瓣长评",
+        "date": "2014-11-16 22:13:03",
+        "content": "1．科学的问题诺兰的《星际空间》有两个细节非常打动我。一是Endurance太空站到达木星后准备进入虫洞，这个只在理论上存在的高维空间在银幕上的视觉展示是球体而不是一个平面化的隧道洞口。在“进入”的镜头系列中，Endurance并非抽象地“嗖”一下没入球体，而是缓步接近虫洞，眼看球的体积越变越大，球形表面反射出宇宙里无数遥远星系的斑斓投影。太空站不断接近，球体表面不断扩张，变得巨大，充满了Vmax巨幕，之后才是库珀那个壮士赴死般的“我们进来了”。相比宇宙的庞大的未知和虫洞的无限细节，人类最先进的太空站是那么渺小，尤其在Endurance到达未知星系之后飞向巨大的黑洞 \"Gargantua\"，在明亮的黑洞辐射对比之下不过是一个几乎可被忽略的小黑点。宇宙之壮阔，人之弱小却无知无畏，这在视觉和心理上都无比震撼，充满悲怆的诗意。二是库珀和布兰德博士在Endurance事故之后在高速旋转中实现飞船和太空站的对接，事件演变的速度、剪辑的紧凑、配乐节奏的紧张度和细节展示的不厌其烦都让人目不转睛。我特别欣赏这一节里大环境镜头和对接细节以及宇航员们表情的反复穿插剪接，简直没有一秒废镜头，没有一刻不看得人呼吸急促心跳加速的。科幻小说《三体》作者刘慈欣在采访中说他读罢克拉克的科幻小说《2001：太空漫游》，“突然感到周围的一切都消失了”，“孤独地面对着这人类头脑无法把握的巨大的神秘”。“真正的科幻应该是人们感受到宇宙的宏大，应该让他们终于有一天在下夜班的路上停下来，长久地仰望星空。”这样的仰望，就是科幻的终极魅力。但只靠“幻想”，科幻作品是立不起来的。没有足够坚实的科学细节来支撑、呈现想象力，作品只能是“悬幻”、“胡幻”。科幻作品里的科学细节越扎实，幻想部分的魅力就越强大。评价一部科幻电影的魅力，最根本的标杆我认为必须是科学细节，是科学的视觉表现。情节则处于第二位，为科学的推导和想象力的推进服务。如果和2014年的其他科幻作品比较，单从视觉效果出发，《星际穿越》的摄影其实不如早些时候阿方索卡隆的《地心引力》。但《星际穿越》的独特性在于它要视觉展示的是人类不曾探索过的未知领域。在表现未知，缺乏参照系或评价标准时，对科学细节的精心度反映出的是创作者的诚意。尽管不是所有的细节都经得住推敲，但《星际穿越》中的以下元素为其硬科幻的地位打下了坚实基础：∙人类走向灭亡的设置——环境恶化的现实主义∙太空站的设计方案及旋转产生人造重力∙高维空间在低维空间里的投影形式∙相对论对时空扭曲的猜想（包含极大的夸张，比如在外星一小时，人间已七年的情况下重力只有1.3G）∙黑洞的外部视觉形态∙黑洞潮汐力∙黑洞内部的时空奇点的幻想这其中虫洞的球体展示在科幻电影中是里程碑式的，将永载影史。就连向库布里克的电影《2001太空漫游》中代表宇宙终极秘密的黑色方石致敬的机器人，都因脱离了人的形态，设计巧妙新颖而将成为经典。当然，《星际穿越》的体系并未能完全解决它所提出的科学问题。这其中我个人最不能释怀的是事件的因果循环（“母子怪圈”）。当然，这是一切时间旅行科幻作品都面对的一个根本问题，而《星际穿越》并不是严格意义上的时间旅行题材。但既然电影提出了这个终极问题（谁把虫洞放在那），却没有试图在“改变历史”和“创造未来”之间达成和解，在我看来这始终是个不小的遗憾。2．价值观的问题诺兰在《星际穿越》里展示了面对死亡人类对保存文明火种的两种态度，他让人类在经历高维空间、时间扭曲、黑洞，以及科技发展一路狂奔之后终于回归到了唯一的价值尺度——爱。这样的设置很难不让一名中国科幻迷联想起《三体》。就如同《三体》因为这个最终选择所受到的最大批评，《星际穿越》也因这种近乎言情电影的设置得到了两极分化的评论。《纽约》杂志和NPR的影评人David Edelstein在极大赞扬了《星际穿越》的视觉效果后说电影的后1/3简直“俗不可耐”，把一个了不起的科幻故事降格成了庸俗的滥情剧。“煽情”，基本上是对《星际穿越》最普遍的批评。我个人对“煽情”这件事的“情”看法中立——毕竟一部作品终归要努力调动人心，我甚至还相当欣赏“爱”是解决人类生存问题的最终钥匙这个结论。造成煽情结果的关键不在情本身，而是这个“情”的表现方式，尤其在一部严肃的硬科幻电影里，“怎么煽”才是关键。一个好的科幻作品其实很像我们在科学研究里建立模型：“幻”的部分在于建立假设——目前技术水平达不到的科技发展已成现实, 目前还不能证实的猜想已被证实等等；“科”的部分则是假设之后的一切事件演变、情节走向，一切都在假设的基础上严格遵循逻辑关系，呈现合理的证据和论证过程。科幻可以在设立前提假设上天马行空，这之后却不能胡乱推导，不能在逻辑关联上掉链子。哪怕结果指向的是超越逻辑的情感信仰，推导过程也必须严格遵守思维逻辑，偶然却终必然地呈现系列事件的前后关联，一步步推向那个终于无可避免的终极真相。在分析《星际穿越》之前，我们先来简短回顾一下刘慈欣是怎么在《三体》里让宇宙的命运导向爱的。《三体》里有两个关键人物，一是“面壁人”罗辑，二是“圣母”程心”。前者由一个玩世不恭的混混终于走出个人小天地，直到承担起全人类命运，其契机是为了在“末日之战”中拯救妻儿。 虽然爱的最后落脚点是罗辑这一个家庭，但情感驱动的人类文明和纯逻辑驱动的三体文明的较量却是贯穿《三体》系列整体的。换句话说，“爱”的出现在整个故事里有非常充分的铺垫，它从最开始就被设计并紧密渗透至人物的行为选择以及最后的故事走向里，尤其在《三体II》的结尾，刘慈欣甚至特别安排了三体文明观察员来强调爱对人类文明发展的重大意义。人物罗辑从始至终对爱的选择都是合理统一的，并不需要超越逻辑思考的信仰的僭越。这个层次上的爱的归总，不是煽情。 再看程心，在《三体III》中，这个学识出众，因“阶梯计划”而为整篇宇宙史诗埋下契机的人物是个十分蹩脚的“拯救者”，她与罗辑最初的玩世不恭正相反，几乎是沉醉于同情心与泛爱的泥沼中不愿自拔，毫无领导能力，每每在涉及全人类生死命运的重大选择前掉链子、犯错误。然而刘慈欣偏偏一次又一次把这样一个人物推到命运的十字路口，让她代表全人类说话。在这个巨大的不合理面前，故事的终端指向了信仰，因为无论谁作领袖，在全宇宙的黑暗森林中，不论人类文明再怎样技术爆炸，再怎样选择采纳最正确的科技进步之路，面对宇宙终极真相，死亡只是早晚问题。除了献祭之爱，其他一切统统不值一提。《三体》在程心这个层次上爱的归总是有逻辑断层的，需要价值观的飞跃，是为煽情。然而这样的煽情是通过一个庞大的科技进化、历史推导、宇宙命运终端走向的系列过程才终于实现的，它严密、缓慢、步步渗透，直到最终变为哲学性的思想升华。哪怕读者的看法根本不同，不买账这个“爱是永恒”的终极结论，那也还得是佩服大刘指引整个宇宙走向爱的叙述过程。那么对比一下，《星际穿越》里，诺兰是怎么煽情的呢？他其实也有充分铺垫，无论是地球上长长的看似无关大体的家庭生活，还是太空站里库珀看孩子们一点点长大的视频电话，都是在为后面爱的回归铺路。Ann Hathaway的角色布兰德博士凭借直感要求去勘探另一个星球，并点名爱有可能是一整人类尚不理解的却真实存在宇宙力，就更是情节安排上的关键一笔，看似不经意，却是打开整个电影谜题的钥匙。但《星际穿越》最大的问题在于：库珀的女儿墨菲作为人类命运的拯救者，是怎么推断出小时候家里的“鬼”就是库珀的呢？电影里唯一给出的论据是库珀临行前送给墨菲的手表，却没有什么推导论证过程。或者说，这个信息如果不是库珀传输的，或者墨菲不认为是库珀传输而是其他一些他们当初理解的高维生物，人类也照样可被拯救。墨菲对库珀之爱从而解读出了数据信息这一节，要求观众必须跳离逻辑推理选择“信”。这种要求逻辑断裂的情感推导，我认为是造成David Edlestein所说的“俗滥戏码”的关键原因。墨菲这条线的薄弱（一方面也是为篇幅所囿）是《星际穿越》的最大问题，也是导致煽情结果的关键。这条线在对爱的表现方式上，《星际穿越》远逊于《三体》。但另一方面，库珀对墨菲的爱传达出了关键性的数据信息这条线却是前后贯通的，其对“爱”的科幻表现形式上甚至超越了《三体》。在黑洞里，库珀终于恍然大悟后，向机器人Tars解释为什么他存在的这个小小的高维空间的三维投影恰好是他离开地球之前的那一天时，他说爱，作为一种力，指引他来到了这个方位——就好象重力决定了三维世界里物体在空间中的位置，爱，作为一种高维的“量子力”，可以决定人在高维空间里的位置，也就是人将出现在低维空间投影中的何时何地。后来库珀在失去意识之前看到了Endurance空间站他们通过虫洞时的布兰德博士，有了那个神秘莫测的握手，这也同样是爱的力量。在《三体》（和大多数的科幻作品）里，爱作为超越物理规律的信仰，是脱离物理空间的人类精神世界的力量，人类对爱的回归是确认自身存在价值的坐标，这个回归是抽象的，哲学性的；但在《星际穿越》中，爱不再是一种抽象的精神力，而被描绘成了高维空间量子态的一种具体的、实际存在的力，就跟重力、电磁力、强相互作用和弱相互作用力相类似，实际参与了宇宙的物质组成，甚至很可能是高维空间的某种基本力形态。《星际穿越》试图对爱进行的这个具体的、物理态的力学解说方式，是极具突破性的，非常惊艳。我不能确认《星际穿越》对爱的这种力学解说在科幻史上是否绝无仅有的，但不管你是否接受他的这个猜想，我认为这都是让它最终区别于其他科幻作品的价值关键。3．哲学的问题说完了“爱”的问题，再说说黑洞的问题。电影史上最著名的银幕黑洞是库布里克的《2001太空漫游》。电影中宇航员大卫在经历了一些列和飞船电脑斗智斗勇之后，进入了一个神奇的隧道一样的空间。这个进入空间的镜头有近乎十分钟之长，没有对话和任何情节发展，就是光影在银幕上不断变幻。大卫通过的这个隧道式的空间被普遍认为是进入黑洞。在这个漫长的视觉隧道结束之后，大卫来到了一个房间，他发现自己迅速变老，代表宇宙终极奥秘的黑石再次出现，还有一名星孩。和《2001太空漫游》比较，诺兰对黑洞的展示是具体的，从无边无际的飞沙到以三维形态投影存在的高维时空都触目可见，可逐一逻辑分析。在黑洞时空扭曲的内部，库珀的行为依然和之前拯救人类命运的大设定息息相关，黑洞之外的故事在黑洞之内延续、发展，终于完满闭合。库布里克则完全相反，在宇航员大卫在通过黑洞之后，库布里克完全是以超逻辑的视觉象征合集的方式来终结电影的。大卫的变老、黑石的出现和星孩的诞生彼此之间没有叙事上的逻辑关联，甚至任何一种试图把黑洞边界之后的内容和之前进行叙述性上逻辑关联的尝试都将失败。换一种说法，诺兰的黑洞之旅是以已知推测未知，是给出答案，是闭合的；库布里克的则是以未知表现未知，是提出问题，是开放性的。在我看来，随着科技发展，维度变幻，任何以肯定状态存在试图给出答案的方法有可能被证伪；而提问题则是老实的（或狡猾的，取决于你的判断视角），精准地以视觉符号表现全部的未知也比提出某种形态的答案更加困难。库布里克用具象的视觉符号来表达一种抽象的哲学概念，对宇宙的未知进行了同样抽象的诗一般的视觉猜想，这是我认为为什么《2001太空漫游》能由科幻终于上升到哲学，至今依然是无法被超越的最伟大的科幻电影。对比之下，《星际穿越》对黑洞的视觉展示是无比壮丽的，而既然我们现在谁都不理解黑洞，都在猜想，都不确定，那么诺兰在电影中所进行的“爱”的猜想也便未尝不可。然而一旦提出解说，就难免落于巢臼，尤其这个解说只作为完整故事的结尾匆匆出现，不再进一步被逻辑拆解分析研究。在这一点上，《星际穿越》的确更类似于《超时空接触》，充满了科幻的激情和热忱，却还没能站到哲学的高度，由科幻终于走向严肃的信仰。所以《星际穿越》最终解决的并不是科幻最终极的哲学问题，它解决的还是好莱坞的问题。",
+        "url": "https://movie.douban.com/review/7194953/",
+        "title": "有关《星际穿越》的三个问题"
+      },
+      {
+        "author": "比岁月含蓄",
+        "source": "豆瓣短评",
+        "date": "2014-11-06 23:27:12",
+        "content": "时间可以伸缩和折叠，唯独不能倒退。你的鹤发或许是我的童颜，而我一次呼吸能抵过你此生的岁月。",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "影志",
+        "source": "豆瓣短评",
+        "date": "2014-11-12 10:28:53",
+        "content": "太壮阔了，无以言表！40'渐入佳境，80'叹为观止，120'泪流满面，160'恍如隔世…不曾如此贴近浩瀚星空，被它环抱；不曾如此触摸生命之弦，遁入五维幻境。瑕不掩瑜的科幻神作，刷新视觉的IMAX体验，观影前撒好尿，准备接受近三小时的泪腺洗礼。“爱是一种力量，让我们超越时空感知它的存在”",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "CSUMMERY",
+        "source": "豆瓣短评",
+        "date": "2014-11-06 22:17:10",
+        "content": "我想给100颗星，这可能是我至今看过最令我震撼的电影了。到电影结束时候还不断流泪，奇迹不是因为有上帝 也不是有什么不可知的 某种力量，正是我们自己，人类不相信人类的力量把那些我们无可预知的奇迹都认为是上帝的功劳。若兰把我的世界观如此震撼人心的展现出来，我感觉我现在都激动得语无伦次了",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "大夫唐",
+        "source": "豆瓣短评",
+        "date": "2014-11-12 17:14:29",
+        "content": "看完没人起立鼓掌，因为全跪着。",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "我怀念的",
+        "source": "豆瓣短评",
+        "date": "2014-11-06 21:46:54",
+        "content": "整场基本屏住呼吸,瞠目结舌,无话可说.在香港这么多年除了电影节我第一次碰见放映结束观众集体鼓掌的.去年看完Gravity我觉得太空科幻片已经拍到头了,然后Nolan大神把我这点眼界碾压得粉碎.三体迷不必再较真拍三体这事Nolan已经把后半部给拍了.",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "喵喵猫",
+        "source": "豆瓣短评",
+        "date": "2014-11-07 00:46:33",
+        "content": "三体迷们不用担心电影版会拍的稀烂啦！章北海船长，面壁人希恩斯，高维碎片，青铜时代和万有引力舰太空大战，冬眠和星际航行，三体世界的荒芜，高维世界的样貌，云天明的童话，诺兰新作中一次性看完！#刚刚看完星际穿越interstellar，感觉自己萌萌哒#",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "桃桃林林",
+        "source": "豆瓣短评",
+        "date": "2014-11-12 17:28:55",
+        "content": "一边太空冒险，一边是通俗的情感戏。无论外表多硬科幻：虫洞、黑洞、太空冒险、多维空间……最核心的仍是亲情与爱。科学与理论其实都是为感情服务的，用很硬的外壳包裹最柔软的情感。也因为此，它不会是2001那样严肃伟大的科幻片，但却有更饱满的感情。包括那些泪点",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "QuiteThrilling",
+        "source": "豆瓣短评",
+        "date": "2014-11-06 20:22:49",
+        "content": "非常理想化，所以显得很有种，没有公司敢让任何人拍这样的电影。致敬库布里克的镜头体现了导演的少女心。但有2001珠玉在前，我认为这部顶多和它并驾齐驱。诺兰尽其所能拍出了触手可及的科幻，硬核又充满人性，温情又隐含黑暗面，让人潸然泪下。“理想化”是不是削弱了剧本？大家保留各自意见吧。",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "芦哲峰",
+        "source": "豆瓣短评",
+        "date": "2014-11-12 23:33:42",
+        "content": "天地玄黄，宇宙洪荒。英雄气笃，儿女情长。",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "朝暮雪",
+        "source": "豆瓣短评",
+        "date": "2014-11-17 22:13:29",
+        "content": "对我们来说二维空间就是一张纸，从纸的一端走到另一端最快的方式是把它折起来。对五维生物来说三维空间也是一张纸，是可以折起来的。他们不仅可以将三维空间折起来，对他们来说时间也是实体的存在。根据相对论，黑洞附近的引力太大，时间会变慢，米勒星球1小时等于地球7年。米勒星球的配乐《Mountains》有密集的滴答声，每滴答一次，地球上就过去了1天。《星际穿越》的黑洞并不是随便做的，电影上映5年后NASA发布了一张黑洞的效果图，证明了《星际穿越》的黑洞模型是严谨而准确的。为了拍玉米地，诺兰真的种了一片玉米，拍完电影卖玉米还赚了钱。为了拍五维空间，诺兰真的搭了一个五维空间的景。也许100年后的人们看这部电影会比我们更加感到震撼，因为他们会发现这部电影很多设想都是对的。",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "fanndd",
+        "source": "TMDB",
+        "date": "2025-09-23",
+        "content": "我心中能进入TOP3的影片（2000年之后的电影中）",
+        "url": "https://www.themoviedb.org/movie/157336-interstellar/reviews",
+        "title": null
+      },
+      {
+        "author": "Matt Brunson",
+        "source": "烂番茄 · Film Frenzy",
+        "date": "Nov 3",
+        "content": "Deeply flawed but also wholly absorbing, Interstellar further marked writer-director Christopher Nolan as one of our most ambitious, go-for-broke directors, unafraid to attempt Sistine Chapel ceilings while his fellow filmmakers are working with Crayolas.",
+        "url": "https://www.rottentomatoes.com/m/interstellar_2014/reviews",
+        "title": null
+      },
+      {
+        "author": "Paul Emmanuel Enicola",
+        "source": "烂番茄 · The Movie Buff",
+        "date": "2025-02-26",
+        "content": "While detractors have often accused Nolan of being all brains and no heart, Interstellar shows that his intellect and his emotions are not at odds, they are inextricably linked.",
+        "url": "https://www.rottentomatoes.com/m/interstellar_2014/reviews",
+        "title": null
+      },
+      {
+        "author": "Benjamín Harguindey",
+        "source": "烂番茄 · EscribiendoCine",
+        "date": "2025-01-14",
+        "content": "Nolan, a fan of narrative devices and metaphors, uses this bending of time to create tension, drama and suspense across a multitude of spaces and timelines.",
+        "url": "https://www.rottentomatoes.com/m/interstellar_2014/reviews",
+        "title": null
+      },
+      {
+        "author": "Kevin Maher",
+        "source": "烂番茄 · The Times (UK)",
+        "date": "2024-09-28",
+        "content": "A gorgeous, heartbreaking epic.",
+        "url": "https://www.rottentomatoes.com/m/interstellar_2014/reviews",
+        "title": null
+      },
+      {
+        "author": "Akhil Arora",
+        "source": "烂番茄 · AkhilArora.com",
+        "date": "2023-10-17",
+        "content": "Humbling and epic in scope, designed and conceptualised brilliantly, but a tad too stand-off-ish emotionally. While the father-daughter dynamic works in parts, the Cooper-Brand relationship is never given the right treatment and collapses.",
+        "url": "https://www.rottentomatoes.com/m/interstellar_2014/reviews",
+        "title": null
+      }
+    ],
+    "soundtrack": {
+      "albums": [
+        {
+          "name": "Interstellar (Original Motion Picture Soundtrack)",
+          "note": "Hans Zimmer",
+          "coverImage": null,
+          "releaseDate": "2014-11-18",
+          "type": "soundtrack",
+          "tracks": [
+            {
+              "name": "Dreaming of the Crash",
+              "artist": "Hans Zimmer",
+              "duration": null
+            },
+            {
+              "name": "Cornfield Chase",
+              "artist": "Hans Zimmer",
+              "duration": null
+            },
+            {
+              "name": "Stay",
+              "artist": "Hans Zimmer",
+              "duration": null
+            },
+            {
+              "name": "No Time for Caution",
+              "artist": "Hans Zimmer",
+              "duration": null
+            },
+            {
+              "name": "S.T.A.Y.",
+              "artist": "Hans Zimmer",
+              "duration": null
+            },
+            {
+              "name": "Where We're Going",
+              "artist": "Hans Zimmer",
+              "duration": null
+            }
+          ]
+        }
+      ]
+    },
+    "series": [],
+    "similar": [
+      {
+        "title": "2001太空漫游",
+        "year": 1968,
+        "rating": 8.9
+      },
+      {
+        "title": "地心引力",
+        "year": 2013,
+        "rating": 7.9
+      },
+      {
+        "title": "火星救援",
+        "year": 2015,
+        "rating": 8.5
+      },
+      {
+        "title": "降临",
+        "year": 2016,
+        "rating": 7.9
+      },
+      {
+        "title": "盗梦空间",
+        "year": 2010,
+        "rating": 9.3
+      }
+    ],
+    "links": {
+      "douban": "https://movie.douban.com/subject/1889243/?suggest=%E6%98%9F%E9%99%85%E7%A9%BF%E8%B6%8A",
+      "imdb": "https://www.imdb.com/title/tt0816692/",
+      "tmdb": "https://www.themoviedb.org/movie/157336-interstellar"
+    },
+    "quotes": [],
+    "createdAt": "2026-05-04",
+    "updatedAt": "2026-05-04",
+    "status": "published"
+  },
+  {
+    "id": "0101000001",
+    "module": "video",
+    "submodule": "movie",
+    "schemaType": "live_action_movie",
+    "path": "/video/movie/0101000001",
+    "title": "肖申克的救赎",
+    "originalTitle": "The Shawshank Redemption",
+    "year": 1994,
+    "country": "美国",
+    "language": "英语",
+    "runtime": 142,
+    "synopsis": {
+      "text": "银行家安迪被误判入狱，在肖申克监狱与瑞德结下深厚友谊，并凭借冷静头脑在高墙之内为自己争取生存空间。\n\n当翻案希望被再次掐灭，他把多年隐忍、智慧与信念化为一场惊人的自我救赎，也让瑞德重新相信自由并非遥不可及。",
+      "note": "本片获得1995年奥斯卡最佳影片等7项提名。"
+    },
+    "story": {
+      "text": "1947年，年轻银行家安迪·杜佛兰因妻子及其情人被杀一案被判无期徒刑，押入肖申克监狱。沉默寡言的他很快引起老囚犯瑞德的注意，并通过瑞德弄到石锤、海报等小物件，在残酷秩序里一点点建立自己的生存方式。面对\"姐妹帮\"的欺凌、狱警的暴力和监狱制度的冷酷，安迪始终没有放弃对尊严的维护。\n\n凭借金融与税务知识，安迪先后帮助狱警处理报税问题，也被典狱长诺顿拿来经营账目、洗白黑钱。与此同时，他推动扩建图书馆、为囚犯争取读物和教育机会，让肖申克这座高墙之内第一次出现了真正意义上的精神空间。老布出狱后的崩溃与自尽，也让安迪和瑞德更清楚\"体制化\"对人的吞噬。\n\n后来，年轻囚犯汤米提供了可能证明安迪清白的关键线索。安迪满怀希望去找诺顿申诉，却发现典狱长为了保住自己的利益，宁可枪杀证人，也不愿让他重获自由。所有合法翻案的道路被堵死后，安迪把多年隐忍转化为最后一次行动。\n\n一个暴雨之夜，瑞德才明白石锤、海报与地质学兴趣背后藏着怎样漫长而坚定的计划：安迪用近二十年时间凿开牢墙，沿着下水道逃出生天，并顺手将诺顿的犯罪证据寄给媒体和检察机关。典狱长自尽、狱警被捕，安迪则以假身份取走存款，前往太平洋海边的芝华塔内霍等待新生活。\n\n多年后获假释的瑞德违背\"不再越界\"的承诺，依照安迪留下的线索找到一笔钱和一封信，终于鼓起勇气踏出被制度驯化的人生。他穿越边境来到海边，与正在修船的安迪重逢。"
+    },
+    "director": [
+      {
+        "personCode": "p000001",
+        "name": "弗兰克·德拉邦特",
+        "nameEn": "Frank Darabont",
+        "role": "导演",
+        "avatarPath": "people/p000001-avatar.png",
+        "profileLink": "https://baike.baidu.com/item/弗兰克·德拉邦特"
+      }
+    ],
+    "writer": [
+      {
+        "personCode": "p000001",
+        "name": "弗兰克·德拉邦特",
+        "nameEn": "Frank Darabont",
+        "role": "编剧",
+        "avatarPath": "people/p000001-avatar.png",
+        "profileLink": "https://baike.baidu.com/item/弗兰克·德拉邦特"
+      },
+      {
+        "personCode": "p000002",
+        "name": "斯蒂芬·金",
+        "nameEn": "Stephen King",
+        "role": "原著",
+        "profileLink": "https://baike.baidu.com/item/斯蒂芬·金"
+      }
+    ],
+    "cast": [
+      {
+        "personCode": "p000003",
+        "name": "蒂姆·罗宾斯",
+        "nameEn": "Tim Robbins",
+        "role": "安迪·杜佛兰",
+        "avatarPath": "people/p000003-avatar.png"
+      },
+      {
+        "personCode": "p000004",
+        "name": "摩根·弗里曼",
+        "nameEn": "Morgan Freeman",
+        "role": "瑞德",
+        "avatarPath": "people/p000004-avatar.png"
+      },
+      {
+        "personCode": "p000005",
+        "name": "鲍勃·冈顿",
+        "nameEn": "Bob Gunton",
+        "role": "监狱长诺顿",
+        "avatarPath": "people/p000005-avatar.png"
+      },
+      {
+        "personCode": "p000006",
+        "name": "威廉·赛德勒",
+        "nameEn": "William Sadler",
+        "role": "海伍德",
+        "avatarPath": "people/p000006-avatar.png"
+      },
+      {
+        "personCode": "p000007",
+        "name": "克兰西·布朗",
+        "nameEn": "Clancy Brown",
+        "role": "上尉哈德利",
+        "avatarPath": "people/p000007-avatar.png"
+      },
+      {
+        "personCode": "p000008",
+        "name": "吉尔·贝罗斯",
+        "nameEn": "Gil Bellows",
+        "role": "汤米",
+        "avatarPath": "people/p000008-avatar.png"
+      },
+      {
+        "personCode": "p000009",
+        "name": "马克·罗斯顿",
+        "nameEn": "Mark Rolston",
+        "role": "包格斯",
+        "avatarPath": "people/p000009-avatar.png"
+      },
+      {
+        "personCode": "p000010",
+        "name": "詹姆斯·惠特摩",
+        "nameEn": "James Whitmore",
+        "role": "老布",
+        "avatarPath": "people/p000010-avatar.png"
+      }
+    ],
+    "otherCast": [
+      {
+        "personCode": "p000011",
+        "name": "杰弗里·德曼",
+        "nameEn": "Jeffrey DeMunn",
+        "role": "1946地方检察官"
+      },
+      {
+        "personCode": "p000012",
+        "name": "拉里·布兰登伯格",
+        "nameEn": "Larry Brandenburg",
+        "role": "斯基特 Skeet"
+      },
+      {
+        "personCode": "p000013",
+        "name": "尼尔·吉恩托利",
+        "nameEn": "Neil Giuntoli",
+        "role": "基格 Jigger"
+      },
+      {
+        "personCode": "p000014",
+        "name": "布赖恩·利比",
+        "nameEn": "Brian Libby",
+        "role": "弗洛依德 Floyd"
+      },
+      {
+        "personCode": "p000015",
+        "name": "大卫·普罗瓦尔",
+        "nameEn": "David Proval",
+        "role": "瞌睡虫 Snooze"
+      },
+      {
+        "personCode": "p000016",
+        "name": "约瑟夫·劳格诺",
+        "nameEn": "Joseph Ragno",
+        "role": "厄尼 Ernie"
+      },
+      {
+        "personCode": "p000017",
+        "name": "祖德·塞克利拉",
+        "nameEn": "Jude Ciccolella",
+        "role": "守卫梅特 Guard Mert"
+      },
+      {
+        "personCode": "p000018",
+        "name": "保罗·麦克兰尼",
+        "nameEn": "Paul McCrane",
+        "role": "守卫特劳特 Guard Trout"
+      },
+      {
+        "personCode": "p000019",
+        "name": "芮妮·布莱恩",
+        "nameEn": "Renee Blaine",
+        "role": "安迪·杜佛兰的妻子"
+      },
+      {
+        "personCode": "p000020",
+        "name": "阿方索·弗里曼",
+        "nameEn": "Alfonso Freeman",
+        "role": "新囚犯 Fresh Fish Con"
+      },
+      {
+        "personCode": "p000021",
+        "name": "V·J·福斯特",
+        "nameEn": "V.J. Foster",
+        "role": "囚犯 Hungry Fish Con"
+      },
+      {
+        "personCode": "p000022",
+        "name": "弗兰克·梅德拉诺",
+        "nameEn": "Frank Medrano",
+        "role": "肥仔 Fat Ass"
+      },
+      {
+        "personCode": "p000023",
+        "name": "马克·迈尔斯",
+        "nameEn": "Mack Miles",
+        "role": "蒂雷尔 Tyrell"
+      },
+      {
+        "personCode": "p000024",
+        "name": "尼尔·萨默斯",
+        "nameEn": "Neil Summers",
+        "role": "皮特 Pete"
+      },
+      {
+        "personCode": "p000025",
+        "name": "耐德·巴拉米",
+        "nameEn": "Ned Bellamy",
+        "role": "守卫扬布拉德 Guard Youngblood"
+      },
+      {
+        "personCode": "p000026",
+        "name": "布赖恩·戴拉特",
+        "nameEn": "Brian Delate",
+        "role": "守卫德金斯 Guard Dekins"
+      },
+      {
+        "personCode": "p000027",
+        "name": "唐·麦克马纳斯",
+        "nameEn": "Don McManus",
+        "role": "守卫威利 Guard Wiley"
+      }
+    ],
+    "producer": [
+      {
+        "personCode": "p000028",
+        "name": "妮基·马文",
+        "nameEn": "Niki Marvin",
+        "role": "制片人",
+        "profileLink": "https://baike.baidu.com/item/妮基·马文"
+      }
+    ],
+    "genre": [
+      "剧情",
+      "犯罪"
+    ],
+    "tags": [],
+    "aka": [
+      "月黑高飞(港)",
+      "刺激1995(台)",
+      "地狱诺言",
+      "铁窗岁月",
+      "消香克的救赎"
+    ],
+    "releaseDate": [
+      {
+        "date": "1994-09-10",
+        "location": "多伦多电影节"
+      },
+      {
+        "date": "1994-10-14",
+        "location": "美国"
+      }
+    ],
+    "imdbId": "tt0111161",
+    "doubanId": "1292052",
+    "doubanRating": 9.7,
+    "images": {
+      "poster": "poster-main.jpg",
+      "posters": [
+        "poster-01.png",
+        "poster-02.png",
+        "poster-03.png",
+        "poster-04.png",
+        "poster-05.png",
+        "poster-06.png",
+        "poster-07.png",
+        "poster-08.png",
+        "poster-09.png",
+        "poster-10.png"
+      ],
+      "stills": [
+        "still-01.png",
+        "still-02.png",
+        "still-03.png",
+        "still-04.png",
+        "still-05.png",
+        "still-06.png",
+        "still-07.png",
+        "still-08.png",
+        "still-09.png",
+        "still-10.png",
+        "still-11.png",
+        "still-12.png",
+        "still-13.png"
+      ],
+      "wallpapers": [
+        "wallpaper-01.png",
+        "wallpaper-02.png",
+        "wallpaper-03.png",
+        "wallpaper-04.png"
+      ],
+      "postersTotal": 149,
+      "stillsTotal": 918,
+      "assetDir": "video/movie/0101000001"
+    },
+    "videos": [
+      {
+        "title": "预告片1：25周年经典重映",
+        "duration": "01:30",
+        "thumbnail": "video-trailer-01.png",
+        "url": "https://movie.douban.com/trailer/259258/"
+      },
+      {
+        "title": "预告片2",
+        "duration": "02:13",
+        "thumbnail": "video-trailer-02.png",
+        "url": "https://movie.douban.com/trailer/108756/"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "大头绿豆",
+        "source": "豆瓣",
+        "date": "2005-05-12",
+        "content": "距离斯蒂芬·金和德拉邦特缔造这部作品已经有十年了。在我眼里，《肖申克的救赎》与信念、自由和友谊有关。它真正动人的地方不在越狱奇观，而在安迪和瑞德如何在体制化的牢狱中保住内心的秩序，并把希望从一句空话变成一条通往海边的路。",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "隱居雲上",
+        "source": "豆瓣",
+        "date": "2005-07-12",
+        "content": "不同的人看同样的影片会有不同感受。对于无力改变现状的人，这部电影最有力量的地方，在于它提醒你：才华和毅力并不会立刻拯救人生，但会在最漫长的黑夜里替你守住方向。安迪的忍耐不是认命，而是在等待一个真正能改变命运的时刻。",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "泠十三",
+        "source": "豆瓣",
+        "date": "2019-07-29",
+        "content": "肖申克不只是监狱，也是每个人被规训、被命运判定的位置。安迪的救赎之所以成立，不仅因为他逃出高墙，更因为他拒绝接受\"习惯了就算了\"的人生。电影真正厉害的地方，是让观众在瑞德的变化里看见希望如何从怀疑变成相信。",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "aratana",
+        "source": "豆瓣",
+        "date": "2007-02-26",
+        "content": "这部电影最难复制的，是它把希望拍成了可以被相信的现实。它不是廉价鸡汤，而是让人在最灰暗的处境里，仍愿意相信自由、尊严和友谊值得被等待。时间越久，它越像一部会在不同年龄反复生效的电影。",
+        "url": null,
+        "title": null
+      }
+    ],
+    "soundtrack": {
+      "albums": [
+        {
+          "name": "The Shawshank Redemption (Original Motion Picture Soundtrack)",
+          "note": "托马斯·纽曼 / Thomas Newman",
+          "coverImage": null,
+          "releaseDate": "1994",
+          "type": "soundtrack",
+          "tracks": [
+            {
+              "name": "Introduction",
+              "artist": null,
+              "duration": "0:04"
+            },
+            {
+              "name": "End Title",
+              "artist": null,
+              "duration": "3:34"
+            },
+            {
+              "name": "Shawshank Prison",
+              "artist": null,
+              "duration": "1:55"
+            },
+            {
+              "name": "Brooks Was Here",
+              "artist": null,
+              "duration": "2:41"
+            },
+            {
+              "name": "New Fish Arrive",
+              "artist": null,
+              "duration": "1:32"
+            },
+            {
+              "name": "Rock Hammer",
+              "artist": null,
+              "duration": "1:52"
+            },
+            {
+              "name": "An Innocent Man",
+              "artist": null,
+              "duration": "1:58"
+            },
+            {
+              "name": "The Moocher",
+              "artist": null,
+              "duration": "1:36"
+            },
+            {
+              "name": "Suds",
+              "artist": null,
+              "duration": "1:02"
+            },
+            {
+              "name": "Loafing",
+              "artist": null,
+              "duration": "1:06"
+            },
+            {
+              "name": "The Marriage of Figaro / Duettino - Sull'aria",
+              "artist": null,
+              "duration": "2:54"
+            },
+            {
+              "name": "Compass and Guns",
+              "artist": null,
+              "duration": "2:04"
+            },
+            {
+              "name": "The Riddle of Zihuatanejo",
+              "artist": null,
+              "duration": "1:25"
+            },
+            {
+              "name": "The Riddle Solved",
+              "artist": null,
+              "duration": "1:30"
+            },
+            {
+              "name": "The Tunnel",
+              "artist": null,
+              "duration": "1:30"
+            },
+            {
+              "name": "Freedom",
+              "artist": null,
+              "duration": "1:42"
+            }
+          ]
+        }
+      ]
+    },
+    "series": [],
+    "similar": [
+      {
+        "id": "0101000003",
+        "title": "阿甘正传",
+        "year": 1994,
+        "rating": 9.5
+      },
+      {
+        "title": "楚门的世界",
+        "year": 1998,
+        "rating": 9.4
+      },
+      {
+        "title": "当幸福来敲门",
+        "year": 2006,
+        "rating": 9.1
+      },
+      {
+        "title": "活着",
+        "year": 1994,
+        "rating": 9.3
+      },
+      {
+        "title": "摔跤吧！爸爸",
+        "year": 2016,
+        "rating": 9
+      },
+      {
+        "title": "我不是药神",
+        "year": 2018,
+        "rating": 9
+      },
+      {
+        "title": "三傻大闹宝莱坞",
+        "year": 2009,
+        "rating": 9.2
+      },
+      {
+        "title": "心灵捕手",
+        "year": 1997,
+        "rating": 9
+      },
+      {
+        "title": "闻香识女人",
+        "year": 1992,
+        "rating": 9.1
+      },
+      {
+        "title": "这个杀手不太冷",
+        "year": 1994,
+        "rating": 9.4
+      }
+    ],
+    "links": {
+      "douban": "https://movie.douban.com/subject/1292052/",
+      "imdb": "https://www.imdb.com/title/tt0111161/",
+      "tmdb": "https://www.themoviedb.org/movie/278"
+    },
+    "quotes": [],
+    "createdAt": "2026-05-01",
+    "updatedAt": "2026-05-02",
+    "status": "published"
+  },
+  {
+    "id": "0101000002",
+    "module": "video",
+    "submodule": "movie",
+    "schemaType": "live_action_movie",
+    "path": "/video/movie/0101000002",
+    "title": "迈克尔·杰克逊：巨星之路",
+    "originalTitle": "Michael",
+    "year": 2026,
+    "country": "中国香港",
+    "language": "英语",
+    "runtime": 128,
+    "synopsis": {
+      "text": "影片聚焦迈克尔·杰克逊从杰克逊五人组主唱到全球流行天王的成名过程，既重现其早期职业生涯中的代表性舞台时刻，也尝试展示舞台光环之外的私人生命与创作压力。",
+      "note": ""
+    },
+    "story": {
+      "text": "影片从迈克尔在杰克逊五人组时期切入。年少成名给他带来舞台上的光芒，也把他推入被父亲严格控制、被行业凝视的成长环境。随着组合走红，迈克尔开始展现对编曲、舞台和个人表达的强烈主导欲，他既想摆脱家族与唱片工业的安排，又必须在公众期待中不断证明自己。\n\n成年后的迈克尔逐步完成从偶像歌手到流行文化中心人物的转变。影片把大量篇幅放在《Off the Wall》《Thriller》到《Bad》时期，重现他对录音、编舞、造型和现场表演近乎偏执的要求，也展示他与家人、经纪团队、律师及合作者之间的拉扯。\n\n随着名声扩张，舞台上的掌声与私人生活的压力开始同时堆积。电影通过多场经典演出和排练段落，呈现他如何在童年缺失、自我要求与外界消费之间寻找位置，并以事业高峰阶段的大型巡演作为这一阶段人生的收束。\n\n注：当前公开版本主要覆盖杰克逊五人组出道至《Bad》全球巡演阶段，不等同于迈克尔完整一生。"
+    },
+    "director": [
+      {
+        "personCode": "p000029",
+        "name": "安东尼·福奎阿",
+        "nameEn": "Antoine Fuqua",
+        "role": "导演",
+        "avatarPath": "people/p000029-avatar.jpg",
+        "avatarSource": "wikipedia"
+      }
+    ],
+    "writer": [
+      {
+        "personCode": "p000030",
+        "name": "约翰·洛根",
+        "nameEn": "John Logan",
+        "role": "编剧",
+        "profileLink": "https://baike.baidu.com/item/约翰·洛根"
+      }
+    ],
+    "cast": [
+      {
+        "personCode": "p000031",
+        "name": "贾法尔·杰克逊",
+        "nameEn": "Jaafar Jackson",
+        "role": "迈克尔·杰克逊 Michael Jackson",
+        "avatarPath": "people/p000031-avatar.jpg",
+        "avatarSource": "wikipedia"
+      },
+      {
+        "personCode": "p000032",
+        "name": "尼娅·朗",
+        "nameEn": "Nia Long",
+        "role": "凯瑟琳·杰克逊 Katherine Jackson",
+        "avatarPath": "people/p000032-avatar.jpg",
+        "avatarSource": "wikipedia"
+      },
+      {
+        "personCode": "p000033",
+        "name": "朱利亚诺·瓦尔迪",
+        "nameEn": "Juliano Valdi",
+        "role": "小迈克尔·杰克逊 Young Michael Jackson",
+        "notes": "Wikipedia无此演员页面，待补充",
+        "avatarSource": "",
+        "avatarNote": "Wikipedia无此演员页面，待补充"
+      },
+      {
+        "personCode": "p000034",
+        "name": "科尔曼·多明戈",
+        "nameEn": "Colman Domingo",
+        "role": "约瑟夫·杰克逊 Joseph Jackson",
+        "avatarPath": "people/p000034-avatar.jpg",
+        "avatarSource": "wikipedia"
+      },
+      {
+        "personCode": "p000035",
+        "name": "迈尔斯·特勒",
+        "nameEn": "Miles Teller",
+        "role": "约翰·布兰卡 John Branca",
+        "avatarPath": "people/p000035-avatar.png",
+        "avatarSource": "wikipedia"
+      },
+      {
+        "personCode": "p000036",
+        "name": "劳拉·哈里尔",
+        "nameEn": "Laura Harrier",
+        "role": "苏珊·德·帕斯 Suzanne de Passe",
+        "avatarPath": "people/p000036-avatar.jpg",
+        "avatarSource": "wikipedia"
+      },
+      {
+        "personCode": "p000037",
+        "name": "杰西卡·苏拉",
+        "nameEn": "Jessica Sula",
+        "role": "拉托娅·杰克逊 La Toya Jackson",
+        "avatarPath": "people/p000037-avatar.jpg",
+        "avatarSource": "wikipedia"
+      },
+      {
+        "personCode": "p000038",
+        "name": "麦克·梅伊斯",
+        "nameEn": "Mike Myers",
+        "role": "沃特·耶特尼科夫 Walter Yetnikoff",
+        "avatarPath": "people/p000038-avatar.jpg",
+        "avatarSource": "wikipedia"
+      }
+    ],
+    "otherCast": [
+      {
+        "personCode": "p000039",
+        "name": "凯林·多瑞尔·琼斯",
+        "nameEn": "KeiLyn Durrel Jones",
+        "role": "比尔·布雷 Bill Bray"
+      },
+      {
+        "personCode": "p000040",
+        "name": "肯德里克·桑普森",
+        "nameEn": "Kendrick Sampson",
+        "role": "昆西·琼斯 Quincy Jones"
+      },
+      {
+        "personCode": "p000041",
+        "name": "拉伦兹·泰特",
+        "nameEn": "Larenz Tate",
+        "role": "贝瑞·高迪 Berry Gordy"
+      },
+      {
+        "personCode": "p000042",
+        "name": "约瑟夫·戴维-琼斯",
+        "nameEn": "Joseph David-Jones",
+        "role": "杰基·杰克逊 Jackie Jackson"
+      },
+      {
+        "personCode": "p000043",
+        "name": "贾马尔·亨德森",
+        "nameEn": "Jamal Henderson",
+        "role": "杰梅因·杰克逊 Jermaine Jackson"
+      },
+      {
+        "personCode": "p000044",
+        "name": "莱恩·希尔",
+        "nameEn": "Rhyan Hill",
+        "role": "蒂托·杰克逊 Tito Jackson"
+      },
+      {
+        "personCode": "p000045",
+        "name": "特雷·霍顿",
+        "nameEn": "Tre Horton",
+        "role": "马龙·杰克逊 Marlon Jackson"
+      },
+      {
+        "personCode": "p000046",
+        "name": "卡特琳娜·格兰厄姆",
+        "nameEn": "Katerina Graham",
+        "role": "Diana Ross"
+      },
+      {
+        "personCode": "p000047",
+        "name": "德里克·卢克",
+        "nameEn": "Derek Luke",
+        "role": "Johnnie Cochran"
+      }
+    ],
+    "producer": [
+      {
+        "personCode": "p000048",
+        "name": "格拉汉姆·金",
+        "nameEn": "Graham King",
+        "role": "制片人",
+        "profileLink": "https://baike.baidu.com/item/格拉汉姆·金"
+      },
+      {
+        "personCode": "p000049",
+        "name": "约翰·布兰卡",
+        "nameEn": "John Branca",
+        "role": "制片人"
+      },
+      {
+        "personCode": "p000050",
+        "name": "约翰·麦克莱恩",
+        "nameEn": "John McClain",
+        "role": "制片人"
+      }
+    ],
+    "genre": [
+      "剧情",
+      "音乐",
+      "传记"
+    ],
+    "tags": [],
+    "aka": [
+      "米高积逊(港)",
+      "麦可·杰克森(台)",
+      "迈克尔"
+    ],
+    "releaseDate": [
+      {
+        "date": "2026-04-24",
+        "location": "美国/中国大陆"
+      },
+      {
+        "date": "2026-04-22",
+        "location": "中国香港"
+      }
+    ],
+    "imdbId": "tt11378946",
+    "doubanId": "35948919",
+    "doubanRating": 7.5,
+    "rated": "PG-13",
+    "awards": "2 wins & 1 nomination",
+    "images": {
+      "poster": "poster-main.jpg",
+      "posters": [
+        "poster-01-cn.jpg",
+        "poster-03.jpg",
+        "poster-04.jpg",
+        "poster-05.jpg",
+        "poster-06.jpg",
+        "poster-07.jpg",
+        "poster-08.jpg",
+        "poster-09.jpg",
+        "poster-10.jpg",
+        "poster-11.jpg"
+      ],
+      "stills": [
+        "still-01.jpg",
+        "still-02.jpg",
+        "still-03.jpg",
+        "still-04.jpg",
+        "still-05.jpg",
+        "still-06.jpg",
+        "still-07.jpg",
+        "still-08.jpg",
+        "still-09.jpg",
+        "still-10.jpg"
+      ],
+      "wallpapers": [],
+      "postersTotal": 79,
+      "stillsTotal": 215,
+      "assetDir": "video/movie/0101000002"
+    },
+    "videos": [
+      {
+        "title": "中国大陆预告片1：终极版 (中文字幕)",
+        "duration": "01:00",
+        "thumbnail": null,
+        "url": "https://movie.douban.com/trailer/324247/"
+      },
+      {
+        "title": "中国大陆预告片2：定档版 (中文字幕)",
+        "duration": "00:30",
+        "thumbnail": null,
+        "url": "https://movie.douban.com/trailer/324145/"
+      },
+      {
+        "title": "中国大陆预告片3 (中文字幕)",
+        "duration": "00:15",
+        "thumbnail": null,
+        "url": "https://movie.douban.com/trailer/323960/"
+      },
+      {
+        "title": "中国大陆预告片4 (中文字幕)",
+        "duration": "02:17",
+        "thumbnail": null,
+        "url": "https://movie.douban.com/trailer/323591/"
+      },
+      {
+        "title": "预告片5",
+        "duration": "02:17",
+        "thumbnail": null,
+        "url": "https://movie.douban.com/trailer/323590/"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "Division_Bell",
+        "source": "豆瓣",
+        "date": "2026-04-24",
+        "content": "从电影角度看，这部片子的叙事并不算成熟；但作为 Michael Jackson 的传记片，它又让人很难真的对它苛刻。制作层面足够华丽，表演与舞台还原也确实能打，可它最明显的问题，是电影语言始终没能完全承载这位巨星复杂而巨大的生命。",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "一资产阶级铁锅",
+        "source": "豆瓣",
+        "date": "2026-04-24",
+        "content": "如果买到杜比或 IMAX 场次，这部电影在影院里听 MJ 的作品依然震撼；但作为一部传记片，它对人物与时代的处理明显失衡。老粉能从舞台重建和经典段落里获得情感回报，可一旦把它当成电影来衡量，剧情推进和人物弧光都显得不够扎实。",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "木木东子",
+        "source": "豆瓣",
+        "date": "2026-04-24",
+        "content": "全片两小时出头却塞进了三十多首歌曲，声音系统好的影厅会让人觉得这趟票价值回一半。但也正因为音乐段落过于强势，电影本身反而暴露出结构上的单薄：它足够像一场精选演出，却还配不上\"流行音乐之王\"这样的人生体量。",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "团小纸",
+        "source": "豆瓣",
+        "date": "2026-04-23",
+        "content": "即使不是 MJ 的核心歌迷，也能在这部片子里重新理解他为什么会成为一代又一代偶像的偶像。那些被反复模仿的舞步、编排和表演方式，并不是天赋神话的简单复制，而是一个人把审美、训练和意志压缩到极致后留下的文化震波。",
+        "url": null,
+        "title": null
+      }
+    ],
+    "soundtrack": {
+      "albums": [
+        {
+          "name": "Michael: Songs From The Motion Picture",
+          "note": "迈克尔·杰克逊 / Michael Jackson",
+          "coverImage": null,
+          "releaseDate": "2026",
+          "type": "soundtrack",
+          "tracks": [
+            {
+              "name": "I'll Be There",
+              "artist": "Jackson 5",
+              "duration": null
+            },
+            {
+              "name": "Never Can Say Goodbye (Single Version)",
+              "artist": "Jackson 5",
+              "duration": null
+            },
+            {
+              "name": "Who's Lovin' You",
+              "artist": "Jackson 5",
+              "duration": null
+            },
+            {
+              "name": "Medley: I Want You Back / ABC / The Love You Save",
+              "artist": "The Jacksons",
+              "duration": null
+            },
+            {
+              "name": "Ben (Live from the 1981 U.S. Tour)",
+              "artist": "The Jacksons",
+              "duration": null
+            },
+            {
+              "name": "Don't Stop 'Til You Get Enough",
+              "artist": "迈克尔·杰克逊",
+              "duration": null
+            },
+            {
+              "name": "Beat It",
+              "artist": "迈克尔·杰克逊",
+              "duration": null
+            },
+            {
+              "name": "Thriller",
+              "artist": "迈克尔·杰克逊",
+              "duration": null
+            },
+            {
+              "name": "Billie Jean",
+              "artist": "迈克尔·杰克逊",
+              "duration": null
+            },
+            {
+              "name": "Wanna Be Startin' Somethin'",
+              "artist": "迈克尔·杰克逊",
+              "duration": null
+            },
+            {
+              "name": "Human Nature",
+              "artist": "迈克尔·杰克逊",
+              "duration": null
+            },
+            {
+              "name": "Workin' Day and Night",
+              "artist": "迈克尔·杰克逊",
+              "duration": null
+            },
+            {
+              "name": "Bad (2012 Remaster)",
+              "artist": "迈克尔·杰克逊",
+              "duration": null
+            }
+          ]
+        }
+      ]
+    },
+    "series": [],
+    "similar": [
+      {
+        "title": "波西米亚狂想曲",
+        "year": 2018,
+        "rating": 8.6
+      },
+      {
+        "title": "奥本海默",
+        "year": 2023,
+        "rating": 8.8
+      },
+      {
+        "title": "极速车王",
+        "year": 2019,
+        "rating": 8.5
+      },
+      {
+        "title": "摇滚诗人：未知的传奇",
+        "year": 2024,
+        "rating": 6.5
+      },
+      {
+        "title": "倒数时刻",
+        "year": 2021,
+        "rating": 8.1
+      },
+      {
+        "title": "气垫传奇",
+        "year": 2023,
+        "rating": 7.5
+      },
+      {
+        "title": "猫王",
+        "year": 2022,
+        "rating": 6.9
+      }
+    ],
+    "links": {
+      "douban": "https://movie.douban.com/subject/35948919/",
+      "imdb": "https://www.imdb.com/title/tt11378946/",
+      "tmdb": null
+    },
+    "quotes": [],
+    "createdAt": "2026-05-01",
+    "updatedAt": "2026-05-02",
+    "status": "published"
+  },
+  {
+    "id": "0101000003",
+    "module": "video",
+    "submodule": "movie",
+    "schemaType": "live_action_movie",
+    "path": "/video/movie/0101000003",
+    "title": "阿甘正传",
+    "originalTitle": "Forrest Gump",
+    "year": 1994,
+    "country": "美国",
+    "language": "英语",
+    "runtime": 142,
+    "synopsis": {
+      "text": "智商不高却心地纯粹的阿甘，在母亲的教导和珍妮的陪伴中一路奔跑着进入大学、军队与商业世界，意外见证了美国数十年社会变迁。\n\n他始终用近乎天真的执着去爱人、做事，也在跌宕人生里把幸运、善良与失去一并活成了传奇。",
+      "note": ""
+    },
+    "story": {
+      "text": "阿甘出生在阿拉巴马州，智商只有 75，却在母亲坚持下进入普通学校。童年时期，他为了躲避欺负学会奔跑，也在珍妮那句\"跑，阿甘，跑\"的呼喊里找到面对世界的方式。凭借惊人的耐力，他从被嘲笑的孩子一路跑进大学橄榄球赛场，成了校队明星，还因此见到了肯尼迪总统。\n\n大学毕业后，阿甘应征入伍，被派往越南。在那里，他结识了热衷捕虾的布巴与性格强硬的丹中尉。战争改变了他们的命运：布巴阵亡，丹失去双腿，而阿甘因为救人立功，再度以\"英雄\"身份被国家看见。此后他又阴差阳错加入乒乓球队、参与中美交流、被卷入水门事件等历史瞬间，以几乎不带功利心的姿态穿行在美国几十年社会巨变之间。\n\n阿甘始终放不下的人是珍妮。她从小就是唯一愿意坐到他身边的人，却在成长中不断逃离家乡、逃离阿甘，也逃离自己。她经历创伤、漂泊、药物和失败，始终难以相信自己值得被爱；阿甘却无论她在何处、变成什么样子，都用最笨拙也最坚定的方式等着她回来。\n\n为了完成和布巴的约定，阿甘退伍后买下捕虾船，在丹中尉帮助下建立了布巴甘公司，意外成为富翁。母亲去世后，珍妮再次短暂回到他身边，又在与他共度一夜后悄然离开。失落的阿甘开始了一场横跨全美的长跑，把自己的茫然、哀伤与执念都交给漫长公路，也再次让自己成为媒体追逐的传奇人物。\n\n直到收到珍妮来信，阿甘才停下脚步去见她，并第一次知道自己有个儿子。此时珍妮身患重病，终于决定和阿甘一起回家生活。两人结婚后不久，珍妮离世，阿甘独自承担起父亲的责任。影片最终回到公交站与校车站：阿甘把儿子送去上学，看着那片羽毛再次随风飘远，也回望了自己既被命运推动、又始终真诚向前的一生。"
+    },
+    "director": [
+      {
+        "personCode": "p000051",
+        "name": "罗伯特·泽米吉斯",
+        "nameEn": "Robert Zemeckis",
+        "role": "导演",
+        "avatarPath": "people/p000051-avatar.jpg",
+        "avatarSource": "wikipedia"
+      }
+    ],
+    "writer": [
+      {
+        "personCode": "p000052",
+        "name": "艾瑞克·罗斯",
+        "nameEn": "Eric Roth",
+        "role": "编剧"
+      },
+      {
+        "personCode": "p000053",
+        "name": "温斯顿·格鲁姆",
+        "nameEn": "Winston Groom",
+        "role": "原著"
+      }
+    ],
+    "cast": [
+      {
+        "personCode": "p000054",
+        "name": "汤姆·汉克斯",
+        "nameEn": "Tom Hanks",
+        "role": "阿甘 Forrest Gump",
+        "avatarPath": "people/p000054-avatar.jpg",
+        "avatarSource": "wikipedia"
+      },
+      {
+        "personCode": "p000055",
+        "name": "罗宾·怀特",
+        "nameEn": "Robin Wright",
+        "role": "珍妮·库伦 Jenny Curran",
+        "avatarPath": "people/p000055-avatar.jpg",
+        "avatarSource": "wikipedia"
+      },
+      {
+        "personCode": "p000056",
+        "name": "加里·西尼斯",
+        "nameEn": "Gary Sinise",
+        "role": "邓·泰勒 Dan Taylor",
+        "avatarPath": "people/p000056-avatar.jpg",
+        "avatarSource": "wikipedia"
+      },
+      {
+        "personCode": "p000057",
+        "name": "麦凯尔泰·威廉逊",
+        "nameEn": "Mykelti Williamson",
+        "role": "布巴·布鲁 Bubba Blue",
+        "avatarPath": "people/p000057-avatar.jpg",
+        "avatarSource": "wikipedia"
+      },
+      {
+        "personCode": "p000058",
+        "name": "莎莉·菲尔德",
+        "nameEn": "Sally Field",
+        "role": "甘普太太 Mrs. Gump",
+        "avatarPath": "people/p000058-avatar.jpg",
+        "avatarSource": "wikipedia"
+      },
+      {
+        "personCode": "p000059",
+        "name": "海利·乔·奥斯蒙",
+        "nameEn": "Haley Joel Osment",
+        "role": "小阿甘 Forrest Gump Jr.",
+        "avatarPath": "people/p000059-avatar.jpg",
+        "avatarSource": "wikipedia"
+      },
+      {
+        "personCode": "p000060",
+        "name": "迈克尔·康纳·汉弗莱斯",
+        "nameEn": "Michael Conner Humphreys",
+        "role": "年幼阿甘 Young Forrest",
+        "avatarPath": "people/p000060-avatar.jpg",
+        "avatarSource": "wikipedia"
+      },
+      {
+        "personCode": "p000061",
+        "name": "汉娜·豪尔",
+        "nameEn": "Hanna R. Hall",
+        "role": "年幼珍妮 Young Jenny",
+        "notes": "Wikipedia无头像",
+        "avatarSource": "",
+        "avatarNote": "Wikipedia无头像"
+      }
+    ],
+    "otherCast": [
+      {
+        "personCode": "p000062",
+        "name": "库尔特·拉塞尔",
+        "nameEn": "Kurt Russell",
+        "role": "艾维斯·普斯里（配音）"
+      },
+      {
+        "personCode": "p000063",
+        "name": "彼得·多布森",
+        "nameEn": "Peter Dobson",
+        "role": "猫王"
+      },
+      {
+        "personCode": "p000064",
+        "name": "索尼·施罗耶",
+        "nameEn": "Sonny Shroyer",
+        "role": "布莱恩特教练"
+      },
+      {
+        "personCode": "p000065",
+        "name": "理查德·戴萨特",
+        "nameEn": "Richard D'Alessandro",
+        "role": "约翰·列侬"
+      },
+      {
+        "personCode": "p000066",
+        "name": "杰弗里·布莱克",
+        "nameEn": "Geoffrey Blake",
+        "role": "长腿漂流者"
+      },
+      {
+        "personCode": "p000067",
+        "name": "丹尼尔C.斯崔普",
+        "nameEn": "Daniel C. Striepeke",
+        "role": "越战老兵"
+      },
+      {
+        "personCode": "p000068",
+        "name": "大卫·布里斯宾",
+        "nameEn": "David Brisbin",
+        "role": "巴士司机"
+      },
+      {
+        "personCode": "p000069",
+        "name": "迪克·史泰尔斯",
+        "nameEn": "Dick Stahl",
+        "role": "巴士司机"
+      },
+      {
+        "personCode": "p000070",
+        "name": "山姆·安德森",
+        "nameEn": "Sam Anderson",
+        "role": "历史老师"
+      },
+      {
+        "personCode": "p000071",
+        "name": "伊丽莎白·汉克斯",
+        "nameEn": "Elizabeth Hanks",
+        "role": "巴士上的女孩"
+      },
+      {
+        "personCode": "p000059",
+        "name": "海利·乔·奥斯蒙",
+        "nameEn": "Haley Joel Osment",
+        "role": "小阿甘（公交站台）",
+        "avatarPath": "people/p000059-avatar.jpg"
+      },
+      {
+        "personCode": "p000072",
+        "name": "迈克尔·伯吉斯",
+        "nameEn": "Michael Burgess",
+        "role": "越战士兵"
+      },
+      {
+        "personCode": "p000073",
+        "name": "特里·温格特",
+        "nameEn": "Terry Wright",
+        "role": "越战士兵"
+      },
+      {
+        "personCode": "p000074",
+        "name": "马修·麦克纳",
+        "nameEn": "Matthew MacNabb",
+        "role": "越战士兵"
+      }
+    ],
+    "producer": [
+      {
+        "personCode": "p000075",
+        "name": "温迪·芬erman",
+        "nameEn": "Wendy Finerman",
+        "role": "制片人"
+      },
+      {
+        "personCode": "p000076",
+        "name": "斯蒂夫·斯塔基",
+        "nameEn": "Steve Starkey",
+        "role": "制片人"
+      },
+      {
+        "personCode": "p000077",
+        "name": "史蒂夫·蒂施",
+        "nameEn": "Steve Tisch",
+        "role": "制片人"
+      }
+    ],
+    "genre": [
+      "剧情",
+      "爱情"
+    ],
+    "tags": [],
+    "aka": [
+      "福雷斯特·冈普"
+    ],
+    "releaseDate": [
+      {
+        "date": "1994-07-06",
+        "location": "美国"
+      },
+      {
+        "date": "1994-10-07",
+        "location": "英国"
+      },
+      {
+        "date": "1994-12-15",
+        "location": "中国香港"
+      }
+    ],
+    "imdbId": "tt0109830",
+    "doubanId": "1292720",
+    "doubanRating": 9.5,
+    "imdbRating": 8.8,
+    "rated": "PG-13",
+    "awards": "Won 6 Oscars. 51 wins & 74 nominations total",
+    "images": {
+      "poster": "poster-main.jpg",
+      "posters": [
+        "poster-01.jpg",
+        "poster-02.jpg",
+        "poster-03.jpg",
+        "poster-04.jpg",
+        "poster-05.jpg",
+        "poster-06.jpg",
+        "poster-07.jpg",
+        "poster-08.jpg",
+        "poster-09.jpg",
+        "poster-10.jpg"
+      ],
+      "stills": [
+        "still-01.jpg",
+        "still-02.jpg",
+        "still-03.jpg",
+        "still-04.jpg",
+        "still-05.jpg",
+        "still-06.jpg",
+        "still-07.jpg",
+        "still-08.jpg",
+        "still-09.jpg",
+        "still-10.jpg",
+        "still-11.jpg",
+        "still-12.jpg",
+        "still-13.jpg",
+        "still-14.jpg",
+        "still-15.jpg",
+        "still-16.jpg",
+        "still-17.jpg",
+        "still-18.jpg",
+        "still-19.jpg",
+        "still-20.jpg",
+        "still-21.jpg",
+        "still-22.jpg",
+        "still-23.jpg",
+        "still-24.jpg",
+        "still-25.jpg",
+        "still-26.jpg",
+        "still-27.jpg",
+        "still-28.jpg",
+        "still-29.jpg",
+        "still-30.jpg",
+        "still-31.jpg",
+        "still-32.jpg",
+        "still-33.jpg",
+        "still-34.jpg",
+        "still-35.jpg",
+        "still-36.jpg",
+        "still-37.jpg",
+        "still-38.jpg",
+        "still-39.jpg"
+      ],
+      "wallpapers": [],
+      "postersTotal": 10,
+      "stillsTotal": 39,
+      "assetDir": "video/movie/0101000003"
+    },
+    "videos": [],
+    "reviews": [
+      {
+        "author": "kino",
+        "source": "豆瓣",
+        "date": "2008-07-12",
+        "content": "一个南阿拉巴马州的傻子阿甘，一辈子喜欢的女人就是珍妮。从小到大，他对她的感情几乎没有变过：不管她做什么，不管她变得多狼狈、不安或遥远，阿甘都始终在原地等她回来。电影最动人的，并不是传奇经历，而是这种近乎不设条件的爱。",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "山河大地",
+        "source": "豆瓣",
+        "date": "2005-06-13",
+        "content": "很多人说阿甘只是运气太好，但如果你认真听他在长椅上讲述自己的一生，就会发现这不是一个人在炫耀好运，而是在回答\"人为什么活着\"。他并不聪明，却比多数人更少自我消耗，所以也更接近生命最朴素的力量。",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "蹊默",
+        "source": "豆瓣",
+        "date": "2005-11-25",
+        "content": "片头片尾那片随风飘动的羽毛，不只是形式上的呼应，更像是对人生的概括：每个人都像羽毛一样被时代气流托举、吹落、偏转，却又在落地之前经历了只属于自己的轨迹。阿甘的一生因此既像偶然，也像命运。",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "楚荆",
+        "source": "豆瓣",
+        "date": "2007-10-07",
+        "content": "珍妮总说阿甘不懂什么是爱，可恰恰可能是他最懂得爱。他爱母亲、爱朋友、爱布巴、爱丹中尉，也爱珍妮；这些感情没有技巧，没有算计，却因为始终如一而显得格外珍贵。与其说阿甘幸运，不如说他在复杂世界里保住了最难得的真诚。",
+        "url": null,
+        "title": null
+      }
+    ],
+    "soundtrack": {
+      "albums": [
+        {
+          "name": "Forrest Gump: The Soundtrack",
+          "note": "亚伦·史维斯查 / Alan Silvestri",
+          "coverImage": null,
+          "releaseDate": "1994",
+          "type": "soundtrack",
+          "tracks": [
+            {
+              "name": "Hound Dog",
+              "artist": "Elvis Presley",
+              "duration": null
+            },
+            {
+              "name": "Rebel Rouser",
+              "artist": "Duane Eddy",
+              "duration": null
+            },
+            {
+              "name": "(I Don't Know Why) But I Do",
+              "artist": "Clarence 'Frogman' Henry",
+              "duration": null
+            },
+            {
+              "name": "Walk Right In",
+              "artist": "The Rooftop Singers",
+              "duration": null
+            },
+            {
+              "name": "Land of 1000 Dances",
+              "artist": "Wilson Pickett",
+              "duration": null
+            },
+            {
+              "name": "Blowin' in the Wind",
+              "artist": "Bob Dylan",
+              "duration": null
+            },
+            {
+              "name": "Fortunate Son",
+              "artist": "Creedence Clearwater Revival",
+              "duration": null
+            },
+            {
+              "name": "I Can't Help Myself (Sugar Pie Honey Bunch)",
+              "artist": "Four Tops",
+              "duration": null
+            },
+            {
+              "name": "Respect",
+              "artist": "Aretha Franklin",
+              "duration": null
+            },
+            {
+              "name": "Raindrops Keep Falling on My Head",
+              "artist": "B.J. Thomas",
+              "duration": null
+            },
+            {
+              "name": "Sloop John B",
+              "artist": "The Beach Boys",
+              "duration": null
+            },
+            {
+              "name": "California Dreamin'",
+              "artist": "The Mamas & The Papas",
+              "duration": null
+            },
+            {
+              "name": "For What It's Worth",
+              "artist": "Buffalo Springfield",
+              "duration": null
+            },
+            {
+              "name": "What the World Needs Now Is Love",
+              "artist": "Jackie DeShannon",
+              "duration": null
+            },
+            {
+              "name": "Break On Through (To the Other Side)",
+              "artist": "The Doors",
+              "duration": null
+            },
+            {
+              "name": "Mrs. Robinson",
+              "artist": "Simon & Garfunkel",
+              "duration": null
+            },
+            {
+              "name": "Volunteers",
+              "artist": "Jefferson Airplane",
+              "duration": null
+            },
+            {
+              "name": "Let's Get Together",
+              "artist": "Chet Powers",
+              "duration": null
+            },
+            {
+              "name": "San Francisco (Be Sure to Wear Flowers in Your Hair)",
+              "artist": "Scott McKenzie",
+              "duration": null
+            },
+            {
+              "name": "Turn! Turn! Turn! (To Everything There Is a Season)",
+              "artist": "The Byrds",
+              "duration": null
+            },
+            {
+              "name": "Medley: Aquarius/Let the Sunshine In",
+              "artist": "The 5th Dimension",
+              "duration": null
+            },
+            {
+              "name": "Everybody's Talkin'",
+              "artist": "Harry Nilsson",
+              "duration": null
+            },
+            {
+              "name": "Joy to the World",
+              "artist": "Three Dog Night",
+              "duration": null
+            },
+            {
+              "name": "Stoned Love",
+              "artist": "The Supremes",
+              "duration": null
+            },
+            {
+              "name": "Rainy Day Women #12 & 35",
+              "artist": "Bob Dylan",
+              "duration": null
+            },
+            {
+              "name": "Mr. President (Have Pity on the Working Man)",
+              "artist": "Randy Newman",
+              "duration": null
+            },
+            {
+              "name": "Sweet Home Alabama",
+              "artist": "Lynyrd Skynyrd",
+              "duration": null
+            },
+            {
+              "name": "It Keeps You Runnin'",
+              "artist": "The Doobie Brothers",
+              "duration": null
+            },
+            {
+              "name": "I've Got to Use My Imagination",
+              "artist": "Gladys Knight & The Pips",
+              "duration": null
+            },
+            {
+              "name": "On the Road Again",
+              "artist": "Willie Nelson",
+              "duration": null
+            },
+            {
+              "name": "Against the Wind",
+              "artist": "Bob Seger",
+              "duration": null
+            },
+            {
+              "name": "Forrest Gump Suite",
+              "artist": "Alan Silvestri",
+              "duration": null
+            }
+          ]
+        }
+      ]
+    },
+    "series": [],
+    "similar": [
+      {
+        "id": "0101000001",
+        "title": "肖申克的救赎",
+        "year": 1994,
+        "rating": 9.7
+      },
+      {
+        "title": "这个杀手不太冷",
+        "year": 1994,
+        "rating": 9.4
+      },
+      {
+        "title": "美丽人生",
+        "year": 1997,
+        "rating": 9.5
+      },
+      {
+        "title": "泰坦尼克号",
+        "year": 1997,
+        "rating": 9.5
+      },
+      {
+        "title": "楚门的世界",
+        "year": 1998,
+        "rating": 9.3
+      }
+    ],
+    "links": {
+      "douban": "https://movie.douban.com/subject/1292720/",
+      "imdb": "https://www.imdb.com/title/tt0109830/",
+      "tmdb": "https://www.themoviedb.org/movie/13"
+    },
+    "quotes": [],
+    "createdAt": "2026-05-01",
+    "updatedAt": "2026-05-02",
+    "status": "published"
+  },
+  {
+    "id": "0101000004",
+    "module": "video",
+    "submodule": "movie",
+    "schemaType": "live_action_movie",
+    "path": "/video/movie/0101000004",
+    "title": "霸王别姬",
+    "originalTitle": "Farewell My Concubine",
+    "year": 1993,
+    "country": "中国香港",
+    "language": "汉语普通话",
+    "runtime": 171,
+    "synopsis": {
+      "text": "程蝶衣与段小楼自幼在梨园一同长大，凭《霸王别姬》名满京城，却因对戏与人生的不同理解走向分裂。\n\n当菊仙闯入二人关系，时代风云又不断改写命运，一场跨越半生的情感纠葛最终把舞台、欲望与历史一并推向悲剧。",
+      "note": "豆瓣剧情简介。"
+    },
+    "story": {
+      "text": "上世纪二十年代的北平，妓女出身的母亲为了让小豆子有口饭吃，把他送进严苛的戏班。为了符合学戏规矩，小豆子被硬生生切去多出的手指，从此与小石头一起在关师傅门下受尽打骂与规训。小豆子天生适合旦角，却始终抗拒\"我本是女娇娥\"的唱词；经历逃班、小癞子之死与长期驯化后，他终于把\"程蝶衣\"这层身份唱进骨血，也把戏台人生与现实人生逐渐混为一体。\n\n成年后的程蝶衣与段小楼凭《霸王别姬》红遍京城，一个演虞姬，一个演霸王，台上台下都像命定搭档。蝶衣把\"一辈子差一年、一个月、一天、一个时辰都不算一辈子\"当成誓言，对师兄、对戏、对自我身份都投入了近乎宗教般的执念。段小楼却始终把唱戏当营生，把台上情义和台下生活分得更开。\n\n名妓菊仙的出现打破了这段微妙平衡。段小楼与菊仙成婚后，蝶衣把她视作闯入者，也第一次真正感到被背叛。与此同时，袁四爷这样的戏迷与权势人物不断介入，使蝶衣在被欣赏、被占有与自我献祭之间越陷越深。抗战、日本投降、政权更替接连到来，三人的关系也在不同历史时刻被迫重新站队、相互伤害。\n\n新中国成立后，他们一度迎来短暂稳定，但旧日恩怨和角色错位并未真正结束。到文革时期，昔日名角在群众批斗中被推上审判席，为了自保彼此揭短、互相刺伤。段小楼否认与蝶衣的深情，蝶衣也说出菊仙最无法承受的真相，最终逼得菊仙在绝望中自尽。曾经把戏唱到极致的三个人，至此都被时代和自身选择彻底碾碎。\n\n十一年后，程蝶衣与段小楼再度同台《霸王别姬》。当熟悉的唱段重新响起，蝶衣终于以虞姬的方式完成了自己与舞台、与霸王、与一生执念的最后合一，在戏里戏外都走向了真正的诀别。"
+    },
+    "director": [
+      {
+        "personCode": "p000078",
+        "name": "陈凯歌",
+        "nameEn": "Chen Kaige",
+        "role": "导演",
+        "avatarPath": "people/p000078-avatar.jpg",
+        "avatarSource": "tmdb"
+      }
+    ],
+    "writer": [
+      {
+        "personCode": "p000079",
+        "name": "芦苇",
+        "nameEn": "Wei Lu",
+        "role": "编剧"
+      },
+      {
+        "personCode": "p000080",
+        "name": "李碧华",
+        "nameEn": "Lilian Lee Pik-Wah",
+        "role": "原著/编剧"
+      }
+    ],
+    "cast": [
+      {
+        "personCode": "p000081",
+        "name": "张国荣",
+        "nameEn": "Leslie Cheung",
+        "role": "程蝶衣",
+        "avatarPath": "people/p000081-avatar.jpg",
+        "avatarSource": "tmdb"
+      },
+      {
+        "personCode": "p000082",
+        "name": "张丰毅",
+        "nameEn": "Zhang Fengyi",
+        "role": "段小楼",
+        "avatarPath": "people/p000082-avatar.jpg",
+        "avatarSource": "tmdb"
+      },
+      {
+        "personCode": "p000083",
+        "name": "巩俐",
+        "nameEn": "Gong Li",
+        "role": "菊仙",
+        "avatarPath": "people/p000083-avatar.jpg",
+        "avatarSource": "tmdb"
+      },
+      {
+        "personCode": "p000084",
+        "name": "葛优",
+        "nameEn": "Ge You",
+        "role": "袁四爷",
+        "avatarPath": "people/p000084-avatar.jpg",
+        "avatarSource": "tmdb"
+      },
+      {
+        "personCode": "p000085",
+        "name": "英达",
+        "nameEn": "Ying Da",
+        "role": "那坤",
+        "avatarPath": "people/p000085-avatar.jpg",
+        "avatarSource": "tmdb"
+      },
+      {
+        "personCode": "p000086",
+        "name": "蒋雯丽",
+        "nameEn": "Jiang Wenli",
+        "role": "小豆子娘",
+        "avatarPath": "people/p000086-avatar.jpg",
+        "avatarSource": "tmdb"
+      },
+      {
+        "personCode": "p000087",
+        "name": "吴大维",
+        "nameEn": "David Wu",
+        "role": "红卫兵",
+        "avatarPath": "people/p000087-avatar.jpg",
+        "avatarSource": "tmdb"
+      },
+      {
+        "personCode": "p000088",
+        "name": "吕齐",
+        "nameEn": "Qi Lu",
+        "role": "关师傅",
+        "avatarPath": "people/p000088-avatar.jpg",
+        "avatarSource": "tmdb"
+      }
+    ],
+    "otherCast": [
+      {
+        "personCode": "p000089",
+        "name": "雷汉",
+        "nameEn": "Han Lei",
+        "role": "小四(成年)"
+      },
+      {
+        "personCode": "p000090",
+        "name": "童弟",
+        "nameEn": "Tong Di",
+        "role": "张公公"
+      },
+      {
+        "personCode": "p000091",
+        "name": "尹治",
+        "nameEn": "Yin Zhi",
+        "role": "小豆子(少年)"
+      },
+      {
+        "personCode": "p000092",
+        "name": "马明威",
+        "nameEn": "Ma Mingwei",
+        "role": "小豆子(童年)"
+      },
+      {
+        "personCode": "p000093",
+        "name": "费振翔",
+        "nameEn": "Zhenxiang Fei",
+        "role": "小石头(童年)"
+      },
+      {
+        "personCode": "p000094",
+        "name": "赵海龙",
+        "nameEn": "Zhao Hailong",
+        "role": "小石头(少年)"
+      }
+    ],
+    "producer": [
+      {
+        "personCode": "p000095",
+        "name": "徐枫",
+        "nameEn": "Feng Hsu",
+        "role": "制片人"
+      },
+      {
+        "personCode": "p000096",
+        "name": "徐杰",
+        "nameEn": "Jade Hsu",
+        "role": "监制"
+      },
+      {
+        "personCode": "p000097",
+        "name": "汤君年",
+        "nameEn": "Jun-Nian Tang",
+        "role": "出品人"
+      }
+    ],
+    "genre": [
+      "剧情",
+      "爱情",
+      "同性"
+    ],
+    "tags": [],
+    "aka": [
+      "再见，我的妾",
+      "Farewell My Concubine",
+      "Adieu Ma Concubine"
+    ],
+    "releaseDate": [
+      {
+        "date": "1993-07-26",
+        "location": "中国大陆"
+      },
+      {
+        "date": "1993-01-01",
+        "location": "中国香港"
+      }
+    ],
+    "imdbId": "tt0106332",
+    "doubanId": "1291546",
+    "doubanRating": 9.6,
+    "imdbRating": 8.1,
+    "rated": "R",
+    "awards": "Nominated for 2 Oscars. 24 wins & 12 nominations total",
+    "images": {
+      "poster": "poster-main.jpg",
+      "posters": [
+        "poster-01.jpg",
+        "poster-02.jpg",
+        "poster-03.jpg",
+        "poster-04.jpg",
+        "poster-05.jpg"
+      ],
+      "stills": [
+        "still-01.jpg",
+        "still-02.jpg",
+        "still-03.jpg",
+        "still-04.jpg",
+        "still-05.jpg"
+      ],
+      "wallpapers": [],
+      "postersTotal": 79,
+      "stillsTotal": 27,
+      "assetDir": "video/movie/0101000004"
+    },
+    "videos": [
+      {
+        "title": "Trailer",
+        "duration": "01:34",
+        "thumbnail": "video-trailer-01.jpg",
+        "url": "https://www.youtube.com/watch?v=FFiHfDBt9lE"
+      }
+    ],
+    "reviews": [
+      {
+        "author": "陈野犁",
+        "source": "豆瓣",
+        "date": "2008-05-15",
+        "content": "《霸王别姬》最厉害的地方，不只是把一段梨园旧梦拍得华丽，而是让戏与人、爱与欲、时代与命运层层缠绕。程蝶衣不是单纯地活在戏里，而是在被命运反复撕裂之后，只剩下戏还能容纳他的全部真心。",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "psyduck",
+        "source": "豆瓣",
+        "date": "2006-02-14",
+        "content": "程蝶衣与段小楼的关系从戏班时代起就带着极深的依附与错位：一个把台上的誓言当成一生，一个始终想把戏和生活分开。影片真正残忍之处，在于这份感情既撑起了他们的艺术巅峰，也注定会在现实世界里一步步走向崩塌。",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "阿底",
+        "source": "豆瓣",
+        "date": "2006-06-02",
+        "content": "在看这部电影之前，很容易对国产电影抱有偏见；但《霸王别姬》会迅速把这种傲慢击碎。它的大手笔不只是制作层面的精致，而是敢于把迷恋、背叛、欲望和历史灾难同时放进人物命运里，让每一次相爱与相弃都带着时代的回声。",
+        "url": null,
+        "title": null
+      },
+      {
+        "author": "从嘉",
+        "source": "豆瓣",
+        "date": "2008-04-19",
+        "content": "小豆子被切去手指、被迫改口唱词的过程，不只是残酷训练，更像一场被强行完成的身份塑造。等到程蝶衣终于活成虞姬，他已经无法再把舞台当成表演，而只能把现实当成戏来承受；这正是影片最令人心惊的地方。",
+        "url": null,
+        "title": null
+      }
+    ],
+    "soundtrack": null,
+    "series": [],
+    "similar": [
+      {
+        "title": "活着",
+        "year": 1994,
+        "rating": 9.3
+      },
+      {
+        "title": "春光乍泄",
+        "year": 1997,
+        "rating": 9
+      },
+      {
+        "title": "楚门的世界",
+        "year": 1998,
+        "rating": 9.4
+      },
+      {
+        "title": "重庆森林",
+        "year": 1994,
+        "rating": 8.8
+      },
+      {
+        "title": "罗马假日",
+        "year": 1953,
+        "rating": 9.1
+      },
+      {
+        "title": "花样年华",
+        "year": 2000,
+        "rating": 8.8
+      }
+    ],
+    "links": {
+      "douban": "https://movie.douban.com/subject/1291546/",
+      "imdb": "https://www.imdb.com/title/tt0106332/",
+      "tmdb": "https://www.themoviedb.org/movie/10997"
+    },
+    "quotes": [],
+    "createdAt": "2026-05-02",
+    "updatedAt": "2026-05-02",
+    "status": "published"
+  }
+]

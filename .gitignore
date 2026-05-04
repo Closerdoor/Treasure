@@ -9,3 +9,4 @@ site/public/assets/game/
 .local/
 .superpowers/
 .worktrees/
+.playwright-mcp/
