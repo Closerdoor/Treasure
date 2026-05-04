@@ -1,6 +1,11 @@
 site/node_modules/
 site/dist/
 site/.astro/
-site/public/assets/
+site/public/assets/video/
+site/public/assets/anime/
+site/public/assets/book/
+site/public/assets/music/
+site/public/assets/game/
+.local/
 .superpowers/
 .worktrees/

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 1080" fill="none">
+  <rect width="720" height="1080" fill="#16161a"/>
+  <rect x="48" y="48" width="624" height="984" rx="28" fill="#1e1f26" stroke="#34384a" stroke-width="4"/>
+  <path d="M222 742L332 594L428 704L498 612L606 742" stroke="#7d8af2" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="274" cy="334" r="54" fill="#7d8af2" fill-opacity="0.65"/>
+  <text x="360" y="860" text-anchor="middle" fill="#e6e8f2" font-size="44" font-family="system-ui, sans-serif">Treasure Archive</text>
+  <text x="360" y="914" text-anchor="middle" fill="#979db9" font-size="28" font-family="system-ui, sans-serif">Poster Pending</text>
+</svg>
