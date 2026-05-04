@@ -228,6 +228,42 @@ node "tools/db/build-new-flow-movie-samples.mjs"
 - 清库后从头重跑的稳定性
 - 去重、续跑和批量质量报告
 
+## 从任务文件生成标准输出
+
+当前可通过任务文件直接生成标准录入 JSON：
+
+```powershell
+node "tools/db/run-movie-intake-from-tasks.mjs" --input ".local/batches/my-movies.tasks.json"
+```
+
+默认输出到：
+
+- `.local/new-flow/video/movie/`
+- `.local/new-flow-field-sources/video/movie/`
+
+如果你要直接为正式导入准备 staging 文件，可切到：
+
+```powershell
+node "tools/db/run-movie-intake-from-tasks.mjs" --input ".local/batches/my-movies.tasks.json" --output-mode staging
+```
+
+对应输出到：
+
+- `.local/staging/video/movie/`
+- `.local/field-sources/video/movie/`
+
+当前脚本会：
+
+- 按豆瓣条目配置生成目标记录
+- 在写盘前执行结构校验
+- 输出 `created` / `skipped` 摘要，便于后续续跑
+
+当前仍需继续完善的部分：
+
+- 不再只依赖少数样板条目的配置注册表
+- 批量去重、断点续跑与失败原因汇总
+- 与清空数据库后的全量重建流程形成统一入口
+
 ## 生成电影录入验收文档
 
 自动输出“数据库字段 / 旧的当前数据内容 / 新流程数据内容 / 数据来源或处理逻辑”的完整比对文档：
