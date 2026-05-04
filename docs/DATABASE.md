@@ -181,7 +181,6 @@ SQLite -> export script -> JSON / generated data -> Astro build -> GitHub Pages
 - `synopsis_text`
 - `synopsis_note`
 - `story_text`
-- `story_note`
 - `status`
 - `created_at`
 - `updated_at`
@@ -239,11 +238,11 @@ SQLite -> export script -> JSON / generated data -> Astro build -> GitHub Pages
 - 更多片名 -> `aliases_json`
 - 上映日期 -> `release_dates_json`
 - 豆瓣 ID / IMDb ID / 未来 TMDB -> `identifiers_json`
-- 综合评分 / 豆瓣评分 / IMDb 评分 / TMDB 评分 / 烂番茄评分 -> `ratings_json`
+- 综合评分 / 豆瓣评分 / IMDb 评分 / TMDB 评分 / 烂番茄评分 / Metascore / 分级 / 获奖信息 -> `ratings_json`
 - 系列作品 / 相似作品 -> `relations_json`
 - 图片 -> `images_json`
 - 精彩影评 -> `reviews_json`
-- 音乐原声 -> `soundtrack_json`
+- 音乐原声（按专辑记录，可含多张专辑） -> `soundtrack_json`
 - 视频 -> `videos_json`
 - 外部来源 -> `links_json`
 - 名言名句 -> `quotes_json`
@@ -302,6 +301,87 @@ SQLite -> export script -> JSON / generated data -> Astro build -> GitHub Pages
   }
 ]
 ```
+
+## 电影评分字段的特别说明
+
+当前确认：
+
+- `ratings_json` 中不再保留 `votes`
+- 所有评分统一折算为 10 分制
+- 评分对象统一使用：`value` + `scale`
+
+推荐结构示意：
+
+```json
+{
+  "aggregate": { "value": 9.1, "scale": 10 },
+  "douban": { "value": 9.6, "scale": 10 },
+  "imdb": { "value": 8.1, "scale": 10 },
+  "rottenTomatoes": { "value": 9.0, "scale": 10 },
+  "metascore": { "value": 8.4, "scale": 10 },
+  "certification": { "value": "R" },
+  "awards": { "value": "Nominated for 2 Oscars. 24 wins & 12 nominations total" }
+}
+```
+
+说明：
+
+- `certification`：内容分级信息，例如 `PG-13`、`R`
+- `awards`：获奖与提名摘要
+
+## 电影影评字段的特别说明
+
+当前确认 `reviews_json` 结构为：
+
+```json
+[
+  {
+    "author": "kino",
+    "source": "豆瓣",
+    "date": "2008-07-12",
+    "content": "影评摘录内容",
+    "url": "https://movie.douban.com/review/1436379/",
+    "title": "阿甘的爱情"
+  }
+]
+```
+
+说明：
+
+- 不再保留 `rating`
+- `url` 用于跳转到影评原文
+- `title` 若无可写 `null`
+
+## 电影原声字段的特别说明
+
+当前确认 `soundtrack_json` 以“专辑列表”承载：
+
+```json
+{
+  "albums": [
+    {
+      "name": "Forrest Gump: The Soundtrack",
+      "note": "专辑备注",
+      "coverImage": null,
+      "releaseDate": "1994",
+      "type": "soundtrack",
+      "tracks": [
+        {
+          "name": "Hound Dog",
+          "artist": "Elvis Presley",
+          "duration": null
+        }
+      ]
+    }
+  ]
+}
+```
+
+说明：
+
+- 一部作品允许存在多张专辑
+- 每张专辑记录：专辑名 / 备注 / 封面图 / 发行日期 / 类型 / 曲目
+- 每首歌记录：歌名 / 歌手 / 时长
 
 ## 电视剧字段设计（当前确认版）
 

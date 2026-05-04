@@ -5,29 +5,93 @@ import { formatExternalSourceLabel } from '../lib/site';
 const { movie } = Astro.props as { movie: ArchiveMovie };
 
 const leadCast = movie.cast ?? [];
-const creditsCarousel = [
-  ...(movie.director ?? []).map((person) => ({
+type CreditPerson = NonNullable<ArchiveMovie['director']>[number];
+type CreditRailItem = CreditPerson & { jobLabel: string };
+
+function buildCreditsCarousel() {
+  const creditsMap = new Map<string, { person: CreditPerson; labels: string[] }>();
+
+  const append = (people: CreditPerson[], resolveLabel: (person: CreditPerson) => string) => {
+    for (const person of people) {
+      const key = person.personCode || person.nameEn || person.name;
+      const label = resolveLabel(person);
+      const existing = creditsMap.get(key);
+
+      if (existing) {
+        if (!existing.labels.includes(label)) {
+          existing.labels.push(label);
+        }
+
+        if (!existing.person.avatar && person.avatar) {
+          existing.person.avatar = person.avatar;
+        }
+
+        if (!existing.person.avatarPath && person.avatarPath) {
+          existing.person.avatarPath = person.avatarPath;
+        }
+
+        if (!existing.person.nameEn && person.nameEn) {
+          existing.person.nameEn = person.nameEn;
+        }
+
+        continue;
+      }
+
+      creditsMap.set(key, {
+        person: { ...person },
+        labels: [label]
+      });
+    }
+  };
+
+  append(movie.director ?? [], () => '导演');
+  append(movie.writer ?? [], (person) => person.role || '编剧');
+  append(leadCast, (person) => person.role || '演员');
+
+  return Array.from(creditsMap.values()).map(({ person, labels }) => ({
     ...person,
-    jobLabel: '导演'
-  })),
-  ...(movie.writer ?? []).map((person) => ({
-    ...person,
-    jobLabel: person.role || '编剧'
-  })),
-  ...leadCast.map((person) => ({
-    ...person,
-    jobLabel: person.role || '演员'
-  }))
-];
-const primaryImageItems = [movie.posterUrl, ...movie.posterGallery, ...movie.stillGallery];
-const secondaryImageItems = movie.wallpaperGallery;
+    jobLabel: labels.join(' / ')
+  })) satisfies CreditRailItem[];
+}
+
+const creditsCarousel = buildCreditsCarousel();
+const primaryImageItems = [movie.posterUrl, ...movie.posterGallery];
+const secondaryImageItems = movie.wallpaperGallery.length
+  ? movie.wallpaperGallery
+  : movie.stillGallery.length
+    ? movie.stillGallery
+    : movie.posterGallery;
+const soundtrackAlbums = movie.soundtrack?.albums ?? [];
+const storyParagraphs = String(movie.story?.text ?? movie.synopsis?.text ?? '')
+  .split(/\n{2,}/)
+  .map((paragraph) => paragraph.trim())
+  .filter(Boolean);
+
+function resolvePersonAvatar(person: CreditRailItem) {
+  if (person.avatarPath) {
+    return `/assets/${person.avatarPath}`;
+  }
+
+  if (person.avatar) {
+    return `/assets/${movie.module}/${movie.submodule}/${movie.id}/${person.avatar}`;
+  }
+
+  return '/assets/avatar-placeholder.svg';
+}
+
+function getReviewParagraphs(content: string | null | undefined) {
+  return String(content ?? '')
+    .split(/\n{2,}/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
+}
 
 const tabItems = [
   { id: 'story', label: '详情介绍' },
   { id: 'credits', label: '演职员' },
   { id: 'images', label: '图片', hidden: !movie.stillGallery.length && !movie.posterGallery.length },
   { id: 'reviews', label: '精彩影评' },
-  { id: 'music', label: '音乐', hidden: !movie.soundtrack?.tracks?.length },
+  { id: 'music', label: '音乐', hidden: !soundtrackAlbums.length },
   { id: 'videos', label: '视频', hidden: !movie.videos?.length },
   { id: 'links', label: '外部来源' }
 ].filter((item) => !item.hidden);
@@ -60,7 +124,9 @@ const tabItems = [
     {movie.synopsis?.note ? <p class="detail-panel__lead">{movie.synopsis.note}</p> : null}
 
     <div class="detail-story-flow">
-      <p>{movie.story?.text ?? movie.synopsis?.text}</p>
+      {storyParagraphs.map((paragraph) => (
+        <p>{paragraph}</p>
+      ))}
     </div>
   </section>
 
@@ -76,7 +142,7 @@ const tabItems = [
         {creditsCarousel.map((person) => (
           <article class="credit-rail-card">
             <img
-              src={person.avatar ? `/assets/${movie.module}/${movie.submodule}/${movie.id}/${person.avatar}` : '/assets/avatar-placeholder.svg'}
+              src={resolvePersonAvatar(person)}
               alt={person.name}
               loading="lazy"
             />
@@ -144,46 +210,52 @@ const tabItems = [
     <div class="review-stack">
       {(movie.reviews ?? []).map((review) => (
         <article class="review-card">
-          <span class="review-card__mark">摘录</span>
+          <span class="review-card__mark">影评</span>
           <header>
             <div>
               <strong>{review.author}</strong>
               <span>{review.source} · {review.date}</span>
             </div>
-            {review.rating ? <em>{review.rating}</em> : null}
+            {review.url ? <a href={review.url} target="_blank" rel="noreferrer">查看原文</a> : null}
           </header>
-          <p>{review.content}</p>
+          {review.title ? <h3>{review.title}</h3> : null}
+          <div class="review-card__content">
+            {getReviewParagraphs(review.content).map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
         </article>
       ))}
     </div>
   </section>
 
-  {movie.soundtrack?.tracks?.length ? (
+  {soundtrackAlbums.length ? (
     <section class="detail-panel" id="music">
       <div class="detail-panel__header">
         <h2>音乐</h2>
         <span class="detail-panel__eyebrow">Sound Archive</span>
       </div>
 
-      <div class="soundtrack-card">
-        <header>
-          <div>
-            <strong>{movie.soundtrack.name}</strong>
-            <span>
-              {movie.soundtrack.composer}
-              {movie.soundtrack.composerEn ? ` / ${movie.soundtrack.composerEn}` : ''}
-            </span>
+      <div class="soundtrack-stack">
+        {soundtrackAlbums.map((album) => (
+          <div class="soundtrack-card">
+            <header>
+              <div>
+                <strong>{album.name || '未命名专辑'}</strong>
+                <span>{album.note || album.type || '原声资料'}</span>
+              </div>
+              <em>{album.releaseDate || album.type || '原声资料'}</em>
+            </header>
+            <ol>
+              {(album.tracks ?? []).map((track, index) => (
+                <li>
+                  <span>{`${index + 1}. `}{track.name}</span>
+                  <span>{track.artist || track.duration || ''}</span>
+                </li>
+              ))}
+            </ol>
           </div>
-          <em>{movie.soundtrack.year ? `${movie.soundtrack.year}` : '原声资料'}</em>
-        </header>
-        <ol>
-          {movie.soundtrack.tracks.map((track) => (
-            <li>
-              <span>{track.index ? `${track.index}. ` : ''}{track.name}</span>
-              <span>{track.artist || track.duration || ''}</span>
-            </li>
-          ))}
-        </ol>
+        ))}
       </div>
     </section>
   ) : null}

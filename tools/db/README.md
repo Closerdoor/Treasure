@@ -255,12 +255,46 @@ node "tools/db/run-movie-intake-from-tasks.mjs" --input ".local/batches/my-movie
 当前脚本会：
 
 - 按豆瓣条目配置生成目标记录
+- 如果任务里的 `doubanId` 不在样板注册表中，则自动走通用录入 builder
+- 通用 builder 当前会组合 `豆瓣公开详情页 + 豆瓣短评页 + OMDb`
+- 评论数量按“轻量录入”处理，允许只有少量豆瓣短评，不再阻塞 TOP250 批量推进
 - 在写盘前执行结构校验
 - 输出 `created` / `skipped` 摘要，便于后续续跑
 
+## 直接生成豆瓣 Top250 任务文件
+
+如果要直接推进豆瓣电影 Top250，可先生成任务文件：
+
+```powershell
+node "tools/db/generate-douban-top250-tasks.mjs"
+```
+
+默认输出：
+
+- `.local/batches/douban-top250.tasks.json`
+
+可选限制条数：
+
+```powershell
+node "tools/db/generate-douban-top250-tasks.mjs" --limit 25
+```
+
+推荐最短链路：
+
+```powershell
+# 1. 生成 Top250 任务文件
+node "tools/db/generate-douban-top250-tasks.mjs"
+
+# 2. 生成标准录入 JSON（先写入 new-flow）
+node "tools/db/run-movie-intake-from-tasks.mjs" --input ".local/batches/douban-top250.tasks.json"
+
+# 3. 如需直接准备正式导入文件
+node "tools/db/run-movie-intake-from-tasks.mjs" --input ".local/batches/douban-top250.tasks.json" --output-mode staging
+```
+
 当前仍需继续完善的部分：
 
-- 不再只依赖少数样板条目的配置注册表
+- 通用 builder 目前优先保证可入库，不保证达到 40 条高标准评论覆盖
 - 批量去重、断点续跑与失败原因汇总
 - 与清空数据库后的全量重建流程形成统一入口
 

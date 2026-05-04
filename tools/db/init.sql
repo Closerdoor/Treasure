@@ -45,7 +45,6 @@ CREATE TABLE IF NOT EXISTS works (
   synopsis_text TEXT,
   synopsis_note TEXT,
   story_text TEXT,
-  story_note TEXT,
   aliases_json TEXT,
   release_dates_json TEXT,
   identifiers_json TEXT,

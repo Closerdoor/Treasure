@@ -1,4 +1,5 @@
 import fs from 'node:fs/promises';
+import crypto from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildDbProjection, buildRatingsJson, buildImagesJson, buildLinksJson, buildRelationsJson, buildSoundtrackJson, inferPrimaryCountry } from './movie-db-projection.mjs';
@@ -52,6 +53,17 @@ async function readJson(filePath) {
   return JSON.parse(await fs.readFile(filePath, 'utf8'));
 }
 
+async function readJsonIfExists(filePath) {
+  try {
+    return await readJson(filePath);
+  } catch (error) {
+    if (error?.code === 'ENOENT') {
+      return null;
+    }
+    throw error;
+  }
+}
+
 function deepClone(value) {
   return JSON.parse(JSON.stringify(value));
 }
@@ -61,6 +73,425 @@ function replaceTitleInText(text, fromTitle, toTitle) {
     return text;
   }
   return text.split(fromTitle).join(toTitle);
+}
+
+function normalizeWhitespace(value) {
+  return String(value ?? '').replace(/\s+/g, ' ').trim();
+}
+
+function safeFileName(value) {
+  return normalizeWhitespace(value).replace(/[\\/:*?"<>|]/g, '-');
+}
+
+function slugifySegment(value) {
+  return normalizeWhitespace(value)
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function pickPrimaryName(value) {
+  const normalized = normalizeWhitespace(value);
+  if (!normalized) return null;
+  return normalized.split(/[\/，,、]/)[0]?.trim() || normalized;
+}
+
+function toIsoDate(value) {
+  const normalized = normalizeWhitespace(value);
+  if (!normalized || normalized === 'N/A') return null;
+  const date = new Date(normalized);
+  if (Number.isNaN(date.getTime())) return null;
+  return date.toISOString().slice(0, 10);
+}
+
+function parseRuntimeMinutes(value) {
+  const match = String(value ?? '').match(/(\d+)/);
+  return match ? Number.parseInt(match[1], 10) : null;
+}
+
+function splitOmdbNames(value) {
+  return normalizeWhitespace(value)
+    .split(',')
+    .map((item) => normalizeWhitespace(item))
+    .filter(Boolean)
+    .map((name) => ({ name, nameEn: name }));
+}
+
+function pickRating(ratings, source) {
+  const entry = Array.isArray(ratings) ? ratings.find((item) => item?.Source === source) : null;
+  return entry?.Value ?? null;
+}
+
+function parseRatingValue(value) {
+  const normalized = normalizeWhitespace(value);
+  if (!normalized || normalized === 'N/A') return null;
+  if (normalized.includes('/10')) {
+    const number = Number.parseFloat(normalized.split('/')[0]);
+    return Number.isFinite(number) ? number : null;
+  }
+  if (normalized.endsWith('%')) {
+    const number = Number.parseFloat(normalized.slice(0, -1));
+    return Number.isFinite(number) ? Math.round(number) : null;
+  }
+  return null;
+}
+
+async function fetchJson(url) {
+  const response = await fetch(url, {
+    headers: {
+      'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36'
+    }
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch ${url}: ${response.status} ${response.statusText}`);
+  }
+
+  return response.json();
+}
+
+async function downloadBinary(url, outputPath) {
+  const response = await fetch(url, {
+    headers: {
+      'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36',
+      referer: 'https://movie.douban.com/'
+    }
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to download asset ${url}: ${response.status} ${response.statusText}`);
+  }
+
+  const buffer = Buffer.from(await response.arrayBuffer());
+  await fs.mkdir(path.dirname(outputPath), { recursive: true });
+  await fs.writeFile(outputPath, buffer);
+}
+
+async function fetchDoubanChallengePage(url) {
+  const headers = {
+    'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36'
+  };
+  const first = await fetch(url, { headers });
+  const html = await first.text();
+  if (!html.includes('name="sec"') || !html.includes('id="cha"')) {
+    return html;
+  }
+
+  const tok = html.match(/id="tok" name="tok" value="([^"]+)"/i)?.[1];
+  const cha = html.match(/id="cha" name="cha" value="([^"]+)"/i)?.[1];
+  const red = html.match(/id="red" name="red" value="([^"]+)"/i)?.[1] ?? url;
+  if (!tok || !cha) {
+    return html;
+  }
+
+  let nonce = 0;
+  let hash = '';
+  do {
+    nonce += 1;
+    hash = crypto.createHash('sha512').update(`${cha}${nonce}`).digest('hex');
+  } while (!hash.startsWith('0000'));
+
+  const body = new URLSearchParams({ tok, cha, sol: String(nonce), red });
+  const second = await fetch('https://movie.douban.com/c', {
+    method: 'POST',
+    headers: {
+      ...headers,
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    body,
+    redirect: 'manual'
+  });
+
+  const cookie = second.headers.get('set-cookie')?.split(';')[0] ?? '';
+  const targetUrl = second.headers.get('location') ?? red;
+  const finalResponse = await fetch(targetUrl, {
+    headers: {
+      ...headers,
+      cookie
+    }
+  });
+  return finalResponse.text();
+}
+
+function extractDoubanSubjectInfo(html) {
+  const compact = html.replace(/\r/g, '');
+  const infoBlock = compact.match(/<div id="info">([\s\S]*?)<\/div>/i)?.[1] ?? '';
+  const plotBlock = compact.match(/<span property="v:summary"[^>]*>([\s\S]*?)<\/span>/i)?.[1] ?? '';
+  const ratingValue = compact.match(/<strong class="ll rating_num"[^>]*>([^<]+)<\/strong>/i)?.[1] ?? null;
+  const titleYear = compact.match(/<span class="year">\((\d{4})\)<\/span>/i)?.[1] ?? null;
+
+  const lines = infoBlock
+    .replace(/<br\s*\/?>/gi, '\n')
+    .split('\n')
+    .map((line) => line.replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' '))
+    .map((line) => normalizeWhitespace(line))
+    .filter(Boolean);
+
+  const info = {};
+  for (const line of lines) {
+    const match = line.match(/^([^:：]+)[:：]\s*(.+)$/);
+    if (!match) continue;
+    info[match[1]] = match[2];
+  }
+
+  return {
+    year: titleYear ? Number.parseInt(titleYear, 10) : null,
+    doubanRating: ratingValue ? Number.parseFloat(ratingValue.trim()) : null,
+    director: splitOmdbNames(info['导演']),
+    writer: splitOmdbNames(info['编剧']).map((item) => ({ ...item, role: '编剧' })),
+    cast: splitOmdbNames(info['主演']),
+    genre: normalizeWhitespace(info['类型']).split('/').map((item) => item.trim()).filter(Boolean),
+    countryText: info['制片国家/地区'] ?? null,
+    languageText: info['语言'] ?? null,
+    aka: normalizeWhitespace(info['又名']).split('/').map((item) => item.trim()).filter(Boolean),
+    imdbId: info['IMDb'] ?? null,
+    storyText: normalizeWhitespace(plotBlock).replace(/\s{2,}/g, ' '),
+    releaseDate: [...compact.matchAll(/<span property="v:initialReleaseDate"[^>]*content="([^"]+)"[^>]*>([^<]*)<\/span>/gi)].map((match) => ({
+      date: match[1],
+      location: normalizeWhitespace(match[2].match(/\(([^)]+)\)/)?.[1] ?? '') || pickPrimaryName(info['制片国家/地区'])
+    }))
+  };
+}
+
+function extractDoubanComments(html, limit = 5) {
+  const blocks = [...html.matchAll(/<div class="comment-item"[\s\S]*?<span class="short">([\s\S]*?)<\/span>[\s\S]*?<span class="comment-time "[^>]*title="([^"]+)"/gi)];
+  return blocks.slice(0, limit).map((match) => ({
+    author: null,
+    source: '豆瓣短评',
+    date: normalizeWhitespace(match[2]),
+    content: normalizeWhitespace(match[1]),
+    url: null,
+    title: null
+  }));
+}
+
+async function fetchOmdbByTask(task) {
+  const imdbId = normalizeWhitespace(task.imdbId);
+  const title = normalizeWhitespace(task.originalTitle || task.title);
+  const year = task.year ? `&y=${task.year}` : '';
+  const url = imdbId
+    ? `https://www.omdbapi.com/?apikey=trilogy&i=${encodeURIComponent(imdbId)}`
+    : `https://www.omdbapi.com/?apikey=trilogy&t=${encodeURIComponent(title)}${year}`;
+  const payload = await fetchJson(url);
+  if (payload?.Response === 'False') {
+    throw new Error(`OMDb lookup failed for ${task.title}: ${payload?.Error || 'unknown error'}`);
+  }
+  return payload;
+}
+
+async function buildGenericRecord(task) {
+  if (!task.id) {
+    throw new Error(`Generic intake requires task.id for ${task.doubanId || task.query}`);
+  }
+
+  const detailHtml = await fetchDoubanChallengePage(task.subjectUrl);
+  const commentsHtml = await fetchDoubanChallengePage(`${task.subjectUrl.replace(/\/$/, '')}/comments?status=P`);
+  const douban = extractDoubanSubjectInfo(detailHtml);
+  const omdb = await fetchOmdbByTask({ ...task, imdbId: douban.imdbId || task.imdbId });
+  const reviews = extractDoubanComments(commentsHtml, 5);
+
+  const assetDir = path.join(repoRoot, 'site', 'public', 'assets', 'video', 'movie', task.id);
+  const posterOutputPath = path.join(assetDir, 'poster-main.jpg');
+  const posterUrl = omdb.Poster && omdb.Poster !== 'N/A' ? omdb.Poster : task.posterUrl;
+  if (posterUrl) {
+    await downloadBinary(posterUrl, posterOutputPath);
+  }
+
+  const imdbRating = parseRatingValue(omdb.imdbRating);
+  const rottenTomatoes = parseRatingValue(pickRating(omdb.Ratings, 'Rotten Tomatoes'));
+  const metascore = Number.isFinite(Number.parseInt(omdb.Metascore, 10)) ? Number.parseInt(omdb.Metascore, 10) : null;
+  const runtime = parseRuntimeMinutes(omdb.Runtime);
+  const releaseDate = douban.releaseDate.length
+    ? douban.releaseDate
+    : [{ date: toIsoDate(omdb.Released), location: pickPrimaryName(douban.countryText || omdb.Country) }].filter((item) => item.date);
+
+  const record = {
+    id: task.id,
+    title: task.title,
+    originalTitle: task.originalTitle || omdb.Title || task.title,
+    year: task.year || douban.year || (omdb.Year ? Number.parseInt(String(omdb.Year).slice(0, 4), 10) : null),
+    director: douban.director.length ? douban.director : splitOmdbNames(omdb.Director),
+    writer: douban.writer.length ? douban.writer : splitOmdbNames(omdb.Writer).map((item) => ({ ...item, role: '编剧' })),
+    cast: douban.cast.length ? douban.cast : splitOmdbNames(omdb.Actors),
+    otherCast: [],
+    producer: [],
+    genre: (douban.genre.length ? douban.genre : normalizeWhitespace(omdb.Genre).split(',').map((item) => normalizeWhitespace(item)).filter(Boolean)),
+    country: pickPrimaryName(douban.countryText || omdb.Country),
+    language: pickPrimaryName(douban.languageText || omdb.Language),
+    runtime,
+    releaseDate,
+    aka: douban.aka,
+    imdbId: normalizeWhitespace(douban.imdbId || omdb.imdbID) || null,
+    doubanId: task.doubanId,
+    doubanRating: task.doubanRating ?? douban.doubanRating ?? null,
+    synopsis: {
+      text: task.quote || normalizeWhitespace(omdb.Plot)
+    },
+    story: {
+      text: douban.storyText || normalizeWhitespace(omdb.Plot)
+    },
+    videos: [],
+    images: {
+      poster: 'poster-main.jpg',
+      posters: [],
+      stills: [],
+      wallpapers: []
+    },
+    similar: [],
+    reviews,
+    links: {
+      douban: task.subjectUrl,
+      imdb: recordImdbUrl(normalizeWhitespace(douban.imdbId || omdb.imdbID) || null),
+      tmdb: null
+    },
+    module: 'video',
+    submodule: 'movie',
+    createdAt: new Date().toISOString().slice(0, 10),
+    updatedAt: new Date().toISOString().slice(0, 10),
+    schemaType: 'live_action_movie',
+    status: 'published',
+    publishCompany: null,
+    tags: [],
+    series: [],
+    tmdbId: null,
+    quotes: [],
+    rated: normalizeWhitespace(omdb.Rated) || null,
+    awards: normalizeWhitespace(omdb.Awards) || null,
+    imdbRating,
+    rottenTomatoes,
+    metascore
+  };
+
+  const sourceData = {
+    id: makeSystemEntry(record.id, '系统自动生成或来自任务文件固定 id'),
+    title: makeSourceEntry(record.title, 'douban', { sourceUrl: task.subjectUrl }),
+    originalTitle: makeSourceEntry(record.originalTitle, 'merged', {
+      sources: [
+        { source: 'douban', fields: ['originalTitle'], sourceUrl: task.subjectUrl },
+        { source: 'omdb', fields: ['Title'], sourceUrl: `https://www.omdbapi.com/?i=${record.imdbId || ''}&apikey=trilogy` }
+      ]
+    }),
+    year: makeSourceEntry(record.year, 'merged', {
+      sources: [
+        { source: 'douban', fields: ['year'], sourceUrl: task.subjectUrl },
+        { source: 'omdb', fields: ['Year'], sourceUrl: `https://www.omdbapi.com/?i=${record.imdbId || ''}&apikey=trilogy` }
+      ]
+    }),
+    director: makeSourceEntry(record.director, 'merged', {
+      sources: [
+        { source: 'douban', fields: ['director'], sourceUrl: task.subjectUrl },
+        { source: 'omdb', fields: ['Director'], sourceUrl: `https://www.omdbapi.com/?i=${record.imdbId || ''}&apikey=trilogy` }
+      ]
+    }),
+    writer: makeSourceEntry(record.writer, 'merged', {
+      sources: [
+        { source: 'douban', fields: ['writer'], sourceUrl: task.subjectUrl },
+        { source: 'omdb', fields: ['Writer'], sourceUrl: `https://www.omdbapi.com/?i=${record.imdbId || ''}&apikey=trilogy` }
+      ]
+    }),
+    cast: makeSourceEntry(record.cast, 'merged', {
+      sources: [
+        { source: 'douban', fields: ['cast'], sourceUrl: task.subjectUrl },
+        { source: 'omdb', fields: ['Actors'], sourceUrl: `https://www.omdbapi.com/?i=${record.imdbId || ''}&apikey=trilogy` }
+      ]
+    }),
+    otherCast: makeSystemEntry(record.otherCast, '当前通用录入流程未扩展更多演员，先保留空数组'),
+    producer: makeSystemEntry(record.producer, '当前通用录入流程未稳定抽到制片人，先保留空数组'),
+    genre: makeSourceEntry(record.genre, 'merged', {
+      sources: [
+        { source: 'douban_top250', fields: ['genres'], sourceUrl: 'https://movie.douban.com/top250' },
+        { source: 'omdb', fields: ['Genre'], sourceUrl: `https://www.omdbapi.com/?i=${record.imdbId || ''}&apikey=trilogy` }
+      ]
+    }),
+    country: makeSourceEntry(record.country, 'merged', {
+      sources: [
+        { source: 'douban', fields: ['country'], sourceUrl: task.subjectUrl },
+        { source: 'omdb', fields: ['Country'], sourceUrl: `https://www.omdbapi.com/?i=${record.imdbId || ''}&apikey=trilogy` }
+      ],
+      note: '当前通用录入流程按豆瓣详情/OMDb 首项归并为单值，后续可再人工校正'
+    }),
+    language: makeSourceEntry(record.language, 'merged', {
+      sources: [
+        { source: 'douban', fields: ['language'], sourceUrl: task.subjectUrl },
+        { source: 'omdb', fields: ['Language'], sourceUrl: `https://www.omdbapi.com/?i=${record.imdbId || ''}&apikey=trilogy` }
+      ]
+    }),
+    runtime: makeSourceEntry(record.runtime, 'omdb', {
+      sourceUrl: `https://www.omdbapi.com/?i=${record.imdbId || ''}&apikey=trilogy`,
+      note: '单位：分钟'
+    }),
+    releaseDate: makeSourceEntry(record.releaseDate, 'merged', {
+      sources: [
+        { source: 'douban', fields: ['releaseDate'], sourceUrl: task.subjectUrl },
+        { source: 'omdb', fields: ['Released'], sourceUrl: `https://www.omdbapi.com/?i=${record.imdbId || ''}&apikey=trilogy` }
+      ]
+    }),
+    aka: makeSourceEntry(record.aka, 'douban', { sourceUrl: task.subjectUrl }),
+    imdbId: makeSourceEntry(record.imdbId, 'merged', {
+      sources: [
+        { source: 'douban', fields: ['IMDb'], sourceUrl: task.subjectUrl },
+        { source: 'omdb', fields: ['imdbID'], sourceUrl: `https://www.omdbapi.com/?i=${record.imdbId || ''}&apikey=trilogy` }
+      ]
+    }),
+    doubanId: makeSourceEntry(record.doubanId, 'known', { note: '来自任务文件中的豆瓣 subject id' }),
+    doubanRating: makeSourceEntry(record.doubanRating, 'merged', {
+      sources: [
+        { source: 'douban_top250', fields: ['rating'], sourceUrl: 'https://movie.douban.com/top250' },
+        { source: 'douban', fields: ['rating'], sourceUrl: task.subjectUrl }
+      ]
+    }),
+    synopsis: makeSourceEntry(record.synopsis, task.quote ? 'douban_top250' : 'omdb', {
+      sourceUrl: task.quote ? 'https://movie.douban.com/top250' : `https://www.omdbapi.com/?i=${record.imdbId || ''}&apikey=trilogy`,
+      note: task.quote ? '列表短句先作为简短导语' : '简介先使用 OMDb Plot'
+    }),
+    story: makeSourceEntry(record.story, douban.storyText ? 'douban' : 'omdb', {
+      sourceUrl: douban.storyText ? task.subjectUrl : `https://www.omdbapi.com/?i=${record.imdbId || ''}&apikey=trilogy`,
+      note: '当前通用录入流程优先用豆瓣剧情简介，否则退回 OMDb Plot'
+    }),
+    videos: makeSystemEntry(record.videos, '当前通用录入流程未抓取视频，先保留空数组'),
+    images: {
+      poster: makeSourceEntry(record.images.poster, posterUrl ? 'merged' : 'system', {
+        sourceUrl: posterUrl || task.subjectUrl,
+        note: posterUrl ? '主海报优先使用 OMDb Poster，缺失时回退到豆瓣 Top250 列表海报' : '当前未能下载主海报，文件需后续补齐'
+      }),
+      posters: makeSystemEntry(record.images.posters, '当前通用录入流程暂未抓取海报画廊'),
+      stills: makeSystemEntry(record.images.stills, '当前通用录入流程暂未抓取剧照'),
+      wallpapers: makeSystemEntry(record.images.wallpapers, '当前通用录入流程暂未抓取壁纸')
+    },
+    similar: makeSystemEntry(record.similar, '当前通用录入流程暂未整理相似作品'),
+    reviews: makeSourceEntry(record.reviews, 'douban', {
+      sourceUrl: `${task.subjectUrl.replace(/\/$/, '')}/comments?status=P`,
+      note: record.reviews.length ? '当前仅抓取少量豆瓣热门短评，满足轻量录入' : '当前未抓到短评，先保留空数组'
+    }),
+    links: makeSourceEntry(record.links, 'merged', {
+      sources: [
+        { source: 'known', fields: ['douban'] },
+        { source: 'omdb', fields: ['imdb'], sourceUrl: `https://www.omdbapi.com/?i=${record.imdbId || ''}&apikey=trilogy` }
+      ]
+    }),
+    module: makeSystemEntry(record.module, '影视模块'),
+    submodule: makeSystemEntry(record.submodule, '电影子模块'),
+    createdAt: makeSystemEntry(record.createdAt, '录入时间'),
+    updatedAt: makeSystemEntry(record.updatedAt, '最后更新时间'),
+    schemaType: makeSystemEntry(record.schemaType, '电影录入默认使用 live_action_movie'),
+    status: makeSystemEntry(record.status, '通用录入默认按 published 写入'),
+    publishCompany: makeSystemEntry(record.publishCompany, '当前通用录入流程未稳定抓取出品公司'),
+    tags: makeSystemEntry(record.tags, '当前未建立标签，先保留空数组'),
+    series: makeSystemEntry(record.series, '当前未识别系列关系，先保留空数组'),
+    tmdbId: makeSystemEntry(record.tmdbId, '当前通用录入流程尚未接 TMDB 搜索'),
+    quotes: makeSystemEntry(record.quotes, '当前未整理 quotes，先保留空数组'),
+    rated: makeSourceEntry(record.rated, 'omdb', { sourceUrl: `https://www.omdbapi.com/?i=${record.imdbId || ''}&apikey=trilogy` }),
+    awards: makeSourceEntry(record.awards, 'omdb', { sourceUrl: `https://www.omdbapi.com/?i=${record.imdbId || ''}&apikey=trilogy` }),
+    imdbRating: makeSourceEntry(record.imdbRating, 'omdb', { sourceUrl: `https://www.omdbapi.com/?i=${record.imdbId || ''}&apikey=trilogy` }),
+    rottenTomatoes: makeSourceEntry(record.rottenTomatoes, 'omdb', { sourceUrl: `https://www.omdbapi.com/?i=${record.imdbId || ''}&apikey=trilogy` }),
+    metascore: makeSourceEntry(record.metascore, 'omdb', { sourceUrl: `https://www.omdbapi.com/?i=${record.imdbId || ''}&apikey=trilogy` })
+  };
+
+  return { record, sourceData };
+}
+
+function recordImdbUrl(imdbId) {
+  return imdbId ? `https://www.imdb.com/title/${imdbId}/` : null;
 }
 
 function mapReviewMetadataByDoubanId(doubanId) {
@@ -585,6 +1016,24 @@ function patchSourcesForNewFields(sourceData, record) {
   if (!sourceData.tmdbId) {
     sourceData.tmdbId = makeSystemEntry(record.tmdbId ?? null, '当前未补到 TMDB id');
   }
+  if ('soundtrack' in record && !sourceData.soundtrack) {
+    sourceData.soundtrack = makeSystemEntry(record.soundtrack ?? null, '历史样板缺少 soundtrack 来源占位，先按当前记录补齐');
+  }
+  if ('awards' in record && !sourceData.awards) {
+    sourceData.awards = makeSystemEntry(record.awards ?? null, '历史样板缺少 awards 来源占位，先按当前记录补齐');
+  }
+  if ('rated' in record && !sourceData.rated) {
+    sourceData.rated = makeSystemEntry(record.rated ?? null, '历史样板缺少 rated 来源占位，先按当前记录补齐');
+  }
+  if ('imdbRating' in record && !sourceData.imdbRating) {
+    sourceData.imdbRating = makeSystemEntry(record.imdbRating ?? null, '历史样板缺少 imdbRating 来源占位，先按当前记录补齐');
+  }
+  if ('rottenTomatoes' in record && !sourceData.rottenTomatoes) {
+    sourceData.rottenTomatoes = makeSystemEntry(record.rottenTomatoes ?? null, '历史样板缺少 rottenTomatoes 来源占位，先按当前记录补齐');
+  }
+  if ('metascore' in record && !sourceData.metascore) {
+    sourceData.metascore = makeSystemEntry(record.metascore ?? null, '历史样板缺少 metascore 来源占位，先按当前记录补齐');
+  }
 }
 
 function normalizeReviews(record, doubanId) {
@@ -706,6 +1155,28 @@ async function buildRecordFromSample(task, config) {
   return { record, sourceData };
 }
 
+async function buildRecordForTask(task) {
+  const config = MOVIE_INTAKE_CONFIGS_BY_DOUBAN_ID[task.doubanId];
+  if (config) {
+    return buildRecordFromSample(task, config);
+  }
+
+  const existingMovie = await readJsonIfExists(path.join(legacySampleRoot, `${task.id}.json`));
+  const existingSource = await readJsonIfExists(path.join(legacySourceRoot, `${task.id}.json`));
+  if (existingMovie && existingSource) {
+    patchSourcesForNewFields(existingSource, existingMovie);
+    normalizeReviews(existingMovie, task.doubanId);
+    normalizeSoundtrack(existingMovie);
+    normalizeCountry(existingMovie, existingSource);
+    return {
+      record: deepClone(existingMovie),
+      sourceData: deepClone(existingSource)
+    };
+  }
+
+  return buildGenericRecord(task);
+}
+
 async function writeOutput(record, sourceData, mode) {
   const { outputRoot: resolvedOutputRoot, sourceRoot: resolvedSourceRoot } = resolveOutputRoots(mode);
   await fs.mkdir(resolvedOutputRoot, { recursive: true });
@@ -729,19 +1200,13 @@ async function main() {
   const created = [];
   const skipped = [];
   for (const task of tasks) {
-    const config = MOVIE_INTAKE_CONFIGS_BY_DOUBAN_ID[task.doubanId];
-    if (!config) {
-      skipped.push({ doubanId: task.doubanId, query: task.query, reason: 'missing intake config' });
-      continue;
-    }
-
-    const { record, sourceData } = await buildRecordFromSample(task, config);
+    const { record, sourceData } = await buildRecordForTask(task);
     const { errors } = validateRecordShape(record, sourceData);
     if (errors.length) {
       throw new Error(`Validation failed for ${record.id} ${record.title}: ${errors.join('; ')}`);
     }
     await writeOutput(record, sourceData, outputMode);
-    created.push({ id: record.id, title: record.title });
+    created.push({ id: record.id, title: record.title, doubanId: record.doubanId });
   }
 
   console.log(JSON.stringify({ outputMode, created, skipped }, null, 2));

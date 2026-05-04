@@ -2,14 +2,21 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 
 const repoRoot = path.resolve(process.cwd(), '..');
-const moviesRoot = path.join(repoRoot, 'content', 'video', 'movie');
-const defaultAssetsRoot = path.join(process.cwd(), 'public', 'assets', 'video', 'movie');
+const generatedEntriesPath = path.join(repoRoot, 'generated', 'entries.json');
+const defaultAssetsRoot = path.join(process.cwd(), 'public', 'assets');
 
 type Person = {
+  personCode?: string;
   name: string;
   nameEn?: string;
   role?: string;
   avatar?: string;
+  avatarPath?: string;
+  avatarSource?: string;
+  avatarNote?: string;
+  profileLink?: string;
+  notes?: string;
+  works?: string[];
 };
 
 type ReleaseDate = {
@@ -22,10 +29,12 @@ type RatingInput = {
   imdbRating?: number;
   tmdbRating?: number;
   rottenTomatoes?: number;
+  metascore?: number;
 };
 
 export type MovieRecord = RatingInput & {
   id: string;
+  path?: string;
   title: string;
   originalTitle?: string;
   year: number;
@@ -35,13 +44,17 @@ export type MovieRecord = RatingInput & {
   otherCast?: Person[];
   producer?: Person[];
   genre?: string[];
+  tags?: string[];
   country?: string;
   language?: string;
+  publishCompany?: string;
   runtime?: number;
+  rated?: string;
+  awards?: string;
   releaseDate?: ReleaseDate[];
   aka?: string[];
   synopsis?: { text?: string; note?: string };
-  story?: { text?: string; note?: string };
+  story?: { text?: string };
   videos?: Array<{ title: string; duration?: string; thumbnail?: string; url?: string }>;
   images?: {
     poster?: string;
@@ -50,16 +63,20 @@ export type MovieRecord = RatingInput & {
     wallpapers?: string[];
   };
   soundtrack?: {
-    name?: string;
-    composer?: string;
-    composerEn?: string;
-    year?: number;
-    tracks?: Array<{ index?: number; name: string; artist?: string; duration?: string }>;
+    albums?: Array<{
+      name?: string;
+      note?: string;
+      coverImage?: string;
+      releaseDate?: string;
+      type?: string;
+      tracks?: Array<{ name: string; artist?: string; duration?: string }>;
+    }>;
   };
   similar?: Array<{ id?: string; title: string; year?: number; rating?: number }>;
   series?: Array<{ id?: string; title: string; year?: number; rating?: number }>;
-  reviews?: Array<{ source?: string; author?: string; date?: string; rating?: string; content?: string }>;
+  reviews?: Array<{ source?: string; author?: string; date?: string; content?: string; url?: string; title?: string | null }>;
   links?: Record<string, string | null>;
+  quotes?: Array<{ text: string; speaker?: string; note?: string }>;
   module: 'video';
   submodule: 'movie';
   createdAt?: string;
@@ -77,6 +94,7 @@ export type ArchiveMovie = MovieRecord & {
   releaseDateLabel: string;
   directorNames: string;
   writerNames: string;
+  mergedCreditNames: string;
   castPreview: string[];
   tags: string[];
 };
@@ -129,10 +147,43 @@ function dedupe(values: string[]) {
   return [...new Set(values.filter(Boolean))];
 }
 
+function buildMergedCreditNames(movie: Pick<MovieRecord, 'director' | 'writer'>) {
+  const merged = new Map<string, string[]>();
+
+  for (const person of movie.director ?? []) {
+    const key = person.personCode || person.nameEn || person.name;
+    const labels = merged.get(key) ?? [];
+    if (!labels.includes('导演')) labels.push('导演');
+    merged.set(key, labels);
+  }
+
+  for (const person of movie.writer ?? []) {
+    const key = person.personCode || person.nameEn || person.name;
+    const labels = merged.get(key) ?? [];
+    const label = person.role || '编剧';
+    if (!labels.includes(label)) labels.push(label);
+    merged.set(key, labels);
+  }
+
+  const orderedPeople = [...(movie.director ?? []), ...(movie.writer ?? [])]
+    .filter((person, index, array) => {
+      const key = person.personCode || person.nameEn || person.name;
+      return array.findIndex((item) => (item.personCode || item.nameEn || item.name) === key) === index;
+    });
+
+  return orderedPeople
+    .map((person) => {
+      const key = person.personCode || person.nameEn || person.name;
+      const labels = merged.get(key) ?? [];
+      return labels.length ? `${person.name}（${labels.join(' / ')}）` : person.name;
+    })
+    .join(' / ');
+}
+
 function normalizeMovie(movie: MovieRecord): ArchiveMovie {
   return {
     ...movie,
-    path: buildMoviePath(movie),
+    path: movie.path || buildMoviePath(movie),
     posterUrl: buildPosterUrl(movie),
     posterGallery: buildAssetUrls(movie, movie.images?.posters),
     stillGallery: buildAssetUrls(movie, movie.images?.stills),
@@ -142,22 +193,16 @@ function normalizeMovie(movie: MovieRecord): ArchiveMovie {
     releaseDateLabel: formatReleaseDateLabel(movie.releaseDate),
     directorNames: (movie.director ?? []).map((person) => person.name).join(' / '),
     writerNames: (movie.writer ?? []).map((person) => person.name).join(' / '),
+    mergedCreditNames: buildMergedCreditNames(movie),
     castPreview: (movie.cast ?? []).slice(0, 3).map((person) => person.name),
-    tags: dedupe([...(movie.genre ?? [])])
+    tags: dedupe([...(movie.tags ?? []), ...(movie.genre ?? [])])
   };
 }
 
 export async function loadArchiveMovies() {
-  const entries = await fs.readdir(moviesRoot, { withFileTypes: true });
-  const ids = entries.filter((entry) => entry.isDirectory()).map((entry) => entry.name).sort();
-
-  const movies = await Promise.all(
-    ids.map(async (id) => {
-      const filePath = path.join(moviesRoot, id, 'data.json');
-      const raw = await fs.readFile(filePath, 'utf8');
-      return normalizeMovie(JSON.parse(raw) as MovieRecord);
-    })
-  );
+  const raw = await fs.readFile(generatedEntriesPath, 'utf8');
+  const entries = JSON.parse(raw) as MovieRecord[];
+  const movies = entries.map((entry) => normalizeMovie(entry));
 
   return movies.sort((left, right) => right.year - left.year || left.id.localeCompare(right.id));
 }
@@ -168,39 +213,11 @@ export async function loadArchiveMovieById(id: string) {
 }
 
 export async function syncArchiveAssets({
-  sourceRoot = moviesRoot,
   targetRoot = defaultAssetsRoot
 }: {
-  sourceRoot?: string;
   targetRoot?: string;
 } = {}) {
   await fs.mkdir(targetRoot, { recursive: true });
-
-  const entries = await fs.readdir(sourceRoot, { withFileTypes: true });
-
-  for (const entry of entries) {
-    if (!entry.isDirectory()) {
-      continue;
-    }
-
-    const sourceDir = path.join(sourceRoot, entry.name, 'images');
-    const targetDir = path.join(targetRoot, entry.name);
-
-    try {
-      await fs.mkdir(targetDir, { recursive: true });
-      const files = await fs.readdir(sourceDir, { withFileTypes: true });
-
-      for (const file of files) {
-        if (!file.isFile()) {
-          continue;
-        }
-
-        await fs.copyFile(path.join(sourceDir, file.name), path.join(targetDir, file.name));
-      }
-    } catch {
-      // Ignore entries that don't have image folders yet.
-    }
-  }
 }
 
 export async function copyArchiveAssets() {

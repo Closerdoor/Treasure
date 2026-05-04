@@ -1,5 +1,8 @@
 # Skill 优化建议
 
+> 历史说明：本文是旧 file-first 方案下的优化提案。
+> 其中关于数据源对比、图片质量、字段校验的建议仍可复用；涉及 `data.json` / `source.json` / `index.md` 作为最终产物的部分，现已被 SQLite 主源方案取代。
+
 ## 第2部影片过程中遇到的问题
 
 ### 问题1：主海报质量不合格
@@ -27,7 +30,7 @@
 ---
 
 ### 问题2：图片尺寸不统一
-**现象**：index.md 中图片展示尺寸不一致，有的带说明文字，有的不带
+**现象**：旧版 `index.md` 审阅稿中的图片展示尺寸不一致，有的带说明文字，有的不带
 
 **原因**：
 - 缺少统一的图片展示尺寸规范
@@ -192,13 +195,13 @@ Invoke-WebRequest -Uri $url -OutFile $outFile
 
 **缺失字段处理**：
 - 标记为 `null`
-- 在 source.json 中记录无法获取原因
+- 在导入摘要或临时溯源文件中记录无法获取原因
 - 在最终报告中列出缺失字段
 ```
 
 ---
 
-## 优化后的目录结构
+## 旧方案目录结构（历史提案）
 
 ```
 .opencode/skills/movie-entry-workflow/
@@ -213,30 +216,14 @@ Invoke-WebRequest -Uri $url -OutFile $outFile
     ├── baidu-baike.js
     └── README.md
 
-content/video/movie/{ID}/
-├── data.json                        # 数据文件
-├── source.json                      # 溯源文件
-├── index.md                         # 展示文档
-├── images/                          # 图片素材
-└── raw/                             # 原始数据 ✨新增
-    ├── douban-full.json             # 豆瓣完整数据
-    ├── douban-report.md             # 豆瓣获取报告
-    ├── omdb-full.json
-    ├── omdb-report.md
-    ├── baike-full.json
-    ├── baike-report.md
-    ├── wikipedia-full.json
-    ├── wikipedia-report.md
-    ├── tmdb-full.json
-    ├── tmdb-report.md
-    ├── imdb-full.json
-    ├── imdb-report.md
-    └── final-summary.md             # 最终对比报告
+site/public/assets/video/movie/{ID}/ # 当前作品静态资源主目录
+.local/                              # 当前 SQLite 本地数据库目录
+temp/raw/                            # 可选：抓取阶段临时原始数据目录
 ```
 
 ---
 
-## 优化后的工作流程
+## 旧方案工作流程（历史提案）
 
 ```dot
 digraph workflow {
@@ -316,7 +303,7 @@ digraph workflow {
 
 ---
 
-## 总结
+## 可复用结论
 
 | 问题 | 解决方案 | 新增文档 |
 |------|----------|----------|
