@@ -34,12 +34,10 @@ class MetacriticCrawler:
         Returns:
             电影 URL 或 None
         """
-        # Metacritic 是英文站点，优先使用英文原名搜索
         search_title = original_title if original_title else title
         
         Logger.info(f"正在搜索 Metacritic: {search_title}")
         
-        # 搜索 URL
         search_url = f"{self.base_url}/search/{quote(search_title)}/?page=1"
         
         try:
@@ -49,41 +47,25 @@ class MetacriticCrawler:
             content = await self.page.content()
             soup = BeautifulSoup(content, "html.parser")
             
-            # 查找搜索结果
-            results = soup.select(".c-finderProductCard")
-            if not results:
-                results = soup.select(".search-result")
+            items = soup.select(".c-search-item")
             
-            for result in results:
+            for item in items:
                 try:
-                    # 获取标题
-                    title_elem = result.select_one(".c-finderProductCard_title") or result.select_one("h3")
+                    title_elem = item.select_one(".c-search-item__title")
                     if not title_elem:
                         continue
                     
                     result_title = title_elem.text.strip()
                     
-                    # 检查年份是否匹配
-                    year_elem = result.select_one(".c-finderProductCard_meta span")
-                    if year_elem:
-                        year_text = year_elem.text.strip()
-                        year_match = re.search(r"\d{4}", year_text)
-                        if year_match and year and year_match.group() != str(year):
-                            continue
-                    
-                    # 检查是否是电影
-                    type_elem = result.select_one(".c-finderProductCard_subtitle")
+                    type_elem = item.select_one(".global-tag-list__button")
                     if type_elem and "movie" not in type_elem.text.lower():
                         continue
                     
-                    # 获取链接
-                    link_elem = result.select_one("a")
-                    if link_elem:
-                        href = link_elem.get("href", "")
-                        if href:
-                            url = f"{self.base_url}{href}" if href.startswith("/") else href
-                            Logger.success(f"找到 Metacritic 电影: {url}")
-                            return url
+                    href = item.get("href", "")
+                    if href and "/movie/" in href:
+                        url = f"{self.base_url}{href}" if href.startswith("/") else href
+                        Logger.success(f"找到 Metacritic 电影: {url}")
+                        return url
                             
                 except:
                     continue
@@ -119,30 +101,40 @@ class MetacriticCrawler:
             content = await self.page.content()
             soup = BeautifulSoup(content, "html.parser")
             
-            # Metascore
-            metascore_elem = soup.select_one(".c-siteReviewScore_background span") or soup.select_one(".metascore_w")
-            if metascore_elem:
-                metascore_text = metascore_elem.text.strip()
-                metascore_match = re.search(r"\d+", metascore_text)
-                if metascore_match:
-                    metascore = int(metascore_match.group())
-                    result["metascore"] = {
-                        "value": metascore / 10,
-                        "scale": 10,
-                        "raw": metascore
-                    }
+            # Metascore - 从 data-testid 元素中提取
+            score_elem = soup.select_one("[data-testid*=score]")
+            if score_elem:
+                score_text = score_elem.text.strip()
+                # 提取数字（如 "Metascore...46...74" -> [46, 74]）
+                numbers = re.findall(r'\d+', score_text)
+                if len(numbers) >= 2:
+                    # 第二个数字是评分（第一个是评论数量）
+                    metascore = int(numbers[1])
+                    if 0 <= metascore <= 100:
+                        result["metascore"] = {
+                            "value": metascore / 10,
+                            "scale": 10,
+                            "raw": metascore
+                        }
             
-            # 用户评分
-            user_score_elem = soup.select_one(".c-siteReviewScore_user span") or soup.select_one(".userscore_w")
-            if user_score_elem:
-                user_score_text = user_score_elem.text.strip()
-                user_score_match = re.search(r"[\d.]+", user_score_text)
-                if user_score_match:
-                    user_score = float(user_score_match.group())
-                    result["user_score"] = {
-                        "value": user_score,
-                        "scale": 10
-                    }
+            # 用户评分 - 查找 "User score" 后面的数字
+            user_score_text = soup.find(string=lambda s: s and "User score" in s)
+            if user_score_text:
+                parent = user_score_text.parent
+                # 查找相邻的评分数字
+                for elem in parent.find_next_siblings():
+                    score_match = re.search(r'[\d.]+', elem.text)
+                    if score_match:
+                        try:
+                            user_score = float(score_match.group())
+                            if 0 <= user_score <= 10:
+                                result["user_score"] = {
+                                    "value": user_score,
+                                    "scale": 10
+                                }
+                                break
+                        except:
+                            pass
             
             Logger.success(f"Metacritic 评分获取完成")
             

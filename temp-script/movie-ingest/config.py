@@ -47,6 +47,7 @@ PROXY_URL = "http://127.0.0.1:7890"
 HEADLESS = False
 SLOW_MO = 100
 USE_CHROME = True
+CHROME_PATH = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
 
 # User-Agent 列表
 USER_AGENTS = [

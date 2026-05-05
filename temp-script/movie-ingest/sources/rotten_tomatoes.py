@@ -156,7 +156,6 @@ class RottenTomatoesCrawler:
         reviews = []
         
         try:
-            # 访问评论页面
             reviews_url = f"{url}/reviews?type=top"
             await self.page.goto(reviews_url, timeout=30000, wait_until="domcontentloaded")
             await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
@@ -164,42 +163,30 @@ class RottenTomatoesCrawler:
             content = await self.page.content()
             soup = BeautifulSoup(content, "html.parser")
             
-            # 获取评论 - 尝试多种选择器
-            review_items = soup.select(".review-row")
-            if not review_items:
-                review_items = soup.select(".review_table_row")
-            if not review_items:
-                review_items = soup.select("div[data-qa='review-item']")
-            if not review_items:
-                review_items = soup.select("li.review-item")
+            review_items = soup.select("review-card-critic")
             
             for item in review_items[:count]:
                 try:
-                    # 评论人
-                    author_elem = item.select_one(".review-link") or item.select_one("a[data-qa='review-name']")
-                    if not author_elem:
-                        author_elem = item.select_one(".bold")
-                    author = author_elem.text.strip() if author_elem else ""
+                    author = ""
+                    author_elem = item.select_one("rt-link[slot='name']")
+                    if author_elem:
+                        author = author_elem.text.strip()
                     
-                    # 媒体
-                    publication_elem = item.select_one(".publication-link") or item.select_one("[data-qa='review-publication']")
-                    if not publication_elem:
-                        publication_elem = item.select_one(".subtle")
-                    publication = publication_elem.text.strip() if publication_elem else ""
+                    publication = ""
+                    pub_elem = item.select_one("rt-link[slot='publication']")
+                    if pub_elem:
+                        publication = pub_elem.text.strip()
                     
-                    # 评论内容
-                    content_elem = item.select_one(".review-text") or item.select_one("[data-qa='review-text']")
-                    if not content_elem:
-                        content_elem = item.select_one(".the_review")
-                    review_content = content_elem.text.strip() if content_elem else ""
+                    review_content = ""
+                    content_elem = item.select_one("div[slot='review']")
+                    if content_elem:
+                        review_content = content_elem.text.strip()
                     
-                    # 时间
-                    date_elem = item.select_one(".review-date") or item.select_one("[data-qa='review-date']")
-                    if not date_elem:
-                        date_elem = item.select_one(".review_date")
-                    date = date_elem.text.strip() if date_elem else ""
+                    date = ""
+                    date_elem = item.select_one("span[slot='timestamp']")
+                    if date_elem:
+                        date = date_elem.text.strip()
                     
-                    # 来源标识
                     source = f"Rotten Tomatoes · {publication}" if publication else "Rotten Tomatoes"
                     
                     reviews.append({

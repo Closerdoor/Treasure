@@ -32,11 +32,11 @@ class DoubanCrawler:
         self.playwright = await async_playwright().start()
         
         try:
-            if config.USE_CHROME:
+            if config.USE_CHROME and hasattr(config, 'CHROME_PATH'):
                 self.browser = await self.playwright.chromium.launch(
                     headless=config.HEADLESS,
                     slow_mo=config.SLOW_MO,
-                    channel="chrome"
+                    executable_path=config.CHROME_PATH
                 )
             else:
                 self.browser = await self.playwright.chromium.launch(
