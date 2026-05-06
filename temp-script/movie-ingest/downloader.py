@@ -52,17 +52,28 @@ class ImageDownloader:
         # 收集所有图片 URL
         all_images = []
         
-        # 豆瓣图片
+        # 豆瓣主海报（优先）
         douban_images = images_data.get("douban", {})
+        main_poster_url = douban_images.get("main_poster_url", "")
+        if main_poster_url:
+            all_images.append({
+                "url": main_poster_url,
+                "type": "poster",
+                "priority": 1  # 最高优先级
+            })
+        
+        # 豆瓣图片列表
         for img in douban_images.get("posters", []):
             all_images.append({
                 "url": img.get("origin_url", ""),
-                "type": "poster"
+                "type": "poster",
+                "priority": 2
             })
         for img in douban_images.get("stills", []):
             all_images.append({
                 "url": img.get("origin_url", ""),
-                "type": "still"
+                "type": "still",
+                "priority": 2
             })
         
         # TMDB 图片
@@ -70,12 +81,26 @@ class ImageDownloader:
         for img in tmdb_images.get("posters", []):
             all_images.append({
                 "url": img.get("url", ""),
-                "type": "poster"
+                "type": "poster",
+                "priority": 3
             })
         for img in tmdb_images.get("backdrops", []):
             all_images.append({
                 "url": img.get("url", ""),
-                "type": "still"
+                "type": "still",
+                "priority": 3
+            })
+        
+        # OMDb/IMDb 海报
+        omdb_images = images_data.get("omdb", {})
+        omdb_poster = omdb_images.get("poster", "")
+        if omdb_poster and "media-amazon" in omdb_poster:
+            # 转换为原图 URL（去掉尺寸限制）
+            original_url = omdb_poster.replace("_V1_SX300.jpg", "_V1.jpg").replace("_V1_SX200.jpg", "_V1.jpg")
+            all_images.append({
+                "url": original_url,
+                "type": "poster",
+                "priority": 4
             })
         
         # 去重
@@ -86,6 +111,9 @@ class ImageDownloader:
             if url and url not in seen_urls:
                 seen_urls.add(url)
                 unique_images.append(img)
+        
+        # 按优先级排序（优先级高的先下载）
+        unique_images.sort(key=lambda x: x.get("priority", 5))
         
         # 下载图片
         semaphore = asyncio.Semaphore(self.concurrency)
@@ -111,8 +139,8 @@ class ImageDownloader:
         
         for i, res in enumerate(results):
             if isinstance(res, str) and res:
-                img_type = unique_images[i]["type"]
-                if img_type == "poster":
+                # 根据文件名判断类型（而不是原始类型）
+                if res.startswith("poster"):
                     result["posters"].append(res)
                     poster_idx += 1
                 else:
@@ -174,8 +202,10 @@ class ImageDownloader:
                     # 根据图片比例确定类型
                     actual_type = self._classify_image(content)
                     
-                    # 生成文件名
-                    if actual_type == "poster":
+                    # 生成文件名（第一张海报命名为 poster-main）
+                    if actual_type == "poster" and index == 1:
+                        filename = f"poster-main{ext}"
+                    elif actual_type == "poster":
                         filename = f"poster-{index:03d}{ext}"
                     else:
                         filename = f"still-{index:03d}{ext}"

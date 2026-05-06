@@ -109,6 +109,11 @@ class WikipediaCrawler:
             first_para = soup.select_one("#mw-content-text p")
             result["summary"] = first_para.text.strip() if first_para else ""
             
+            # 剧情详解（查找"剧情"段落）
+            plot_content = self._extract_plot_section(soup)
+            if plot_content:
+                result["plot"] = plot_content
+            
             # 信息框
             infobox = soup.select_one(".infobox") or soup.select_one(".vevent")
             if infobox:
@@ -156,6 +161,69 @@ class WikipediaCrawler:
             Logger.error(f"Wikipedia 内容获取失败: {e}")
             
         return result
+    
+    def _extract_plot_section(self, soup: BeautifulSoup) -> str:
+        """
+        提取剧情段落内容
+        
+        Args:
+            soup: BeautifulSoup 对象
+            
+        Returns:
+            剧情内容
+        """
+        # 查找"剧情"标题
+        plot_heading = None
+        for heading in soup.find_all(["h2", "h3"]):
+            heading_text = heading.text.strip()
+            # 匹配"剧情"、"剧情简介"、"故事情节"等
+            if re.search(r'剧情|故事|情节', heading_text):
+                plot_heading = heading
+                break
+        
+        if not plot_heading:
+            return ""
+        
+        # 找到剧情标题后，查找内容容器
+        # Wikipedia 的结构：标题在 h2/h3 中，内容在后续的 div 或直接在父容器中
+        
+        # 方法1：查找标题的父容器，然后找后续段落
+        parent = plot_heading.parent
+        if not parent:
+            return ""
+        
+        # 查找内容区域（mw-content-text）
+        content_div = soup.select_one("#mw-content-text")
+        if not content_div:
+            content_div = soup.select_one(".mw-parser-output")
+        
+        if not content_div:
+            return ""
+        
+        # 收集剧情段落
+        paragraphs = []
+        found_heading = False
+        
+        for elem in content_div.descendants:
+            if elem.name in ["h2", "h3"]:
+                if elem == plot_heading:
+                    found_heading = True
+                    continue
+                elif found_heading:
+                    # 遇到下一个标题，停止
+                    break
+            
+            if found_heading and elem.name == "p":
+                text = elem.text.strip()
+                if text and not text.startswith("目录"):
+                    paragraphs.append(text)
+        
+        if not paragraphs:
+            return ""
+        
+        # 合并所有段落
+        plot_content = "\n\n".join(paragraphs)
+        return plot_content
         
     async def crawl(self, title: str, original_title: str = "") -> Dict[str, Any]:
         """

@@ -66,6 +66,9 @@ class ProgressManager:
                         "rotten_tomatoes": "pending",
                         "metacritic": "pending"
                     },
+                    "basic_crawled": False,
+                    "reviews_crawled": False,
+                    "images_crawled": False,
                     "images_downloaded": False,
                     "data_merged": False
                 }
@@ -112,6 +115,42 @@ class ProgressManager:
             self.progress["movies"][douban_id]["data_merged"] = merged
             self.save()
             
+    def mark_basic_completed(self, douban_id: str, completed: bool = True):
+        """标记基本信息已爬取"""
+        if douban_id in self.progress["movies"]:
+            self.progress["movies"][douban_id]["basic_crawled"] = completed
+            self.save()
+            
+    def mark_reviews_completed(self, douban_id: str, completed: bool = True):
+        """标记评论已爬取"""
+        if douban_id in self.progress["movies"]:
+            self.progress["movies"][douban_id]["reviews_crawled"] = completed
+            self.save()
+            
+    def mark_images_completed(self, douban_id: str, completed: bool = True):
+        """标记图片已爬取"""
+        if douban_id in self.progress["movies"]:
+            self.progress["movies"][douban_id]["images_crawled"] = completed
+            self.save()
+            
+    def is_basic_completed(self, douban_id: str) -> bool:
+        """检查基本信息是否已爬取"""
+        if douban_id not in self.progress["movies"]:
+            return False
+        return self.progress["movies"][douban_id].get("basic_crawled", False)
+        
+    def is_reviews_completed(self, douban_id: str) -> bool:
+        """检查评论是否已爬取"""
+        if douban_id not in self.progress["movies"]:
+            return False
+        return self.progress["movies"][douban_id].get("reviews_crawled", False)
+        
+    def is_images_completed(self, douban_id: str) -> bool:
+        """检查图片是否已爬取"""
+        if douban_id not in self.progress["movies"]:
+            return False
+        return self.progress["movies"][douban_id].get("images_crawled", False)
+        
     def get_pending_movies(self) -> List[Dict]:
         """获取待处理电影列表"""
         result = []

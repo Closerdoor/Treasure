@@ -47,6 +47,37 @@ class DataMerger:
         # 按日期排序，取最早的
         valid_dates.sort(key=lambda x: x.get("date", ""))
         return valid_dates[0].get("location", "")
+    
+    def _calculate_aggregate_rating(self, ratings: Dict) -> Dict:
+        """
+        计算综合评分（取所有评分的平均值，空值不参与计算）
+        
+        Args:
+            ratings: 评分字典
+            
+        Returns:
+            综合评分
+        """
+        # 需要参与计算的评分来源
+        rating_sources = ["douban", "imdb", "tmdb", "rottenTomatoes", "metascore"]
+        
+        values = []
+        for source in rating_sources:
+            if source in ratings:
+                rating_data = ratings[source]
+                if isinstance(rating_data, dict):
+                    value = rating_data.get("value")
+                    if value is not None and isinstance(value, (int, float)):
+                        values.append(float(value))
+        
+        if not values:
+            return {"value": None, "scale": 10}
+        
+        aggregate = sum(values) / len(values)
+        # 四舍五入到一位小数
+        aggregate = round(aggregate, 1)
+        
+        return {"value": aggregate, "scale": 10}
         
     def merge(self, work_id: str, raw_data: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -148,8 +179,9 @@ class DataMerger:
             }
             
             # 设置主海报（豆瓣主海报优先）
-            if douban.get("poster"):
+            if douban.get("main_poster_url"):
                 result["images_json"]["poster"] = "poster-main.jpg"
+                result["images_json"]["posterUrl"] = douban.get("main_poster_url")
         
         # TMDB 数据
         tmdb = raw_data.get("tmdb", {})
@@ -192,6 +224,13 @@ class DataMerger:
             
             # 视频
             result["videos_json"] = videos
+            
+            # 评论
+            reviews = tmdb.get("reviews", [])
+            if reviews:
+                if not result.get("reviews_json"):
+                    result["reviews_json"] = []
+                result["reviews_json"].extend(reviews)
             
             # 出品公司
             if detail.get("production_companies"):
@@ -246,8 +285,10 @@ class DataMerger:
             if wikipedia.get("title"):
                 result["identifiers_json"]["wikipedia_zh"] = wikipedia.get("title", "")
             
-            # 剧情详解（从 Wikipedia 获取）
-            if wikipedia.get("summary"):
+            # 剧情详解（从 Wikipedia 获取，优先使用 plot 字段）
+            if wikipedia.get("plot"):
+                result["story_text"] = wikipedia.get("plot", "")
+            elif wikipedia.get("summary"):
                 result["story_text"] = wikipedia.get("summary", "")
             
             # 名言名句
@@ -310,6 +351,9 @@ class DataMerger:
             # 长评
             reviews = douban.get("reviews", [])
             result["reviews_json"].extend(reviews)
+        
+        # 计算综合评分（aggregate）
+        result["ratings_json"]["aggregate"] = self._calculate_aggregate_rating(result["ratings_json"])
         
         Logger.success(f"数据合并完成: {work_id}")
         return result

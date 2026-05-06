@@ -90,14 +90,39 @@ class DoubanCrawler:
         
         print("\n" + "="*50)
         print("请在打开的浏览器中手动登录豆瓣")
-        print("登录成功后，回到此终端按回车继续...")
+        print("登录成功后，程序将自动检测...")
         print("="*50 + "\n")
         
         await self.page.goto(config.DOUBAN_LOGIN_URL, timeout=60000, wait_until="domcontentloaded")
-        input("按回车继续...")
         
-        await self.save_cookies()
-        Logger.success("登录成功！")
+        # 自动检测登录状态
+        max_wait = 300  # 5 分钟
+        check_interval = 5
+        waited = 0
+        
+        while waited < max_wait:
+            await asyncio.sleep(check_interval)
+            waited += check_interval
+            
+            try:
+                # 检查是否登录成功
+                current_url = self.page.url
+                if "accounts.douban.com" not in current_url:
+                    # 已经跳转离开登录页，检查登录状态
+                    await self.page.goto(config.DOUBAN_BASE_URL, timeout=10000, wait_until="domcontentloaded")
+                    await self.page.wait_for_selector(".nav-user-account", timeout=3000)
+                    
+                    # 登录成功
+                    await self.save_cookies()
+                    Logger.success("登录成功！")
+                    return
+            except:
+                # 未登录，继续等待
+                if waited % 30 == 0:
+                    print(f"已等待 {waited} 秒，请继续登录...")
+                continue
+        
+        raise Exception("登录超时，请重新运行程序")
         
     async def close(self):
         """关闭浏览器"""
@@ -175,6 +200,17 @@ class DoubanCrawler:
             # 评价人数
             rating_count_elem = soup.select_one("span[property='v:votes']")
             result["rating_count"] = rating_count_elem.text.strip() if rating_count_elem else "0"
+            
+            # 主海报（封面）
+            main_poster_elem = soup.select_one("#mainpic img")
+            if main_poster_elem:
+                main_poster_url = main_poster_elem.get("src", "")
+                # 转换为原图 URL
+                if main_poster_url:
+                    main_poster_url = main_poster_url.replace("/m/", "/raw/").replace("/s/", "/raw/").replace("https://", "http://")
+                result["main_poster_url"] = main_poster_url
+            else:
+                result["main_poster_url"] = ""
             
             # 导演
             directors = [a.text.strip() for a in soup.select("a[rel='v:directedBy']")]
@@ -656,6 +692,73 @@ class DoubanCrawler:
                 
         Logger.success(f"获取海报 {len(result['posters'])} 张（共 {result['posters_total']} 张），剧照 {len(result['stills'])} 张（共 {result['stills_total']} 张）")
         return result
+        
+    async def crawl_top250(self) -> List[Dict[str, Any]]:
+        """
+        爬取豆瓣 TOP250 电影列表
+        
+        Returns:
+            电影列表 [{douban_id, title, rank}, ...]
+        """
+        Logger.info("正在爬取豆瓣 TOP250")
+        
+        movies = []
+        
+        # TOP250 共 10 页，每页 25 部
+        for start in [0, 25, 50, 75, 100, 125, 150, 175, 200, 225]:
+            url = f"{config.DOUBAN_BASE_URL}/top250?start={start}"
+            
+            try:
+                await self.page.goto(url, timeout=60000, wait_until="domcontentloaded")
+                await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
+                
+                content = await self.page.content()
+                soup = BeautifulSoup(content, "html.parser")
+                
+                # 获取电影列表
+                items = soup.select(".item")
+                
+                for item in items:
+                    try:
+                        # 排名
+                        rank_elem = item.select_one(".pic em")
+                        rank = int(rank_elem.text) if rank_elem else 0
+                        
+                        # 标题
+                        title_elem = item.select_one(".title")
+                        title = title_elem.text.strip() if title_elem else ""
+                        
+                        # 链接
+                        link_elem = item.select_one("a")
+                        href = link_elem.get("href", "") if link_elem else ""
+                        
+                        # 提取豆瓣 ID
+                        douban_id = ""
+                        if "/subject/" in href:
+                            douban_id = href.split("/subject/")[1].rstrip("/")
+                        
+                        if douban_id and title:
+                            movies.append({
+                                "douban_id": douban_id,
+                                "title": title,
+                                "rank": rank
+                            })
+                            
+                    except Exception as e:
+                        Logger.warning(f"解析电影失败: {e}")
+                        continue
+                
+                Logger.info(f"已获取 {len(movies)} 部电影")
+                
+                # 页面延迟
+                await asyncio.sleep(config.PAGE_DELAY)
+                
+            except Exception as e:
+                Logger.error(f"爬取 TOP250 页面失败 (start={start}): {e}")
+                continue
+        
+        Logger.success(f"TOP250 爬取完成，共 {len(movies)} 部电影")
+        return movies
         
     def _classify_image_by_ratio(self, url: str) -> str:
         """

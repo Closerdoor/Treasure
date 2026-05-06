@@ -7,375 +7,167 @@
 2. 安装浏览器：playwright install chromium
 3. 运行脚本：python main.py
 4. 首次运行会打开浏览器，手动登录豆瓣后按回车继续
+
+模块拆分：
+- crawl_basic.py：爬取基本信息（豆瓣、TMDB、OMDb、百度百科、Wikipedia）
+- crawl_reviews.py：爬取完整影评（豆瓣短评/影评、TMDB、烂番茄、Metacritic）
+- crawl_images.py：爬取图片资源（TMDB、OMDb、豆瓣主海报）
 """
 import asyncio
-import json
 import sys
 from pathlib import Path
-from typing import Dict, Any
 
 import config
-from utils import Logger, generate_work_id
-from progress import ProgressManager
-from merger import DataMerger
-from downloader import ImageDownloader
-from reviewer import Reviewer
-from sources.douban import DoubanCrawler
-from sources.tmdb import TMDBClient
-from sources.omdb import OMDbClient
-from sources.baike import BaikeCrawler
-from sources.wikipedia import WikipediaCrawler
-from sources.rotten_tomatoes import RottenTomatoesCrawler
-from sources.metacritic import MetacriticCrawler
+from utils import Logger
 
 
-class MovieIngestPipeline:
-    """电影数据爬取流水线"""
+async def run_all(mode: str = "top250", batch_size: int = 10):
+    """
+    运行所有模块（完整爬取）
     
-    def __init__(self):
-        self.progress_manager = ProgressManager()
-        self.merger = DataMerger(config.OUTPUT_DIR)
-        self.downloader = ImageDownloader(config.OUTPUT_DIR)
-        self.reviewer = Reviewer(config.OUTPUT_DIR)
-        
-        # 爬虫实例
-        self.douban: DoubanCrawler = None
-        self.tmdb: TMDBClient = None
-        self.omdb: OMDbClient = None
-        self.baike: BaikeCrawler = None
-        self.wikipedia: WikipediaCrawler = None
-        self.rotten_tomatoes: RottenTomatoesCrawler = None
-        self.metacritic: MetacriticCrawler = None
-        
-    async def init(self):
-        """初始化"""
-        Logger.info("正在初始化...")
-        
-        # 创建输出目录
-        Path(config.OUTPUT_DIR).mkdir(parents=True, exist_ok=True)
-        
-        # 加载进度
-        self.progress_manager.load()
-        
-        # 初始化豆瓣爬虫
-        self.douban = DoubanCrawler()
-        await self.douban.init_browser()
-        await self.douban.ensure_login()
-        
-        # 初始化 API 客户端
-        self.tmdb = TMDBClient()
-        self.omdb = OMDbClient()
-        
-        # 初始化其他爬虫（共享豆瓣的 page）
-        self.baike = BaikeCrawler(self.douban.page)
-        self.wikipedia = WikipediaCrawler(self.douban.page)
-        self.rotten_tomatoes = RottenTomatoesCrawler(self.douban.page)
-        self.metacritic = MetacriticCrawler(self.douban.page)
-        
-        Logger.success("初始化完成")
-        
-    async def close(self):
-        """清理资源"""
-        if self.douban:
-            await self.douban.close()
-            
-    async def crawl_movie(self, douban_id: str, title: str = "") -> Dict[str, Any]:
-        """
-        爬取单部电影的所有数据
-        
-        Args:
-            douban_id: 豆瓣 ID
-            title: 电影标题（用于日志）
-            
-        Returns:
-            完整数据
-        """
-        Logger.info(f"开始爬取电影: {title or douban_id}")
-        
-        raw_data = {}
-        
-        # 1. 豆瓣
-        try:
-            self.progress_manager.update_source_status(douban_id, "douban", "in_progress")
-            
-            # 详情
-            douban_detail = await self.douban.crawl_detail(douban_id)
-            raw_data["douban"] = douban_detail
-            
-            # 短评
-            comments = await self.douban.crawl_comments(douban_id, config.COMMENTS_PER_SOURCE)
-            raw_data["douban"]["comments"] = comments
-            
-            # 影评
-            reviews = await self.douban.crawl_reviews(douban_id, config.REVIEWS_PER_SOURCE)
-            raw_data["douban"]["reviews"] = reviews
-            
-            # 图片
-            images = await self.douban.crawl_images(douban_id)
-            raw_data["douban"]["images"] = images
-            
-            # 更新标题和 IMDb ID
-            if douban_detail.get("title"):
-                title = douban_detail["title"]
-            imdb_id = douban_detail.get("imdb_id", "")
-            
-            self.progress_manager.update_source_status(douban_id, "douban", "done")
-            
-        except Exception as e:
-            Logger.error(f"豆瓣爬取失败: {e}")
-            self.progress_manager.update_source_status(douban_id, "douban", "error")
-            imdb_id = ""
-            
-        # 2. TMDB
-        if imdb_id:
-            try:
-                self.progress_manager.update_source_status(douban_id, "tmdb", "in_progress")
-                
-                tmdb_data = await self.tmdb.get_all(imdb_id)
-                raw_data["tmdb"] = tmdb_data
-                
-                self.progress_manager.update_source_status(douban_id, "tmdb", "done")
-                
-            except Exception as e:
-                Logger.error(f"TMDB 爬取失败: {e}")
-                self.progress_manager.update_source_status(douban_id, "tmdb", "error")
-                
-            # 3. OMDb
-            try:
-                self.progress_manager.update_source_status(douban_id, "omdb", "in_progress")
-                
-                omdb_data = await self.omdb.get_by_imdb(imdb_id)
-                raw_data["omdb"] = omdb_data
-                
-                self.progress_manager.update_source_status(douban_id, "omdb", "done")
-                
-            except Exception as e:
-                Logger.error(f"OMDb 爬取失败: {e}")
-                self.progress_manager.update_source_status(douban_id, "omdb", "error")
-        
-        # 4. 百度百科
-        try:
-            self.progress_manager.update_source_status(douban_id, "baike", "in_progress")
-            
-            # 使用中文标题搜索
-            baike_data = await self.baike.crawl(title)
-            raw_data["baike"] = baike_data
-            
-            self.progress_manager.update_source_status(douban_id, "baike", "done")
-            
-        except Exception as e:
-            Logger.error(f"百度百科爬取失败: {e}")
-            self.progress_manager.update_source_status(douban_id, "baike", "error")
-            
-        # 5. Wikipedia
-        try:
-            self.progress_manager.update_source_status(douban_id, "wikipedia", "in_progress")
-            
-            # 获取原名
-            original_title = raw_data.get("douban", {}).get("original_title", "")
-            if not original_title:
-                original_title = raw_data.get("tmdb", {}).get("detail", {}).get("original_title", "")
-            
-            wikipedia_data = await self.wikipedia.crawl(title, original_title)
-            raw_data["wikipedia"] = wikipedia_data
-            
-            self.progress_manager.update_source_status(douban_id, "wikipedia", "done")
-            
-        except Exception as e:
-            Logger.error(f"Wikipedia 爬取失败: {e}")
-            self.progress_manager.update_source_status(douban_id, "wikipedia", "error")
-            
-        # 6. 烂番茄
-        try:
-            self.progress_manager.update_source_status(douban_id, "rotten_tomatoes", "in_progress")
-            
-            year = raw_data.get("douban", {}).get("year", 0)
-            if isinstance(year, str):
-                year = int(year) if year.isdigit() else 0
-            
-            # 获取原名
-            original_title = raw_data.get("douban", {}).get("original_title", "")
-            if not original_title:
-                original_title = raw_data.get("tmdb", {}).get("detail", {}).get("original_title", "")
-                
-            rt_data = await self.rotten_tomatoes.crawl(original_title or title, year, config.REVIEWS_PER_SOURCE)
-            raw_data["rotten_tomatoes"] = rt_data
-            
-            self.progress_manager.update_source_status(douban_id, "rotten_tomatoes", "done")
-            
-        except Exception as e:
-            Logger.error(f"烂番茄爬取失败: {e}")
-            self.progress_manager.update_source_status(douban_id, "rotten_tomatoes", "error")
-            
-        # 7. Metacritic
-        try:
-            self.progress_manager.update_source_status(douban_id, "metacritic", "in_progress")
-            
-            year = raw_data.get("douban", {}).get("year", 0)
-            if isinstance(year, str):
-                year = int(year) if year.isdigit() else 0
-            
-            # 获取原名（Metacritic 是英文站点，优先使用原名）
-            original_title = raw_data.get("douban", {}).get("original_title", "")
-            if not original_title:
-                original_title = raw_data.get("tmdb", {}).get("detail", {}).get("original_title", "")
-                
-            mc_data = await self.metacritic.crawl(title, original_title, year, config.REVIEWS_PER_SOURCE)
-            raw_data["metacritic"] = mc_data
-            
-            self.progress_manager.update_source_status(douban_id, "metacritic", "done")
-            
-        except Exception as e:
-            Logger.error(f"Metacritic 爬取失败: {e}")
-            self.progress_manager.update_source_status(douban_id, "metacritic", "error")
-            
-        return raw_data
-        
-    async def process_movie(self, douban_id: str, title: str = "") -> bool:
-        """
-        处理单部电影（爬取 + 合并 + 下载）
-        
-        Args:
-            douban_id: 豆瓣 ID
-            title: 电影标题
-            
-        Returns:
-            是否成功
-        """
-        try:
-            # 检查是否已完成
-            if self.progress_manager.is_movie_completed(douban_id):
-                Logger.info(f"跳过已完成: {title or douban_id}")
-                return True
-                
-            # 生成作品 ID
-            work_id = generate_work_id()
-            self.progress_manager.update_work_id(douban_id, work_id)
-            self.progress_manager.update_status(douban_id, "in_progress")
-            
-            # 爬取数据
-            raw_data = await self.crawl_movie(douban_id, title)
-            
-            # 保存原始数据
-            for source, data in raw_data.items():
-                if data:
-                    self.merger.save_raw_data(work_id, source, data)
-            
-            # 合并数据
-            merged_data = self.merger.merge(work_id, raw_data)
-            
-            # 检测冲突
-            conflicts = self.merger.detect_conflicts(raw_data)
-            if conflicts:
-                self.reviewer.generate_review_file(work_id, title, conflicts)
-                Logger.warning(f"检测到 {len(conflicts)} 个冲突，已生成审阅文件")
-            
-            # 保存合并数据
-            self.merger.save_merged_data(work_id, merged_data)
-            self.progress_manager.mark_data_merged(douban_id, True)
-            
-            # 下载图片
-            images_data = {
-                "douban": raw_data.get("douban", {}).get("images", {}),
-                "tmdb": raw_data.get("tmdb", {}).get("images", {})
-            }
-            downloaded = await self.downloader.download_all(work_id, images_data)
-            self.progress_manager.mark_images_downloaded(douban_id, True)
-            
-            # 更新状态
-            self.progress_manager.update_status(douban_id, "completed")
-            
-            Logger.success(f"电影处理完成: {title or douban_id}")
-            return True
-            
-        except Exception as e:
-            Logger.error(f"处理电影失败: {title or douban_id} - {e}")
-            import traceback
-            traceback.print_exc()
-            return False
-            
-    async def run_test(self):
-        """运行测试（单部电影）"""
-        Logger.info("="*60)
-        Logger.info("测试模式：爬取单部电影")
-        Logger.info("="*60)
-        
-        test_movie = config.TEST_MOVIE
-        douban_id = test_movie["douban_id"]
-        title = test_movie["title"]
-        
-        # 初始化进度
-        self.progress_manager.init_movies([{
-            "douban_id": douban_id,
-            "title": title
-        }])
-        
-        # 处理电影
-        success = await self.process_movie(douban_id, title)
-        
-        if success:
-            Logger.success(f"测试完成！数据已保存到: {config.OUTPUT_DIR}/{self.progress_manager.get_movie_progress(douban_id).get('work_id', '')}/")
-        else:
-            Logger.error("测试失败")
-            
-    async def run_batch(self, movie_list: list):
-        """
-        批量运行
-        
-        Args:
-            movie_list: 电影列表（包含 douban_id, title）
-        """
-        Logger.info("="*60)
-        Logger.info(f"批量模式：爬取 {len(movie_list)} 部电影")
-        Logger.info("="*60)
-        
-        # 初始化进度
-        self.progress_manager.init_movies(movie_list)
-        
-        # 处理每部电影
-        for i, movie in enumerate(movie_list, 1):
-            douban_id = movie.get("douban_id", "") or movie.get("id", "")
-            title = movie.get("title", "")
-            
-            Logger.info(f"\n进度: {i}/{len(movie_list)}")
-            
-            success = await self.process_movie(douban_id, title)
-            
-            if not success:
-                Logger.warning(f"跳过失败的电影: {title}")
-                
-            # 批次延迟
-            if i % 10 == 0:
-                Logger.info(f"已完成 {i} 部，休息一下...")
-                await asyncio.sleep(config.BATCH_DELAY)
-                
-        # 输出摘要
-        summary = self.progress_manager.get_summary()
-        Logger.info("="*60)
-        Logger.info(f"爬取完成！")
-        Logger.info(f"总计: {summary['total']} 部")
-        Logger.info(f"成功: {summary['completed']} 部")
-        Logger.info(f"失败: {summary['pending']} 部")
-        Logger.info("="*60)
-
-
-async def main():
-    """主函数"""
-    pipeline = MovieIngestPipeline()
+    Args:
+        mode: 模式（test 或 top250）
+        batch_size: 每批处理数量
+    """
+    Logger.info("="*60)
+    Logger.info("完整爬取模式：依次运行所有模块")
+    Logger.info("="*60)
     
+    # 模块 1：爬取基本信息
+    Logger.info("\n[1/3] 爬取基本信息...")
+    from crawl_basic import BasicCrawler
+    
+    basic_crawler = BasicCrawler()
     try:
-        await pipeline.init()
+        await basic_crawler.init()
         
-        # 运行测试
-        await pipeline.run_test()
-        
-        # 如果要运行批量，取消下面的注释
-        # movie_list = [...]  # 从文件加载电影列表
-        # await pipeline.run_batch(movie_list)
-        
+        if mode == "test":
+            await basic_crawler.run_test()
+        elif mode == "top250":
+            await basic_crawler.run_top250(batch_size)
     finally:
-        await pipeline.close()
+        await basic_crawler.close()
+    
+    # 模块 2：爬取影评
+    Logger.info("\n[2/3] 爬取完整影评...")
+    from crawl_reviews import ReviewsCrawler
+    
+    reviews_crawler = ReviewsCrawler()
+    try:
+        await reviews_crawler.init()
+        
+        if mode == "test":
+            await reviews_crawler.run_test()
+        elif mode == "top250":
+            await reviews_crawler.run_top250(batch_size)
+    finally:
+        await reviews_crawler.close()
+    
+    # 模块 3：爬取图片
+    Logger.info("\n[3/3] 爬取图片资源...")
+    from crawl_images import ImagesCrawler
+    
+    images_crawler = ImagesCrawler()
+    try:
+        await images_crawler.init()
+        
+        if mode == "test":
+            await images_crawler.run_test()
+        elif mode == "top250":
+            await images_crawler.run_top250(batch_size)
+    finally:
+        await images_crawler.close()
+    
+    Logger.success("\n完整爬取完成！")
+
+
+def main():
+    """主函数"""
+    import argparse
+    
+    parser = argparse.ArgumentParser(description="电影数据多源爬取工具")
+    
+    # 模式选择
+    parser.add_argument("--test", action="store_true", help="测试模式（爬取单部电影）")
+    parser.add_argument("--top250", action="store_true", help="爬取豆瓣 TOP250")
+    
+    # 模块选择
+    parser.add_argument("--basic", action="store_true", help="只运行基本信息模块")
+    parser.add_argument("--reviews", action="store_true", help="只运行影评模块")
+    parser.add_argument("--images", action="store_true", help="只运行图片模块")
+    
+    # 其他参数
+    parser.add_argument("--batch-size", type=int, default=10, help="每批处理数量（默认 10）")
+    parser.add_argument("--missing", action="store_true", help="只爬缺失的数据（用于 --reviews 或 --images）")
+    
+    args = parser.parse_args()
+    
+    # 确定模式
+    mode = "test" if args.test else "top250" if args.top250 else None
+    
+    if not mode:
+        parser.print_help()
+        return
+    
+    # 运行模块
+    try:
+        if args.basic:
+            # 只运行基本信息模块
+            from crawl_basic import BasicCrawler
+            
+            crawler = BasicCrawler()
+            asyncio.run(crawler.init())
+            
+            if mode == "test":
+                asyncio.run(crawler.run_test())
+            elif mode == "top250":
+                asyncio.run(crawler.run_top250(args.batch_size))
+                
+            asyncio.run(crawler.close())
+            
+        elif args.reviews:
+            # 只运行影评模块
+            from crawl_reviews import ReviewsCrawler
+            
+            crawler = ReviewsCrawler()
+            asyncio.run(crawler.init())
+            
+            if mode == "test":
+                asyncio.run(crawler.run_test())
+            elif mode == "top250":
+                asyncio.run(crawler.run_top250(args.batch_size))
+            elif args.missing:
+                asyncio.run(crawler.run_missing())
+                
+            asyncio.run(crawler.close())
+            
+        elif args.images:
+            # 只运行图片模块
+            from crawl_images import ImagesCrawler
+            
+            crawler = ImagesCrawler()
+            asyncio.run(crawler.init())
+            
+            if mode == "test":
+                asyncio.run(crawler.run_test())
+            elif mode == "top250":
+                asyncio.run(crawler.run_top250(args.batch_size))
+            elif args.missing:
+                asyncio.run(crawler.run_missing())
+                
+            asyncio.run(crawler.close())
+            
+        else:
+            # 运行所有模块
+            asyncio.run(run_all(mode, args.batch_size))
+            
+    except KeyboardInterrupt:
+        Logger.warning("\n用户中断")
+    except Exception as e:
+        Logger.error(f"运行失败: {e}")
+        import traceback
+        traceback.print_exc()
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()

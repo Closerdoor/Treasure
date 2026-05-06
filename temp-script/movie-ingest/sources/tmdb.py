@@ -133,8 +133,9 @@ class TMDBClient:
         }
         
         try:
-            async with aiohttp.ClientSession() as session:
-                async with session.get(url, params=params) as response:
+            connector = aiohttp.TCPConnector(ssl=False)
+            async with aiohttp.ClientSession(connector=connector) as session:
+                async with session.get(url, params=params, proxy=self.proxy) as response:
                     if response.status == 200:
                         data = await response.json()
                         
@@ -192,8 +193,9 @@ class TMDBClient:
         }
         
         try:
-            async with aiohttp.ClientSession() as session:
-                async with session.get(url, params=params) as response:
+            connector = aiohttp.TCPConnector(ssl=False)
+            async with aiohttp.ClientSession(connector=connector) as session:
+                async with session.get(url, params=params, proxy=self.proxy) as response:
                     if response.status == 200:
                         data = await response.json()
                         
@@ -221,6 +223,59 @@ class TMDBClient:
             
         return result
         
+    async def get_reviews(self, tmdb_id: int, count: int = 20) -> List[Dict]:
+        """
+        获取用户评论
+        
+        Args:
+            tmdb_id: TMDB 电影 ID
+            count: 评论数量
+            
+        Returns:
+            评论列表
+        """
+        Logger.info(f"正在获取 TMDB 评论: {tmdb_id}")
+        
+        url = f"{self.base_url}/movie/{tmdb_id}/reviews"
+        params = {
+            "api_key": self.api_key,
+            "language": "en-US"
+        }
+        
+        reviews = []
+        
+        try:
+            connector = aiohttp.TCPConnector(ssl=False)
+            async with aiohttp.ClientSession(connector=connector) as session:
+                async with session.get(url, params=params, proxy=self.proxy) as response:
+                    if response.status == 200:
+                        data = await response.json()
+                        
+                        for review in data.get("results", [])[:count]:
+                            author = review.get("author", "")
+                            content = review.get("content", "")
+                            rating = review.get("author_details", {}).get("rating", None)
+                            created_at = review.get("created_at", "")
+                            review_url = review.get("url", "")
+                            
+                            reviews.append({
+                                "author": author,
+                                "source": "TMDB",
+                                "date": created_at[:10] if created_at else "",
+                                "content": content,
+                                "rating": rating / 2 if rating else None,
+                                "url": review_url,
+                                "title": None
+                            })
+                        
+                        Logger.success(f"获取 TMDB 评论 {len(reviews)} 条")
+                    else:
+                        Logger.error(f"TMDB API 错误: {response.status}")
+        except Exception as e:
+            Logger.error(f"TMDB API 请求失败: {e}")
+            
+        return reviews
+        
     async def get_videos(self, tmdb_id: int) -> List[Dict]:
         """
         获取视频
@@ -242,8 +297,9 @@ class TMDBClient:
         result = []
         
         try:
-            async with aiohttp.ClientSession() as session:
-                async with session.get(url, params=params) as response:
+            connector = aiohttp.TCPConnector(ssl=False)
+            async with aiohttp.ClientSession(connector=connector) as session:
+                async with session.get(url, params=params, proxy=self.proxy) as response:
                     if response.status == 200:
                         data = await response.json()
                         
@@ -304,5 +360,9 @@ class TMDBClient:
         # 获取视频
         videos = await self.get_videos(tmdb_id)
         result["videos"] = videos
+        
+        # 获取评论
+        reviews = await self.get_reviews(tmdb_id)
+        result["reviews"] = reviews
         
         return result

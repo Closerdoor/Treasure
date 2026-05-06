@@ -41,7 +41,7 @@ class MetacriticCrawler:
         search_url = f"{self.base_url}/search/{quote(search_title)}/?page=1"
         
         try:
-            await self.page.goto(search_url, timeout=30000, wait_until="domcontentloaded")
+            await self.page.goto(search_url, timeout=60000, wait_until="domcontentloaded")
             await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
             
             content = await self.page.content()
@@ -95,7 +95,7 @@ class MetacriticCrawler:
         }
         
         try:
-            await self.page.goto(url, timeout=30000, wait_until="domcontentloaded")
+            await self.page.goto(url, timeout=60000, wait_until="domcontentloaded")
             await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
             
             content = await self.page.content()
@@ -159,9 +159,8 @@ class MetacriticCrawler:
         reviews = []
         
         try:
-            # 访问评论页面
             reviews_url = f"{url}/critic-reviews"
-            await self.page.goto(reviews_url, timeout=30000, wait_until="domcontentloaded")
+            await self.page.goto(reviews_url, timeout=60000, wait_until="domcontentloaded")
             await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
             
             content = await self.page.content()
