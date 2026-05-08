@@ -2146,6 +2146,64 @@ select {
     linear-gradient(180deg, color-mix(in srgb, var(--bg-elevated) 98%, transparent), color-mix(in srgb, var(--bg-soft) 48%, transparent));
 }
 
+.review-card__content {
+  position: relative;
+  max-height: 7.5em;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.review-card__content.is-expanded {
+  max-height: none;
+}
+
+.review-card__content::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2.5em;
+  background: linear-gradient(to top, var(--bg-elevated), transparent);
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.review-card__content.is-expanded::after {
+  opacity: 0;
+}
+
+.review-card__expand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg-soft) 60%, transparent);
+  color: var(--muted);
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.review-card__expand:hover {
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--accent) 32%, var(--line));
+  background: color-mix(in srgb, var(--accent) 12%, var(--bg-soft));
+}
+
+.review-card__expand-icon {
+  font-size: 0.72rem;
+  transition: transform 0.3s ease;
+}
+
+.review-card.is-expanded .review-card__expand-icon {
+  transform: rotate(180deg);
+}
+
 .review-card__mark {
   display: inline-flex;
   align-items: center;

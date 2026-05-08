@@ -208,8 +208,8 @@ const tabItems = [
     </div>
 
     <div class="review-stack">
-      {(movie.reviews ?? []).map((review) => (
-        <article class="review-card">
+      {(movie.reviews ?? []).map((review, index) => (
+        <article class="review-card" data-review-card>
           <span class="review-card__mark">影评</span>
           <header>
             <div>
@@ -219,11 +219,15 @@ const tabItems = [
             {review.url ? <a href={review.url} target="_blank" rel="noreferrer">查看原文</a> : null}
           </header>
           {review.title ? <h3>{review.title}</h3> : null}
-          <div class="review-card__content">
+          <div class="review-card__content" data-review-content>
             {getReviewParagraphs(review.content).map((paragraph) => (
               <p>{paragraph}</p>
             ))}
           </div>
+          <button class="review-card__expand" type="button" data-review-expand>
+            <span data-expand-text>展开全文</span>
+            <span class="review-card__expand-icon" aria-hidden="true">▼</span>
+          </button>
         </article>
       ))}
     </div>
@@ -479,6 +483,45 @@ const tabItems = [
 
         queueSync();
         window.setTimeout(queueSync, 120);
+      });
+
+      document.querySelectorAll('[data-review-card]').forEach((card) => {
+        if (!(card instanceof HTMLElement)) {
+          return;
+        }
+
+        const content = card.querySelector('[data-review-content]');
+        const expandButton = card.querySelector('[data-review-expand]');
+        const expandText = card.querySelector('[data-expand-text]');
+        const expandIcon = card.querySelector('.review-card__expand-icon');
+
+        if (!(content instanceof HTMLElement) || !(expandButton instanceof HTMLButtonElement)) {
+          return;
+        }
+
+        const checkTruncation = () => {
+          const isTruncated = content.scrollHeight > content.clientHeight + 10;
+          expandButton.style.display = isTruncated ? '' : 'none';
+        };
+
+        let isExpanded = false;
+
+        expandButton.addEventListener('click', () => {
+          isExpanded = !isExpanded;
+          content.classList.toggle('is-expanded', isExpanded);
+          card.classList.toggle('is-expanded', isExpanded);
+          
+          if (expandText) {
+            expandText.textContent = isExpanded ? '收起评论' : '展开全文';
+          }
+          
+          if (expandIcon) {
+            expandIcon.textContent = isExpanded ? '▲' : '▼';
+          }
+        });
+
+        checkTruncation();
+        window.addEventListener('resize', checkTruncation);
       });
     })();
   </script>
