@@ -1752,10 +1752,6 @@ select {
   line-height: 1.46;
 }
 
-.detail-hero__facts--meta .detail-hero__fact-row dd {
-  white-space: nowrap;
-}
-
 .detail-hero__summary {
   margin: 0;
   font-size: 16px;
