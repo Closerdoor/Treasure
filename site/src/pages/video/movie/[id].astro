@@ -19,7 +19,14 @@ if (!movie) {
   throw new Error(`Movie not found: ${id}`);
 }
 
-const sidebarItems = (movie.series?.length ? movie.series : movie.similar ?? []).slice(0, 6);
+const sidebarItems = (movie.series?.length ? movie.series : movie.similar ?? [])
+  .slice(0, 6)
+  .map((item) => ({
+    ...item,
+    posterUrl: item.id
+      ? `/assets/video/movie/${item.id}/poster-main.webp`
+      : '/assets/poster-placeholder.svg'
+  }));
 const titleLine = [String(movie.year), (movie.genre ?? []).join(' / ')].filter(Boolean).join(' | ');
 const heroCreditRows = [
   { label: '导演', value: movie.directorNames || '待补充' },
@@ -122,15 +129,34 @@ const heroSynopsis = movie.synopsis?.text?.replace(/\n\s*\n+/g, '\n').trim();
         <div class="side-stack">
           {sidebarItems.map((item) =>
             item.id ? (
-              <a class="side-card" href={`/video/movie/${item.id}`}>
-                <strong>{item.title}</strong>
-                <span>{item.year} · {item.rating ? item.rating.toFixed(1) : '暂无评分'}</span>
+              <a class="side-movie-card" href={`/video/movie/${item.id}`}>
+                <div class="side-movie-card__poster">
+                  <img src={item.posterUrl} alt={`${item.title} 海报`} loading="lazy" />
+                  {item.rating ? (
+                    <span class="side-movie-card__rating">{item.rating.toFixed(1)}</span>
+                  ) : null}
+                </div>
+                <div class="side-movie-card__body">
+                  <strong class="side-movie-card__title">{item.title}</strong>
+                  <span class="side-movie-card__meta">
+                    {item.year || '年份未知'}
+                    {item.rating ? ` · ${item.rating.toFixed(1)}分` : ''}
+                  </span>
+                </div>
               </a>
             ) : (
-              <article class="side-card side-card--placeholder">
-                <strong>{item.title}</strong>
-                <span>{item.year} · {item.rating ? item.rating.toFixed(1) : '暂无评分'}</span>
-                <em>暂未收录</em>
+              <article class="side-movie-card side-movie-card--placeholder">
+                <div class="side-movie-card__poster">
+                  <img src={item.posterUrl} alt={`${item.title} 海报`} loading="lazy" />
+                  <span class="side-movie-card__not-collected">暂未收录</span>
+                </div>
+                <div class="side-movie-card__body">
+                  <strong class="side-movie-card__title">{item.title}</strong>
+                  <span class="side-movie-card__meta">
+                    {item.year || '年份未知'}
+                    {item.rating ? ` · ${item.rating.toFixed(1)}分` : ''}
+                  </span>
+                </div>
               </article>
             )
           )}
