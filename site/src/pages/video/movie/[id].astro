@@ -137,11 +137,10 @@ const heroSynopsis = movie.synopsis?.text?.replace(/\n\s*\n+/g, '\n').trim();
                   ) : null}
                 </div>
                 <div class="side-movie-card__body">
-                  <strong class="side-movie-card__title">{item.title}</strong>
-                  <span class="side-movie-card__meta">
-                    {item.year || '年份未知'}
-                    {item.rating ? ` · ${item.rating.toFixed(1)}分` : ''}
-                  </span>
+                  <div class="side-movie-card__title-row">
+                    <strong class="side-movie-card__title">{item.title}</strong>
+                    <span class="side-movie-card__year">{item.year || '年份未知'}</span>
+                  </div>
                 </div>
               </a>
             ) : (
@@ -151,11 +150,10 @@ const heroSynopsis = movie.synopsis?.text?.replace(/\n\s*\n+/g, '\n').trim();
                   <span class="side-movie-card__not-collected">暂未收录</span>
                 </div>
                 <div class="side-movie-card__body">
-                  <strong class="side-movie-card__title">{item.title}</strong>
-                  <span class="side-movie-card__meta">
-                    {item.year || '年份未知'}
-                    {item.rating ? ` · ${item.rating.toFixed(1)}分` : ''}
-                  </span>
+                  <div class="side-movie-card__title-row">
+                    <strong class="side-movie-card__title">{item.title}</strong>
+                    <span class="side-movie-card__year">{item.year || '年份未知'}</span>
+                  </div>
                 </div>
               </article>
             )

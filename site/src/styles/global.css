@@ -1857,8 +1857,6 @@ select {
 }
 
 .detail-layout__side {
-  position: sticky;
-  top: var(--sticky-offset);
   display: grid;
   gap: 16px;
   align-self: start;
@@ -2423,7 +2421,7 @@ select {
 .side-movie-card__poster {
   position: relative;
   width: 100%;
-  aspect-ratio: 2 / 3;
+  aspect-ratio: 3 / 4;
   overflow: hidden;
   background: var(--card-surface-soft);
 }
@@ -2480,6 +2478,13 @@ select {
   gap: 4px;
 }
 
+.side-movie-card__title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+
 .side-movie-card__title {
   font-size: 15px;
   font-weight: 600;
@@ -2487,11 +2492,14 @@ select {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  flex: 1;
+  min-width: 0;
 }
 
-.side-movie-card__meta {
+.side-movie-card__year {
   font-size: 13px;
   color: var(--soft-muted);
+  white-space: nowrap;
 }
 
 .side-movie-card--placeholder {
