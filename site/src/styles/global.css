@@ -2212,28 +2212,34 @@ select {
   text-transform: uppercase;
 }
 
-.review-card header {
+.review-card__header {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 10px;
+  flex-direction: column;
+  gap: 6px;
   margin-bottom: 8px;
 }
 
-.review-card header div {
-  display: grid;
-  gap: 4px;
+.review-card__author-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.review-card header span {
+.review-card__author {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.review-card__source {
+  margin-left: auto;
+  font-size: 13px;
   color: var(--muted);
 }
 
-.review-card header em,
-.soundtrack-card header em {
-  color: var(--accent);
-  font-style: normal;
-  white-space: nowrap;
+.review-card__date {
+  font-size: 12px;
+  color: var(--soft-muted);
 }
 
 .image-rail-stack {

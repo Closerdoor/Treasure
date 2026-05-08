@@ -210,13 +210,13 @@ const tabItems = [
     <div class="review-stack">
       {(movie.reviews ?? []).map((review, index) => (
         <article class="review-card" data-review-card>
-          <span class="review-card__mark">影评</span>
-          <header>
-            <div>
-              <strong>{review.author}</strong>
-              <span>{review.source} · {review.date}</span>
+          <header class="review-card__header">
+            <div class="review-card__author-row">
+              <span class="review-card__mark">影评</span>
+              <strong class="review-card__author">{review.author}</strong>
+              <span class="review-card__source">{review.source}</span>
             </div>
-            {review.url ? <a href={review.url} target="_blank" rel="noreferrer">查看原文</a> : null}
+            <span class="review-card__date">{review.date}</span>
           </header>
           {review.title ? <h3>{review.title}</h3> : null}
           <div class="review-card__content" data-review-content>
