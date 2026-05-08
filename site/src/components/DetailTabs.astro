@@ -502,6 +502,12 @@ const tabItems = [
         const checkTruncation = () => {
           const isTruncated = content.scrollHeight > content.clientHeight + 10;
           expandButton.style.display = isTruncated ? '' : 'none';
+          
+          if (isTruncated) {
+            content.setAttribute('data-truncated', '');
+          } else {
+            content.removeAttribute('data-truncated');
+          }
         };
 
         let isExpanded = false;

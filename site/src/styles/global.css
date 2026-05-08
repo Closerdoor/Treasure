@@ -2166,12 +2166,12 @@ select {
   height: 2.5em;
   background: linear-gradient(to top, var(--bg-elevated), transparent);
   pointer-events: none;
-  opacity: 1;
+  opacity: 0;
   transition: opacity 0.3s ease;
 }
 
-.review-card__content.is-expanded::after {
-  opacity: 0;
+.review-card:not(.is-expanded) .review-card__content[data-truncated]::after {
+  opacity: 1;
 }
 
 .review-card__expand {
