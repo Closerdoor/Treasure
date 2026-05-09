@@ -8,9 +8,79 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 项目概述
 
-这是一个"精选型个人收藏馆"网站，用于收录影视、书籍、音乐、游戏等内容。项目目前处于设计阶段，仅有设计文档，尚未开始编码。
+这是一个"精选型个人收藏馆"网站，用于收录影视、书籍、音乐、游戏等内容。
 
 **核心理念**：这不是全量资料库，而是"馆长筛选"型收藏站。只收录经过馆长筛选的作品，作品资料以公开社区信息和标准元数据为主。
+
+**当前状态**：数据库已投入使用，已导入豆瓣 Top 250 电影数据（249 部）。
+
+---
+
+## 数据库
+
+### 数据库文件
+
+```
+.local/treasure.db
+```
+
+### Prisma Schema
+
+```
+prisma/schema.prisma
+```
+
+### 当前数据量
+
+| 表 | 记录数 | 说明 |
+|------|--------|------|
+| `works` | 249 | 豆瓣 Top 250 电影 |
+| `person` | 4527 | 导演/编剧/演员 |
+| `category` | 27 | 电影类型 |
+| `work_person` | 5660 | 演职关系 |
+| `work_category` | 698 | 类型关联 |
+
+### 表名规则
+
+- 表名使用单数形式：`person`（而非 `people`）、`category`（而非 `categories`）
+- 关联表命名：`{主表}_{关联表}`，如 `work_person`、`work_category`
+
+### 常用命令
+
+```bash
+# 查看 Prisma Schema
+cat prisma/schema.prisma
+
+# 查看表结构（带注释）
+node tools/db/view-schema.mjs Work
+node tools/db/view-schema.mjs Person
+
+# 更新备份
+node tools/db/update-backup.mjs
+
+# 查看数据统计
+node tools/db/check-counts.mjs
+```
+
+---
+
+## 静态资源
+
+### 作品图片
+
+```
+.local/assets/video/movie/{id}/
+├── poster-main.webp
+└── ...
+```
+
+### 人物头像
+
+```
+.local/assets/people/{personId}-avatar.jpg
+```
+
+---
 
 ## 架构设计
 

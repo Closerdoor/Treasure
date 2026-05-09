@@ -6,7 +6,21 @@ site/public/assets/anime/
 site/public/assets/book/
 site/public/assets/music/
 site/public/assets/game/
+site/public/assets/people/
 .local/
 .superpowers/
 .worktrees/
 .playwright-mcp/
+
+# Generated data (built from SQLite)
+/generated/
+
+# Prisma
+node_modules/
+.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo

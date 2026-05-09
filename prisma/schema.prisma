@@ -1,0 +1,572 @@
+// ============================================
+// Prisma Schema for Treasure Project
+// ============================================
+//
+// 数据库类型：SQLite
+// 此文件是唯一真相来源，所有类型和迁移都从这里派生
+//
+// 使用方式：
+// 1. 修改此文件后运行 `npx prisma migrate dev --name <迁移名称>`
+// 2. 运行 `npx prisma generate` 生成 TypeScript 类型
+// 3. 运行 `node tools/db/view-schema.mjs <表名>` 查看字段说明
+//
+// 文档：https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// ============================================
+// 作品主表
+// ============================================
+
+/// 作品主表
+///
+/// 承载所有模块（影视/动漫/书籍/音乐/游戏）的作品基础信息
+model Work {
+  // ========================================
+  // 标识信息
+  // ========================================
+
+  /// 作品ID
+  ///
+  /// 格式：MMSSNNNNNN
+  /// - MM：一级模块编号（01-04）
+  /// - SS：子模块编号（01-05）
+  /// - NNNNNN：该子模块下的递增序号
+  ///
+  /// 示例：0101000001 = 影视/电影/第1条
+  id String @id
+
+  /// 一级模块
+  ///
+  /// - video：影视
+  /// - anime：动漫
+  /// - book：书
+  /// - music：音乐
+  /// - game：游戏
+  module Module
+
+  /// 二级模块
+  ///
+  /// - movie：电影
+  /// - tv_series：电视剧
+  /// - documentary：纪录片
+  /// - short_drama：短剧
+  /// - anime_movie：动画电影
+  /// - anime_series：番剧
+  ///
+  /// 可为空（book/music/game 模块暂无子模块）
+  submodule Submodule?
+
+  /// 内容类型
+  ///
+  /// 决定字段验证规则和前台展示模板
+  ///
+  /// - live_action_movie：真人电影
+  /// - animated_movie：动画电影
+  /// - live_action_series：真人剧集
+  /// - animated_series：动画剧集
+  /// - documentary_film：纪录片电影
+  /// - documentary_series：纪录片剧集
+  /// - book：书籍
+  /// - music：音乐
+  /// - game：游戏
+  schemaType SchemaType @map("schema_type")
+
+  // ========================================
+  // 基本信息
+  // ========================================
+
+  /// 中文标题
+  title String
+
+  /// 原名（英文或源语言）
+  titleOriginal String? @map("title_original")
+
+  /// 别名（其他译名）
+  ///
+  /// JSON 字符串数组，示例：
+  /// ["星际启示录", "星际效应"]
+  otherTitles String? @map("other_titles")
+
+  /// 年份（上映/出版）
+  year Int?
+
+  /// 国家/地区（首发）
+  ///
+  /// 单值，按最早真实公映地区推断
+  country String?
+
+  /// 语言（主要对白）
+  language String?
+
+  /// 总时长（分钟）
+  totalTime Int? @map("total_time")
+
+  /// 制片方
+  studio String?
+
+  /// 上映日期
+  ///
+  /// JSON 数组，示例：
+  /// [
+  ///   { "date": "2014-11-05", "location": "美国" },
+  ///   { "date": "2014-11-07", "location": "英国" }
+  /// ]
+  releaseDates String? @map("release_dates")
+
+  /// 名言
+  ///
+  /// JSON 字符串数组，示例：
+  /// ["名言1", "名言2"]
+  quotes String?
+
+  /// 评分
+  ///
+  /// JSON 对象，示例：
+  /// {
+  ///   "avg": 9.1,
+  ///   "douban": 9.6,
+  ///   "imdb": 8.7,
+  ///   "tmdb": 8.5,
+  ///   "rottenTomatoes": 73,
+  ///   "metacritic": 74
+  /// }
+  ///
+  /// 说明：
+  /// - avg：综合评分（加权平均）
+  /// - douban/imdb/tmdb：10分制
+  /// - rottenTomatoes/metacritic：百分制
+  scores String?
+
+  // ========================================
+  // 剧集专用（电视剧/番剧）
+  // ========================================
+
+  /// 集数
+  episodeCount Int? @map("episode_count")
+
+  /// 单集时长（分钟）
+  episodeTime Int? @map("episode_time")
+
+  /// 分集剧情
+  ///
+  /// JSON 数组，示例：
+  /// [
+  ///   { "episode": 1, "title": "标题", "plot": "剧情" }
+  /// ]
+  episodesStory String? @map("episodes_story")
+
+  // ========================================
+  // 内容文本
+  // ========================================
+
+  /// 简介（短文，用于列表页/卡片）
+  introduction String?
+
+  /// 剧情（长文，用于详情页）
+  story String?
+
+  // ========================================
+  // 外部来源
+  // ========================================
+
+  /// 外部来源
+  ///
+  /// JSON 数组，示例：
+  /// [
+  ///   { "name": "豆瓣", "id": "1889243", "link": "https://movie.douban.com/subject/1889243/" },
+  ///   { "name": "IMDb", "id": "tt0816692", "link": "https://www.imdb.com/title/tt0816692/" },
+  ///   { "name": "TMDB", "id": "157336", "link": "https://www.themoviedb.org/movie/157336" }
+  /// ]
+  externalSource String? @map("external_source")
+
+  // ========================================
+  // 媒体资源
+  // ========================================
+
+  /// 图片
+  ///
+  /// JSON 对象，示例：
+  /// {
+  ///   "poster": "poster.jpg",
+  ///   "posters": ["p1.jpg", "p2.jpg"],
+  ///   "stills": ["s1.jpg", "s2.jpg"],
+  ///   "wallpapers": []
+  /// }
+  images String?
+
+  /// 视频
+  ///
+  /// JSON 数组，示例：
+  /// [
+  ///   { "title": "预告片", "url": "https://...", "duration": "01:30" }
+  /// ]
+  videos String?
+
+  // ========================================
+  // 评论内容
+  // ========================================
+
+  /// 影评
+  ///
+  /// JSON 数组，示例：
+  /// [
+  ///   {
+  ///     "author": "作者",
+  ///     "source": "豆瓣",
+  ///     "date": "2024-01-01",
+  ///     "content": "内容...",
+  ///     "url": "原文链接"
+  ///   }
+  /// ]
+  comments String?
+
+  // ========================================
+  // 音乐相关
+  // ========================================
+
+  /// 原声
+  ///
+  /// JSON 对象，示例：
+  /// {
+  ///   "albums": [
+  ///     {
+  ///       "name": "专辑名",
+  ///       "cover": "封面图片.jpg",
+  ///       "tracks": [
+  ///         { "name": "歌名", "artist": "歌手", "duration": "03:45" }
+  ///       ]
+  ///     }
+  ///   ]
+  /// }
+  soundtrack String?
+
+  // ========================================
+  // 关联作品
+  // ========================================
+
+  /// 相关作品
+  ///
+  /// JSON 对象，示例：
+  /// {
+  ///   "series": [
+  ///     { "title": "前传", "year": 2010 }
+  ///   ],
+  ///   "similar": [
+  ///     { "title": "相似作品", "year": 2018, "rating": 8.6 }
+  ///   ]
+  /// }
+  ///
+  /// 说明：
+  /// - series：系列作品（续集、前传、同一系列）
+  /// - similar：相似作品（推荐观看）
+  related String?
+
+  // ========================================
+  // 特殊内容（按类型使用）
+  // ========================================
+
+  /// 角色介绍（动漫专用）
+  ///
+  /// JSON 数组，示例：
+  /// [
+  ///   { "name": "角色名", "voiceActor": "声优", "image": "头像" }
+  /// ]
+  characters String?
+
+  // ========================================
+  // 系统字段
+  // ========================================
+
+  /// 状态
+  ///
+  /// - draft：草稿
+  /// - published：已发布
+  /// - archived：已归档
+  status WorkStatus @default(draft)
+
+  /// 创建时间
+  createdAt DateTime @default(now()) @map("created_at")
+
+  /// 更新时间
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // ========================================
+  // 关系
+  // ========================================
+
+  persons WorkPerson[]
+  categories WorkCategory[]
+
+  @@index([module, submodule], map: "idx_works_module_submodule")
+  @@index([schemaType], map: "idx_works_schema_type")
+  @@index([status], map: "idx_works_status")
+  @@index([year], map: "idx_works_year")
+  @@map("works")
+}
+
+// ============================================
+// 公共人物主表
+// ============================================
+
+/// 公共人物主表
+///
+/// 人物是公共资源，支持共享头像、跨作品复用
+model Person {
+  /// 自增主键
+  id Int @id @default(autoincrement())
+
+  /// 人物代码
+  ///
+  /// 格式：p000001
+  /// 用于生成头像路径
+  personId String @unique @map("person_id")
+
+  /// 中文名
+  name String
+
+  /// 英文名/原名
+  nameEn String? @map("name_en")
+
+  /// 共享头像路径
+  ///
+  /// 相对于 site/public/assets/people/
+  /// 示例：p000001-avatar.jpg
+  avatarPath String? @map("avatar_path")
+
+  /// 默认外链
+  ///
+  /// 如 Wikipedia、百度百科
+  profileLink String? @map("profile_link")
+
+  /// 简介
+  intro String?
+
+  // ========================================
+  // 关系
+  // ========================================
+
+  works WorkPerson[]
+
+  @@index([name, nameEn], map: "idx_person_name")
+  @@map("person")
+}
+
+// ============================================
+// 作品与人物关系表
+// ============================================
+
+/// 作品与人物关系表
+///
+/// 承载导演/编剧/主演/制片人等关系
+model WorkPerson {
+  /// 自增主键
+  id Int @id @default(autoincrement())
+
+  /// 作品ID
+  workId String @map("work_id")
+
+  /// 人物ID
+  personId Int @map("person_id")
+
+  /// 部门
+  ///
+  /// - direction：导演
+  /// - writing：编剧
+  /// - cast：演员
+  /// - production：制片
+  /// - music：音乐
+  /// - book：书籍作者
+  /// - translation：译者
+  /// - original_work：原著
+  /// - other：其他
+  department Department
+
+  /// 具体职位
+  ///
+  /// 如：导演、编剧、主演、制片人、联合导演
+  role String?
+
+  /// 角色名（演员专用）
+  character String?
+
+  /// 排序顺序
+  order Int @default(0)
+
+  /// 是否主要人员
+  ///
+  /// 用于前台优先展示
+  isPrimary Boolean @default(false) @map("is_primary")
+
+  // ========================================
+  // 关系
+  // ========================================
+
+  work Work @relation(fields: [workId], references: [id], onDelete: Cascade)
+  person Person @relation(fields: [personId], references: [id], onDelete: Restrict)
+
+  @@index([workId, order], map: "idx_work_person_work_id")
+  @@index([personId], map: "idx_work_person_person_id")
+  @@map("work_person")
+}
+
+// ============================================
+// 公共词项定义表
+// ============================================
+
+/// 公共词项定义表
+///
+/// 承载 type（类型）和 tag（标签）
+model Category {
+  /// 自增主键
+  id Int @id @default(autoincrement())
+
+  /// 分组
+  ///
+  /// - type：类型（如剧情、犯罪、科幻）
+  /// - tag：标签（如经典、必看）
+  group TypeGroup
+
+  /// 名称
+  ///
+  /// 如：剧情、犯罪、科幻、经典
+  name String
+
+  /// 模块作用域
+  ///
+  /// type 可按模块建立作用域
+  module String? @map("module")
+
+  /// 子模块作用域
+  submodule String? @map("submodule")
+
+  /// 排序顺序
+  order Int @default(0)
+
+  /// 是否启用
+  enabled Boolean @default(true) @map("enabled")
+
+  // ========================================
+  // 关系
+  // ========================================
+
+  works WorkCategory[]
+
+  @@index([group, module, submodule, order], map: "idx_category_scope")
+  @@index([group, name, module, submodule], map: "idx_category_identity")
+  @@map("category")
+}
+
+// ============================================
+// 作品与词项关联表
+// ============================================
+
+/// 作品与词项关联表
+///
+/// 承载作品属于哪些类型、带有哪些标签
+model WorkCategory {
+  /// 自增主键
+  id Int @id @default(autoincrement())
+
+  /// 作品ID
+  workId String @map("work_id")
+
+  /// 词项ID
+  categoryId Int @map("category_id")
+
+  /// 排序顺序
+  order Int @default(0)
+
+  // ========================================
+  // 关系
+  // ========================================
+
+  work Work @relation(fields: [workId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([workId, categoryId])
+  @@index([workId, order], map: "idx_work_category_work_id")
+  @@index([categoryId], map: "idx_work_category_category_id")
+  @@map("work_category")
+}
+
+// ============================================
+// 迁移记录表（Prisma 内部使用）
+// ============================================
+
+/// 迁移记录表
+model SchemaMigration {
+  version String @id
+  appliedAt DateTime @default(now()) @map("applied_at")
+
+  @@map("schema_migrations")
+}
+
+// ============================================
+// 枚举定义
+// ============================================
+
+/// 一级模块
+enum Module {
+  video
+  anime
+  book
+  music
+  game
+}
+
+/// 二级模块
+enum Submodule {
+  movie
+  tv_series
+  documentary
+  short_drama
+  anime_movie
+  anime_series
+}
+
+/// 内容类型
+enum SchemaType {
+  live_action_movie
+  animated_movie
+  live_action_series
+  animated_series
+  documentary_film
+  documentary_series
+  book
+  music
+  game
+}
+
+/// 作品状态
+enum WorkStatus {
+  draft
+  published
+  archived
+}
+
+/// 部门
+enum Department {
+  direction
+  writing
+  cast
+  production
+  music
+  book
+  translation
+  original_work
+  other
+}
+
+/// 词项分组
+enum TypeGroup {
+  type
+  tag
+}
