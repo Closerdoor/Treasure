@@ -7,6 +7,40 @@
 > Update triggers: 新模块字段设计补充、核心表结构调整、静态资源策略变化
 > Priority: 2
 
+## 当前状态（2026-05-07 更新）
+
+### 数据库已投入使用
+
+数据库已完成设计并导入豆瓣 Top 250 电影数据：
+
+| 表 | 记录数 | 说明 |
+|------|--------|------|
+| `works` | 249 | 豆瓣 Top 250 电影（跳过 0101000001） |
+| `person` | 4527 | 去重后的导演/编剧/演员 |
+| `category` | 27 | 电影类型 |
+| `work_person` | 5660 | 演职关系 |
+| `work_category` | 698 | 类型关联 |
+
+### 数据库文件位置
+
+```
+.local/treasure.db
+```
+
+### 静态资源位置
+
+```
+.local/assets/video/movie/{id}/
+```
+
+### Prisma Schema
+
+```
+prisma/schema.prisma
+```
+
+---
+
 ## 目标
 
 当前项目下一阶段采用：
@@ -105,13 +139,17 @@ SQLite -> export script -> JSON / generated data -> Astro build -> GitHub Pages
 
 ## 第一版精简表结构（当前基线）
 
-当前第一版只保留 5 张核心表：
+当前第一版保留 5 张核心表：
 
-1. `works`
-2. `people`
-3. `work_credits`
-4. `terms`
-5. `work_terms`
+1. `works` - 作品主表（249 条）
+2. `person` - 人物表（4527 条）
+3. `work_person` - 作品人物关系表（5660 条）
+4. `category` - 类型/标签表（27 条）
+5. `work_category` - 作品分类关联表（698 条）
+
+> 注意：表名已改为单数形式（person 而非 people，category 而非 categories）
+
+---
 
 ## 表职责摘要
 
@@ -123,43 +161,298 @@ SQLite -> export script -> JSON / generated data -> Astro build -> GitHub Pages
 - 一对一基础字段
 - 强绑定但不必先拆表的一对多展示数据（以 JSON 保存）
 
-### `people`
+**当前数据**：249 部豆瓣 Top 250 电影
+
+**字段分组**：
+
+```
+标识信息（4个）
+├── id              作品ID（0101000002 - 0101000250）
+├── module          一级模块（video）
+├── submodule       二级模块（movie）
+└── schemaType      内容类型（live_action_movie）
+
+基本信息（11个）
+├── title           中文标题
+├── titleOriginal   原名
+├── otherTitles     别名（JSON）
+├── year            年份
+├── country         国家/地区
+├── language        语言
+├── totalTime       总时长（分钟）
+├── studio          制片方
+├── releaseDates    上映日期（JSON）
+├── quotes          名言（JSON）
+└── scores          评分（JSON）
+
+内容文本（2个）
+├── introduction    简介（豆瓣 summary）
+└── story           剧情（维基百科 summary）
+
+外部来源（1个）
+└── externalSource  外部来源（JSON）
+    - 豆瓣、IMDb、TMDB、百度百科、维基百科
+
+媒体资源（2个）
+├── images          图片（JSON）
+└── videos          视频（JSON）
+
+评论内容（1个）
+└── comments        影评（JSON，不限制数量）
+
+音乐相关（1个）
+└── soundtrack      原声（JSON）
+
+关联作品（1个）
+└── related         相关作品（JSON）
+    ├── series      系列作品
+    └── similar     相似作品
+
+系统字段（3个）
+├── status          状态（published）
+├── createdAt       创建时间
+└── updatedAt       更新时间
+```
+
+### `person`
 
 公共人物主表，承载：
 
-- 人物名
-- 英文名 / 原名
-- 共享头像路径
-- 人物默认外链
-- 备注信息
+- 人物代码（personId：p000001 - p004527）
+- 中文名（name）
+- 英文名/原名（nameEn）
+- 共享头像路径（avatarPath）
+- 人物默认外链（profileLink）
+- 简介（intro）
 
-### `work_credits`
+**当前数据**：4527 条人物（从豆瓣数据提取，按姓名去重）
+
+**已知限制**：
+- 演员角色名缺失（豆瓣数据无角色名字段）
+- 人物英文名缺失（豆瓣数据无英文名）
+- 人物头像缺失（豆瓣数据无头像）
+
+### `work_person`
 
 作品与人物关系表，承载：
 
-- 导演
-- 编剧
-- 主演
-- 制片人
-- 作者
-- 译者
-- 原著
-- 配音
-- 其它后续可扩展的人物关系
+- 作品ID（workId）
+- 人物ID（personId）
+- 部门（department）：direction / writing / cast
+- 具体职位（role）：导演 / 编剧 / 演员
+- 排序（order）
+- 是否主要人员（isPrimary）
 
-### `terms`
+**当前数据**：5660 条关系
+
+**统计**：
+- 导演：284 条
+- 编剧：569 条
+- 演员：4807 条
+
+### `category`
 
 公共词项定义表，承载：
 
-- `genre`
-- `tag`
+- 分组（group）：type / tag
+- 名称（name）
+- 模块作用域（module）：video
+- 子模块作用域（submodule）：movie
+- 排序（order）
+- 是否启用（enabled）
 
-### `work_terms`
+**当前数据**：27 条电影类型
+
+**类型列表**：
+传记、儿童、冒险、剧情、动作、动画、历史、古装、同性、喜剧、奇幻、家庭、恐怖、悬疑、情色、惊悚、战争、歌舞、武侠、灾难、爱情、犯罪、科幻、纪录片、西部、运动、音乐
+
+### `work_category`
 
 作品与词项的关联表，承载：
 
-- 某部作品属于哪些类型
-- 某部作品带有哪些标签
+- 作品ID（workId）
+- 词项ID（categoryId）
+- 排序（order）
+
+**当前数据**：698 条关联（平均每部约 3 个类型）
+
+---
+
+## 数据导入说明
+
+### 数据来源
+
+| 来源 | 提供数据 |
+|------|----------|
+| 豆瓣 | 基本信息、演职人员、评分、评论、类型 |
+| TMDB | 补充评分、制片公司 |
+| OMDb | IMDb/烂番茄/Metacritic 评分 |
+| 百度百科 | 词条链接 |
+| 维基百科 | 剧情简介 |
+
+### 字段映射规则
+
+| Prisma 字段 | 数据来源 | 提取规则 |
+|-------------|---------|---------|
+| `title` | 豆瓣.title | 中文标题 |
+| `titleOriginal` | 豆瓣.original_title | 原名 |
+| `year` | 豆瓣.year | parseInt |
+| `country` | 豆瓣.countries | 取第一个 |
+| `language` | 豆瓣.languages | 取第一个 |
+| `totalTime` | 豆瓣.runtime_minutes | 片长 |
+| `introduction` | 豆瓣.summary | 完整内容 |
+| `story` | 维基百科.summary | 完整内容 |
+| `scores` | 多源合并 | 豆瓣/IMDb/TMDB/烂番茄/Metacritic |
+| `externalSource` | 多源合并 | 所有来源 |
+
+### JSON 字段结构
+
+#### scores（评分）
+
+```json
+{
+  "avg": 9.6,
+  "douban": 9.6,
+  "imdb": 8.1,
+  "tmdb": 7.889,
+  "rottenTomatoes": 90,
+  "metacritic": 84
+}
+```
+
+#### externalSource（外部来源）
+
+```json
+[
+  { "name": "豆瓣", "id": "1291546", "link": "https://movie.douban.com/subject/1291546/" },
+  { "name": "IMDb", "id": "tt0106332", "link": "https://www.imdb.com/title/tt0106332/" },
+  { "name": "TMDB", "id": "10997", "link": "https://www.themoviedb.org/movie/10997" },
+  { "name": "百度百科", "id": "霸王别姬", "link": "https://baike.baidu.com/item/霸王别姬" },
+  { "name": "维基百科", "id": "霸王别姬", "link": "https://zh.wikipedia.org/wiki/霸王别姬" }
+]
+```
+
+#### images（图片）
+
+```json
+{
+  "poster": "poster-main.webp",
+  "posters": ["poster-main.webp"],
+  "stills": [],
+  "wallpapers": [],
+  "assetDir": ".local/assets/video/movie/0101000002"
+}
+```
+
+#### related（关联作品）
+
+```json
+{
+  "series": [
+    {
+      "title": "教父2",
+      "source": "douban",
+      "sourceId": "1291842",
+      "year": 1974,
+      "rating": 9.2
+    }
+  ],
+  "similar": [
+    {
+      "title": "活着",
+      "source": "douban",
+      "sourceId": "1292052",
+      "year": 1994,
+      "rating": 9.3
+    }
+  ]
+}
+```
+
+**字段说明**：
+
+| 字段 | 类型 | 必填 | 说明 |
+|------|------|------|------|
+| `title` | string | 是 | 作品标题（用于展示） |
+| `source` | string | 是 | 数据来源平台标识 |
+| `sourceId` | string | 是 | 来源平台的作品 ID |
+| `year` | number | 否 | 年份 |
+| `rating` | number | 否 | 评分 |
+
+**source 枚举值**：
+
+| 值 | 说明 | sourceId 示例 |
+|------|------|------|
+| `douban` | 豆瓣 | `1292052`（subject ID） |
+| `tmdb` | TMDB | `8392`（movie ID） |
+| `imdb` | IMDb | `tt0107204`（title ID） |
+
+**匹配逻辑**（导出时执行）：
+
+1. 根据 `source` 和 `sourceId` 匹配数据库中已存在的作品
+2. 如果 `source = "douban"` → 用 `sourceId` 匹配 `externalSource` 中豆瓣的 `id`
+3. 如果 `source = "tmdb"` → 用 `sourceId` 匹配 `externalSource` 中 TMDB 的 `id`
+4. 如果 `source = "imdb"` → 用 `sourceId` 匹配 `externalSource` 中 IMDb 的 `id`
+5. 匹配成功 → 补充作品 `id`，前端可跳转
+6. 匹配失败 → 保留原始数据，前端仅展示标题（不可跳转）
+
+**设计原则**：
+
+- 爬取阶段：获取推荐作品的外部 ID（豆瓣 subject ID / TMDB movie ID / IMDb title ID）
+- 导入阶段：直接存储 `source` + `sourceId`，不做匹配
+- 导出阶段：根据外部 ID 匹配数据库，补充作品 ID
+- 优势：明确数据来源，支持多平台匹配，避免标题匹配的不可靠性
+
+---
+
+## 静态资源路径策略
+
+### 作品私有资源
+
+- 路径：`.local/assets/{module}/{submodule}/{id}/`
+- 例如：`.local/assets/video/movie/0101000002/poster-main.webp`
+
+### 共享人物资源
+
+- 路径：`.local/assets/people/`
+- 命名：`{personId}-avatar.jpg`（如 `p000001-avatar.jpg`）
+
+### 图片格式
+
+- 当前：WebP（豆瓣主海报）
+- 未来：支持 JPG/PNG
+
+---
+
+## 备份文件
+
+### 位置
+
+`.local/backup/`
+
+### 文件列表
+
+| 文件 | 说明 |
+|------|------|
+| `works-backup.json` | 剩余 2 条旧数据 |
+| `person-backup.json` | 旧人物数据（116 条） |
+| `category-backup.json` | 旧类型数据（8 条） |
+
+---
+
+## 变更记录
+
+详见 `docs/SCHEMA-CHANGELOG.md`
+
+---
+
+## 原始设计文档（历史参考）
+
+以下为原始设计文档，保留作为历史参考：
+
+---
+
+## 目标（原始）
 
 ## `works` 第一版字段方向
 

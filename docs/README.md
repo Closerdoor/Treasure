@@ -26,3 +26,4 @@
 - `.opencode/skills/movie-entry-workflow/` 下文档继续作为电影录入执行参考与下游实现文档存在。
 - 如果主文档与 workflow 文档冲突，应先更新 workflow 文档以对齐当前主文档，而不是反向覆盖主文档。
 - `DATABASE.md` 是当前数据库第一版精简设计基线，也是数据库方案的唯一最新版本。
+- `BROWSER-CONFIG.md` 是 Playwright 浏览器的统一配置，所有需要浏览器自动化的脚本必须遵循此配置。
