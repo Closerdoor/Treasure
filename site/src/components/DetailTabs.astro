@@ -5,13 +5,15 @@ import { formatExternalSourceLabel } from '../lib/site';
 const { movie } = Astro.props as { movie: ArchiveMovie };
 
 const leadCast = movie.cast ?? [];
+const otherCastList = movie.otherCast ?? [];
+const producerList = movie.producer ?? [];
 type CreditPerson = NonNullable<ArchiveMovie['director']>[number];
-type CreditRailItem = CreditPerson & { jobLabel: string };
+type CreditRailItem = CreditPerson & { jobLabel: string; isActor: boolean };
 
 function buildCreditsCarousel() {
-  const creditsMap = new Map<string, { person: CreditPerson; labels: string[] }>();
+  const creditsMap = new Map<string, { person: CreditPerson; labels: string[]; isActor: boolean }>();
 
-  const append = (people: CreditPerson[], resolveLabel: (person: CreditPerson) => string) => {
+  const append = (people: CreditPerson[], resolveLabel: (person: CreditPerson) => string, isActor: boolean) => {
     for (const person of people) {
       const key = person.personCode || person.nameEn || person.name;
       const label = resolveLabel(person);
@@ -34,23 +36,31 @@ function buildCreditsCarousel() {
           existing.person.nameEn = person.nameEn;
         }
 
+        if (!existing.person.role && person.role) {
+          existing.person.role = person.role;
+        }
+
         continue;
       }
 
       creditsMap.set(key, {
         person: { ...person },
-        labels: [label]
+        labels: [label],
+        isActor
       });
     }
   };
 
-  append(movie.director ?? [], () => '导演');
-  append(movie.writer ?? [], (person) => person.role || '编剧');
-  append(leadCast, (person) => person.role || '演员');
+  append(movie.director ?? [], () => '导演', false);
+  append(movie.writer ?? [], (person) => person.role || '编剧', false);
+  append(leadCast, () => '演员', true);
+  append(otherCastList, () => '演员', true);
+  append(producerList, (person) => person.role || '制片人', false);
 
-  return Array.from(creditsMap.values()).map(({ person, labels }) => ({
+  return Array.from(creditsMap.values()).map(({ person, labels, isActor }) => ({
     ...person,
-    jobLabel: labels.join(' / ')
+    jobLabel: labels.join(' / '),
+    isActor
   })) satisfies CreditRailItem[];
 }
 
@@ -148,7 +158,7 @@ const tabItems = [
             />
             <div class="credit-rail-card__body">
               <strong>{person.name}</strong>
-              <span>{person.jobLabel}</span>
+              <span>{person.isActor && person.role ? `饰演 ${person.role}` : person.jobLabel}</span>
             </div>
           </article>
         ))}

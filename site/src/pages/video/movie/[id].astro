@@ -1,14 +1,14 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import DetailTabs from '../../../components/DetailTabs.astro';
-import { loadArchiveMovieById, loadArchiveMovies } from '../../../lib/archive';
+import { loadArchiveMovieById, loadAllMovieIds } from '../../../lib/archive';
 import { formatArchiveRuntimeLabel } from '../../../lib/site';
 
 export async function getStaticPaths() {
-  const movies = await loadArchiveMovies();
+  const ids = await loadAllMovieIds();
 
-  return movies.map((movie) => ({
-    params: { id: movie.id }
+  return ids.map((id) => ({
+    params: { id }
   }));
 }
 
@@ -37,6 +37,7 @@ const heroMetaRows = [
   { label: '地区', value: movie.country || '待补充' },
   { label: '语言', value: movie.language || '待补充' },
   { label: '片长', value: formatArchiveRuntimeLabel(movie.runtime) },
+  { label: '制片方', value: movie.publishCompany || '待补充' },
   { label: '上映日期', value: movie.releaseDateLabel || '待补充' },
   { label: '更多片名', value: (movie.aka ?? []).join(' / ') || '无' }
 ];
@@ -106,6 +107,17 @@ const heroSynopsis = movie.synopsis?.text?.replace(/\n\s*\n+/g, '\n').trim();
                 </div>
               </dl>
             </>
+          ) : null}
+
+          {movie.quotes?.length ? (
+            <div class="detail-hero__quotes">
+              {movie.quotes.slice(0, 3).map((quote) => (
+                <blockquote class="detail-hero__quote">
+                  <p>"{quote.text}"</p>
+                  {quote.speaker ? <cite>— {quote.speaker}</cite> : null}
+                </blockquote>
+              ))}
+            </div>
           ) : null}
         </div>
       </div>
