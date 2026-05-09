@@ -3,29 +3,75 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import MovieGridCard from '../../components/MovieGridCard.astro';
 import MovieListCard from '../../components/MovieListCard.astro';
 import { loadArchiveMovies } from '../../lib/archive';
-import { buildVideoViewModel, collectCountries, collectYears, filterMovies } from '../../lib/site';
 
 const allMovies = await loadArchiveMovies();
 
-const query = Astro.url.searchParams.get('q') ?? '';
-const submodule = Astro.url.searchParams.get('submodule') ?? '';
-const genre = Astro.url.searchParams.get('genre') ?? '';
-const country = Astro.url.searchParams.get('country') ?? '';
-const year = Astro.url.searchParams.get('year') ?? '';
-const viewModel = buildVideoViewModel({
-  query,
-  submodule,
-  genre,
-  country,
-  year,
-  view: Astro.url.searchParams.get('view') ?? ''
-});
-const view = viewModel.view;
-
-const movies = filterMovies(allMovies, { query, submodule, genre, country, year });
-const years = collectYears(allMovies);
-const countries = collectCountries(allMovies);
 const genres = [...new Set(allMovies.flatMap((movie) => movie.genre ?? []))].sort();
+
+const existingCountries = new Set(allMovies.map((movie) => movie.country).filter(Boolean));
+
+const countryOptions = [
+  { value: '中国大陆', label: '中国大陆' },
+  { value: '中国香港', label: '中国香港' },
+  { value: '中国台湾', label: '中国台湾' },
+  { value: '美国', label: '美国' },
+  { value: '日本', label: '日本' },
+  { value: '韩国', label: '韩国' },
+  { value: '泰国', label: '泰国' },
+  { value: '印度', label: '印度' },
+  { value: '英国', label: '英国' },
+  { value: '法国', label: '法国' },
+  { value: '德国', label: '德国' },
+  { value: '加拿大', label: '加拿大' },
+  { value: '西班牙', label: '西班牙' },
+  { value: '意大利', label: '意大利' },
+  { value: '澳大利亚', label: '澳大利亚' },
+  { value: '其他', label: '其他' }
+].map((item) => ({
+  ...item,
+  enabled: item.value === '其他' || existingCountries.has(item.value)
+}));
+
+const yearOptions = [
+  { value: '2026', label: '2026' },
+  { value: '2025', label: '2025' },
+  { value: '2024', label: '2024' },
+  { value: '2023', label: '2023' },
+  { value: '2022', label: '2022' },
+  { value: '2021', label: '2021' },
+  { value: '2020-2015', label: '2020-2015' },
+  { value: '2014-2010', label: '2014-2010' },
+  { value: '2009-2005', label: '2009-2005' },
+  { value: '2004-2000', label: '2004-2000' },
+  { value: '1990s', label: '90年代' },
+  { value: '1980s', label: '80年代' },
+  { value: 'other', label: '其他' }
+];
+
+const existingYears = new Set(allMovies.map((movie) => movie.year).filter(Boolean));
+const yearOptionsWithStatus = yearOptions.map((item) => {
+  let enabled = true;
+  if (item.value.includes('-')) {
+    const [start, end] = item.value.split('-').map(Number);
+    enabled = allMovies.some((m) => m.year >= end && m.year <= start);
+  } else if (item.value === '1990s') {
+    enabled = allMovies.some((m) => m.year >= 1990 && m.year <= 1999);
+  } else if (item.value === '1980s') {
+    enabled = allMovies.some((m) => m.year >= 1980 && m.year <= 1989);
+  } else if (item.value === 'other') {
+    enabled = allMovies.some((m) => m.year < 1980);
+  } else {
+    enabled = existingYears.has(Number(item.value));
+  }
+  return { ...item, enabled };
+});
+
+const filterRows = [
+  { label: '类型', key: 'genre', options: genres.slice(0, 12).map((g) => ({ value: g, label: g, enabled: true })) },
+  { label: '地区', key: 'country', options: countryOptions },
+  { label: '年份', key: 'year', options: yearOptionsWithStatus }
+] as const;
+
 const submodules = [
   { value: 'movie', label: '电影', enabled: true },
   { value: 'series', label: '电视剧', enabled: false },
@@ -33,78 +79,60 @@ const submodules = [
   { value: 'animation', label: '动漫', enabled: false },
   { value: 'short', label: '短片', enabled: false }
 ];
-const page = Math.max(1, Number.parseInt(Astro.url.searchParams.get('page') ?? '1', 10) || 1);
-const pageSize = 12;
-const totalPages = Math.max(1, Math.ceil(movies.length / pageSize));
-const currentPage = Math.min(page, totalPages);
-const pagedMovies = movies.slice((currentPage - 1) * pageSize, currentPage * pageSize);
-const activeFilters = [
-  query ? `搜索: ${query}` : '',
-  submodule ? `子模块: ${submodule}` : '',
-  genre ? `类型: ${genre}` : '',
-  country ? `地区: ${country}` : '',
-  year ? `年份: ${year}` : ''
-].filter(Boolean);
 
-const filterRows = [
-  { label: '类型', key: 'genre', options: genres.slice(0, 12) },
-  { label: '地区', key: 'country', options: countries.slice(0, 14) },
-  { label: '年份', key: 'year', options: years.slice(0, 16).map(String) }
-] as const;
-
-function buildVideoPageHref(overrides: Record<string, string>) {
-  const params = new URLSearchParams({
-    q: query,
-    submodule,
-    genre,
-    country,
-    year,
-    view,
-    page: String(currentPage)
-  });
-
-  Object.entries(overrides).forEach(([key, value]) => {
-    if (!value) {
-      params.delete(key);
-      return;
-    }
-
-    params.set(key, value);
-  });
-
-  if (params.get('page') === '1') {
-    params.delete('page');
-  }
-
-  return `/video?${params.toString()}`;
-}
+const moviesData = allMovies.map((movie) => ({
+  id: movie.id,
+  title: movie.title,
+  originalTitle: movie.originalTitle,
+  year: movie.year,
+  country: movie.country,
+  genre: movie.genre ?? [],
+  directorNames: movie.directorNames,
+  castPreview: movie.castPreview,
+  synopsis: movie.synopsis,
+  aggregateRating: movie.aggregateRating,
+  runtime: movie.runtime,
+  posterUrl: movie.posterUrl,
+  path: movie.path,
+  doubanRating: movie.doubanRating,
+  imdbRating: movie.imdbRating,
+  tmdbRating: movie.tmdbRating,
+  rottenTomatoes: movie.rottenTomatoes
+}));
 ---
 
 <BaseLayout title="影视分馆 | Treasure 资料馆">
   <section class="shell filters-panel filters-panel--compact">
     <form class="archive-search-bar" method="get">
-      <input name="q" type="search" value={query} placeholder="搜索标题、原名、演员" />
-      <input type="hidden" name="submodule" value={submodule} />
-      <input type="hidden" name="genre" value={genre} />
-      <input type="hidden" name="country" value={country} />
-      <input type="hidden" name="year" value={year} />
-      <input type="hidden" name="view" value={view} />
+      <input name="q" type="search" placeholder="搜索标题、原名、演员" data-search-input />
       <button class="button button--primary" type="submit">搜索</button>
       <a class="button button--ghost" href="/video">清空</a>
     </form>
 
     <div class="submodule-filter-panel">
       <span class="submodule-filter-panel__label">子模块</span>
-      <div class="submodule-filter-panel__options">
-        {submodules.map((item) => {
-          const isActive = submodule === item.value || (!submodule && item.value === 'movie');
-
-          return item.enabled ? (
-            <a class:list={["submodule-filter-panel__option", isActive && 'is-active']} href={buildVideoPageHref({ submodule: item.value, page: '1' })}>{item.label}</a>
+      <div class="submodule-filter-panel__options" data-filter-group="submodule">
+        <button
+          type="button"
+          class="submodule-filter-panel__option is-active"
+          data-filter-value=""
+          data-filter-all="true"
+        >
+          全部
+        </button>
+        {submodules.map((item) => (
+          item.enabled ? (
+            <button
+              type="button"
+              class="submodule-filter-panel__option"
+              data-filter-value={item.value}
+            >
+              {item.label}
+            </button>
           ) : (
             <span class="submodule-filter-panel__option is-disabled">{item.label}</span>
-          );
-        })}
+          )
+        ))}
       </div>
     </div>
 
@@ -112,126 +140,648 @@ function buildVideoPageHref(overrides: Record<string, string>) {
       {filterRows.map((row) => (
         <div class="filter-link-row">
           <span class="filter-link-row__label">{row.label}</span>
-          <div class="filter-link-row__options">
+          <div class="filter-link-row__options" data-filter-group={row.key}>
+            <button
+              type="button"
+              class="filter-link-row__option is-active"
+              data-filter-value=""
+              data-filter-all="true"
+            >
+              全部
+            </button>
             {row.options.map((item) => {
-              const isActive =
-                (row.key === 'genre' && genre === item) ||
-                (row.key === 'country' && country === item) ||
-                (row.key === 'year' && year === item);
-
-              return (
-                <a class:list={["filter-link-row__option", isActive && 'is-active']} href={buildVideoPageHref({ [row.key]: isActive ? '' : item, page: '1' })}>
-                  {item}
-                </a>
+              const isObject = typeof item === 'object';
+              const value = isObject ? (item as any).value : item;
+              const label = isObject ? (item as any).label : item;
+              const enabled = isObject ? (item as any).enabled ?? true : true;
+              return enabled ? (
+                <button
+                  type="button"
+                  class="filter-link-row__option"
+                  data-filter-value={value}
+                >
+                  {label}
+                </button>
+              ) : (
+                <span class="filter-link-row__option is-disabled">{label}</span>
               );
             })}
           </div>
         </div>
       ))}
     </div>
+
+    <div class="active-filter-tags" data-active-filters></div>
   </section>
 
   <section class="shell listing-toolbar">
-    <p>共 {movies.length} 条内容，当前第 {currentPage} / {totalPages} 页。</p>
+    <p data-result-info>共 {allMovies.length} 条内容，当前第 1 / {Math.ceil(allMovies.length / 12)} 页。</p>
     <div class="listing-toolbar__views" data-view-switcher>
-      <a class:list={[view === 'grid' && 'is-active']} href={viewModel.viewLinks.card} data-view-option="grid">卡片</a>
-      <a class:list={[view === 'list' && 'is-active']} href={viewModel.viewLinks.list} data-view-option="list">列表</a>
+      <button type="button" class:list={['is-active']} data-view-option="grid">卡片</button>
+      <button type="button" data-view-option="list">列表</button>
     </div>
   </section>
 
-  {activeFilters.length ? (
-    <section class="shell active-filter-bar">
-      {activeFilters.map((item) => (
-        <span>{item}</span>
-      ))}
-    </section>
-  ) : null}
+  <section class="shell grid-cards" data-view-panel="grid" data-movies-container="grid">
+    {allMovies.slice(0, 12).map((movie) => (
+      <MovieGridCard movie={movie} />
+    ))}
+  </section>
 
-  {movies.length ? (
-    <>
-      <section class:list={["shell", "grid-cards", view !== 'grid' && 'is-hidden']} data-view-panel="grid">
-        {pagedMovies.map((movie) => (
-          <MovieGridCard movie={movie} />
-        ))}
-      </section>
+  <section class="shell list-cards is-hidden" data-view-panel="list" data-movies-container="list">
+    {allMovies.slice(0, 12).map((movie) => (
+      <MovieListCard movie={movie} />
+    ))}
+  </section>
 
-      <section class:list={["shell", "list-cards", view !== 'list' && 'is-hidden']} data-view-panel="list">
-        {pagedMovies.map((movie) => (
-          <MovieListCard movie={movie} />
-        ))}
-      </section>
+  <nav class="shell pagination-bar" aria-label="列表分页" data-pagination>
+    <div class="pagination-bar__left">
+      <span class="pagination-bar__label">每页显示</span>
+      <select class="pagination-bar__size-select" data-page-size>
+        <option value="12">12 条</option>
+        <option value="24">24 条</option>
+        <option value="48">48 条</option>
+      </select>
+    </div>
+    <div class="pagination-bar__center">
+      <button type="button" class="pagination-bar__nav" data-pagination-first aria-label="首页">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 17l-5-5 5-5M18 17l-5-5 5-5"/></svg>
+      </button>
+      <button type="button" class="pagination-bar__nav" data-pagination-prev aria-label="上一页">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="pagination-bar__pages" data-pagination-pages></div>
+      <button type="button" class="pagination-bar__nav" data-pagination-next aria-label="下一页">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+      <button type="button" class="pagination-bar__nav" data-pagination-last aria-label="尾页">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 17l5-5-5-5M6 17l5-5-5-5"/></svg>
+      </button>
+    </div>
+    <div class="pagination-bar__right">
+      <span class="pagination-bar__goto-label">跳至</span>
+      <input type="number" class="pagination-bar__goto-input" data-pagination-goto min="1" aria-label="页码">
+      <span class="pagination-bar__goto-label">页</span>
+    </div>
+  </nav>
 
-      <nav class="shell pagination-bar" aria-label="列表分页">
-        <a class:list={["pagination-bar__button", currentPage === 1 && 'is-disabled']} href={currentPage === 1 ? buildVideoPageHref({ page: '1' }) : buildVideoPageHref({ page: String(currentPage - 1) })}>上一页</a>
-        <div class="pagination-bar__pages">
-          {Array.from({ length: totalPages }, (_, index) => index + 1).map((item) => (
-            <a class:list={["pagination-bar__page", item === currentPage && 'is-active']} href={buildVideoPageHref({ page: String(item) })}>{item}</a>
-          ))}
-        </div>
-        <a class:list={["pagination-bar__button", currentPage === totalPages && 'is-disabled']} href={currentPage === totalPages ? buildVideoPageHref({ page: String(totalPages) }) : buildVideoPageHref({ page: String(currentPage + 1) })}>下一页</a>
-      </nav>
-    </>
-  ) : (
-    <section class="shell">
-      <article class="empty-state">
-        <p class="eyebrow">Archive Empty</p>
-        <h2>当前筛选下没有匹配条目。</h2>
-        <p>可以先清空筛选，回到默认馆藏继续浏览。</p>
-        <a class="button button--primary" href="/video">返回默认列表</a>
-      </article>
-    </section>
-  )}
+  <script is:inline define:vars={{ moviesData, filterRows, submodules }}>
+    const PAGE_SIZES = [12, 24, 48];
 
-  <script is:inline>
-    (() => {
-      const switcher = document.querySelector('[data-view-switcher]');
-      const panels = [...document.querySelectorAll('[data-view-panel]')];
-      if (!(switcher instanceof HTMLElement) || panels.length === 0) {
-        return;
+    const filterLabels = {
+      genre: '类型',
+      country: '地区',
+      year: '年份',
+      submodule: '子模块'
+    };
+
+    const state = {
+      query: '',
+      submodule: '',
+      genre: '',
+      country: '',
+      year: '',
+      view: 'grid',
+      page: 1,
+      pageSize: 12
+    };
+
+    function init() {
+      const params = new URL(window.location.href).searchParams;
+      state.query = params.get('q') ?? '';
+      state.submodule = params.get('submodule') ?? '';
+      state.genre = params.get('genre') ?? '';
+      state.country = params.get('country') ?? '';
+      state.year = params.get('year') ?? '';
+      state.view = params.get('view') === 'list' ? 'list' : 'grid';
+      state.page = Math.max(1, parseInt(params.get('page') ?? '1', 10) || 1);
+      state.pageSize = PAGE_SIZES.includes(parseInt(params.get('size') ?? '12', 10)) 
+        ? parseInt(params.get('size') ?? '12', 10) 
+        : 12;
+
+      const searchInput = document.querySelector('[data-search-input]');
+      if (searchInput) {
+        searchInput.value = state.query;
       }
 
-      const options = [...switcher.querySelectorAll('[data-view-option]')];
-      const applyView = (nextView) => {
-        const isCard = nextView !== 'list';
+      const sizeSelect = document.querySelector('[data-page-size]');
+      if (sizeSelect) {
+        sizeSelect.value = String(state.pageSize);
+      }
 
-        panels.forEach((panel) => {
-          if (!(panel instanceof HTMLElement)) {
-            return;
-          }
+      updateFilterUI();
+      applyFilters();
+      bindEvents();
+    }
 
-          const isMatch = panel.dataset.viewPanel === (isCard ? 'grid' : 'list');
-          panel.classList.toggle('is-hidden', !isMatch);
+    function updateFilterUI() {
+      document.querySelectorAll('[data-filter-group]').forEach((group) => {
+        const key = group.dataset.filterGroup;
+        const activeValue = state[key];
+
+        group.querySelectorAll('[data-filter-value]').forEach((btn) => {
+          const value = btn.dataset.filterValue;
+          const isAll = btn.dataset.filterAll === 'true';
+          const isActive = isAll ? !activeValue : activeValue === value;
+
+          btn.classList.toggle('is-active', isActive);
+          btn.setAttribute('aria-current', isActive ? 'true' : 'false');
         });
+      });
 
-        options.forEach((link) => {
-          if (!(link instanceof HTMLElement)) {
-            return;
-          }
-
-          link.classList.toggle('is-active', link.dataset.viewOption === (isCard ? 'grid' : 'list'));
+      const viewSwitcher = document.querySelector('[data-view-switcher]');
+      if (viewSwitcher) {
+        viewSwitcher.querySelectorAll('[data-view-option]').forEach((btn) => {
+          const isActive = btn.dataset.viewOption === state.view;
+          btn.classList.toggle('is-active', isActive);
         });
+      }
+    }
+
+    function filterMovies() {
+      return moviesData.filter((movie) => {
+        if (state.query) {
+          const q = state.query.toLowerCase();
+          const haystack = [
+            movie.title,
+            movie.originalTitle,
+            movie.synopsis?.text,
+            movie.country,
+            ...movie.genre,
+            ...movie.castPreview
+          ].filter(Boolean).join(' ').toLowerCase();
+
+          if (!haystack.includes(q)) {
+            return false;
+          }
+        }
+
+        if (state.genre && !movie.genre.includes(state.genre)) {
+          return false;
+        }
+
+        if (state.country && !matchCountry(movie.country, state.country)) {
+          return false;
+        }
+
+        if (state.year && !matchYear(movie.year, state.year)) {
+          return false;
+        }
+
+        return true;
+      });
+    }
+
+    const knownCountries = [
+      '中国大陆', '中国香港', '中国台湾', '美国', '日本', '韩国',
+      '泰国', '印度', '英国', '法国', '德国', '加拿大', '西班牙', '意大利', '澳大利亚'
+    ];
+
+    function matchCountry(movieCountry, filterValue) {
+      if (!movieCountry) return false;
+      if (filterValue === '其他') {
+        return !knownCountries.includes(movieCountry);
+      }
+      return movieCountry === filterValue;
+    }
+
+    function matchYear(movieYear, filterValue) {
+      if (!movieYear) return false;
+      const year = Number(movieYear);
+
+      if (filterValue.includes('-')) {
+        const [start, end] = filterValue.split('-').map(Number);
+        return year >= end && year <= start;
+      }
+
+      if (filterValue === '1990s') {
+        return year >= 1990 && year <= 1999;
+      }
+
+      if (filterValue === '1980s') {
+        return year >= 1980 && year <= 1989;
+      }
+
+      if (filterValue === 'other') {
+        return year < 1980;
+      }
+
+      return String(year) === filterValue;
+    }
+
+    function applyFilters() {
+      const filtered = filterMovies();
+      const totalPages = Math.max(1, Math.ceil(filtered.length / state.pageSize));
+      state.page = Math.min(state.page, totalPages);
+
+      const start = (state.page - 1) * state.pageSize;
+      const paged = filtered.slice(start, start + state.pageSize);
+
+      renderMovies(paged);
+      renderPagination(totalPages, filtered.length);
+      updateResultInfo(filtered.length, totalPages);
+      updateActiveFilters();
+      updateURL();
+    }
+
+    function renderMovies(movies) {
+      const gridContainer = document.querySelector('[data-movies-container="grid"]');
+      const listContainer = document.querySelector('[data-movies-container="list"]');
+
+      if (gridContainer) {
+        gridContainer.innerHTML = movies.map((movie) => createGridCard(movie)).join('');
+      }
+
+      if (listContainer) {
+        listContainer.innerHTML = movies.map((movie) => createListCard(movie)).join('');
+      }
+    }
+
+    function createGridCard(movie) {
+      const metaLeft = [String(movie.year ?? ''), movie.genre?.[0]].filter(Boolean).join(' · ');
+      const metaRight = movie.country ?? '';
+      const hoverMeta = [movie.genre?.[0], String(movie.year ?? ''), movie.country].filter(Boolean).join(' · ');
+      const castLine = movie.castPreview?.slice(0, 3).join(' / ') ?? '';
+      const runtime = movie.runtime ? `${Math.floor(movie.runtime / 60)}:${String(movie.runtime % 60).padStart(2, '0')}:00` : '--:--:--';
+      const rating = movie.aggregateRating ? movie.aggregateRating.toFixed(1) : '--';
+
+      return `
+        <article class="movie-grid-card">
+          <a class="movie-grid-card__frame" href="${movie.path}">
+            <img class="movie-grid-card__poster-bg" src="${movie.posterUrl}" alt="" aria-hidden="true" loading="lazy">
+            <div class="movie-grid-card__poster-shell">
+              <img class="movie-grid-card__poster" src="${movie.posterUrl}" alt="${movie.title} 海报" loading="lazy">
+              <span class="movie-grid-card__rating">${rating}</span>
+              <span class="movie-grid-card__runtime">${runtime}</span>
+            </div>
+            <div class="movie-grid-card__body">
+              <strong class="movie-grid-card__title">${movie.title}</strong>
+              <div class="movie-grid-card__meta-row">
+                <span class="movie-grid-card__meta-left">${metaLeft}</span>
+                <span class="movie-grid-card__meta-right">${metaRight}</span>
+              </div>
+            </div>
+            <div class="movie-grid-card__hover">
+              <strong class="movie-grid-card__hover-title">${movie.title}</strong>
+              <p class="movie-grid-card__hover-meta">${hoverMeta}</p>
+              <p class="movie-grid-card__hover-cast">主演：${castLine}</p>
+              <p class="movie-grid-card__hover-summary">${movie.synopsis?.text ?? ''}</p>
+            </div>
+          </a>
+        </article>
+      `;
+    }
+
+    function createListCard(movie) {
+      const facts = [String(movie.year ?? ''), movie.country, movie.genre?.join('/')].filter(Boolean);
+      const platformRatings = [
+        ['豆瓣', movie.doubanRating],
+        ['IMDb', movie.imdbRating],
+        ['TMDB', movie.tmdbRating],
+        ['烂番茄', movie.rottenTomatoes ? `${movie.rottenTomatoes}%` : null]
+      ].filter(([, v]) => v != null);
+
+      return `
+        <article class="movie-list-card">
+          <a class="movie-list-card__poster" href="${movie.path}">
+            <img src="${movie.posterUrl}" alt="${movie.title} 海报" loading="lazy">
+          </a>
+          <div class="movie-list-card__body">
+            <a class="movie-list-card__detail-link" href="${movie.path}">查看详情</a>
+            <div class="movie-list-card__title-row">
+              <a class="movie-list-card__title" href="${movie.path}">${movie.title}</a>
+              <p class="movie-list-card__subtitle">${movie.originalTitle ?? ''}</p>
+            </div>
+            <div class="movie-list-card__facts">
+              ${facts.map((f, i) => `<span class="movie-list-card__fact-chip">${f}</span>`).join('')}
+            </div>
+            <div class="movie-list-card__director-row">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg>
+              <span>导演：${movie.directorNames ?? '待补充'}</span>
+            </div>
+            <div class="movie-list-card__cast-row">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"></path></svg>
+              <span>主演：${movie.castPreview?.join(' / ') ?? '待补充'}</span>
+            </div>
+            <div class="movie-list-card__summary-row">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 17H4v2h10v-2zm6-8H4v2h16V9zM4 15h16v-2H4v2zM4 5v2h16V5H4z"></path></svg>
+              <span>简介：${movie.synopsis?.text ?? '待补充'}</span>
+            </div>
+          </div>
+          <div class="movie-list-card__ratings">
+            <div class="movie-list-card__score">
+              <span>综合评分</span>
+              <strong>${movie.aggregateRating ? movie.aggregateRating.toFixed(1) : '--'}</strong>
+            </div>
+            <div class="movie-list-card__platforms">
+              ${platformRatings.map(([label, value]) => `
+                <span class="movie-list-card__rating-item">
+                  <span class="movie-list-card__rating-source">${label}</span>
+                  <strong class="movie-list-card__rating-value">${typeof value === 'number' ? value.toFixed(1) : value}</strong>
+                </span>
+              `).join('')}
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderPagination(totalPages, totalItems) {
+      const container = document.querySelector('[data-pagination-pages]');
+      const firstBtn = document.querySelector('[data-pagination-first]');
+      const prevBtn = document.querySelector('[data-pagination-prev]');
+      const nextBtn = document.querySelector('[data-pagination-next]');
+      const lastBtn = document.querySelector('[data-pagination-last]');
+      const gotoInput = document.querySelector('[data-pagination-goto]');
+
+      if (!container) return;
+
+      const pageNumbers = getPageNumbers(state.page, totalPages);
+
+      let html = '';
+      pageNumbers.forEach((item) => {
+        if (item === '...') {
+          html += `<span class="pagination-bar__ellipsis">...</span>`;
+        } else if (item === state.page) {
+          html += `<span class="pagination-bar__page is-active" aria-current="page">${item}</span>`;
+        } else {
+          html += `<button type="button" class="pagination-bar__page" data-pagination-page="${item}">${item}</button>`;
+        }
+      });
+      container.innerHTML = html;
+
+      const isFirstPage = state.page === 1;
+      const isLastPage = state.page === totalPages;
+
+      [firstBtn, prevBtn].forEach((btn) => {
+        if (btn) {
+          btn.disabled = isFirstPage;
+          btn.classList.toggle('is-disabled', isFirstPage);
+          btn.setAttribute('aria-disabled', isFirstPage ? 'true' : 'false');
+        }
+      });
+
+      [nextBtn, lastBtn].forEach((btn) => {
+        if (btn) {
+          btn.disabled = isLastPage;
+          btn.classList.toggle('is-disabled', isLastPage);
+          btn.setAttribute('aria-disabled', isLastPage ? 'true' : 'false');
+        }
+      });
+
+      if (gotoInput) {
+        gotoInput.value = state.page;
+        gotoInput.max = totalPages;
+        gotoInput.placeholder = `${state.page}`;
+      }
+    }
+
+    function getPageNumbers(current, total) {
+      if (total <= 7) {
+        return Array.from({ length: total }, (_, i) => i + 1);
+      }
+
+      const pages = [];
+      const siblings = 1;
+      const leftSibling = Math.max(2, current - siblings);
+      const rightSibling = Math.min(total - 1, current + siblings);
+
+      pages.push(1);
+
+      if (leftSibling > 2) {
+        pages.push('...');
+      }
+
+      for (let i = leftSibling; i <= rightSibling; i++) {
+        pages.push(i);
+      }
+
+      if (rightSibling < total - 1) {
+        pages.push('...');
+      }
+
+      pages.push(total);
+
+      return pages;
+    }
+
+    function updateResultInfo(total, totalPages) {
+      const info = document.querySelector('[data-result-info]');
+      if (info) {
+        const start = total === 0 ? 0 : (state.page - 1) * state.pageSize + 1;
+        const end = Math.min(state.page * state.pageSize, total);
+        info.textContent = `共 ${total} 条，显示 ${start}-${end} 条`;
+      }
+    }
+
+    function updateActiveFilters() {
+      const container = document.querySelector('[data-active-filters]');
+      if (!container) return;
+
+      const yearLabels = {
+        '2026': '2026',
+        '2025': '2025',
+        '2024': '2024',
+        '2023': '2023',
+        '2022': '2022',
+        '2021': '2021',
+        '2020-2015': '2020-2015',
+        '2014-2010': '2014-2010',
+        '2009-2005': '2009-2005',
+        '2004-2000': '2004-2000',
+        '1990s': '90年代',
+        '1980s': '80年代',
+        'other': '其他'
       };
 
-      const current = new URL(window.location.href).searchParams.get('view');
-      applyView(current === 'list' ? 'list' : 'grid');
+      const filters = [];
+      if (state.query) filters.push({ key: 'query', label: `搜索: ${state.query}`, value: state.query });
+      if (state.submodule) {
+        const sub = submodules.find(s => s.value === state.submodule);
+        filters.push({ key: 'submodule', label: `子模块: ${sub?.label || state.submodule}`, value: state.submodule });
+      }
+      if (state.genre) filters.push({ key: 'genre', label: `类型: ${state.genre}`, value: state.genre });
+      if (state.country) filters.push({ key: 'country', label: `地区: ${state.country}`, value: state.country });
+      if (state.year) {
+        const yearLabel = yearLabels[state.year] || state.year;
+        filters.push({ key: 'year', label: `年份: ${yearLabel}`, value: state.year });
+      }
 
-      switcher.addEventListener('click', (event) => {
-        const target = event.target;
-        if (!(target instanceof HTMLElement)) {
-          return;
-        }
+      if (filters.length === 0) {
+        container.innerHTML = '';
+      } else {
+        container.innerHTML = filters.map((f) => `
+          <span class="filter-tag" data-filter-tag-key="${f.key}">
+            ${f.label}
+            <button type="button" class="filter-tag__close" aria-label="移除筛选">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+          </span>
+        `).join('');
+      }
+    }
 
-        const link = target.closest('[data-view-option]');
-        if (!(link instanceof HTMLAnchorElement)) {
-          return;
-        }
+    function updateURL() {
+      const params = new URLSearchParams();
+      if (state.query) params.set('q', state.query);
+      if (state.submodule) params.set('submodule', state.submodule);
+      if (state.genre) params.set('genre', state.genre);
+      if (state.country) params.set('country', state.country);
+      if (state.year) params.set('year', state.year);
+      if (state.view === 'list') params.set('view', 'list');
+      if (state.page > 1) params.set('page', String(state.page));
+      if (state.pageSize !== 12) params.set('size', String(state.pageSize));
 
-        event.preventDefault();
-        const nextView = link.dataset.viewOption === 'list' ? 'list' : 'grid';
-        const url = new URL(link.href, window.location.origin);
-        window.history.replaceState({}, '', url);
-        applyView(nextView);
+      const newURL = params.toString() ? `/video?${params.toString()}` : '/video';
+      window.history.replaceState({}, '', newURL);
+    }
+
+    function bindEvents() {
+      document.querySelectorAll('[data-filter-group]').forEach((group) => {
+        group.addEventListener('click', (e) => {
+          const btn = e.target.closest('[data-filter-value]');
+          if (!btn) return;
+
+          const key = group.dataset.filterGroup;
+          const value = btn.dataset.filterValue;
+
+          state[key] = value;
+          state.page = 1;
+          updateFilterUI();
+          applyFilters();
+        });
       });
-    })();
+
+      const activeFiltersContainer = document.querySelector('[data-active-filters]');
+      if (activeFiltersContainer) {
+        activeFiltersContainer.addEventListener('click', (e) => {
+          const closeBtn = e.target.closest('.filter-tag__close');
+          if (!closeBtn) return;
+
+          const tag = closeBtn.closest('.filter-tag');
+          if (!tag) return;
+
+          const key = tag.dataset.filterTagKey;
+          state[key] = '';
+          state.page = 1;
+          updateFilterUI();
+          applyFilters();
+        });
+      }
+
+      const viewSwitcher = document.querySelector('[data-view-switcher]');
+      if (viewSwitcher) {
+        viewSwitcher.addEventListener('click', (e) => {
+          const btn = e.target.closest('[data-view-option]');
+          if (!btn) return;
+
+          state.view = btn.dataset.viewOption;
+          state.page = 1;
+
+          document.querySelectorAll('[data-view-panel]').forEach((panel) => {
+            panel.classList.toggle('is-hidden', panel.dataset.viewPanel !== state.view);
+          });
+
+          viewSwitcher.querySelectorAll('[data-view-option]').forEach((b) => {
+            b.classList.toggle('is-active', b === btn);
+          });
+
+          applyFilters();
+        });
+      }
+
+      const pagination = document.querySelector('[data-pagination]');
+      if (pagination) {
+        pagination.addEventListener('click', (e) => {
+          const firstBtn = e.target.closest('[data-pagination-first]');
+          const prevBtn = e.target.closest('[data-pagination-prev]');
+          const nextBtn = e.target.closest('[data-pagination-next]');
+          const lastBtn = e.target.closest('[data-pagination-last]');
+          const pageBtn = e.target.closest('[data-pagination-page]');
+
+          if (firstBtn && !firstBtn.disabled) {
+            state.page = 1;
+            applyFilters();
+            scrollToTop();
+          } else if (prevBtn && !prevBtn.disabled) {
+            state.page = Math.max(1, state.page - 1);
+            applyFilters();
+            scrollToTop();
+          } else if (nextBtn && !nextBtn.disabled) {
+            state.page++;
+            applyFilters();
+            scrollToTop();
+          } else if (lastBtn && !lastBtn.disabled) {
+            const filtered = filterMovies();
+            const totalPages = Math.max(1, Math.ceil(filtered.length / state.pageSize));
+            state.page = totalPages;
+            applyFilters();
+            scrollToTop();
+          } else if (pageBtn) {
+            state.page = parseInt(pageBtn.dataset.paginationPage, 10);
+            applyFilters();
+            scrollToTop();
+          }
+        });
+      }
+
+      const sizeSelect = document.querySelector('[data-page-size]');
+      if (sizeSelect) {
+        sizeSelect.addEventListener('change', (e) => {
+          state.pageSize = parseInt(e.target.value, 10);
+          state.page = 1;
+          applyFilters();
+        });
+      }
+
+      const gotoInput = document.querySelector('[data-pagination-goto]');
+      if (gotoInput) {
+        gotoInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            const filtered = filterMovies();
+            const totalPages = Math.max(1, Math.ceil(filtered.length / state.pageSize));
+            const targetPage = Math.min(Math.max(1, parseInt(gotoInput.value, 10) || 1), totalPages);
+            state.page = targetPage;
+            applyFilters();
+            scrollToTop();
+          }
+        });
+      }
+
+      const searchForm = document.querySelector('.archive-search-bar');
+      const searchInput = document.querySelector('[data-search-input]');
+      if (searchForm && searchInput) {
+        searchForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          state.query = searchInput.value.trim();
+          state.page = 1;
+          applyFilters();
+        });
+      }
+
+      const clearBtn = document.querySelector('.archive-search-bar .button--ghost');
+      if (clearBtn) {
+        clearBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          state.query = '';
+          state.submodule = '';
+          state.genre = '';
+          state.country = '';
+          state.year = '';
+          state.page = 1;
+
+          if (searchInput) searchInput.value = '';
+          updateFilterUI();
+          applyFilters();
+        });
+      }
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
   </script>
 </BaseLayout>
