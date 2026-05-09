@@ -2367,11 +2367,7 @@ select {
 
 .review-card__expand-icon {
   font-size: 0.72rem;
-  transition: transform 0.3s ease;
-}
-
-.review-card.is-expanded .review-card__expand-icon {
-  transform: rotate(180deg);
+  transition: transform 0.2s ease;
 }
 
 .review-card__mark {
