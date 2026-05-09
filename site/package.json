@@ -3,12 +3,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "predev": "node ./scripts/sync-assets.mjs",
     "dev": "astro dev",
-    "prebuild": "node ./scripts/sync-assets.mjs",
     "build": "astro build",
-    "sync:assets": "node ./scripts/sync-assets.mjs",
     "preview": "astro preview",
+    "sync": "node ./scripts/sync-assets.mjs",
     "test": "vitest run"
   },
   "dependencies": {
