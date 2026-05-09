@@ -158,7 +158,7 @@ const tabItems = [
             />
             <div class="credit-rail-card__body">
               <strong>{person.name}</strong>
-              <span>{person.isActor && person.role ? `饰演 ${person.role}` : person.jobLabel}</span>
+              {person.isActor ? (person.role ? <span>饰演 {person.role}</span> : null) : <span>{person.jobLabel}</span>}
             </div>
           </article>
         ))}
