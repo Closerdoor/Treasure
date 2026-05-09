@@ -53,15 +53,17 @@ function buildCreditsCarousel() {
 
   append(movie.director ?? [], () => '导演', false);
   append(movie.writer ?? [], (person) => person.role || '编剧', false);
-  append(leadCast, () => '演员', true);
-  append(otherCastList, () => '演员', true);
+  append(leadCast.filter((p) => p.role), () => '演员', true);
+  append(otherCastList.filter((p) => p.role), () => '演员', true);
   append(producerList, (person) => person.role || '制片人', false);
 
-  return Array.from(creditsMap.values()).map(({ person, labels, isActor }) => ({
-    ...person,
-    jobLabel: labels.join(' / '),
-    isActor
-  })) satisfies CreditRailItem[];
+  return Array.from(creditsMap.values())
+    .filter(({ person, isActor }) => !isActor || person.role)
+    .map(({ person, labels, isActor }) => ({
+      ...person,
+      jobLabel: labels.join(' / '),
+      isActor
+    })) satisfies CreditRailItem[];
 }
 
 const creditsCarousel = buildCreditsCarousel();
