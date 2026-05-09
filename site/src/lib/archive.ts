@@ -2,8 +2,9 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 
 const repoRoot = path.resolve(process.cwd(), '..');
-const generatedEntriesPath = path.join(repoRoot, 'generated', 'entries.json');
-const defaultAssetsRoot = path.join(process.cwd(), 'public', 'assets');
+const generatedRoot = path.join(repoRoot, 'generated');
+const entriesRoot = path.join(generatedRoot, 'entries');
+const indexesRoot = path.join(generatedRoot, 'indexes');
 
 type Person = {
   personCode?: string;
@@ -81,6 +82,22 @@ export type MovieRecord = RatingInput & {
   submodule: 'movie';
   createdAt?: string;
   updatedAt?: string;
+};
+
+export type ListIndexItem = {
+  id: string;
+  path: string;
+  title: string;
+  originalTitle?: string | null;
+  year: number;
+  posterUrl: string;
+  aggregateRating: number | null;
+  directorNames: string | null;
+  castPreview: string[];
+  genre: string[];
+  tags: string[];
+  country: string | null;
+  synopsis: string | null;
 };
 
 export type ArchiveMovie = MovieRecord & {
@@ -199,21 +216,56 @@ function normalizeMovie(movie: MovieRecord): ArchiveMovie {
   };
 }
 
-export async function loadArchiveMovies() {
-  const raw = await fs.readFile(generatedEntriesPath, 'utf8');
-  const entries = JSON.parse(raw) as MovieRecord[];
-  const movies = entries.map((entry) => normalizeMovie(entry));
+async function loadMovieEntryFile(id: string): Promise<MovieRecord | null> {
+  const filePath = path.join(entriesRoot, 'video', 'movie', `${id}.json`);
+  try {
+    const raw = await fs.readFile(filePath, 'utf8');
+    return JSON.parse(raw) as MovieRecord;
+  } catch {
+    return null;
+  }
+}
+
+export async function loadArchiveMovies(): Promise<ArchiveMovie[]> {
+  const indexPath = path.join(indexesRoot, 'video-movie.json');
+  const raw = await fs.readFile(indexPath, 'utf8');
+  const indexItems = JSON.parse(raw) as ListIndexItem[];
+
+  const movies: ArchiveMovie[] = [];
+
+  for (const item of indexItems) {
+    const fullRecord = await loadMovieEntryFile(item.id);
+    if (fullRecord) {
+      movies.push(normalizeMovie(fullRecord));
+    }
+  }
 
   return movies.sort((left, right) => right.year - left.year || left.id.localeCompare(right.id));
 }
 
-export async function loadArchiveMovieById(id: string) {
-  const movies = await loadArchiveMovies();
-  return movies.find((movie) => movie.id === id) ?? null;
+export async function loadArchiveMovieById(id: string): Promise<ArchiveMovie | null> {
+  const record = await loadMovieEntryFile(id);
+  if (!record) {
+    return null;
+  }
+  return normalizeMovie(record);
+}
+
+export async function loadArchiveMovieIndex(): Promise<ListIndexItem[]> {
+  const indexPath = path.join(indexesRoot, 'video-movie.json');
+  const raw = await fs.readFile(indexPath, 'utf8');
+  return JSON.parse(raw) as ListIndexItem[];
+}
+
+export async function loadAllMovieIds(): Promise<string[]> {
+  const indexPath = path.join(indexesRoot, 'video-movie.json');
+  const raw = await fs.readFile(indexPath, 'utf8');
+  const indexItems = JSON.parse(raw) as ListIndexItem[];
+  return indexItems.map((item) => item.id);
 }
 
 export async function syncArchiveAssets({
-  targetRoot = defaultAssetsRoot
+  targetRoot = path.join(process.cwd(), 'public', 'assets')
 }: {
   targetRoot?: string;
 } = {}) {

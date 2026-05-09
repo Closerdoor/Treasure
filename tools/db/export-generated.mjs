@@ -8,14 +8,16 @@ const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, '..', '..');
 const dbPath = path.join(repoRoot, '.local', 'treasure.db');
 const generatedRoot = path.join(repoRoot, 'generated');
-const generatedModulesRoot = path.join(generatedRoot, 'modules');
+const entriesRoot = path.join(generatedRoot, 'entries');
+const indexesRoot = path.join(generatedRoot, 'indexes');
 const sqlitePath = process.env.SQLITE3_PATH || 'D:\\ArtSoftware\\sqlite3.exe';
 
 function queryJson(sql) {
   const result = spawnSync(sqlitePath, ['-json', dbPath, sql], {
     encoding: 'utf8',
     cwd: repoRoot,
-    shell: false
+    shell: false,
+    maxBuffer: 200 * 1024 * 1024
   });
 
   if (result.status !== 0) {
@@ -43,19 +45,14 @@ function formatEntryPath(entry) {
 }
 
 function normalizePerson(row) {
-  const extra = parseJsonText(row.extra_json, null) ?? {};
-
   return {
-    personCode: row.person_code,
+    personCode: row.person_id,
     name: row.name,
     nameEn: row.name_en ?? undefined,
-    role: row.department === 'cast' ? row.character_name ?? undefined : row.display_label ?? undefined,
+    role: row.department === 'cast' ? row.character ?? undefined : row.role ?? undefined,
     avatarPath: row.avatar_path ?? undefined,
     profileLink: row.profile_link ?? undefined,
-    notes: row.notes ?? undefined,
-    avatarSource: extra.avatarSource ?? undefined,
-    avatarNote: extra.avatarNote ?? undefined,
-    works: Array.isArray(extra.works) ? extra.works : undefined
+    notes: row.intro ?? undefined
   };
 }
 
@@ -88,18 +85,18 @@ function indexCredits(creditRows) {
   return byWorkId;
 }
 
-function indexTerms(termRows) {
+function indexCategories(categoryRows) {
   const byWorkId = new Map();
 
-  for (const row of termRows) {
+  for (const row of categoryRows) {
     if (!byWorkId.has(row.work_id)) {
       byWorkId.set(row.work_id, { genre: [], tags: [] });
     }
 
     const target = byWorkId.get(row.work_id);
-    if (row.term_type === 'genre') {
+    if (row.group === 'type') {
       target.genre.push(row.name);
-    } else if (row.term_type === 'tag') {
+    } else if (row.group === 'tag') {
       target.tags.push(row.name);
     }
   }
@@ -107,18 +104,33 @@ function indexTerms(termRows) {
   return byWorkId;
 }
 
-function buildEntry(row, credits, terms) {
-  const aliases = parseJsonText(row.aliases_json, []);
-  const releaseDate = parseJsonText(row.release_dates_json, []);
-  const identifiers = parseJsonText(row.identifiers_json, {});
-  const ratings = parseJsonText(row.ratings_json, {});
-  const links = parseJsonText(row.links_json, {});
-  const images = parseJsonText(row.images_json, {});
-  const videos = parseJsonText(row.videos_json, []);
-  const reviews = parseJsonText(row.reviews_json, []);
-  const soundtrack = parseJsonText(row.soundtrack_json, null);
-  const relations = parseJsonText(row.relations_json, {});
-  const quotes = parseJsonText(row.quotes_json, []);
+function buildEntry(row, credits, categories) {
+  const otherTitles = parseJsonText(row.other_titles, []);
+  const releaseDate = parseJsonText(row.release_dates, []);
+  const scores = parseJsonText(row.scores, {});
+  const externalSource = parseJsonText(row.external_source, []);
+  const images = parseJsonText(row.images, {});
+  const videos = parseJsonText(row.videos, []);
+  const reviews = parseJsonText(row.comments, []);
+  const soundtrack = parseJsonText(row.soundtrack, null);
+  const relations = parseJsonText(row.related, {});
+  const quotes = parseJsonText(row.quotes, []);
+
+  const links = {};
+  externalSource.forEach((src) => {
+    if (src.name === '豆瓣') links.douban = src.link;
+    else if (src.name === 'IMDb') links.imdb = src.link;
+    else if (src.name === 'TMDB') links.tmdb = src.link;
+    else if (src.name === '百度百科') links.baike = src.link;
+    else if (src.name === '维基百科') links.wikipedia = src.link;
+  });
+
+  const identifiers = {};
+  externalSource.forEach((src) => {
+    if (src.name === '豆瓣') identifiers.douban = src.id;
+    else if (src.name === 'IMDb') identifiers.imdb = src.id;
+    else if (src.name === 'TMDB') identifiers.tmdb = src.id;
+  });
 
   return {
     id: row.id,
@@ -127,33 +139,33 @@ function buildEntry(row, credits, terms) {
     schemaType: row.schema_type,
     path: formatEntryPath(row),
     title: row.title,
-    originalTitle: row.original_title ?? undefined,
+    originalTitle: row.title_original ?? undefined,
     year: row.year,
     country: row.country ?? undefined,
     language: row.language ?? undefined,
-    publishCompany: row.publish_company ?? undefined,
-    runtime: row.runtime_minutes ?? undefined,
-    synopsis: { text: row.synopsis_text ?? undefined, note: row.synopsis_note ?? undefined },
-    story: { text: row.story_text ?? undefined },
+    publishCompany: row.studio ?? undefined,
+    runtime: row.total_time ?? undefined,
+    synopsis: { text: row.introduction ?? undefined, note: undefined },
+    story: { text: row.story ?? undefined },
     director: credits.director,
     writer: credits.writer,
     cast: credits.cast,
     otherCast: credits.otherCast,
     producer: credits.producer,
-    genre: terms.genre,
-    tags: terms.tags,
-    aka: aliases,
+    genre: categories.genre,
+    tags: categories.tags,
+    aka: otherTitles,
     releaseDate,
     imdbId: identifiers.imdb ?? undefined,
     doubanId: identifiers.douban ?? undefined,
     tmdbId: identifiers.tmdb ?? undefined,
-    doubanRating: ratings.douban?.value ?? undefined,
-    imdbRating: ratings.imdb?.value ?? undefined,
-    tmdbRating: ratings.tmdb?.value ?? undefined,
-    rottenTomatoes: ratings.rottenTomatoes?.value ?? undefined,
-    metascore: ratings.metascore?.value ?? undefined,
-    rated: ratings.certification?.value ?? undefined,
-    awards: ratings.awards?.value ?? undefined,
+    doubanRating: scores.douban ?? undefined,
+    imdbRating: scores.imdb ?? undefined,
+    tmdbRating: scores.tmdb ?? undefined,
+    rottenTomatoes: scores.rottenTomatoes ?? undefined,
+    metascore: scores.metacritic ?? undefined,
+    rated: undefined,
+    awards: undefined,
     images,
     videos,
     reviews,
@@ -168,8 +180,48 @@ function buildEntry(row, credits, terms) {
   };
 }
 
-function buildSearchIndex(entries) {
-  return entries.map((entry) => ({
+function computeAggregateRating(entry) {
+  const values = [entry.doubanRating, entry.imdbRating, entry.tmdbRating];
+
+  if (typeof entry.rottenTomatoes === 'number') {
+    values.push(entry.rottenTomatoes / 10);
+  }
+
+  const valid = values.filter((value) => typeof value === 'number' && Number.isFinite(value));
+
+  if (valid.length === 0) {
+    return null;
+  }
+
+  const average = valid.reduce((sum, value) => sum + value, 0) / valid.length;
+  return Math.round(average * 10) / 10;
+}
+
+function buildListIndex(entry) {
+  const poster = entry.images?.poster;
+  const posterUrl = poster
+    ? `/assets/${entry.module}/${entry.submodule}/${entry.id}/${poster}`
+    : '/assets/poster-placeholder.svg';
+
+  return {
+    id: entry.id,
+    path: entry.path,
+    title: entry.title,
+    originalTitle: entry.originalTitle ?? null,
+    year: entry.year,
+    posterUrl,
+    aggregateRating: computeAggregateRating(entry),
+    directorNames: (entry.director ?? []).map((p) => p.name).join(' / ') || null,
+    castPreview: (entry.cast ?? []).slice(0, 3).map((p) => p.name),
+    genre: entry.genre ?? [],
+    tags: entry.tags ?? [],
+    country: entry.country ?? null,
+    synopsis: entry.synopsis?.text ?? null
+  };
+}
+
+function buildSearchIndex(entry) {
+  return {
     id: entry.id,
     path: entry.path,
     title: entry.title,
@@ -183,13 +235,14 @@ function buildSearchIndex(entries) {
     aka: entry.aka ?? [],
     cast: (entry.cast ?? []).map((person) => person.name),
     synopsis: entry.synopsis?.text ?? null
-  }));
+  };
 }
 
-function buildRecent(entries) {
+function buildRecentIndex(entries, limit = 12) {
   return [...entries]
     .sort((left, right) => String(right.updatedAt ?? '').localeCompare(String(left.updatedAt ?? '')) || left.id.localeCompare(right.id))
-    .slice(0, 12);
+    .slice(0, limit)
+    .map(buildListIndex);
 }
 
 async function writeJson(filePath, value) {
@@ -197,70 +250,104 @@ async function writeJson(filePath, value) {
   await fs.writeFile(filePath, `${JSON.stringify(value, null, 2)}\n`, 'utf8');
 }
 
+async function cleanDirectory(dirPath) {
+  try {
+    await fs.rm(dirPath, { recursive: true, force: true });
+  } catch {
+    // 目录不存在则忽略
+  }
+  await fs.mkdir(dirPath, { recursive: true });
+}
+
 async function main() {
+  console.log('开始导出数据...');
+
+  // 查询数据
   const works = queryJson(`
-SELECT *
-FROM works
-WHERE module = 'video' AND submodule = 'movie' AND status != 'archived'
-ORDER BY year DESC, id ASC;
-`);
+    SELECT *
+    FROM works
+    WHERE module = 'video' AND submodule = 'movie' AND status != 'archived'
+    ORDER BY year DESC, id ASC;
+  `);
 
   const credits = queryJson(`
-SELECT
-  wc.work_id,
-  wc.department,
-  wc.display_label,
-  wc.character_name,
-  wc.sort_order,
-  wc.is_primary,
-  wc.extra_json,
-  p.person_code,
-  p.name,
-  p.name_en,
-  p.avatar_path,
-  p.profile_link,
-  p.notes
-FROM work_credits wc
-JOIN people p ON p.id = wc.person_id
-ORDER BY wc.work_id, wc.sort_order, wc.id;
-`);
+    SELECT
+      wp.work_id,
+      wp.department,
+      wp.role,
+      wp.character,
+      wp."order",
+      wp.is_primary,
+      p.person_id,
+      p.name,
+      p.name_en,
+      p.avatar_path,
+      p.profile_link,
+      p.intro
+    FROM work_person wp
+    JOIN person p ON p.id = wp.person_id
+    ORDER BY wp.work_id, wp."order", wp.id;
+  `);
 
-  const terms = queryJson(`
-SELECT
-  wt.work_id,
-  t.term_type,
-  t.name,
-  wt.sort_order,
-  wt.note
-FROM work_terms wt
-JOIN terms t ON t.id = wt.term_id
-ORDER BY wt.work_id, t.term_type, wt.sort_order, wt.id;
-`);
+  const categories = queryJson(`
+    SELECT
+      wc.work_id,
+      c."group",
+      c.name,
+      wc."order"
+    FROM work_category wc
+    JOIN category c ON c.id = wc.category_id
+    ORDER BY wc.work_id, wc."order", wc.id;
+  `);
 
   const creditIndex = indexCredits(credits);
-  const termIndex = indexTerms(terms);
+  const categoryIndex = indexCategories(categories);
 
   const entries = works.map((row) => buildEntry(
     row,
     creditIndex.get(row.id) ?? { director: [], writer: [], cast: [], otherCast: [], producer: [] },
-    termIndex.get(row.id) ?? { genre: [], tags: [] }
+    categoryIndex.get(row.id) ?? { genre: [], tags: [] }
   ));
 
-  const videoEntries = entries.filter((entry) => entry.module === 'video');
-  const movieEntries = videoEntries.filter((entry) => entry.submodule === 'movie');
+  // 清理旧目录
+  console.log('清理旧文件...');
+  await cleanDirectory(entriesRoot);
+  await cleanDirectory(indexesRoot);
+
+  // 按作品拆分 JSON
+  console.log(`导出 ${entries.length} 个作品文件...`);
+  const movieEntriesDir = path.join(entriesRoot, 'video', 'movie');
+  await fs.mkdir(movieEntriesDir, { recursive: true });
+
+  for (const entry of entries) {
+    const filePath = path.join(movieEntriesDir, `${entry.id}.json`);
+    await writeJson(filePath, entry);
+  }
+
+  // 生成索引文件
+  console.log('生成索引文件...');
+  const movieEntries = entries.filter((e) => e.module === 'video' && e.submodule === 'movie');
+  const videoEntries = entries.filter((e) => e.module === 'video');
+
+  // 列表索引
+  await writeJson(path.join(indexesRoot, 'video-movie.json'), movieEntries.map(buildListIndex));
+  await writeJson(path.join(indexesRoot, 'video.json'), videoEntries.map(buildListIndex));
+  await writeJson(path.join(indexesRoot, 'all.json'), entries.map(buildSearchIndex));
+
+  // 最近更新
+  await writeJson(path.join(generatedRoot, 'recent.json'), buildRecentIndex(entries));
+
+  // 标签聚合
   const tagsPayload = {
     genres: [...new Set(movieEntries.flatMap((entry) => entry.genre ?? []))].sort(),
     tags: [...new Set(movieEntries.flatMap((entry) => entry.tags ?? []))].sort()
   };
-
-  await writeJson(path.join(generatedRoot, 'entries.json'), entries);
-  await writeJson(path.join(generatedModulesRoot, 'video.json'), videoEntries);
-  await writeJson(path.join(generatedModulesRoot, 'video-movie.json'), movieEntries);
   await writeJson(path.join(generatedRoot, 'tags.json'), tagsPayload);
-  await writeJson(path.join(generatedRoot, 'search-index.json'), buildSearchIndex(entries));
-  await writeJson(path.join(generatedRoot, 'recent.json'), buildRecent(entries));
 
-  console.log(`Exported ${entries.length} entries to ${generatedRoot}`);
+  console.log(`导出完成！`);
+  console.log(`  作品文件: generated/entries/video/movie/*.json (${entries.length} 个)`);
+  console.log(`  列表索引: generated/indexes/video-movie.json`);
+  console.log(`  搜索索引: generated/indexes/all.json`);
 }
 
 main().catch((error) => {
