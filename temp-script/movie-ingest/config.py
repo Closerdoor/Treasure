@@ -2,6 +2,12 @@
 """
 电影数据多源爬取工具配置文件
 """
+import os
+import sys
+
+# Windows UTF-8 兼容：必须在其他 import 之前设置
+if sys.platform == 'win32':
+    os.environ['PYTHONUTF8'] = '1'
 
 # API Keys
 TMDB_API_KEY = "3a4e78fb56ab8fda8244aa3c96272534"

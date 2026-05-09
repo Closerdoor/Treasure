@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 数据合并模块
+
+输出格式基于 Prisma Schema:
+- works 表字段命名（驼峰转下划线）
+- 生成 staging JSON 文件供后续导入
 """
 import json
 from pathlib import Path
@@ -13,75 +17,38 @@ from utils import Logger, generate_work_id
 class DataMerger:
     """数据合并器"""
     
-    def __init__(self, output_dir: str = "data"):
+    def __init__(self, output_dir: str = None):
+        if output_dir is None:
+            output_dir = Path(__file__).parent.parent.parent / ".local" / "staging" / "video" / "movie"
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
     
     def _extract_country_from_release_dates(self, release_dates: List[Dict]) -> str:
-        """
-        从上映日期中提取最早上映的地区
-        
-        Args:
-            release_dates: 上映日期列表
-            
-        Returns:
-            国家/地区名称
-        """
+        """从上映日期中提取最早上映的地区"""
         if not release_dates:
             return ""
         
-        # 过滤掉电影节等特殊上映
         valid_dates = []
         for rd in release_dates:
             location = rd.get("location", "")
-            # 忽略电影节、首映等特殊上映
             if any(keyword in location for keyword in ["电影节", "首映", "premiere", "festival", "limited"]):
                 continue
             if location:
                 valid_dates.append(rd)
         
         if not valid_dates:
-            # 如果没有有效上映日期，返回第一个
             return release_dates[0].get("location", "")
         
-        # 按日期排序，取最早的
         valid_dates.sort(key=lambda x: x.get("date", ""))
         return valid_dates[0].get("location", "")
     
-    def _calculate_aggregate_rating(self, ratings: Dict) -> Dict:
-        """
-        计算综合评分（取所有评分的平均值，空值不参与计算）
-        
-        Args:
-            ratings: 评分字典
-            
-        Returns:
-            综合评分
-        """
-        # 需要参与计算的评分来源
-        rating_sources = ["douban", "imdb", "tmdb", "rottenTomatoes", "metascore"]
-        
-        values = []
-        for source in rating_sources:
-            if source in ratings:
-                rating_data = ratings[source]
-                if isinstance(rating_data, dict):
-                    value = rating_data.get("value")
-                    if value is not None and isinstance(value, (int, float)):
-                        values.append(float(value))
-        
-        if not values:
-            return {"value": None, "scale": 10}
-        
-        aggregate = sum(values) / len(values)
-        # 四舍五入到一位小数
-        aggregate = round(aggregate, 1)
-        
-        return {"value": aggregate, "scale": 10}
-        
     def merge(self, work_id: str, raw_data: Dict[str, Any]) -> Dict[str, Any]:
         """
-        合并各来源数据
+        合并各来源数据，输出 staging JSON 格式
+        
+        输出字段命名规则：
+        - 保持驼峰命名（与现有 staging JSON 一致）
+        - 写入数据库时再转换为 Prisma schema 字段名
         
         Args:
             work_id: 作品 ID
@@ -94,96 +61,105 @@ class DataMerger:
         
         result = {
             "id": work_id,
-            "module": "video",
-            "submodule": "movie",
-            "schema_type": "live_action_movie",
-            "status": "published",
-            "created_at": datetime.now().strftime("%Y-%m-%d"),
-            "updated_at": datetime.now().strftime("%Y-%m-%d"),
-            "assetDir": f"video/movie/{work_id}"
+            "title": "",
+            "originalTitle": None,
+            "year": None,
+            "country": None,
+            "language": None,
+            "runtime": None,
+            "director": [],
+            "writer": [],
+            "cast": [],
+            "otherCast": [],
+            "producer": [],
+            "genre": [],
+            "tags": [],
+            "aka": [],
+            "releaseDate": [],
+            "doubanId": None,
+            "imdbId": None,
+            "tmdbId": None,
+            "doubanRating": None,
+            "imdbRating": None,
+            "tmdbRating": None,
+            "rottenTomatoes": None,
+            "metascore": None,
+            "rated": None,
+            "awards": None,
+            "synopsis": None,
+            "story": None,
+            "videos": [],
+            "images": None,
+            "reviews": [],
+            "soundtrack": None,
+            "similar": [],
+            "quotes": None
         }
         
-        # 豆瓣数据（优先级最高）
         douban = raw_data.get("douban", {})
         if douban:
             result["title"] = douban.get("title", "")
-            result["year"] = int(douban.get("year", 0)) if douban.get("year") else 0
+            result["year"] = int(douban.get("year", 0)) if douban.get("year") else None
+            result["originalTitle"] = douban.get("original_title")
             
-            # 原名：优先从豆瓣获取
-            if douban.get("original_title"):
-                result["original_title"] = douban.get("original_title")
-            
-            # 国家：从上映日期中提取最早上映的地区
             release_dates = douban.get("release_dates", [])
             country = self._extract_country_from_release_dates(release_dates)
-            # 如果上映日期中没有找到，使用豆瓣的国家字段
             if not country and douban.get("countries"):
                 country = douban.get("countries")
             result["country"] = country
             
             result["language"] = douban.get("languages", "")
-            result["runtime_minutes"] = douban.get("runtime_minutes", 0)
-            result["synopsis_text"] = douban.get("summary", "")
+            result["runtime"] = douban.get("runtime_minutes")
             
-            # 别名
-            result["aliases_json"] = douban.get("aliases", [])
-            
-            # 上映日期
-            result["release_dates_json"] = release_dates
-            
-            # 标识符
-            result["identifiers_json"] = {
-                "douban": douban.get("douban_id", ""),
-                "imdb": douban.get("imdb_id", "")
-            }
-            
-            # 链接
-            result["links_json"] = {
-                "douban": douban.get("url", "")
-            }
-            
-            # 评分
-            douban_rating = douban.get("rating", "")
-            result["ratings_json"] = {
-                "douban": {
-                    "value": float(douban_rating) if douban_rating else None,
-                    "scale": 10
+            if douban.get("summary"):
+                result["synopsis"] = {
+                    "text": douban.get("summary", ""),
+                    "note": ""
                 }
-            }
             
-            # 标签
+            result["aka"] = douban.get("aliases", [])
+            result["releaseDate"] = release_dates
+            result["doubanId"] = douban.get("douban_id")
+            result["imdbId"] = douban.get("imdb_id")
+            result["doubanRating"] = float(douban.get("rating")) if douban.get("rating") else None
+            
             result["tags"] = douban.get("tags", [])
-            result["genres"] = douban.get("genres", [])
+            result["genre"] = douban.get("genres", [])
             
-            # 相关推荐
-            recommendations = douban.get("recommendations", [])
-            result["relations_json"] = {
-                "series": [],
-                "similar": recommendations
-            }
+            result["similar"] = douban.get("recommendations", [])
             
-            # 出品公司
-            result["production_companies_json"] = [
-                {"name": c, "country": ""} for c in douban.get("production_companies", [])
-            ]
-            
-            # 图片总数
             images = douban.get("images", {})
-            result["images_json"] = {
-                "poster": "",  # 稍后设置
+            result["images"] = {
+                "poster": "poster-main.jpg" if douban.get("main_poster_url") else None,
                 "posters": [],
                 "stills": [],
+                "wallpapers": [],
                 "postersTotal": images.get("posters_total", 0),
-                "stillsTotal": images.get("stills_total", 0),
-                "assetDir": f"video/movie/{work_id}"
+                "stillsTotal": images.get("stills_total", 0)
             }
             
-            # 设置主海报（豆瓣主海报优先）
-            if douban.get("main_poster_url"):
-                result["images_json"]["poster"] = "poster-main.jpg"
-                result["images_json"]["posterUrl"] = douban.get("main_poster_url")
+            if douban.get("comments"):
+                for c in douban.get("comments", []):
+                    result["reviews"].append({
+                        "author": c.get("author"),
+                        "source": "豆瓣短评",
+                        "date": c.get("date"),
+                        "content": c.get("content"),
+                        "url": None,
+                        "title": None
+                    })
+            
+            if douban.get("reviews"):
+                for r in douban.get("reviews", []):
+                    result["reviews"].append({
+                        "author": r.get("author"),
+                        "source": "豆瓣长评",
+                        "date": r.get("date"),
+                        "content": r.get("content"),
+                        "url": r.get("url"),
+                        "title": r.get("title")
+                    })
         
-        # TMDB 数据
         tmdb = raw_data.get("tmdb", {})
         if tmdb:
             detail = tmdb.get("detail", {})
@@ -191,387 +167,257 @@ class DataMerger:
             images = tmdb.get("images", {})
             videos = tmdb.get("videos", [])
             
-            # 原名（TMDB 优先）
             if detail.get("original_title"):
-                result["original_title"] = detail.get("original_title", "")
+                result["originalTitle"] = detail.get("original_title")
             
-            # 补充基本信息
             if not result.get("year") and detail.get("year"):
-                result["year"] = int(detail.get("year", 0))
-            if not result.get("runtime_minutes") and detail.get("runtime_minutes"):
-                result["runtime_minutes"] = detail.get("runtime_minutes", 0)
+                result["year"] = int(detail.get("year"))
+            if not result.get("runtime") and detail.get("runtime_minutes"):
+                result["runtime"] = detail.get("runtime_minutes")
             
-            # 标识符
-            if detail.get("tmdb_id"):
-                result["identifiers_json"]["tmdb"] = str(detail.get("tmdb_id", ""))
+            result["tmdbId"] = str(detail.get("tmdb_id")) if detail.get("tmdb_id") else None
             
-            # 链接
-            if detail.get("tmdb_id"):
-                result["links_json"]["tmdb"] = f"https://www.themoviedb.org/movie/{detail.get('tmdb_id', '')}"
-            
-            # 评分
             if detail.get("rating"):
-                result["ratings_json"]["tmdb"] = {
-                    "value": detail.get("rating", 0),
-                    "scale": 10
-                }
+                result["tmdbRating"] = detail.get("rating")
             
-            # 演职人员
-            result["credits"] = self._process_credits(credits)
+            if credits:
+                result["director"] = self._extract_directors(credits)
+                result["writer"] = self._extract_writers(credits)
+                result["cast"] = self._extract_cast(credits)
+                result["otherCast"] = self._extract_other_cast(credits)
+                result["producer"] = self._extract_producers(credits)
             
-            # 图片
-            result["images"] = self._process_images(images)
+            if images:
+                result["images"] = self._merge_images(result.get("images", {}), images)
             
-            # 视频
-            result["videos_json"] = videos
+            if videos:
+                result["videos"] = videos
             
-            # 评论
-            reviews = tmdb.get("reviews", [])
-            if reviews:
-                if not result.get("reviews_json"):
-                    result["reviews_json"] = []
-                result["reviews_json"].extend(reviews)
-            
-            # 出品公司
-            if detail.get("production_companies"):
-                result["production_companies_json"] = [
-                    {"name": c, "country": ""} for c in detail.get("production_companies", [])
-                ]
+            if tmdb.get("reviews"):
+                for r in tmdb.get("reviews", []):
+                    result["reviews"].append({
+                        "author": r.get("author"),
+                        "source": "TMDB",
+                        "date": r.get("date"),
+                        "content": r.get("content"),
+                        "url": r.get("url"),
+                        "title": None
+                    })
         
-        # OMDb 数据
         omdb = raw_data.get("omdb", {})
         if omdb:
             ratings = omdb.get("ratings", {})
             
-            # IMDb 评分
             if ratings.get("imdb"):
-                result["ratings_json"]["imdb"] = ratings.get("imdb")
+                imdb_data = ratings.get("imdb")
+                if isinstance(imdb_data, dict):
+                    result["imdbRating"] = imdb_data.get("value")
+                else:
+                    result["imdbRating"] = imdb_data
             
-            # 烂番茄评分
             if ratings.get("rottenTomatoes"):
-                result["ratings_json"]["rottenTomatoes"] = ratings.get("rottenTomatoes")
+                rt_data = ratings.get("rottenTomatoes")
+                if isinstance(rt_data, dict):
+                    result["rottenTomatoes"] = rt_data.get("value")
+                else:
+                    result["rottenTomatoes"] = rt_data
             
-            # Metacritic 评分
             if ratings.get("metascore"):
-                result["ratings_json"]["metascore"] = ratings.get("metascore")
+                ms_data = ratings.get("metascore")
+                if isinstance(ms_data, dict):
+                    result["metascore"] = ms_data.get("value")
+                else:
+                    result["metascore"] = ms_data
             
-            # 分级
             if omdb.get("rated"):
-                result["ratings_json"]["certification"] = {
-                    "value": omdb.get("rated", "")
-                }
+                result["rated"] = omdb.get("rated")
             
-            # 获奖
             if omdb.get("awards"):
-                result["ratings_json"]["awards"] = {
-                    "value": omdb.get("awards", "")
-                }
+                result["awards"] = omdb.get("awards")
         
-        # 百度百科
-        baike = raw_data.get("baike", {})
-        if baike:
-            if baike.get("url"):
-                result["links_json"]["baike"] = baike.get("url", "")
-            # 百度百科 ID：只记录搜索关键词
-            if baike.get("title"):
-                result["identifiers_json"]["baike"] = baike.get("title", "")
-        
-        # Wikipedia
         wikipedia = raw_data.get("wikipedia", {})
         if wikipedia:
-            if wikipedia.get("url"):
-                result["links_json"]["wikipedia_zh"] = wikipedia.get("url", "")
-            # Wikipedia ID：只记录搜索关键词
-            if wikipedia.get("title"):
-                result["identifiers_json"]["wikipedia_zh"] = wikipedia.get("title", "")
-            
-            # 剧情详解（从 Wikipedia 获取，优先使用 plot 字段）
             if wikipedia.get("plot"):
-                result["story_text"] = wikipedia.get("plot", "")
+                result["story"] = {
+                    "text": wikipedia.get("plot", ""),
+                    "note": ""
+                }
             elif wikipedia.get("summary"):
-                result["story_text"] = wikipedia.get("summary", "")
+                result["story"] = {
+                    "text": wikipedia.get("summary", ""),
+                    "note": ""
+                }
             
-            # 名言名句
             if wikipedia.get("quotes"):
-                result["quotes_json"] = wikipedia.get("quotes", [])
+                result["quotes"] = wikipedia.get("quotes", [])
             
-            # 获奖
             if wikipedia.get("awards"):
-                if result["ratings_json"].get("awards"):
-                    result["ratings_json"]["awards"]["value"] += f"\n{'; '.join(wikipedia.get('awards', []))}"
+                if result.get("awards"):
+                    result["awards"] += f"\n{'; '.join(wikipedia.get('awards', []))}"
                 else:
-                    result["ratings_json"]["awards"] = {
-                        "value": "; ".join(wikipedia.get("awards", []))
-                    }
+                    result["awards"] = "; ".join(wikipedia.get("awards", []))
         
-        # 烂番茄
         rotten_tomatoes = raw_data.get("rotten_tomatoes", {})
         if rotten_tomatoes:
             ratings = rotten_tomatoes.get("ratings", {})
-            reviews = rotten_tomatoes.get("reviews", [])
-            
-            if ratings.get("url"):
-                result["links_json"]["rottenTomatoes"] = ratings.get("url", "")
-            
             if ratings.get("tomatometer"):
-                result["ratings_json"]["rottenTomatoes"] = ratings.get("tomatometer")
+                rt_data = ratings.get("tomatometer")
+                if isinstance(rt_data, dict):
+                    result["rottenTomatoes"] = rt_data.get("value")
+                else:
+                    result["rottenTomatoes"] = rt_data
             
-            # 评论
-            if not result.get("reviews_json"):
-                result["reviews_json"] = []
-            result["reviews_json"].extend(reviews)
+            if rotten_tomatoes.get("reviews"):
+                for r in rotten_tomatoes.get("reviews", []):
+                    result["reviews"].append({
+                        "author": r.get("author"),
+                        "source": f"烂番茄 · {r.get('source', '')}",
+                        "date": r.get("date"),
+                        "content": r.get("content"),
+                        "url": r.get("url"),
+                        "title": None
+                    })
         
-        # Metacritic
         metacritic = raw_data.get("metacritic", {})
         if metacritic:
             rating = metacritic.get("rating", {})
-            reviews = metacritic.get("reviews", [])
-            
-            if rating.get("url"):
-                result["links_json"]["metacritic"] = rating.get("url", "")
-            
             if rating.get("metascore"):
-                result["ratings_json"]["metascore"] = rating.get("metascore")
+                ms_data = rating.get("metascore")
+                if isinstance(ms_data, dict):
+                    result["metascore"] = ms_data.get("value")
+                else:
+                    result["metascore"] = ms_data
             
-            # 评论
-            if not result.get("reviews_json"):
-                result["reviews_json"] = []
-            result["reviews_json"].extend(reviews)
-        
-        # 豆瓣评论
-        douban = raw_data.get("douban", {})
-        if douban:
-            if not result.get("reviews_json"):
-                result["reviews_json"] = []
-            
-            # 短评
-            comments = douban.get("comments", [])
-            result["reviews_json"].extend(comments)
-            
-            # 长评
-            reviews = douban.get("reviews", [])
-            result["reviews_json"].extend(reviews)
-        
-        # 计算综合评分（aggregate）
-        result["ratings_json"]["aggregate"] = self._calculate_aggregate_rating(result["ratings_json"])
+            if metacritic.get("reviews"):
+                for r in metacritic.get("reviews", []):
+                    result["reviews"].append({
+                        "author": r.get("author"),
+                        "source": f"Metacritic · {r.get('source', '')}",
+                        "date": r.get("date"),
+                        "content": r.get("content"),
+                        "url": r.get("url"),
+                        "title": None
+                    })
         
         Logger.success(f"数据合并完成: {work_id}")
         return result
-        
-    def convert_credits_to_db_format(self, credits: Dict, work_id: str) -> Dict:
-        """
-        将演职人员转换为数据库格式
-        
-        Args:
-            credits: 演职人员数据
-            work_id: 作品 ID
-            
-        Returns:
-            数据库格式的演职人员数据
-        """
-        result = {
-            "people": [],
-            "work_credits": []
-        }
-        
-        if not credits:
-            return result
-        
-        person_id_counter = 1
-        
-        # TMDB 部门映射
-        department_map = {
-            "Directing": ("direction", "director", "导演"),
-            "Writing": ("writing", "writer", "编剧"),
-            "Production": ("production", "producer", "制片人"),
-            "Camera": ("camera", "cinematographer", "摄影"),
-            "Editing": ("editing", "editor", "剪辑"),
-            "Art": ("art", "production_designer", "美术"),
-            "Costume & Make-Up": ("costume", "costume_designer", "服装设计"),
-            "Visual Effects": ("vfx", "vfx_supervisor", "视觉特效"),
-            "Sound": ("sound", "sound_designer", "音效"),
-            "Actors": ("cast", "actor", "演员")
-        }
-        
-        # 处理演员
-        for idx, cast in enumerate(credits.get("cast", [])[:50]):  # 限制前 50 个演员
-            tmdb_id = cast.get("id", 0)
-            name = cast.get("name", "")
-            character = cast.get("character", "")
-            profile_path = cast.get("profile_path", "")
-            
-            person_code = f"p{person_id_counter:06d}"
-            person_id_counter += 1
-            
-            # 添加人物
-            result["people"].append({
-                "id": person_id_counter - 1,
-                "person_code": person_code,
-                "name": name,
-                "name_en": name,
-                "avatar_path": f"people/{person_code}-avatar.jpg" if profile_path else None,
-                "profile_link": None,
-                "notes": None,
-                "extra_json": {
-                    "tmdb_id": tmdb_id,
-                    "avatarSource": "tmdb"
-                }
-            })
-            
-            # 添加演职关系
-            result["work_credits"].append({
-                "work_id": work_id,
-                "person_id": person_id_counter - 1,
-                "department": "cast",
-                "credit_type": "actor",
-                "display_label": "演员",
-                "character_name": character,
-                "sort_order": idx,
-                "is_primary": 1 if idx < 5 else 0,  # 前 5 个为主演
-                "link_override": None,
-                "extra_json": {
-                    "avatarSource": "tmdb"
-                }
-            })
-        
-        # 处理演职人员
+    
+    def _extract_directors(self, credits: Dict) -> List[Dict]:
+        """提取导演"""
+        directors = []
         for crew in credits.get("crew", []):
-            department = crew.get("department", "")
-            job = crew.get("job", "")
-            name = crew.get("name", "")
-            tmdb_id = crew.get("id", 0)
-            profile_path = crew.get("profile_path", "")
-            
-            # 映射部门
-            if department in department_map:
-                dept, credit_type, label = department_map[department]
-            else:
-                dept = "crew"
-                credit_type = job.lower().replace(" ", "_")
-                label = job
-            
-            person_code = f"p{person_id_counter:06d}"
-            person_id_counter += 1
-            
-            # 添加人物
-            result["people"].append({
-                "id": person_id_counter - 1,
-                "person_code": person_code,
-                "name": name,
-                "name_en": name,
-                "avatar_path": f"people/{person_code}-avatar.jpg" if profile_path else None,
-                "profile_link": None,
-                "notes": None,
-                "extra_json": {
-                    "tmdb_id": tmdb_id,
-                    "avatarSource": "tmdb"
-                }
-            })
-            
-            # 添加演职关系
-            result["work_credits"].append({
-                "work_id": work_id,
-                "person_id": person_id_counter - 1,
-                "department": dept,
-                "credit_type": credit_type,
-                "display_label": label,
-                "character_name": None,
-                "sort_order": 0,
-                "is_primary": 1 if job in ["Director", "Writer"] else 0,
-                "link_override": None,
-                "extra_json": {
-                    "avatarSource": "tmdb"
-                }
-            })
-        
-        return result
-        
-    def _process_credits(self, credits: Dict) -> Dict:
-        """处理演职人员"""
-        result = {
-            "cast": [],
-            "crew": []
-        }
-        
-        if not credits:
-            return result
-        
-        # 演员
-        for cast in credits.get("cast", []):
-            result["cast"].append({
-                "id": cast.get("id", 0),
-                "name": cast.get("name", ""),
-                "character": cast.get("character", ""),
-                "order": cast.get("order", 0),
-                "profile_path": cast.get("profile_path", "")
-            })
-        
-        # 演职人员
+            if crew.get("job") == "Director":
+                directors.append({
+                    "name": crew.get("name", ""),
+                    "nameEn": crew.get("name", ""),
+                    "avatar": None,
+                    "avatarSource": "tmdb" if crew.get("profile_path") else None,
+                    "works": []
+                })
+        return directors
+    
+    def _extract_writers(self, credits: Dict) -> List[Dict]:
+        """提取编剧"""
+        writers = []
         for crew in credits.get("crew", []):
-            result["crew"].append({
-                "id": crew.get("id", 0),
-                "name": crew.get("name", ""),
-                "job": crew.get("job", ""),
-                "department": crew.get("department", ""),
-                "profile_path": crew.get("profile_path", "")
+            if crew.get("department") == "Writing":
+                role = crew.get("job", "编剧")
+                if role == "Screenplay":
+                    role = "编剧"
+                elif role == "Story":
+                    role = "故事"
+                elif role == "Novel":
+                    role = "原著"
+                
+                writers.append({
+                    "name": crew.get("name", ""),
+                    "nameEn": crew.get("name", ""),
+                    "role": role,
+                    "baike": None
+                })
+        return writers
+    
+    def _extract_cast(self, credits: Dict) -> List[Dict]:
+        """提取主演（前 10 位）"""
+        cast = []
+        for c in credits.get("cast", [])[:10]:
+            cast.append({
+                "name": c.get("name", ""),
+                "nameEn": c.get("name", ""),
+                "role": c.get("character", ""),
+                "avatar": None,
+                "avatarSource": "tmdb" if c.get("profile_path") else None
             })
-        
-        return result
-        
-    def _process_images(self, images: Dict) -> Dict:
-        """处理图片"""
-        result = {
+        return cast
+    
+    def _extract_other_cast(self, credits: Dict) -> List[Dict]:
+        """提取其他演员（第 11 位起）"""
+        other_cast = []
+        for c in credits.get("cast", [])[10:30]:
+            other_cast.append({
+                "name": c.get("name", ""),
+                "nameEn": c.get("name", ""),
+                "role": c.get("character", "")
+            })
+        return other_cast
+    
+    def _extract_producers(self, credits: Dict) -> List[Dict]:
+        """提取制片人"""
+        producers = []
+        for crew in credits.get("crew", []):
+            if crew.get("department") == "Production" and crew.get("job") in ["Producer", "Executive Producer"]:
+                role = "制片人" if crew.get("job") == "Producer" else "执行制片人"
+                producers.append({
+                    "name": crew.get("name", ""),
+                    "nameEn": crew.get("name", ""),
+                    "role": role,
+                    "baike": None
+                })
+        return producers
+    
+    def _merge_images(self, existing: Dict, tmdb_images: Dict) -> Dict:
+        """合并图片数据"""
+        result = existing or {
+            "poster": None,
             "posters": [],
-            "backdrops": []
+            "stills": [],
+            "wallpapers": [],
+            "postersTotal": 0,
+            "stillsTotal": 0
         }
         
-        if not images:
-            return result
-        
-        for poster in images.get("posters", []):
+        for poster in tmdb_images.get("posters", [])[:10]:
             result["posters"].append({
                 "url": poster.get("url", ""),
                 "width": poster.get("width", 0),
-                "height": poster.get("height", 0),
-                "language": poster.get("language", "")
+                "height": poster.get("height", 0)
             })
         
-        for backdrop in images.get("backdrops", []):
-            result["backdrops"].append({
+        for backdrop in tmdb_images.get("backdrops", [])[:10]:
+            result["stills"].append({
                 "url": backdrop.get("url", ""),
                 "width": backdrop.get("width", 0),
-                "height": backdrop.get("height", 0),
-                "language": backdrop.get("language", "")
+                "height": backdrop.get("height", 0)
             })
         
         return result
-        
+    
     def detect_conflicts(self, raw_data: Dict[str, Any]) -> List[Dict]:
-        """
-        检测字段冲突
-        
-        Args:
-            raw_data: 原始数据
-            
-        Returns:
-            冲突列表
-        """
+        """检测字段冲突"""
         conflicts = []
         
-        # 检测片长冲突
         douban_runtime = raw_data.get("douban", {}).get("runtime_minutes", 0)
         tmdb_runtime = raw_data.get("tmdb", {}).get("detail", {}).get("runtime_minutes", 0)
         
         if douban_runtime and tmdb_runtime and abs(douban_runtime - tmdb_runtime) > 5:
             conflicts.append({
-                "field": "runtime_minutes",
+                "field": "runtime",
                 "sources": {
                     "douban": douban_runtime,
                     "tmdb": tmdb_runtime
                 }
             })
         
-        # 检测年份冲突
         douban_year = raw_data.get("douban", {}).get("year", "")
         tmdb_year = raw_data.get("tmdb", {}).get("detail", {}).get("year", "")
         
@@ -585,10 +431,10 @@ class DataMerger:
             })
         
         return conflicts
-        
+    
     def save_raw_data(self, work_id: str, source: str, data: Dict):
         """保存原始数据"""
-        raw_dir = self.output_dir / work_id / "raw"
+        raw_dir = self.output_dir.parent.parent / "raw" / work_id
         raw_dir.mkdir(parents=True, exist_ok=True)
         
         filepath = raw_dir / f"{source}.json"
@@ -597,14 +443,14 @@ class DataMerger:
             encoding="utf-8"
         )
         Logger.info(f"已保存原始数据: {filepath}")
-        
+    
     def save_merged_data(self, work_id: str, data: Dict):
-        """保存合并后的数据"""
-        filepath = self.output_dir / work_id / "data.json"
+        """保存合并后的数据到 staging 目录"""
+        filepath = self.output_dir / f"{work_id}.json"
         filepath.parent.mkdir(parents=True, exist_ok=True)
         
         filepath.write_text(
             json.dumps(data, ensure_ascii=False, indent=2),
             encoding="utf-8"
         )
-        Logger.success(f"已保存合并数据: {filepath}")
+        Logger.success(f"已保存 staging 数据: {filepath}")
