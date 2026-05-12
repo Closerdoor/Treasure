@@ -82,6 +82,34 @@ book_person
 book_category
 ```
 
+当前数据库采用“关系型拆表 + 展示型复合信息 JSON 化”的策略。
+
+关系型拆表：
+
+- `person`
+- `category`
+- `work_person`
+- `work_category`
+- `book_person`
+- `book_category`
+
+JSON 化字段主要承载：
+
+- 多平台评分
+- 外部来源
+- 图片集合
+- 视频集合
+- 评论
+- 关联作品
+- 名言 / 摘录
+- 原声带
+
+补充说明：
+
+- `person` 是跨模块复用的公共人物表。
+- `category` 是公共分类 / 标签表，可带模块和子模块作用域。
+- `books`、`book_person`、`book_category` 已用于书籍草稿阶段的数据组织。
+
 当前模块状态：
 
 | 模块 | 状态 | 说明 |
@@ -134,6 +162,23 @@ site/public/assets/
 - `.local/assets/` 是本地私有资源源目录。
 - `site/public/assets/` 是 Astro 构建和 GitHub Pages 可发布的资源目录。
 
+`.local/` 的当前职责不止数据库和图片资源，也承载本地工坊过程产物，例如：
+
+```text
+.local/backup/
+.local/staging/
+.local/batches/
+.local/source-snapshots/
+```
+
+这些目录服务本地采集、导入、校验和备份，不进入线上发布链路。
+
+电影录入阶段的过程约束：
+
+- 正式进入导入流程前，至少应同时保留“候选作品数据”与“字段来源记录”，便于后续复核。
+- 若同一字段存在多源冲突，不应静默覆盖；应保留足够的来源或冲突信息，供人工判断。
+- 每次批量导入都应形成摘要性记录，至少能回看本批处理对象、导入数量、关键缺口、资源覆盖与后续回补提示。
+
 主链路：
 
 ```text
@@ -185,6 +230,14 @@ node tools/db/export-generated.mjs
 cd site
 npm.cmd run sync
 ```
+
+`npm.cmd run sync` 当前不只是复制资源，而是：
+
+1. 先执行 `tools/db/export-generated.mjs`
+2. 再同步 `.local/assets/video/movie`
+3. 再同步 `.local/assets/people`
+
+因此它适合在“准备让前台读取最新数据与资源”时使用。
 
 ## generated 最小契约
 
@@ -249,6 +302,13 @@ images.wallpapers  壁纸文件名数组
 
 这些字段当前应优先使用本地文件名字符串，例如 `poster-main.webp`。如果出现 TMDB 外链对象，必须明确是导出阶段过滤、转换，还是前台读取层支持；不要让两种形态长期混用。
 
+人物头像资源约定：
+
+- 数据库中的 `person.avatar_path` 当前形如 `people/tmdb-{id}-avatar.jpg`。
+- 前台 URL 拼接为 `/assets/${avatarPath}`。
+- 实体文件最终必须位于 `site/public/assets/people/`，否则前台需要显式回退策略。
+- 若头像缺失，前台应能回退到 `/assets/avatar-placeholder.svg`。
+
 ## 电影字段映射
 
 当前电影导出逻辑位于 `tools/db/export-generated.mjs`。它不是旧 `content/.../data.json` 链路，而是直接从 SQLite 表组装 generated JSON。
@@ -306,6 +366,35 @@ images.wallpapers  壁纸文件名数组
 - 页面聚合数据服务首页、列表页、搜索页，通常是轻量索引或摘要。
 - 站点级数据包括导航、模块顺序、主题、搜索规则等，不应塞进单个作品记录。
 
+页面与数据源关系：
+
+| 页面 | 当前数据源 |
+|---|---|
+| `/` | 聚合后的列表数据 / 模块入口 |
+| `/video` | 电影列表索引与聚合读取 |
+| `/video/movie/{id}` | 单条电影详情读取 |
+| `/about` | 静态 Astro 页面 |
+| `/search` | 预留入口，当前不代表完整搜索已完成 |
+
+关键字段语义：
+
+- `title` 是中文展示标题。
+- `originalTitle` 是原名或源语言标题。
+- `synopsis` 用于首页、列表和详情顶部的短简介。
+- `story` 用于详情页的长内容介绍。
+- `genre` 是相对标准化类型。
+- `tags` 是标签集合，可承载外部标签和站内维护标签。
+- `scores` 在数据库中保存多平台评分，导出后转为前台常用评分字段。
+- `director`、`writer`、`cast`、`otherCast` 来源于人物关系导出。
+
+关联作品规则：
+
+- `series` / `similar` 若匹配到站内作品 ID，则可生成可跳转项。
+- 未匹配到站内 ID 的关联项，可以保留为不可点击占位或摘要信息。
+- `series` / `similar` 的原始关联数据，优先保留 `source` 与 `sourceId`，例如 `douban + subjectId`。
+- 导出层应优先基于外部来源 ID 匹配站内作品，而不是依赖标题文本匹配。
+- 若外部 ID 尚未匹配到站内作品，则保持摘要态，不伪造跳转。
+
 ## 4. Astro 站点：公开静态站
 
 目录：
@@ -361,6 +450,8 @@ site/public/assets/
 /game
 ```
 
+`content/` 当前仍存在，但应视为历史内容目录、人工审阅材料或迁移残留，不是正式前台数据源。
+
 构建命令：
 
 ```bash
@@ -374,6 +465,12 @@ Astro 配置：
 site/astro.config.mjs
 site: https://closerdoor.github.io/Treasure
 output: static
+```
+
+构建产物：
+
+```text
+site/dist/
 ```
 
 线上不应依赖：
@@ -426,6 +523,18 @@ Giscus 评论区保留在详情页，不出现在首页和列表页。
 - 必要字段：海报、标题、年份、类型、综合评分。
 - 高优先级字段：原名、地区、导演、摘要。
 - 点击卡片进入详情页，悬停态不应造成布局不稳定。
+- 影视列表页当前正式支持“卡片 / 列表”双视图切换。
+- 默认优先进入卡片视图；列表视图承担更高信息密度浏览。
+- 视图切换只改变呈现方式，不改变当前筛选结果与浏览上下文。
+
+评分展示规则：
+
+- 前台主评分使用多平台评分聚合后的综合评分。
+- 当前聚合来源以豆瓣、IMDb、TMDB、烂番茄为主。
+- 缺失的平台评分直接跳过，不为缺失来源制造占位值。
+- 烂番茄在参与综合评分时，需要先从百分制换算到 10 分制。
+- 综合评分最终以 1 位小数展示。
+- 馆长主观评分不作为当前主评分体系的一部分。
 
 ## 标准工作流
 
@@ -439,6 +548,20 @@ Giscus 评论区保留在详情页，不出现在首页和列表页。
 6. 运行 `cd site && npm.cmd run build` 验证 Astro 静态构建。
 7. 更新 `docs/STATUS.md` 中的数据量、校验结果和已知风险。
 
+书籍模块接入建议顺序：
+
+1. 确认 `books`、`book_person`、`book_category` 的结构与导出需求。
+2. 扩展导出脚本，生成：
+
+```text
+generated/entries/book/{id}.json
+generated/indexes/book.json
+```
+
+3. 将书籍条目接入 `generated/indexes/all.json`。
+4. 增加 `site/src/lib/book.ts`。
+5. 增加 `/book` 与 `/book/{id}` 页面。
+
 ## 发布前校验
 
 发布前至少确认：
@@ -451,6 +574,31 @@ Giscus 评论区保留在详情页，不出现在首页和列表页。
 - 主海报引用存在，或前台有明确占位图。
 - 人物头像引用存在，或前台有明确占位图。
 - `cd site && npm.cmd run build` 成功。
+
+未来的完整性校验脚本应尽量输出：
+
+- 数据记录总量。
+- generated 完成量。
+- 资源引用总量。
+- 资源存在量。
+- 覆盖率。
+- 缺失样本。
+- 是否阻断发布。
+
+契约变更联动检查：
+
+- 如果修改 generated 结构或字段语义，至少同步检查：
+  - `tools/db/export-generated.mjs`
+  - `site/src/lib/archive.ts`
+  - `site/src/lib/site.ts`
+  - `site/src/pages/video/index.astro`
+  - `site/src/pages/video/movie/[id].astro`
+  - `docs/STATUS.md`
+- 如果修改资源路径策略，至少同步检查：
+  - `.local/assets/`
+  - `site/public/assets/`
+  - `site/scripts/sync-assets.mjs`
+  - 前台图片 URL 拼接逻辑
 
 ## 架构原则
 
