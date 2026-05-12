@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 """
 基本信息爬取模块
+
+爬取所有数据源 + 下载封面
 """
 import asyncio
 import json
@@ -14,7 +16,7 @@ from sources import DoubanBookCrawler, OpenLibraryAPI, BaikeCrawler, WikipediaCr
 from sources.dangdang import DangdangCrawler
 from sources.qidian import QidianCrawler
 from merger import DataMerger
-from database import BookDB
+from downloaders import CoverDownloader
 
 
 class BasicCrawler:
@@ -26,7 +28,7 @@ class BasicCrawler:
         self.dangdang = None
         self.qidian = None
         self.merger = DataMerger()
-        self.db = BookDB()
+        self.cover_downloader = CoverDownloader()
         self.progress = ProgressManager()
         
     async def init(self):
@@ -36,11 +38,10 @@ class BasicCrawler:
         await self.douban.ensure_login()
         self.openlibrary = OpenLibraryAPI()
         
-        # 初始化当当网爬虫（使用豆瓣的浏览器）
         self.dangdang = DangdangCrawler(self.douban.page)
-        
-        # 初始化起点中文网爬虫（使用豆瓣的浏览器）
         self.qidian = QidianCrawler(self.douban.page)
+        
+        await self.cover_downloader.init()
         
         self.progress.load()
         
@@ -48,7 +49,7 @@ class BasicCrawler:
         """关闭"""
         if self.douban:
             await self.douban.close()
-        self.db.close()
+        await self.cover_downloader.close()
         
     async def run_test(self):
         """测试模式"""
@@ -244,13 +245,19 @@ class BasicCrawler:
         merged_data = self.merger.merge(book_id, raw_data)
         self.merger.save_merged_data(book_id, merged_data)
         
-        # 6. 导入数据库
-        result = self.db.import_book(merged_data)
-        if result.get("success"):
-            Logger.success(f"导入成功: {expected_title}")
-            self.progress.mark_basic_completed(douban_id)
-            self.progress.mark_data_merged(douban_id)
-            self.progress.update_status(douban_id, "completed")
-        else:
-            Logger.error(f"导入失败: {result.get('error')}")
-            self.progress.update_status(douban_id, "error")
+        # 6. 下载封面
+        cover_url = merged_data.get("cover_url")
+        if cover_url:
+            try:
+                cover_path = await self.cover_downloader.download_cover(book_id, cover_url, source="douban")
+                if cover_path:
+                    Logger.success(f"封面下载成功: {cover_path}")
+                    merged_data["cover_local"] = str(cover_path)
+            except Exception as e:
+                Logger.error(f"封面下载失败: {e}")
+        
+        # 7. 标记完成
+        Logger.success(f"爬取完成: {expected_title}")
+        self.progress.mark_basic_completed(douban_id)
+        self.progress.mark_data_merged(douban_id)
+        self.progress.update_status(douban_id, "completed")

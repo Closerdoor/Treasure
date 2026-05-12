@@ -14,11 +14,19 @@ from utils import Logger, generate_book_id
 class DataMerger:
     """数据合并器"""
     
-    def __init__(self, output_dir: str = None):
-        if output_dir is None:
-            output_dir = Path(__file__).parent / "data"
-        self.output_dir = Path(output_dir)
-        self.output_dir.mkdir(parents=True, exist_ok=True)
+    def __init__(self, data_dir: str = None):
+        if data_dir is None:
+            data_dir = Path(__file__).parent / "data"
+        self.data_dir = Path(data_dir)
+        self.data_dir.mkdir(parents=True, exist_ok=True)
+        
+        self.raw_dir = self.data_dir / "raw"
+        self.staging_dir = self.data_dir / "staging"
+        self.assets_dir = self.data_dir / "assets"
+        
+        self.raw_dir.mkdir(parents=True, exist_ok=True)
+        self.staging_dir.mkdir(parents=True, exist_ok=True)
+        self.assets_dir.mkdir(parents=True, exist_ok=True)
     
     def merge(self, book_id: str, raw_data: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -87,7 +95,7 @@ class DataMerger:
                 result["images"] = {
                     "cover": "cover-main.jpg",
                     "covers": [],
-                    "assetDir": f"book/{book_id}"
+                    "assetDir": book_id
                 }
             
             # 相关推荐
@@ -168,7 +176,7 @@ class DataMerger:
                     result["images"] = {
                         "cover": "cover-main.jpg",
                         "covers": [],
-                        "assetDir": f"book/{book_id}"
+                        "assetDir": book_id
                     }
                 result["images"]["covers"] = [f"cover-{i+2:03d}.jpg" for i in range(len(openlibrary.get("cover_urls", [])[:3]))]
             
@@ -548,11 +556,11 @@ class DataMerger:
         return country_map.get(location, location)
     
     def save_raw_data(self, book_id: str, source: str, data: Dict):
-        """保存原始数据"""
-        raw_dir = self.output_dir / book_id / "raw"
-        raw_dir.mkdir(parents=True, exist_ok=True)
+        """保存原始数据到 data/raw/{book_id}/"""
+        book_raw_dir = self.raw_dir / book_id
+        book_raw_dir.mkdir(parents=True, exist_ok=True)
         
-        filepath = raw_dir / f"{source}.json"
+        filepath = book_raw_dir / f"{source}.json"
         filepath.write_text(
             json.dumps(data, ensure_ascii=False, indent=2),
             encoding="utf-8"
@@ -560,8 +568,8 @@ class DataMerger:
         Logger.info(f"已保存原始数据: {filepath}")
     
     def save_merged_data(self, book_id: str, data: Dict):
-        """保存合并后的数据"""
-        filepath = self.output_dir / book_id / "data.json"
+        """保存合并数据到 data/staging/{book_id}.json"""
+        filepath = self.staging_dir / f"{book_id}.json"
         filepath.parent.mkdir(parents=True, exist_ok=True)
         
         filepath.write_text(

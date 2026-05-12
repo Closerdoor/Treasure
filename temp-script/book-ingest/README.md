@@ -12,9 +12,9 @@
 |------|:----:|:------:|
 | 基本信息爬取 | ✅ | 100% |
 | 数据合并 | ✅ | 100% |
+| 封面下载 | ✅ | 已集成 |
 | 数据库导入 | ✅ | 100% |
 | 书评爬取 | ⏸️ | 0% |
-| 封面下载 | ⏸️ | 0% |
 
 **已爬取书籍**: 3 本（百年孤独、围城、凡人修仙传）
 
@@ -32,6 +32,7 @@
 │  temp-script/book-ingest/        ← 当前位置                     │
 │  ├── 多源数据爬取（豆瓣/OpenLibrary/百度百科/维基百科/当当网）    │
 │  ├── 数据合并与去重                                              │
+│  ├── 封面下载                                                    │
 │  └── 导入 SQLite 数据库                                          │
 └─────────────────────────────────────────────────────────────────┘
                               │
@@ -64,16 +65,21 @@ book-ingest/
 ├── RULES.md               # 开发规范
 ├── DATA.md                # 数据字段设计
 ├── docs/
-│   ├── research-notes.md  # 数据源调研笔记
-│   └── archive/           # 归档文档
+│   └── research-notes.md  # 数据源调研笔记
 ├── main.py                # 主入口
 ├── config.py              # 配置文件
-├── crawl_basic.py         # 基本信息爬取
+├── crawl_basic.py         # 基本信息爬取（含封面下载）
 ├── crawl_reviews.py       # 书评爬取
 ├── merger.py              # 数据合并
 ├── database.py            # 数据库操作
 ├── progress.py            # 进度管理
-├── downloader.py          # 封面下载
+├── downloaders/           # 图片下载模块
+│   ├── base.py            # 基础下载器
+│   ├── cover_downloader.py # 封面下载器
+│   └── avatar_downloader.py # 头像下载器
+├── db_tools/              # 数据库录入工具
+│   ├── import_to_db.py    # 单本录入
+│   └── import_batch.py    # 批量录入
 ├── sources/               # 数据源爬虫
 │   ├── douban_book.py     # 豆瓣读书
 │   ├── openlibrary.py     # OpenLibrary API
@@ -87,12 +93,21 @@ book-ingest/
 │   ├── logger.py
 │   ├── id_generator.py
 │   └── hash.py
-└── data/                  # 爬取数据
+├── tools/                 # 辅助工具
+│   └── login_helper.py    # 登录辅助
+└── data/                  # 数据目录
     ├── progress.json      # 进度记录
     ├── cookies/           # Cookie 存储
-    └── 0200000001/        # 书籍数据目录
-        ├── data.json      # 合并后数据
-        └── raw/           # 原始数据
+    ├── raw/               # 原始数据
+    │   └── {book_id}/     # 按书籍 ID 分目录
+    │       ├── douban.json
+    │       ├── openlibrary.json
+    │       └── ...
+    ├── staging/           # 合并数据
+    │   └── {book_id}.json
+    └── assets/            # 封面图片
+        └── {book_id}/
+            └── cover-main.jpg
 ```
 
 ---
@@ -115,14 +130,30 @@ python main.py --test --basic
 python main.py --test --reviews
 ```
 
+### 数据库录入 `db_tools/`
+
+```bash
+# 批量录入 staging 目录下所有书籍
+python db_tools/import_batch.py --all
+
+# 预览模式（不实际录入）
+python db_tools/import_batch.py --all --dry-run
+
+# 录入指定书籍
+python db_tools/import_batch.py --ids 0200000001,0200000002
+
+# 单本录入
+python db_tools/import_to_db.py --book-id 0200000001
+```
+
 ### 核心模块
 
 | 模块 | 功能 | 输入 | 输出 |
 |------|------|------|------|
-| `crawl_basic.py` | 爬取基本信息 | 豆瓣 ID | 各来源原始数据 |
-| `merger.py` | 合并多源数据 | 原始数据 | `data.json` |
-| `database.py` | 导入数据库 | `data.json` | SQLite 记录 |
-| `progress.py` | 进度管理 | - | `progress.json` |
+| `crawl_basic.py` | 爬取基本信息 + 封面下载 | 豆瓣 ID | `data/raw/` + `data/assets/` |
+| `merger.py` | 合并多源数据 | `data/raw/` | `data/staging/{book_id}.json` |
+| `db_tools/import_batch.py` | 批量导入数据库 | `data/staging/` | SQLite 记录 |
+| `progress.py` | 进度管理 | - | `data/progress.json` |
 
 ### 数据源爬虫
 
@@ -137,14 +168,31 @@ python main.py --test --reviews
 
 ---
 
-## 数据流
+## 数据流（三层数据流）
 
 ```
-豆瓣 ID → crawl_basic.py → raw/*.json
-                              ↓
-                         merger.py → data.json
-                              ↓
-                         database.py → SQLite
+┌─────────────────────────────────────────────────────────────────┐
+│  第一层：原始数据                                                │
+│  data/raw/{book_id}/                                            │
+│  ├── douban.json      # 豆瓣原始数据                            │
+│  ├── openlibrary.json # OpenLibrary 原始数据                    │
+│  ├── baike.json       # 百度百科原始数据                         │
+│  └── ...                                                        │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼ merger.py
+┌─────────────────────────────────────────────────────────────────┐
+│  第二层：合并数据                                                │
+│  data/staging/{book_id}.json                                    │
+│  └── 合并后的完整书籍数据                                        │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼ db_tools/import_batch.py
+┌─────────────────────────────────────────────────────────────────┐
+│  第三层：数据库                                                  │
+│  .local/treasure.db                                             │
+│  └── books / book_person / book_category 表                     │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -188,7 +236,7 @@ MAX_DELAY = 5.0
 豆瓣读书详情页 → OpenLibrary API → 百度百科 → Wikipedia → 数据合并 → 封面下载
      │                │               │            │            │            │
      ▼                ▼               ▼            ▼            ▼            ▼
- 基本信息          英文标题        作者简介      获奖/名句    data.json    cover-main.jpg
+ 基本信息          英文标题        作者简介      获奖/名句    staging     cover-main.jpg
  评分/标签         作者英文名      字数          原名/国家    冲突检测     补充封面
  书评 20 条        封面            获奖信息      词条 URL     作者去重     作者头像
  系列/推荐         ISBN 匹配
@@ -202,7 +250,6 @@ MAX_DELAY = 5.0
 |------|------|:----:|
 | OpenLibrary 限制 | 部分书籍无英文数据（如百年孤独） | ⚠️ 已知 |
 | 作者名称格式不统一 | 豆瓣返回带国籍前缀，需清洗 | ⚠️ 已知 |
-| 封面未下载 | `images` 字段仅存储路径 | ⏸️ 待实现 |
 | 书评未爬取 | `reviews` 字段为空数组 | ⏸️ 待实现 |
 
 ---

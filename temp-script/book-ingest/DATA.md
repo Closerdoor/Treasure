@@ -255,10 +255,22 @@
 
 ## 九、存储路径
 
+### 9.1 book-ingest 内部路径（临时存储）
+
+| 类型 | 路径 |
+|------|------|
+| 原始数据 | `data/raw/{book_id}/{source}.json` |
+| 合并数据 | `data/staging/{book_id}.json` |
+| 书籍封面 | `data/assets/{book_id}/cover-main.jpg` |
+
+### 9.2 最终存储路径（录入数据库后）
+
 | 类型 | 路径 |
 |------|------|
 | 书籍封面 | `.local/assets/book/{book_id}/` |
 | 人物头像 | `.local/assets/people/{person_id}-avatar.jpg` |
+
+**说明**：封面在 book-ingest 内临时存储，导出到 generated 或发布时复制到 `.local/assets/book/`
 
 ---
 
