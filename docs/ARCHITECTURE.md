@@ -1,228 +1,215 @@
 # Architecture
 
-> Purpose: 记录当前项目的系统结构、模块边界、页面层级与数据层级。
+> Purpose: 记录当前项目系统边界、模块结构、数据层级和目录职责。
 > Status: active
-> Scope: 系统分层、模块、页面结构、路由规则、数据边界
-> Out of scope: 字段级 schema、UI 视觉细节、阶段进度
-> Update triggers: 结构边界变化、页面层级变化、路由规则变化
-> Priority: 2
+> Scope: 展示站点、本地内容工坊、数据库、导出产物、静态资源、路由
+> Out of scope: 字段级 schema 全量说明、具体爬虫实现、视觉样式细节
+> Update triggers: 数据主源变化、模块结构变化、路由变化、目录职责变化、前台读取方式变化
+> Priority: 1
 
-## 两层系统
+## 系统分层
 
-项目当前分为两层：
+Treasure 当前分为两层：
 
-1. 展示站点
-- 面向访客
-- 使用 Astro 静态生成
-- 消费结构化数据生成页面
-- 不直接展示审阅用 Markdown
+1. 公开展示站点
+   - 面向访问者。
+   - 使用 Astro 静态生成。
+   - 部署目标是 GitHub Pages。
+   - 消费 `generated/` 和 `site/public/assets/`。
+   - 不直接读取 SQLite。
+   - 不直接依赖 `temp-script/` 或旧 `content/` 目录。
 
 2. 本地内容工坊
-- 面向馆长
-- 负责录入、搜索、补全、确认、整理、审阅与归档
-- 保存草稿、候选结果、原始材料与来源记录
+   - 面向馆长。
+   - 负责抓取、清洗、补全、人工确认、导入、导出。
+   - 使用 SQLite 保存结构化主数据。
+   - 使用 `.local/assets/` 保存私有资源源文件。
+   - 使用 `tools/` 和 `temp-script/` 承载脚本。
+
+## 当前主链路
+
+```text
+外部数据源 / 手动录入
+  -> 抓取与清洗脚本
+  -> .local/treasure.db
+  -> tools/db/export-generated.mjs
+  -> generated/
+  -> site/src/lib/*
+  -> Astro pages
+  -> site/dist/
+```
+
+静态资源链路：
+
+```text
+.local/assets/
+  -> site/public/assets/
+  -> /assets/*
+```
+
+## 目录职责
+
+### `.local/`
+
+私有本地工作区，不进入 Git。
+
+当前承载：
+
+- `treasure.db`：本地 SQLite 主数据库。
+- `assets/`：本地私有图片资源。
+- `backup/`：备份文件。
+- `staging/`、`batches/`、`source-snapshots/` 等：导入/实验过程产物。
+
+### `prisma/`
+
+数据库 schema 和迁移目录。
+
+当前主 schema：
+
+```text
+prisma/schema.prisma
+```
+
+### `tools/`
+
+长期可复用脚本目录。
+
+当前重点：
+
+```text
+tools/db/export-generated.mjs
+tools/db/check-counts.mjs
+tools/db/view-schema.mjs
+```
+
+后续稳定的导入、校验、备份脚本应优先沉淀到这里。
+
+### `temp-script/`
+
+实验脚本和临时产物目录。
+
+当前包括：
+
+- `movie-ingest/`
+- `book-ingest/`
+- `reference-archive/`
+
+约定：
+
+- 这里的脚本可以作为实验参考。
+- 不作为前台正式构建依赖。
+- 成熟流程应迁入 `tools/`。
+
+### `generated/`
+
+数据库导出的前台数据投影。
+
+当前由 `tools/db/export-generated.mjs` 生成。
+
+前台 Astro 读取 generated，而不是读取 SQLite。
+
+### `site/`
+
+Astro 前台站点。
+
+关键目录：
+
+```text
+site/src/pages/
+site/src/components/
+site/src/layouts/
+site/src/lib/
+site/src/styles/
+site/public/assets/
+```
+
+构建产物：
+
+```text
+site/dist/
+```
+
+### `content/`
+
+历史内容目录，目前不作为前台正式数据源。
+
+当前应视为历史样本、人工审阅材料或迁移残留。后续是否清理需要单独确认。
 
 ## 模块结构
 
-当前共有 4 个一级模块：
+当前产品规划模块：
 
-- 影视
-- 书
-- 音乐
-- 游戏
+| 模块 | 状态 | 说明 |
+|---|---|---|
+| 影视 | active | 当前电影模块已跑通主链路 |
+| 书籍 | draft | 数据库已有 3 条草稿，尚未接入 generated 和页面 |
+| 音乐 | planned | 仅保留方向 |
+| 游戏 | planned | 仅保留方向 |
 
-当前优先级：
+当前真实前台页面只落地了影视/电影主线。
 
-- 先完成影视模块样板
-- 其它模块先保留边界，不展开实现
+## 当前数据库边界
 
-## 页面层级
+SQLite 是本地结构化主源。当前核心表包括：
 
-当前前台的核心内容浏览主链路为：
+- `works`
+- `person`
+- `category`
+- `work_person`
+- `work_category`
+- `books`
+- `book_series`
+- `book_person`
+- `book_category`
 
-```text
-首页 -> 模块列表页 -> 详情页
-```
+电影仍使用 `works` 主表。书籍当前使用独立 `books` 表及书籍关联表。
 
-说明：
+## 当前前台路由
 
-- 首页负责总入口与内容预览
-- 模块列表页负责模块内统一浏览、筛选与分页
-- 详情页负责单条作品的完整结构化展示
-
-## 辅助页面
-
-除核心内容浏览主链路外，站点还包含辅助页面。
-
-当前已明确：
-
-- `About` 页属于 V1 范围内页面
-- 搜索结果未来会落到独立搜索结果页
-
-## 影视模块当前结构
-
-影视模块下当前已明确的子模块包括：
-
-- 电影
-- 电视剧
-- 动漫
-- 纪录片
-- 短片
-
-当前影视列表页默认展示影视模块的混合结果，不默认只看电影。
-
-## 路由规则
-
-### 当前稳定页面路径
-
-- 首页：`/`
-- 影视模块列表页：`/video`
-- 作品详情页：`/{module}/{submodule}/{id}`
-- About 页：`/about`
-- 搜索结果页：`/search`（当前仅保留路径与入口，不实现功能）
-
-### 当前稳定 slug 规则
-
-一级模块 slug：
-
-- 影视：`video`
-- 书：`book`
-- 音乐：`music`
-- 游戏：`game`
-
-当前已明确的影视子模块 slug：
-
-- 电影：`movie`
-- 电视剧：`tv`
-- 动漫：`anime`
-- 纪录片：`documentary`
-- 短片：`short`
-
-说明：
-
-- 当前只有 `video/movie` 已进入真实条目录入与验证阶段
-- 其它模块与子模块 slug 可以继续沿用同一风格逐步补齐
-
-### 作品详情路径
-
-当前作品详情路由采用：
+已落地：
 
 ```text
-/{module}/{submodule}/{id}
+/
+/about
+/search
+/video
+/video/movie/{id}
 ```
 
-示例：
+当前 `/search` 仍主要是入口和占位，不代表完整搜索功能已经完成。
 
-- `/video/movie/0101000001`
-
-说明：
-
-- `id` 是稳定主标识
-- 标题变化不影响路由
-- 前台标题由结构化数据决定
-
-### 列表页筛选条件编码
-
-首页进入影视模块列表页时，如需带入筛选条件，当前统一采用 query 参数编码。
-
-例如：
-
-- `/video?submodule=movie`
-- `/video?tag=crime`
-- `/video?year=1994`
-- `/video?submodule=movie&tag=classic`
-
-说明：
-
-- V1 不采用额外子路径表达筛选条件
-- 列表页应根据 URL query 自动激活对应筛选项
-
-## 数据层级边界
-
-### 站点级数据
-
-属于站点整体，不应放入单个作品数据文件：
-
-- 首页首屏策略
-- 模块顺序
-- 全站导航
-- 主题切换机制
-- 搜索结果页规则
-- 其它与单部作品无关的前台配置
-
-### 构建产物目录结构
-
-`generated/` 目录由构建脚本从 SQLite 导出，不进入 Git：
+计划中但尚未正式落地：
 
 ```text
-generated/
-├── entries/                    # 按作品拆分的完整数据
-│   └── video/
-│       └── movie/
-│           ├── 0101000001.json
-│           ├── 0101000002.json
-│           └── ...
-├── indexes/                    # 轻量索引文件
-│   ├── video-movie.json        # 电影列表索引
-│   ├── video.json              # 影视总索引
-│   └── all.json                # 全站搜索索引
-├── recent.json                 # 最近更新（轻量）
-└── tags.json                   # 标签聚合
+/book
+/book/{id}
+/music
+/game
 ```
 
-说明：
+## GitHub Pages 约束
 
-- 单作品 JSON 包含完整数据，供详情页使用
-- 索引文件只包含列表页必需字段，体积小
-- `generated/` 目录整体加入 `.gitignore`
+Astro 配置：
 
-### 作品级数据
+```text
+site/astro.config.mjs
+site: https://closerdoor.github.io/Treasure
+output: static
+```
 
-属于某一部作品本身：
+发布站点必须是纯静态产物。线上不应依赖：
 
-- SQLite 数据库中的作品记录
-- 作品私有图片资源
+- SQLite 数据库
+- Playwright
+- 爬虫运行时
+- `.local/`
+- `temp-script/`
 
-说明：
+## 架构原则
 
-- 作品私有资源路径：`.local/assets/{module}/{submodule}/{id}/`
-- 这类资源包括主海报、补充海报、剧照、视频缩略图、壁纸等
-
-### 共享静态资源
-
-属于可跨作品复用、但仍需进入静态站点发布链路的资源：
-
-- 人物头像
-- 后续可扩展的组织 logo、系列公共图等
-
-当前已确认：
-
-- 共享人物资源目录为 `.local/assets/people/`
-- 构建时同步到 `site/public/assets/people/`
-
-### 页面派生数据
-
-首页与列表页通常不直接消费作品全量数据，而是从索引文件读取。
-
-当前应视为稳定的页面派生方向：
-
-- 首页模块预览卡片从索引文件读取
-- 影视列表页从索引文件读取
-- 搜索与筛选使用 `indexes/all.json`
-
-## Markdown 与前台边界
-
-当前已明确：
-
-- 前台不直接渲染审阅用 Markdown
-- SQLite 是唯一结构化数据主源
-- 构建脚本从 SQLite 导出 JSON 供 Astro 使用
-
-## 结构变更时的更新要求
-
-当以下内容变化时，必须同步更新本文件：
-
-- 模块结构变化
-- 页面层级变化
-- 路由规则变化
-- 站点级 / 作品级 / 派生数据边界变化
+- SQLite 是本地事实源，generated 是前台事实源。
+- 站点页面只消费 generated 和 public assets。
+- 资源路径必须能在 `site/public/assets/` 找到实体文件，或前台必须有明确回退策略。
+- 列表页使用轻量索引，详情页使用单条详情 JSON。
+- 新模块先接入 generated 契约，再接入页面。
+- 临时实验脚本不能直接成为发布流程的一部分。

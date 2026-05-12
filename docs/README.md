@@ -1,29 +1,73 @@
 # Treasure Docs
 
-本文件只作为主文档入口索引。
+本目录记录 Treasure 项目的当前有效上下文。以后接手项目时，优先从本文件开始读。
 
-当前主规范由下面 5 份文档构成，按此顺序阅读：
+## 推荐阅读顺序
 
 1. `PROJECT.md`
-   - 项目定位、当前阶段目标、V1 范围、已确认方向、待确认事项
+   - 项目定位、当前阶段、V1 范围、暂不做的事情。
 2. `STATUS.md`
-   - 当前阶段进度、已完成内容、当前待办、下一步、风险与阻塞
+   - 当前真实状态、最近校验结果、已知风险、下一步建议。
 3. `ARCHITECTURE.md`
-   - 展示站点与本地工坊的结构边界、模块划分、页面层级、路由与数据层级
-4. `CONTRACTS.md`
-   - 数据模型、模板骨架、字段语义、变更联动规则
-5. `UI-GUIDE.md`
-   - 当前生效的 UI 方向、页面结构与交互结论
+   - 展示站点、本地内容工坊、数据库、导出产物、静态资源之间的边界。
+4. `WORKFLOW.md`
+   - 从爬取/录入到 GitHub Pages 发布的标准工作流。
+5. `GENERATED-DATA.md`
+   - `generated/` 目录结构、JSON 契约、资源引用规则和当前校验项。
+6. `DATABASE.md`
+   - SQLite / Prisma 当前表结构与数据统计。
+7. `CONTRACTS.md`
+   - 页面消费字段、内容字段语义、跨模块数据契约。
+8. `UI-GUIDE.md`
+   - 当前前台视觉与交互方向。
+9. `DOCS-MAINTENANCE.md`
+   - 文档维护规则：什么时候更新哪份文档。
 
-归档参考：
+## 当前有效主线
 
-- `archive/2026-05-doc-reset/`
-  - 本轮文档重构前的旧设计文档，仅作历史参考，不再作为当前规范。
+```text
+爬取/录入脚本
+  -> SQLite: .local/treasure.db
+  -> 导出脚本: tools/db/export-generated.mjs
+  -> generated/*.json
+  -> site/public/assets/*
+  -> Astro static build
+  -> GitHub Pages
+```
 
-额外说明：
+## 当前阶段
 
-- `docs/` 下这 5 份主文档是当前项目的唯一规范来源。
-- `.opencode/skills/movie-entry-workflow/` 下文档继续作为电影录入执行参考与下游实现文档存在。
-- 如果主文档与 workflow 文档冲突，应先更新 workflow 文档以对齐当前主文档，而不是反向覆盖主文档。
-- `DATABASE.md` 是当前数据库第一版精简设计基线，也是数据库方案的唯一最新版本。
-- `BROWSER-CONFIG.md` 是 Playwright 浏览器的统一配置，所有需要浏览器自动化的脚本必须遵循此配置。
+项目已经从早期样板进入 **DB-first 静态站闭环整理阶段**。
+
+当前重点不是继续堆新爬虫，而是把下面三件事稳定下来：
+
+- 数据库是否能稳定导出完整 `generated/`。
+- Astro 是否只依赖 `generated/` 和 `site/public/assets/` 完成静态构建。
+- 发布前是否能量化报告数据与资源覆盖率。
+
+## 文档状态约定
+
+- `docs/README.md` 是文档入口。
+- `PROJECT.md` / `STATUS.md` / `ARCHITECTURE.md` / `WORKFLOW.md` / `GENERATED-DATA.md` 是当前最重要的五份文档。
+- `archive/` 下内容仅作历史参考，不作为当前规范。
+- `temp-script/` 下 README 或临时分析文档只代表实验阶段结论，不能覆盖 `docs/` 主文档。
+
+## 常用命令
+
+```bash
+# 导出数据库到 generated/
+node tools/db/export-generated.mjs
+
+# 同步资源并导出数据
+cd site
+npm.cmd run sync
+
+# 构建 Astro 静态站
+cd site
+npm.cmd run build
+
+# 查看数据库统计
+node tools/db/check-counts.mjs
+```
+
+Windows PowerShell 下如果 `npm run build` 被执行策略拦截，使用 `npm.cmd run build`。

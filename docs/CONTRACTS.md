@@ -1,315 +1,267 @@
 # Contracts
 
-> Purpose: 记录当前生效的数据契约、模板骨架与变更联动规则。
+> Purpose: 记录当前前台消费数据、资源路径和字段语义契约。
 > Status: active
-> Scope: 数据模型职责、关键字段语义、模板化结构、变更影响矩阵
-> Out of scope: 视觉样式、阶段进度、具体录入命令教程
-> Update triggers: 数据结构变化、模板变化、workflow 联动关系变化
-> Priority: 3
+> Scope: generated 契约、资源路径、关键字段语义、页面消费边界
+> Out of scope: 数据库 schema 全量字段、视觉样式、爬虫解析细节
+> Update triggers: generated 结构变化、前台读取字段变化、资源路径变化、关键字段语义变化
+> Priority: 2
 
-## 内容目录单元
+## 契约总览
 
-以电影为例，当前单条内容目录包含：
-
-```text
-content/video/movie/{ID}/
-  data.json
-  source.json
-  index.md
-  raw/
-  images/
-```
-
-各文件职责：
-
-- `data.json`
-  - 前台正式结构化数据来源
-- `source.json`
-  - 字段来源与溯源记录
-- `index.md`
-  - 审阅与归档材料，不直接进入前台展示链路
-- `raw/`
-- 原始抓取材料、对比报告、过程产物
-- 图片目录
-  - 海报、剧照、视频缩略图等作品私有资源
-
-### 静态资源路径契约
-
-当前采用两类静态资源路径：
-
-1. 作品私有资源
-
-- 路径：`site/public/assets/{module}/{submodule}/{id}/`
-- 命名应保持类型化和可读性，例如：
-  - `poster-main.jpg`
-  - `poster-01.jpg`
-  - `still-01.jpg`
-  - `video-01.jpg`
-
-2. 共享人物资源
-
-- 路径：`site/public/assets/people/`
-- 命名采用内部人物 ID 形式，例如：`p000001-avatar.jpg`
-- 共享人物头像不再和单个作品目录强绑定
-
-补充约束：
-
-- 当前静态资源不额外维护第二份镜像目录
-- Astro 当前的 `site/public/assets/` 同时作为前台发布目录与静态资源主目录
-- 数据库只记录资源路径与引用关系，不负责额外复制一份同内容文件
-
-## ID 与本地工坊职责
-
-### 内容 ID 规则
-
-当前内容 ID 采用：
+当前正式前台数据契约是：
 
 ```text
-MMSSNNNNNN
+SQLite
+  -> generated JSON
+  -> site/src/lib/*
+  -> Astro pages
 ```
 
-说明：
+前台不直接读取：
 
-- `MM` 表示一级模块编号
-- `SS` 表示子模块编号
-- `NNNNNN` 表示该子模块下的递增序号
-- `id` 是稳定主标识，标题变化不影响 `id` 与详情路由
+- `.local/treasure.db`
+- `.local/staging/`
+- `temp-script/`
+- 旧 `content/video/movie/*/data.json`
 
-### 本地工坊与 SQLite 职责
+## 页面与数据源
 
-SQLite 只用于本地内容工坊，不作为线上数据库。
+| 页面 | 当前数据源 | 说明 |
+|---|---|---|
+| `/` | `loadArchiveMovies()` | 首页精选与模块入口 |
+| `/video` | `loadArchiveMovies()` | 电影列表、筛选、分页 |
+| `/video/movie/{id}` | `loadArchiveMovieById(id)` | 电影详情 |
+| `/about` | 静态 Astro 页面 | 关于页 |
+| `/search` | 静态 Astro 页面 / 预留入口 | 当前不是完整搜索实现 |
 
-当前稳定职责包括：
+当前读取层：
 
-- 导入任务记录
-- 待确认条目记录
-- 候选匹配缓存
-- 来源数据缓存
-- 图片与资源记录
-- ID 分配记录
+```text
+site/src/lib/archive.ts
+site/src/lib/site.ts
+```
 
-## 当前关键字段语义
+## generated 文件契约
+
+### 电影详情
+
+```text
+generated/entries/video/movie/{id}.json
+```
+
+详情 JSON 用于详情页，允许包含较完整的演职员、评论、图片、外部来源、关联作品等数据。
+
+### 电影列表索引
+
+```text
+generated/indexes/video-movie.json
+```
+
+列表索引用于列表页和首页预览，应保持轻量。
+
+当前列表索引字段包括：
+
+- `id`
+- `path`
+- `title`
+- `originalTitle`
+- `year`
+- `posterUrl`
+- `aggregateRating`
+- `directorNames`
+- `castPreview`
+- `genre`
+- `tags`
+- `country`
+- `synopsis`
+
+### 全站索引
+
+```text
+generated/indexes/all.json
+```
+
+当前作为未来搜索页的数据基础，完整搜索功能尚未落地。
+
+## 资源路径契约
+
+### 作品图片
+
+数据库/generated 中的本地作品图片应以文件名保存，例如：
+
+```json
+{
+  "poster": "poster-main.webp",
+  "posters": ["poster-01.webp"],
+  "stills": ["still-01.webp"]
+}
+```
+
+前台 URL 由读取层拼接：
+
+```text
+/assets/{module}/{submodule}/{id}/{filename}
+```
+
+实体文件必须存在于：
+
+```text
+site/public/assets/{module}/{submodule}/{id}/{filename}
+```
+
+### 人物头像
+
+人物头像路径使用相对 `site/public/assets/` 的路径：
+
+```text
+people/tmdb-4027-avatar.jpg
+```
+
+前台 URL：
+
+```text
+/assets/people/tmdb-4027-avatar.jpg
+```
+
+如果头像文件缺失，前台应能回退到：
+
+```text
+/assets/avatar-placeholder.svg
+```
+
+## 关键字段语义
+
+### `id`
+
+作品稳定主标识。标题变化不应影响 ID 和详情页路由。
+
+### `module` / `submodule`
+
+用于生成路径和资源目录。
+
+当前电影：
+
+```json
+{
+  "module": "video",
+  "submodule": "movie"
+}
+```
+
+### `path`
+
+前台详情页路径。
+
+电影示例：
+
+```text
+/video/movie/0101000001
+```
+
+### `title` / `originalTitle`
+
+`title` 是中文展示标题。  
+`originalTitle` 是原名或源语言标题。
 
 ### `synopsis`
 
-- 用于列表页、首页卡片和详情页顶部短简介
-- 不是完整剧情
+短简介，用于：
+
+- 首页
+- 列表卡片
+- 详情页顶部摘要
+
+不应直接用 `story` 替代。
 
 ### `story`
 
-- 用于详情页 `详情介绍` Tab 的完整剧情
-- 已上映作品：应能独立阅读，覆盖主要人物、关键转折与结局
-- 未上映 / 未公开完整剧情作品：只能整理公开剧情物料，不得补写未公开后续
-- 这类条目的 `story.note` 必须明确标注“基于公开剧情物料整理，非完整剧情/非完整人生全程”
+详情页剧情/内容介绍，属于长文本。
+
+### `genre`
+
+类型分类，来自相对标准化的外部类型或人工整理。
+
+### `tags`
+
+标签集合，可用于搜索、聚合或馆长维护。不等同于 `genre`。
+
+### `scores`
+
+数据库中的多平台评分对象。
+
+导出后前台常用字段：
+
+- `doubanRating`
+- `imdbRating`
+- `tmdbRating`
+- `rottenTomatoes`
+- `metascore`
+- `aggregateRating`
+
+当前综合评分规则：
+
+- 豆瓣 / IMDb / TMDB 使用 10 分制原值。
+- 烂番茄百分制除以 10 后参与平均。
+- 缺失平台跳过。
+- 最终保留 1 位小数。
+
+### `director` / `writer` / `cast` / `otherCast`
+
+从 `work_person` 和 `person` 导出。
+
+人物对象核心字段：
+
+- `personCode`
+- `name`
+- `nameEn`
+- `role`
+- `avatarPath`
+- `profileLink`
+
+### `images.poster`
+
+主海报。列表页、首页和详情页顶部优先依赖它。
+
+### `images.posters` / `images.stills` / `images.wallpapers`
+
+补充图片集合。
+
+当前推荐契约：正式 generated 中只放本地文件名字符串。外链对象应留在 raw/source/staging 层，除非前台读取层明确支持外链对象。
 
 ### `reviews`
 
-- 只保留精选长评或高质量评语
-- 不再用一句话短评或热门短评直接充数
-- 来源优先使用豆瓣长评页，并允许人工筛选整理
+评论集合。当前用于详情页评论区域。
 
-### `images.poster` 与 `images.posters`
+### `related` / `series` / `similar`
 
-- `images.poster` 永远表示主海报
-- `images.posters` 表示补充海报列表，不包含主海报
-- `images.postersTotal` 是源站可获取总量元数据，不等于本地数组长度
+关联作品。导出时可根据外部 ID 尝试匹配站内作品 ID。
 
-### `images.stillsTotal`
+未匹配站内 ID 的条目允许展示为不可点击占位。
 
-- 表示源站可获取剧照总量，不等于当前本地已下载文件数量
+## 当前已知契约问题
 
-### `similar`
+最近核验时间：2026-05-12
 
-- 当前采用渐进式站内关系方案
-- 已录入站内、且详情页已存在的作品可补 `id` 并支持站内跳转
-- 未录入站内的作品允许先以占位状态保留在 `similar` 中
-- 未录入站内的摘要结构最小为：`title` / `year`，并可补 `rating`
-- 未录入站内时不跳外链
+- `0101000001`《肖申克的救赎》部分 `images.posters/stills` 项为 TMDB 外链对象，不符合“本地文件名字符串”契约。
+- `0101000178`《绿里奇迹》主海报引用存在，但实体文件缺失。
+- 人物头像缺失 3927/12999，前台必须依赖占位图回退或后续补齐。
 
-### `series`
+## 契约变更规则
 
-- `series` 与 `similar` 采用同样的渐进式站内关系规则
-- 已录入站内、且详情页已存在的作品可补 `id` 并支持站内跳转
-- 未录入站内时允许先以占位状态展示，不跳外链
-- 当前按上映时间排序，不单独维护系列顺序字段
+如果修改 generated 结构或字段语义，必须同步检查：
 
-### `genre` 与 `tags`
+- `tools/db/export-generated.mjs`
+- `site/src/lib/archive.ts`
+- `site/src/lib/site.ts`
+- `site/src/pages/video/index.astro`
+- `site/src/pages/video/movie/[id].astro`
+- `docs/GENERATED-DATA.md`
+- `docs/STATUS.md`
 
-- `genre` 与 `tags` 是两套不同语义，不得混用
-- `genre` 表示外部平台相对标准化的类型分类
-- `tags` 同时包含外部平台标签与手动维护标签
-- `tags` 继续保留在数据层与未来搜索 / 聚合能力中
-- 当前影视列表页 V1 筛选 UI 不再直接暴露 `tags`
+如果修改资源路径策略，必须同步检查：
 
-### `links`
-
-- 外部来源链接统一放在 `links`
-- 缺失值统一使用 `null`
-
-### 评分字段
-
-- 前台主评分统一为 10 分制
-- 豆瓣 / IMDb / TMDB 直接按原始 10 分值使用
-- 烂番茄按百分比换算成 10 分制后参与计算
-- 缺失的平台直接跳过，只对有值平台求平均
-- 最终展示值保留 1 位小数
-
-### 当前不维护的字段
-
-- `rated`（MPAA 分级）不再纳入当前主契约
-- `awards`（获奖信息）不再纳入当前主契约
-
-### 保留但不在前台展示的字段
-
-- `imdbId` 继续保留在数据层，用于跨平台对齐、补数与外部来源关联
-- `imdbId` 当前不作为前台界面展示字段
-
-## 当前稳定模板骨架
-
-### 电影录入模板
-
-电影条目当前必须维护：
-
-- `data.json`
-- `source.json`
-- `index.md`
-- 必要图片资源
-
-`.opencode/skills/movie-entry-workflow/` 下文档继续作为电影录入执行参考存在，但不得高于当前 `docs/` 主文档体系。
-
-### 页面派生数据契约
-
-首页与列表页不直接消费作品全量数据，而使用稳定的页面字段子集。
-
-#### 首页模块预览卡片最小展示契约
-
-- 海报
-- 标题
-- 年份
-- 类型
-- 地区
-- 综合评分
-- 时长
-- 悬停简介
-
-#### 影视列表页列表卡片最小展示契约
-
-- 海报
-- 标题
-- 原名
-- 年份
-- 地区
-- 类型
-- 导演
-- 综合评分
-- 简介
-- 主演
-- 四个平台原始评分
-
-补充约束：
-
-- 标签不进入卡片展示，只用于搜索与筛选
-- 原始评分只显示分数，不显示人数或额外说明
-- 原始评分只显示有值的平台
-- 网格 / 卡片视图中的主演只展示一行，溢出隐藏
-- 列表视图中的主演展示前 3 位
-
-#### 影视列表页当前筛选契约
-
-- 当前前台筛选项为：搜索、子模块、类型、地区、年份
-- 标签不进入当前 V1 列表页筛选 UI
-- 搜索入口当前只保留 UI，不要求实现真实搜索
-
-#### 电影详情页顶部信息区最小展示契约
-
-- 中文标题
-- 原名
-- `年份 | 类型`
-- 导演
-- 编剧
-- 主演
-- 地区
-- 语言
-- 片长
-- 上映日期
-- 更多片名
-- `synopsis` 对应的顶部短简介
-- 综合评分单值
-
-补充约束：
-
-- 顶部简介使用 `synopsis`，不得直接拿 `story` 替代
-- `story` 专用于 `详情介绍` Tab
-- 评分区只显示单个总评分数值，不附加额外站点说明文案
-
-#### `similar` / `series` 占位卡最小展示契约
-
-- 标题
-- 年份
-- 海报（如有）
-- 综合评分（如有）
-- `暂未收录` 状态标记
-- 不可点击
-
-#### 电影详情页 `音乐` Tab 数据契约
-
-- `音乐` Tab 当前主要读取 `soundtrack`
-- 最小展示骨架包括：原声带名称、作者 / 作曲、年份、曲目列表
-- 当 `soundtrack` 缺失或曲目为空时，允许隐藏 `音乐` Tab，而不是强制展示空白区块
-
-## 变更影响矩阵
-
-### 当 `data.json` 字段语义或结构变化时
-
-必须同步检查并更新：
-
-- `CONTRACTS.md`
-- `.opencode/skills/movie-entry-workflow/SKILL.md`
-- `.opencode/skills/movie-entry-workflow/FIELD-SOURCE-MAPPING.md`
-- `.opencode/skills/movie-entry-workflow/FIELD-VALIDATION.md`
-- `.opencode/skills/movie-entry-workflow/DATA-TO-MD-MAPPING.md`
-- `.opencode/skills/movie-entry-workflow/INDEX-MD-TEMPLATE.md`
-- 对应真实条目的 `source.json`
-- 未来前台读取逻辑
-
-### 当详情页 Tab 结构变化时
-
-必须同步检查并更新：
-
-- `UI-GUIDE.md`
-- `CONTRACTS.md`
-- `PROJECT.md`（如果影响 V1 范围或主共识）
-- `.opencode/skills/movie-entry-workflow/INDEX-MD-TEMPLATE.md` 与映射文档（如受影响）
-
-### 当列表页卡片骨架变化时
-
-必须同步检查并更新：
-
-- `UI-GUIDE.md`
-- `CONTRACTS.md`
-- 首页模块预览卡片相关说明
-
-### 当录入 workflow 规则变化时
-
-必须同步检查并更新：
-
-- `.opencode/skills/movie-entry-workflow/` 下执行细则
-- 本文档中的契约摘要
-- `STATUS.md` 中最近关键变更（如会影响当前阶段判断）
-
-## 与 workflow 文档的边界
-
-当前约定如下：
-
-- `docs/CONTRACTS.md` 负责讲“当前项目采用什么数据与模板契约”，并且是当前规范来源
-- `.opencode/skills/movie-entry-workflow/` 负责讲“电影具体如何录入、如何校验、如何生成产物”
-
-如果只是电影录入执行细节变化，不需要把全部细节复制进 `docs/`。
-
-如果 workflow 文档与主文档冲突，应优先修正 workflow 文档以与主文档保持一致。
-
-## 当前约束总结
-
-- 不推翻当前 workflow 重来
-- 以“承认现有事实标准，再局部统一”为原则
-- 模板变化必须配套更新变更影响范围
+- `.local/assets/`
+- `site/public/assets/`
+- `site/scripts/sync-assets.mjs`
+- 前台图片 URL 拼接逻辑
