@@ -47,34 +47,9 @@
 
 ### 3. 数据来源对照表
 
-| 字段 | 主要来源 | 备用来源 | 说明 |
-|-----|---------|---------|------|
-| title（中文名） | 豆瓣 | 百度百科 | 优先豆瓣 |
-| originalTitle（英文名） | TMDB | OMDb | 外文网站 |
-| year（年份） | 豆瓣 | TMDB | - |
-| country（地区） | 豆瓣 | - | 豆瓣最准确 |
-| language（语言） | 豆瓣 | - | 豆瓣最准确 |
-| runtime（时长） | 豆瓣 | TMDB | - |
-| genre（类型） | 豆瓣 | TMDB | 中文类型名 |
-| synopsis（简介） | 豆瓣 | 百度百科 | 优先豆瓣 |
-| story（剧情） | Wikipedia | 百度百科 | 详细剧情 |
-| director（导演） | 豆瓣+TMDB | - | 合并中英文名 |
-| writer（编剧） | 豆瓣+TMDB | - | 合并中英文名 |
-| cast（主演） | 豆瓣+TMDB | - | 合并中英文名+角色 |
-| poster（海报） | 豆瓣 | TMDB | 优先豆瓣高清图 |
-| rating（评分） | 豆瓣 | OMDb | 各平台评分 |
-| awards（奖项） | Wikipedia | 百度百科 | - |
-| quotes（台词） | Wikipedia | - | - |
+> 详细字段映射请参考 [DATA.md](./DATA.md) 文档
 
-### 4. 演职员数据来源
-
-| 字段 | 中文名 | 英文名 | 角色名 | 头像 |
-|-----|-------|-------|-------|-----|
-| 导演 | 豆瓣 | TMDB | - | TMDB |
-| 编剧 | 豆瓣 | TMDB | TMDB | TMDB |
-| 演员 | 豆瓣 | TMDB | TMDB | TMDB |
-
-**说明**：
+**核心原则**：
 - 中文名从国内网站获取（豆瓣、百度百科）
 - 英文名、角色名、头像从外文网站获取（TMDB）
 - 百度百科演职员数据不可靠，不作为主要来源
@@ -110,46 +85,12 @@ with open(file_path, 'w', encoding='utf-8') as f:
 
 ## 四、数据库字段映射
 
-### 1. Prisma Schema 字段命名
+> 详细字段映射请参考 [DATA.md](./DATA.md) 文档
+
+### 1. 命名规范
 - 数据库字段使用**下划线命名**（snake_case）
 - 代码中使用**驼峰命名**（camelCase）
 - 写入数据库时转换
-
-### 2. 字段映射表
-
-| Staging JSON | Prisma Schema | 类型 | 说明 |
-|-------------|---------------|-----|------|
-| title | title | String | 中文名 |
-| originalTitle | original_title | String? | 英文名 |
-| year | year | Int? | 年份 |
-| country | country | String? | 地区 |
-| language | language | String? | 语言 |
-| runtime | runtime | Int? | 时长（分钟） |
-| director | director | Json | 导演列表 |
-| writer | writer | Json | 编剧列表 |
-| cast | cast | Json | 主演列表 |
-| otherCast | other_cast | Json | 其他演员 |
-| producer | producer | Json | 制片人 |
-| genre | genre | Json | 类型列表 |
-| tags | tags | Json | 标签列表 |
-| aka | aka | Json | 别名列表 |
-| releaseDate | release_date | Json | 上映日期 |
-| doubanId | douban_id | String? | 豆瓣 ID |
-| imdbId | imdb_id | String? | IMDb ID |
-| tmdbId | tmdb_id | String? | TMDB ID |
-| doubanRating | douban_rating | Float? | 豆瓣评分 |
-| imdbRating | imdb_rating | String? | IMDb 评分 |
-| tmdbRating | tmdb_rating | Float? | TMDB 评分 |
-| rottenTomatoes | rotten_tomatoes | String? | 烂番茄评分 |
-| metascore | metascore | String? | Metascore |
-| synopsis | synopsis | Json? | 简介 |
-| story | story | Json? | 剧情 |
-| images | images | Json? | 图片 |
-| videos | videos | Json? | 视频 |
-| reviews | reviews | Json? | 评论 |
-| similar | similar | Json? | 相似推荐 |
-| baikeUrl | baike_url | String? | 百度百科链接 |
-| wikipediaUrl | wikipedia_url | String? | 维基百科链接 |
 
 ---
 
@@ -428,4 +369,4 @@ BAIKE_HEADERS = {
 
 ---
 
-**最后更新**：2026-05-10
+**最后更新**：2026-05-12
