@@ -4,10 +4,16 @@
 """
 import os
 import sys
+import io
 
 # Windows UTF-8 兼容：必须在其他 import 之前设置
 if sys.platform == 'win32':
     os.environ['PYTHONUTF8'] = '1'
+    # 强制 stdout/stderr 使用 UTF-8 编码
+    if sys.stdout.encoding != 'utf-8':
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+    if sys.stderr.encoding != 'utf-8':
+        sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
 
 from datetime import datetime
 

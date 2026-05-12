@@ -1,4 +1,5 @@
 import fs from 'node:fs/promises';
+import fsCb from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
@@ -10,6 +11,8 @@ const dbPath = path.join(repoRoot, '.local', 'treasure.db');
 const generatedRoot = path.join(repoRoot, 'generated');
 const entriesRoot = path.join(generatedRoot, 'entries');
 const indexesRoot = path.join(generatedRoot, 'indexes');
+const localAssetsRoot = path.join(repoRoot, '.local', 'assets');
+const siteAssetsRoot = path.join(repoRoot, 'site', 'public', 'assets');
 const sqlitePath = process.env.SQLITE3_PATH || 'D:\\ArtSoftware\\sqlite3.exe';
 
 function queryJson(sql) {
@@ -259,8 +262,115 @@ async function cleanDirectory(dirPath) {
   await fs.mkdir(dirPath, { recursive: true });
 }
 
+async function copyDir(src, dest) {
+  await fs.mkdir(dest, { recursive: true });
+  const entries = await fs.readdir(src, { withFileTypes: true });
+  
+  for (const entry of entries) {
+    const srcPath = path.join(src, entry.name);
+    const destPath = path.join(dest, entry.name);
+    
+    if (entry.isDirectory()) {
+      await copyDir(srcPath, destPath);
+    } else {
+      await fs.copyFile(srcPath, destPath);
+    }
+  }
+}
+
+async function syncAssets() {
+  console.log('同步图片资源...');
+  
+  const stats = {
+    videoMovie: { copied: 0, skipped: 0 },
+    people: { copied: 0, skipped: 0 }
+  };
+  
+  // 同步作品图片: .local/assets/video/movie/ → site/public/assets/video/movie/
+  const videoMovieSrc = path.join(localAssetsRoot, 'video', 'movie');
+  const videoMovieDest = path.join(siteAssetsRoot, 'video', 'movie');
+  
+  try {
+    await fs.access(videoMovieSrc);
+    await copyDir(videoMovieSrc, videoMovieDest);
+    const files = await countFiles(videoMovieDest);
+    stats.videoMovie.copied = files;
+    console.log(`  作品图片: ${files} 个文件`);
+  } catch {
+    console.log('  作品图片: 目录不存在，跳过');
+  }
+  
+  // 同步人物头像: .local/assets/people/ → site/public/assets/people/
+  const peopleSrc = path.join(localAssetsRoot, 'people');
+  const peopleDest = path.join(siteAssetsRoot, 'people');
+  
+  try {
+    await fs.access(peopleSrc);
+    await copyDir(peopleSrc, peopleDest);
+    const files = await countFiles(peopleDest);
+    stats.people.copied = files;
+    console.log(`  人物头像: ${files} 个文件`);
+  } catch {
+    console.log('  人物头像: 目录不存在，跳过');
+  }
+  
+  return stats;
+}
+
+async function countFiles(dirPath) {
+  let count = 0;
+  const entries = await fs.readdir(dirPath, { withFileTypes: true });
+  
+  for (const entry of entries) {
+    if (entry.isDirectory()) {
+      count += await countFiles(path.join(dirPath, entry.name));
+    } else {
+      count++;
+    }
+  }
+  
+  return count;
+}
+
+async function exportPersons() {
+  console.log('导出人物数据...');
+  
+  const persons = queryJson(`
+    SELECT
+      p.person_id,
+      p.name,
+      p.name_en,
+      p.source_ids,
+      p.avatar_path,
+      p.profile_link,
+      p.intro
+    FROM person p
+    ORDER BY p.person_id;
+  `);
+  
+  const personsIndex = persons.map((row) => {
+    const sourceIds = parseJsonText(row.source_ids, {});
+    
+    return {
+      personId: row.person_id,
+      name: row.name,
+      nameEn: row.name_en ?? undefined,
+      sourceIds,
+      avatarPath: row.avatar_path ?? undefined,
+      profileLink: row.profile_link ?? undefined,
+      intro: row.intro ?? undefined
+    };
+  });
+  
+  await writeJson(path.join(generatedRoot, 'persons.json'), personsIndex);
+  console.log(`  人物数据: ${personsIndex.length} 人`);
+  
+  return personsIndex.length;
+}
+
 async function main() {
   console.log('开始导出数据...');
+  console.log('');
 
   // 查询数据
   const works = queryJson(`
@@ -344,10 +454,23 @@ async function main() {
   };
   await writeJson(path.join(generatedRoot, 'tags.json'), tagsPayload);
 
-  console.log(`导出完成！`);
+  // 导出人物数据
+  console.log('');
+  await exportPersons();
+
+  // 同步图片资源
+  console.log('');
+  await syncAssets();
+
+  console.log('');
+  console.log('='.repeat(50));
+  console.log('导出完成！');
+  console.log('='.repeat(50));
   console.log(`  作品文件: generated/entries/video/movie/*.json (${entries.length} 个)`);
   console.log(`  列表索引: generated/indexes/video-movie.json`);
   console.log(`  搜索索引: generated/indexes/all.json`);
+  console.log(`  人物数据: generated/persons.json`);
+  console.log(`  图片资源: site/public/assets/`);
 }
 
 main().catch((error) => {

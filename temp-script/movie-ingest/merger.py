@@ -12,6 +12,7 @@ from typing import Dict, Any, List, Optional
 from datetime import datetime
 
 from utils import Logger, generate_work_id
+from name_matcher import match_person, merge_person_data
 
 
 class DataMerger:
@@ -93,7 +94,11 @@ class DataMerger:
             "reviews": [],
             "soundtrack": None,
             "similar": [],
-            "quotes": None
+            "quotes": None,
+            "baikeUrl": None,
+            "baikeId": None,
+            "wikipediaUrl": None,
+            "wikipediaId": None
         }
         
         douban = raw_data.get("douban", {})
@@ -126,7 +131,28 @@ class DataMerger:
             result["tags"] = douban.get("tags", [])
             result["genre"] = douban.get("genres", [])
             
-            result["similar"] = douban.get("recommendations", [])
+            # 演职人员：优先使用豆瓣中文名
+            douban_directors = douban.get("directors", [])
+            douban_writers = douban.get("writers", [])
+            douban_casts = douban.get("casts", [])
+            
+            result["director"] = [{"name": d, "nameEn": None, "role": "导演"} for d in douban_directors]
+            result["writer"] = [{"name": w, "nameEn": None, "role": "编剧"} for w in douban_writers]
+            result["cast"] = [{"name": c, "nameEn": None, "role": None} for c in douban_casts[:10]]
+            result["otherCast"] = [{"name": c, "nameEn": None, "role": None} for c in douban_casts[10:30]]
+            
+            # 转换 recommendations 格式，添加 source 和 sourceId
+            recommendations = douban.get("recommendations", [])
+            similar = []
+            for rec in recommendations:
+                similar.append({
+                    "title": rec.get("title"),
+                    "source": rec.get("source", "douban"),
+                    "sourceId": rec.get("sourceId", ""),
+                    "year": None,  # 豆瓣推荐列表无年份
+                    "rating": float(rec.get("rating")) if rec.get("rating") and rec.get("rating").isdigit() else None
+                })
+            result["similar"] = similar
             
             images = douban.get("images", {})
             result["images"] = {
@@ -181,10 +207,11 @@ class DataMerger:
                 result["tmdbRating"] = detail.get("rating")
             
             if credits:
-                result["director"] = self._extract_directors(credits)
-                result["writer"] = self._extract_writers(credits)
-                result["cast"] = self._extract_cast(credits)
-                result["otherCast"] = self._extract_other_cast(credits)
+                # 合并 TMDB 补充信息（英文名、头像、角色等）
+                result["director"] = self._merge_directors(result.get("director", []), credits)
+                result["writer"] = self._merge_writers(result.get("writer", []), credits)
+                result["cast"] = self._merge_cast(result.get("cast", []), credits)
+                result["otherCast"] = self._merge_other_cast(result.get("otherCast", []), credits)
                 result["producer"] = self._extract_producers(credits)
             
             if images:
@@ -235,8 +262,20 @@ class DataMerger:
             if omdb.get("awards"):
                 result["awards"] = omdb.get("awards")
         
+        baike = raw_data.get("baike", {})
+        if baike:
+            if baike.get("url"):
+                result["baikeUrl"] = baike.get("url")
+            if baike.get("baike_id") or baike.get("title"):
+                result["baikeId"] = baike.get("baike_id") or baike.get("title")
+        
         wikipedia = raw_data.get("wikipedia", {})
         if wikipedia:
+            if wikipedia.get("url"):
+                result["wikipediaUrl"] = wikipedia.get("url")
+            if wikipedia.get("wikipedia_id") or wikipedia.get("title"):
+                result["wikipediaId"] = wikipedia.get("wikipedia_id") or wikipedia.get("title")
+            
             if wikipedia.get("plot"):
                 result["story"] = {
                     "text": wikipedia.get("plot", ""),
@@ -300,6 +339,136 @@ class DataMerger:
                     })
         
         Logger.success(f"数据合并完成: {work_id}")
+        return result
+    
+    def _merge_directors(self, douban_directors: List[Dict], credits: Dict) -> List[Dict]:
+        """合并导演：豆瓣中文名 + TMDB 补充信息"""
+        tmdb_directors = []
+        for crew in credits.get("crew", []):
+            if crew.get("job") == "Director":
+                tmdb_directors.append({
+                    "nameEn": crew.get("name", ""),
+                    "avatar": None,
+                    "avatarSource": "tmdb" if crew.get("profile_path") else None,
+                    "profileLink": None
+                })
+        
+        if not douban_directors:
+            return tmdb_directors
+        
+        # 尝试匹配豆瓣和 TMDB 的导演（按顺序）
+        result = []
+        for i, d in enumerate(douban_directors):
+            entry = {
+                "name": d.get("name", ""),
+                "nameEn": d.get("nameEn"),
+                "role": "导演",
+                "avatar": None,
+                "avatarSource": None,
+                "profileLink": None
+            }
+            if i < len(tmdb_directors):
+                entry["nameEn"] = tmdb_directors[i].get("nameEn")
+                entry["avatar"] = tmdb_directors[i].get("avatar")
+                entry["avatarSource"] = tmdb_directors[i].get("avatarSource")
+            result.append(entry)
+        
+        return result
+    
+    def _merge_writers(self, douban_writers: List[Dict], credits: Dict) -> List[Dict]:
+        """合并编剧：豆瓣中文名 + TMDB 补充信息"""
+        tmdb_writers = []
+        for crew in credits.get("crew", []):
+            if crew.get("department") == "Writing":
+                role = crew.get("job", "编剧")
+                if role == "Screenplay":
+                    role = "编剧"
+                elif role == "Story":
+                    role = "故事"
+                elif role == "Novel":
+                    role = "原著"
+                tmdb_writers.append({
+                    "nameEn": crew.get("name", ""),
+                    "role": role
+                })
+        
+        if not douban_writers:
+            return tmdb_writers
+        
+        # 尝试匹配
+        result = []
+        for i, w in enumerate(douban_writers):
+            entry = {
+                "name": w.get("name", ""),
+                "nameEn": w.get("nameEn"),
+                "role": w.get("role", "编剧")
+            }
+            if i < len(tmdb_writers):
+                entry["nameEn"] = tmdb_writers[i].get("nameEn")
+                if tmdb_writers[i].get("role") != "编剧":
+                    entry["role"] = tmdb_writers[i].get("role")
+            result.append(entry)
+        
+        return result
+    
+    def _merge_cast(self, douban_cast: List[Dict], credits: Dict) -> List[Dict]:
+        """合并主演：豆瓣中文名 + TMDB 补充信息"""
+        tmdb_cast = []
+        for c in credits.get("cast", [])[:10]:
+            tmdb_cast.append({
+                "nameEn": c.get("name", ""),
+                "role": c.get("character", ""),
+                "avatar": None,
+                "avatarSource": "tmdb" if c.get("profile_path") else None
+            })
+        
+        if not douban_cast:
+            return tmdb_cast
+        
+        # 尝试匹配
+        result = []
+        for i, c in enumerate(douban_cast):
+            entry = {
+                "name": c.get("name", ""),
+                "nameEn": c.get("nameEn"),
+                "role": c.get("role"),
+                "avatar": None,
+                "avatarSource": None
+            }
+            if i < len(tmdb_cast):
+                entry["nameEn"] = tmdb_cast[i].get("nameEn")
+                entry["role"] = tmdb_cast[i].get("role") or entry["role"]
+                entry["avatar"] = tmdb_cast[i].get("avatar")
+                entry["avatarSource"] = tmdb_cast[i].get("avatarSource")
+            result.append(entry)
+        
+        return result
+    
+    def _merge_other_cast(self, douban_other_cast: List[Dict], credits: Dict) -> List[Dict]:
+        """合并其他演员：豆瓣中文名 + TMDB 补充信息"""
+        tmdb_other_cast = []
+        for c in credits.get("cast", [])[10:30]:
+            tmdb_other_cast.append({
+                "nameEn": c.get("name", ""),
+                "role": c.get("character", "")
+            })
+        
+        if not douban_other_cast:
+            return tmdb_other_cast
+        
+        # 尝试匹配
+        result = []
+        for i, c in enumerate(douban_other_cast):
+            entry = {
+                "name": c.get("name", ""),
+                "nameEn": c.get("nameEn"),
+                "role": c.get("role")
+            }
+            if i < len(tmdb_other_cast):
+                entry["nameEn"] = tmdb_other_cast[i].get("nameEn")
+                entry["role"] = tmdb_other_cast[i].get("role") or entry["role"]
+            result.append(entry)
+        
         return result
     
     def _extract_directors(self, credits: Dict) -> List[Dict]:
@@ -431,6 +600,249 @@ class DataMerger:
             })
         
         return conflicts
+    
+    def merge_credits(self, douban_celebs: Dict, tmdb_celebs: Dict) -> Dict:
+        """
+        合并豆瓣和 TMDB 演职员数据
+        
+        改进：支持单数据源
+        - 如果 TMDB 失败，只使用豆瓣数据
+        - 如果豆瓣失败，只使用 TMDB 数据
+        - 只有两者都失败时才返回空
+        
+        Args:
+            douban_celebs: 豆瓣演职员数据（来自 crawl_celebrities）
+            tmdb_celebs: TMDB 演职员数据（来自 get_credits）
+            
+        Returns:
+            合并后的演职员数据
+        """
+        result = {
+            "directors": [],
+            "writers": [],
+            "cast": [],
+            "all_cast": [],
+            "source": "merged"
+        }
+        
+        # 判断数据源可用性
+        has_douban = bool(douban_celebs and (douban_celebs.get("directors") or douban_celebs.get("cast")))
+        has_tmdb = bool(tmdb_celebs and (tmdb_celebs.get("crew") or tmdb_celebs.get("cast")))
+        
+        if not has_douban and not has_tmdb:
+            Logger.warning("豆瓣和 TMDB 都没有演职员数据")
+            return result
+        
+        # 只有豆瓣数据
+        if has_douban and not has_tmdb:
+            Logger.info("仅使用豆瓣数据（TMDB 不可用）")
+            return self._merge_from_douban_only(douban_celebs)
+        
+        # 只有 TMDB 数据
+        if has_tmdb and not has_douban:
+            Logger.info("仅使用 TMDB 数据（豆瓣不可用）")
+            return self._merge_from_tmdb_only(tmdb_celebs)
+        
+        # 两者都有，正常合并
+        result["source"] = "douban+tmdb"
+        
+        # 合并导演
+        tmdb_directors = [c for c in tmdb_celebs.get("crew", []) if c.get("job") == "Director"]
+        douban_directors = douban_celebs.get("directors", [])
+        
+        for tmdb_dir in tmdb_directors:
+            douban_match = match_person(tmdb_dir, douban_directors)
+            merged = merge_person_data(tmdb_dir, douban_match)
+            merged["department"] = "direction"
+            merged["role"] = "导演"
+            merged["isPrimary"] = True
+            result["directors"].append(merged)
+        
+        # 合并编剧
+        tmdb_writers = [c for c in tmdb_celebs.get("crew", []) if c.get("department") == "Writing"]
+        douban_writers = douban_celebs.get("writers", [])
+        
+        for tmdb_writer in tmdb_writers:
+            douban_match = match_person(tmdb_writer, douban_writers)
+            merged = merge_person_data(tmdb_writer, douban_match)
+            merged["department"] = "writing"
+            
+            job = tmdb_writer.get("job", "编剧")
+            if job == "Screenplay":
+                merged["role"] = "编剧"
+            elif job == "Story":
+                merged["role"] = "故事"
+            elif job == "Novel":
+                merged["role"] = "原著"
+            else:
+                merged["role"] = job
+            
+            merged["isPrimary"] = True
+            result["writers"].append(merged)
+        
+        # 合并演员（全部）
+        tmdb_cast = tmdb_celebs.get("cast", [])
+        douban_cast = douban_celebs.get("cast", [])
+        
+        for tmdb_actor in tmdb_cast:
+            douban_match = match_person(tmdb_actor, douban_cast)
+            merged = merge_person_data(tmdb_actor, douban_match)
+            merged["department"] = "cast"
+            merged["role"] = "演员"
+            
+            order = tmdb_actor.get("order", 0)
+            merged["isPrimary"] = order < 10
+            
+            result["all_cast"].append(merged)
+        
+        result["cast"] = result["all_cast"][:10]
+        
+        Logger.info(f"演职员合并完成: 导演 {len(result['directors'])} 人, "
+                   f"编剧 {len(result['writers'])} 人, "
+                   f"演员 {len(result['all_cast'])} 人")
+        
+        return result
+    
+    def _merge_from_douban_only(self, douban_celebs: Dict) -> Dict:
+        """仅使用豆瓣数据"""
+        result = {
+            "directors": [],
+            "writers": [],
+            "cast": [],
+            "all_cast": [],
+            "source": "douban"
+        }
+        
+        # 导演
+        for director in douban_celebs.get("directors", []):
+            entry = {
+                "name": director.get("name"),
+                "nameEn": director.get("nameEn"),
+                "doubanId": director.get("doubanId"),
+                "avatar": director.get("avatar"),
+                "doubanAvatar": director.get("avatar"),
+                "tmdbAvatar": None,
+                "department": "direction",
+                "role": "导演",
+                "isPrimary": True
+            }
+            result["directors"].append(entry)
+        
+        # 编剧
+        for writer in douban_celebs.get("writers", []):
+            entry = {
+                "name": writer.get("name"),
+                "nameEn": writer.get("nameEn"),
+                "doubanId": writer.get("doubanId"),
+                "avatar": writer.get("avatar"),
+                "doubanAvatar": writer.get("avatar"),
+                "tmdbAvatar": None,
+                "department": "writing",
+                "role": "编剧",
+                "isPrimary": True
+            }
+            result["writers"].append(entry)
+        
+        # 演员
+        for i, actor in enumerate(douban_celebs.get("cast", [])):
+            entry = {
+                "name": actor.get("name"),
+                "nameEn": actor.get("nameEn"),
+                "doubanId": actor.get("doubanId"),
+                "character": actor.get("character"),
+                "characterEn": actor.get("characterEn"),
+                "avatar": actor.get("avatar"),
+                "doubanAvatar": actor.get("avatar"),
+                "tmdbAvatar": None,
+                "department": "cast",
+                "role": "演员",
+                "order": i,
+                "isPrimary": i < 10
+            }
+            result["all_cast"].append(entry)
+        
+        result["cast"] = result["all_cast"][:10]
+        
+        Logger.info(f"豆瓣数据合并完成: 导演 {len(result['directors'])} 人, "
+                   f"编剧 {len(result['writers'])} 人, "
+                   f"演员 {len(result['all_cast'])} 人")
+        
+        return result
+    
+    def _merge_from_tmdb_only(self, tmdb_celebs: Dict) -> Dict:
+        """仅使用 TMDB 数据"""
+        result = {
+            "directors": [],
+            "writers": [],
+            "cast": [],
+            "all_cast": [],
+            "source": "tmdb"
+        }
+        
+        # 导演
+        tmdb_directors = [c for c in tmdb_celebs.get("crew", []) if c.get("job") == "Director"]
+        for director in tmdb_directors:
+            avatar_url = f"https://image.tmdb.org/t/p/original{director.get('profile_path')}" if director.get("profile_path") else None
+            entry = {
+                "name": director.get("name"),
+                "nameEn": director.get("name"),
+                "tmdbId": director.get("id"),
+                "avatar": avatar_url,
+                "doubanAvatar": None,
+                "tmdbAvatar": avatar_url,
+                "department": "direction",
+                "role": "导演",
+                "isPrimary": True
+            }
+            result["directors"].append(entry)
+        
+        # 编剧
+        tmdb_writers = [c for c in tmdb_celebs.get("crew", []) if c.get("department") == "Writing"]
+        for writer in tmdb_writers:
+            job = writer.get("job", "编剧")
+            role = "编剧" if job == "Screenplay" else ("故事" if job == "Story" else ("原著" if job == "Novel" else job))
+            avatar_url = f"https://image.tmdb.org/t/p/original{writer.get('profile_path')}" if writer.get("profile_path") else None
+            
+            entry = {
+                "name": writer.get("name"),
+                "nameEn": writer.get("name"),
+                "tmdbId": writer.get("id"),
+                "avatar": avatar_url,
+                "doubanAvatar": None,
+                "tmdbAvatar": avatar_url,
+                "department": "writing",
+                "role": role,
+                "isPrimary": True
+            }
+            result["writers"].append(entry)
+        
+        # 演员
+        for actor in tmdb_celebs.get("cast", []):
+            order = actor.get("order", 0)
+            avatar_url = f"https://image.tmdb.org/t/p/original{actor.get('profile_path')}" if actor.get("profile_path") else None
+            entry = {
+                "name": actor.get("name"),
+                "nameEn": actor.get("name"),
+                "tmdbId": actor.get("id"),
+                "character": actor.get("character"),
+                "characterEn": actor.get("character"),
+                "avatar": avatar_url,
+                "doubanAvatar": None,
+                "tmdbAvatar": avatar_url,
+                "department": "cast",
+                "role": "演员",
+                "order": order,
+                "isPrimary": order < 10
+            }
+            result["all_cast"].append(entry)
+        
+        result["cast"] = result["all_cast"][:10]
+        
+        Logger.info(f"TMDB 数据合并完成: 导演 {len(result['directors'])} 人, "
+                   f"编剧 {len(result['writers'])} 人, "
+                   f"演员 {len(result['all_cast'])} 人")
+        
+        return result
     
     def save_raw_data(self, work_id: str, source: str, data: Dict):
         """保存原始数据"""

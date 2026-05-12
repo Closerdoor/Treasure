@@ -335,11 +335,27 @@ model Person {
   /// 英文名/原名
   nameEn String? @map("name_en")
 
-  /// 共享头像路径
+  /// 外部来源 ID（JSON 格式）
+  ///
+  /// 存储各数据源的人物 ID，示例：
+  /// {"tmdb": "12345", "douban": "p12345"}
+  sourceIds String? @map("source_ids")
+
+  /// 主头像路径（TMDB 优先）
   ///
   /// 相对于 site/public/assets/people/
-  /// 示例：p000001-avatar.jpg
+  /// 示例：tmdb-12345-avatar.jpg
   avatarPath String? @map("avatar_path")
+
+  /// TMDB 头像路径
+  ///
+  /// 格式：tmdb-{id}-avatar.jpg
+  tmdbAvatarPath String? @map("tmdb_avatar_path")
+
+  /// 豆瓣头像路径
+  ///
+  /// 格式：p{id}-avatar.webp
+  doubanAvatarPath String? @map("douban_avatar_path")
 
   /// 默认外链
   ///
@@ -354,6 +370,7 @@ model Person {
   // ========================================
 
   works WorkPerson[]
+  books BookPerson[]
 
   @@index([name, nameEn], map: "idx_person_name")
   @@map("person")
@@ -396,6 +413,9 @@ model WorkPerson {
 
   /// 角色名（演员专用）
   character String?
+
+  /// 角色名英文（演员专用）
+  characterEn String? @map("character_en")
 
   /// 排序顺序
   order Int @default(0)
@@ -458,6 +478,7 @@ model Category {
   // ========================================
 
   works WorkCategory[]
+  books BookCategory[]
 
   @@index([group, module, submodule, order], map: "idx_category_scope")
   @@index([group, name, module, submodule], map: "idx_category_identity")
@@ -569,4 +590,345 @@ enum Department {
 enum TypeGroup {
   type
   tag
+}
+
+// ============================================
+// 书籍主表
+// ============================================
+
+/// 书籍主表
+///
+/// 承载书籍基础信息，独立于影视作品
+model Book {
+  // ========================================
+  // 标识信息
+  // ========================================
+
+  /// 书籍ID
+  ///
+  /// 格式：0200NNNNNN
+  /// - 02：书模块
+  /// - 00：无子模块
+  /// - NNNNNN：递增序号
+  ///
+  /// 示例：0200000001 = 书/第1条
+  id String @id
+
+  // ========================================
+  // 书名
+  // ========================================
+
+  /// 中文书名
+  title String
+
+  /// 原名（英文/源语言）
+  titleOriginal String? @map("title_original")
+
+  /// 别名（其他译名）
+  ///
+  /// JSON 字符串数组，示例：
+  /// ["三体Ⅰ", "The Three-Body Problem"]
+  otherTitles String? @map("other_titles")
+
+  // ========================================
+  // 基本信息
+  // ========================================
+
+  /// ISBN（首选版本）
+  isbn String? @unique
+
+  /// 出版年份
+  year Int?
+
+  /// 作者国家
+  country String?
+
+  /// 语言
+  language String?
+
+  /// 字数（实际字数）
+  wordCount Int? @map("word_count")
+
+  /// 出版社
+  publisher String?
+
+  // ========================================
+  // 内容
+  // ========================================
+
+  /// 内容简介
+  summary String?
+
+  /// 名句摘录
+  ///
+  /// JSON 数组，示例：
+  /// [
+  ///   { "text": "给岁月以文明，而不是给文明以岁月。", "source": "三体" }
+  /// ]
+  quotes String?
+
+  // ========================================
+  // 系列关系
+  // ========================================
+
+  /// 所属系列ID
+  seriesId String? @map("series_id")
+
+  /// 系列内序号
+  seriesOrder Int? @map("series_order")
+
+  // ========================================
+  // 评分与来源
+  // ========================================
+
+  /// 评分
+  ///
+  /// JSON 对象，统一10分制，示例：
+  /// {
+  ///   "avg": 8.9,
+  ///   "douban": 9.3,
+  ///   "openlibrary": 8.4,
+  ///   "goodreads": 8.2
+  /// }
+  scores String?
+
+  /// 外部来源
+  ///
+  /// JSON 数组，示例：
+  /// [
+  ///   { "name": "豆瓣", "id": "2567638", "link": "https://book.douban.com/subject/2567638/" },
+  ///   { "name": "OpenLibrary", "id": "OL123456M", "link": "https://openlibrary.org/works/OL123456M" },
+  ///   { "name": "ISBN", "id": "9787536692930", "link": null }
+  /// ]
+  externalSource String? @map("external_source")
+
+  // ========================================
+  // 媒体资源
+  // ========================================
+
+  /// 封面
+  ///
+  /// JSON 对象，示例：
+  /// {
+  ///   "cover": "cover-main.jpg",
+  ///   "covers": ["cover-002.jpg"],
+  ///   "assetDir": "book/0200000001"
+  /// }
+  images String?
+
+  // ========================================
+  // 评论与相关
+  // ========================================
+
+  /// 书评
+  ///
+  /// JSON 数组，每源20条，示例：
+  /// [
+  ///   {
+  ///     "author": "读者A",
+  ///     "source": "豆瓣短评",
+  ///     "date": "2024-01-01",
+  ///     "content": "书评内容...",
+  ///     "url": null,
+  ///     "title": null
+  ///   }
+  /// ]
+  reviews String?
+
+  /// 相关书籍
+  ///
+  /// JSON 对象，示例：
+  /// {
+  ///   "series": [{ "title": "三体Ⅱ", "year": 2008, "rating": 9.3, "bookId": "0200000002" }],
+  ///   "similar": [{ "title": "基地", "year": 1951, "rating": 9.0, "bookId": "0200000050" }],
+  ///   "sameAuthor": [{ "title": "球状闪电", "year": 2005, "rating": 8.6, "bookId": "0200000100" }]
+  /// }
+  related String?
+
+  // ========================================
+  // 系统字段
+  // ========================================
+
+  /// 状态
+  ///
+  /// - draft：草稿
+  /// - published：已发布
+  /// - archived：已归档
+  status BookStatus @default(draft)
+
+  /// 创建时间
+  createdAt DateTime @default(now()) @map("created_at")
+
+  /// 更新时间
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // ========================================
+  // 关系
+  // ========================================
+
+  series BookSeries? @relation(fields: [seriesId], references: [id])
+  persons BookPerson[]
+  categories BookCategory[]
+
+  @@index([year], map: "idx_books_year")
+  @@index([status], map: "idx_books_status")
+  @@map("books")
+}
+
+// ============================================
+// 书籍系列表
+// ============================================
+
+/// 书籍系列表
+///
+/// 承载丛书/系列信息（如三体三部曲）
+model BookSeries {
+  // ========================================
+  // 标识信息
+  // ========================================
+
+  /// 系列ID
+  ///
+  /// 格式：0299NNNNNN
+  /// - 02：书模块
+  /// - 99：系列标识
+  /// - NNNNNN：递增序号
+  ///
+  /// 示例：0299000001 = 书系列/第1条
+  id String @id
+
+  // ========================================
+  // 基本信息
+  // ========================================
+
+  /// 系列名
+  name String
+
+  /// 原名（英文）
+  nameOriginal String? @map("name_original")
+
+  /// 书籍数量
+  bookCount Int? @map("book_count")
+
+  /// 系列简介
+  summary String?
+
+  /// 系列封面
+  ///
+  /// JSON 对象，示例：
+  /// { "cover": "series-cover.jpg" }
+  images String?
+
+  // ========================================
+  // 系统字段
+  // ========================================
+
+  /// 状态
+  status BookStatus @default(draft)
+
+  /// 创建时间
+  createdAt DateTime @default(now()) @map("created_at")
+
+  /// 更新时间
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // ========================================
+  // 关系
+  // ========================================
+
+  books Book[]
+
+  @@map("book_series")
+}
+
+// ============================================
+// 书籍人物关系表
+// ============================================
+
+/// 书籍人物关系表
+///
+/// 承载作者/译者等关系
+model BookPerson {
+  /// 自增主键
+  id Int @id @default(autoincrement())
+
+  /// 书籍ID
+  bookId String @map("book_id")
+
+  /// 人物ID（关联person表）
+  personId Int @map("person_id")
+
+  /// 角色
+  ///
+  /// - author：作者
+  /// - translator：译者
+  role BookRole
+
+  /// 排序顺序
+  order Int @default(0)
+
+  /// 是否主要人员
+  ///
+  /// 用于前台优先展示（主作者）
+  isPrimary Boolean @default(false) @map("is_primary")
+
+  // ========================================
+  // 关系
+  // ========================================
+
+  book Book @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  person Person @relation(fields: [personId], references: [id], onDelete: Restrict)
+
+  @@unique([bookId, personId, role])
+  @@index([bookId, order], map: "idx_book_person_book_id")
+  @@map("book_person")
+}
+
+// ============================================
+// 书籍类型/标签关联表
+// ============================================
+
+/// 书籍类型/标签关联表
+///
+/// 承载书籍属于哪些类型、带有哪些标签
+model BookCategory {
+  /// 自增主键
+  id Int @id @default(autoincrement())
+
+  /// 书籍ID
+  bookId String @map("book_id")
+
+  /// 词项ID（关联category表）
+  categoryId Int @map("category_id")
+
+  /// 排序顺序
+  order Int @default(0)
+
+  // ========================================
+  // 关系
+  // ========================================
+
+  book Book @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([bookId, categoryId])
+  @@index([bookId, order], map: "idx_book_category_book_id")
+  @@map("book_category")
+}
+
+// ============================================
+// 书籍相关枚举
+// // ============================================
+
+/// 书籍状态
+enum BookStatus {
+  draft
+  published
+  archived
+}
+
+/// 书籍人物角色
+enum BookRole {
+  author
+  translator
 }

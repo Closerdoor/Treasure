@@ -1,8 +1,8 @@
 # Schema 变更记录
 
-## 版本：v6.0（规划中）
+## 版本：v6.0
 
-**变更日期**：待定
+**变更日期**：2026-05-09
 
 ---
 
@@ -74,6 +74,41 @@
    - 匹配逻辑：用 `sourceId` 匹配 `externalSource` 中对应平台的 `id`
    - 匹配成功 → 补充作品 `id`
    - 匹配失败 → 仅保留标题（不可跳转）
+
+### 代码变更
+
+1. **douban.py**：从推荐链接 URL 提取豆瓣 subject ID
+   ```python
+   # URL 格式: https://movie.douban.com/subject/1292052/
+   match = re.search(r'/subject/(\d+)/', url)
+   if match:
+       source_id = match.group(1)
+   ```
+
+2. **merger.py**：转换数据结构，添加 `source` 和 `sourceId`
+   ```python
+   similar.append({
+       "title": rec.get("title"),
+       "source": rec.get("source", "douban"),
+       "sourceId": rec.get("sourceId", ""),
+       "year": None,
+       "rating": float(rec.get("rating")) if rec.get("rating") else None
+   })
+   ```
+
+3. **update_related.py**：更新已有数据
+   - 为 250 条已有记录添加 `source` 和 `sourceId` 字段
+   - `source` 固定为 `"douban"`
+   - `sourceId` 暂时为空字符串（需重新爬取获取）
+
+### 数据迁移
+
+已执行 `update_related.py` 更新 250 条记录：
+
+```bash
+python update_related.py --dry-run  # 预览
+python update_related.py            # 执行更新
+```
 
 ### 优势
 

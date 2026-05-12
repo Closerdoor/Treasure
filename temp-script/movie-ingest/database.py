@@ -170,6 +170,16 @@ class TreasureDB:
         row = cursor.fetchone()
         return dict(row) if row else None
     
+    def update_person_avatar(self, person_id: str, avatar_path: str):
+        """更新人物头像路径"""
+        self.connect()
+        
+        self.conn.execute(
+            "UPDATE person SET avatar_path = ? WHERE person_id = ?",
+            (avatar_path, person_id)
+        )
+        self.conn.commit()
+    
     def get_next_person_id(self) -> str:
         """获取下一个人物 ID（格式：p000001）"""
         self.connect()
@@ -203,18 +213,42 @@ class TreasureDB:
         
         name = data.get("name", "")
         name_en = data.get("nameEn")
+        avatar = data.get("avatar", "")
+        tmdb_id = data.get("tmdbId")
+        douban_id = data.get("doubanId")
         
         existing = self.get_person_by_name(name, name_en)
         if existing:
+            existing_avatar = existing.get("avatar_path")
+            if avatar and not existing_avatar:
+                ext = ".jpg"
+                if "tmdb" in avatar:
+                    ext = ".jpg"
+                elif ".webp" in avatar:
+                    ext = ".webp"
+                elif ".png" in avatar:
+                    ext = ".png"
+                avatar_path = f"people/{existing['person_id']}-avatar{ext}"
+                self.update_person_avatar(existing['person_id'], avatar_path)
             return existing["id"], existing["person_id"]
         
         if not person_id:
-            person_id = self.get_next_person_id()
+            if tmdb_id:
+                person_id = f"tmdb-{tmdb_id}"
+            elif douban_id:
+                person_id = f"p{douban_id}"
+            else:
+                person_id = self.get_next_person_id()
         
-        avatar = data.get("avatar", "")
         avatar_path = None
         if avatar:
-            ext = Path(avatar).suffix or ".jpg"
+            ext = ".jpg"
+            if "tmdb" in avatar:
+                ext = ".jpg"
+            elif ".webp" in avatar:
+                ext = ".webp"
+            elif ".png" in avatar:
+                ext = ".png"
             avatar_path = f"people/{person_id}-avatar{ext}"
         
         profile_link = data.get("baike") or data.get("profileLink")
@@ -275,8 +309,8 @@ class TreasureDB:
         self.conn.execute("DELETE FROM work_person WHERE work_id = ?", (work_id,))
     
     def save_work_person(self, work_id: str, person_db_id: int, department: str,
-                         role: str = None, character: str = None, 
-                         order: int = 0, is_primary: bool = False):
+                         role: str = None, character: str = None, character_en: str = None,
+                         sort_order: int = 0, is_primary: bool = False):
         """
         保存作品与人物的关联
         
@@ -285,19 +319,26 @@ class TreasureDB:
             person_db_id: 人物数据库主键 ID
             department: 部门（direction/writing/cast/production/music/original_work/other）
             role: 具体职位
-            character: 角色名（演员专用）
-            order: 排序
+            character: 角色名（中文）
+            character_en: 角色名（英文）
+            sort_order: 排序
             is_primary: 是否主要人员
         """
         self.connect()
         
+        # 调试：检查参数类型
+        if not isinstance(work_id, str):
+            work_id = str(work_id)
+        if not isinstance(person_db_id, int):
+            person_db_id = int(person_db_id)
+        
         sql = """
-        INSERT INTO work_person (work_id, person_id, department, role, character, `order`, is_primary)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO work_person (work_id, person_id, department, role, character, character_en, `order`, is_primary)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         """
         
         self.conn.execute(sql, (
-            work_id, person_db_id, department, role, character, order, 1 if is_primary else 0
+            work_id, person_db_id, department, role, character, character_en, sort_order, 1 if is_primary else 0
         ))
     
     def save_work_persons_from_movie(self, work_id: str, movie_data: Dict[str, Any], 
@@ -320,7 +361,7 @@ class TreasureDB:
             if person_db_id:
                 self.save_work_person(
                     work_id, person_db_id, "direction", "导演",
-                    order=order, is_primary=True
+                    sort_order=order, is_primary=True
                 )
                 order += 1
         
@@ -332,29 +373,28 @@ class TreasureDB:
                 department = "original_work" if "原著" in role_text else "writing"
                 self.save_work_person(
                     work_id, person_db_id, department, role_text,
-                    order=order, is_primary=True
+                    sort_order=order, is_primary=True
                 )
                 order += 1
         
-        for person in movie_data.get("cast", []):
-            key = f"{person.get('name', '')}||{person.get('nameEn', '')}"
-            person_db_id = person_map.get(key)
-            if person_db_id:
-                self.save_work_person(
-                    work_id, person_db_id, "cast", "主演",
-                    character=person.get("role"),
-                    order=order, is_primary=True
-                )
-                order += 1
+        # 支持全部演员（优先使用 all_cast）
+        all_cast = movie_data.get("all_cast", [])
+        if not all_cast:
+            # 兼容旧数据
+            all_cast = movie_data.get("cast", []) + movie_data.get("otherCast", [])
         
-        for person in movie_data.get("otherCast", []):
+        for person in all_cast:
             key = f"{person.get('name', '')}||{person.get('nameEn', '')}"
             person_db_id = person_map.get(key)
             if person_db_id:
+                role_text = person.get("role", "演员")
+                is_primary = person.get("isPrimary", order < 10)
+                
                 self.save_work_person(
-                    work_id, person_db_id, "cast", "演员",
-                    character=person.get("role"),
-                    order=order, is_primary=False
+                    work_id, person_db_id, "cast", role_text,
+                    character=person.get("character"),
+                    character_en=person.get("characterEn"),
+                    sort_order=order, is_primary=is_primary
                 )
                 order += 1
         
@@ -365,7 +405,7 @@ class TreasureDB:
                 role_text = person.get("role", "制片人")
                 self.save_work_person(
                     work_id, person_db_id, "production", role_text,
-                    order=order, is_primary=True
+                    sort_order=order, is_primary=True
                 )
                 order += 1
         
@@ -591,6 +631,24 @@ class TreasureDB:
                 "link": f"https://www.themoviedb.org/movie/{tmdb_id}"
             })
         
+        baike_id = data.get("baikeId")
+        baike_url = data.get("baikeUrl")
+        if baike_id or baike_url:
+            sources.append({
+                "name": "百度百科",
+                "id": baike_id or "",
+                "link": baike_url or ""
+            })
+        
+        wikipedia_id = data.get("wikipediaId")
+        wikipedia_url = data.get("wikipediaUrl")
+        if wikipedia_id or wikipedia_url:
+            sources.append({
+                "name": "维基百科",
+                "id": wikipedia_id or "",
+                "link": wikipedia_url or ""
+            })
+        
         return self._to_json(sources) if sources else None
     
     def _build_scores(self, data: Dict[str, Any]) -> Optional[str]:
@@ -633,11 +691,29 @@ class TreasureDB:
         
         similar = data.get("similar", [])
         if similar:
-            related["similar"] = similar
+            related["similar"] = [
+                {
+                    "title": item.get("title"),
+                    "year": item.get("year"),
+                    "rating": item.get("rating"),
+                    "source": item.get("source", "douban"),
+                    "sourceId": item.get("sourceId", "")
+                }
+                for item in similar
+            ]
         
         series = data.get("series", [])
         if series:
-            related["series"] = series
+            related["series"] = [
+                {
+                    "title": item.get("title"),
+                    "year": item.get("year"),
+                    "rating": item.get("rating"),
+                    "source": item.get("source", "douban"),
+                    "sourceId": item.get("sourceId", "")
+                }
+                for item in series
+            ]
         
         return self._to_json(related) if related else None
     

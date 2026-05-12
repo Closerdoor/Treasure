@@ -95,6 +95,12 @@ class ProgressManager:
             self.progress["movies"][douban_id]["work_id"] = work_id
             self.save()
             
+    def get_work_id(self, douban_id: str) -> Optional[str]:
+        """获取作品 ID"""
+        if douban_id in self.progress["movies"]:
+            return self.progress["movies"][douban_id].get("work_id")
+        return None
+            
     def update_status(self, douban_id: str, status: str):
         """更新整体状态"""
         if douban_id in self.progress["movies"]:

@@ -1,6 +1,6 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
 ## Language Preference
 
@@ -55,6 +55,9 @@ cat prisma/schema.prisma
 node tools/db/view-schema.mjs Work
 node tools/db/view-schema.mjs Person
 
+# 导出数据到 Astro 站点
+node tools/db/export-generated.mjs
+
 # 更新备份
 node tools/db/update-backup.mjs
 
@@ -70,7 +73,7 @@ node tools/db/check-counts.mjs
 
 ```
 .local/assets/video/movie/{id}/
-├── poster-main.webp
+├── poster-main.jpg
 └── ...
 ```
 
@@ -108,7 +111,7 @@ node tools/db/export-generated.mjs
 1. **展示站点**（公开）
    - Astro 静态生成
    - 部署到 GitHub Pages
-   - 内容来自仓库内的 Markdown 文件
+   - 内容来自 `generated/` 目录的 JSON 文件
    - 评论系统使用 Giscus
 
 2. **本地内容工坊**（私有）
@@ -142,58 +145,13 @@ node tools/db/export-generated.mjs
 `/{module}/{submodule}/{id}`
 
 示例：
-- `/video/movie/01010001`
+- `/video/movie/0101000001`
 - `/book/classic/02020008`
 - `/music/single/03020015`
 
-## 内容存储
-
-- **格式**：Markdown 文件 + YAML frontmatter
-- **位置**：`content/{module}/{submodule}/*.md`
-- **命名**：`{id}.md`（如 `01010001.md`）
-- **图片**：`public/assets/{module}/{submodule}/{id}/`
-
-## 构建产物
-
-Astro 构建时生成 JSON 索引：
-- `generated/entries.json`
-- `generated/modules/{module}.json`
-- `generated/submodules/{module}-{submodule}.json`
-- `generated/tags.json`
-- `generated/search-index.json`
-- `generated/recent.json`
-
-## UI 方向
-
-根据设计文档：
-- 深色主题（"深色资料馆"）配合极简结构
-- 资料馆/档案馆气质，不是博客风格
-- 强调策展和目录浏览
-- 封面/海报驱动的视觉呈现
-- 结构化信息展示，而非大段长评
-
-## V1 范围
-
-第一版以影视 > 电影为样板优先落地：
-- 首页
-- 影视模块首页
-- 电影列表页
-- 电影详情页
-- 标签聚合页
-- 关于页
-
-## 设计文档
-
-设计文档位于 `docs/`：
-- `01-information-architecture.md` - 总体架构、模块划分、ID/URL 规则
-- `02-module-template-draft.md` - 各模块模板设计
-- `03-data-pipeline-and-content-model.md` - 内容录入流程、数据模型
-- `04-ui-style-directions.md` - UI 风格方案与建议
-- `05-wireframes-home-and-video.md` - 首页与影视模块线框图
-
 ---
 
-## Claude 工作规范
+## Codex 工作规范
 
 ### 规则 1：关键决策必须确认
 
@@ -214,7 +172,7 @@ Astro 构建时生成 JSON 索引：
 示例：
 ```
 ❌ 错误汇报：演职员数据已全部导入
-✅ 正确汇报：演职员数据已导入（16,064人），头像已下载（831人，约5%）
+✅ 正确汇报：演职员数据已导入（11,546人），头像已下载（7,604人，约66%）
 ```
 
 ### 规则 3：脚本限制必须标注并汇报

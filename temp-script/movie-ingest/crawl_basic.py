@@ -265,19 +265,22 @@ def main():
     
     args = parser.parse_args()
     
-    crawler = BasicCrawler()
-    
-    try:
-        asyncio.run(crawler.init())
+    async def run():
+        crawler = BasicCrawler()
         
-        if args.test:
-            asyncio.run(crawler.run_test())
-        elif args.douban_id:
-            asyncio.run(crawler.run_by_douban_id(args.douban_id, args.title, args.work_id))
-        else:
-            parser.print_help()
-    finally:
-        asyncio.run(crawler.close())
+        try:
+            await crawler.init()
+            
+            if args.test:
+                await crawler.run_test()
+            elif args.douban_id:
+                await crawler.run_by_douban_id(args.douban_id, args.title, args.work_id)
+            else:
+                parser.print_help()
+        finally:
+            await crawler.close()
+    
+    asyncio.run(run())
 
 
 if __name__ == "__main__":

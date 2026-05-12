@@ -18,6 +18,51 @@ class TMDBClient:
         self.base_url = "https://api.themoviedb.org/3"
         self.image_base_url = "https://image.tmdb.org/t/p/original"
         self.proxy = config.PROXY_URL if config.PROXY_ENABLED else None
+        self.max_retries = 3
+        self.retry_delay = 2.0
+        
+    async def _request_with_retry(self, url: str, params: Dict, timeout: int = 30) -> Optional[Dict]:
+        """
+        带重试机制的 API 请求
+        
+        Args:
+            url: 请求 URL
+            params: 请求参数
+            timeout: 超时时间（秒）
+            
+        Returns:
+            JSON 响应数据或 None
+        """
+        last_error = None
+        
+        for attempt in range(self.max_retries):
+            try:
+                connector = aiohttp.TCPConnector(ssl=False)
+                async with aiohttp.ClientSession(connector=connector) as session:
+                    async with session.get(url, params=params, proxy=self.proxy, timeout=timeout) as response:
+                        if response.status == 200:
+                            return await response.json()
+                        else:
+                            last_error = f"HTTP {response.status}"
+                            Logger.warning(f"TMDB API 错误 (尝试 {attempt+1}/{self.max_retries}): {response.status}")
+            except asyncio.TimeoutError:
+                last_error = "请求超时"
+                Logger.warning(f"TMDB API 超时 (尝试 {attempt+1}/{self.max_retries})")
+            except aiohttp.ClientError as e:
+                last_error = str(e)
+                Logger.warning(f"TMDB API 连接失败 (尝试 {attempt+1}/{self.max_retries}): {e}")
+            except Exception as e:
+                last_error = str(e)
+                Logger.warning(f"TMDB API 未知错误 (尝试 {attempt+1}/{self.max_retries}): {e}")
+            
+            # 重试前等待
+            if attempt < self.max_retries - 1:
+                delay = self.retry_delay * (attempt + 1)  # 递增延迟
+                Logger.info(f"等待 {delay} 秒后重试...")
+                await asyncio.sleep(delay)
+        
+        Logger.error(f"TMDB API 请求失败（已重试 {self.max_retries} 次）: {last_error}")
+        return None
         
     async def search_by_imdb(self, imdb_id: str) -> Optional[Dict]:
         """
@@ -37,22 +82,14 @@ class TMDBClient:
             "external_source": "imdb_id"
         }
         
-        try:
-            connector = aiohttp.TCPConnector(ssl=False)
-            async with aiohttp.ClientSession(connector=connector) as session:
-                async with session.get(url, params=params, proxy=self.proxy) as response:
-                    if response.status == 200:
-                        data = await response.json()
-                        movie_results = data.get("movie_results", [])
-                        if movie_results:
-                            movie = movie_results[0]
-                            Logger.success(f"找到 TMDB 电影: {movie.get('title', '')}")
-                            return movie
-                    else:
-                        Logger.error(f"TMDB API 错误: {response.status}")
-        except Exception as e:
-            Logger.error(f"TMDB API 请求失败: {e}")
-            
+        data = await self._request_with_retry(url, params)
+        if data:
+            movie_results = data.get("movie_results", [])
+            if movie_results:
+                movie = movie_results[0]
+                Logger.success(f"找到 TMDB 电影: {movie.get('title', '')}")
+                return movie
+        
         return None
         
     async def get_detail(self, tmdb_id: int) -> Dict:
@@ -132,38 +169,29 @@ class TMDBClient:
             "crew": []
         }
         
-        try:
-            connector = aiohttp.TCPConnector(ssl=False)
-            async with aiohttp.ClientSession(connector=connector) as session:
-                async with session.get(url, params=params, proxy=self.proxy) as response:
-                    if response.status == 200:
-                        data = await response.json()
-                        
-                        # 演员
-                        for cast in data.get("cast", []):
-                            result["cast"].append({
-                                "id": cast.get("id", 0),
-                                "name": cast.get("name", ""),
-                                "character": cast.get("character", ""),
-                                "order": cast.get("order", 0),
-                                "profile_path": f"{self.image_base_url}{cast.get('profile_path', '')}" if cast.get("profile_path") else ""
-                            })
-                        
-                        # 演职人员
-                        for crew in data.get("crew", []):
-                            result["crew"].append({
-                                "id": crew.get("id", 0),
-                                "name": crew.get("name", ""),
-                                "job": crew.get("job", ""),
-                                "department": crew.get("department", ""),
-                                "profile_path": f"{self.image_base_url}{crew.get('profile_path', '')}" if crew.get("profile_path") else ""
-                            })
-                        
-                        Logger.success(f"获取演员 {len(result['cast'])} 人，演职人员 {len(result['crew'])} 人")
-                    else:
-                        Logger.error(f"TMDB API 错误: {response.status}")
-        except Exception as e:
-            Logger.error(f"TMDB API 请求失败: {e}")
+        data = await self._request_with_retry(url, params)
+        if data:
+            # 演员
+            for cast in data.get("cast", []):
+                result["cast"].append({
+                    "id": cast.get("id", 0),
+                    "name": cast.get("name", ""),
+                    "character": cast.get("character", ""),
+                    "order": cast.get("order", 0),
+                    "profile_path": f"{self.image_base_url}{cast.get('profile_path', '')}" if cast.get("profile_path") else ""
+                })
+            
+            # 演职人员
+            for crew in data.get("crew", []):
+                result["crew"].append({
+                    "id": crew.get("id", 0),
+                    "name": crew.get("name", ""),
+                    "job": crew.get("job", ""),
+                    "department": crew.get("department", ""),
+                    "profile_path": f"{self.image_base_url}{crew.get('profile_path', '')}" if crew.get("profile_path") else ""
+                })
+            
+            Logger.success(f"获取演员 {len(result['cast'])} 人，演职人员 {len(result['crew'])} 人")
             
         return result
         

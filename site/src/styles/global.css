@@ -1719,6 +1719,8 @@ select {
 }
 
 .detail-breadcrumb strong {
+  display: inline-flex;
+  align-items: center;
   color: var(--text);
   font-weight: 600;
   white-space: nowrap;
