@@ -246,7 +246,7 @@ class BasicCrawler:
         self.merger.save_merged_data(book_id, merged_data)
         
         # 6. 下载封面
-        cover_url = merged_data.get("cover_url")
+        cover_url = raw_data.get("douban", {}).get("main_cover_url")
         if cover_url:
             try:
                 cover_path = await self.cover_downloader.download_cover(book_id, cover_url, source="douban")

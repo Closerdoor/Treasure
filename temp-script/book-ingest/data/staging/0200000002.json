@@ -15,7 +15,7 @@
   "seriesOrder": null,
   "scores": "{\"douban\": 9.0, \"avg\": 9.0}",
   "externalSource": "[{\"name\": \"豆瓣\", \"id\": \"1008145\", \"link\": \"https://book.douban.com/subject/1008145/\"}, {\"name\": \"ISBN\", \"id\": \"9787020024759\", \"link\": null}, {\"name\": \"OpenLibrary\", \"id\": \"OL17705550W\", \"link\": \"https://openlibrary.org/works/OL17705550W\"}, {\"name\": \"百度百科\", \"id\": 2068378, \"link\": \"https://baike.baidu.com/item/%E5%9B%B4%E5%9F%8E/2068378\"}, {\"name\": \"维基百科\", \"id\": \"%E5%9B%B4%E5%9F%8E_(%E5%B0%8F%E8%AF%B4)\", \"link\": \"https://zh.wikipedia.org/wiki/%E5%9B%B4%E5%9F%8E_(%E5%B0%8F%E8%AF%B4)\"}, {\"name\": \"当当网\", \"id\": \"9787020024759\", \"link\": \"https://product.dangdang.com/12317900124.html\"}]",
-  "images": "{\"cover\": \"cover-main.jpg\", \"covers\": [\"cover-002.jpg\"], \"assetDir\": \"book/0200000002\"}",
+  "images": "{\"cover\": \"cover-main.jpg\", \"covers\": [\"cover-002.jpg\"], \"assetDir\": \"0200000002\"}",
   "reviews": "[]",
   "related": null,
   "status": "draft",

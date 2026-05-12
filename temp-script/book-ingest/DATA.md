@@ -134,13 +134,13 @@
 {
   "cover": "cover-main.jpg",
   "covers": ["cover-002.jpg", "cover-003.jpg"],
-  "assetDir": "book/0200000001"
+  "assetDir": "0200000001"
 }
 ```
 
 - `cover`：主封面文件名
 - `covers`：补充封面列表
-- `assetDir`：资源目录路径
+- `assetDir`：资源目录路径（书籍 ID）
 
 ### 4.4 reviews（书评）
 
