@@ -249,6 +249,63 @@ images.wallpapers  壁纸文件名数组
 
 这些字段当前应优先使用本地文件名字符串，例如 `poster-main.webp`。如果出现 TMDB 外链对象，必须明确是导出阶段过滤、转换，还是前台读取层支持；不要让两种形态长期混用。
 
+## 电影字段映射
+
+当前电影导出逻辑位于 `tools/db/export-generated.mjs`。它不是旧 `content/.../data.json` 链路，而是直接从 SQLite 表组装 generated JSON。
+
+主要映射关系：
+
+| SQLite 来源 | generated 字段 |
+|---|---|
+| `works.id` | `id` |
+| `works.module` / `works.submodule` | `module` / `submodule` |
+| `works.schema_type` | `schemaType` |
+| `works.title` / `works.title_original` | `title` / `originalTitle` |
+| `works.year` / `works.country` / `works.language` | `year` / `country` / `language` |
+| `works.studio` / `works.total_time` | `publishCompany` / `runtime` |
+| `works.introduction` | `synopsis.text` |
+| `works.story` | `story.text` |
+| `works.other_titles` | `aka` |
+| `works.release_dates` | `releaseDate` |
+| `works.external_source` | `links`、`doubanId`、`imdbId`、`tmdbId` |
+| `works.scores` | `doubanRating`、`imdbRating`、`tmdbRating`、`rottenTomatoes`、`metascore` |
+| `works.images` / `works.videos` | `images` / `videos` |
+| `works.comments` | `reviews` |
+| `works.soundtrack` | `soundtrack` |
+| `works.related` | `series` / `similar` |
+| `works.quotes` | `quotes` |
+| `works.created_at` / `works.updated_at` / `works.status` | `createdAt` / `updatedAt` / `status` |
+
+关系表映射：
+
+- `work_person + person` 生成 `director`、`writer`、`cast`、`otherCast`、`producer`。
+- `department = direction` 进入 `director`。
+- `department = writing` 或 `original_work` 进入 `writer`。
+- `department = cast` 且 `is_primary = true` 进入 `cast`，否则进入 `otherCast`。
+- `department = production` 进入 `producer`。
+- `work_category + category` 中 `group = type` 进入 `genre`。
+- `work_category + category` 中 `group = tag` 进入 `tags`。
+
+前台派生字段：
+
+- `path` 由 `module/submodule/id` 生成。
+- `posterUrl` 由 `images.poster` 生成；缺失时回退到 `/assets/poster-placeholder.svg`。
+- `aggregateRating` 由豆瓣、IMDb、TMDB、烂番茄计算。
+- `directorNames`、`writerNames`、`castPreview` 等由人员数组派生。
+- 列表页和首页应消费轻量索引字段，不直接读取全量详情 JSON。
+
+类型与标签分工：
+
+- `genre` / 类型来自相对标准化的分类，例如剧情、动作、科幻。
+- `tags` / 标签可以包含外部平台标签，也可以包含站内手动维护标签。
+- 前台筛选 UI 可以混合展示标签，不必向访问者暴露标签来源。
+
+数据分层原则：
+
+- 作品级数据只描述单个作品自身的结构化资料。
+- 页面聚合数据服务首页、列表页、搜索页，通常是轻量索引或摘要。
+- 站点级数据包括导航、模块顺序、主题、搜索规则等，不应塞进单个作品记录。
+
 ## 4. Astro 站点：公开静态站
 
 目录：
@@ -285,6 +342,16 @@ site/public/assets/
 /video/movie/{id}
 ```
 
+页面层级原则：
+
+```text
+首页 -> 模块列表页 -> 详情页
+```
+
+- 首页是全站入口，负责呈现收藏馆气质、模块入口和适度内容预览。
+- 模块列表页负责浏览、搜索、筛选、分页和进入详情页。
+- 详情页负责展示单条作品的完整结构化资料。
+
 计划但尚未正式落地：
 
 ```text
@@ -315,6 +382,50 @@ output: static
 - `.local/`。
 - `temp-script/`。
 - Playwright 或爬虫运行时。
+
+## 前台 UI 方向
+
+当前前台不是传统资源站，也不是博客，而是“资料馆气质 + 现代浏览体验”的静态收藏站。
+
+原则：
+
+- 深色 / 浅色主题都应作为完整体验成立，而不是简单反色。
+- 海报、封面、剧照是关键视觉资产，但不能牺牲资料可读性。
+- 全站统一导航、主题、基础交互和视觉气质。
+- 各模块可以根据内容特征独立设计列表字段、详情结构、筛选项和页面节奏。
+- 首页负责说明收藏馆气质和模块入口，不做长篇博客式叙述。
+- 首页可采用“首屏 + 模块预览区”的结构，模块预览区使用作品卡片进入列表页或详情页。
+- 列表页优先支持浏览、筛选、分页和卡片 / 列表视图切换。
+- 影视列表页当前结构是搜索筛选区、内容区和分页区。
+- 详情页偏资料型，不是文章页；优先展示基础信息、分区内容和关联内容。
+- 搜索页当前主要是入口和后续扩展位置，不代表完整搜索功能已经完成。
+- 避免把页面做成全量资源站、营销落地页或纯文章站。
+- 避免夸张圆角、厚重阴影和通用后台组件感。
+
+电影详情页分区可参考：
+
+```text
+基础信息
+详情介绍
+演职员
+精选影评
+视频
+图片
+音乐
+外部来源
+关联作品
+评论区
+```
+
+Giscus 评论区保留在详情页，不出现在首页和列表页。
+
+列表卡片原则：
+
+- 网格模式适合快速扫视和封面浏览。
+- 列表模式适合更高信息密度。
+- 必要字段：海报、标题、年份、类型、综合评分。
+- 高优先级字段：原名、地区、导演、摘要。
+- 点击卡片进入详情页，悬停态不应造成布局不稳定。
 
 ## 标准工作流
 
