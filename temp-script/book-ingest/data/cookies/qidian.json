@@ -1,0 +1,32 @@
+[
+  {
+    "name": "x-waf-captcha-referer",
+    "value": "",
+    "domain": "www.qidian.com",
+    "path": "/",
+    "expires": 1778513328.097712,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "w_tsfp",
+    "value": "ltv2UU8E3ewC6mwF46vuk0OrFzslczAnlQBsXqNmeJ94Q7ErU5mC2YN7vcnxOHbf6sxnt9jMsoszd3qAUdEteBAXR8qZcIkZkB/Gy99yicxUQ0k5VYnWS14fIe535GFCLmhbJRDu2DkoLNEVm7cyjQgO4CR9yPwlXvFqL5kXjB0ZufzCkpxuDG3HlFWQRzaZciVfKr/c9OtwraxQ9z/c5Vv7LFt0A6hewgfHg31dWzox6wOpaPsYd0W/Kdz3HKlw7ibwsyz1HIWur1Fkpk526UpkU4vqimqXOnQyMhd5NgDn0eVnPvO5PPR3vWMeW/lPG1xDqAcbs7Rs/RcdXiC0aSaKBv184AFVFeAU",
+    "domain": "www.qidian.com",
+    "path": "/",
+    "expires": 1778513388,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "x-waf-captcha-referer",
+    "value": "https%3A%2F%2Fwww.qidian.com%2F",
+    "domain": ".qidian.com",
+    "path": "/",
+    "expires": 1778513328.438446,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  }
+]

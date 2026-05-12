@@ -1,0 +1,67 @@
+{
+  "last_updated": "2026-05-11T23:55:52.543253",
+  "total": 3,
+  "completed_count": 3,
+  "books": {
+    "6082808": {
+      "title": "百年孤独",
+      "book_id": "0200000001",
+      "status": "completed",
+      "sources": {
+        "douban": "done",
+        "openlibrary": "error",
+        "baike": "done",
+        "wikipedia": "done",
+        "goodreads": "pending",
+        "dangdang": "done",
+        "qidian": "pending",
+        "bookchina": "pending"
+      },
+      "basic_crawled": true,
+      "reviews_crawled": false,
+      "images_crawled": false,
+      "images_downloaded": false,
+      "data_merged": true
+    },
+    "1008145": {
+      "title": "围城",
+      "book_id": "0200000002",
+      "status": "completed",
+      "sources": {
+        "douban": "done",
+        "openlibrary": "done",
+        "baike": "done",
+        "wikipedia": "done",
+        "goodreads": "pending",
+        "dangdang": "done",
+        "qidian": "pending",
+        "bookchina": "pending"
+      },
+      "basic_crawled": true,
+      "reviews_crawled": false,
+      "images_crawled": false,
+      "images_downloaded": false,
+      "data_merged": true
+    },
+    "4192766": {
+      "title": "凡人修仙传",
+      "book_id": "0200000003",
+      "status": "completed",
+      "sources": {
+        "douban": "done",
+        "openlibrary": "done",
+        "baike": "done",
+        "wikipedia": "done",
+        "goodreads": "pending",
+        "dangdang": "done",
+        "qidian": "done",
+        "bookchina": "pending"
+      },
+      "basic_crawled": true,
+      "reviews_crawled": false,
+      "images_crawled": false,
+      "images_downloaded": false,
+      "data_merged": true
+    }
+  }
+}

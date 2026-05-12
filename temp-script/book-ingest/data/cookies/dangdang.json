@@ -1,0 +1,142 @@
+[
+  {
+    "name": "ddscreen",
+    "value": "2",
+    "domain": ".dangdang.com",
+    "path": "/books/ebooks",
+    "expires": -1,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "ddscreen",
+    "value": "2",
+    "domain": ".dangdang.com",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "__permanent_id",
+    "value": "20260511232838910938136411071607166",
+    "domain": ".dangdang.com",
+    "path": "/",
+    "expires": 1813073318.910537,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "__visit_id",
+    "value": "20260511232838910240511221322714720",
+    "domain": ".dangdang.com",
+    "path": "/",
+    "expires": 1778515157,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "__out_refer",
+    "value": "",
+    "domain": ".dangdang.com",
+    "path": "/",
+    "expires": 1778515157,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "JSESSIONID",
+    "value": "CAEBED381264D8F3DD23D3E5749F9D7F",
+    "domain": "login.dangdang.com",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": true,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "sessionID",
+    "value": "pc_b90a8b333f6d2019063275412b8ba3836db25aadab80bd327254ab39a802c7f7",
+    "domain": ".dangdang.com",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "USERNUM",
+    "value": "4IfhIWh3zQFLsq9pG2UA8A==",
+    "domain": ".dangdang.com",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "login.dangdang.com",
+    "value": ".ASPXAUTH=FaGDcJMti+x/k8uJNmWUoJKUXSuy0pS5lFJDz51gkWwgE8e4IbhT3A==",
+    "domain": ".dangdang.com",
+    "path": "/",
+    "expires": -1,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "dangdang.com",
+    "value": "email=MTc3MjQyNTExOTA1MDk2MEBkZG1vYmlscGhvbmVfX3VzZXIuY29t&nickname=&display_id=6667340767724&customerid=OIPR13O7FpuA6okWlYdkfg==&viptype=n7I6lSul/4Q=&show_name=177****1190",
+    "domain": ".dangdang.com",
+    "path": "/",
+    "expires": 1786289345.236892,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "ddoy",
+    "value": "email=1772425119050960@ddmobilphone__user.com&nickname=&validatedflag=0&uname=&utype=1&.ALFG=off&.ALTM=1778513344242",
+    "domain": ".dangdang.com",
+    "path": "/",
+    "expires": 1786289345.236908,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "LOGIN_TIME",
+    "value": "1778513345528",
+    "domain": ".dangdang.com",
+    "path": "/",
+    "expires": 1810049345,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "__rpm",
+    "value": "login_page...1778513345001%7Cmix_317715.3208532..1778513355394",
+    "domain": ".dangdang.com",
+    "path": "/",
+    "expires": 1778599755,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  },
+  {
+    "name": "__trace_id",
+    "value": "20260511232917730152390861660326616",
+    "domain": ".dangdang.com",
+    "path": "/",
+    "expires": 1778515157,
+    "httpOnly": false,
+    "secure": false,
+    "sameSite": "Lax"
+  }
+]

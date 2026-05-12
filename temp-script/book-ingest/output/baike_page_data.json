@@ -1,0 +1,2056 @@
+{
+  "lemmaId": 688708,
+  "lemmaTitle": "百年孤独",
+  "lemmaDesc": "哥伦比亚作家加西亚·马尔克斯创作的长篇小说",
+  "lemmaType": 0,
+  "uid": 4259795,
+  "uname": "伊依漪",
+  "createTime": 1145774595,
+  "updateTime": 1778420928,
+  "isDefault": 0,
+  "isDeleted": 0,
+  "rank": 1,
+  "extData": {
+    "LemmaId": 37227,
+    "audit_comment_category": 2,
+    "categoryTag": "哥伦比亚,长篇小说,现实",
+    "classify": [
+      {
+        "id": 1033566,
+        "idPath": "1033566/1033610/1033814",
+        "leafId": 1033814,
+        "leafName": "小说",
+        "mainCategory": 1,
+        "name": "人文学科",
+        "path": "人文学科/文学/小说"
+      }
+    ],
+    "discussion": {
+      "relateInfo": [
+        {
+          "relateId": 32992,
+          "relateType": 1
+        },
+        {
+          "relateId": 32990,
+          "relateType": 1
+        },
+        {
+          "relateId": 33035,
+          "relateType": 1
+        },
+        {
+          "relateId": 33338,
+          "relateType": 1
+        },
+        {
+          "relateId": 33370,
+          "relateType": 1
+        }
+      ]
+    },
+    "featured_manager": [],
+    "hasBookAd": true,
+    "helloEarth": 1,
+    "internationalLemma": {
+      "hasForeignLemma": 1
+    },
+    "isBaikeV6": 1,
+    "isFrontV6": 1,
+    "isSapp": 0,
+    "isWaitForPersonal": false,
+    "is_locked": 0,
+    "kpdClassify": [
+      {
+        "id": 337496,
+        "name": "文学作品"
+      },
+      {
+        "id": 337504,
+        "name": "小说作品"
+      },
+      {
+        "id": 337474,
+        "name": "书籍"
+      }
+    ],
+    "lemmaId": 37227,
+    "lemma_id": 37227,
+    "limitedFlag": 2,
+    "newCardType": 337474,
+    "newEditor": 1,
+    "pass_count": 337,
+    "pinyin": "bǎi nián gū dú",
+    "redirectFrom": [
+      {
+        "fromLemmaId": 927416,
+        "fromTitle": "一百年的孤独"
+      }
+    ],
+    "seo": {
+      "pinyin": "bainiangudu"
+    },
+    "subLemmaId": 37227,
+    "updateBot": 1,
+    "updateTime": 1778420936,
+    "wapEdit": 0
+  },
+  "extFlag": 0,
+  "versionId": 766376877,
+  "versionUid": 956828066,
+  "versionUname": "故国虽大",
+  "versionContributeFlag": {
+    "flagId": 1,
+    "name": "百科蝌蚪团",
+    "url": "https://baike.baidu.com/kedou"
+  },
+  "versionCreateTime": 1778379610,
+  "catalog": [
+    {
+      "level": 1,
+      "title": "创作背景",
+      "index": "1",
+      "uuid": "gntsnhe7z5",
+      "height": 28
+    },
+    {
+      "level": 2,
+      "title": "历史背景",
+      "index": "1-1",
+      "uuid": "tNEijAqg1DXU",
+      "height": 21
+    },
+    {
+      "level": 2,
+      "title": "个人背景",
+      "index": "1-2",
+      "uuid": "tNEivOpOveTq",
+      "height": 21
+    },
+    {
+      "level": 2,
+      "title": "创作过程",
+      "index": "1-3",
+      "uuid": "viIOnb2DMtiS",
+      "height": 21
+    },
+    {
+      "level": 1,
+      "title": "内容情节",
+      "index": "2",
+      "uuid": "gntsjhptrg",
+      "height": 28
+    },
+    {
+      "level": 1,
+      "title": "角色介绍",
+      "index": "3",
+      "uuid": "vikAPUaNg5jv",
+      "height": 28
+    },
+    {
+      "level": 2,
+      "title": "角色列表",
+      "index": "3-1",
+      "uuid": "viNC6lwbdu2K",
+      "height": 21
+    },
+    {
+      "level": 2,
+      "title": "男性角色",
+      "index": "3-2",
+      "uuid": "gntsjhptt4",
+      "height": 21
+    },
+    {
+      "level": 2,
+      "title": "女性角色",
+      "index": "3-3",
+      "uuid": "gntsjhptyy",
+      "height": 21
+    },
+    {
+      "level": 1,
+      "title": "作品特点",
+      "index": "4",
+      "uuid": "gntso2cc7y",
+      "height": 28
+    },
+    {
+      "level": 2,
+      "title": "主题思想",
+      "index": "4-1",
+      "uuid": "gntsjblppa",
+      "height": 21
+    },
+    {
+      "level": 2,
+      "title": "内容结构",
+      "index": "4-2",
+      "uuid": "gntsa75ult",
+      "height": 21
+    },
+    {
+      "level": 2,
+      "title": "艺术风格",
+      "index": "4-3",
+      "uuid": "viTJc0b2aEKf",
+      "height": 21
+    },
+    {
+      "level": 2,
+      "title": "神话运用",
+      "index": "4-4",
+      "uuid": "viTJtNYoHnID",
+      "height": 21
+    },
+    {
+      "level": 2,
+      "title": "象征手法",
+      "index": "4-5",
+      "uuid": "viTJv8Y3Snml",
+      "height": 21
+    },
+    {
+      "level": 2,
+      "title": "叙述手法",
+      "index": "4-6",
+      "uuid": "viTJAGKg8n4l",
+      "height": 21
+    },
+    {
+      "level": 1,
+      "title": "作品影响",
+      "index": "5",
+      "uuid": "gntso2ccd8",
+      "height": 28
+    },
+    {
+      "level": 2,
+      "title": "社会影响",
+      "index": "5-1",
+      "uuid": "viCwgTkMSSNZ",
+      "height": 21
+    },
+    {
+      "level": 2,
+      "title": "文学影响",
+      "index": "5-2",
+      "uuid": "viZSA4yBqT0S",
+      "height": 21
+    },
+    {
+      "level": 2,
+      "title": "获奖记录",
+      "index": "5-3",
+      "uuid": "viZThvC1Wh7u",
+      "height": 21
+    },
+    {
+      "level": 2,
+      "title": "衍生作品",
+      "index": "5-4",
+      "uuid": "viCweJxzZcUa",
+      "height": 21
+    },
+    {
+      "level": 1,
+      "title": "作品评价",
+      "index": "6",
+      "uuid": "gntsnhe88j",
+      "height": 28
+    },
+    {
+      "level": 1,
+      "title": "出版历史",
+      "index": "7",
+      "uuid": "vilq1fEDW4oW",
+      "height": 28
+    },
+    {
+      "level": 1,
+      "title": "版权争议",
+      "index": "8",
+      "uuid": "tNEgti0HlLnO",
+      "height": 28
+    }
+  ],
+  "abstract": [],
+  "abstractAlbum": {
+    "content": [
+      {
+        "albumId": 1,
+        "src": "b03533fa828ba61ea8d35f9ab76e800a304e251ff349",
+        "desc": "百年孤独",
+        "width": 800,
+        "height": 1069,
+        "uuid": "uP2YyaX9qRYr"
+      },
+      {
+        "albumId": 1,
+        "src": "279759ee3d6d55fba1d263a86f224f4a20a4dd23",
+        "desc": "百年孤独",
+        "width": 1500,
+        "height": 1500,
+        "uuid": "pc4dd23"
+      }
+    ],
+    "desc": "概述图册",
+    "total": 2,
+    "coverPic": {
+      "albumId": 1,
+      "url": "https://bkimg.cdn.bcebos.com/pic/b03533fa828ba61ea8d35f9ab76e800a304e251ff349?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+      "src": "b03533fa828ba61ea8d35f9ab76e800a304e251ff349",
+      "origSrc": "b03533fa828ba61ea8d35f9ab76e800a304e251ff349",
+      "desc": "百年孤独",
+      "width": 800,
+      "height": 1069,
+      "coverCrop": {},
+      "uuid": "uP2YyaX9qRYr"
+    },
+    "wapPic": {
+      "src": "c2fdfc039245d688d43f381152986a1ed21b0ef48e49",
+      "origSrc": "b03533fa828ba61ea8d35f9ab76e800a304e251ff349",
+      "width": 800,
+      "height": 1067,
+      "coverCrop": {
+        "y": 0.2,
+        "aspect": 0.75,
+        "width": 100,
+        "height": 99.8,
+        "padHeight": 99.8,
+        "padWidth": 100
+      },
+      "category": "politics",
+      "uuid": "uP2YEGeadhGd"
+    },
+    "sharePic": {
+      "src": "0ff41bd5ad6eddc451da494ecf81a1fd5266d0169549",
+      "origSrc": "b03533fa828ba61ea8d35f9ab76e800a304e251ff349",
+      "width": 1068,
+      "height": 1068,
+      "coverCrop": {
+        "aspect": 1,
+        "width": 100,
+        "height": 99.9,
+        "padHeight": 99.9,
+        "padWidth": 133.55615
+      },
+      "uuid": "uP2YEWpQQW5C"
+    },
+    "bgPic": {
+      "src": "b21c8701a18b87d6277f98a9f1523f381f30e9245748",
+      "origSrc": "b03533fa828ba61ea8d35f9ab76e800a304e251ff349",
+      "width": 800,
+      "height": 800,
+      "coverCrop": {
+        "y": 12.22878,
+        "aspect": 1,
+        "width": 100,
+        "height": 74.84
+      },
+      "uuid": "uP2YQD7VO4eo"
+    }
+  },
+  "reference": [
+    {
+      "type": 3,
+      "text": "方位津编,外国文学名著速览  第3卷[M],华夏出版社,2010.06,第352-354页",
+      "index": 1,
+      "uuid": "gntsmcpkco"
+    },
+    {
+      "type": 3,
+      "text": "田丽华,韩旭.关于人类命运的寓言——《百年孤独》[J].佳木斯大学社会科学学报,2002,(第5期).71-73",
+      "isPublic": "1",
+      "index": 2,
+      "uuid": "gntsnhcmd6"
+    },
+    {
+      "type": 3,
+      "text": "郑鲁南主编,书里书外,华中科技大学出版社,2020.09,第199页",
+      "isPublic": "1",
+      "index": 3,
+      "uuid": "tNEguMYGxnfV"
+    },
+    {
+      "type": 2,
+      "title": "世界名人全传  马尔克斯全传",
+      "isPublic": "1",
+      "author": "朱景冬著",
+      "publisher": "长春出版社",
+      "publishYear": "1995",
+      "refPage": "第131-132页",
+      "index": 4,
+      "uuid": "tNEgRAjjpMho"
+    },
+    {
+      "type": 2,
+      "title": "世界文明简史",
+      "isPublic": "1",
+      "author": "朱亚娥主编",
+      "publisher": "中华工商联合出版社",
+      "publishYear": "2020.09",
+      "refPage": "第222-223页",
+      "index": 5,
+      "uuid": "vikzjUML0d4r",
+      "imgs": [
+        {
+          "url": "7acb0a46f21fbe096b63ae83bf3c1b338744eaf807ad",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/7acb0a46f21fbe096b63ae83bf3c1b338744eaf807ad?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjdhY2IwYTQ2ZjIxZmJlMDk2YjYzYWU,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/7acb0a46f21fbe096b63ae83bf3c1b338744eaf807ad?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        },
+        {
+          "url": "6a63f6246b600c338744b75fce10460fd9f9d62a0bad",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/6a63f6246b600c338744b75fce10460fd9f9d62a0bad?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjZhNjNmNjI0NmI2MDBjMzM4NzQ0Yjc,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/6a63f6246b600c338744b75fce10460fd9f9d62a0bad?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        }
+      ]
+    },
+    {
+      "type": 2,
+      "title": "外国文学阅读与欣赏",
+      "isPublic": "1",
+      "author": "张良村等主编",
+      "publisher": "天津人民出版社",
+      "publishYear": "1993.09",
+      "refPage": "第381-382页",
+      "index": 6,
+      "uuid": "vikBj393G5kI",
+      "imgs": [
+        {
+          "url": "58ee3d6d55fbb2fb4316248a9b1637a4462308f776ac",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/58ee3d6d55fbb2fb4316248a9b1637a4462308f776ac?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjU4ZWUzZDZkNTVmYmIyZmI0MzE2MjQ,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/58ee3d6d55fbb2fb4316248a9b1637a4462308f776ac?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        },
+        {
+          "url": "e850352ac65c103853438f5a664d8413b07ecb8023ac",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/e850352ac65c103853438f5a664d8413b07ecb8023ac?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmU4NTAzNTJhYzY1YzEwMzg1MzQzOGY,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/e850352ac65c103853438f5a664d8413b07ecb8023ac?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        }
+      ]
+    },
+    {
+      "type": 2,
+      "title": "世界文学经典导读",
+      "isPublic": "1",
+      "author": "可潜主编",
+      "publisher": "武汉出版社",
+      "publishYear": "1996.03",
+      "refPage": "第9-10页",
+      "index": 7,
+      "uuid": "vikCTnAUGfdP",
+      "imgs": [
+        {
+          "url": "2f738bd4b31c8701a18ba17ff323892f0708293851af",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/2f738bd4b31c8701a18ba17ff323892f0708293851af?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjJmNzM4YmQ0YjMxYzg3MDFhMThiYTE,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/2f738bd4b31c8701a18ba17ff323892f0708293851af?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        },
+        {
+          "url": "b21c8701a18b87d6277fb686d3543f381f30e82457af",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/b21c8701a18b87d6277fb686d3543f381f30e82457af?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmIyMWM4NzAxYTE4Yjg3ZDYyNzdmYjY,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/b21c8701a18b87d6277fb686d3543f381f30e82457af?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        }
+      ]
+    },
+    {
+      "type": 2,
+      "title": "文学·种源  西方卷",
+      "isPublic": "1",
+      "author": "刘丽君编著",
+      "publisher": "金城出版社",
+      "publishYear": "2006.01",
+      "refPage": "第190页",
+      "index": 8,
+      "uuid": "vikDVceUCSlV",
+      "imgs": [
+        {
+          "url": "810a19d8bc3eb13533fa43227242bfd3fd1f4034eeaf",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/810a19d8bc3eb13533fa43227242bfd3fd1f4034eeaf?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjgxMGExOWQ4YmMzZWIxMzUzM2ZhNDM,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/810a19d8bc3eb13533fa43227242bfd3fd1f4034eeaf?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        }
+      ]
+    },
+    {
+      "type": 2,
+      "title": "西方文学简史",
+      "isPublic": "1",
+      "author": "文聘元著",
+      "publisher": "江西美术出版社",
+      "publishYear": "2019.05",
+      "refPage": "第239-240页",
+      "index": 9,
+      "uuid": "vikEFB6O5zQI",
+      "imgs": [
+        {
+          "url": "c995d143ad4bd11373f082a88ef3b30f4bfbfaedafaf",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/c995d143ad4bd11373f082a88ef3b30f4bfbfaedafaf?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmM5OTVkMTQzYWQ0YmQxMTM3M2YwODI,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/c995d143ad4bd11373f082a88ef3b30f4bfbfaedafaf?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        },
+        {
+          "url": "d01373f082025aafa40f48512fb1bc64034f79f0acaf",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/d01373f082025aafa40f48512fb1bc64034f79f0acaf?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmQwMTM3M2YwODIwMjVhYWZhNDBmNDg,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/d01373f082025aafa40f48512fb1bc64034f79f0acaf?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        }
+      ]
+    },
+    {
+      "type": 2,
+      "title": "壹力文库  一生的读书计划",
+      "isPublic": "1",
+      "author": "（美）克里夫顿·费迪曼，约翰·S.梅杰著；马骏娥译",
+      "publisher": "译林出版社",
+      "publishYear": "2018.02",
+      "refPage": "第346页",
+      "index": 10,
+      "uuid": "vikFFtTvuojg",
+      "imgs": [
+        {
+          "url": "d1a20cf431adcbef7609cd9c78f339dda3cc7dd931ae",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/d1a20cf431adcbef7609cd9c78f339dda3cc7dd931ae?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmQxYTIwY2Y0MzFhZGNiZWY3NjA5Y2Q,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/d1a20cf431adcbef7609cd9c78f339dda3cc7dd931ae?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        }
+      ]
+    },
+    {
+      "type": 2,
+      "title": "外国文学",
+      "isPublic": "1",
+      "author": "蒋承勇主编",
+      "publisher": "华东师范大学出版社",
+      "publishYear": "1997.06",
+      "refPage": "第398-399页",
+      "index": 11,
+      "uuid": "vikI5X6Zk6Yx",
+      "imgs": [
+        {
+          "url": "314e251f95cad1c8a78605bcab627009c93d71cffba1",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/314e251f95cad1c8a78605bcab627009c93d71cffba1?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjMxNGUyNTFmOTVjYWQxYzhhNzg2MDU,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/314e251f95cad1c8a78605bcab627009c93d71cffba1?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        },
+        {
+          "url": "94cad1c8a786c9177f3ea9a21d6167cf3bc79e3df9a1",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/94cad1c8a786c9177f3ea9a21d6167cf3bc79e3df9a1?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjk0Y2FkMWM4YTc4NmM5MTc3ZjNlYTk,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/94cad1c8a786c9177f3ea9a21d6167cf3bc79e3df9a1?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        }
+      ]
+    },
+    {
+      "type": 2,
+      "title": "20世纪西方文学",
+      "isPublic": "1",
+      "author": "邱永旭编",
+      "publisher": "四川大学出版社",
+      "publishYear": "2021.06",
+      "refPage": "第173页",
+      "index": 12,
+      "uuid": "vikKnXZuPVxn",
+      "imgs": [
+        {
+          "url": "f703738da9773912b31babfc2c459118367adbb444a3",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/f703738da9773912b31babfc2c459118367adbb444a3?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmY3MDM3MzhkYTk3NzM5MTJiMzFiYWI,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/f703738da9773912b31babfc2c459118367adbb444a3?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        }
+      ]
+    },
+    {
+      "type": 2,
+      "title": "西班牙与西班牙语美洲文学通史  西班牙语美洲文学  近现代",
+      "isPublic": "1",
+      "author": "陈众议作；陈众议总主编",
+      "publisher": "译林出版社",
+      "publishYear": "2023.08",
+      "refPage": "第377页",
+      "index": 13,
+      "uuid": "vikM253IrRqs",
+      "imgs": [
+        {
+          "url": "bd315c6034a85edf8db17bbe9d081e23dd54574edfa3",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/bd315c6034a85edf8db17bbe9d081e23dd54574edfa3?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmJkMzE1YzYwMzRhODVlZGY4ZGIxN2I,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/bd315c6034a85edf8db17bbe9d081e23dd54574edfa3?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        }
+      ]
+    },
+    {
+      "type": 2,
+      "title": "20世纪欧美文学热点问题",
+      "isPublic": "1",
+      "author": "曾繁仁主编",
+      "publisher": "高等教育出版社",
+      "publishYear": "2002",
+      "refPage": "第501页",
+      "index": 14,
+      "uuid": "vikMZSEhtIxn",
+      "imgs": [
+        {
+          "url": "b812c8fcc3cec3fdfc034ce802d4c33f8794a5c289a3",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/b812c8fcc3cec3fdfc034ce802d4c33f8794a5c289a3?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmI4MTJjOGZjYzNjZWMzZmRmYzAzNGM,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/b812c8fcc3cec3fdfc034ce802d4c33f8794a5c289a3?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        }
+      ]
+    },
+    {
+      "type": 2,
+      "title": "大学生经典阅读解题式导读丛书  经典导读",
+      "isPublic": "1",
+      "author": "王燕，倪春虎，殷颖编",
+      "publisher": "苏州大学出版社",
+      "publishYear": "2022.07",
+      "refPage": "第85页",
+      "index": 15,
+      "uuid": "vikQXyuKXtWg",
+      "imgs": [
+        {
+          "url": "d788d43f8794a4c27d1e36b4daa80cd5ad6edcc493a5",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/d788d43f8794a4c27d1e36b4daa80cd5ad6edcc493a5?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmQ3ODhkNDNmODc5NGE0YzI3ZDFlMzY,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/d788d43f8794a4c27d1e36b4daa80cd5ad6edcc493a5?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        }
+      ]
+    },
+    {
+      "type": 2,
+      "title": "当代外国文学概论",
+      "isPublic": "1",
+      "author": "戴安康主编",
+      "publisher": "华中理工大学出版社",
+      "publishYear": "1989.03",
+      "refPage": "第443页",
+      "index": 16,
+      "uuid": "vikR7FyovcdX",
+      "imgs": [
+        {
+          "url": "fc1f4134970a304e251f5c7a0594b086c9177e3ef6a4",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/fc1f4134970a304e251f5c7a0594b086c9177e3ef6a4?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmZjMWY0MTM0OTcwYTMwNGUyNTFmNWM,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/fc1f4134970a304e251f5c7a0594b086c9177e3ef6a4?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        }
+      ]
+    },
+    {
+      "type": 2,
+      "title": "中外经典小说人物导读",
+      "isPublic": "1",
+      "author": "刘松来等主编",
+      "publisher": "江西高校出版社",
+      "publishYear": "1998.05",
+      "refPage": "第1102-1105页",
+      "index": 17,
+      "uuid": "vikTxEfa1z8p",
+      "imgs": [
+        {
+          "url": "ca1349540923dd54564e27ea0555a4de9c82d058e2a6",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/ca1349540923dd54564e27ea0555a4de9c82d058e2a6?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmNhMTM0OTU0MDkyM2RkNTQ1NjRlMjc,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/ca1349540923dd54564e27ea0555a4de9c82d058e2a6?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        },
+        {},
+        {
+          "url": "838ba61ea8d3fd1f413451b8e412321f95cad0c8f1a6",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/838ba61ea8d3fd1f413451b8e412321f95cad0c8f1a6?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjgzOGJhNjFlYThkM2ZkMWY0MTM0NTE,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/838ba61ea8d3fd1f413451b8e412321f95cad0c8f1a6?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        },
+        {
+          "url": "4b90f603738da9773912a9a8640def198618377a45b9",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/4b90f603738da9773912a9a8640def198618377a45b9?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjRiOTBmNjAzNzM4ZGE5NzczOTEyYTk,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/4b90f603738da9773912a9a8640def198618377a45b9?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        },
+        {
+          "url": "6a600c338744ebf81a4c0fbc0da5c02a6059242d09b9",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/6a600c338744ebf81a4c0fbc0da5c02a6059242d09b9?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjZhNjAwYzMzODc0NGViZjgxYTRjMGY,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/6a600c338744ebf81a4c0fbc0da5c02a6059242d09b9?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        }
+      ]
+    },
+    {
+      "type": 2,
+      "title": "拉丁美洲文学名著便览",
+      "isPublic": "1",
+      "author": "陆经生著",
+      "publisher": "上海外语教育出版社",
+      "publishYear": "2009.12",
+      "refPage": "第214-215页",
+      "index": 18,
+      "uuid": "vilkdJcG4AsR",
+      "imgs": [
+        {
+          "url": "0b7b02087bf40ad162d9c512837006dfa9ec8b1360b7",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/0b7b02087bf40ad162d9c512837006dfa9ec8b1360b7?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjBiN2IwMjA4N2JmNDBhZDE2MmQ5YzU,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/0b7b02087bf40ad162d9c512837006dfa9ec8b1360b7?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        },
+        {
+          "url": "0bd162d9f2d3572c11df932d5e4f742762d0f60365b7",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/0bd162d9f2d3572c11df932d5e4f742762d0f60365b7?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjBiZDE2MmQ5ZjJkMzU3MmMxMWRmOTM,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/0bd162d9f2d3572c11df932d5e4f742762d0f60365b7?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        }
+      ]
+    },
+    {
+      "type": 2,
+      "title": "外国文学史",
+      "isPublic": "1",
+      "author": "黄怀军，詹志和主编",
+      "publisher": "湖南师范大学出版社",
+      "publishYear": "2015.07",
+      "refPage": "第305-306页",
+      "index": 19,
+      "uuid": "vilmq71RwE8a",
+      "imgs": [
+        {
+          "url": "4ec2d5628535e5dde7110b2da29ab0efce1b9c16c4b6",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/4ec2d5628535e5dde7110b2da29ab0efce1b9c16c4b6?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjRlYzJkNTYyODUzNWU1ZGRlNzExMGI,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/4ec2d5628535e5dde7110b2da29ab0efce1b9c16c4b6?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        },
+        {
+          "url": "8435e5dde71190ef76c63a2d1a478a16fdfaae51cab6",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/8435e5dde71190ef76c63a2d1a478a16fdfaae51cab6?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjg0MzVlNWRkZTcxMTkwZWY3NmM2M2E,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/8435e5dde71190ef76c63a2d1a478a16fdfaae51cab6?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        }
+      ]
+    },
+    {
+      "type": 3,
+      "text": "樊晓培. 马尔克斯与超现实主义写作 ——解读《百年孤独》[J]. 名作欣赏, 2024, (24)",
+      "isPublic": "1",
+      "index": 20,
+      "uuid": "vilns7bkPcwM",
+      "imgs": [
+        {
+          "url": "0df3d7ca7bcb0a46f21fe8cabf3fe1246b600d330189",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/0df3d7ca7bcb0a46f21fe8cabf3fe1246b600d330189?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjBkZjNkN2NhN2JjYjBhNDZmMjFmZTg,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/0df3d7ca7bcb0a46f21fe8cabf3fe1246b600d330189?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        }
+      ]
+    },
+    {
+      "type": 3,
+      "text": "李晓琼, 蒋昕宇. 在魔幻化的展现中探寻现实的深层真相 ——中学语文教材马尔克斯小说综论[J]. 语文教学之友, 2024, (8):pp.30-33.",
+      "isPublic": "1",
+      "index": 21,
+      "uuid": "viloTVe0j1wu",
+      "imgs": [
+        {
+          "url": "1f178a82b9014a90f60364497d2b2e12b31bb1514088",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/1f178a82b9014a90f60364497d2b2e12b31bb1514088?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjFmMTc4YTgyYjkwMTRhOTBmNjAzNjQ,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/1f178a82b9014a90f60364497d2b2e12b31bb1514088?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        }
+      ]
+    },
+    {
+      "type": 3,
+      "text": "井小丽. 从《百年孤独》看加西亚·马尔克斯的创作理念[J]. 河南城建学院学报, 2011, (2):pp.89-92.",
+      "isPublic": "1",
+      "index": 22,
+      "uuid": "vilpye632ooI",
+      "imgs": [
+        {
+          "url": "11385343fbf2b2119313c7ba1edc72380cd790232088",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/11385343fbf2b2119313c7ba1edc72380cd790232088?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjExMzg1MzQzZmJmMmIyMTE5MzEzYzc,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/11385343fbf2b2119313c7ba1edc72380cd790232088?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        }
+      ]
+    },
+    {
+      "type": 3,
+      "text": "杨蕎羽. 中英文化差异视角下《百年孤独》译本的接受研究[J]. 名作欣赏, 2025, (23):pp.36-38.",
+      "isPublic": "1",
+      "index": 23,
+      "uuid": "vilq6gwu5Z6V",
+      "imgs": [
+        {
+          "url": "b7fd5266d0160924ab1866ef005b22fae6cd7a899e88",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/b7fd5266d0160924ab1866ef005b22fae6cd7a899e88?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmI3ZmQ1MjY2ZDAxNjA5MjRhYjE4NjY,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/b7fd5266d0160924ab1866ef005b22fae6cd7a899e88?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        }
+      ]
+    },
+    {
+      "type": 3,
+      "text": "于春芳. 试论《百年孤独》魔幻现实主义对中国当代文学的影响[J]. 兰州教育学院学报, 2020, 36(1):pp.13-14，25.",
+      "isPublic": "1",
+      "index": 24,
+      "uuid": "vilrSktK1UsH",
+      "imgs": [
+        {
+          "url": "38dbb6fd5266d01609245bdd4377c30735fae7cd9f8b",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/38dbb6fd5266d01609245bdd4377c30735fae7cd9f8b?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjM4ZGJiNmZkNTI2NmQwMTYwOTI0NWI,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/38dbb6fd5266d01609245bdd4377c30735fae7cd9f8b?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        }
+      ]
+    },
+    {
+      "type": 3,
+      "text": "罗琳娜.《百年孤独》的中国阅读史[D]湖南大学.2019.1、2、53、54",
+      "isPublic": "1",
+      "index": 25,
+      "uuid": "vilu4uCD308R",
+      "imgs": [
+        {
+          "url": "b17eca8065380cd79123eb1b7518ba345982b3b72b8a",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/b17eca8065380cd79123eb1b7518ba345982b3b72b8a?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmIxN2VjYTgwNjUzODBjZDc5MTIzZWI,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/b17eca8065380cd79123eb1b7518ba345982b3b72b8a?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        },
+        {
+          "url": "96dda144ad345982b2b75164d8a826adcbef77092e8a",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/96dda144ad345982b2b75164d8a826adcbef77092e8a?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjk2ZGRhMTQ0YWQzNDU5ODJiMmI3NTE,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/96dda144ad345982b2b75164d8a826adcbef77092e8a?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        },
+        {
+          "url": "43a7d933c895d143ad4b2fd5a7ac95025aafa50fa98a",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/43a7d933c895d143ad4b2fd5a7ac95025aafa50fa98a?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjQzYTdkOTMzYzg5NWQxNDNhZDRiMmY,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/43a7d933c895d143ad4b2fd5a7ac95025aafa50fa98a?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        }
+      ]
+    },
+    {
+      "type": 2,
+      "title": "外国文学史  4  20世纪文学",
+      "isPublic": "1",
+      "author": "聂珍钊主编",
+      "publisher": "华中师范大学出版社",
+      "publishYear": "2010.08",
+      "refPage": "第370页",
+      "index": 26,
+      "uuid": "vilwhWgWjn1B",
+      "imgs": [
+        {
+          "url": "4e4a20a4462309f79052d7eaa6521bf3d7ca7acb788c",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/4e4a20a4462309f79052d7eaa6521bf3d7ca7acb788c?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjRlNGEyMGE0NDYyMzA5Zjc5MDUyZDc,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/4e4a20a4462309f79052d7eaa6521bf3d7ca7acb788c?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        }
+      ]
+    },
+    {
+      "type": 2,
+      "title": "欧美文学史",
+      "isPublic": "1",
+      "author": "李尚信主编",
+      "publisher": "吉林大学出版社",
+      "publishYear": "2003.08",
+      "refPage": "第455页",
+      "index": 27,
+      "uuid": "vilwwDtLncmO",
+      "imgs": [
+        {
+          "url": "f11f3a292df5e0fe992517f9883c23a85edf8cb1d48c",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/f11f3a292df5e0fe992517f9883c23a85edf8cb1d48c?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmYxMWYzYTI5MmRmNWUwZmU5OTI1MTc,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/f11f3a292df5e0fe992517f9883c23a85edf8cb1d48c?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        }
+      ]
+    },
+    {
+      "type": 1,
+      "title": "《百年孤独》影视化的得与失",
+      "site": "中国作家网",
+      "refDate": "2026-05-04",
+      "index": 28,
+      "uuid": "viCwqz8yOfTp",
+      "encodeUrl": "533aYdO6cr3_z3kATKGKxPymOi7FYNSt7eHTWudzzqIP0XOpX5nyFIs66dk-6eVuAA7Z_pttbZgWmKekC1RH7vUVbu00QrI9znL-WjDKwaPi_9o4nNdHopQbHPBL"
+    },
+    {
+      "type": 1,
+      "title": "陈众议：《百年孤独》“难产”记",
+      "site": "中国作家网",
+      "refDate": "2026-05-04",
+      "index": 29,
+      "uuid": "viCxgYsBEytp",
+      "encodeUrl": "533aYdO6cr3_z3kATKGMmqj3MSeQNYz_v7PXWrpzzqIP0XOpX5nyFIs66dk-6eVuAA7Z_pttbZgWmKekC1RH7vYXbu0zQrw9znL_VzPLy6Pk9tozk9ZDoJQbHPBL"
+    },
+    {
+      "type": 1,
+      "title": "百年孤独",
+      "site": "微信读书",
+      "refDate": "2026-05-05",
+      "index": 30,
+      "uuid": "viIMLbpkYIRx",
+      "encodeUrl": "533aYdO6cr3_z3kATPOKz6mmOyyQN4it7LTTUbFzzqIPmGapB5ngSI0z5Jku77lkGwaEp51gL8QQl-yvSFRNvKQTc-QyQrB3mXD4UzuQmuzmrNg3ng"
+    },
+    {
+      "type": 2,
+      "title": "拉丁美洲文学简史",
+      "isPublic": "1",
+      "author": "马相武，刘岳著",
+      "publisher": "海南出版社",
+      "publishYear": "1993.12",
+      "refPage": "第129页",
+      "index": 31,
+      "uuid": "viTKnXXhNyEH",
+      "imgs": [
+        {
+          "url": "54fbb2fb43166d224f4a6155987f1ef79052992274e7",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/54fbb2fb43166d224f4a6155987f1ef79052992274e7?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjU0ZmJiMmZiNDMxNjZkMjI0ZjRhNjE,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/54fbb2fb43166d224f4a6155987f1ef79052992274e7?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        }
+      ]
+    },
+    {
+      "type": 2,
+      "title": "马尔克斯传",
+      "isPublic": "1",
+      "author": "（英）史蒂芬·哈特",
+      "publisher": "中国友谊出版公司",
+      "publishYear": "2024.06",
+      "refPage": "第182页",
+      "index": 32,
+      "uuid": "viZStQGqd8Xi",
+      "imgs": [
+        {
+          "url": "ca1349540923dd54564e35b83355a4de9c82d058e294",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/ca1349540923dd54564e35b83355a4de9c82d058e294?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmNhMTM0OTU0MDkyM2RkNTQ1NjRlMzU,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/ca1349540923dd54564e35b83355a4de9c82d058e294?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        }
+      ]
+    },
+    {
+      "type": 2,
+      "title": "外国文学经典导论",
+      "isPublic": "1",
+      "author": "罗文敏，韩晓清，刘积源编著",
+      "publisher": "民族出版社",
+      "publishYear": "2013.03",
+      "refPage": "第367页",
+      "index": 33,
+      "uuid": "vj5CpDQV0yvm",
+      "imgs": [
+        {
+          "url": "d4628535e5dde71190effa2943b3d91b9d16fcfacbe5",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/d4628535e5dde71190effa2943b3d91b9d16fcfacbe5?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmQ0NjI4NTM1ZTVkZGU3MTE5MGVmZmE,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/d4628535e5dde71190effa2943b3d91b9d16fcfacbe5?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        }
+      ]
+    },
+    {
+      "type": 3,
+      "text": "奚伟. 马尔克斯《百年孤独》中的多维孤独书写[J]. 佳木斯大学社会科学学报, 2023, 41(5):pp.78-81.",
+      "isPublic": "1",
+      "index": 34,
+      "uuid": "vjbdkH7e6KUL",
+      "imgs": [
+        {
+          "url": "9358d109b3de9c82d15864d18add970a19d8bc3ee562",
+          "viewUrl": "https://bkimg.cdn.bcebos.com/pic/9358d109b3de9c82d15864d18add970a19d8bc3ee562?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjkzNThkMTA5YjNkZTljODJkMTU4NjQ,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "previewUrl": "https://bkimg.cdn.bcebos.com/pic/9358d109b3de9c82d15864d18add970a19d8bc3ee562?x-bce-process=image/resize,m_lfit,w_235,h_235,limit_1"
+        }
+      ]
+    }
+  ],
+  "modules": {
+    "adManager": {
+      "data": {
+        "wapRelatedBusiness": 1
+      }
+    },
+    "card": {
+      "type": 27,
+      "left": [
+        {
+          "key": "name",
+          "title": "作品名称",
+          "isArray": false,
+          "delimiter": "",
+          "data": [
+            {
+              "dataType": "text",
+              "text": [
+                {
+                  "tag": "text",
+                  "text": "百年孤独"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "foreignName",
+          "title": "外文名",
+          "isArray": true,
+          "delimiter": "",
+          "data": [
+            {
+              "dataType": "text",
+              "hasNote": true,
+              "note": "西班牙语",
+              "text": [
+                {
+                  "tag": "text",
+                  "text": "Cien años de soledad"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "alternateName",
+          "title": "作品别名",
+          "isArray": true,
+          "delimiter": "、",
+          "data": [
+            {
+              "dataType": "text",
+              "text": [
+                {
+                  "tag": "text",
+                  "text": "一百年的孤寂"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "right": [
+        {
+          "key": "author",
+          "title": "作者",
+          "isArray": true,
+          "delimiter": "、",
+          "data": [
+            {
+              "dataType": "lemma",
+              "text": [
+                {
+                  "tag": "text",
+                  "text": "【哥伦比亚】加西亚·马尔克斯"
+                }
+              ],
+              "value": {
+                "id": "",
+                "title": "【哥伦比亚】加西亚·马尔克斯"
+              }
+            }
+          ]
+        },
+        {
+          "key": "genre",
+          "title": "文学体裁",
+          "isArray": true,
+          "delimiter": "",
+          "data": [
+            {
+              "dataType": "text",
+              "text": [
+                {
+                  "tag": "text",
+                  "text": "长篇小说"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "customDefault",
+          "title": "字数",
+          "isArray": false,
+          "delimiter": "",
+          "data": [
+            {
+              "dataType": "text",
+              "text": [
+                {
+                  "tag": "text",
+                  "text": "22.8万"
+                },
+                {
+                  "ctrId": "",
+                  "data": {
+                    "encodeUrl": "533aYdO6cr3_z3kATPOKz6mmOyyQN4it7LTTUbFzzqIPmGapB5ngSI0z5Jku77lkGwaEp51gL8QQl-yvSFRNvKQTc-QyQrB3mXD4UzuQmuzmrNg3ng",
+                    "index": 30,
+                    "refDate": "2026-05-05",
+                    "site": "微信读书",
+                    "title": "百年孤独",
+                    "type": 1,
+                    "uuid": "viIMLbpkYIRx"
+                  },
+                  "index": 30,
+                  "old": false,
+                  "tag": "ref",
+                  "uuid": "viIMLbpkYIRx"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "customDefault",
+          "title": "首版时间",
+          "isArray": false,
+          "delimiter": "",
+          "data": [
+            {
+              "dataType": "text",
+              "text": [
+                {
+                  "tag": "text",
+                  "text": "1967年"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "discussion": {
+      "showHelpEdit": 1
+    },
+    "globalConfig": {
+      "data": {
+        "serviceAdLemmaCategory": [
+          337597,
+          337474
+        ]
+      }
+    },
+    "knowledge": {
+      "data": [
+        {
+          "data": [
+            {
+              "data": {
+                "content": [
+                  {
+                    "position": 1,
+                    "text": "百年孤独",
+                    "type": "paragraph",
+                    "uuid": "gntso2ccwb"
+                  }
+                ]
+              },
+              "moduleId": 5285311496,
+              "moduleName": "abstract",
+              "uuid": "uuidAbstract"
+            }
+          ],
+          "imgs": null,
+          "keywords": null,
+          "knowledgeId": 809851,
+          "rank": 0,
+          "tag": "",
+          "title": "",
+          "type": 5,
+          "uid": 1199731636
+        }
+      ]
+    },
+    "paper": {
+      "switch": false
+    },
+    "second": {
+      "head": [
+        {
+          "secondId": 75783802,
+          "type": 1,
+          "form": 1,
+          "style": 1,
+          "source": 1,
+          "sourceId": "11916702259434637888",
+          "authorType": 3,
+          "platform": 1,
+          "lemma": {
+            "relType": 1,
+            "relValue": [],
+            "te": 1800395201,
+            "tr": [
+              "秒懂精品"
+            ],
+            "ts": 1768945601,
+            "tw": 1,
+            "type": 1,
+            "weight": 0
+          },
+          "score": 3,
+          "createTime": 1686024818,
+          "publishTime": 1686105727,
+          "isPay": 0,
+          "collectionId": 0
+        }
+      ]
+    },
+    "starMapMount": {
+      "data": {
+        "isShow": true,
+        "manualInfo": {
+          "starmapIds": [
+            183789,
+            1128623,
+            136573
+          ]
+        },
+        "tags": {
+          "themeId": 183789,
+          "themeName": "《百年孤独》中的角色"
+        }
+      }
+    },
+    "videos": {
+      "data": [
+        {
+          "form": 2,
+          "mountType": 3,
+          "nid": "11055032483874749504",
+          "secondId": 0,
+          "source": 100,
+          "style": 1,
+          "title": "布恩迪亚家族的血腥与疯狂，百年孤独的命运如何？",
+          "uuid": "i1lufxc67f"
+        },
+        {
+          "form": 2,
+          "mountType": 3,
+          "nid": "4160372359882504510",
+          "secondId": 0,
+          "source": 100,
+          "style": 1,
+          "title": "人类的终极孤独，究竟是什么：马尔克斯《百年孤独》",
+          "uuid": "i1lufxc6cf"
+        },
+        {
+          "form": 2,
+          "mountType": 2,
+          "nid": "11509203233236000913",
+          "secondId": 0,
+          "source": 100,
+          "style": 1,
+          "title": "",
+          "uuid": "i0xh1h16hq"
+        },
+        {
+          "form": 2,
+          "mountType": 2,
+          "nid": "12007945342645256038",
+          "secondId": 0,
+          "source": 100,
+          "style": 1,
+          "title": "",
+          "uuid": "i0xh1h16wn"
+        },
+        {
+          "form": 2,
+          "mountType": 2,
+          "nid": "540841638251271344",
+          "secondId": 0,
+          "source": 105,
+          "style": 1,
+          "title": "",
+          "uuid": "i0y86x9yzq"
+        },
+        {
+          "form": 2,
+          "mountType": 2,
+          "nid": "11474854750831272070",
+          "secondId": 0,
+          "source": 100,
+          "style": 1,
+          "title": "",
+          "uuid": "i10jco3myd"
+        },
+        {
+          "form": 2,
+          "mountType": 2,
+          "nid": "11800531296880795812",
+          "secondId": 0,
+          "source": 105,
+          "style": 1,
+          "title": "",
+          "uuid": "i0zdt22mde"
+        },
+        {
+          "form": 2,
+          "mountType": 2,
+          "nid": "3275878312877066551",
+          "secondId": 0,
+          "source": 100,
+          "style": 1,
+          "title": "",
+          "uuid": "i0xh1h16a9"
+        },
+        {
+          "form": 2,
+          "mountType": 3,
+          "nid": "17544360234260023976",
+          "secondId": 0,
+          "source": 100,
+          "style": 1,
+          "title": "马尔克斯：死后的150 年内，都不会授权中国出版我的《百年孤独》",
+          "uuid": "i1lufxc6r8"
+        }
+      ]
+    },
+    "pinzhuan": {}
+  },
+  "albums": [
+    {
+      "albumId": 1,
+      "desc": "百年孤独",
+      "total": 2,
+      "coverPic": {
+        "albumId": 1,
+        "src": "b03533fa828ba61ea8d35f9ab76e800a304e251ff349",
+        "url": "https://bkimg.cdn.bcebos.com/pic/b03533fa828ba61ea8d35f9ab76e800a304e251ff349?x-bce-process=image/resize,m_lfit,w_536,limit_1/quality,Q_70",
+        "width": 800,
+        "height": 1069,
+        "desc": "百年孤独",
+        "uuid": "uP2YyaX9qRYr"
+      },
+      "content": [
+        {
+          "albumId": 1,
+          "src": "b03533fa828ba61ea8d35f9ab76e800a304e251ff349",
+          "url": "",
+          "width": 800,
+          "height": 1069,
+          "desc": "百年孤独",
+          "uuid": "uP2YyaX9qRYr"
+        },
+        {
+          "albumId": 1,
+          "src": "279759ee3d6d55fba1d263a86f224f4a20a4dd23",
+          "url": "",
+          "width": 1500,
+          "height": 1500,
+          "desc": "百年孤独",
+          "uuid": "pc4dd23"
+        }
+      ]
+    },
+    {
+      "albumId": 0,
+      "desc": "词条图片",
+      "total": 3,
+      "coverPic": {
+        "albumId": 0,
+        "tag": "image",
+        "type": "normal",
+        "src": "d4628535e5dde711916cf129a6efce1b9c1661b6",
+        "url": "https://bkimg.cdn.bcebos.com/pic/d4628535e5dde711916cf129a6efce1b9c1661b6?x-bce-process=image/resize,m_lfit,w_220,h_220,limit_1",
+        "width": 998,
+        "height": 741,
+        "cropWidth": 220,
+        "cropHeight": 163.3467,
+        "owner": "098076",
+        "title": "家族关系谱",
+        "layout": "largecenter",
+        "style": "float: none; display: block; margin: 0px auto; clear: both;",
+        "uuid": "viNFXxqiFDKO"
+      },
+      "content": [
+        {
+          "albumId": 0,
+          "tag": "image",
+          "type": "normal",
+          "src": "d4628535e5dde711916cf129a6efce1b9c1661b6",
+          "url": "https://bkimg.cdn.bcebos.com/pic/d4628535e5dde711916cf129a6efce1b9c1661b6?x-bce-process=image/resize,m_lfit,w_220,h_220,limit_1",
+          "width": 998,
+          "height": 741,
+          "cropWidth": 220,
+          "cropHeight": 163.3467,
+          "owner": "098076",
+          "title": "家族关系谱",
+          "layout": "largecenter",
+          "style": "float: none; display: block; margin: 0px auto; clear: both;",
+          "uuid": "viNFXxqiFDKO"
+        },
+        {
+          "albumId": 0,
+          "tag": "image",
+          "type": "normal",
+          "src": "54baacfbbb9b47314f4aea86",
+          "url": "https://bkimg.cdn.bcebos.com/pic/54baacfbbb9b47314f4aea86?x-bce-process=image/resize,m_lfit,w_220,h_220,limit_1",
+          "width": 300,
+          "height": 444,
+          "cropWidth": 148.64865,
+          "cropHeight": 220,
+          "owner": "098076",
+          "title": "《百年孤独》",
+          "layout": "largecenter",
+          "style": "float: none; display: block; margin: 0px auto; clear: both;",
+          "uuid": "gwow55sctv1"
+        },
+        {
+          "albumId": 0,
+          "tag": "image",
+          "type": "normal",
+          "src": "a8014c086e061d950a7b27ef99a81dd162d9f3d35ced",
+          "url": "https://bkimg.cdn.bcebos.com/pic/a8014c086e061d950a7b27ef99a81dd162d9f3d35ced?x-bce-process=image/resize,m_lfit,w_220,h_220,limit_1",
+          "width": 900,
+          "height": 1334,
+          "cropWidth": 148.42578,
+          "cropHeight": 220,
+          "owner": "故国虽大",
+          "title": "2025年电视剧《百年孤独》",
+          "layout": "largecenter",
+          "style": "float: none; display: block; margin: 0px auto; clear: both;",
+          "uuid": "viZTQpeEu77L"
+        }
+      ]
+    },
+    {
+      "albumId": 11,
+      "desc": "参考资料图册",
+      "total": 40,
+      "coverPic": {
+        "albumId": 11,
+        "src": "7acb0a46f21fbe096b63ae83bf3c1b338744eaf807ad",
+        "url": "https://bkimg.cdn.bcebos.com/pic/7acb0a46f21fbe096b63ae83bf3c1b338744eaf807ad?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjdhY2IwYTQ2ZjIxZmJlMDk2YjYzYWU,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+        "width": 0,
+        "height": 0,
+        "uuid": "vikzjUML0d4r"
+      },
+      "content": [
+        {
+          "albumId": 11,
+          "src": "7acb0a46f21fbe096b63ae83bf3c1b338744eaf807ad",
+          "url": "https://bkimg.cdn.bcebos.com/pic/7acb0a46f21fbe096b63ae83bf3c1b338744eaf807ad?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjdhY2IwYTQ2ZjIxZmJlMDk2YjYzYWU,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vikzjUML0d4r"
+        },
+        {
+          "albumId": 11,
+          "src": "6a63f6246b600c338744b75fce10460fd9f9d62a0bad",
+          "url": "https://bkimg.cdn.bcebos.com/pic/6a63f6246b600c338744b75fce10460fd9f9d62a0bad?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjZhNjNmNjI0NmI2MDBjMzM4NzQ0Yjc,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vikzjUML0d4r"
+        },
+        {
+          "albumId": 11,
+          "src": "58ee3d6d55fbb2fb4316248a9b1637a4462308f776ac",
+          "url": "https://bkimg.cdn.bcebos.com/pic/58ee3d6d55fbb2fb4316248a9b1637a4462308f776ac?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjU4ZWUzZDZkNTVmYmIyZmI0MzE2MjQ,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vikBj393G5kI"
+        },
+        {
+          "albumId": 11,
+          "src": "e850352ac65c103853438f5a664d8413b07ecb8023ac",
+          "url": "https://bkimg.cdn.bcebos.com/pic/e850352ac65c103853438f5a664d8413b07ecb8023ac?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmU4NTAzNTJhYzY1YzEwMzg1MzQzOGY,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vikBj393G5kI"
+        },
+        {
+          "albumId": 11,
+          "src": "2f738bd4b31c8701a18ba17ff323892f0708293851af",
+          "url": "https://bkimg.cdn.bcebos.com/pic/2f738bd4b31c8701a18ba17ff323892f0708293851af?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjJmNzM4YmQ0YjMxYzg3MDFhMThiYTE,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vikCTnAUGfdP"
+        },
+        {
+          "albumId": 11,
+          "src": "b21c8701a18b87d6277fb686d3543f381f30e82457af",
+          "url": "https://bkimg.cdn.bcebos.com/pic/b21c8701a18b87d6277fb686d3543f381f30e82457af?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmIyMWM4NzAxYTE4Yjg3ZDYyNzdmYjY,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vikCTnAUGfdP"
+        },
+        {
+          "albumId": 11,
+          "src": "810a19d8bc3eb13533fa43227242bfd3fd1f4034eeaf",
+          "url": "https://bkimg.cdn.bcebos.com/pic/810a19d8bc3eb13533fa43227242bfd3fd1f4034eeaf?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjgxMGExOWQ4YmMzZWIxMzUzM2ZhNDM,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vikDVceUCSlV"
+        },
+        {
+          "albumId": 11,
+          "src": "c995d143ad4bd11373f082a88ef3b30f4bfbfaedafaf",
+          "url": "https://bkimg.cdn.bcebos.com/pic/c995d143ad4bd11373f082a88ef3b30f4bfbfaedafaf?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmM5OTVkMTQzYWQ0YmQxMTM3M2YwODI,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vikEFB6O5zQI"
+        },
+        {
+          "albumId": 11,
+          "src": "d01373f082025aafa40f48512fb1bc64034f79f0acaf",
+          "url": "https://bkimg.cdn.bcebos.com/pic/d01373f082025aafa40f48512fb1bc64034f79f0acaf?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmQwMTM3M2YwODIwMjVhYWZhNDBmNDg,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vikEFB6O5zQI"
+        },
+        {
+          "albumId": 11,
+          "src": "d1a20cf431adcbef7609cd9c78f339dda3cc7dd931ae",
+          "url": "https://bkimg.cdn.bcebos.com/pic/d1a20cf431adcbef7609cd9c78f339dda3cc7dd931ae?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmQxYTIwY2Y0MzFhZGNiZWY3NjA5Y2Q,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vikFFtTvuojg"
+        },
+        {
+          "albumId": 11,
+          "src": "314e251f95cad1c8a78605bcab627009c93d71cffba1",
+          "url": "https://bkimg.cdn.bcebos.com/pic/314e251f95cad1c8a78605bcab627009c93d71cffba1?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjMxNGUyNTFmOTVjYWQxYzhhNzg2MDU,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vikI5X6Zk6Yx"
+        },
+        {
+          "albumId": 11,
+          "src": "94cad1c8a786c9177f3ea9a21d6167cf3bc79e3df9a1",
+          "url": "https://bkimg.cdn.bcebos.com/pic/94cad1c8a786c9177f3ea9a21d6167cf3bc79e3df9a1?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjk0Y2FkMWM4YTc4NmM5MTc3ZjNlYTk,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vikI5X6Zk6Yx"
+        },
+        {
+          "albumId": 11,
+          "src": "f703738da9773912b31babfc2c459118367adbb444a3",
+          "url": "https://bkimg.cdn.bcebos.com/pic/f703738da9773912b31babfc2c459118367adbb444a3?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmY3MDM3MzhkYTk3NzM5MTJiMzFiYWI,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vikKnXZuPVxn"
+        },
+        {
+          "albumId": 11,
+          "src": "bd315c6034a85edf8db17bbe9d081e23dd54574edfa3",
+          "url": "https://bkimg.cdn.bcebos.com/pic/bd315c6034a85edf8db17bbe9d081e23dd54574edfa3?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmJkMzE1YzYwMzRhODVlZGY4ZGIxN2I,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vikM253IrRqs"
+        },
+        {
+          "albumId": 11,
+          "src": "b812c8fcc3cec3fdfc034ce802d4c33f8794a5c289a3",
+          "url": "https://bkimg.cdn.bcebos.com/pic/b812c8fcc3cec3fdfc034ce802d4c33f8794a5c289a3?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmI4MTJjOGZjYzNjZWMzZmRmYzAzNGM,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vikMZSEhtIxn"
+        },
+        {
+          "albumId": 11,
+          "src": "d788d43f8794a4c27d1e36b4daa80cd5ad6edcc493a5",
+          "url": "https://bkimg.cdn.bcebos.com/pic/d788d43f8794a4c27d1e36b4daa80cd5ad6edcc493a5?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmQ3ODhkNDNmODc5NGE0YzI3ZDFlMzY,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vikQXyuKXtWg"
+        },
+        {
+          "albumId": 11,
+          "src": "fc1f4134970a304e251f5c7a0594b086c9177e3ef6a4",
+          "url": "https://bkimg.cdn.bcebos.com/pic/fc1f4134970a304e251f5c7a0594b086c9177e3ef6a4?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmZjMWY0MTM0OTcwYTMwNGUyNTFmNWM,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vikR7FyovcdX"
+        },
+        {
+          "albumId": 11,
+          "src": "ca1349540923dd54564e27ea0555a4de9c82d058e2a6",
+          "url": "https://bkimg.cdn.bcebos.com/pic/ca1349540923dd54564e27ea0555a4de9c82d058e2a6?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmNhMTM0OTU0MDkyM2RkNTQ1NjRlMjc,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vikTxEfa1z8p"
+        },
+        {
+          "albumId": 11,
+          "src": "",
+          "url": "",
+          "width": 0,
+          "height": 0,
+          "uuid": "vikTxEfa1z8p"
+        },
+        {
+          "albumId": 11,
+          "src": "838ba61ea8d3fd1f413451b8e412321f95cad0c8f1a6",
+          "url": "https://bkimg.cdn.bcebos.com/pic/838ba61ea8d3fd1f413451b8e412321f95cad0c8f1a6?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjgzOGJhNjFlYThkM2ZkMWY0MTM0NTE,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vikTxEfa1z8p"
+        },
+        {
+          "albumId": 11,
+          "src": "4b90f603738da9773912a9a8640def198618377a45b9",
+          "url": "https://bkimg.cdn.bcebos.com/pic/4b90f603738da9773912a9a8640def198618377a45b9?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjRiOTBmNjAzNzM4ZGE5NzczOTEyYTk,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vikTxEfa1z8p"
+        },
+        {
+          "albumId": 11,
+          "src": "6a600c338744ebf81a4c0fbc0da5c02a6059242d09b9",
+          "url": "https://bkimg.cdn.bcebos.com/pic/6a600c338744ebf81a4c0fbc0da5c02a6059242d09b9?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjZhNjAwYzMzODc0NGViZjgxYTRjMGY,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vikTxEfa1z8p"
+        },
+        {
+          "albumId": 11,
+          "src": "0b7b02087bf40ad162d9c512837006dfa9ec8b1360b7",
+          "url": "https://bkimg.cdn.bcebos.com/pic/0b7b02087bf40ad162d9c512837006dfa9ec8b1360b7?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjBiN2IwMjA4N2JmNDBhZDE2MmQ5YzU,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vilkdJcG4AsR"
+        },
+        {
+          "albumId": 11,
+          "src": "0bd162d9f2d3572c11df932d5e4f742762d0f60365b7",
+          "url": "https://bkimg.cdn.bcebos.com/pic/0bd162d9f2d3572c11df932d5e4f742762d0f60365b7?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjBiZDE2MmQ5ZjJkMzU3MmMxMWRmOTM,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vilkdJcG4AsR"
+        },
+        {
+          "albumId": 11,
+          "src": "4ec2d5628535e5dde7110b2da29ab0efce1b9c16c4b6",
+          "url": "https://bkimg.cdn.bcebos.com/pic/4ec2d5628535e5dde7110b2da29ab0efce1b9c16c4b6?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjRlYzJkNTYyODUzNWU1ZGRlNzExMGI,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vilmq71RwE8a"
+        },
+        {
+          "albumId": 11,
+          "src": "8435e5dde71190ef76c63a2d1a478a16fdfaae51cab6",
+          "url": "https://bkimg.cdn.bcebos.com/pic/8435e5dde71190ef76c63a2d1a478a16fdfaae51cab6?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjg0MzVlNWRkZTcxMTkwZWY3NmM2M2E,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vilmq71RwE8a"
+        },
+        {
+          "albumId": 11,
+          "src": "0df3d7ca7bcb0a46f21fe8cabf3fe1246b600d330189",
+          "url": "https://bkimg.cdn.bcebos.com/pic/0df3d7ca7bcb0a46f21fe8cabf3fe1246b600d330189?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjBkZjNkN2NhN2JjYjBhNDZmMjFmZTg,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vilns7bkPcwM"
+        },
+        {
+          "albumId": 11,
+          "src": "1f178a82b9014a90f60364497d2b2e12b31bb1514088",
+          "url": "https://bkimg.cdn.bcebos.com/pic/1f178a82b9014a90f60364497d2b2e12b31bb1514088?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjFmMTc4YTgyYjkwMTRhOTBmNjAzNjQ,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "viloTVe0j1wu"
+        },
+        {
+          "albumId": 11,
+          "src": "11385343fbf2b2119313c7ba1edc72380cd790232088",
+          "url": "https://bkimg.cdn.bcebos.com/pic/11385343fbf2b2119313c7ba1edc72380cd790232088?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjExMzg1MzQzZmJmMmIyMTE5MzEzYzc,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vilpye632ooI"
+        },
+        {
+          "albumId": 11,
+          "src": "b7fd5266d0160924ab1866ef005b22fae6cd7a899e88",
+          "url": "https://bkimg.cdn.bcebos.com/pic/b7fd5266d0160924ab1866ef005b22fae6cd7a899e88?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmI3ZmQ1MjY2ZDAxNjA5MjRhYjE4NjY,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vilq6gwu5Z6V"
+        },
+        {
+          "albumId": 11,
+          "src": "38dbb6fd5266d01609245bdd4377c30735fae7cd9f8b",
+          "url": "https://bkimg.cdn.bcebos.com/pic/38dbb6fd5266d01609245bdd4377c30735fae7cd9f8b?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjM4ZGJiNmZkNTI2NmQwMTYwOTI0NWI,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vilrSktK1UsH"
+        },
+        {
+          "albumId": 11,
+          "src": "b17eca8065380cd79123eb1b7518ba345982b3b72b8a",
+          "url": "https://bkimg.cdn.bcebos.com/pic/b17eca8065380cd79123eb1b7518ba345982b3b72b8a?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmIxN2VjYTgwNjUzODBjZDc5MTIzZWI,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vilu4uCD308R"
+        },
+        {
+          "albumId": 11,
+          "src": "96dda144ad345982b2b75164d8a826adcbef77092e8a",
+          "url": "https://bkimg.cdn.bcebos.com/pic/96dda144ad345982b2b75164d8a826adcbef77092e8a?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjk2ZGRhMTQ0YWQzNDU5ODJiMmI3NTE,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vilu4uCD308R"
+        },
+        {
+          "albumId": 11,
+          "src": "43a7d933c895d143ad4b2fd5a7ac95025aafa50fa98a",
+          "url": "https://bkimg.cdn.bcebos.com/pic/43a7d933c895d143ad4b2fd5a7ac95025aafa50fa98a?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjQzYTdkOTMzYzg5NWQxNDNhZDRiMmY,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vilu4uCD308R"
+        },
+        {
+          "albumId": 11,
+          "src": "4e4a20a4462309f79052d7eaa6521bf3d7ca7acb788c",
+          "url": "https://bkimg.cdn.bcebos.com/pic/4e4a20a4462309f79052d7eaa6521bf3d7ca7acb788c?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjRlNGEyMGE0NDYyMzA5Zjc5MDUyZDc,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vilwhWgWjn1B"
+        },
+        {
+          "albumId": 11,
+          "src": "f11f3a292df5e0fe992517f9883c23a85edf8cb1d48c",
+          "url": "https://bkimg.cdn.bcebos.com/pic/f11f3a292df5e0fe992517f9883c23a85edf8cb1d48c?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmYxMWYzYTI5MmRmNWUwZmU5OTI1MTc,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vilwwDtLncmO"
+        },
+        {
+          "albumId": 11,
+          "src": "54fbb2fb43166d224f4a6155987f1ef79052992274e7",
+          "url": "https://bkimg.cdn.bcebos.com/pic/54fbb2fb43166d224f4a6155987f1ef79052992274e7?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjU0ZmJiMmZiNDMxNjZkMjI0ZjRhNjE,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "viTKnXXhNyEH"
+        },
+        {
+          "albumId": 11,
+          "src": "ca1349540923dd54564e35b83355a4de9c82d058e294",
+          "url": "https://bkimg.cdn.bcebos.com/pic/ca1349540923dd54564e35b83355a4de9c82d058e294?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmNhMTM0OTU0MDkyM2RkNTQ1NjRlMzU,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "viZStQGqd8Xi"
+        },
+        {
+          "albumId": 11,
+          "src": "d4628535e5dde71190effa2943b3d91b9d16fcfacbe5",
+          "url": "https://bkimg.cdn.bcebos.com/pic/d4628535e5dde71190effa2943b3d91b9d16fcfacbe5?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCmQ0NjI4NTM1ZTVkZGU3MTE5MGVmZmE,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vj5CpDQV0yvm"
+        },
+        {
+          "albumId": 11,
+          "src": "9358d109b3de9c82d15864d18add970a19d8bc3ee562",
+          "url": "https://bkimg.cdn.bcebos.com/pic/9358d109b3de9c82d15864d18add970a19d8bc3ee562?x-bce-process=image/watermark,text_55m-5bqm55m-56eRCjkzNThkMTA5YjNkZTljODJkMTU4NjQ,g_3,x_10,y_10,type_RlpLYWk=,a_-30,size_28,color_00000040,skc_ffffff40,skw_1,layout_tile",
+          "width": 0,
+          "height": 0,
+          "uuid": "vjbdkH7e6KUL"
+        }
+      ]
+    }
+  ],
+  "card": {
+    "type": 27,
+    "left": [
+      {
+        "key": "name",
+        "title": "作品名称",
+        "isArray": false,
+        "delimiter": "",
+        "data": [
+          {
+            "dataType": "text",
+            "text": [
+              {
+                "tag": "text",
+                "text": "百年孤独"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "foreignName",
+        "title": "外文名",
+        "isArray": true,
+        "delimiter": "",
+        "data": [
+          {
+            "dataType": "text",
+            "hasNote": true,
+            "note": "西班牙语",
+            "text": [
+              {
+                "tag": "text",
+                "text": "Cien años de soledad"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "alternateName",
+        "title": "作品别名",
+        "isArray": true,
+        "delimiter": "、",
+        "data": [
+          {
+            "dataType": "text",
+            "text": [
+              {
+                "tag": "text",
+                "text": "一百年的孤寂"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "right": [
+      {
+        "key": "author",
+        "title": "作者",
+        "isArray": true,
+        "delimiter": "、",
+        "data": [
+          {
+            "dataType": "lemma",
+            "text": [
+              {
+                "tag": "text",
+                "text": "【哥伦比亚】加西亚·马尔克斯"
+              }
+            ],
+            "value": {
+              "id": "",
+              "title": "【哥伦比亚】加西亚·马尔克斯"
+            }
+          }
+        ]
+      },
+      {
+        "key": "genre",
+        "title": "文学体裁",
+        "isArray": true,
+        "delimiter": "",
+        "data": [
+          {
+            "dataType": "text",
+            "text": [
+              {
+                "tag": "text",
+                "text": "长篇小说"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "customDefault",
+        "title": "字数",
+        "isArray": false,
+        "delimiter": "",
+        "data": [
+          {
+            "dataType": "text",
+            "text": [
+              {
+                "tag": "text",
+                "text": "22.8万"
+              },
+              {
+                "ctrId": "",
+                "data": {
+                  "encodeUrl": "533aYdO6cr3_z3kATPOKz6mmOyyQN4it7LTTUbFzzqIPmGapB5ngSI0z5Jku77lkGwaEp51gL8QQl-yvSFRNvKQTc-QyQrB3mXD4UzuQmuzmrNg3ng",
+                  "index": 30,
+                  "refDate": "2026-05-05",
+                  "site": "微信读书",
+                  "title": "百年孤独",
+                  "type": 1,
+                  "uuid": "viIMLbpkYIRx"
+                },
+                "index": 30,
+                "old": false,
+                "tag": "ref",
+                "uuid": "viIMLbpkYIRx"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "customDefault",
+        "title": "首版时间",
+        "isArray": false,
+        "delimiter": "",
+        "data": [
+          {
+            "dataType": "text",
+            "text": [
+              {
+                "tag": "text",
+                "text": "1967年"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "lemmaCnt": 9,
+  "navigation": {
+    "word": "百年孤独",
+    "disamLemma": {
+      "lemmaId": 20773675,
+      "lemmaTitle": "百年孤独",
+      "lemmaDesc": "百年孤独",
+      "isRedirect": false,
+      "redirectId": 0,
+      "redirectTitle": "",
+      "redirectDesc": "",
+      "rank": 0,
+      "isDefault": 0,
+      "isCurrent": 0,
+      "encodeId": "6d6b44f749cdbb1e14d81ea7",
+      "redirectEncodeId": ""
+    },
+    "lemmas": [
+      {
+        "lemmaId": 688708,
+        "lemmaTitle": "百年孤独",
+        "lemmaDesc": "哥伦比亚作家加西亚·马尔克斯创作的长篇小说",
+        "isRedirect": false,
+        "redirectId": 0,
+        "redirectTitle": "",
+        "redirectDesc": "",
+        "rank": 1,
+        "classify": [
+          "文学作品"
+        ],
+        "isDefault": 0,
+        "isCurrent": 1,
+        "encodeId": "6d6b44f749cdbb1e14d81ea7",
+        "redirectEncodeId": "75a62f4118d970d3466e6c25"
+      },
+      {
+        "lemmaId": 23328024,
+        "lemmaTitle": "百年孤独",
+        "lemmaDesc": "加西亚·马尔克斯小说改编的奇幻历史剧",
+        "isRedirect": false,
+        "redirectId": 0,
+        "redirectTitle": "",
+        "redirectDesc": "",
+        "rank": 3,
+        "classify": [
+          "影视作品"
+        ],
+        "isDefault": 0,
+        "isCurrent": 0,
+        "encodeId": "2ad338d337cb32ccadfbe953",
+        "redirectEncodeId": "75a62f4118d970d3466e6c25"
+      },
+      {
+        "lemmaId": 59389908,
+        "lemmaTitle": "百年孤独",
+        "lemmaDesc": "囚鸟创作的玄幻类剧本",
+        "isRedirect": false,
+        "redirectId": 0,
+        "redirectTitle": "",
+        "redirectDesc": "",
+        "rank": 4,
+        "classify": [
+          "文娱活动"
+        ],
+        "isDefault": 0,
+        "isCurrent": 0,
+        "encodeId": "62556134ab3b234216010e18",
+        "redirectEncodeId": "75a62f4118d970d3466e6c25"
+      },
+      {
+        "lemmaId": 61061443,
+        "lemmaTitle": "百年孤独",
+        "lemmaDesc": "2017年南海出版公司出版的图书",
+        "isRedirect": false,
+        "redirectId": 0,
+        "redirectTitle": "",
+        "redirectDesc": "",
+        "rank": 5,
+        "classify": [
+          "书刊"
+        ],
+        "isDefault": 0,
+        "isCurrent": 0,
+        "encodeId": "814b65aee94d4db45877769a",
+        "redirectEncodeId": "75a62f4118d970d3466e6c25"
+      },
+      {
+        "lemmaId": 61285630,
+        "lemmaTitle": "百年孤独",
+        "lemmaDesc": "孙英男演唱的歌曲",
+        "isRedirect": false,
+        "redirectId": 0,
+        "redirectTitle": "",
+        "redirectDesc": "",
+        "rank": 6,
+        "classify": [
+          "音乐作品"
+        ],
+        "isDefault": 0,
+        "isCurrent": 0,
+        "encodeId": "b8afdc4445942c3b626eb70d",
+        "redirectEncodeId": "75a62f4118d970d3466e6c25"
+      },
+      {
+        "lemmaId": 62894430,
+        "lemmaTitle": "百年孤独",
+        "lemmaDesc": "2011年南海出版公司出版的图书",
+        "isRedirect": false,
+        "redirectId": 0,
+        "redirectTitle": "",
+        "redirectDesc": "",
+        "rank": 7,
+        "classify": [
+          "书刊"
+        ],
+        "isDefault": 0,
+        "isCurrent": 0,
+        "encodeId": "d6e5cbd7734e86ecbb964f92",
+        "redirectEncodeId": "75a62f4118d970d3466e6c25"
+      },
+      {
+        "lemmaId": 65570443,
+        "lemmaTitle": "百年孤独",
+        "lemmaDesc": "加西亚·马尔克斯创作的魔幻现实主义长篇小说",
+        "isRedirect": false,
+        "redirectId": 0,
+        "redirectTitle": "",
+        "redirectDesc": "",
+        "rank": 8,
+        "classify": [
+          "文学作品"
+        ],
+        "isDefault": 0,
+        "isCurrent": 0,
+        "encodeId": "9ecbf4e308643cd69fc0e1af",
+        "redirectEncodeId": "75a62f4118d970d3466e6c25"
+      },
+      {
+        "lemmaId": 66385407,
+        "lemmaTitle": "百年孤独",
+        "lemmaDesc": "自媒体创作者",
+        "isRedirect": false,
+        "redirectId": 0,
+        "redirectTitle": "",
+        "redirectDesc": "",
+        "rank": 9,
+        "classify": [
+          "文娱活动"
+        ],
+        "isDefault": 0,
+        "isCurrent": 0,
+        "encodeId": "75b05387454d5e1f07ce615f",
+        "redirectEncodeId": "75a62f4118d970d3466e6c25"
+      },
+      {
+        "lemmaId": 67081280,
+        "lemmaTitle": "百年孤独",
+        "lemmaDesc": "2024年幸存者联盟演唱的歌曲",
+        "isRedirect": false,
+        "redirectId": 0,
+        "redirectTitle": "",
+        "redirectDesc": "",
+        "rank": 10,
+        "classify": [
+          "音乐作品"
+        ],
+        "isDefault": 0,
+        "isCurrent": 0,
+        "encodeId": "4507e45430f3ece24d612dbd",
+        "redirectEncodeId": "75a62f4118d970d3466e6c25"
+      }
+    ],
+    "categoryList": [
+      "书刊",
+      "文学作品",
+      "文娱活动",
+      "影视作品",
+      "音乐作品"
+    ]
+  },
+  "tips": {
+    "isPolyseme": 1,
+    "disamTip": {
+      "link": "/item/%E7%99%BE%E5%B9%B4%E5%AD%A4%E7%8B%AC",
+      "title": "百年孤独"
+    }
+  },
+  "encodeLemmaId": "6d6b44f749cdbb1e14d81ea7",
+  "versionUk": "XrsZJEa1vjdJ5dBNPOHXLw",
+  "description": "《百年孤独》是哥伦比亚作家加西亚·马尔克斯创作的长篇小说，该小说于1965年开始创作，1967年首次出版。小说以他所虚构的小镇马孔多为背景，全面地描述了布恩迪亚..."
+}

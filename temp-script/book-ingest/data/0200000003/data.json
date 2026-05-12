@@ -1,0 +1,30 @@
+{
+  "id": "0200000003",
+  "title": "凡人修仙传",
+  "titleOriginal": null,
+  "otherTitles": null,
+  "isbn": "9787806807583",
+  "year": 2008,
+  "country": null,
+  "language": "中文",
+  "wordCount": 7712500,
+  "publisher": "",
+  "summary": "《凡人修仙传》是忘语自2008年2月20日起在起点中文网上连载的网络小说作品。该作品是“凡人流”网文的代表作。2010年1月，该作单行本由太白文艺出版社出版。2...",
+  "quotes": null,
+  "seriesId": null,
+  "seriesOrder": null,
+  "scores": "{\"douban\": 7.4, \"avg\": 7.4}",
+  "externalSource": "[{\"name\": \"豆瓣\", \"id\": \"4192766\", \"link\": \"https://book.douban.com/subject/4192766/\"}, {\"name\": \"ISBN\", \"id\": \"9787806807583\", \"link\": null}, {\"name\": \"百度百科\", \"id\": 54139, \"link\": \"https://baike.baidu.com/item/%E5%87%A1%E4%BA%BA%E4%BF%AE%E4%BB%99%E4%BC%A0\"}, {\"name\": \"维基百科\", \"id\": \"%E5%87%A1%E4%BA%BA%E4%BF%AE%E4%BB%99%E4%BC%A0_(%E5%B0%8F%E8%AF%B4)\", \"link\": \"https://zh.wikipedia.org/wiki/%E5%87%A1%E4%BA%BA%E4%BF%AE%E4%BB%99%E4%BC%A0_(%E5%B0%8F%E8%AF%B4)\"}, {\"name\": \"当当网\", \"id\": \"9787806807583\", \"link\": \"https://product.dangdang.com/11716529251.html\"}]",
+  "images": "{\"cover\": \"cover-main.jpg\", \"covers\": [], \"assetDir\": \"book/0200000003\"}",
+  "reviews": "[]",
+  "related": null,
+  "status": "draft",
+  "_authors": [
+    "忘语"
+  ],
+  "_translators": [],
+  "_tags": [],
+  "_prices": {
+    "dangdang": 6.5
+  }
+}
