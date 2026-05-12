@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Dict, Any, List, Optional
 from datetime import datetime
 
+import config
 from utils import Logger, generate_work_id
 from name_matcher import match_person, merge_person_data
 
@@ -20,7 +21,7 @@ class DataMerger:
     
     def __init__(self, output_dir: str = None):
         if output_dir is None:
-            output_dir = Path(__file__).parent.parent.parent / ".local" / "staging" / "video" / "movie"
+            output_dir = config.STAGING_DIR
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
     
@@ -846,7 +847,7 @@ class DataMerger:
     
     def save_raw_data(self, work_id: str, source: str, data: Dict):
         """保存原始数据"""
-        raw_dir = self.output_dir.parent.parent / "raw" / work_id
+        raw_dir = config.RAW_DIR / work_id
         raw_dir.mkdir(parents=True, exist_ok=True)
         
         filepath = raw_dir / f"{source}.json"

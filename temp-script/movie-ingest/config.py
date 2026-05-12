@@ -4,10 +4,26 @@
 """
 import os
 import sys
+from pathlib import Path
 
 # Windows UTF-8 兼容：必须在其他 import 之前设置
 if sys.platform == 'win32':
     os.environ['PYTHONUTF8'] = '1'
+
+# 项目根目录
+SCRIPT_DIR = Path(__file__).parent
+REPO_ROOT = SCRIPT_DIR.parent.parent
+
+# 数据目录（movie-ingest/data/）
+DATA_DIR = SCRIPT_DIR / "data"
+RAW_DIR = DATA_DIR / "raw"
+STAGING_DIR = DATA_DIR / "staging"
+ASSETS_DIR = DATA_DIR / "assets"
+WORK_ASSETS_DIR = ASSETS_DIR / "works"
+PEOPLE_ASSETS_DIR = ASSETS_DIR / "people"
+
+# 数据库路径（项目级）
+DB_PATH = REPO_ROOT / ".local" / "treasure.db"
 
 # API Keys
 TMDB_API_KEY = "3a4e78fb56ab8fda8244aa3c96272534"
@@ -21,11 +37,11 @@ WIKIPEDIA_BASE_URL = "https://zh.wikipedia.org"
 ROTTEN_TOMATOES_BASE_URL = "https://www.rottentomatoes.com"
 METACRITIC_BASE_URL = "https://www.metacritic.com"
 
-# 输出目录
-OUTPUT_DIR = "data"
-COOKIES_FILE = "cookies.json"
-PROGRESS_FILE = "progress.json"
-ERRORS_FILE = "errors.json"
+# 输出目录（兼容旧代码）
+OUTPUT_DIR = str(DATA_DIR)
+COOKIES_FILE = str(SCRIPT_DIR / "cookies.json")
+PROGRESS_FILE = str(SCRIPT_DIR / "progress.json")
+ERRORS_FILE = str(SCRIPT_DIR / "errors.json")
 
 # 爬取配置
 COMMENTS_PER_SOURCE = 20

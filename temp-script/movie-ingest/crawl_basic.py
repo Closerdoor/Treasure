@@ -14,7 +14,7 @@ python crawl_basic.py --test
 python crawl_basic.py --douban-id 1292052
 
 注意：爬取完成后生成 staging JSON 文件，不会自动写入数据库。
-需要单独运行导入命令：python import_to_db.py --work-id 0101000001
+需要单独运行导入命令：node db_tools/import-movie.mjs --work-id 0101000001
 """
 import os
 import sys
@@ -203,7 +203,7 @@ class BasicCrawler:
             self.progress_manager.update_status(douban_id, "completed")
             
             Logger.success(f"基本信息爬取完成: {title or douban_id}")
-            Logger.info(f"Staging 文件已保存，如需导入数据库请运行: python import_to_db.py --work-id {work_id}")
+            Logger.info(f"Staging 文件已保存，如需导入数据库请运行: node db_tools/import-movie.mjs --work-id {work_id}")
             return True
             
         except Exception as e:
@@ -230,7 +230,7 @@ class BasicCrawler:
         
         if success:
             work_id = self.progress_manager.get_work_id(douban_id)
-            Logger.success(f"测试完成！Staging 文件已保存到: .local/staging/video/movie/{work_id}.json")
+            Logger.success(f"测试完成！Staging 文件已保存到: data/staging/{work_id}.json")
         else:
             Logger.error("测试失败")
             
@@ -249,7 +249,7 @@ class BasicCrawler:
         
         if success:
             work_id = self.progress_manager.get_work_id(douban_id)
-            Logger.success(f"爬取完成！Staging 文件已保存到: .local/staging/video/movie/{work_id}.json")
+            Logger.success(f"爬取完成！Staging 文件已保存到: data/staging/{work_id}.json")
         else:
             Logger.error("爬取失败")
 

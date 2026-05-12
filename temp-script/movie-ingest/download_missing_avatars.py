@@ -25,8 +25,8 @@ class AvatarDownloader:
     """头像下载器"""
     
     def __init__(self):
-        self.db_path = Path(__file__).parent.parent.parent / ".local" / "treasure.db"
-        self.avatar_dir = Path(__file__).parent.parent.parent / ".local" / "assets" / "people"
+        self.db_path = config.DB_PATH
+        self.avatar_dir = config.PEOPLE_ASSETS_DIR
         self.conn = None
         
         self.tmdb_api_key = config.TMDB_API_KEY

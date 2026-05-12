@@ -31,8 +31,8 @@ class AvatarFixer:
     """人物头像修复器"""
     
     def __init__(self):
-        self.db_path = Path(__file__).parent.parent.parent / ".local" / "treasure.db"
-        self.avatar_dir = Path(__file__).parent.parent.parent / ".local" / "assets" / "people"
+        self.db_path = config.DB_PATH
+        self.avatar_dir = config.PEOPLE_ASSETS_DIR
         self.conn = None
         
         # TMDB API 配置

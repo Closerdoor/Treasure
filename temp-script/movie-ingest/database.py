@@ -24,6 +24,7 @@ from pathlib import Path
 from typing import Dict, Any, List, Optional, Tuple
 from datetime import datetime
 
+import config
 from utils import Logger
 
 
@@ -32,7 +33,7 @@ class TreasureDB:
     
     def __init__(self, db_path: str = None):
         if db_path is None:
-            db_path = Path(__file__).parent.parent.parent / ".local" / "treasure.db"
+            db_path = config.DB_PATH
         self.db_path = Path(db_path)
         self.conn: Optional[sqlite3.Connection] = None
         

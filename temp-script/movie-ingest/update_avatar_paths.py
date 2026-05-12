@@ -14,10 +14,11 @@ from datetime import datetime
 if sys.platform == 'win32':
     os.environ['PYTHONUTF8'] = '1'
 
+import config
+
 # 路径配置
-REPO_ROOT = Path(__file__).parent.parent.parent
-DB_PATH = REPO_ROOT / ".local" / "treasure.db"
-STAGING_DIR = REPO_ROOT / ".local" / "staging" / "video" / "movie"
+DB_PATH = config.DB_PATH
+STAGING_DIR = config.STAGING_DIR
 
 def main():
     print("=== 更新人物头像路径 ===")

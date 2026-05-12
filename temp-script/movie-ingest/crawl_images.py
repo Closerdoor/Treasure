@@ -13,7 +13,7 @@ python crawl_images.py --work-id 0101000001
 python crawl_images.py --all
 
 注意：爬取完成后更新 staging JSON 文件，不会自动写入数据库。
-需要单独运行导入命令：python import_to_db.py --work-id 0101000001
+需要单独运行导入命令：node db_tools/import-movie.mjs --work-id 0101000001
 """
 import os
 import sys
@@ -73,8 +73,7 @@ class ImagesCrawler:
     
     def load_staging_file(self, work_id: str) -> Dict[str, Any]:
         """加载 staging JSON 文件"""
-        staging_dir = Path(__file__).parent.parent.parent / ".local" / "staging" / "video" / "movie"
-        filepath = staging_dir / f"{work_id}.json"
+        filepath = config.STAGING_DIR / f"{work_id}.json"
         if not filepath.exists():
             raise FileNotFoundError(f"Staging 文件不存在: {filepath}")
         with open(filepath, "r", encoding="utf-8") as f:
@@ -82,16 +81,15 @@ class ImagesCrawler:
     
     def save_staging_file(self, work_id: str, data: Dict[str, Any]):
         """保存 staging JSON 文件"""
-        staging_dir = Path(__file__).parent.parent.parent / ".local" / "staging" / "video" / "movie"
-        staging_dir.mkdir(parents=True, exist_ok=True)
-        filepath = staging_dir / f"{work_id}.json"
+        config.STAGING_DIR.mkdir(parents=True, exist_ok=True)
+        filepath = config.STAGING_DIR / f"{work_id}.json"
         with open(filepath, "w", encoding="utf-8") as f:
             json.dump(data, ensure_ascii=False, indent=2, fp=f)
         Logger.success(f"已更新 staging 文件: {filepath}")
     
     def get_asset_dir(self, work_id: str) -> Path:
         """获取资源目录"""
-        asset_dir = Path(__file__).parent.parent.parent / ".local" / "assets" / "video" / "movie" / work_id
+        asset_dir = config.WORK_ASSETS_DIR / work_id
         asset_dir.mkdir(parents=True, exist_ok=True)
         return asset_dir
             
