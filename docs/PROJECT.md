@@ -173,11 +173,36 @@ site/public/assets/
 
 这些目录服务本地采集、导入、校验和备份，不进入线上发布链路。
 
-电影录入阶段的过程约束：
+### 采集工坊职责契约
+
+`temp-script/movie-ingest` 与 `temp-script/book-ingest` 的职责边界是“爬取作品信息 -> 下载到本地 -> 录入 `.local/treasure.db`”。它们不负责 generated 导出、Astro 页面、站点构建或发布校验；这些后续流程由 `tools/`、`generated/` 与 `site/` 承担。
+
+采集工坊内部的标准层次：
+
+```text
+source task / curated input
+  -> raw source snapshots
+  -> normalized staging record
+  -> field source / conflict notes
+  -> SQLite import
+```
+
+各层职责：
+
+- `source task / curated input`：记录馆长想录入什么，以及必要的外部 ID 或人工选择结果。
+- `raw source snapshots`：保存原始抓取结果，便于回溯，不直接作为站点数据。
+- `normalized staging record`：保存准备入库的结构化对象；原则上保持对象 / 数组结构，不要在 staging 阶段提前把复杂字段序列化成 JSON 字符串。
+- `field source / conflict notes`：记录字段来源、自动推断依据、多源冲突和人工确认结果。
+- `SQLite import`：把 staging 数据投影到 Prisma / SQLite 表结构，包括主表、人物关系、分类关系和展示型 JSON 字段。
+- SQLite 入库完成后，采集工坊职责结束；从 SQLite 到 generated / site 的流程属于下一层系统。
+
+过程约束：
 
 - 正式进入导入流程前，至少应同时保留“候选作品数据”与“字段来源记录”，便于后续复核。
 - 若同一字段存在多源冲突，不应静默覆盖；应保留足够的来源或冲突信息，供人工判断。
 - 每次批量导入都应形成摘要性记录，至少能回看本批处理对象、导入数量、关键缺口、资源覆盖与后续回补提示。
+- 如果脚本存在数量限制、数据源跳过、降级策略或只取前 N 条，必须在代码注释、运行前说明和批次摘要中同时可见。
+- 模块局部 README 可以记录实验细节，但不得覆盖本文件中的主线契约。
 
 主链路：
 
@@ -188,6 +213,37 @@ site/public/assets/
   -> site/src/lib/archive.ts
   -> Astro pages
 ```
+
+DB 到 Astro 的当前真实链路：
+
+1. `.local/treasure.db` 是本地结构化事实源。
+2. `tools/db/export-generated.mjs` 使用本机 SQLite CLI 读取 `.local/treasure.db`。
+3. 当前导出范围是 `works` 中的 `video/movie`，并联表读取 `work_person`、`person`、`work_category`、`category`。
+4. 导出脚本生成：
+
+```text
+generated/entries/video/movie/{id}.json
+generated/indexes/video-movie.json
+generated/indexes/video.json
+generated/indexes/all.json
+generated/persons.json
+generated/recent.json
+generated/tags.json
+```
+
+5. `site/scripts/sync-assets.mjs` 会先调用 `tools/db/export-generated.mjs`，再同步 `.local/assets/video/movie` 与 `.local/assets/people` 到 `site/public/assets/`。
+6. `site/src/lib/archive.ts` 读取 `generated/indexes/video-movie.json` 与 `generated/entries/video/movie/{id}.json`，并补齐前台需要的路径、评分、海报 URL、演员预览等派生字段。
+7. 当前 Astro 页面消费路径：
+
+```text
+site/src/pages/index.astro
+site/src/pages/video/index.astro
+site/src/pages/video/movie/[id].astro
+```
+
+8. `site/src/pages/video/movie/[id].astro` 通过 `loadAllMovieIds()` 生成静态详情页路径。
+
+因此，当前站点构建不读取 SQLite、不读取 `temp-script/`，只读取 `generated/` 与 `site/public/assets/`。
 
 资源链路：
 
@@ -540,27 +596,37 @@ Giscus 评论区保留在详情页，不出现在首页和列表页。
 
 新增或更新作品数据时：
 
-1. 在 `temp-script/` 中抓取、解析、清洗或人工整理数据。
-2. 确认数据后写入 `.local/treasure.db`。
-3. 如涉及结构变化，更新 `prisma/schema.prisma`。
-4. 运行 `node tools/db/export-generated.mjs` 导出静态 JSON。
-5. 运行 `cd site && npm.cmd run sync` 同步资源和数据。
-6. 运行 `cd site && npm.cmd run build` 验证 Astro 静态构建。
-7. 更新 `docs/STATUS.md` 中的数据量、校验结果和已知风险。
+采集工坊阶段：
+
+1. 准备 source task 或馆长确认过的输入清单。
+2. 抓取或整理 raw source snapshots，保留原始来源。
+3. 下载作品图片、人物头像等本地资源。
+4. 生成 normalized staging record，并同步生成字段来源 / 冲突记录。
+5. 检查 staging 是否符合当前模块契约；发现字段冲突或脚本限制时先确认再继续。
+6. 确认数据后写入 `.local/treasure.db`。
+7. 如涉及结构变化，更新 `prisma/schema.prisma`。
+
+站点中转阶段：
+
+1. 运行 `node tools/db/export-generated.mjs` 导出静态 JSON。
+2. 运行 `cd site && npm.cmd run sync` 同步资源和数据。
+3. 运行 `cd site && npm.cmd run build` 验证 Astro 静态构建。
+4. 更新 `docs/STATUS.md` 中的数据量、校验结果和已知风险。
 
 书籍模块接入建议顺序：
 
-1. 确认 `books`、`book_person`、`book_category` 的结构与导出需求。
-2. 扩展导出脚本，生成：
+1. 先让 `book-ingest` 的 staging 契约对齐采集工坊标准，尤其是字段来源、冲突记录和复杂字段 JSON 化时机。
+2. 确认 `books`、`book_person`、`book_category` 的结构与导出需求。
+3. 扩展导出脚本，生成：
 
 ```text
 generated/entries/book/{id}.json
 generated/indexes/book.json
 ```
 
-3. 将书籍条目接入 `generated/indexes/all.json`。
-4. 增加 `site/src/lib/book.ts`。
-5. 增加 `/book` 与 `/book/{id}` 页面。
+4. 将书籍条目接入 `generated/indexes/all.json`。
+5. 增加 `site/src/lib/book.ts`。
+6. 增加 `/book` 与 `/book/{id}` 页面。
 
 ## 发布前校验
 
