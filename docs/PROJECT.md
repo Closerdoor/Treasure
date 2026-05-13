@@ -162,16 +162,15 @@ site/public/assets/
 - `.local/assets/` 是本地私有资源源目录。
 - `site/public/assets/` 是 Astro 构建和 GitHub Pages 可发布的资源目录。
 
-`.local/` 的当前职责不止数据库和图片资源，也承载本地工坊过程产物，例如：
+`.local/` 的目标职责应保持克制：保存已经进入主链路的本地主数据库、主资源和备份。采集过程中的 raw、staging、字段来源、冲突记录、批次摘要和临时下载缓存，应优先放在对应的 `temp-script/*-ingest/` 目录中。
 
 ```text
+.local/treasure.db
+.local/assets/
 .local/backup/
-.local/staging/
-.local/batches/
-.local/source-snapshots/
 ```
 
-这些目录服务本地采集、导入、校验和备份，不进入线上发布链路。
+当前 `.local/` 中若仍存在 `batches`、`field-sources`、`source-snapshots`、`new-flow` 等目录，应视为历史采集过程产物或迁移阶段产物，后续逐批审视后再决定迁移、归档或删除。
 
 ### 采集工坊职责契约
 

@@ -7,7 +7,8 @@ site/public/assets/book/
 site/public/assets/music/
 site/public/assets/game/
 site/public/assets/people/
-.local/
+.local/*
+!.local/README.md
 .superpowers/
 .worktrees/
 .playwright-mcp/

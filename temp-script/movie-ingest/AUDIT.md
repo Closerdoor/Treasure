@@ -46,6 +46,23 @@
 - 图片和头像补全脚本仍服务于本地资源入库与资源覆盖率提升。
 - `data/raw`、`data/staging`、`data/assets` 作为本地过程产物是合理的。
 
+## 过程产物归属
+
+电影采集过程中的任务清单、原始抓取结果、字段来源记录、冲突记录、批次摘要和临时资源下载缓存，应该优先归属本目录，而不是归属 `.local/` 主目录。
+
+推荐边界：
+
+```text
+temp-script/movie-ingest/data/raw/       原始来源响应、网页快照或 API 结果
+temp-script/movie-ingest/data/staging/   清洗后、准备入库的结构化候选记录
+temp-script/movie-ingest/data/assets/    采集阶段下载的临时资源或待整理资源
+temp-script/movie-ingest/data/reports/   批次摘要、失败项、字段来源与冲突记录
+```
+
+`.local/` 只接收已经被项目主链路承认的结果：`.local/treasure.db` 和 `.local/assets/`。也就是说，本目录负责解释“数据怎么来的、为什么这样入库”，`.local/` 负责保存“已经进入主数据链路的数据库和资源”。
+
+如果未来继续保留字段来源或来源快照，建议放在 movie-ingest 的过程目录中，或由入库脚本写入数据库相关表；不建议长期散落在 `.local/field-sources/`、`.local/source-snapshots/` 这类全局目录中。
+
 ## 待处理 / 不合理文件
 
 `db_tools/` 中存在较多历史过渡脚本。它们有些仍服务采集工坊，有些已经越过当前目录职责边界。

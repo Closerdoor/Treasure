@@ -38,6 +38,23 @@
 - `database.py` 与当前书籍相关表结构基本对应。
 - `data/raw`、`data/staging`、`data/assets` 作为本地过程产物是合理的。
 
+## 过程产物归属
+
+书籍采集过程中的任务清单、原始抓取结果、字段来源记录、冲突记录、批次摘要和封面/头像下载缓存，应该优先归属本目录，而不是归属 `.local/` 主目录。
+
+推荐边界：
+
+```text
+temp-script/book-ingest/data/raw/       原始来源响应、网页快照或 API 结果
+temp-script/book-ingest/data/staging/   清洗后、准备入库的结构化候选记录
+temp-script/book-ingest/data/assets/    采集阶段下载的临时资源或待整理资源
+temp-script/book-ingest/data/reports/   批次摘要、失败项、字段来源与冲突记录
+```
+
+`.local/` 只接收已经被项目主链路承认的结果：`.local/treasure.db` 和 `.local/assets/`。也就是说，本目录负责解释“数据怎么来的、为什么这样入库”，`.local/` 负责保存“已经进入主数据链路的数据库和资源”。
+
+如果未来继续保留字段来源或来源快照，建议放在 book-ingest 的过程目录中，或由入库脚本写入数据库相关表；不建议长期散落在 `.local/field-sources/`、`.local/source-snapshots/` 这类全局目录中。
+
 ## 待处理 / 不合理内容
 
 目前没有发现像 movie-ingest 那样大量越界的工具脚本，但存在几类需要整理的问题。
