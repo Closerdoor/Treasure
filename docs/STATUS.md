@@ -89,6 +89,8 @@ npm.cmd run build
 - 已将 `tools/db/` 收口为当前 DB 主链路工具，历史修库脚本和旧电影 intake / 样板脚本已移入 `tools/archive/`。
 - 已将 `tools/db/export-generated.mjs` 扩展为统一导出入口：同时导出 generated JSON 和当前记录引用的静态资源。
 - 发布侧不再导出共享 `site/public/assets/people/`；人物头像改为按作品目录复制并写入作品 JSON。
+- 已完成一次 DB -> generated -> Astro 的完整工作流校验：电影 250 条详情与索引对齐，Astro 构建成功生成 254 个页面。
+- 已在 `docs/PROJECT.md` 增加主链路文件分级，区分当前主链路、历史兼容、清理候选和暂不处理范围。
 
 ## 未完成
 
@@ -101,15 +103,21 @@ npm.cmd run build
 - `temp-script/movie-ingest/db_tools/` 中仍有部分脚本涉及 generated、site 构建、发布校验或迁移验收语境，职责上更像历史过渡工具或应迁入 `tools/` 的工具，尚未逐一确认去留。
 - `tools/db/` 已收口为当前 DB 主链路工具；历史修库脚本和旧电影 intake / 样板脚本已移入 `tools/archive/`，后续完整跑工作流时再确认是否还有需要恢复的正式入口。
 - `temp-script/` 中仍有大量实验脚本、日志和调试产物，需要后续分类归档。
+- 当前仓库仍存在一批不在主链路上的历史或调试文件，尚未删除：
+  - `content/` 约 195 个已跟踪文件，是旧 Markdown / 内容文件链路，当前 Astro 不读取。
+  - `.playwright-mcp/` 约 172 个已跟踪调试日志和页面快照，虽已被 `.gitignore` 忽略，但历史上已经入库。
+  - `.opencode/` 约 46 个已跟踪文件，包含本地 AI 技能、数据和 Python 缓存，需确认是否仍作为项目资产。
+  - 顶层 `interstellar-reviews.json`、`shawshank-reviews.json`、`rt-requests.txt`、`rt-review-body.json`、`tmdb-requests.txt` 更像一次性抓取 / 调试产物。
+  - `generated/recent.json` 与 `generated/tags.json` 目前仍被 Git 跟踪，但按当前规范应视为 generated 产物，后续建议确认后取消跟踪。
 
 ## 下一步建议
 
 优先级从高到低：
 
 1. 新增 `tools/db/check-generated-integrity.mjs`，把当前手动校验固化为脚本。
-2. 修正 `0101000178`《绿里奇迹》的 `poster-main.webp` 缺口后重新导出和构建。
-3. 明确 `images.posters/stills` 是否只允许本地文件名字符串。
-4. 决定是否继续保留 `site/scripts/sync-assets.mjs` 作为兼容入口，或统一改为只使用仓库根目录的 `node tools/db/export-generated.mjs`。
-5. 完整执行一次当前 DB -> generated -> Astro 工作流，确认 `tools/db/` 保留工具是否足够，以及 `tools/archive/` 中是否有脚本需要恢复或彻底删除。
+2. 按 `docs/PROJECT.md` 的“主链路文件分级”逐项确认清理候选，优先处理明显不该入库的调试日志、缓存和 generated 历史产物。
+3. 修正 `0101000178`《绿里奇迹》的 `poster-main.webp` 缺口后重新导出和构建。
+4. 明确 `images.posters/stills` 是否只允许本地文件名字符串。
+5. 决定是否继续保留 `site/scripts/sync-assets.mjs` 作为兼容入口，或统一改为只使用仓库根目录的 `node tools/db/export-generated.mjs`。
 6. 审视 `temp-script/movie-ingest/db_tools/` 中的历史过渡脚本，决定迁移、归档或删除。
 7. 将书籍录入 staging 契约对齐采集工坊标准，再设计书籍模块的 generated 契约与 `/book`、`/book/{id}` 页面。

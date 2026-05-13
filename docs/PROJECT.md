@@ -25,7 +25,7 @@ Treasure 是一个个人收藏馆项目，用来收录影视、书籍、音乐�
 | generated 与资源导出入口 | `tools/db/export-generated.mjs` |
 | DB 工具说明 | `tools/db/README.md` |
 | 历史工具归档 | `tools/archive/README.md` |
-| 兼容导出入口 | `site/scripts/sync-assets.mjs` |
+| 兼容导出入口（待决定去留） | `site/scripts/sync-assets.mjs` |
 | 前台数据读取层 | `site/src/lib/archive.ts` |
 | Astro 首页 | `site/src/pages/index.astro` |
 | 影视列表页 | `site/src/pages/video/index.astro` |
@@ -639,9 +639,10 @@ Giscus 评论区保留在详情页，不出现在首页和列表页。
 站点中转阶段：
 
 1. 运行 `node tools/db/export-generated.mjs` 导出静态 JSON 和当前记录引用的静态资源。
-2. 可选运行 `cd site && npm.cmd run sync`，它是兼容入口，实际仍调用统一导出脚本。
-3. 运行 `cd site && npm.cmd run build` 验证 Astro 静态构建。
-4. 更新 `docs/STATUS.md` 中的数据量、校验结果和已知风险。
+2. 运行 `cd site && npm.cmd run build` 验证 Astro 静态构建。
+3. 更新 `docs/STATUS.md` 中的数据量、校验结果和已知风险。
+
+`cd site && npm.cmd run sync` 只是历史兼容入口，当前不作为标准流程的一部分。若后续确认没有外部工具依赖它，应移除该脚本和 npm script，统一只保留仓库根目录的导出命令。
 
 书籍模块接入建议顺序：
 
@@ -695,6 +696,90 @@ generated/indexes/book.json
   - `site/public/assets/`
   - `site/scripts/sync-assets.mjs`
   - 前台图片 URL 拼接逻辑
+
+## 主链路文件分级
+
+完成一次 DB -> generated -> Astro 闭环后，当前文件可以按职责分为四类。后续清理时优先按这个分级判断，不要只看文件是否还存在。
+
+### A. 当前主链路文件
+
+这些文件或目录属于当前规范，应该保留并保持文档同步：
+
+```text
+.local/README.md
+.local/treasure.db
+.local/assets/
+.local/backup/
+prisma/schema.prisma
+prisma/migrations/
+prisma.config.ts
+tools/db/export-generated.mjs
+tools/db/check-counts.mjs
+tools/db/check-assets.mjs
+tools/db/view-schema.mjs
+tools/db/list-tables.mjs
+tools/db/update-backup.mjs
+generated/
+site/src/
+site/public/assets/avatar-placeholder.svg
+site/public/assets/poster-placeholder.svg
+```
+
+说明：
+
+- `.local/treasure.db` 与 `.local/assets/` 是本地主源，不提交 Git。
+- `generated/` 是导出产物，前台依赖它，但不应人工编辑。
+- `site/public/assets/video/` 等作品资源目录由导出脚本重建，不应手工维护。
+- `site/public/assets/avatar-placeholder.svg` 与 `poster-placeholder.svg` 是前台回退资源，应提交 Git。
+
+### B. 历史兼容或参考文件
+
+这些内容可能仍有参考价值，但不属于当前运行链路：
+
+```text
+tools/archive/
+docs/archive/
+design-archive/
+site/scripts/sync-assets.mjs
+```
+
+处理原则：
+
+- `tools/archive/` 与 `docs/archive/` 只在追溯历史决策时读取。
+- `design-archive/` 作为 UI 参考材料保留，不参与构建。
+- `site/scripts/sync-assets.mjs` 当前只是导出脚本包装层；若确认没有使用场景，应删除兼容入口，减少命令歧义。
+
+### C. 清理候选
+
+这些内容已经不在当前主链路上，清理前需要用户确认：
+
+| 路径 / 文件 | 当前判断 |
+|---|---|
+| `content/` | 旧 Markdown / 内容文件链路，当前 Astro 不读取；已跟踪约 195 个文件 |
+| `generated/recent.json`、`generated/tags.json` | generated 产物被 Git 跟踪的历史残留，建议后续改为只生成不提交 |
+| `.playwright-mcp/` | 浏览器调试日志和页面快照，已在 `.gitignore` 中但仍跟踪约 172 个文件 |
+| `.opencode/` | 本地 AI 技能和缓存文件，已跟踪约 46 个文件；需确认是否仍作为项目资产 |
+| `.opencode/**/__pycache__/` | Python 字节码缓存，通常不应提交 |
+| `data/.book_counter` | 旧书籍计数状态文件，需确认是否仍被当前脚本使用 |
+| `interstellar-reviews.json`、`shawshank-reviews.json` | 顶层临时评论抓取结果 |
+| `rt-requests.txt`、`rt-review-body.json`、`tmdb-requests.txt` | 顶层调试请求 / 响应文件 |
+| `IMAGE-DESIGN-PROMPTS.md` | 设计提示词草稿，若仍有价值应进入 `design-archive/` 或 `docs/archive/` |
+
+清理规则：
+
+- 删除或取消跟踪前必须逐项确认，尤其是 `content/`、`.opencode/` 和顶层调试数据。
+- 若某个候选文件仍被脚本引用，应先判断它属于采集工坊、DB 工具、站点构建还是历史归档，再移动到正确位置。
+- 清理 generated 产物时，只能删除可由 `tools/db/export-generated.mjs` 稳定再生成的文件。
+
+### D. 暂不处理范围
+
+```text
+temp-script/
+.local/treasure.db
+.local/assets/
+```
+
+`temp-script/` 的具体整理由用户处理；除非用户明确要求，否则只记录职责边界和问题，不主动移动或删除。`.local/` 中的数据库和资产是本地主源，清理时必须比普通生成物更谨慎。
 
 ## 架构原则
 
