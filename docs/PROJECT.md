@@ -17,10 +17,14 @@ Treasure 是一个个人收藏馆项目，用来收录影视、书籍、音乐�
 | 你要找什么 | 位置 |
 |---|---|
 | 本地 SQLite 数据库 | `.local/treasure.db` |
+| `.local` 职责说明 | `.local/README.md` |
 | Prisma schema | `prisma/schema.prisma` |
+| Prisma 迁移基线 | `prisma/migrations/` |
 | 数据库统计脚本 | `tools/db/check-counts.mjs` |
 | 数据库表结构查看 | `tools/db/view-schema.mjs` |
 | generated 导出入口 | `tools/db/export-generated.mjs` |
+| DB 工具说明 | `tools/db/README.md` |
+| 历史工具归档 | `tools/archive/README.md` |
 | 资源同步入口 | `site/scripts/sync-assets.mjs` |
 | 前台数据读取层 | `site/src/lib/archive.ts` |
 | Astro 首页 | `site/src/pages/index.astro` |
@@ -60,13 +64,31 @@ temp-script/
 .local/treasure.db
 prisma/schema.prisma
 prisma.config.ts
+prisma/migrations/
 ```
 
 职责：
 
 - `.local/treasure.db` 是本地结构化主数据源。
 - `prisma/schema.prisma` 定义表结构和字段关系。
+- `prisma/migrations/` 记录可从空库复现当前结构的 SQLite 迁移基线。
+- `prisma.config.ts` 指向当前 schema、migrations 和 `.local/treasure.db`。
 - 数据库只服务本地内容工坊，不会部署到 GitHub Pages。
+
+文件分工：
+
+```text
+.local/treasure.db                  本地真实数据，不提交 Git
+.local/assets/                      本地资源主源，不提交 Git
+.local/backup/                      本地备份，不参与构建
+prisma/schema.prisma                数据库结构契约，提交 Git
+prisma/migrations/                  当前结构迁移基线，提交 Git
+tools/db/                           当前 DB 主链路工具
+tools/archive/db-legacy-migrations/ 历史修库/迁移脚本
+tools/archive/movie-ingest-workflow/旧电影采集过程/样板脚本
+```
+
+`tools/db/` 不再承载采集过程工具、旧修库脚本或一次性实验脚本。当前只保留数据库统计、表结构查看、generated 导出、资源引用检查和本地备份等主链路能力；其余历史脚本放入 `tools/archive/`，后续完整跑工作流时再确认是否恢复或删除。
 
 当前核心表：
 

@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, '..', '..');
-const generatedEntriesPath = path.join(repoRoot, 'generated', 'entries.json');
+const generatedEntriesRoot = path.join(repoRoot, 'generated', 'entries');
 const assetsRoot = path.join(repoRoot, 'site', 'public', 'assets');
 const reportPath = path.join(repoRoot, '.local', 'asset-check-report.json');
 
@@ -24,6 +24,46 @@ async function fileExists(filePath) {
   } catch {
     return false;
   }
+}
+
+async function walkJsonFiles(dir) {
+  const result = [];
+
+  async function walk(current) {
+    let entries;
+    try {
+      entries = await fs.readdir(current, { withFileTypes: true });
+    } catch (error) {
+      if (error?.code === 'ENOENT') {
+        return;
+      }
+      throw error;
+    }
+
+    for (const entry of entries) {
+      const fullPath = path.join(current, entry.name);
+      if (entry.isDirectory()) {
+        await walk(fullPath);
+      } else if (entry.isFile() && entry.name.endsWith('.json')) {
+        result.push(fullPath);
+      }
+    }
+  }
+
+  await walk(dir);
+  return result.sort();
+}
+
+async function loadGeneratedEntries() {
+  const files = await walkJsonFiles(generatedEntriesRoot);
+  const entries = [];
+
+  for (const file of files) {
+    const raw = await fs.readFile(file, 'utf8');
+    entries.push(JSON.parse(raw));
+  }
+
+  return { entries, files };
 }
 
 function buildWorkAssetRefs(entry) {
@@ -96,8 +136,7 @@ function dedupeRefs(refs) {
 }
 
 async function main() {
-  const raw = await fs.readFile(generatedEntriesPath, 'utf8');
-  const entries = JSON.parse(raw);
+  const { entries, files } = await loadGeneratedEntries();
 
   const allRefs = dedupeRefs(entries.flatMap((entry) => [
     ...buildWorkAssetRefs(entry),
@@ -146,7 +185,9 @@ async function main() {
     version: 1,
     generatedAt: new Date().toISOString(),
     assetsRoot: path.relative(repoRoot, assetsRoot).replace(/\\/g, '/'),
-    entriesSource: path.relative(repoRoot, generatedEntriesPath).replace(/\\/g, '/'),
+    entriesSource: path.relative(repoRoot, generatedEntriesRoot).replace(/\\/g, '/'),
+    entriesCount: entries.length,
+    filesCount: files.length,
     totals: {
       checked: checked.length,
       existing: existing.length,
