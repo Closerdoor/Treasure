@@ -21,7 +21,7 @@ Treasure 是一个“精选型个人收藏馆”。当前目标不是做全量�
 temp-script/ 爬取与实验脚本
   -> .local/treasure.db
   -> tools/db/export-generated.mjs
-  -> generated/
+  -> generated/ + site/public/assets/
   -> site/
   -> GitHub Pages
 ```
@@ -47,7 +47,8 @@ Astro 站点不直接读取 SQLite，也不直接依赖 `temp-script/`。线上�
    - Prisma schema 位于 `prisma/schema.prisma`。
 3. `tools/db/`、`generated/` 与资源同步
    - 把数据库导出为 Astro 可读取的静态 JSON。
-   - 把本地资源同步到 `site/public/assets/`。
+   - 把当前导出记录引用的本地资源导出到 `site/public/assets/`。
+   - 发布资源按作品目录隔离，不再导出共享人物资源目录。
 4. `site/`
    - Astro 静态站项目。
    - 最终构建产物部署到 GitHub Pages。
@@ -58,12 +59,8 @@ Astro 站点不直接读取 SQLite，也不直接依赖 `temp-script/`。线上�
 # 查看数据统计
 node tools/db/check-counts.mjs
 
-# 导出数据库到 generated/
+# 导出数据库到 generated/，并导出当前记录引用的静态资源
 node tools/db/export-generated.mjs
-
-# 同步资源并导出数据
-cd site
-npm.cmd run sync
 
 # 构建 Astro 静态站
 cd site

@@ -12,6 +12,8 @@
   -> site/
 ```
 
+`tools/db/export-generated.mjs` 是 DB 到前台静态输入的唯一正式导出入口。它不仅导出 JSON，也负责把当前导出记录引用到的本地静态资源复制到 `site/public/assets/`。
+
 ## 当前工具
 
 ### `check-counts.mjs`
@@ -50,12 +52,20 @@ node tools/db/view-schema.mjs Book
 - 导出 `generated/entries/video/movie/{id}.json`
 - 导出 `generated/indexes/*.json`
 - 导出 `generated/persons.json`、`generated/recent.json`、`generated/tags.json`
-- 同步 `.local/assets/video/movie/` 到 `site/public/assets/video/movie/`
-- 同步 `.local/assets/people/` 到 `site/public/assets/people/`
+- 只导出当前 generated 记录引用到的作品资源到 `site/public/assets/video/movie/{id}/`
+- 将人物头像复制到对应作品自己的 `site/public/assets/video/movie/{id}/people/` 目录，并改写该作品 JSON 内的人物 `avatarPath`
+- 删除旧的公开共享人物资源目录 `site/public/assets/people/`，避免前台继续依赖共享静态资源池
 
 ```powershell
 node tools/db/export-generated.mjs
 ```
+
+资源约定：
+
+- `.local/assets/` 是本地私有资源源头。
+- `site/public/assets/` 是发布副本，由导出脚本重建。
+- 前台详情页中的人物头像路径应指向作品自己的资源目录，例如 `/assets/video/movie/0101000001/people/tmdb-504-avatar.jpg`。
+- `generated/persons.json` 是人物索引数据，不导出共享 `avatarPath`。
 
 ### `check-assets.mjs`
 

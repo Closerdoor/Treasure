@@ -38,13 +38,15 @@ temp-script/*-ingest
 
 ### .local/assets/
 
-本地静态资源主源，例如电影海报、剧照、人物头像等。站点发布前由项目级脚本同步到 `site/public/assets/`。
+本地静态资源主源，例如电影海报、剧照、人物头像等。站点发布前由项目级导出脚本读取当前 generated 记录的资源引用，并导出到 `site/public/assets/`。
 
 约定：
 
 - `.local/assets/` 是本地资源源头。
 - `site/public/assets/` 是发布副本，不是源头。
 - 数据库或 generated 中引用的本地资源，应最终能从 `.local/assets/` 同步得到。
+- 公开发布侧不再使用共享人物资源目录；人物头像由导出脚本复制到对应作品自己的资源目录，例如 `site/public/assets/video/movie/{id}/people/`。
+- `.local/assets/people/` 当前仍可作为本地私有人物头像源池存在；它不是前台可直接依赖的公开资源契约。
 
 ### .local/backup/
 

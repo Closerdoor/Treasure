@@ -1,5 +1,4 @@
 import fs from 'node:fs/promises';
-import fsCb from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
@@ -7,7 +6,7 @@ import { spawnSync } from 'node:child_process';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, '..', '..');
-const dbPath = path.join(repoRoot, '.local', 'treasure.db');
+const dbPath = path.join('.local', 'treasure.db');
 const generatedRoot = path.join(repoRoot, 'generated');
 const entriesRoot = path.join(generatedRoot, 'entries');
 const indexesRoot = path.join(generatedRoot, 'indexes');
@@ -45,6 +44,14 @@ function parseJsonText(text, fallback) {
 
 function formatEntryPath(entry) {
   return `/${entry.module}/${entry.submodule}/${entry.id}`;
+}
+
+function nonEmptyString(value) {
+  return typeof value === 'string' && value.trim() ? value.trim() : null;
+}
+
+function asStringArray(value) {
+  return Array.isArray(value) ? value.map(nonEmptyString).filter(Boolean) : [];
 }
 
 function normalizePerson(row) {
@@ -112,8 +119,8 @@ function buildEntry(row, credits, categories) {
   const releaseDate = parseJsonText(row.release_dates, []);
   const scores = parseJsonText(row.scores, {});
   const externalSource = parseJsonText(row.external_source, []);
-  const images = parseJsonText(row.images, {});
-  const videos = parseJsonText(row.videos, []);
+  const images = normalizeImages(parseJsonText(row.images, {}));
+  const videos = normalizeVideos(parseJsonText(row.videos, []));
   const reviews = parseJsonText(row.comments, []);
   const soundtrack = parseJsonText(row.soundtrack, null);
   const relations = parseJsonText(row.related, {});
@@ -181,6 +188,26 @@ function buildEntry(row, credits, categories) {
     updatedAt: row.updated_at,
     status: row.status
   };
+}
+
+function normalizeImages(images) {
+  return {
+    poster: nonEmptyString(images?.poster) ?? undefined,
+    posters: asStringArray(images?.posters),
+    stills: asStringArray(images?.stills),
+    wallpapers: asStringArray(images?.wallpapers)
+  };
+}
+
+function normalizeVideos(videos) {
+  if (!Array.isArray(videos)) {
+    return [];
+  }
+
+  return videos.map((video) => ({
+    ...video,
+    thumbnail: nonEmptyString(video?.thumbnail) ?? undefined
+  }));
 }
 
 function computeAggregateRating(entry) {
@@ -262,74 +289,129 @@ async function cleanDirectory(dirPath) {
   await fs.mkdir(dirPath, { recursive: true });
 }
 
-async function copyDir(src, dest) {
-  await fs.mkdir(dest, { recursive: true });
-  const entries = await fs.readdir(src, { withFileTypes: true });
-  
-  for (const entry of entries) {
-    const srcPath = path.join(src, entry.name);
-    const destPath = path.join(dest, entry.name);
-    
-    if (entry.isDirectory()) {
-      await copyDir(srcPath, destPath);
-    } else {
-      await fs.copyFile(srcPath, destPath);
+function toLocalAssetPath(relativePath) {
+  const normalized = nonEmptyString(relativePath)?.replace(/\\/g, '/');
+  if (!normalized) {
+    return null;
+  }
+
+  const withoutLocalPrefix = normalized.replace(/^\.local\/assets\//, '');
+  return path.join(localAssetsRoot, ...withoutLocalPrefix.split('/'));
+}
+
+async function copyAssetIfExists(sourcePath, destPath) {
+  if (!sourcePath) {
+    return false;
+  }
+
+  try {
+    const stat = await fs.stat(sourcePath);
+    if (!stat.isFile()) {
+      return false;
     }
+    await fs.mkdir(path.dirname(destPath), { recursive: true });
+    await fs.copyFile(sourcePath, destPath);
+    return true;
+  } catch {
+    return false;
   }
 }
 
-async function syncAssets() {
-  console.log('同步图片资源...');
-  
+function eachCreditPerson(entry) {
+  return [
+    ...(entry.director ?? []),
+    ...(entry.writer ?? []),
+    ...(entry.cast ?? []),
+    ...(entry.otherCast ?? []),
+    ...(entry.producer ?? [])
+  ];
+}
+
+async function exportEntryAssets(entry) {
+  const exportedEntry = structuredClone(entry);
+  const baseRelativeDir = `${entry.module}/${entry.submodule}/${entry.id}`;
+  const sourceWorkDir = path.join(localAssetsRoot, entry.module, entry.submodule, entry.id);
+  const destWorkDir = path.join(siteAssetsRoot, entry.module, entry.submodule, entry.id);
   const stats = {
-    videoMovie: { copied: 0, skipped: 0 },
-    people: { copied: 0, skipped: 0 }
+    workAssetsCopied: 0,
+    workAssetsMissing: 0,
+    avatarsCopied: 0,
+    avatarsMissing: 0
   };
-  
-  // 同步作品图片: .local/assets/video/movie/ → site/public/assets/video/movie/
-  const videoMovieSrc = path.join(localAssetsRoot, 'video', 'movie');
-  const videoMovieDest = path.join(siteAssetsRoot, 'video', 'movie');
-  
-  try {
-    await fs.access(videoMovieSrc);
-    await copyDir(videoMovieSrc, videoMovieDest);
-    const files = await countFiles(videoMovieDest);
-    stats.videoMovie.copied = files;
-    console.log(`  作品图片: ${files} 个文件`);
-  } catch {
-    console.log('  作品图片: 目录不存在，跳过');
-  }
-  
-  // 同步人物头像: .local/assets/people/ → site/public/assets/people/
-  const peopleSrc = path.join(localAssetsRoot, 'people');
-  const peopleDest = path.join(siteAssetsRoot, 'people');
-  
-  try {
-    await fs.access(peopleSrc);
-    await copyDir(peopleSrc, peopleDest);
-    const files = await countFiles(peopleDest);
-    stats.people.copied = files;
-    console.log(`  人物头像: ${files} 个文件`);
-  } catch {
-    console.log('  人物头像: 目录不存在，跳过');
-  }
-  
-  return stats;
-}
 
-async function countFiles(dirPath) {
-  let count = 0;
-  const entries = await fs.readdir(dirPath, { withFileTypes: true });
-  
-  for (const entry of entries) {
-    if (entry.isDirectory()) {
-      count += await countFiles(path.join(dirPath, entry.name));
+  const workFiles = [
+    exportedEntry.images?.poster,
+    ...asStringArray(exportedEntry.images?.posters),
+    ...asStringArray(exportedEntry.images?.stills),
+    ...asStringArray(exportedEntry.images?.wallpapers),
+    ...asStringArray((exportedEntry.videos ?? []).map((video) => video.thumbnail))
+  ];
+
+  for (const file of [...new Set(workFiles.map(nonEmptyString).filter(Boolean))]) {
+    const copied = await copyAssetIfExists(
+      path.join(sourceWorkDir, file),
+      path.join(destWorkDir, file)
+    );
+    if (copied) {
+      stats.workAssetsCopied += 1;
     } else {
-      count++;
+      stats.workAssetsMissing += 1;
     }
   }
-  
-  return count;
+
+  for (const person of eachCreditPerson(exportedEntry)) {
+    const sourceAvatar = toLocalAssetPath(person.avatarPath);
+    const avatarFile = sourceAvatar ? path.basename(sourceAvatar) : null;
+    if (!sourceAvatar || !avatarFile) {
+      continue;
+    }
+
+    const localAvatarPath = `people/${avatarFile}`;
+    const copied = await copyAssetIfExists(
+      sourceAvatar,
+      path.join(destWorkDir, localAvatarPath)
+    );
+
+    if (copied) {
+      person.avatarPath = `${baseRelativeDir}/${localAvatarPath}`;
+      stats.avatarsCopied += 1;
+    } else {
+      delete person.avatarPath;
+      stats.avatarsMissing += 1;
+    }
+  }
+
+  return { entry: exportedEntry, stats };
+}
+
+async function exportAssetsForEntries(entries) {
+  console.log('导出静态资源...');
+  const videoMovieAssetsRoot = path.join(siteAssetsRoot, 'video', 'movie');
+  const sharedPeopleRoot = path.join(siteAssetsRoot, 'people');
+  await cleanDirectory(videoMovieAssetsRoot);
+  await fs.rm(sharedPeopleRoot, { recursive: true, force: true });
+
+  const exportedEntries = [];
+  const totals = {
+    workAssetsCopied: 0,
+    workAssetsMissing: 0,
+    avatarsCopied: 0,
+    avatarsMissing: 0
+  };
+
+  for (const entry of entries) {
+    const exported = await exportEntryAssets(entry);
+    exportedEntries.push(exported.entry);
+    for (const key of Object.keys(totals)) {
+      totals[key] += exported.stats[key];
+    }
+  }
+
+  console.log(`  作品资源: copied=${totals.workAssetsCopied}, missing=${totals.workAssetsMissing}`);
+  console.log(`  人物头像: copied=${totals.avatarsCopied}, missing=${totals.avatarsMissing}`);
+  console.log('  共享人物资源目录: 不再导出');
+
+  return { entries: exportedEntries, stats: totals };
 }
 
 async function exportPersons() {
@@ -341,7 +423,6 @@ async function exportPersons() {
       p.name,
       p.name_en,
       p.source_ids,
-      p.avatar_path,
       p.profile_link,
       p.intro
     FROM person p
@@ -356,7 +437,6 @@ async function exportPersons() {
       name: row.name,
       nameEn: row.name_en ?? undefined,
       sourceIds,
-      avatarPath: row.avatar_path ?? undefined,
       profileLink: row.profile_link ?? undefined,
       intro: row.intro ?? undefined
     };
@@ -413,7 +493,7 @@ async function main() {
   const creditIndex = indexCredits(credits);
   const categoryIndex = indexCategories(categories);
 
-  const entries = works.map((row) => buildEntry(
+  const rawEntries = works.map((row) => buildEntry(
     row,
     creditIndex.get(row.id) ?? { director: [], writer: [], cast: [], otherCast: [], producer: [] },
     categoryIndex.get(row.id) ?? { genre: [], tags: [] }
@@ -423,6 +503,8 @@ async function main() {
   console.log('清理旧文件...');
   await cleanDirectory(entriesRoot);
   await cleanDirectory(indexesRoot);
+
+  const { entries } = await exportAssetsForEntries(rawEntries);
 
   // 按作品拆分 JSON
   console.log(`导出 ${entries.length} 个作品文件...`);
@@ -458,10 +540,6 @@ async function main() {
   console.log('');
   await exportPersons();
 
-  // 同步图片资源
-  console.log('');
-  await syncAssets();
-
   console.log('');
   console.log('='.repeat(50));
   console.log('导出完成！');
@@ -470,7 +548,7 @@ async function main() {
   console.log(`  列表索引: generated/indexes/video-movie.json`);
   console.log(`  搜索索引: generated/indexes/all.json`);
   console.log(`  人物数据: generated/persons.json`);
-  console.log(`  图片资源: site/public/assets/`);
+  console.log(`  图片资源: site/public/assets/video/movie/{id}/`);
 }
 
 main().catch((error) => {

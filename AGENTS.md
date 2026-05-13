@@ -28,7 +28,7 @@ Treasure 是一个精选型个人收藏馆，最终目标是部署为 GitHub Pag
 temp-script/ 数据获取与实验
   -> .local/treasure.db
   -> tools/db/export-generated.mjs
-  -> generated/
+  -> generated/ + site/public/assets/
   -> site/
   -> GitHub Pages
 ```
@@ -38,6 +38,8 @@ temp-script/ 数据获取与实验
 - `.local/treasure.db` 是本地结构化主数据源。
 - `generated/` 是 Astro 前台的数据源。
 - `site/public/assets/` 是前台可发布静态资源目录。
+- `tools/db/export-generated.mjs` 同时负责导出 JSON 数据与当前记录引用的静态资源。
+- 发布侧资源按作品目录隔离，不再导出共享 `site/public/assets/people/`。
 - Astro 站点不直接读取 SQLite。
 - Astro 站点不直接依赖 `temp-script/`。
 - `temp-script/` 的具体整理由用户处理，未被要求时不要主动改动。
@@ -48,12 +50,8 @@ temp-script/ 数据获取与实验
 # 查看数据库统计
 node tools/db/check-counts.mjs
 
-# 导出 generated 数据
+# 导出 generated 数据与当前记录引用的静态资源
 node tools/db/export-generated.mjs
-
-# 同步资源并导出数据
-cd site
-npm.cmd run sync
 
 # 构建 Astro 静态站
 cd site

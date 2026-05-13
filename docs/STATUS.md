@@ -39,14 +39,15 @@
 
 | 资源项 | 总量 | 存在 | 缺失 | 覆盖率 |
 |---|---:|---:|---:|---:|
-| 主海报 | 250 | 249 | 1 | 99.6% |
-| 人物头像引用 | 12999 | 9072 | 3927 | 约 69.8% |
+| generated 资源引用 | 9199 | 9197 | 2 | 约 99.98% |
+| 作品主资源导出 | 250 | 249 | 1 | 99.6% |
+| 人物头像导出尝试 | 12999 | 9072 | 3927 | 约 69.8% |
 
 已知缺口：
 
-- `0101000178`《绿里奇迹》缺少 `poster-main.webp`。
-- `0101000001`《肖申克的救赎》的部分 `images.posters/stills` 项是 TMDB 外链对象，而不是本地文件名字符串。
-- 3927 次人物头像引用在 `.local/assets/people/` 和 `site/public/assets/people/` 中找不到实体文件。
+- `0101000178`《绿里奇迹》缺少 `poster-main.webp`；该文件同时作为主海报和海报图库项被引用，因此资源校验显示 2 条缺失。
+- 导出脚本会把存在的人物头像复制到对应作品自己的 `site/public/assets/video/movie/{id}/people/` 目录。
+- 3927 次人物头像源文件在 `.local/assets/people/` 中找不到；导出时已从对应作品 JSON 中移除这些缺失头像引用，前台回退到 `/assets/avatar-placeholder.svg`。
 
 这些问题目前只记录，尚未修复。
 
@@ -86,17 +87,19 @@ npm.cmd run build
 - 文档已收敛为入口、项目结构与状态三类。
 - 已完成一次 `movie-ingest` 与 `book-ingest` 的代码级流程审视，确认这两个目录的职责边界是爬取作品信息、下载到本地、录入 `.local/treasure.db`；generated / Astro / 发布校验不属于它们的职责。
 - 已将 `tools/db/` 收口为当前 DB 主链路工具，历史修库脚本和旧电影 intake / 样板脚本已移入 `tools/archive/`。
+- 已将 `tools/db/export-generated.mjs` 扩展为统一导出入口：同时导出 generated JSON 和当前记录引用的静态资源。
+- 发布侧不再导出共享 `site/public/assets/people/`；人物头像改为按作品目录复制并写入作品 JSON。
 
 ## 未完成
 
 - 尚未建立稳定的 generated 完整性校验脚本。
 - 电影资源仍有已知缺口。
 - `generated.images` 中本地文件名和外链对象的边界需要统一。
+- `site/scripts/sync-assets.mjs` 已收口为兼容入口，但在当前 Codex sandbox 中从 `site/` 启动时，SQLite CLI 打开父级 `.local/treasure.db` 会失败；主入口 `node tools/db/export-generated.mjs` 已验证成功。
 - 书籍模块已有数据库草稿，但尚未进入 generated 和 Astro 页面链路。
 - 书籍录入脚本尚未完全对齐采集工坊契约：字段级来源追踪未落地，部分字段优先级与局部规则文档不一致，staging 阶段存在提前 JSON 字符串化，封面本地路径写回 staging 的流程仍需确认。
 - `temp-script/movie-ingest/db_tools/` 中仍有部分脚本涉及 generated、site 构建、发布校验或迁移验收语境，职责上更像历史过渡工具或应迁入 `tools/` 的工具，尚未逐一确认去留。
 - `tools/db/` 已收口为当前 DB 主链路工具；历史修库脚本和旧电影 intake / 样板脚本已移入 `tools/archive/`，后续完整跑工作流时再确认是否还有需要恢复的正式入口。
-- `tools/db/export-generated.mjs` 与 `site/scripts/sync-assets.mjs` 都包含资源同步逻辑，当前可运行但存在职责重复，需要后续决定保留哪一个作为唯一同步入口。
 - `temp-script/` 中仍有大量实验脚本、日志和调试产物，需要后续分类归档。
 
 ## 下一步建议
@@ -104,9 +107,9 @@ npm.cmd run build
 优先级从高到低：
 
 1. 新增 `tools/db/check-generated-integrity.mjs`，把当前手动校验固化为脚本。
-2. 明确 `images.posters/stills` 是否只允许本地文件名字符串。
-3. 决定人物头像缺失策略：下载补齐、导出时只引用存在文件，或前台统一回退占位图。
-4. 修正电影资源缺口后重新导出和构建。
+2. 修正 `0101000178`《绿里奇迹》的 `poster-main.webp` 缺口后重新导出和构建。
+3. 明确 `images.posters/stills` 是否只允许本地文件名字符串。
+4. 决定是否继续保留 `site/scripts/sync-assets.mjs` 作为兼容入口，或统一改为只使用仓库根目录的 `node tools/db/export-generated.mjs`。
 5. 完整执行一次当前 DB -> generated -> Astro 工作流，确认 `tools/db/` 保留工具是否足够，以及 `tools/archive/` 中是否有脚本需要恢复或彻底删除。
 6. 审视 `temp-script/movie-ingest/db_tools/` 中的历史过渡脚本，决定迁移、归档或删除。
 7. 将书籍录入 staging 契约对齐采集工坊标准，再设计书籍模块的 generated 契约与 `/book`、`/book/{id}` 页面。

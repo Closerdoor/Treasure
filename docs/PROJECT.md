@@ -22,10 +22,10 @@ Treasure 是一个个人收藏馆项目，用来收录影视、书籍、音乐�
 | Prisma 迁移基线 | `prisma/migrations/` |
 | 数据库统计脚本 | `tools/db/check-counts.mjs` |
 | 数据库表结构查看 | `tools/db/view-schema.mjs` |
-| generated 导出入口 | `tools/db/export-generated.mjs` |
+| generated 与资源导出入口 | `tools/db/export-generated.mjs` |
 | DB 工具说明 | `tools/db/README.md` |
 | 历史工具归档 | `tools/archive/README.md` |
-| 资源同步入口 | `site/scripts/sync-assets.mjs` |
+| 兼容导出入口 | `site/scripts/sync-assets.mjs` |
 | 前台数据读取层 | `site/src/lib/archive.ts` |
 | Astro 首页 | `site/src/pages/index.astro` |
 | 影视列表页 | `site/src/pages/video/index.astro` |
@@ -179,10 +179,10 @@ site/public/assets/
 
 职责：
 
-- `tools/db/export-generated.mjs` 从 SQLite 导出 Astro 可读取的静态 JSON。
+- `tools/db/export-generated.mjs` 从 SQLite 导出 Astro 可读取的静态 JSON，并导出当前记录引用到的静态资源。
 - `generated/` 是前台站点的数据中转层。
 - `.local/assets/` 是本地私有资源源目录。
-- `site/public/assets/` 是 Astro 构建和 GitHub Pages 可发布的资源目录。
+- `site/public/assets/` 是 Astro 构建和 GitHub Pages 可发布的资源目录，由导出脚本按当前 generated 记录重建。
 
 `.local/` 的目标职责应保持克制：保存已经进入主链路的本地主数据库、主资源和备份。采集过程中的 raw、staging、字段来源、冲突记录、批次摘要和临时下载缓存，应优先放在对应的 `temp-script/*-ingest/` 目录中。
 
@@ -252,9 +252,10 @@ generated/recent.json
 generated/tags.json
 ```
 
-5. `site/scripts/sync-assets.mjs` 会先调用 `tools/db/export-generated.mjs`，再同步 `.local/assets/video/movie` 与 `.local/assets/people` 到 `site/public/assets/`。
-6. `site/src/lib/archive.ts` 读取 `generated/indexes/video-movie.json` 与 `generated/entries/video/movie/{id}.json`，并补齐前台需要的路径、评分、海报 URL、演员预览等派生字段。
-7. 当前 Astro 页面消费路径：
+5. `tools/db/export-generated.mjs` 同时导出当前记录引用的静态资源：作品图片复制到 `site/public/assets/video/movie/{id}/`，人物头像复制到对应作品自己的 `people/` 子目录。
+6. `site/scripts/sync-assets.mjs` 是兼容入口，只负责调用 `tools/db/export-generated.mjs`，不再单独复制共享资源目录。
+7. `site/src/lib/archive.ts` 读取 `generated/indexes/video-movie.json` 与 `generated/entries/video/movie/{id}.json`，并补齐前台需要的路径、评分、海报 URL、演员预览等派生字段。
+8. 当前 Astro 页面消费路径：
 
 ```text
 site/src/pages/index.astro
@@ -262,7 +263,7 @@ site/src/pages/video/index.astro
 site/src/pages/video/movie/[id].astro
 ```
 
-8. `site/src/pages/video/movie/[id].astro` 通过 `loadAllMovieIds()` 生成静态详情页路径。
+9. `site/src/pages/video/movie/[id].astro` 通过 `loadAllMovieIds()` 生成静态详情页路径。
 
 因此，当前站点构建不读取 SQLite、不读取 `temp-script/`，只读取 `generated/` 与 `site/public/assets/`。
 
@@ -270,8 +271,15 @@ site/src/pages/video/movie/[id].astro
 
 ```text
 .local/assets/
-  -> site/public/assets/
+  -> tools/db/export-generated.mjs
+  -> site/public/assets/video/movie/{id}/
   -> /assets/*
+```
+
+发布侧不再导出共享 `site/public/assets/people/`。人物头像会复制到每个作品自己的资源目录，例如：
+
+```text
+site/public/assets/video/movie/0101000001/people/tmdb-504-avatar.jpg
 ```
 
 当前 generated 结构：
@@ -305,16 +313,15 @@ generated/
 node tools/db/export-generated.mjs
 
 cd site
-npm.cmd run sync
+npm.cmd run build
 ```
 
-`npm.cmd run sync` 当前不只是复制资源，而是：
+`site/scripts/sync-assets.mjs` 与 `npm.cmd run sync` 是历史命名保留下来的兼容入口，当前实际行为是：
 
-1. 先执行 `tools/db/export-generated.mjs`
-2. 再同步 `.local/assets/video/movie`
-3. 再同步 `.local/assets/people`
+1. 执行 `tools/db/export-generated.mjs`
+2. 由该导出脚本同时生成 `generated/` 和 `site/public/assets/`
 
-因此它适合在“准备让前台读取最新数据与资源”时使用。
+日常维护优先在仓库根目录直接运行 `node tools/db/export-generated.mjs`。在当前 Codex sandbox 中，从 `site/` 启动该兼容入口会因为 SQLite CLI 无法打开父级 `.local/treasure.db` 而失败，因此它暂不作为推荐命令。
 
 ## generated 最小契约
 
@@ -382,8 +389,10 @@ images.wallpapers  壁纸文件名数组
 人物头像资源约定：
 
 - 数据库中的 `person.avatar_path` 当前形如 `people/tmdb-{id}-avatar.jpg`。
-- 前台 URL 拼接为 `/assets/${avatarPath}`。
-- 实体文件最终必须位于 `site/public/assets/people/`，否则前台需要显式回退策略。
+- 导出到作品详情 JSON 时，`avatarPath` 会改写为作品私有资源路径，例如 `video/movie/0101000001/people/tmdb-504-avatar.jpg`。
+- 前台 URL 拼接仍为 `/assets/${avatarPath}`。
+- 实体文件最终必须位于对应作品目录的 `site/public/assets/video/movie/{id}/people/` 下，否则前台需要显式回退策略。
+- `generated/persons.json` 不导出共享 `avatarPath`，避免前台误依赖共享人物资源池。
 - 若头像缺失，前台应能回退到 `/assets/avatar-placeholder.svg`。
 
 ## 电影字段映射
@@ -629,8 +638,8 @@ Giscus 评论区保留在详情页，不出现在首页和列表页。
 
 站点中转阶段：
 
-1. 运行 `node tools/db/export-generated.mjs` 导出静态 JSON。
-2. 运行 `cd site && npm.cmd run sync` 同步资源和数据。
+1. 运行 `node tools/db/export-generated.mjs` 导出静态 JSON 和当前记录引用的静态资源。
+2. 可选运行 `cd site && npm.cmd run sync`，它是兼容入口，实际仍调用统一导出脚本。
 3. 运行 `cd site && npm.cmd run build` 验证 Astro 静态构建。
 4. 更新 `docs/STATUS.md` 中的数据量、校验结果和已知风险。
 
