@@ -844,7 +844,10 @@ class DoubanCrawler:
         
         start = 0
         while len(comments) < count:
-            page_url = f"{config.DOUBAN_BASE_URL}/subject/{douban_id}/comments?start={start}&limit=20&sort=new_score&status=P"
+            page_url = (
+                f"{config.DOUBAN_BASE_URL}/subject/{douban_id}/comments"
+                f"?percent_type=h&limit=20&status=P&sort=new_score&start={start}"
+            )
             
             await self.page.goto(page_url, timeout=60000, wait_until="domcontentloaded")
             await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
@@ -874,6 +877,7 @@ class DoubanCrawler:
                                 
                     votes_elem = item.select_one(".votes.vote-count")
                     votes = votes_elem.text.strip() if votes_elem else "0"
+                    votes_num = int(re.sub(r"\D", "", votes) or 0)
                     
                     content_elem = item.select_one(".short")
                     comment_content = content_elem.text.strip() if content_elem else ""
@@ -887,8 +891,8 @@ class DoubanCrawler:
                         "date": comment_time,
                         "content": comment_content,
                         "rating": rating,
-                        "votes": int(votes),
-                        "url": None,
+                        "votes": votes_num,
+                        "url": page_url,
                         "title": None
                     })
                     
@@ -962,22 +966,36 @@ class DoubanCrawler:
                     if not review_url:
                         continue
                     
-                    # 获取完整影评内容
+                    # 列表页按 sort=hot 获取热度最高条目，正文进入详情页读取完整内容。
                     full_content = await self._get_review_content(review_url)
                     
                     # 作者
-                    author_elem = item.select_one(".author a") or item.select_one(".review-meta a")
+                    author_elem = (
+                        item.select_one(".main-hd a.name")
+                        or item.select_one(".author a")
+                        or item.select_one(".review-meta a")
+                        or item.select_one(".main-hd a")
+                    )
                     author = author_elem.text.strip() if author_elem else ""
                     
                     # 时间
-                    time_elem = item.select_one(".date") or item.select_one(".review-meta time")
+                    time_elem = (
+                        item.select_one(".main-meta")
+                        or item.select_one(".date")
+                        or item.select_one(".review-meta time")
+                    )
                     review_time = time_elem.text.strip() if time_elem else ""
                     
                     # 有用数
-                    votes_elem = item.select_one(".action-btn.up span") or item.select_one(".votes")
+                    votes_elem = (
+                        item.select_one(".action-btn.up span")
+                        or item.select_one(".votes")
+                        or item.select_one(".up span")
+                    )
                     votes = "0"
                     if votes_elem:
                         votes = votes_elem.text.strip()
+                    votes_num = int(re.sub(r"\D", "", votes) or 0)
                     
                     reviews.append({
                         "author": author,
@@ -986,7 +1004,7 @@ class DoubanCrawler:
                         "content": full_content,
                         "url": review_url,
                         "title": title,
-                        "votes": int(votes) if votes.isdigit() else 0
+                        "votes": votes_num
                     })
                     
                     if len(reviews) >= count:
@@ -1005,25 +1023,42 @@ class DoubanCrawler:
         
     async def _get_review_content(self, review_url: str) -> str:
         """获取影评完整内容"""
+        new_page = None
         try:
             # 在新标签页打开
             new_page = await self.context.new_page()
             await new_page.goto(review_url, timeout=30000, wait_until="domcontentloaded")
             await asyncio.sleep(random.uniform(0.5, 1.5))
+
+            for text in ["展开", "更多", "显示全部"]:
+                try:
+                    locator = new_page.get_by_text(text, exact=False).first
+                    if await locator.count():
+                        await locator.click(timeout=1000)
+                        await asyncio.sleep(0.3)
+                except Exception:
+                    pass
             
             content = await new_page.content()
             soup = BeautifulSoup(content, "html.parser")
             
             # 获取影评正文
-            review_body = soup.select_one(".review-content") or soup.select_one("#link-report")
+            review_body = (
+                soup.select_one(".review-content span.all")
+                or soup.select_one(".review-content .all")
+                or soup.select_one(".review-content")
+                or soup.select_one("#link-report")
+            )
             text = review_body.text.strip() if review_body else ""
             
-            await new_page.close()
             return text
             
         except Exception as e:
             Logger.warning(f"获取影评内容失败: {e}")
             return ""
+        finally:
+            if new_page:
+                await new_page.close()
             
     async def crawl_images(self, douban_id: str) -> Dict[str, Any]:
         """
@@ -1038,98 +1073,154 @@ class DoubanCrawler:
         Logger.info(f"正在爬取图片: {douban_id}")
         
         result = {
+            "all_photos_url": f"{config.DOUBAN_BASE_URL}/subject/{douban_id}/all_photos",
             "posters": [],
             "stills": [],
+            "wallpapers": [],
             "posters_total": 0,
-            "stills_total": 0
+            "stills_total": 0,
+            "wallpapers_total": 0
         }
-        
-        # 爬取海报页面
-        poster_url = f"{config.DOUBAN_BASE_URL}/subject/{douban_id}/photos?type=S"
-        await self.page.goto(poster_url, timeout=60000, wait_until="domcontentloaded")
-        await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
-        
-        content = await self.page.content()
-        soup = BeautifulSoup(content, "html.parser")
-        
-        # 获取海报总数
-        count_elem = soup.select_one(".count")
-        if count_elem:
-            count_text = count_elem.text.strip()
-            count_match = re.search(r"共(\d+)张", count_text)
-            if count_match:
-                result["posters_total"] = int(count_match.group(1))
-        
-        # 获取海报列表
-        items = soup.select(".cover a")
-        for idx, item in enumerate(items):
-            try:
-                img_elem = item.select_one("img")
-                if not img_elem:
-                    continue
-                    
-                thumb_url = img_elem.get("src", "")
-                if not thumb_url:
-                    continue
-                    
-                # 转换为原图 URL（使用 HTTP 避免 SSL 问题）
-                origin_url = thumb_url.replace("/m/", "/raw/").replace("https://", "http://")
-                
-                image_data = {
-                    "thumb_url": thumb_url,
-                    "origin_url": origin_url,
-                    "type": "poster",
-                    "index": idx + 1
-                }
-                
-                result["posters"].append(image_data)
-                    
-            except Exception as e:
-                continue
-        
-        # 爬取剧照页面
-        still_url = f"{config.DOUBAN_BASE_URL}/subject/{douban_id}/photos?type=T"
-        await self.page.goto(still_url, timeout=60000, wait_until="domcontentloaded")
-        await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
-        
-        content = await self.page.content()
-        soup = BeautifulSoup(content, "html.parser")
-        
-        # 获取剧照总数
-        count_elem = soup.select_one(".count")
-        if count_elem:
-            count_text = count_elem.text.strip()
-            count_match = re.search(r"共(\d+)张", count_text)
-            if count_match:
-                result["stills_total"] = int(count_match.group(1))
-        
-        items = soup.select(".cover a")
-        for idx, item in enumerate(items):
-            try:
-                img_elem = item.select_one("img")
-                if not img_elem:
-                    continue
-                    
-                thumb_url = img_elem.get("src", "")
-                if not thumb_url:
-                    continue
-                    
-                origin_url = thumb_url.replace("/m/", "/raw/").replace("https://", "http://")
-                
-                image_data = {
-                    "thumb_url": thumb_url,
-                    "origin_url": origin_url,
-                    "type": "still",
-                    "index": idx + 1
-                }
-                
-                result["stills"].append(image_data)
-                    
-            except:
-                continue
-                
-        Logger.success(f"获取海报 {len(result['posters'])} 张（共 {result['posters_total']} 张），剧照 {len(result['stills'])} 张（共 {result['stills_total']} 张）")
+
+        try:
+            await self.page.goto(result["all_photos_url"], timeout=60000, wait_until="domcontentloaded")
+            await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
+        except Exception as e:
+            Logger.warning(f"访问图片总页失败: {e}")
+
+        categories = {
+            "stills": ("S", "still"),
+            "posters": ("R", "poster"),
+            "wallpapers": ("W", "wallpaper")
+        }
+        for key, (type_code, image_type) in categories.items():
+            data = await self._crawl_photo_category(douban_id, type_code, image_type)
+            result[key] = data["items"]
+            result[f"{key}_total"] = data["total"]
+            result[f"{key}_url"] = data["url"]
+
+        Logger.success(
+            f"获取剧照 {len(result['stills'])}/{result['stills_total']} 张，"
+            f"海报 {len(result['posters'])}/{result['posters_total']} 张，"
+            f"壁纸 {len(result['wallpapers'])}/{result['wallpapers_total']} 张"
+        )
         return result
+
+    async def _crawl_photo_category(self, douban_id: str, type_code: str, image_type: str) -> Dict[str, Any]:
+        """按豆瓣图片分类分页抓取；不设置人工数量上限，直到页面没有新图或达到总数。"""
+        items = []
+        seen = set()
+        total = 0
+        start = 0
+        page_count = 0
+        base_url = f"{config.DOUBAN_BASE_URL}/subject/{douban_id}/photos?type={type_code}"
+
+        while True:
+            page_url = (
+                f"{base_url}&start={start}&sortby=like&size=a&subtype=a"
+                if start else base_url
+            )
+            await self.page.goto(page_url, timeout=60000, wait_until="domcontentloaded")
+            await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
+            page_count += 1
+
+            content = await self.page.content()
+            soup = BeautifulSoup(content, "html.parser")
+
+            if not total:
+                count_elem = soup.select_one(".count")
+                if count_elem:
+                    count_match = re.search(r"共\s*(\d+)\s*张", count_elem.text.strip())
+                    if count_match:
+                        total = int(count_match.group(1))
+
+            page_items = []
+            for item in soup.select(".cover a"):
+                img_elem = item.select_one("img")
+                if not img_elem:
+                    continue
+
+                thumb_url = img_elem.get("src", "")
+                if not thumb_url or thumb_url in seen:
+                    continue
+
+                seen.add(thumb_url)
+                origin_url = self._normalize_douban_image_url(thumb_url)
+                photo_url = urljoin(config.DOUBAN_BASE_URL, item.get("href", ""))
+                page_items.append({
+                    "thumb_url": thumb_url,
+                    "origin_url": origin_url,
+                    "photo_url": photo_url,
+                    "title": img_elem.get("alt", "").strip(),
+                    "type": image_type,
+                    "index": len(items) + len(page_items) + 1
+                })
+
+            if not page_items:
+                break
+
+            items.extend(page_items)
+            if page_count == 1 or page_count % 10 == 0:
+                Logger.info(f"图片分类 {type_code} 已抓取 {len(items)}/{total or '?'} 张")
+            if total and len(items) >= total:
+                break
+
+            start += len(page_items)
+
+        return {"items": items, "total": total or len(items), "url": base_url}
+
+    def _normalize_douban_image_url(self, thumb_url: str) -> str:
+        """把豆瓣缩略图地址转换为原图候选地址。"""
+        return (
+            thumb_url
+            .replace("/m/", "/raw/")
+            .replace("/s/", "/raw/")
+            .replace("https://", "http://")
+        )
+
+    async def crawl_trailers(self, douban_id: str) -> List[Dict[str, Any]]:
+        """爬取豆瓣视频页中的预告片/视频条目。"""
+        Logger.info(f"正在爬取视频: {douban_id}")
+        url = f"{config.DOUBAN_BASE_URL}/subject/{douban_id}/trailer"
+        await self.page.goto(url, timeout=60000, wait_until="domcontentloaded")
+        await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
+
+        content = await self.page.content()
+        soup = BeautifulSoup(content, "html.parser")
+        trailers = []
+        seen = set()
+
+        for anchor in soup.select("a[href*='/trailer/']"):
+            href = anchor.get("href", "")
+            trailer_url = urljoin(config.DOUBAN_BASE_URL, href)
+            if not trailer_url or trailer_url in seen:
+                continue
+
+            parent = anchor.find_parent(["li", "div", "article"]) or anchor
+            img_elem = parent.select_one("img") or anchor.select_one("img")
+            parent_text = " ".join(parent.get_text(" ", strip=True).split())
+            title = (
+                anchor.get("title")
+                or (img_elem.get("alt") if img_elem else "")
+                or anchor.get_text(" ", strip=True)
+                or parent_text
+            ).strip()
+            duration_match = re.search(r"\b\d{1,2}:\d{2}(?::\d{2})?\b", parent_text)
+            trailer_id_match = re.search(r"/trailer/(\d+)", trailer_url)
+
+            seen.add(trailer_url)
+            trailers.append({
+                "title": title,
+                "url": trailer_url,
+                "thumbnail": self._normalize_douban_image_url(img_elem.get("src", "")) if img_elem else "",
+                "duration": duration_match.group(0) if duration_match else "",
+                "source": "douban",
+                "source_url": url,
+                "trailerId": trailer_id_match.group(1) if trailer_id_match else ""
+            })
+
+        Logger.success(f"获取视频 {len(trailers)} 条")
+        return trailers
         
     async def crawl_top250(self) -> List[Dict[str, Any]]:
         """
@@ -1200,7 +1291,7 @@ class DoubanCrawler:
         
     async def crawl_all(self, douban_id: str, comments_count: int = 20, reviews_count: int = 20) -> Dict[str, Any]:
         """
-        一次性采集豆瓣所有数据（详情 + 演职员 + 短评 + 影评 + 图片）
+        一次性采集豆瓣所有数据（详情 + 演职员 + 视频 + 图片 + 短评 + 影评）
         
         在同一个浏览器会话中顺序访问各页面，避免重复登录。
         
@@ -1251,13 +1342,28 @@ class DoubanCrawler:
             Logger.error(f"豆瓣影评爬取失败: {e}")
             result["reviews"] = []
         
-        # 5. 图片（海报 + 剧照列表）
+        # 5. 视频
+        try:
+            trailers = await self.crawl_trailers(douban_id)
+            result["trailers"] = trailers
+        except Exception as e:
+            Logger.error(f"豆瓣视频爬取失败: {e}")
+            result["trailers"] = []
+
+        # 6. 图片（剧照 + 海报 + 壁纸列表）
         try:
             images = await self.crawl_images(douban_id)
             result["images"] = images
         except Exception as e:
             Logger.error(f"豆瓣图片爬取失败: {e}")
-            result["images"] = {"posters": [], "stills": [], "posters_total": 0, "stills_total": 0}
+            result["images"] = {
+                "posters": [],
+                "stills": [],
+                "wallpapers": [],
+                "posters_total": 0,
+                "stills_total": 0,
+                "wallpapers_total": 0
+            }
         
         Logger.success(f"豆瓣数据采集完成: {douban_id}")
         return result

@@ -43,6 +43,75 @@ class DataMerger:
         
         valid_dates.sort(key=lambda x: x.get("date", ""))
         return valid_dates[0].get("location", "")
+
+    def _normalize_douban_payload(self, payload: Dict[str, Any]) -> Dict[str, Any]:
+        """兼容旧扁平豆瓣数据和 crawl_all() 输出的嵌套豆瓣数据。"""
+        if not payload:
+            return {
+                "detail": {},
+                "celebrities": {},
+                "comments": [],
+                "reviews": [],
+                "images": {},
+                "trailers": []
+            }
+
+        detail = payload.get("detail")
+        if not isinstance(detail, dict):
+            detail = payload
+
+        return {
+            "detail": detail or {},
+            "celebrities": payload.get("celebrities", {}),
+            "comments": payload.get("comments", detail.get("comments", [])) or [],
+            "reviews": payload.get("reviews", detail.get("reviews", [])) or [],
+            "images": payload.get("images", detail.get("images", {})) or {},
+            "trailers": payload.get("trailers", detail.get("trailers", [])) or []
+        }
+
+    def _normalize_douban_person(self, person: Any, role: Optional[str] = None) -> Dict[str, Any]:
+        if isinstance(person, str):
+            return {
+                "name": person,
+                "nameEn": None,
+                "role": role,
+                "avatar": None,
+                "avatarSource": None,
+                "profileLink": None
+            }
+
+        if not isinstance(person, dict):
+            return {
+                "name": "",
+                "nameEn": None,
+                "role": role,
+                "avatar": None,
+                "avatarSource": None,
+                "profileLink": None
+            }
+
+        return {
+            "name": person.get("name"),
+            "nameEn": person.get("nameEn"),
+            "role": person.get("role") or role,
+            "avatar": person.get("avatar"),
+            "avatarSource": "douban" if person.get("avatar") else None,
+            "profileLink": person.get("profileLink"),
+            "doubanId": person.get("doubanId"),
+            "character": person.get("character"),
+            "characterEn": person.get("characterEn")
+        }
+
+    def _normalize_douban_video(self, video: Dict[str, Any]) -> Dict[str, Any]:
+        return {
+            "title": video.get("title") or video.get("name"),
+            "url": video.get("url"),
+            "thumbnail": video.get("thumbnail") or video.get("cover"),
+            "duration": video.get("duration"),
+            "source": video.get("source", "douban"),
+            "sourceUrl": video.get("source_url"),
+            "sourceId": video.get("trailerId")
+        }
     
     def merge(self, work_id: str, raw_data: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -102,8 +171,15 @@ class DataMerger:
             "wikipediaId": None
         }
         
-        douban = raw_data.get("douban", {})
-        if douban:
+        douban_source = raw_data.get("douban", {})
+        douban_payload = self._normalize_douban_payload(douban_source)
+        douban = douban_payload["detail"]
+        douban_celebrities = douban_payload["celebrities"]
+        douban_comments = douban_payload["comments"]
+        douban_reviews = douban_payload["reviews"]
+        douban_images = douban_payload["images"]
+        douban_trailers = douban_payload["trailers"]
+        if douban_source:
             result["title"] = douban.get("title", "")
             result["year"] = int(douban.get("year", 0)) if douban.get("year") else None
             result["originalTitle"] = douban.get("original_title")
@@ -132,15 +208,24 @@ class DataMerger:
             result["tags"] = douban.get("tags", [])
             result["genre"] = douban.get("genres", [])
             
-            # 演职人员：优先使用豆瓣中文名
-            douban_directors = douban.get("directors", [])
-            douban_writers = douban.get("writers", [])
-            douban_casts = douban.get("casts", [])
+            # 演职人员优先使用 /celebrities 页完整结构，兜底兼容详情页上的姓名列表。
+            douban_directors = douban_celebrities.get("directors") or douban.get("directors", [])
+            douban_writers = douban_celebrities.get("writers") or douban.get("writers", [])
+            douban_casts = douban_celebrities.get("cast") or douban.get("casts", [])
             
-            result["director"] = [{"name": d, "nameEn": None, "role": "导演"} for d in douban_directors]
-            result["writer"] = [{"name": w, "nameEn": None, "role": "编剧"} for w in douban_writers]
-            result["cast"] = [{"name": c, "nameEn": None, "role": None} for c in douban_casts[:10]]
-            result["otherCast"] = [{"name": c, "nameEn": None, "role": None} for c in douban_casts[10:30]]
+            result["director"] = [self._normalize_douban_person(d, "导演") for d in douban_directors]
+            result["writer"] = [self._normalize_douban_person(w, "编剧") for w in douban_writers]
+            # staging 仍沿用主创预览结构：主演前 10 位，其他演员第 11-30 位。
+            result["cast"] = [self._normalize_douban_person(c, "演员") for c in douban_casts[:10]]
+            result["otherCast"] = [self._normalize_douban_person(c, "演员") for c in douban_casts[10:30]]
+            result["all_cast"] = [
+                {
+                    **self._normalize_douban_person(c, "演员"),
+                    "order": index,
+                    "isPrimary": index < 10
+                }
+                for index, c in enumerate(douban_casts)
+            ]
             
             # 转换 recommendations 格式，添加 source 和 sourceId
             recommendations = douban.get("recommendations", [])
@@ -155,29 +240,35 @@ class DataMerger:
                 })
             result["similar"] = similar
             
-            images = douban.get("images", {})
             result["images"] = {
                 "poster": "poster-main.jpg" if douban.get("main_poster_url") else None,
                 "posters": [],
                 "stills": [],
                 "wallpapers": [],
-                "postersTotal": images.get("posters_total", 0),
-                "stillsTotal": images.get("stills_total", 0)
+                "postersTotal": douban_images.get("posters_total", 0),
+                "stillsTotal": douban_images.get("stills_total", 0),
+                "wallpapersTotal": douban_images.get("wallpapers_total", 0)
             }
             
-            if douban.get("comments"):
-                for c in douban.get("comments", []):
+            result["videos"] = [
+                self._normalize_douban_video(v)
+                for v in douban_trailers
+                if v.get("url")
+            ]
+            
+            if douban_comments:
+                for c in douban_comments:
                     result["reviews"].append({
                         "author": c.get("author"),
                         "source": "豆瓣短评",
                         "date": c.get("date"),
                         "content": c.get("content"),
-                        "url": None,
+                        "url": c.get("url"),
                         "title": None
                     })
             
-            if douban.get("reviews"):
-                for r in douban.get("reviews", []):
+            if douban_reviews:
+                for r in douban_reviews:
                     result["reviews"].append({
                         "author": r.get("author"),
                         "source": "豆瓣长评",
@@ -219,7 +310,7 @@ class DataMerger:
                 result["images"] = self._merge_images(result.get("images", {}), images)
             
             if videos:
-                result["videos"] = videos
+                result["videos"].extend(videos)
             
             if tmdb.get("reviews"):
                 for r in tmdb.get("reviews", []):
@@ -382,6 +473,10 @@ class DataMerger:
             return tmdb_directors
         
         douban_director_list = [{"name": d if isinstance(d, str) else d.get("name", ""), "nameEn": None} for d in douban_directors]
+        douban_director_by_name = {
+            d if isinstance(d, str) else d.get("name", ""): d
+            for d in douban_directors
+        }
         
         result = []
         matched_douban = set()
@@ -393,8 +488,8 @@ class DataMerger:
                 "name": douban_match.get("name") if douban_match else None,
                 "nameEn": tmdb_dir["nameEn"],
                 "role": "导演",
-                "avatar": tmdb_dir["avatar"],
-                "avatarSource": tmdb_dir["avatarSource"],
+                "avatar": tmdb_dir["avatar"] or self._normalize_douban_person(douban_director_by_name.get(douban_match.get("name")) if douban_match else {}, "导演").get("avatar"),
+                "avatarSource": tmdb_dir["avatarSource"] or ("douban" if douban_match and self._normalize_douban_person(douban_director_by_name.get(douban_match.get("name")), "导演").get("avatar") else None),
                 "profileLink": None
             }
             
@@ -406,14 +501,7 @@ class DataMerger:
         for douban_name in douban_directors:
             name = douban_name if isinstance(douban_name, str) else douban_name.get("name", "")
             if name not in matched_douban:
-                result.append({
-                    "name": name,
-                    "nameEn": None,
-                    "role": "导演",
-                    "avatar": None,
-                    "avatarSource": None,
-                    "profileLink": None
-                })
+                result.append(self._normalize_douban_person(douban_name, "导演"))
         
         return result
     
@@ -464,11 +552,7 @@ class DataMerger:
         for douban_name in douban_writers:
             name = douban_name if isinstance(douban_name, str) else douban_name.get("name", "")
             if name not in matched_douban:
-                result.append({
-                    "name": name,
-                    "nameEn": None,
-                    "role": "编剧"
-                })
+                result.append(self._normalize_douban_person(douban_name, "编剧"))
         
         return result
     
@@ -492,6 +576,10 @@ class DataMerger:
             return tmdb_cast
         
         douban_cast_list = [{"name": c if isinstance(c, str) else c.get("name", ""), "nameEn": None} for c in douban_cast]
+        douban_cast_by_name = {
+            c if isinstance(c, str) else c.get("name", ""): c
+            for c in douban_cast
+        }
         
         result = []
         matched_douban = set()
@@ -503,8 +591,10 @@ class DataMerger:
                 "name": douban_match.get("name") if douban_match else None,
                 "nameEn": tmdb_actor["nameEn"],
                 "role": tmdb_actor["role"],
-                "avatar": tmdb_actor["avatar"],
-                "avatarSource": tmdb_actor["avatarSource"]
+                "avatar": tmdb_actor["avatar"] or self._normalize_douban_person(douban_cast_by_name.get(douban_match.get("name")) if douban_match else {}, "演员").get("avatar"),
+                "avatarSource": tmdb_actor["avatarSource"] or ("douban" if douban_match and self._normalize_douban_person(douban_cast_by_name.get(douban_match.get("name")), "演员").get("avatar") else None),
+                "character": self._normalize_douban_person(douban_cast_by_name.get(douban_match.get("name")), "演员").get("character") if douban_match else None,
+                "characterEn": self._normalize_douban_person(douban_cast_by_name.get(douban_match.get("name")), "演员").get("characterEn") if douban_match else None
             }
             
             if douban_match:
@@ -515,13 +605,7 @@ class DataMerger:
         for douban_name in douban_cast[:10]:
             name = douban_name if isinstance(douban_name, str) else douban_name.get("name", "")
             if name not in matched_douban:
-                result.append({
-                    "name": name,
-                    "nameEn": None,
-                    "role": None,
-                    "avatar": None,
-                    "avatarSource": None
-                })
+                result.append(self._normalize_douban_person(douban_name, "演员"))
         
         return result
     
@@ -564,11 +648,7 @@ class DataMerger:
         for douban_name in douban_other_cast:
             name = douban_name if isinstance(douban_name, str) else douban_name.get("name", "")
             if name not in matched_douban:
-                result.append({
-                    "name": name,
-                    "nameEn": None,
-                    "role": None
-                })
+                result.append(self._normalize_douban_person(douban_name, "演员"))
         
         return result
     
@@ -653,8 +733,11 @@ class DataMerger:
             "stills": [],
             "wallpapers": [],
             "postersTotal": 0,
-            "stillsTotal": 0
+            "stillsTotal": 0,
+            "wallpapersTotal": 0
         }
+        result.setdefault("wallpapers", [])
+        result.setdefault("wallpapersTotal", 0)
         
         for poster in tmdb_images.get("posters", [])[:10]:
             result["posters"].append({

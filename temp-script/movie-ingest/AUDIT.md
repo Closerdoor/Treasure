@@ -1,6 +1,6 @@
 # movie-ingest 目录审视记录
 
-最后审视时间：2026-05-13
+最后审视时间：2026-05-14
 
 ## 职责边界
 
@@ -15,29 +15,62 @@
 
 它不应负责 generated 导出、Astro 页面、站点构建、资源发布校验或 GitHub Pages 部署。后续链路应由仓库根部的 `tools/`、`generated/`、`site/` 负责。
 
+## 2026-05-14 职责收口决定
+
+当前正式主链路收口为：
+
+```text
+main.py / crawl.py
+  -> sources/*.py
+  -> downloader.py
+  -> merger.py
+  -> data/raw/
+  -> data/staging/
+  -> database.py
+  -> .local/treasure.db
+```
+
+已确认的职责判断：
+
+- `main.py`：保留为命令行入口。
+- `crawl.py`：保留为统一采集编排入口。
+- `sources/`：保留为外部数据源适配层。
+- `downloader.py`：保留为采集阶段资源下载器，只写 `data/assets/`。
+- `merger.py`：保留为 raw 到 staging 的合并层。
+- `database.py`：保留为本目录正式 DB 入库层。
+- `progress.py`：保留为采集进度状态。
+- `name_matcher.py`：保留为人物匹配工具。
+- `db_tools/import-movie.mjs`：降级为 legacy 入口；因会触碰 `site/public/assets`，默认不得直接运行。
+- `db_tools/paths.mjs`：仅作为 legacy JS 入口配套路径常量保留。
+
+当前目录实际不存在旧文档中提到的 `crawl_basic.py`、`crawl_reviews.py`、`crawl_images.py` 和若干头像维护脚本。后续文档与修复均以实际存在的文件为准。
+
 ## 当前功能分层
 
 核心采集脚本：
 
-- `main.py`：命令入口，调度 basic / reviews / images。
-- `crawl_basic.py`：抓取豆瓣、TMDB、OMDb、百度百科、Wikipedia 等基础信息。
-- `crawl_reviews.py`：补充短评、长评、TMDB、烂番茄、Metacritic 等评论信息。
-- `crawl_images.py`：补充图片资源。
-- `sources/`：各外部数据源客户端。
+- `main.py`：命令入口，调度 `MovieCrawler`。
+- `crawl.py`：统一采集编排，负责豆瓣、TMDB、OMDb、百度百科、Wikipedia、烂番茄、Metacritic、资源下载、staging 输出。
+- `sources/`：各外部数据源客户端；豆瓣单源由 `sources/douban.py` 在一次浏览器会话中采集详情、演职员、视频、图片、短评和影评。
 - `merger.py`：合并多源数据，输出 raw / staging。
 - `downloader.py`：下载作品图片与人物图片。
 - `database.py`：把 staging 数据导入 `.local/treasure.db`，写入 `works`、`person`、`work_person`、`category`、`work_category`。
 - `progress.py`：记录批次进度。
 - `name_matcher.py`：用于人物姓名匹配。
 
-补充维护脚本：
+旧文档中提及的 `crawl_basic.py`、`crawl_reviews.py`、`crawl_images.py`、`full_match.py`、`download_missing_avatars.py`、`fix_person_avatars.py`、`update_avatar_paths.py` 当前不存在，不作为当前工作流入口。
 
-- `full_match.py`：批量补齐人物 TMDB ID。
-- `download_missing_avatars.py`：下载缺失人物头像。
-- `fix_person_avatars.py`：修正人物头像映射。
-- `update_avatar_paths.py`：更新头像路径。
+## 2026-05-14 豆瓣单源完备性判断
 
-这些维护脚本仍属于“采集 / 补全 / 入库后修正”语境，可以暂时保留在本目录。
+豆瓣单源当前可视为电影作品信息采集的完整实现：
+
+- 基本信息来自 `/subject/{douban_id}/`，包含标题、原名、年份、评分、类型、国家/地区、语言、片长、上映日期、别名、IMDb ID、简介、主海报 URL、标签和推荐。
+- 演职员来自 `/subject/{douban_id}/celebrities`，包含导演、编剧、全部演员、角色、中英文名、豆瓣人物 ID 和头像 URL。
+- 视频来自 `/subject/{douban_id}/trailer`，包含视频名称、链接、封面图片和时长。
+- 图片先访问 `/subject/{douban_id}/all_photos`，再按 `type=S/R/W` 全量采集剧照、海报、壁纸 URL 和总数。
+- 短评来自 `/comments?percent_type=h&limit=20&status=P&sort=new_score`，即好评筛选下按热门/有用排序的前 20 条。
+- 影评来自 `/reviews?start={start}&sort=hot`，先按热度排序确定前 20 条影评，再进入影评详情页读取完整正文。
+- 图片和头像下载只使用本轮采集到的 URL，不重新访问豆瓣页面补抓。
 
 ## 已确认符合职责的部分
 

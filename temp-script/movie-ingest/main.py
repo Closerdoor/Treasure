@@ -5,10 +5,10 @@
 推荐使用 crawl.py（统一入口，按数据源一次性采集）：
 python crawl.py --movie-name "社交网络" --year 2010
 
-旧模块入口（按数据类型分步，会重复登录豆瓣）：
-python crawl_basic.py --movie-name "社交网络"
-python crawl_reviews.py --work-id 0101000251
-python crawl_images.py --work-id 0101000251
+当前职责边界：
+- main.py / crawl.py 只负责电影采集、raw/staging 生成和采集阶段资源下载。
+- 录入 .local/treasure.db 的正式 Python 入口由 database.py 承担。
+- generated 导出、site/public/assets 发布资源同步、Astro 构建不属于本目录职责。
 """
 import sys
 

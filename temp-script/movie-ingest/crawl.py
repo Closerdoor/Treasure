@@ -91,7 +91,7 @@ class MovieCrawler:
         work_id = None
         
         # ── 1. 豆瓣（一次性采集） ──
-        Logger.info("\n[1/7] 豆瓣 - 详情 + 演职员 + 短评 + 影评 + 图片")
+        Logger.info("\n[1/7] 豆瓣 - 详情 + 演职员 + 视频 + 图片 + 短评 + 影评")
         try:
             douban_data = await self.douban.crawl_all(
                 douban_id,
@@ -113,10 +113,14 @@ class MovieCrawler:
             
             self.progress_manager.update_source_status(douban_id, "douban", "done")
             Logger.success(f"豆瓣采集完成: {title}")
+
+            await self._download_douban_avatars_from_raw(work_id, douban_data)
         except Exception as e:
             Logger.error(f"豆瓣采集失败: {e}")
             self.progress_manager.update_source_status(douban_id, "douban", "error")
-            imdb_id = ""
+            self.progress_manager.update_status(douban_id, "error")
+            self.progress_manager.save()
+            raise
         
         # ── 2. TMDB（API） ──
         Logger.info("\n[2/7] TMDB - 详情 + 演职员 + 图片 + 评论 + 视频")
@@ -251,7 +255,8 @@ class MovieCrawler:
         images_data["douban"] = {
             "main_poster_url": douban_detail.get("main_poster_url", ""),
             "posters": douban_images.get("posters", []),
-            "stills": douban_images.get("stills", [])
+            "stills": douban_images.get("stills", []),
+            "wallpapers": douban_images.get("wallpapers", [])
         }
         
         tmdb_all = raw_data.get("tmdb", {})
@@ -270,16 +275,32 @@ class MovieCrawler:
             "poster": None,
             "posters": result.get("posters", []),
             "stills": result.get("stills", []),
-            "wallpapers": [],
+            "wallpapers": result.get("wallpapers", []),
             "postersTotal": douban_images.get("posters_total", 0) or len(images_data.get("tmdb", {}).get("posters", [])),
-            "stillsTotal": douban_images.get("stills_total", 0) or len(images_data.get("tmdb", {}).get("backdrops", []))
+            "stillsTotal": douban_images.get("stills_total", 0) or len(images_data.get("tmdb", {}).get("backdrops", [])),
+            "wallpapersTotal": douban_images.get("wallpapers_total", 0)
         }
         
         if images["posters"]:
             images["poster"] = images["posters"][0]
         
-        Logger.success(f"图片下载完成: 海报 {len(images['posters'])} 张, 剧照 {len(images['stills'])} 张")
+        Logger.success(
+            f"图片下载完成: 海报 {len(images['posters'])} 张, "
+            f"剧照 {len(images['stills'])} 张, "
+            f"壁纸 {len(images['wallpapers'])} 张"
+        )
         return images
+
+    async def _download_douban_avatars_from_raw(self, work_id: str, douban_data: Dict[str, Any]) -> Dict[str, str]:
+        celebrities = douban_data.get("celebrities", {}) or {}
+        people = []
+        for key in ["directors", "writers", "cast"]:
+            people.extend(celebrities.get(key, []) or [])
+
+        result = await self.downloader.download_profiles(work_id, people)
+        if result:
+            Logger.success(f"豆瓣演职员头像下载完成: {len(result)} 张")
+        return result
     
     async def run_by_movie_name(self, movie_name: str, year: int = None):
         Logger.info(f"通过影片名称爬取: {movie_name}")

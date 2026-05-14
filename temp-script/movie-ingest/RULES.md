@@ -6,6 +6,33 @@
 
 ## 一、数据源优先级规则
 
+### 0. 当前脚本职责边界
+
+本目录的正式主链路固定为：
+
+```text
+main.py / crawl.py
+  -> sources/*.py
+  -> downloader.py
+  -> merger.py
+  -> data/raw/
+  -> data/staging/
+  -> database.py
+  -> .local/treasure.db
+```
+
+职责约束：
+
+- `main.py` 与 `crawl.py` 是正式采集入口。
+- `sources/*.py` 只处理对应外部数据源，不写数据库。
+- `merger.py` 只合并 raw 到 staging，不写数据库、不写发布资源。
+- `downloader.py` 只下载采集阶段资源到 `data/assets/`。
+- `database.py` 是本目录写入 `.local/treasure.db` 的正式入口。
+- `db_tools/import-movie.mjs` 属于旧 JS 入库入口，因会触碰 `site/public/assets`，不得作为当前正式流程使用。
+- `generated/` 导出、`site/public/assets/` 发布资源同步、Astro 构建和发布校验都不属于本目录。
+
+修改本目录脚本时，必须保持以上边界。若确实需要越界，应先向用户确认并说明原因、影响范围和替代方案。
+
 ### 1. 豆瓣数据优先原则
 - **豆瓣是核心数据源**，必须确保豆瓣数据成功获取
 - 不管获取什么信息，都要保证豆瓣中的信息有成功获取到，然后再来抉择使用哪个数据源
@@ -301,7 +328,23 @@ if avatar_elem:
         avatar_url = match.group(1)
 ```
 
-#### 1.3 页面加载失败
+#### 1.3 豆瓣页面入口必须固定
+
+豆瓣单源采集必须在一次浏览器会话内按固定入口完成，不能先抓一部分、后续再重新登录补抓：
+
+- 基本信息：`/subject/{douban_id}/`
+- 演职员：`/subject/{douban_id}/celebrities`
+- 视频：`/subject/{douban_id}/trailer`
+- 图片总页：`/subject/{douban_id}/all_photos`
+- 剧照：`/subject/{douban_id}/photos?type=S`
+- 海报：`/subject/{douban_id}/photos?type=R`
+- 壁纸：`/subject/{douban_id}/photos?type=W`
+- 好评短评：`/subject/{douban_id}/comments?percent_type=h&limit=20&status=P&sort=new_score`
+- 影评：`/subject/{douban_id}/reviews?start={start}&sort=hot`
+
+影评必须先通过 `sort=hot` 列表页确定热度最高的前 20 条，再进入对应影评详情页读取完整正文；不得从未排序列表或非热度排序列表中取详情页链接。
+
+#### 1.4 页面加载失败
 **问题**：页面内容获取不完整或为空
 
 **解决方案**：

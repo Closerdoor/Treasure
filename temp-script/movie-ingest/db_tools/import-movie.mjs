@@ -284,10 +284,20 @@ async function importMovie(workId, db) {
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));
+
+  if (!args['allow-legacy-site-assets']) {
+    console.error([
+      'db_tools/import-movie.mjs 是旧 JS 入库入口，当前不作为 movie-ingest 正式流程使用。',
+      '原因：该脚本会直接写入 site/public/assets/people，越过 movie-ingest 的采集工坊职责边界。',
+      '当前正式入库方向应收口到 Python database.py，发布资源由仓库根目录 tools/db/export-generated.mjs 统一导出。',
+      '如确需临时运行旧入口，请显式追加 --allow-legacy-site-assets。'
+    ].join('\n'));
+    process.exit(1);
+  }
   
   if (!args['work-id'] && !args.all) {
-    console.log('Usage: node db_tools/import-movie.mjs --work-id <id>');
-    console.log('       node db_tools/import-movie.mjs --all');
+    console.log('Usage: node db_tools/import-movie.mjs --allow-legacy-site-assets --work-id <id>');
+    console.log('       node db_tools/import-movie.mjs --allow-legacy-site-assets --all');
     process.exit(1);
   }
   

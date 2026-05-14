@@ -4,6 +4,48 @@
 
 ---
 
+## 当前有效职责与入口
+
+本目录现在只承担电影采集工坊职责，边界到 `.local/treasure.db` 为止：
+
+```text
+影片输入 / 豆瓣 ID 验证
+  -> 多数据源采集
+  -> data/raw/{work_id}/
+  -> data/staging/{work_id}.json
+  -> data/assets/
+  -> .local/treasure.db
+```
+
+不属于本目录的职责：
+
+- 不导出 `generated/`。
+- 不维护 `site/public/assets/` 发布资源。
+- 不运行 Astro 构建。
+- 不做 GitHub Pages 发布校验。
+
+这些后续流程由仓库根目录的 `tools/db/export-generated.mjs`、`generated/` 和 `site/` 承担。
+
+当前实际脚本分工：
+
+| 路径 | 当前职责 | 状态 |
+|---|---|---|
+| `main.py` | 命令行入口，调度 `MovieCrawler` | 正式入口 |
+| `crawl.py` | 统一采集编排：豆瓣、TMDB、OMDb、百科、Wikipedia、烂番茄、Metacritic、图片下载、staging 输出 | 正式入口 |
+| `sources/*.py` | 单一数据源客户端 / 爬虫 | 正式组件 |
+| `merger.py` | 多源 raw 合并为 staging JSON | 正式组件 |
+| `downloader.py` | 采集阶段图片下载到 `data/assets/` | 正式组件 |
+| `database.py` | staging 导入 `.local/treasure.db` | 正式 DB 入口 |
+| `progress.py` | 采集进度记录 | 正式组件 |
+| `name_matcher.py` | 豆瓣中文人物与 TMDB 人物匹配 | 正式组件 |
+| `config.py` | 本目录路径、API、代理、浏览器、数量限制配置 | 正式配置 |
+| `db_tools/import-movie.mjs` | 旧 JS 入库入口，会触碰站点资源目录 | legacy，默认禁止直接运行 |
+| `db_tools/paths.mjs` | 旧 JS 入口路径常量 | legacy 配套 |
+
+当前不存在 `crawl_basic.py`、`crawl_reviews.py`、`crawl_images.py`、`full_match.py`、`fix_person_avatars.py`、`download_missing_avatars.py`、`update_avatar_paths.py` 等旧文档中曾提到的脚本。后续说明应以本节为准。
+
+---
+
 ## 第一部分：项目架构概述
 
 ### 1.1 movie-ingest 定位
@@ -14,7 +56,7 @@ movie-ingest 是一个**独立完整的电影数据处理模块**，职责包括
 2. **合并数据**：多源数据合并，生成统一格式
 3. **录入数据库**：将合并后的数据写入 SQLite 数据库
 
-**核心原则**：movie-ingest 目录自包含，所有电影相关数据、脚本都在此目录下。
+**核心原则**：movie-ingest 目录自包含到“采集与入库”为止。进入 `generated/`、`site/public/assets/` 或 Astro 构建之后的工作不在本目录内处理。
 
 ### 1.2 目录结构
 
@@ -22,21 +64,12 @@ movie-ingest 是一个**独立完整的电影数据处理模块**，职责包括
 movie-ingest/
 ├── config.py              # 配置文件（路径、API Keys、代理等）
 ├── main.py                # 主入口（命令行参数解析）
-│
-├── crawl_basic.py         # 模块1：爬取基本信息
-├── crawl_reviews.py       # 模块2：爬取影评
-├── crawl_images.py        # 模块3：爬取图片
-│
+├── crawl.py               # 统一采集编排入口
 ├── merger.py              # 数据合并模块
-├── database.py            # 数据库操作类
+├── database.py            # 数据库操作类（正式 DB 入库层）
 ├── downloader.py          # 图片下载模块
 ├── progress.py            # 进度管理模块
-│
 ├── name_matcher.py        # 人物名字匹配模块
-├── full_match.py          # 全量人物 TMDB ID 匹配脚本
-├── fix_person_avatars.py  # 修复人物头像脚本
-├── download_missing_avatars.py  # 下载缺失头像脚本
-├── update_avatar_paths.py # 更新头像路径脚本
 │
 ├── sources/               # 数据源爬虫
 │   ├── douban.py          # 豆瓣爬虫（Playwright）
@@ -52,22 +85,9 @@ movie-ingest/
 │   ├── id_generator.py    # ID 生成器
 │   └── hash.py            # 哈希工具
 │
-├── db_tools/              # 数据录入工具（Node.js）
-│   │
-│   │  # 核心脚本
-│   ├── paths.mjs          # 路径配置（统一路径常量）
-│   ├── import-movie.mjs   # 单部作品录入（核心入口）
-│   ├── run-movie-intake-from-tasks.mjs  # 批量摄入（从任务列表）
-│   ├── run-movie-batch-workflow.mjs     # 批量流程（完整流程）
-│   ├── check-movie-ingest-quality.mjs   # 质量检查
-│   ├── validate-movie-record.mjs        # 记录验证
-│   ├── movie-ingest-contract.mjs        # 数据契约定义
-│   │
-│   │  # 辅助脚本
-│   ├── movie-intake-registry.mjs        # 录入注册表
-│   ├── movie-db-projection.mjs          # 数据库投影
-│   ├── generate-douban-top250-tasks.mjs # 生成豆瓣 Top250 任务
-│   └── ...                               # 其他辅助脚本
+├── db_tools/              # legacy JS 入库入口，默认禁止直接运行
+│   ├── paths.mjs          # legacy 路径常量
+│   └── import-movie.mjs   # legacy 脚本，会触碰 site/public/assets
 │
 ├── data/                  # 数据存储目录
 │   ├── raw/               # 第一层：原始数据
@@ -86,7 +106,7 @@ movie-ingest/
 └── DATA.md                # 数据字段设计
 ```
 
-**注意**：`data/assets/` 是下载缓存目录，图片最终会同步到项目级 `.local/assets/`，数据库中的路径引用指向 `.local/assets/`。
+**注意**：`data/assets/` 是采集阶段下载缓存目录。它不等于发布资源目录；发布资源仍由仓库根目录的导出脚本从主数据源生成。
 
 ### 1.3 数据流
 
@@ -97,7 +117,7 @@ movie-ingest/
 │                                                                             │
 │   第一层：爬取原始数据                                                        │
 │   ┌─────────────────────────────────────────────────────────────────────┐   │
-│   │  crawl_basic.py                                                      │   │
+│   │  main.py / crawl.py                                                  │   │
 │   │  豆瓣 ──────┐                                                        │   │
 │   │  TMDB ──────┼──────▶ data/raw/{work_id}/                             │   │
 │   │  OMDb ──────┤              ├── douban.json                           │   │
@@ -118,7 +138,7 @@ movie-ingest/
 │                                     ▼                                       │
 │   第三层：录入数据库                                                          │
 │   ┌─────────────────────────────────────────────────────────────────────┐   │
-│   │  db_tools/import-movie.mjs                                           │   │
+│   │  database.py                                                         │   │
 │   │  读取 staging/{work_id}.json                                         │   │
 │   │  写入 .local/treasure.db                                             │   │
 │   └─────────────────────────────────────────────────────────────────────┘   │
@@ -131,7 +151,7 @@ movie-ingest/
 - 英文名：TMDB > OMDb
 - 年份：豆瓣 > TMDB
 - 地区/语言：豆瓣（最准确）
-- 演职员：豆瓣（中文名）+ TMDB（英文名、角色名、头像）
+- 演职员：豆瓣（中文名、英文名、角色名、头像）+ TMDB（英文名、角色名、头像）
 - 评分：各平台独立记录
 
 ---
@@ -170,38 +190,28 @@ USE_CHROME = True  # 使用系统 Chrome
 ### 2.3 爬取数据
 
 ```bash
-# 测试模式（单部电影）
-python main.py --test --basic
+# 通过影片名搜索豆瓣 ID 并采集（推荐）
+python main.py --movie-name "社交网络" --year 2010
 
-# 爬取指定电影
-python crawl_basic.py --douban-id 1292052 --title "肖申克的救赎"
-
-# 批量爬取 Top250
-python main.py --top250 --basic
+# 已知豆瓣 ID 时采集
+python main.py --douban-id 3205624 --title "社交网络" --work-id 0101000252
 ```
 
 ### 2.4 录入数据库
 
-```bash
-# 单部作品录入
-node db_tools/import-movie.mjs --work-id 0101000001
+当前正式 DB 入库层是 `database.py`。它提供 `TreasureDB.import_movie(movie_data)`，用于把 staging JSON 写入 `.local/treasure.db`。
 
-# 批量录入所有 staging 数据
-node db_tools/import-movie.mjs --all
-```
+`db_tools/import-movie.mjs` 是 legacy JS 入口，默认禁止直接运行；后续如需要命令行导入，应在 Python 主链路上补一个只调用 `database.py` 的薄 CLI，而不是恢复 JS 入口。
 
 ### 2.5 完整流程示例
 
 ```bash
 # 1. 爬取数据
-python crawl_basic.py --douban-id 1292052 --title "肖申克的救赎"
+python main.py --movie-name "社交网络" --year 2010
 
-# 2. 数据已保存到 data/staging/0101000001.json
+# 2. 数据保存到 data/raw/{work_id}/ 与 data/staging/{work_id}.json
 
-# 3. 录入数据库
-node db_tools/import-movie.mjs --work-id 0101000001
-
-# 4. 数据已写入 .local/treasure.db
+# 3. 使用 database.py 的 TreasureDB.import_movie(movie_data) 写入 .local/treasure.db
 ```
 
 ---
@@ -212,17 +222,31 @@ node db_tools/import-movie.mjs --work-id 0101000001
 
 | 模块 | 职责 | 输入 | 输出 |
 |------|------|------|------|
-| `crawl_basic.py` | 爬取基本信息 | 豆瓣 ID | `data/raw/{work_id}/` |
-| `crawl_reviews.py` | 爬取影评 | 豆瓣 ID | `data/raw/{work_id}/`（补充） |
-| `crawl_images.py` | 爬取图片 | TMDB ID | `data/assets/works/{work_id}/` |
+| `main.py` | 命令行入口 | 影片名或豆瓣 ID | 调用 `MovieCrawler` |
+| `crawl.py` | 统一采集编排 | 豆瓣 ID / 影片名 | `data/raw/{work_id}/`、`data/staging/{work_id}.json`、`data/assets/` |
+| `sources/*.py` | 单数据源采集 | 来源查询参数 | raw source data |
 
-**crawl_basic.py 详细功能**：
-- 爬取豆瓣详情页（标题、年份、评分、简介、演职员等）
+**crawl.py 详细功能**：
+- 爬取豆瓣详情页、演职员页、视频页、图片页、短评页、影评页
 - 调用 TMDB API 获取演职员、图片、视频
 - 调用 OMDb API 获取评分、分级
 - 爬取百度百科补充基本信息
 - 爬取 Wikipedia 获取获奖、名言名句
 - 爬取烂番茄、Metacritic 获取评分
+
+**豆瓣页面采集契约**：
+
+| 页面 | URL 模板 | 采集内容 |
+|------|----------|----------|
+| 基本信息 | `https://movie.douban.com/subject/{douban_id}/` | 标题、原名、年份、评分、类型、国家/地区、语言、片长、上映日期、别名、IMDb ID、简介、主海报 URL、标签、推荐 |
+| 演职员 | `https://movie.douban.com/subject/{douban_id}/celebrities` | 导演、编剧、全部演员、角色、中英文名、豆瓣人物 ID、头像 URL |
+| 视频 | `https://movie.douban.com/subject/{douban_id}/trailer` | 视频名称、视频链接、封面图片、时长 |
+| 图片总页 | `https://movie.douban.com/subject/{douban_id}/all_photos` | 图片入口页访问校验 |
+| 剧照 | `https://movie.douban.com/subject/{douban_id}/photos?type=S` | 全量剧照 URL、原图候选 URL、总数 |
+| 海报 | `https://movie.douban.com/subject/{douban_id}/photos?type=R` | 全量海报 URL、原图候选 URL、总数 |
+| 壁纸 | `https://movie.douban.com/subject/{douban_id}/photos?type=W` | 全量壁纸 URL、原图候选 URL、总数 |
+| 好评短评 | `https://movie.douban.com/subject/{douban_id}/comments?percent_type=h&limit=20&status=P&sort=new_score` | 好评筛选下按热门/有用排序的前 20 条短评 |
+| 影评 | `https://movie.douban.com/subject/{douban_id}/reviews?start={start}&sort=hot` | 先按热度排序获取前 20 条影评条目，再进入影评详情页读取完整正文 |
 
 ### 3.2 数据处理模块
 
@@ -238,16 +262,12 @@ node db_tools/import-movie.mjs --work-id 0101000001
 | 模块 | 职责 | 说明 |
 |------|------|------|
 | `name_matcher.py` | 人物名字匹配 | 匹配豆瓣中文名和 TMDB 英文名 |
-| `full_match.py` | 全量人物匹配 | 为所有人物匹配 TMDB ID |
-| `fix_person_avatars.py` | 修复头像 | 修复人物头像路径 |
-| `download_missing_avatars.py` | 下载缺失头像 | 下载 TMDB 头像 |
-| `update_avatar_paths.py` | 更新头像路径 | 更新数据库中的头像路径 |
 
 ### 3.4 数据源爬虫
 
 | 数据源 | 爬取方式 | 数据类型 | 反爬机制 |
 |--------|---------|---------|---------|
-| 豆瓣 | Playwright | 基本信息、评分、演职员、评论 | 需要登录、Referer 检测 |
+| 豆瓣 | Playwright | 基本信息、评分、演职员、视频、剧照、海报、壁纸、短评、影评 | 需要登录、Referer 检测 |
 | TMDB | REST API | 演职员、图片、视频、原声 | 无（需 API Key） |
 | OMDb | REST API | 评分、分级、获奖 | 无（需 API Key） |
 | 百度百科 | Playwright | 基本信息补充 | 验证码 |
@@ -282,37 +302,25 @@ HEADLESS = False  # 首次运行建议 False，方便登录豆瓣
 USE_CHROME = True  # 使用系统 Chrome
 ```
 
-#### 2.5.3 测试模式（单部电影）
+#### 2.5.3 单部电影采集
 
 ```bash
-python main.py --test --basic
+python main.py --movie-name "社交网络" --year 2010
 ```
 
-默认测试电影为《星际穿越》，可在 `config.py` 中修改：
-
-```python
-TEST_MOVIE = {
-    "douban_id": "1889243",
-    "title": "星际穿越",
-    "imdb_id": "tt0816692"
-}
-```
-
-#### 2.5.4 批量模式（Top250）
+也可以在已确认豆瓣 ID 后直接采集：
 
 ```bash
-# 完整爬取（基本信息 + 影评 + 图片）
-python main.py --top250
-
-# 只爬取基本信息
-python main.py --top250 --basic
-
-# 只爬取影评
-python main.py --top250 --reviews
-
-# 只爬取图片
-python main.py --top250 --images
+python main.py --douban-id 3205624 --title "社交网络" --work-id 0101000252
 ```
+
+#### 2.5.4 批量模式
+
+当前 `main.py` 不提供 Top250 批量参数。批量采集应后续单独设计任务清单入口，并且必须满足：
+
+- 每条任务记录豆瓣 ID 获取与验证过程。
+- 运行前量化任务总数、预计采集来源和任何数量限制。
+- 不在批量脚本中导出 `generated/`、写 `site/public/assets/` 或运行 Astro 构建。
 
 #### 2.5.5 登录豆瓣
 

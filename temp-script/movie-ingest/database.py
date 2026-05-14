@@ -328,6 +328,7 @@ class TreasureDB:
             movie_data.get("writer", []),
             movie_data.get("cast", []),
             movie_data.get("otherCast", []),
+            movie_data.get("all_cast", []),
             movie_data.get("producer", [])
         ]
         
