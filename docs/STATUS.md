@@ -92,13 +92,14 @@ npm.cmd run build
 - 已完成一次 DB -> generated -> Astro 的完整工作流校验：电影 250 条详情与索引对齐，Astro 构建成功生成 254 个页面。
 - 已在 `docs/PROJECT.md` 增加主链路文件分级，区分当前主链路、历史兼容、清理候选和暂不处理范围。
 - 已清理第一批低风险入库噪声：删除 172 个 `.playwright-mcp/` 调试快照，以及 5 个 `.opencode/**/__pycache__/` Python 字节码缓存文件。
+- 已清理 DB -> Astro 链路中的历史兼容入口：删除 `site/scripts/sync-assets.mjs` 和 `site` 的 `sync` npm script，统一使用仓库根目录的 `node tools/db/export-generated.mjs`。
+- 已将 `generated/recent.json` 与 `generated/tags.json` 从 Git 跟踪中移除；它们仍由 `tools/db/export-generated.mjs` 生成，但不再作为需要人工维护的仓库文件。
 
 ## 未完成
 
 - 尚未建立稳定的 generated 完整性校验脚本。
 - 电影资源仍有已知缺口。
 - `generated.images` 中本地文件名和外链对象的边界需要统一。
-- `site/scripts/sync-assets.mjs` 已收口为兼容入口，但在当前 Codex sandbox 中从 `site/` 启动时，SQLite CLI 打开父级 `.local/treasure.db` 会失败；主入口 `node tools/db/export-generated.mjs` 已验证成功。
 - 书籍模块已有数据库草稿，但尚未进入 generated 和 Astro 页面链路。
 - 书籍录入脚本尚未完全对齐采集工坊契约：字段级来源追踪未落地，部分字段优先级与局部规则文档不一致，staging 阶段存在提前 JSON 字符串化，封面本地路径写回 staging 的流程仍需确认。
 - `temp-script/movie-ingest/db_tools/` 中仍有部分脚本涉及 generated、site 构建、发布校验或迁移验收语境，职责上更像历史过渡工具或应迁入 `tools/` 的工具，尚未逐一确认去留。
@@ -108,7 +109,6 @@ npm.cmd run build
   - `content/` 约 195 个已跟踪文件，是旧 Markdown / 内容文件链路，当前 Astro 不读取。
   - `.opencode/` 中除 `__pycache__` 之外的本地 AI 技能、数据和脚本仍被跟踪，需确认是否仍作为项目资产。
   - 顶层 `interstellar-reviews.json`、`shawshank-reviews.json`、`rt-requests.txt`、`rt-review-body.json`、`tmdb-requests.txt` 更像一次性抓取 / 调试产物。
-  - `generated/recent.json` 与 `generated/tags.json` 目前仍被 Git 跟踪，但按当前规范应视为 generated 产物，后续建议确认后取消跟踪。
 
 ## 下一步建议
 
@@ -118,6 +118,5 @@ npm.cmd run build
 2. 按 `docs/PROJECT.md` 的“主链路文件分级”逐项确认清理候选，优先处理明显不该入库的调试日志、缓存和 generated 历史产物。
 3. 修正 `0101000178`《绿里奇迹》的 `poster-main.webp` 缺口后重新导出和构建。
 4. 明确 `images.posters/stills` 是否只允许本地文件名字符串。
-5. 决定是否继续保留 `site/scripts/sync-assets.mjs` 作为兼容入口，或统一改为只使用仓库根目录的 `node tools/db/export-generated.mjs`。
-6. 审视 `temp-script/movie-ingest/db_tools/` 中的历史过渡脚本，决定迁移、归档或删除。
-7. 将书籍录入 staging 契约对齐采集工坊标准，再设计书籍模块的 generated 契约与 `/book`、`/book/{id}` 页面。
+5. 审视 `temp-script/movie-ingest/db_tools/` 中的历史过渡脚本，决定迁移、归档或删除。
+6. 将书籍录入 staging 契约对齐采集工坊标准，再设计书籍模块的 generated 契约与 `/book`、`/book/{id}` 页面。

@@ -25,7 +25,6 @@ Treasure 是一个个人收藏馆项目，用来收录影视、书籍、音乐�
 | generated 与资源导出入口 | `tools/db/export-generated.mjs` |
 | DB 工具说明 | `tools/db/README.md` |
 | 历史工具归档 | `tools/archive/README.md` |
-| 兼容导出入口（待决定去留） | `site/scripts/sync-assets.mjs` |
 | 前台数据读取层 | `site/src/lib/archive.ts` |
 | Astro 首页 | `site/src/pages/index.astro` |
 | 影视列表页 | `site/src/pages/video/index.astro` |
@@ -253,9 +252,8 @@ generated/tags.json
 ```
 
 5. `tools/db/export-generated.mjs` 同时导出当前记录引用的静态资源：作品图片复制到 `site/public/assets/video/movie/{id}/`，人物头像复制到对应作品自己的 `people/` 子目录。
-6. `site/scripts/sync-assets.mjs` 是兼容入口，只负责调用 `tools/db/export-generated.mjs`，不再单独复制共享资源目录。
-7. `site/src/lib/archive.ts` 读取 `generated/indexes/video-movie.json` 与 `generated/entries/video/movie/{id}.json`，并补齐前台需要的路径、评分、海报 URL、演员预览等派生字段。
-8. 当前 Astro 页面消费路径：
+6. `site/src/lib/archive.ts` 读取 `generated/indexes/video-movie.json` 与 `generated/entries/video/movie/{id}.json`，并补齐前台需要的路径、评分、海报 URL、演员预览等派生字段。
+7. 当前 Astro 页面消费路径：
 
 ```text
 site/src/pages/index.astro
@@ -263,7 +261,7 @@ site/src/pages/video/index.astro
 site/src/pages/video/movie/[id].astro
 ```
 
-9. `site/src/pages/video/movie/[id].astro` 通过 `loadAllMovieIds()` 生成静态详情页路径。
+8. `site/src/pages/video/movie/[id].astro` 通过 `loadAllMovieIds()` 生成静态详情页路径。
 
 因此，当前站点构建不读取 SQLite、不读取 `temp-script/`，只读取 `generated/` 与 `site/public/assets/`。
 
@@ -316,12 +314,7 @@ cd site
 npm.cmd run build
 ```
 
-`site/scripts/sync-assets.mjs` 与 `npm.cmd run sync` 是历史命名保留下来的兼容入口，当前实际行为是：
-
-1. 执行 `tools/db/export-generated.mjs`
-2. 由该导出脚本同时生成 `generated/` 和 `site/public/assets/`
-
-日常维护优先在仓库根目录直接运行 `node tools/db/export-generated.mjs`。在当前 Codex sandbox 中，从 `site/` 启动该兼容入口会因为 SQLite CLI 无法打开父级 `.local/treasure.db` 而失败，因此它暂不作为推荐命令。
+日常维护必须在仓库根目录直接运行 `node tools/db/export-generated.mjs`。旧的 `site/scripts/sync-assets.mjs` 与 `npm.cmd run sync` 兼容入口已删除，避免 DB 到 Astro 链路存在两个入口。
 
 ## generated 最小契约
 
@@ -642,8 +635,6 @@ Giscus 评论区保留在详情页，不出现在首页和列表页。
 2. 运行 `cd site && npm.cmd run build` 验证 Astro 静态构建。
 3. 更新 `docs/STATUS.md` 中的数据量、校验结果和已知风险。
 
-`cd site && npm.cmd run sync` 只是历史兼容入口，当前不作为标准流程的一部分。若后续确认没有外部工具依赖它，应移除该脚本和 npm script，统一只保留仓库根目录的导出命令。
-
 书籍模块接入建议顺序：
 
 1. 先让 `book-ingest` 的 staging 契约对齐采集工坊标准，尤其是字段来源、冲突记录和复杂字段 JSON 化时机。
@@ -694,7 +685,6 @@ generated/indexes/book.json
 - 如果修改资源路径策略，至少同步检查：
   - `.local/assets/`
   - `site/public/assets/`
-  - `site/scripts/sync-assets.mjs`
   - 前台图片 URL 拼接逻辑
 
 ## 主链路文件分级
@@ -740,14 +730,12 @@ site/public/assets/poster-placeholder.svg
 tools/archive/
 docs/archive/
 design-archive/
-site/scripts/sync-assets.mjs
 ```
 
 处理原则：
 
 - `tools/archive/` 与 `docs/archive/` 只在追溯历史决策时读取。
 - `design-archive/` 作为 UI 参考材料保留，不参与构建。
-- `site/scripts/sync-assets.mjs` 当前只是导出脚本包装层；若确认没有使用场景，应删除兼容入口，减少命令歧义。
 
 ### C. 清理候选
 
@@ -756,10 +744,7 @@ site/scripts/sync-assets.mjs
 | 路径 / 文件 | 当前判断 |
 |---|---|
 | `content/` | 旧 Markdown / 内容文件链路，当前 Astro 不读取；已跟踪约 195 个文件 |
-| `generated/recent.json`、`generated/tags.json` | generated 产物被 Git 跟踪的历史残留，建议后续改为只生成不提交 |
-| `.playwright-mcp/` | 浏览器调试日志和页面快照，已在 `.gitignore` 中但仍跟踪约 172 个文件 |
 | `.opencode/` | 本地 AI 技能和缓存文件，已跟踪约 46 个文件；需确认是否仍作为项目资产 |
-| `.opencode/**/__pycache__/` | Python 字节码缓存，通常不应提交 |
 | `data/.book_counter` | 旧书籍计数状态文件，需确认是否仍被当前脚本使用 |
 | `interstellar-reviews.json`、`shawshank-reviews.json` | 顶层临时评论抓取结果 |
 | `rt-requests.txt`、`rt-review-body.json`、`tmdb-requests.txt` | 顶层调试请求 / 响应文件 |
