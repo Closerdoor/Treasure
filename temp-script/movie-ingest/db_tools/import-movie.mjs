@@ -1,7 +1,10 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { createWriteStream } from 'node:fs';
+import { pipeline } from 'node:stream/promises';
 import Database from 'better-sqlite3';
 import { PATHS } from './paths.mjs';
+import { setTimeout as sleep } from 'node:timers/promises';
 
 function parseArgs(argv) {
   const args = {};
@@ -73,6 +76,136 @@ function buildScores(movie) {
   return Object.keys(scores).length > 0 ? JSON.stringify(scores) : null;
 }
 
+async function downloadFile(url, destPath) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      return false;
+    }
+    await fs.mkdir(path.dirname(destPath), { recursive: true });
+    const fileStream = createWriteStream(destPath);
+    await pipeline(response.body, fileStream);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function generatePersonId(db) {
+  const row = db.prepare('SELECT MAX(id) as max_id FROM person').get();
+  const nextId = (row?.max_id || 0) + 1;
+  return `p${String(nextId).padStart(6, '0')}`;
+}
+
+async function findOrCreatePerson(person, db, workId, downloadDir) {
+  const name = person.name || person.nameEn;
+  const nameEn = person.nameEn || null;
+  
+  let existingPerson = null;
+  
+  if (name && nameEn) {
+    existingPerson = db.prepare('SELECT * FROM person WHERE name = ? AND name_en = ?').get(name, nameEn);
+  } else if (name) {
+    existingPerson = db.prepare('SELECT * FROM person WHERE name = ?').get(name);
+  } else if (nameEn) {
+    existingPerson = db.prepare('SELECT * FROM person WHERE name_en = ?').get(nameEn);
+  }
+  
+  if (existingPerson) {
+    return existingPerson;
+  }
+  
+  const personId = generatePersonId(db);
+  const now = new Date().toISOString();
+  
+  let avatarPath = null;
+  let tmdbAvatarPath = null;
+  
+  if (person.avatar && person.avatarSource === 'tmdb') {
+    const avatarFile = `tmdb-${Date.now()}-avatar.jpg`;
+    const avatarDest = path.join(downloadDir, avatarFile);
+    const downloaded = await downloadFile(person.avatar, avatarDest);
+    if (downloaded) {
+      avatarPath = `people/${avatarFile}`;
+      tmdbAvatarPath = `people/${avatarFile}`;
+    }
+  }
+  
+  db.prepare(`
+    INSERT INTO person (person_id, name, name_en, avatar_path, profile_link, intro, source_ids, tmdb_avatar_path)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+  `).run(
+    personId,
+    name,
+    nameEn,
+    avatarPath,
+    person.profileLink || null,
+    null,
+    null,
+    tmdbAvatarPath
+  );
+  
+  return db.prepare('SELECT * FROM person WHERE person_id = ?').get(personId);
+}
+
+async function importCredits(movie, db, workId) {
+  const downloadDir = path.join(PATHS.siteAssetsDir, 'people');
+  await fs.mkdir(downloadDir, { recursive: true });
+  
+  db.prepare('DELETE FROM work_person WHERE work_id = ?').run(workId);
+  
+  const creditTypes = [
+    { key: 'director', department: 'direction', isPrimary: true },
+    { key: 'writer', department: 'writing', isPrimary: true },
+    { key: 'cast', department: 'cast', isPrimary: true },
+    { key: 'otherCast', department: 'cast', isPrimary: false },
+    { key: 'producer', department: 'production', isPrimary: true }
+  ];
+  
+  let order = 0;
+  const importedPersons = [];
+  
+  for (const { key, department, isPrimary } of creditTypes) {
+    const persons = movie[key] || [];
+    
+    for (const person of persons) {
+      if (!person.name && !person.nameEn) {
+        continue;
+      }
+      
+      const personRecord = await findOrCreatePerson(person, db, workId, downloadDir);
+      
+      const role = person.role || null;
+      const character = person.role || null;
+      
+      db.prepare(`
+        INSERT INTO work_person (work_id, person_id, department, role, \`character\`, \`order\`, is_primary)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+      `).run(
+        workId,
+        personRecord.id,
+        department,
+        role,
+        department === 'cast' ? character : null,
+        order,
+        isPrimary ? 1 : 0
+      );
+      
+      importedPersons.push({
+        name: personRecord.name,
+        nameEn: personRecord.name_en,
+        department,
+        role
+      });
+      
+      order += 1;
+      await sleep(50);
+    }
+  }
+  
+  return importedPersons;
+}
+
 async function importMovie(workId, db) {
   const stagingPath = path.join(PATHS.stagingDir, `${workId}.json`);
   
@@ -124,8 +257,8 @@ async function importMovie(workId, db) {
       movie.language || null,
       movie.runtime || null,
       movie.publishCompany || null,
-      movie.synopsis || null,
-      movie.story || null,
+      movie.synopsis?.text || movie.synopsis || null,
+      movie.story?.text || movie.story || null,
       movie.aka ? JSON.stringify(movie.aka) : null,
       movie.releaseDate ? JSON.stringify(movie.releaseDate) : null,
       buildExternalSource(movie),
@@ -141,7 +274,9 @@ async function importMovie(workId, db) {
       now
     );
     
-    return { success: true, workId, title: movie.title };
+    const importedCredits = await importCredits(movie, db, workId);
+    
+    return { success: true, workId, title: movie.title, creditsImported: importedCredits.length };
   } catch (error) {
     return { success: false, workId, error: error.message };
   }

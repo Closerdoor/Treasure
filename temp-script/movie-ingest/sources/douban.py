@@ -134,6 +134,185 @@ class DoubanCrawler:
                 continue
         
         raise Exception("登录超时，请重新运行程序")
+    
+    async def search_douban_id(self, movie_name: str, year: int = None) -> Dict[str, Any]:
+        """
+        通过百度搜索获取豆瓣 ID
+        
+        Args:
+            movie_name: 影片名称
+            year: 年份（可选，用于验证）
+            
+        Returns:
+            {
+                'doubanId': '3205624',
+                'doubanUrl': 'https://movie.douban.com/subject/3205624/',
+                'title': '社交网络',
+                'year': 2010,
+                'source': 'baidu_search'
+            }
+        """
+        Logger.info(f"正在通过百度搜索获取豆瓣 ID: {movie_name}")
+        
+        # 搜索百度
+        search_query = f"{movie_name} 豆瓣"
+        baidu_url = f"https://www.baidu.com/s?wd={search_query}"
+        
+        await self.page.goto(baidu_url, timeout=60000, wait_until="domcontentloaded")
+        await asyncio.sleep(2)
+        
+        # 提取搜索结果中的豆瓣链接
+        content = await self.page.content()
+        soup = BeautifulSoup(content, 'html.parser')
+        
+        candidates = []
+        
+        # 查找所有豆瓣电影链接（支持多种格式）
+        # 格式1: movie.douban.com/subject/数字
+        # 格式2: m.douban.com/movie/subject/数字
+        for pattern in [
+            r'movie\.douban\.com/subject/(\d+)',
+            r'm\.douban\.com/movie/subject/(\d+)'
+        ]:
+            for match in re.finditer(pattern, content):
+                douban_id = match.group(1)
+                douban_url = f"https://movie.douban.com/subject/{douban_id}/"
+                if douban_url not in [c['doubanUrl'] for c in candidates]:
+                    candidates.append({
+                        'doubanId': douban_id,
+                        'doubanUrl': douban_url,
+                        'title': None,
+                        'year': None
+                    })
+        
+        if not candidates:
+            Logger.error(f"未找到豆瓣链接: {movie_name}")
+            raise Exception(f"通过百度搜索未找到 {movie_name} 的豆瓣页面")
+        
+        Logger.info(f"找到 {len(candidates)} 个候选豆瓣链接")
+        
+        # 验证每个候选页面
+        validated_candidates = []
+        for candidate in candidates:
+            try:
+                validated = await self._validate_douban_page(candidate, movie_name, year)
+                if validated:
+                    validated_candidates.append(validated)
+            except Exception as e:
+                Logger.warning(f"验证失败 {candidate['doubanUrl']}: {e}")
+                continue
+        
+        if not validated_candidates:
+            Logger.error(f"所有候选页面验证失败")
+            raise Exception(f"未找到匹配的豆瓣页面: {movie_name}")
+        
+        # 如果只有一个匹配，直接返回
+        if len(validated_candidates) == 1:
+            Logger.success(f"找到豆瓣页面: {validated_candidates[0]['title']} ({validated_candidates[0]['doubanId']})")
+            return validated_candidates[0]
+        
+        # 多个匹配，选择第一个（年份最接近的）
+        Logger.warning(f"找到多个匹配的豆瓣页面，选择第一个")
+        for c in validated_candidates:
+            Logger.info(f"  - {c['title']} ({c['year']}) - {c['doubanUrl']}")
+        
+        return validated_candidates[0]
+    
+    async def _validate_douban_page(self, candidate: Dict, expected_title: str, expected_year: int = None) -> Optional[Dict]:
+        """
+        验证豆瓣页面是否匹配
+        
+        Args:
+            candidate: 候选信息 {'doubanId', 'doubanUrl'}
+            expected_title: 期望的标题
+            expected_year: 期望的年份（可选）
+            
+        Returns:
+            验证通过返回完整信息，否则返回 None
+        """
+        Logger.info(f"验证豆瓣页面: {candidate['doubanUrl']}")
+        
+        await self.page.goto(candidate['doubanUrl'], timeout=60000, wait_until="domcontentloaded")
+        await asyncio.sleep(2)
+        
+        # 检查是否需要登录/验证码/反爬页面
+        content = await self.page.content()
+        current_url = self.page.url
+        needs_user_action = False
+        
+        if "验证码" in content:
+            needs_user_action = True
+        elif "登录" in content and "movie.douban.com" not in current_url:
+            needs_user_action = True
+        elif "嗯…" in content or "页面不存在" in content:
+            needs_user_action = True
+        
+        if needs_user_action:
+            Logger.warning("页面需要登录/验证码，等待用户处理...")
+            await self._wait_for_user_action()
+            content = await self.page.content()
+        
+        soup = BeautifulSoup(content, 'html.parser')
+        
+        # 提取标题
+        title_elem = soup.select_one('h1 span[property="v:itemreviewed"]')
+        if not title_elem:
+            title_elem = soup.select_one('h1')
+        if not title_elem:
+            return None
+        
+        page_title = title_elem.get_text(strip=True)
+        
+        # 提取年份
+        year_elem = soup.select_one('.year')
+        page_year = None
+        if year_elem:
+            year_match = re.search(r'(\d{4})', year_elem.get_text())
+            if year_match:
+                page_year = int(year_match.group(1))
+        
+        # 验证标题匹配
+        if expected_title.lower() not in page_title.lower() and page_title.lower() not in expected_title.lower():
+            Logger.warning(f"标题不匹配: 页面 '{page_title}' vs 期望 '{expected_title}'")
+            return None
+        
+        # 验证年份（如果提供）
+        if expected_year and page_year and page_year != expected_year:
+            Logger.warning(f"年份不匹配: 页面 {page_year} vs 期望 {expected_year}")
+            return None
+        
+        return {
+            'doubanId': candidate['doubanId'],
+            'doubanUrl': candidate['doubanUrl'],
+            'title': page_title,
+            'year': page_year,
+            'source': 'baidu_search'
+        }
+    
+    async def _wait_for_user_action(self, timeout: int = 300):
+        """等待用户处理登录/验证码"""
+        print("\n" + "=" * 50)
+        print("请在浏览器中完成登录/验证码")
+        print("完成后按回车继续...")
+        print("=" * 50 + "\n")
+        
+        waited = 0
+        while waited < timeout:
+            await asyncio.sleep(1)
+            waited += 1
+            
+            # 检查页面是否已经正常
+            try:
+                url = await self.page.url
+                if "movie.douban.com/subject" in url:
+                    content = await self.page.content()
+                    if "验证码" not in content:
+                        Logger.info("用户已完成验证")
+                        return
+            except:
+                pass
+        
+        raise Exception("等待用户操作超时")
         
     async def close(self):
         """关闭浏览器"""
@@ -177,6 +356,12 @@ class DoubanCrawler:
                     raise Exception(f"页面不存在或被重定向: {current_url}")
                 
                 content = await self.page.content()
+                
+                if "嗯…" in content or "验证码" in content:
+                    Logger.warning("遇到反爬/验证码页面，等待用户处理...")
+                    await self._wait_for_user_action()
+                    content = await self.page.content()
+                
                 soup = BeautifulSoup(content, "html.parser")
                 
                 # 检查是否获取到有效数据
@@ -989,13 +1174,66 @@ class DoubanCrawler:
         Logger.success(f"TOP250 爬取完成，共 {len(movies)} 部电影")
         return movies
         
-    def _classify_image_by_ratio(self, url: str) -> str:
+    async def crawl_all(self, douban_id: str, comments_count: int = 20, reviews_count: int = 20) -> Dict[str, Any]:
         """
-        根据图片 URL 判断图片类型
-        豆瓣图片 URL 包含尺寸信息，如 /m/ 表示中等尺寸
-        海报通常是竖版（比例约 2:3），剧照通常是横版（比例约 16:9 或 4:3）
+        一次性采集豆瓣所有数据（详情 + 演职员 + 短评 + 影评 + 图片）
+        
+        在同一个浏览器会话中顺序访问各页面，避免重复登录。
+        
+        Args:
+            douban_id: 豆瓣电影 ID
+            comments_count: 短评数量
+            reviews_count: 影评数量
+            
+        Returns:
+            完整豆瓣数据
         """
-        # 简单判断：海报 URL 通常包含 "poster" 或是竖版
-        # 这里返回 "poster" 或 "still"，实际需要根据图片尺寸判断
-        # 由于无法直接获取尺寸，暂时全部返回 poster，后续下载时再分类
-        return "poster"
+        Logger.info(f"开始一次性采集豆瓣数据: {douban_id}")
+        
+        result = {
+            "douban_id": douban_id,
+            "source": "douban"
+        }
+        
+        # 1. 详情页
+        try:
+            detail = await self.crawl_detail(douban_id)
+            result["detail"] = detail
+        except Exception as e:
+            Logger.error(f"豆瓣详情爬取失败: {e}")
+            result["detail"] = {}
+        
+        # 2. 演职员页面
+        try:
+            celebrities = await self.crawl_celebrities(douban_id)
+            result["celebrities"] = celebrities
+        except Exception as e:
+            Logger.error(f"豆瓣演职员爬取失败: {e}")
+            result["celebrities"] = {"directors": [], "writers": [], "cast": []}
+        
+        # 3. 短评
+        try:
+            comments = await self.crawl_comments(douban_id, comments_count)
+            result["comments"] = comments
+        except Exception as e:
+            Logger.error(f"豆瓣短评爬取失败: {e}")
+            result["comments"] = []
+        
+        # 4. 影评
+        try:
+            reviews = await self.crawl_reviews(douban_id, reviews_count)
+            result["reviews"] = reviews
+        except Exception as e:
+            Logger.error(f"豆瓣影评爬取失败: {e}")
+            result["reviews"] = []
+        
+        # 5. 图片（海报 + 剧照列表）
+        try:
+            images = await self.crawl_images(douban_id)
+            result["images"] = images
+        except Exception as e:
+            Logger.error(f"豆瓣图片爬取失败: {e}")
+            result["images"] = {"posters": [], "stills": [], "posters_total": 0, "stills_total": 0}
+        
+        Logger.success(f"豆瓣数据采集完成: {douban_id}")
+        return result

@@ -93,7 +93,7 @@ class ImagesCrawler:
         asset_dir.mkdir(parents=True, exist_ok=True)
         return asset_dir
             
-    async def crawl_images(self, work_id: str, title: str = "", imdb_id: str = "") -> Dict[str, Any]:
+    async def crawl_images(self, work_id: str, douban_id: str = "", title: str = "", imdb_id: str = "") -> Dict[str, Any]:
         Logger.info(f"开始爬取图片: {title or work_id}")
         
         raw_data = {}
@@ -101,7 +101,7 @@ class ImagesCrawler:
         try:
             self.progress_manager.update_source_status(work_id, "douban_poster", "in_progress")
             
-            douban_detail = await self.douban.crawl_detail(work_id)
+            douban_detail = await self.douban.crawl_detail(douban_id or work_id)
             main_poster_url = douban_detail.get("main_poster_url", "")
             
             if main_poster_url:
@@ -150,19 +150,20 @@ class ImagesCrawler:
             
             title = data.get("title", "")
             imdb_id = data.get("imdbId", "")
+            douban_id = data.get("doubanId", "")
             
-            raw_data = await self.crawl_images(work_id, title, imdb_id)
+            raw_data = await self.crawl_images(work_id, douban_id, title, imdb_id)
             
             asset_dir = self.get_asset_dir(work_id)
             
-            images = data.get("images", {
+            images = {
                 "poster": None,
                 "posters": [],
                 "stills": [],
                 "wallpapers": [],
                 "postersTotal": 0,
                 "stillsTotal": 0
-            })
+            }
             
             if raw_data.get("main_poster_url"):
                 poster_path = asset_dir / "poster-main.jpg"
@@ -170,6 +171,9 @@ class ImagesCrawler:
                 images["poster"] = "poster-main.jpg"
             
             tmdb_images = raw_data.get("tmdb_images", {})
+            
+            images["postersTotal"] = len(tmdb_images.get("posters", []))
+            images["stillsTotal"] = len(tmdb_images.get("backdrops", []))
             
             for idx, poster in enumerate(tmdb_images.get("posters", [])[:10]):
                 url = poster.get("url", "")
@@ -212,23 +216,26 @@ def main():
     
     args = parser.parse_args()
     
-    crawler = ImagesCrawler()
-    
-    try:
-        asyncio.run(crawler.init())
+    async def run():
+        crawler = ImagesCrawler()
         
-        if args.work_id:
-            asyncio.run(crawler.process_work(args.work_id))
-        elif args.all:
-            staging_dir = Path(__file__).parent.parent.parent / ".local" / "staging" / "video" / "movie"
-            for filepath in sorted(staging_dir.glob("*.json")):
-                work_id = filepath.stem
-                asyncio.run(crawler.process_work(work_id))
-                asyncio.sleep(random.uniform(2, 5))
-        else:
-            parser.print_help()
-    finally:
-        asyncio.run(crawler.close())
+        try:
+            await crawler.init()
+            
+            if args.work_id:
+                await crawler.process_work(args.work_id)
+            elif args.all:
+                staging_dir = Path(__file__).parent.parent.parent / ".local" / "staging" / "video" / "movie"
+                for filepath in sorted(staging_dir.glob("*.json")):
+                    work_id = filepath.stem
+                    await crawler.process_work(work_id)
+                    await asyncio.sleep(random.uniform(2, 5))
+            else:
+                parser.print_help()
+        finally:
+            await crawler.close()
+    
+    asyncio.run(run())
 
 
 if __name__ == "__main__":

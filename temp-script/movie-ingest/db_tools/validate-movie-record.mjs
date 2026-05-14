@@ -177,6 +177,8 @@ async function main() {
   }
 }
 
+const __filename = fileURLToPath(import.meta.url);
+
 const isDirectRun = process.argv[1] && path.resolve(process.argv[1]) === __filename;
 
 if (isDirectRun) {

@@ -59,6 +59,49 @@ class TreasureDB:
         cursor = self.conn.execute("SELECT id FROM works WHERE id = ?", (work_id,))
         return cursor.fetchone() is not None
     
+    def get_max_work_id(self, module: str = "video", submodule: str = "movie") -> int:
+        """
+        获取指定模块的最大作品 ID 序号
+        
+        Args:
+            module: 一级模块（video/book/music/game）
+            submodule: 二级模块（movie/tv/anime/documentary/short）
+            
+        Returns:
+            最大序号（NNNNNN 部分），如果没有则返回 0
+        """
+        module_map = {
+            "video": "01",
+            "book": "02",
+            "music": "03",
+            "game": "04"
+        }
+        
+        submodule_map = {
+            "movie": "01",
+            "tv": "02",
+            "anime": "03",
+            "documentary": "04",
+            "short": "05"
+        }
+        
+        mm = module_map.get(module, "01")
+        ss = submodule_map.get(submodule, "01")
+        prefix = f"{mm}{ss}"
+        
+        self.connect()
+        cursor = self.conn.execute(
+            "SELECT id FROM works WHERE id LIKE ? ORDER BY id DESC LIMIT 1",
+            (f"{prefix}%",)
+        )
+        row = cursor.fetchone()
+        
+        if row:
+            last_id = row["id"] if isinstance(row, dict) else row[0]
+            seq_str = last_id[-6:]
+            return int(seq_str)
+        return 0
+    
     def get_work(self, work_id: str) -> Optional[Dict]:
         self.connect()
         cursor = self.conn.execute("SELECT * FROM works WHERE id = ?", (work_id,))

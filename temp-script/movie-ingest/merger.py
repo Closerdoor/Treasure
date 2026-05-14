@@ -340,44 +340,85 @@ class DataMerger:
                     })
         
         Logger.success(f"数据合并完成: {work_id}")
+        
+        result["links"] = {
+            "douban": f"https://movie.douban.com/subject/{result.get('doubanId')}/" if result.get('doubanId') else None,
+            "imdb": f"https://www.imdb.com/title/{result.get('imdbId')}/" if result.get('imdbId') else None,
+            "tmdb": f"https://www.themoviedb.org/movie/{result.get('tmdbId')}" if result.get('tmdbId') else None
+        }
+        result["module"] = "video"
+        result["submodule"] = "movie"
+        result["createdAt"] = datetime.now().strftime("%Y-%m-%d")
+        result["updatedAt"] = datetime.now().strftime("%Y-%m-%d")
+        
         return result
     
+    def _build_avatar_url(self, profile_path: str) -> Optional[str]:
+        if profile_path:
+            if profile_path.startswith("http"):
+                return profile_path
+            return f"https://image.tmdb.org/t/p/original{profile_path}"
+        return None
+    
     def _merge_directors(self, douban_directors: List[Dict], credits: Dict) -> List[Dict]:
-        """合并导演：豆瓣中文名 + TMDB 补充信息"""
+        """合并导演：豆瓣中文名 + TMDB 补充信息（智能匹配）"""
         tmdb_directors = []
         for crew in credits.get("crew", []):
             if crew.get("job") == "Director":
                 tmdb_directors.append({
+                    "name": None,
                     "nameEn": crew.get("name", ""),
-                    "avatar": None,
+                    "role": "导演",
+                    "avatar": self._build_avatar_url(crew.get("profile_path")),
                     "avatarSource": "tmdb" if crew.get("profile_path") else None,
-                    "profileLink": None
+                    "profileLink": None,
+                    "_tmdb_data": crew
                 })
         
         if not douban_directors:
+            for d in tmdb_directors:
+                if "_tmdb_data" in d:
+                    del d["_tmdb_data"]
             return tmdb_directors
         
-        # 尝试匹配豆瓣和 TMDB 的导演（按顺序）
+        douban_director_list = [{"name": d if isinstance(d, str) else d.get("name", ""), "nameEn": None} for d in douban_directors]
+        
         result = []
-        for i, d in enumerate(douban_directors):
+        matched_douban = set()
+        
+        for tmdb_dir in tmdb_directors:
+            douban_match = match_person(tmdb_dir["_tmdb_data"], douban_director_list)
+            
             entry = {
-                "name": d.get("name", ""),
-                "nameEn": d.get("nameEn"),
+                "name": douban_match.get("name") if douban_match else None,
+                "nameEn": tmdb_dir["nameEn"],
                 "role": "导演",
-                "avatar": None,
-                "avatarSource": None,
+                "avatar": tmdb_dir["avatar"],
+                "avatarSource": tmdb_dir["avatarSource"],
                 "profileLink": None
             }
-            if i < len(tmdb_directors):
-                entry["nameEn"] = tmdb_directors[i].get("nameEn")
-                entry["avatar"] = tmdb_directors[i].get("avatar")
-                entry["avatarSource"] = tmdb_directors[i].get("avatarSource")
+            
+            if douban_match:
+                matched_douban.add(douban_match.get("name"))
+            
             result.append(entry)
+        
+        for douban_name in douban_directors:
+            name = douban_name if isinstance(douban_name, str) else douban_name.get("name", "")
+            if name not in matched_douban:
+                result.append({
+                    "name": name,
+                    "nameEn": None,
+                    "role": "导演",
+                    "avatar": None,
+                    "avatarSource": None,
+                    "profileLink": None
+                })
         
         return result
     
     def _merge_writers(self, douban_writers: List[Dict], credits: Dict) -> List[Dict]:
-        """合并编剧：豆瓣中文名 + TMDB 补充信息"""
+        """合并编剧：豆瓣中文名 + TMDB 补充信息（智能匹配）"""
         tmdb_writers = []
         for crew in credits.get("crew", []):
             if crew.get("department") == "Writing":
@@ -386,89 +427,148 @@ class DataMerger:
                     role = "编剧"
                 elif role == "Story":
                     role = "故事"
-                elif role == "Novel":
+                elif role == "Novel" or role == "Book":
                     role = "原著"
                 tmdb_writers.append({
+                    "name": None,
                     "nameEn": crew.get("name", ""),
-                    "role": role
+                    "role": role,
+                    "_tmdb_data": crew
                 })
         
         if not douban_writers:
+            for w in tmdb_writers:
+                if "_tmdb_data" in w:
+                    del w["_tmdb_data"]
             return tmdb_writers
         
-        # 尝试匹配
+        douban_writer_list = [{"name": w if isinstance(w, str) else w.get("name", ""), "nameEn": None} for w in douban_writers]
+        
         result = []
-        for i, w in enumerate(douban_writers):
+        matched_douban = set()
+        
+        for tmdb_writer in tmdb_writers:
+            douban_match = match_person(tmdb_writer["_tmdb_data"], douban_writer_list)
+            
             entry = {
-                "name": w.get("name", ""),
-                "nameEn": w.get("nameEn"),
-                "role": w.get("role", "编剧")
+                "name": douban_match.get("name") if douban_match else None,
+                "nameEn": tmdb_writer["nameEn"],
+                "role": tmdb_writer["role"]
             }
-            if i < len(tmdb_writers):
-                entry["nameEn"] = tmdb_writers[i].get("nameEn")
-                if tmdb_writers[i].get("role") != "编剧":
-                    entry["role"] = tmdb_writers[i].get("role")
+            
+            if douban_match:
+                matched_douban.add(douban_match.get("name"))
+            
             result.append(entry)
+        
+        for douban_name in douban_writers:
+            name = douban_name if isinstance(douban_name, str) else douban_name.get("name", "")
+            if name not in matched_douban:
+                result.append({
+                    "name": name,
+                    "nameEn": None,
+                    "role": "编剧"
+                })
         
         return result
     
     def _merge_cast(self, douban_cast: List[Dict], credits: Dict) -> List[Dict]:
-        """合并主演：豆瓣中文名 + TMDB 补充信息"""
+        """合并主演：豆瓣中文名 + TMDB 补充信息（智能匹配）"""
         tmdb_cast = []
         for c in credits.get("cast", [])[:10]:
             tmdb_cast.append({
+                "name": None,
                 "nameEn": c.get("name", ""),
                 "role": c.get("character", ""),
-                "avatar": None,
-                "avatarSource": "tmdb" if c.get("profile_path") else None
+                "avatar": self._build_avatar_url(c.get("profile_path")),
+                "avatarSource": "tmdb" if c.get("profile_path") else None,
+                "_tmdb_data": c
             })
         
         if not douban_cast:
+            for c in tmdb_cast:
+                if "_tmdb_data" in c:
+                    del c["_tmdb_data"]
             return tmdb_cast
         
-        # 尝试匹配
+        douban_cast_list = [{"name": c if isinstance(c, str) else c.get("name", ""), "nameEn": None} for c in douban_cast]
+        
         result = []
-        for i, c in enumerate(douban_cast):
+        matched_douban = set()
+        
+        for tmdb_actor in tmdb_cast:
+            douban_match = match_person(tmdb_actor["_tmdb_data"], douban_cast_list)
+            
             entry = {
-                "name": c.get("name", ""),
-                "nameEn": c.get("nameEn"),
-                "role": c.get("role"),
-                "avatar": None,
-                "avatarSource": None
+                "name": douban_match.get("name") if douban_match else None,
+                "nameEn": tmdb_actor["nameEn"],
+                "role": tmdb_actor["role"],
+                "avatar": tmdb_actor["avatar"],
+                "avatarSource": tmdb_actor["avatarSource"]
             }
-            if i < len(tmdb_cast):
-                entry["nameEn"] = tmdb_cast[i].get("nameEn")
-                entry["role"] = tmdb_cast[i].get("role") or entry["role"]
-                entry["avatar"] = tmdb_cast[i].get("avatar")
-                entry["avatarSource"] = tmdb_cast[i].get("avatarSource")
+            
+            if douban_match:
+                matched_douban.add(douban_match.get("name"))
+            
             result.append(entry)
+        
+        for douban_name in douban_cast[:10]:
+            name = douban_name if isinstance(douban_name, str) else douban_name.get("name", "")
+            if name not in matched_douban:
+                result.append({
+                    "name": name,
+                    "nameEn": None,
+                    "role": None,
+                    "avatar": None,
+                    "avatarSource": None
+                })
         
         return result
     
     def _merge_other_cast(self, douban_other_cast: List[Dict], credits: Dict) -> List[Dict]:
-        """合并其他演员：豆瓣中文名 + TMDB 补充信息"""
+        """合并其他演员：豆瓣中文名 + TMDB 补充信息（智能匹配）"""
         tmdb_other_cast = []
         for c in credits.get("cast", [])[10:30]:
             tmdb_other_cast.append({
+                "name": None,
                 "nameEn": c.get("name", ""),
-                "role": c.get("character", "")
+                "role": c.get("character", ""),
+                "_tmdb_data": c
             })
         
         if not douban_other_cast:
+            for c in tmdb_other_cast:
+                if "_tmdb_data" in c:
+                    del c["_tmdb_data"]
             return tmdb_other_cast
         
-        # 尝试匹配
+        douban_other_cast_list = [{"name": c if isinstance(c, str) else c.get("name", ""), "nameEn": None} for c in douban_other_cast]
+        
         result = []
-        for i, c in enumerate(douban_other_cast):
+        matched_douban = set()
+        
+        for tmdb_actor in tmdb_other_cast:
+            douban_match = match_person(tmdb_actor["_tmdb_data"], douban_other_cast_list)
+            
             entry = {
-                "name": c.get("name", ""),
-                "nameEn": c.get("nameEn"),
-                "role": c.get("role")
+                "name": douban_match.get("name") if douban_match else None,
+                "nameEn": tmdb_actor["nameEn"],
+                "role": tmdb_actor["role"]
             }
-            if i < len(tmdb_other_cast):
-                entry["nameEn"] = tmdb_other_cast[i].get("nameEn")
-                entry["role"] = tmdb_other_cast[i].get("role") or entry["role"]
+            
+            if douban_match:
+                matched_douban.add(douban_match.get("name"))
+            
             result.append(entry)
+        
+        for douban_name in douban_other_cast:
+            name = douban_name if isinstance(douban_name, str) else douban_name.get("name", "")
+            if name not in matched_douban:
+                result.append({
+                    "name": name,
+                    "nameEn": None,
+                    "role": None
+                })
         
         return result
     

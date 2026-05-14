@@ -35,39 +35,77 @@ class WikipediaCrawler:
         """
         Logger.info(f"正在搜索 Wikipedia: {title}")
         
-        # 先尝试用中文名搜索
-        encoded_title = quote(title)
-        url = f"{self.base_url}/wiki/{encoded_title}"
+        search_titles = [
+            f"{title} (电影)",
+            f"{title}（电影）",
+            f"{title} (film)",
+            f"{original_title} (film)" if original_title else None,
+            original_title if original_title else None,
+            title
+        ]
         
-        try:
-            await self.page.goto(url, timeout=30000, wait_until="domcontentloaded")
-            await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
+        search_titles = [t for t in search_titles if t]
+        
+        for search_title in search_titles:
+            encoded_title = quote(search_title)
+            url = f"{self.base_url}/wiki/{encoded_title}"
             
-            # 检查是否跳转到搜索页面
-            current_url = self.page.url
-            if "search" in current_url or "Special:" in current_url:
-                # 在搜索结果中查找
-                content = await self.page.content()
-                soup = BeautifulSoup(content, "html.parser")
+            try:
+                await self.page.goto(url, timeout=30000, wait_until="domcontentloaded")
+                await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
                 
-                # 查找第一个搜索结果
-                first_result = soup.select_one(".mw-search-result-heading a")
-                if first_result:
-                    href = first_result.get("href", "")
-                    if href:
-                        url = f"{self.base_url}{href}" if href.startswith("/") else href
-                        await self.page.goto(url, timeout=30000, wait_until="domcontentloaded")
-                        await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
-                else:
-                    Logger.warning(f"Wikipedia 未找到词条: {title}")
-                    return None
+                current_url = self.page.url
+                if "search" in current_url or "Special:" in current_url:
+                    content = await self.page.content()
+                    soup = BeautifulSoup(content, "html.parser")
+                    
+                    first_result = soup.select_one(".mw-search-result-heading a")
+                    if first_result:
+                        href = first_result.get("href", "")
+                        if href:
+                            result_url = f"{self.base_url}{href}" if href.startswith("/") else href
+                            await self.page.goto(result_url, timeout=30000, wait_until="domcontentloaded")
+                            await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
+                            
+                            if await self._is_movie_page():
+                                Logger.success(f"找到电影词条: {result_url}")
+                                return result_url
+                    continue
+                
+                if await self._is_movie_page():
+                    Logger.success(f"找到电影词条: {url}")
+                    return url
+                
+            except Exception as e:
+                Logger.warning(f"Wikipedia 搜索 '{search_title}' 失败: {e}")
+                continue
+        
+        Logger.warning(f"Wikipedia 未找到电影词条: {title}")
+        return None
+    
+    async def _is_movie_page(self) -> bool:
+        """检查当前页面是否是电影词条"""
+        try:
+            content = await self.page.content()
+            soup = BeautifulSoup(content, "html.parser")
             
-            Logger.success(f"找到 Wikipedia 词条: {url}")
-            return url
+            infobox = soup.select_one(".infobox")
+            if infobox:
+                rows = infobox.select("tr")
+                for row in rows:
+                    th = row.select_one("th")
+                    if th:
+                        th_text = th.text.strip().lower()
+                        if any(kw in th_text for kw in ["导演", "导演", "directed", "starring", "主演", "上映", "release"]):
+                            return True
             
-        except Exception as e:
-            Logger.error(f"Wikipedia 搜索失败: {e}")
-            return None
+            plot_heading = soup.find(string=re.compile("剧情|故事|情节|plot|story"))
+            if plot_heading:
+                return True
+            
+            return False
+        except:
+            return False
             
     async def get_detail(self, url: str) -> Dict[str, Any]:
         """

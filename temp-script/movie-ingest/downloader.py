@@ -325,3 +325,36 @@ class ImageDownloader:
         except Exception as e:
             Logger.warning(f"下载人物头像失败: {e}")
             return None
+    
+    async def download(self, url: str, output_path: str) -> bool:
+        """
+        下载单张图片到指定路径
+        
+        Args:
+            url: 图片 URL
+            output_path: 输出路径
+            
+        Returns:
+            是否成功
+        """
+        try:
+            connector = aiohttp.TCPConnector(ssl=False)
+            async with aiohttp.ClientSession(
+                timeout=aiohttp.ClientTimeout(total=self.timeout),
+                connector=connector,
+                headers=self.headers
+            ) as session:
+                async with session.get(url, proxy=self.proxy) as response:
+                    if response.status != 200:
+                        return False
+                    
+                    content = await response.read()
+                    
+                    # 保存文件
+                    Path(output_path).write_bytes(content)
+                    
+                    return True
+                    
+        except Exception as e:
+            Logger.warning(f"下载图片失败: {url[:50]}... - {e}")
+            return False

@@ -252,6 +252,46 @@ class BasicCrawler:
             Logger.success(f"爬取完成！Staging 文件已保存到: data/staging/{work_id}.json")
         else:
             Logger.error("爬取失败")
+    
+    async def run_by_movie_name(self, movie_name: str, year: int = None):
+        """
+        通过影片名称爬取电影
+        
+        流程：
+        1. 通过百度搜索获取豆瓣 ID
+        2. 验证豆瓣页面
+        3. 爬取数据
+        """
+        Logger.info("="*60)
+        Logger.info(f"通过影片名称爬取: {movie_name}")
+        Logger.info("="*60)
+        
+        # Step 1: 搜索豆瓣 ID
+        douban_info = await self.douban.search_douban_id(movie_name, year)
+        
+        douban_id = douban_info['doubanId']
+        title = douban_info['title']
+        actual_year = douban_info.get('year')
+        
+        Logger.info(f"豆瓣 ID: {douban_id}")
+        Logger.info(f"页面标题: {title}")
+        Logger.info(f"年份: {actual_year}")
+        
+        # Step 2: 爬取数据
+        self.progress_manager.init_movies([{
+            "douban_id": douban_id,
+            "title": title
+        }])
+        
+        success = await self.process_movie(douban_id, title)
+        
+        if success:
+            work_id = self.progress_manager.get_work_id(douban_id)
+            Logger.success(f"爬取完成！Staging 文件已保存到: data/staging/{work_id}.json")
+            return work_id
+        else:
+            Logger.error("爬取失败")
+            return None
 
 
 def main():
@@ -262,6 +302,8 @@ def main():
     parser.add_argument("--douban-id", type=str, help="指定豆瓣 ID 爬取")
     parser.add_argument("--title", type=str, default="", help="电影标题（配合 --douban-id 使用）")
     parser.add_argument("--work-id", type=str, help="作品 ID（配合 --douban-id 使用）")
+    parser.add_argument("--movie-name", type=str, help="通过影片名称搜索并爬取（推荐）")
+    parser.add_argument("--year", type=int, help="年份（配合 --movie-name 使用，用于验证）")
     
     args = parser.parse_args()
     
@@ -273,6 +315,8 @@ def main():
             
             if args.test:
                 await crawler.run_test()
+            elif args.movie_name:
+                await crawler.run_by_movie_name(args.movie_name, args.year)
             elif args.douban_id:
                 await crawler.run_by_douban_id(args.douban_id, args.title, args.work_id)
             else:

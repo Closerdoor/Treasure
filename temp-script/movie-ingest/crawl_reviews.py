@@ -90,7 +90,7 @@ class ReviewsCrawler:
             json.dump(data, ensure_ascii=False, indent=2, fp=f)
         Logger.success(f"已更新 staging 文件: {filepath}")
             
-    async def crawl_reviews(self, work_id: str, title: str = "", original_title: str = "", 
+    async def crawl_reviews(self, work_id: str, douban_id: str = "", title: str = "", original_title: str = "", 
                             year: int = 0, imdb_id: str = "") -> Dict[str, Any]:
         Logger.info(f"开始爬取影评: {title or work_id}")
         
@@ -99,7 +99,7 @@ class ReviewsCrawler:
         try:
             self.progress_manager.update_source_status(work_id, "douban_comments", "in_progress")
             
-            comments = await self.douban.crawl_comments(work_id, config.COMMENTS_PER_SOURCE)
+            comments = await self.douban.crawl_comments(douban_id or work_id, config.COMMENTS_PER_SOURCE)
             raw_data["douban_comments"] = comments
             
             self.progress_manager.update_source_status(work_id, "douban_comments", "done")
@@ -111,7 +111,7 @@ class ReviewsCrawler:
         try:
             self.progress_manager.update_source_status(work_id, "douban_reviews", "in_progress")
             
-            reviews = await self.douban.crawl_reviews(work_id, config.REVIEWS_PER_SOURCE)
+            reviews = await self.douban.crawl_reviews(douban_id or work_id, config.REVIEWS_PER_SOURCE)
             raw_data["douban_reviews"] = reviews
             
             self.progress_manager.update_source_status(work_id, "douban_reviews", "done")
@@ -170,8 +170,9 @@ class ReviewsCrawler:
             original_title = data.get("originalTitle", "")
             year = data.get("year", 0)
             imdb_id = data.get("imdbId", "")
+            douban_id = data.get("doubanId", "")
             
-            raw_data = await self.crawl_reviews(work_id, title, original_title, year, imdb_id)
+            raw_data = await self.crawl_reviews(work_id, douban_id, title, original_title, year, imdb_id)
             
             reviews = []
             
@@ -250,23 +251,26 @@ def main():
     
     args = parser.parse_args()
     
-    crawler = ReviewsCrawler()
-    
-    try:
-        asyncio.run(crawler.init())
+    async def run():
+        crawler = ReviewsCrawler()
         
-        if args.work_id:
-            asyncio.run(crawler.process_work(args.work_id))
-        elif args.all:
-            staging_dir = Path(__file__).parent.parent.parent / ".local" / "staging" / "video" / "movie"
-            for filepath in sorted(staging_dir.glob("*.json")):
-                work_id = filepath.stem
-                asyncio.run(crawler.process_work(work_id))
-                asyncio.sleep(random.uniform(2, 5))
-        else:
-            parser.print_help()
-    finally:
-        asyncio.run(crawler.close())
+        try:
+            await crawler.init()
+            
+            if args.work_id:
+                await crawler.process_work(args.work_id)
+            elif args.all:
+                staging_dir = Path(__file__).parent.parent.parent / ".local" / "staging" / "video" / "movie"
+                for filepath in sorted(staging_dir.glob("*.json")):
+                    work_id = filepath.stem
+                    await crawler.process_work(work_id)
+                    await asyncio.sleep(random.uniform(2, 5))
+            else:
+                parser.print_help()
+        finally:
+            await crawler.close()
+    
+    asyncio.run(run())
 
 
 if __name__ == "__main__":
