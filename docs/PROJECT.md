@@ -745,9 +745,7 @@ design-archive/
 |---|---|
 | `content/` | 旧 Markdown / 内容文件链路，当前 Astro 不读取；已跟踪约 195 个文件 |
 | `.opencode/` | 本地 AI 技能和缓存文件，已跟踪约 46 个文件；需确认是否仍作为项目资产 |
-| `data/.book_counter` | 旧书籍计数状态文件，需确认是否仍被当前脚本使用 |
-| `interstellar-reviews.json`、`shawshank-reviews.json` | 顶层临时评论抓取结果 |
-| `rt-requests.txt`、`rt-review-body.json`、`tmdb-requests.txt` | 顶层调试请求 / 响应文件 |
+| `data/.book_counter` | 书籍采集脚本仍在引用的计数状态文件，不属于 DB -> Astro 主链路；后续应随 `book-ingest` 一起整理 |
 | `IMAGE-DESIGN-PROMPTS.md` | 设计提示词草稿，若仍有价值应进入 `design-archive/` 或 `docs/archive/` |
 
 清理规则：

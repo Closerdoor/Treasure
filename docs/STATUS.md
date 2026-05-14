@@ -94,6 +94,7 @@ npm.cmd run build
 - 已清理第一批低风险入库噪声：删除 172 个 `.playwright-mcp/` 调试快照，以及 5 个 `.opencode/**/__pycache__/` Python 字节码缓存文件。
 - 已清理 DB -> Astro 链路中的历史兼容入口：删除 `site/scripts/sync-assets.mjs` 和 `site` 的 `sync` npm script，统一使用仓库根目录的 `node tools/db/export-generated.mjs`。
 - 已将 `generated/recent.json` 与 `generated/tags.json` 从 Git 跟踪中移除；它们仍由 `tools/db/export-generated.mjs` 生成，但不再作为需要人工维护的仓库文件。
+- 已清理顶层一次性抓取 / 调试文件：`interstellar-reviews.json`、`shawshank-reviews.json`、`rt-requests.txt`、`rt-review-body.json`、`tmdb-requests.txt`。
 
 ## 未完成
 
@@ -108,7 +109,7 @@ npm.cmd run build
 - 当前仓库仍存在一批不在主链路上的历史或调试文件，尚未删除：
   - `content/` 约 195 个已跟踪文件，是旧 Markdown / 内容文件链路，当前 Astro 不读取。
   - `.opencode/` 中除 `__pycache__` 之外的本地 AI 技能、数据和脚本仍被跟踪，需确认是否仍作为项目资产。
-  - 顶层 `interstellar-reviews.json`、`shawshank-reviews.json`、`rt-requests.txt`、`rt-review-body.json`、`tmdb-requests.txt` 更像一次性抓取 / 调试产物。
+  - `data/.book_counter` 不属于 DB -> Astro 主链路，但仍被 `temp-script/book-ingest` 引用，后续应随书籍采集流程一起整理。
 
 ## 下一步建议
 
