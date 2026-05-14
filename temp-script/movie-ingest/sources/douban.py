@@ -303,14 +303,33 @@ class DoubanCrawler:
             
             # 检查页面是否已经正常
             try:
-                url = await self.page.url
+                if not self.page or not self.browser:
+                    Logger.warning("浏览器已断开，正在重新启动...")
+                    await self.init_browser()
+                    await self.load_cookies()
+                    await self.page.goto(config.DOUBAN_BASE_URL, timeout=60000, wait_until="domcontentloaded")
+                    await asyncio.sleep(2)
+                    return
+                
+                url = self.page.url
                 if "movie.douban.com/subject" in url:
                     content = await self.page.content()
-                    if "验证码" not in content:
+                    if "验证码" not in content and "嗯…" not in content:
                         Logger.info("用户已完成验证")
                         return
-            except:
-                pass
+            except Exception as e:
+                Logger.warning(f"检查验证状态失败: {e}")
+                try:
+                    if not self.browser or not self.browser.is_connected():
+                        Logger.warning("浏览器已断开，正在重新启动...")
+                        await self.init_browser()
+                        await self.load_cookies()
+                        await self.page.goto(config.DOUBAN_BASE_URL, timeout=60000, wait_until="domcontentloaded")
+                        await asyncio.sleep(2)
+                        return
+                except Exception as e2:
+                    Logger.error(f"重新启动浏览器失败: {e2}")
+                    raise Exception("浏览器无法恢复，请重新运行程序")
         
         raise Exception("等待用户操作超时")
         
@@ -339,6 +358,11 @@ class DoubanCrawler:
             Exception: 如果重试后仍然失败，抛出异常，停止整个爬取流程
         """
         url = f"{config.DOUBAN_BASE_URL}/subject/{douban_id}/"
+        
+        # 先访问豆瓣首页，建立会话后再跳转详情页
+        Logger.info("先访问豆瓣首页建立会话...")
+        await self.page.goto(config.DOUBAN_BASE_URL, timeout=60000, wait_until="domcontentloaded")
+        await asyncio.sleep(random.uniform(3, 6))
         
         # 重试机制：5秒 -> 10秒 -> 30秒
         retry_intervals = [5, 10, 30]
