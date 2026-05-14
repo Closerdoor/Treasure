@@ -529,7 +529,7 @@ site/public/assets/
 /game
 ```
 
-`content/` 当前仍存在，但应视为历史内容目录、人工审阅材料或迁移残留，不是正式前台数据源。
+旧 `content/` Markdown / 样例内容链路已经移除。历史设计稿曾引用的少量示例海报已迁入 `design-archive/references/`，当前前台数据源只保留 `generated/` 与 `site/public/assets/`。
 
 构建命令：
 
@@ -743,14 +743,13 @@ design-archive/
 
 | 路径 / 文件 | 当前判断 |
 |---|---|
-| `content/` | 旧 Markdown / 内容文件链路，当前 Astro 不读取；已跟踪约 195 个文件 |
 | `.opencode/` | 本地 AI 技能和缓存文件，已跟踪约 46 个文件；需确认是否仍作为项目资产 |
 | `data/.book_counter` | 书籍采集脚本仍在引用的计数状态文件，不属于 DB -> Astro 主链路；后续应随 `book-ingest` 一起整理 |
 | `IMAGE-DESIGN-PROMPTS.md` | 设计提示词草稿，若仍有价值应进入 `design-archive/` 或 `docs/archive/` |
 
 清理规则：
 
-- 删除或取消跟踪前必须逐项确认，尤其是 `content/`、`.opencode/` 和顶层调试数据。
+- 删除或取消跟踪前必须逐项确认，尤其是 `.opencode/` 和采集流程仍引用的状态文件。
 - 若某个候选文件仍被脚本引用，应先判断它属于采集工坊、DB 工具、站点构建还是历史归档，再移动到正确位置。
 - 清理 generated 产物时，只能删除可由 `tools/db/export-generated.mjs` 稳定再生成的文件。
 

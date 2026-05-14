@@ -95,6 +95,7 @@ npm.cmd run build
 - 已清理 DB -> Astro 链路中的历史兼容入口：删除 `site/scripts/sync-assets.mjs` 和 `site` 的 `sync` npm script，统一使用仓库根目录的 `node tools/db/export-generated.mjs`。
 - 已将 `generated/recent.json` 与 `generated/tags.json` 从 Git 跟踪中移除；它们仍由 `tools/db/export-generated.mjs` 生成，但不再作为需要人工维护的仓库文件。
 - 已清理顶层一次性抓取 / 调试文件：`interstellar-reviews.json`、`shawshank-reviews.json`、`rt-requests.txt`、`rt-review-body.json`、`tmdb-requests.txt`。
+- 已移除旧 `content/` Markdown / 样例内容链路；设计稿引用的 6 张肖申克海报已复制到 `design-archive/references/`，并改写 `design-archive/drafts/` 中的图片引用。
 
 ## 未完成
 
@@ -107,7 +108,6 @@ npm.cmd run build
 - `tools/db/` 已收口为当前 DB 主链路工具；历史修库脚本和旧电影 intake / 样板脚本已移入 `tools/archive/`，后续完整跑工作流时再确认是否还有需要恢复的正式入口。
 - `temp-script/` 中仍有大量实验脚本、日志和调试产物，需要后续分类归档。
 - 当前仓库仍存在一批不在主链路上的历史或调试文件，尚未删除：
-  - `content/` 约 195 个已跟踪文件，是旧 Markdown / 内容文件链路，当前 Astro 不读取。
   - `.opencode/` 中除 `__pycache__` 之外的本地 AI 技能、数据和脚本仍被跟踪，需确认是否仍作为项目资产。
   - `data/.book_counter` 不属于 DB -> Astro 主链路，但仍被 `temp-script/book-ingest` 引用，后续应随书籍采集流程一起整理。
 
