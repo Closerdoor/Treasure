@@ -91,6 +91,7 @@ npm.cmd run build
 - 发布侧不再导出共享 `site/public/assets/people/`；人物头像改为按作品目录复制并写入作品 JSON。
 - 已完成一次 DB -> generated -> Astro 的完整工作流校验：电影 250 条详情与索引对齐，Astro 构建成功生成 254 个页面。
 - 已在 `docs/PROJECT.md` 增加主链路文件分级，区分当前主链路、历史兼容、清理候选和暂不处理范围。
+- 已清理第一批低风险入库噪声：删除 172 个 `.playwright-mcp/` 调试快照，以及 5 个 `.opencode/**/__pycache__/` Python 字节码缓存文件。
 
 ## 未完成
 
@@ -105,8 +106,7 @@ npm.cmd run build
 - `temp-script/` 中仍有大量实验脚本、日志和调试产物，需要后续分类归档。
 - 当前仓库仍存在一批不在主链路上的历史或调试文件，尚未删除：
   - `content/` 约 195 个已跟踪文件，是旧 Markdown / 内容文件链路，当前 Astro 不读取。
-  - `.playwright-mcp/` 约 172 个已跟踪调试日志和页面快照，虽已被 `.gitignore` 忽略，但历史上已经入库。
-  - `.opencode/` 约 46 个已跟踪文件，包含本地 AI 技能、数据和 Python 缓存，需确认是否仍作为项目资产。
+  - `.opencode/` 中除 `__pycache__` 之外的本地 AI 技能、数据和脚本仍被跟踪，需确认是否仍作为项目资产。
   - 顶层 `interstellar-reviews.json`、`shawshank-reviews.json`、`rt-requests.txt`、`rt-review-body.json`、`tmdb-requests.txt` 更像一次性抓取 / 调试产物。
   - `generated/recent.json` 与 `generated/tags.json` 目前仍被 Git 跟踪，但按当前规范应视为 generated 产物，后续建议确认后取消跟踪。
 

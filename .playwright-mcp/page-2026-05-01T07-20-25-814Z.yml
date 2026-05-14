@@ -1,8 +1,0 @@
-- generic [ref=e3]:
-  - generic [ref=e4]: 豆瓣 douban
-  - heading "登录跳转" [level=1] [ref=e5]
-  - paragraph [ref=e7]:
-    - text: 有异常请求从你的 IP 发出，请
-    - link "登录" [ref=e8] [cursor=pointer]:
-      - /url: https://accounts.douban.com/passport/login?redir=https%3A%2F%2Fmovie.douban.com%2Fsubject%2F35948919%2F
-    - text: 使用豆瓣
