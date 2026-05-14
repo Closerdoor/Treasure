@@ -7,7 +7,7 @@
 
 输出字段：
 - url, dangdang_id, title, authors, translators
-- publisher, isbn, pages, binding, publish_year
+- publisher, isbn, pages, publish_year
 - price, original_price
 - word_count, series_name
 - cover_url, rating
@@ -233,9 +233,6 @@ class DangdangCrawler(BaseCrawler):
                     pages_match = re.search(r"(\d+)\s*页", text)
                     if pages_match:
                         result["pages"] = int(pages_match.group(1))
-
-                if "装帧" in text:
-                    result["binding"] = text.replace("装帧", "").replace("：", "").replace(":", "").strip()
 
                 if "出版时间" in text or "出版日期" in text:
                     time_match = re.search(r"(\d{4})", text)

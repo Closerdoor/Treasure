@@ -441,8 +441,11 @@ class DataMerger:
         if _is_valid(data.get("word_count")):
             self._set_field(result, fs, "wordCount", data["word_count"], "baike", conflicts)
 
+        # 国家：从作者字段提取的国籍前缀，无前缀默认中国
         if _is_valid(data.get("country")):
             self._set_field(result, fs, "country", _normalize_country(data["country"]), "baike", conflicts)
+        elif _is_valid(data.get("authors")):
+            self._set_field(result, fs, "country", "中国", "baike", conflicts)
 
         if _is_valid(data.get("language")):
             self._set_field(result, fs, "language", data["language"], "baike", conflicts)
@@ -454,6 +457,10 @@ class DataMerger:
         # 出版社作为补充（不覆盖豆瓣）
         if not _is_valid(result["publisher"]) and _is_valid(data.get("publisher")):
             self._set_field(result, fs, "publisher", data["publisher"], "baike", conflicts)
+
+        # 作者（补充，列表格式）
+        if _is_valid(data.get("authors")) and not meta["authors"]:
+            meta["authors"] = data["authors"]
 
         info = data.get("info", {})
         if isinstance(info, dict):
@@ -475,9 +482,6 @@ class DataMerger:
 
             if info.get("定价") and not _is_valid(meta["price"]):
                 meta["price"] = str(info["定价"])
-
-            if info.get("装帧") and not _is_valid(meta["binding"]):
-                meta["binding"] = str(info["装帧"])
 
     def _apply_wikipedia(self, data: dict, result: dict, fs: dict, conflicts: list, meta: dict, book_id: str):
         """维基百科数据"""
@@ -688,10 +692,6 @@ class DataMerger:
         # 价格
         if _is_valid(detail.get("price")):
             meta["prices"]["dangdang"] = detail["price"]
-
-        # 装帧
-        if _is_valid(detail.get("binding")) and not _is_valid(meta["binding"]):
-            meta["binding"] = detail["binding"]
 
         # 出版年
         if not _is_valid(result["year"]) and _is_valid(detail.get("publish_year")):

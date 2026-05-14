@@ -10,7 +10,7 @@
 - rating, rating_count, rating_distribution
 - main_cover_url, cover_urls
 - authors, translators
-- publisher, year, pages, isbn, price, binding, series
+- publisher, year, pages, isbn, price, series
 - summary, tags
 - recommendations
 - comments (短评), reviews (长评), excerpts (原文摘录)

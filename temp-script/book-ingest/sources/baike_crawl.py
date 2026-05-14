@@ -8,7 +8,8 @@
 输出字段：
 - url, baike_id, baike_title, baike_desc
 - title, title_original
-- author, country, word_count, year
+- authors (列表), country
+- word_count, year
 - publisher, language
 - summary
 - info (完整信息框字典)
@@ -16,7 +17,7 @@
 - type (类型/体裁)
 - serial_status (连载状态)
 - serial_platform (首发平台)
-- pages, price, binding, isbn (从 info 提取)
+- pages, price, isbn (从 info 提取)
 """
 import asyncio
 import json
@@ -160,9 +161,17 @@ class BaikeCrawler(BaseCrawler):
                     if "作者" in card_info:
                         author_data = card_info["作者"]
                         if isinstance(author_data, dict):
-                            result["author"] = author_data.get("title", "")
+                            author_name = author_data.get("title", "")
                         else:
-                            result["author"] = str(author_data)
+                            author_name = str(author_data)
+                        
+                        country_match = re.match(r'[\[【\(（]([^\]】\)）]+)[\]】\)）]', author_name)
+                        if country_match:
+                            result["country"] = country_match.group(1)
+                            author_name = re.sub(r'[\[【\(（][^\]】\)）]+[\]】\)）]', '', author_name).strip()
+                        
+                        authors = [a.strip() for a in re.split(r'[、,，]', author_name) if a.strip()]
+                        result["authors"] = authors
 
                     word_count = self._parse_word_count(card_info)
                     if word_count:
@@ -202,9 +211,6 @@ class BaikeCrawler(BaseCrawler):
 
                     if "定价" in card_info:
                         result["price"] = str(card_info["定价"])
-
-                    if "装帧" in card_info:
-                        result["binding"] = str(card_info["装帧"])
 
                     if "ISBN" in card_info:
                         result["isbn"] = str(card_info["ISBN"])

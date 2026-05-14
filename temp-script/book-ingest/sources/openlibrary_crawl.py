@@ -11,7 +11,7 @@ OpenLibrary 爬虫 - 独立脚本
 - first_publish_year, publisher, language
 - openlibrary_id, openlibrary_url
 - description, subjects
-- rating, rating_count
+- rating
 - author_details (作者详情列表)
 """
 import aiohttp
@@ -112,10 +112,6 @@ class OpenLibraryCrawler:
             if rating_data is not None:
                 result["rating"] = rating_data
 
-            rating_count = await self._get_rating_count(work_key.replace("/works/", ""))
-            if rating_count is not None:
-                result["rating_count"] = rating_count
-
         author_keys = search_result.get("author_key", [])
         if author_keys:
             author_details = []
@@ -175,17 +171,5 @@ class OpenLibraryCrawler:
                 if avg:
                     return round(float(avg) * 2, 1)
                 return None
-        except Exception:
-            return None
-
-    async def _get_rating_count(self, work_id: str) -> Optional[int]:
-        url = f"{self.base_url}/works/{work_id}/ratings.json"
-        try:
-            async with self.session.get(url, proxy=self.proxy) as response:
-                if response.status != 200:
-                    return None
-                data = await response.json()
-                count = data.get("summary", {}).get("count")
-                return int(count) if count else None
         except Exception:
             return None
