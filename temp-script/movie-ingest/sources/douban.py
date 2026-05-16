@@ -558,6 +558,7 @@ class DoubanCrawler:
             # 相关推荐
             recommendations = await self._get_recommendations(soup)
             result["recommendations"] = recommendations
+            result["series"] = await self._get_series_subjects(soup, douban_id)
             
             Logger.success(f"详情页爬取完成: {result.get('title', '')}")
             
@@ -671,6 +672,51 @@ class DoubanCrawler:
         except Exception as e:
             Logger.warning(f"获取相关推荐失败: {e}")
         return recommendations
+
+    async def _get_series_subjects(self, soup: BeautifulSoup, douban_id: str) -> List[Dict[str, Any]]:
+        """提取详情页中明确属于系列/相关条目的豆瓣作品链接。"""
+        series = []
+        seen = set()
+        section_keywords = ("系列", "续集", "前作", "后作", "相关电影", "相关影片", "相关作品")
+
+        try:
+            for header in soup.find_all(["h2", "h3"]):
+                header_text = header.get_text(" ", strip=True)
+                if not any(keyword in header_text for keyword in section_keywords):
+                    continue
+
+                section = header.find_parent(["section", "div"]) or header.parent
+                for anchor in section.select("a[href*='/subject/']"):
+                    href = anchor.get("href", "")
+                    match = re.search(r"/subject/(\d+)", href)
+                    if not match:
+                        continue
+                    source_id = match.group(1)
+                    if source_id == str(douban_id) or source_id in seen:
+                        continue
+
+                    title = (
+                        anchor.get("title")
+                        or anchor.get_text(" ", strip=True)
+                        or (anchor.select_one("img").get("alt", "").strip() if anchor.select_one("img") else "")
+                    )
+                    if not title:
+                        continue
+
+                    seen.add(source_id)
+                    series.append({
+                        "title": title,
+                        "source": "douban",
+                        "sourceId": source_id,
+                        "url": urljoin(config.DOUBAN_BASE_URL, href),
+                        "section": header_text
+                    })
+
+            Logger.info(f"豆瓣系列/相关作品 {len(series)} 条")
+        except Exception as e:
+            Logger.warning(f"获取豆瓣系列/相关作品失败: {e}")
+
+        return series
     
     async def crawl_celebrities(self, douban_id: str) -> Dict[str, List[Dict]]:
         """
@@ -1074,6 +1120,8 @@ class DoubanCrawler:
         
         result = {
             "all_photos_url": f"{config.DOUBAN_BASE_URL}/subject/{douban_id}/all_photos",
+            "all_photos_total": 0,
+            "other_total": 0,
             "posters": [],
             "stills": [],
             "wallpapers": [],
@@ -1085,6 +1133,9 @@ class DoubanCrawler:
         try:
             await self.page.goto(result["all_photos_url"], timeout=60000, wait_until="domcontentloaded")
             await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
+            await self._handle_douban_block_if_needed()
+            content = await self.page.content()
+            result["all_photos_total"] = self._extract_photo_count(BeautifulSoup(content, "html.parser"))
         except Exception as e:
             Logger.warning(f"访问图片总页失败: {e}")
 
@@ -1099,12 +1150,23 @@ class DoubanCrawler:
             result[f"{key}_total"] = data["total"]
             result[f"{key}_url"] = data["url"]
 
+        category_total = result["stills_total"] + result["posters_total"] + result["wallpapers_total"]
+        if result["all_photos_total"]:
+            result["other_total"] = max(result["all_photos_total"] - category_total, 0)
+
         Logger.success(
             f"获取剧照 {len(result['stills'])}/{result['stills_total']} 张，"
             f"海报 {len(result['posters'])}/{result['posters_total']} 张，"
             f"壁纸 {len(result['wallpapers'])}/{result['wallpapers_total']} 张"
         )
         return result
+
+    def _extract_photo_count(self, soup: BeautifulSoup) -> int:
+        count_elem = soup.select_one(".count")
+        if not count_elem:
+            return 0
+        count_match = re.search(r"共\s*(\d+)\s*张", count_elem.text.strip())
+        return int(count_match.group(1)) if count_match else 0
 
     async def _crawl_photo_category(self, douban_id: str, type_code: str, image_type: str) -> Dict[str, Any]:
         """按豆瓣图片分类分页抓取；不设置人工数量上限，直到页面没有新图或达到总数。"""
@@ -1122,17 +1184,14 @@ class DoubanCrawler:
             )
             await self.page.goto(page_url, timeout=60000, wait_until="domcontentloaded")
             await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
+            await self._handle_douban_block_if_needed()
             page_count += 1
 
             content = await self.page.content()
             soup = BeautifulSoup(content, "html.parser")
 
             if not total:
-                count_elem = soup.select_one(".count")
-                if count_elem:
-                    count_match = re.search(r"共\s*(\d+)\s*张", count_elem.text.strip())
-                    if count_match:
-                        total = int(count_match.group(1))
+                total = self._extract_photo_count(soup)
 
             page_items = []
             for item in soup.select(".cover a"):
@@ -1169,6 +1228,16 @@ class DoubanCrawler:
 
         return {"items": items, "total": total or len(items), "url": base_url}
 
+    async def _handle_douban_block_if_needed(self):
+        current_url = self.page.url
+        content = await self.page.content()
+        if "douban.com/misc/sorry" not in current_url and "证明你是人类" not in content and "像机器人程序" not in content:
+            return
+
+        Logger.warning("豆瓣触发机器人验证，请在浏览器中点击证明后继续")
+        await self._wait_for_user_action()
+        await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
+
     def _normalize_douban_image_url(self, thumb_url: str) -> str:
         """把豆瓣缩略图地址转换为原图候选地址。"""
         return (
@@ -1193,7 +1262,13 @@ class DoubanCrawler:
         for anchor in soup.select("a[href*='/trailer/']"):
             href = anchor.get("href", "")
             trailer_url = urljoin(config.DOUBAN_BASE_URL, href)
-            if not trailer_url or trailer_url in seen:
+            trailer_id_match = re.search(r"/trailer/(\d+)", trailer_url)
+            if not trailer_url or not trailer_id_match:
+                continue
+            trailer_id = trailer_id_match.group(1)
+            if trailer_id in seen:
+                continue
+            if "#" in trailer_url and "#content" not in trailer_url:
                 continue
 
             parent = anchor.find_parent(["li", "div", "article"]) or anchor
@@ -1206,9 +1281,10 @@ class DoubanCrawler:
                 or parent_text
             ).strip()
             duration_match = re.search(r"\b\d{1,2}:\d{2}(?::\d{2})?\b", parent_text)
-            trailer_id_match = re.search(r"/trailer/(\d+)", trailer_url)
+            if duration_match and title == duration_match.group(0):
+                title = parent_text.replace(duration_match.group(0), "").strip() or title
 
-            seen.add(trailer_url)
+            seen.add(trailer_id)
             trailers.append({
                 "title": title,
                 "url": trailer_url,
@@ -1216,7 +1292,7 @@ class DoubanCrawler:
                 "duration": duration_match.group(0) if duration_match else "",
                 "source": "douban",
                 "source_url": url,
-                "trailerId": trailer_id_match.group(1) if trailer_id_match else ""
+                "trailerId": trailer_id
             })
 
         Logger.success(f"获取视频 {len(trailers)} 条")

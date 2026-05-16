@@ -23,6 +23,7 @@ Treasure 是一个个人收藏馆项目，用来收录影视、书籍、音乐�
 | 数据库统计脚本 | `tools/db/check-counts.mjs` |
 | 数据库表结构查看 | `tools/db/view-schema.mjs` |
 | generated 与资源导出入口 | `tools/db/export-generated.mjs` |
+| 本地数据库后台管理 | `tools/admin/` |
 | DB 工具说明 | `tools/db/README.md` |
 | 历史工具归档 | `tools/archive/README.md` |
 | 前台数据读取层 | `site/src/lib/archive.ts` |
@@ -163,6 +164,40 @@ MMSSNNNNNN
 node tools/db/check-counts.mjs
 node tools/db/view-schema.mjs Work
 node tools/db/view-schema.mjs Person
+```
+
+## 2.1 本地后台管理：旁路人工校正工具
+
+核心目录：
+
+```text
+tools/admin/
+```
+
+职责：
+- 提供本地 Web 后台，默认运行在 `http://127.0.0.1:4317`。
+- 直接读写 `.local/treasure.db`，用于人工增删改查作品、人物关系、分类关系和结构化 JSON 字段。
+- 界面按作品维护台组织，保留海报、标题、评分、演职员和分类等上下文，不把人工校正体验降级成纯字段表格。
+- 启动时在 `.local/backup/` 下生成一次数据库备份。
+
+边界：
+- 不参与 Astro 构建。
+- 不读取或写入 `generated/`。
+- 不写入 `site/public/assets/`。
+- 不替代采集脚本、导出脚本或发布流程。
+
+使用方式：
+
+```bash
+npm.cmd run admin
+```
+
+人工校正完成后，如果需要刷新前台，仍然走既有主链路：
+
+```bash
+node tools/db/export-generated.mjs
+cd site
+npm.cmd run build
 ```
 
 ## 3. 中转站：导出 generated 与同步静态资源

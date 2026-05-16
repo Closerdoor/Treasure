@@ -38,6 +38,7 @@
 | `database.py` | staging 导入 `.local/treasure.db` | 正式 DB 入口 |
 | `progress.py` | 采集进度记录 | 正式组件 |
 | `name_matcher.py` | 豆瓣中文人物与 TMDB 人物匹配 | 正式组件 |
+| `field_map_report.py` | 根据 `data/raw/{work_id}/` 生成字段核对 HTML | 核对工具 |
 | `config.py` | 本目录路径、API、代理、浏览器、数量限制配置 | 正式配置 |
 | `db_tools/import-movie.mjs` | 旧 JS 入库入口，会触碰站点资源目录 | legacy，默认禁止直接运行 |
 | `db_tools/paths.mjs` | 旧 JS 入口路径常量 | legacy 配套 |
@@ -197,13 +198,57 @@ python main.py --movie-name "社交网络" --year 2010
 python main.py --douban-id 3205624 --title "社交网络" --work-id 0101000252
 ```
 
-### 2.4 录入数据库
+### 2.4 生成字段核对页
+
+采集出 `data/raw/{work_id}/` 后，可以生成类似 `book-ingest/docs/field-map.html` 的核对页：
+
+```bash
+python field_map_report.py --work-id 0101000252
+```
+
+默认输出到 `docs/field-map.html`。页面按数据库字段展示字段说明、对应爬虫字段、各数据源实际采集内容；图片字段只展示数量，不展开图片 URL 列表。
+
+### 2.5 新增与更新规范
+
+电影作品采集入口必须区分“新增作品”和“已有作品更新”，不能把两种语义混在一次默认流程中。
+
+**新增作品**：
+
+```text
+确认 douban_id / imdb_id / tmdb_id
+  -> 只读查询 .local/treasure.db 是否已有同一作品
+  -> 已存在：默认停止，不重复采集、不重复入库
+  -> 不存在：执行单源或多源采集，生成 raw/staging
+  -> 经确认后新增入库
+```
+
+**已有作品更新**：
+
+```text
+指定已有 work_id
+  -> 指定 source
+  -> 指定允许更新的字段白名单
+  -> 重新采集对应 source 的 raw
+  -> 只更新白名单字段，未授权字段保持不变
+```
+
+建议后续入口语义：
+
+```bash
+python main.py ingest --douban-id 1291546
+python main.py refresh-source --work-id 0101000001 --source douban
+python main.py update-fields --work-id 0101000001 --source douban --fields reviews,images,videos
+```
+
+其中 `refresh-source` 只刷新 raw，不直接写库；`update-fields` 必须带字段白名单。任何覆盖已有主数据、批量改写字段或改变字段契约的行为，都必须先单独确认。
+
+### 2.6 录入数据库
 
 当前正式 DB 入库层是 `database.py`。它提供 `TreasureDB.import_movie(movie_data)`，用于把 staging JSON 写入 `.local/treasure.db`。
 
 `db_tools/import-movie.mjs` 是 legacy JS 入口，默认禁止直接运行；后续如需要命令行导入，应在 Python 主链路上补一个只调用 `database.py` 的薄 CLI，而不是恢复 JS 入口。
 
-### 2.5 完整流程示例
+### 2.7 完整流程示例
 
 ```bash
 # 1. 爬取数据
@@ -248,6 +293,48 @@ python main.py --movie-name "社交网络" --year 2010
 | 好评短评 | `https://movie.douban.com/subject/{douban_id}/comments?percent_type=h&limit=20&status=P&sort=new_score` | 好评筛选下按热门/有用排序的前 20 条短评 |
 | 影评 | `https://movie.douban.com/subject/{douban_id}/reviews?start={start}&sort=hot` | 先按热度排序获取前 20 条影评条目，再进入影评详情页读取完整正文 |
 
+**TMDB API 采集契约**：
+
+| API | 采集内容 |
+|-----|----------|
+| `/find/{imdb_id}?external_source=imdb_id` | 通过 IMDb ID 确认 TMDB 电影 ID |
+| `/movie/{tmdb_id}` | 标题、原名、年份、上映日期、简介、片长、类型、国家、语言、制片公司、评分、热度、状态、标语、官网、预算、票房、IMDb ID、主海报、背景图 |
+| `/movie/{tmdb_id}/credits` | 全量演员与幕后人员、角色、职位、部门、TMDB 人物 ID、头像 URL |
+| `/movie/{tmdb_id}/images?include_image_language=zh,en,null` | 海报、背景图、Logo、尺寸、语言、评分信息 |
+| `/movie/{tmdb_id}/videos` | YouTube 视频；按 `zh-CN`、`en-US`、默认语言回退并去重 |
+| `/movie/{tmdb_id}/reviews` | 用户评论；默认取 `REVIEWS_PER_SOURCE` 条 |
+| `/movie/{tmdb_id}/external_ids` | IMDb、Wikidata、社交平台外部 ID |
+| `/movie/{tmdb_id}/release_dates` | 各地区上映日期与分级信息 |
+| `/movie/{tmdb_id}/keywords` | 关键词 |
+| `/movie/{tmdb_id}/recommendations` | 推荐作品；默认全量分页获取 |
+| `/movie/{tmdb_id}/similar` | 相似作品；默认全量分页获取 |
+
+**OMDb API 采集契约**：
+
+| API | 采集内容 |
+|-----|----------|
+| `/?i={imdb_id}&plot=full&tomatoes=true` | 英文标题、年份、分级、上映日期、片长、类型、导演、编剧、演员、完整英文剧情、语言、国家、奖项、海报、IMDb/烂番茄/Metacritic 评分、IMDb 票数、票房、DVD 日期、制作方、官网、番茄扩展字段 |
+
+OMDb 返回中的 `N/A` 会清洗为空值，原始 API 返回保留在 `raw` 字段中，方便追溯。
+
+**Wikipedia 页面采集契约**：
+
+| 页面 | 采集内容 |
+|------|----------|
+| `/wiki/{title}` | 词条标题、Wikipedia ID、摘要、剧情段落、信息框原始字段、标准化信息框字段、获奖段落、引用块、分类 |
+
+信息框会保留原始 `infobox` 字段，同时标准化导演、制片人、编剧、主演、配乐、摄影、剪辑、制片商、片长、产地、语言、上映日期、发行商、预算、票房、续作等字段。
+
+**Rotten Tomatoes 页面采集契约**：
+
+| 页面 | 采集内容 |
+|------|----------|
+| `/search?search={title}` | 搜索候选、候选 URL、年份、演员、候选番茄评分、认证状态、最终选中候选 |
+| `/m/{slug}` | 标题、Tomatometer、媒体评论总数、Audience Score、观众评分文本、海报主图 URL、简介、媒体共识、分级、年份、片长、类型、JSON-LD 影片元数据 |
+| `/m/{slug}/reviews?type=top` | 按 Rotten Tomatoes Top reviews 页面顺序采集前 `REVIEWS_PER_SOURCE` 条评论；当前默认 20 条 |
+
+Rotten Tomatoes 评论字段包含作者、作者页、媒体、日期、原始评分、正负倾向、Top critic 标记、正文和原文链接。评论数量限制只适用于评论/影评类字段；评分、简介、主图和元数据不做数量裁剪。
+
 ### 3.2 数据处理模块
 
 | 模块 | 职责 | 说明 |
@@ -272,7 +359,7 @@ python main.py --movie-name "社交网络" --year 2010
 | OMDb | REST API | 评分、分级、获奖 | 无（需 API Key） |
 | 百度百科 | Playwright | 基本信息补充 | 验证码 |
 | Wikipedia | Playwright | 获奖、名言名句 | 无 |
-| 烂番茄 | Playwright | 评分、评论 | 有 |
+| 烂番茄 | Playwright | 评分、媒体共识、简介、主图、评论 | 有 |
 | Metacritic | Playwright | 评分、评论 | 有 |
 
 ### 3.5 使用方法
@@ -329,7 +416,11 @@ python main.py --douban-id 3205624 --title "社交网络" --work-id 0101000252
 2. 回到终端按回车继续
 3. Cookie 会自动保存，下次运行无需重新登录
 
-### 2.6 配置说明
+#### 2.5.6 豆瓣反爬暂停规则
+
+如果豆瓣跳转到 `douban.com/misc/sorry` 或提示“证明你是人类”，当前采集必须暂停。不要继续自动刷新或密集重试，也不要把空图片、空评论等结果覆盖已有 raw。等待一段时间后重新执行；如果浏览器仍显示验证页，则先由用户手动处理验证。
+
+### 2.8 配置说明
 
 ```python
 # config.py 主要配置项
@@ -358,7 +449,7 @@ USE_CHROME = True         # 是否使用系统 Chrome
 CHROME_PATH = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
 ```
 
-### 2.7 当前状态
+### 2.9 当前状态
 
 **数据统计**（截至 2026-05-12）：
 
@@ -383,7 +474,7 @@ CHROME_PATH = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
 - 约 3,942 人无头像（TMDB 上无 profile_path）
 - 部分烂番茄、Metacritic 数据因反爬机制未获取
 
-### 2.9 开发规范
+### 2.10 开发规范
 
 详见 [RULES.md](./RULES.md)，包含：
 - 数据源优先级规则
@@ -392,10 +483,12 @@ CHROME_PATH = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
 - 反爬虫应对措施
 - 检查清单
 
-### 2.10 数据字段设计
+### 2.11 数据字段设计
 
 详见 [DATA.md](./DATA.md)，包含：
 - 数据库表结构
 - 字段映射表
 - 各数据源字段说明
 - 数据来源对照表
+
+采集后的实际字段核对页由 `field_map_report.py` 生成，默认输出到 `docs/field-map.html`，用于对比数据库字段与各数据源 raw 内容。涉及图片资源时只展示数量。

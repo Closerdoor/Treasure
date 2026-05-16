@@ -258,22 +258,39 @@ class TreasureDB:
         name = data.get("name", "")
         name_en = data.get("nameEn")
         avatar = data.get("avatar", "")
+        avatar_source = data.get("avatarSource")
         tmdb_id = data.get("tmdbId")
         douban_id = data.get("doubanId")
         
         existing = self.get_person_by_name(name, name_en)
         if existing:
-            existing_avatar = existing.get("avatar_path")
-            if avatar and not existing_avatar:
-                ext = ".jpg"
-                if "tmdb" in avatar:
-                    ext = ".jpg"
-                elif ".webp" in avatar:
-                    ext = ".webp"
-                elif ".png" in avatar:
-                    ext = ".png"
-                avatar_path = f"people/{existing['person_id']}-avatar{ext}"
-                self.update_person_avatar(existing['person_id'], avatar_path)
+            avatar_path, tmdb_avatar_path, douban_avatar_path = self._build_avatar_paths(
+                existing["person_id"],
+                avatar,
+                avatar_source
+            )
+            source_ids = self._build_person_source_ids(tmdb_id, douban_id)
+            profile_link = data.get("baike") or data.get("profileLink")
+            self.conn.execute(
+                """
+                UPDATE person SET
+                    avatar_path = COALESCE(avatar_path, ?),
+                    profile_link = COALESCE(profile_link, ?),
+                    source_ids = COALESCE(source_ids, ?),
+                    tmdb_avatar_path = COALESCE(tmdb_avatar_path, ?),
+                    douban_avatar_path = COALESCE(douban_avatar_path, ?)
+                WHERE person_id = ?
+                """,
+                (
+                    avatar_path,
+                    profile_link,
+                    source_ids,
+                    tmdb_avatar_path,
+                    douban_avatar_path,
+                    existing["person_id"]
+                )
+            )
+            self.conn.commit()
             return existing["id"], existing["person_id"]
         
         if not person_id:
@@ -284,32 +301,67 @@ class TreasureDB:
             else:
                 person_id = self.get_next_person_id()
         
-        avatar_path = None
-        if avatar:
-            ext = ".jpg"
-            if "tmdb" in avatar:
-                ext = ".jpg"
-            elif ".webp" in avatar:
-                ext = ".webp"
-            elif ".png" in avatar:
-                ext = ".png"
-            avatar_path = f"people/{person_id}-avatar{ext}"
+        avatar_path, tmdb_avatar_path, douban_avatar_path = self._build_avatar_paths(
+            person_id,
+            avatar,
+            avatar_source
+        )
+        source_ids = self._build_person_source_ids(tmdb_id, douban_id)
         
         profile_link = data.get("baike") or data.get("profileLink")
         
         sql = """
-        INSERT INTO person (person_id, name, name_en, avatar_path, profile_link, intro)
-        VALUES (?, ?, ?, ?, ?, ?)
+        INSERT INTO person (
+            person_id, name, name_en, avatar_path, profile_link, intro,
+            source_ids, tmdb_avatar_path, douban_avatar_path
+        )
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         """
         
         cursor = self.conn.execute(sql, (
-            person_id, name, name_en, avatar_path, profile_link, None
+            person_id, name, name_en, avatar_path, profile_link, None,
+            source_ids, tmdb_avatar_path, douban_avatar_path
         ))
         
         self.conn.commit()
         
         Logger.success(f"已保存人物: {name} ({person_id})")
         return cursor.lastrowid, person_id
+
+    def _build_person_source_ids(self, tmdb_id: Any = None, douban_id: Any = None) -> Optional[str]:
+        source_ids = {}
+        if tmdb_id:
+            source_ids["tmdb"] = str(tmdb_id)
+        if douban_id:
+            source_ids["douban"] = str(douban_id)
+        return self._to_json(source_ids) if source_ids else None
+
+    def _build_avatar_paths(
+        self,
+        person_id: str,
+        avatar: str = "",
+        avatar_source: str = None
+    ) -> Tuple[Optional[str], Optional[str], Optional[str]]:
+        if not avatar:
+            return None, None, None
+
+        ext = ".jpg"
+        if ".webp" in avatar:
+            ext = ".webp"
+        elif ".png" in avatar:
+            ext = ".png"
+
+        avatar_path = f"people/{person_id}-avatar{ext}"
+        inferred_source = avatar_source
+        if not inferred_source:
+            if "doubanio.com" in avatar:
+                inferred_source = "douban"
+            elif "tmdb" in avatar or "themoviedb" in avatar:
+                inferred_source = "tmdb"
+
+        tmdb_avatar_path = avatar_path if inferred_source == "tmdb" else None
+        douban_avatar_path = avatar_path if inferred_source == "douban" else None
+        return avatar_path, tmdb_avatar_path, douban_avatar_path
     
     def save_persons_from_movie(self, movie_data: Dict[str, Any]) -> Dict[str, int]:
         """

@@ -72,12 +72,76 @@ main.py / crawl.py
 - 影评来自 `/reviews?start={start}&sort=hot`，先按热度排序确定前 20 条影评，再进入影评详情页读取完整正文。
 - 图片和头像下载只使用本轮采集到的 URL，不重新访问豆瓣页面补抓。
 
+## 2026-05-15 豆瓣反爬记录
+
+调试《社交网络》时确认：豆瓣图片页在连续访问后可能跳转到 `https://www.douban.com/misc/sorry?...`，提示访问方式像机器人程序。进入该状态后，继续自动访问会持续返回禁止访问页，不能把空结果当作正常采集结果写入 raw。
+
+处理规范已写入 `RULES.md`：遇到该页面立即暂停，不密集重试，不覆盖已有有效 raw；等待一段时间后重新执行，或由用户在浏览器里完成验证后继续。
+
+## 2026-05-15 OMDb 单源增强记录
+
+OMDb 单源职责定位为英文侧补充源，主要补充 IMDb / Rotten Tomatoes / Metacritic 评分、分级、奖项、票房、完整英文剧情和英文演职员文本。
+
+本轮增强：
+
+- API 请求增加重试与超时处理。
+- 保留 `raw` 原始返回，便于字段追溯。
+- 清洗 `N/A`，避免无效字符串进入合并层。
+- 新增解析 `released`、`runtime_minutes`、`metascore`、`imdb_rating`、`imdb_votes`、`type`、`dvd`、`box_office`、`production`、`website`、`tomatoes` 等字段。
+- 评分解析对 IMDb、Rotten Tomatoes、Metacritic 分别结构化保存。
+
+## 2026-05-15 Wikipedia 单源增强记录
+
+Wikipedia 单源职责定位为剧情、信息框、获奖/发行资料的补充源。
+
+本轮增强：
+
+- 重写搜索和电影页判断逻辑，支持中文电影、繁体电影、英文 `(film)` 等候选词条。
+- 采集 `summary`、`plot`、`infobox`、`awards`、`quotes`、`categories`。
+- 信息框原始字段完整保留到 `infobox`。
+- 标准化导演、制片人、编剧、主演、配乐、摄影、剪辑、制片商、片长、产地、语言、上映日期、发行商、预算、票房、续作等字段，便于后续合并。
+
+## 2026-05-16 Rotten Tomatoes 单源增强记录
+
+Rotten Tomatoes 单源职责定位为英文评分、影评摘要、媒体共识和媒体评论补充源。本轮已重写 `sources/rotten_tomatoes.py`，并用《The Social Network》(2010) 实测通过。
+
+当前采集契约：
+- 搜索页 `search?search={title}`：保留搜索候选、候选年份、候选演员、候选番茄评分、认证状态和选中候选。
+- 影片页 `/m/{slug}`：采集影片标题、Tomatometer、媒体评论总数、Audience Score、观众评分文本、海报主图 URL、简介、媒体共识、分级/年份/片长/类型，以及 JSON-LD 中的影片元数据。
+- 评论页 `/m/{slug}/reviews?type=top`：按 Rotten Tomatoes Top reviews 页面顺序采集前 `REVIEWS_PER_SOURCE` 条评论，当前配置为 20 条；这是该源唯一保留的评论数量限制。
+- 评论字段包含作者、作者页、媒体、日期、原始评分、正负倾向、Top critic 标记、评论正文和原文链接。
+
+《The Social Network》实测结果：
+- 命中 URL：`https://www.rottentomatoes.com/m/the-social-network`
+- Tomatometer：96%，媒体评论总数 335。
+- Audience Score：87%，观众评分文本 `100,000+ Ratings`。
+- 采集到海报主图、简介、媒体共识。
+- Top reviews 评论采集 20 条。
+
 ## 已确认符合职责的部分
 
 - 主流程围绕电影数据采集、资源下载、staging、数据库录入展开。
 - `database.py` 与当前数据库的电影主表、人物表、分类表和关联表结构基本同构。
 - 图片和头像补全脚本仍服务于本地资源入库与资源覆盖率提升。
 - `data/raw`、`data/staging`、`data/assets` 作为本地过程产物是合理的。
+
+## 2026-05-15 新增与更新入口规范
+
+后续入口设计必须区分新增作品和已有作品更新：
+
+- 新增作品：先按外部 ID 只读查询 `.local/treasure.db`；已存在则默认停止，不重复采集和入库。
+- 已有作品更新：必须指定 `work_id`、`source` 和字段白名单，只更新授权字段。
+- 刷新单源 raw 与写入数据库应分成两个动作；`refresh-source` 不直接写库。
+- 默认流程不得自动覆盖已有主数据。
+
+## 2026-05-15 TMDB 单源采集核对
+
+TMDB 单源当前覆盖详情、演职员、图片、视频、评论、外部 ID、上映/分级、关键词、推荐作品和相似作品。
+
+已确认的默认数量限制：
+
+- 评论默认取 `REVIEWS_PER_SOURCE` 条。
+- 推荐作品和相似作品默认全量分页获取，不设置人工数量上限。
 
 ## 过程产物归属
 

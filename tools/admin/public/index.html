@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Treasure Admin</title>
+    <link rel="stylesheet" href="/admin.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="shell site-header__inner">
+        <div class="site-header__brand">
+          <strong class="site-header__mark">Treasure</strong>
+          <span class="site-header__name">本地数据管理</span>
+        </div>
+        <nav class="site-header__nav">
+          <button class="site-header__link is-active" type="button" data-module="video">影视</button>
+          <button class="site-header__link" type="button" data-module="book">书籍</button>
+          <button class="site-header__link" type="button" data-module="">全部</button>
+        </nav>
+        <div class="site-header__tools">
+          <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">
+            <span class="theme-toggle__rail"><span class="theme-toggle__thumb"></span></span>
+            <span>主题</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="shell admin-shell">
+      <section class="admin-hero">
+        <div>
+          <p class="eyebrow">LOCAL DATABASE CONSOLE</p>
+          <h1>作品维护台</h1>
+          <p class="admin-hero__lead">直接维护 .local/treasure.db。这里不会改 generated，也不会影响 Astro 发布链路。</p>
+        </div>
+        <div class="admin-stats" data-summary></div>
+      </section>
+
+      <section class="admin-board">
+        <aside class="admin-list-panel">
+          <div class="toolbar">
+            <label class="search-box">
+              <span>搜索</span>
+              <input type="search" data-search placeholder="标题、原名、简介、地区" />
+            </label>
+            <select data-status>
+              <option value="">全部状态</option>
+              <option value="published">published</option>
+              <option value="draft">draft</option>
+              <option value="archived">archived</option>
+            </select>
+            <button class="button button--primary" type="button" data-new-work>新增作品</button>
+          </div>
+          <div class="result-line" data-result-line></div>
+          <div class="work-list" data-work-list></div>
+          <div class="pagination">
+            <button class="button button--ghost" type="button" data-prev>上一页</button>
+            <span data-page-info></span>
+            <button class="button button--ghost" type="button" data-next>下一页</button>
+          </div>
+        </aside>
+
+        <section class="editor-panel" data-editor>
+          <div class="empty-editor">
+            <p class="eyebrow">SELECT A WORK</p>
+            <h2>选择左侧作品开始校正</h2>
+            <p>这里会显示海报预览、基础信息、演职员关系、分类标签和 JSON 内容字段。</p>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <div class="toast" data-toast hidden></div>
+    <script src="/admin.js" type="module"></script>
+  </body>
+</html>

@@ -134,11 +134,13 @@ class BaikeCrawler:
             
             # 提取 PAGE_DATA JSON
             page_data = self._extract_page_data(content)
-            
+            basic_info = {}
+
             # 提取演职员数据
             credits_data = {}
-            
+
             if page_data:
+                basic_info.update(self._extract_basic_info_from_page_data(page_data))
                 # 从 card 提取导演、编剧、主演、制片人
                 credits_data = self._extract_credits_from_card(page_data)
                 
@@ -184,7 +186,23 @@ class BaikeCrawler:
                             else:
                                 # 新演员，添加到列表
                                 credits_data["cast"].append(html_actor)
-            
+
+            basic_info.update({
+                key: value
+                for key, value in self._extract_basic_info_from_html(soup).items()
+                if key not in basic_info or not basic_info.get(key)
+            })
+            basic_info.update({
+                key: value
+                for key, value in self._extract_basic_info_from_embedded_json(content).items()
+                if key not in basic_info or not basic_info.get(key)
+            })
+            if basic_info:
+                basic_info = self._filter_basic_info(basic_info)
+                result["basic_info"] = basic_info
+                result.update(self._normalize_basic_info(basic_info))
+                self._augment_credits_from_basic_info(credits_data, result)
+
             if credits_data:
                 result["credits"] = credits_data
                 Logger.info(f"百度百科演职员数据: 导演 {len(credits_data.get('directors', []))} 人, "
@@ -219,8 +237,201 @@ class BaikeCrawler:
                 return data
         except Exception as e:
             Logger.warning(f"PAGE_DATA 提取失败: {e}")
-        
+
         return None
+
+    def _extract_basic_info_from_page_data(self, page_data: Dict) -> Dict[str, str]:
+        """从 PAGE_DATA.card 抽取百科基础信息表。"""
+        basic_info = {}
+        card = page_data.get("card", {}) or {}
+        items = []
+
+        for key in ("content", "left", "right"):
+            value = card.get(key) or []
+            if isinstance(value, list):
+                items.extend(value)
+
+        for item in items:
+            if not isinstance(item, dict):
+                continue
+            label = (
+                item.get("name")
+                or item.get("label")
+                or item.get("title")
+                or item.get("key")
+                or ""
+            )
+            label = self._clean_text(label)
+            value = self._format_baike_data_list(item.get("data", []))
+            if label and value:
+                basic_info[label] = value
+
+        return basic_info
+
+    def _extract_basic_info_from_html(self, soup: BeautifulSoup) -> Dict[str, str]:
+        """从 HTML 结构兜底抽取百科基础信息表。"""
+        basic_info = {}
+
+        for item in soup.select(".basicInfo-item, .basic-info .basicInfo-item"):
+            name_elem = item.select_one(".basicInfo-item.name")
+            value_elem = item.select_one(".basicInfo-item.value")
+            if not name_elem or not value_elem:
+                continue
+            label = self._clean_text(name_elem.get_text(" ", strip=True))
+            value = self._clean_text(value_elem.get_text(" ", strip=True))
+            if label and value:
+                basic_info[label] = value
+
+        for dl in soup.select("dl"):
+            children = [child for child in dl.children if getattr(child, "name", None) in ("dt", "dd")]
+            for idx in range(0, len(children) - 1, 2):
+                if children[idx].name != "dt" or children[idx + 1].name != "dd":
+                    continue
+                label = self._clean_text(children[idx].get_text(" ", strip=True))
+                value = self._clean_text(children[idx + 1].get_text(" ", strip=True))
+                if label and value and len(label) <= 20:
+                    basic_info.setdefault(label, value)
+
+        return basic_info
+
+    def _extract_basic_info_from_embedded_json(self, html_content: str) -> Dict[str, str]:
+        """从新版百科页面内嵌 JSON 片段抽取基础信息表。"""
+        basic_info = {}
+        decoder = json.JSONDecoder()
+        for match in re.finditer(r'\{"key"\s*:', html_content):
+            try:
+                item, _ = decoder.raw_decode(html_content[match.start():])
+            except Exception:
+                continue
+
+            if not isinstance(item, dict) or "title" not in item or "data" not in item:
+                continue
+            label = self._clean_text(item.get("title", ""))
+            value = self._format_baike_data_list(item.get("data", []), item.get("delimiter", "、"))
+            if label and value:
+                basic_info[label] = value
+
+        return basic_info
+
+    def _format_baike_data_list(self, data_list: Any, delimiter: str = "、") -> str:
+        values = []
+        if not isinstance(data_list, list):
+            return self._clean_text(str(data_list)) if data_list else ""
+
+        for data in data_list:
+            if not isinstance(data, dict):
+                values.append(str(data))
+                continue
+            data_type = data.get("dataType")
+            if "text" in data and isinstance(data.get("text"), list):
+                text_parts = []
+                for item in data.get("text", []):
+                    if isinstance(item, dict):
+                        text_parts.append(str(item.get("text", "")))
+                    else:
+                        text_parts.append(str(item))
+                text = self._clean_text("".join(text_parts))
+                if text:
+                    values.append(text)
+            elif data_type == "lemma":
+                value = data.get("value", {}) or {}
+                text = value.get("title") or value.get("lemmaTitle") or value.get("text")
+                if text:
+                    values.append(str(text))
+            elif "value" in data:
+                values.append(str(data.get("value")))
+
+        delimiter = delimiter or "、"
+        return self._clean_text(delimiter.join(v for v in values if v))
+
+    def _normalize_basic_info(self, basic_info: Dict[str, str]) -> Dict[str, Any]:
+        """把百科中文字段名规范化为便于合并/核对的字段。"""
+        aliases = {
+            "中文名": "title_cn",
+            "外文名": "title_foreign",
+            "其他译名": "other_titles",
+            "类型": "genres",
+            "出品公司": "production_companies",
+            "制片地区": "production_region",
+            "拍摄日期": "shooting_date",
+            "发行公司": "distributors",
+            "导演": "directors_text",
+            "编剧": "writers_text",
+            "制片人": "producers_text",
+            "主演": "cast_text",
+            "片长": "runtime",
+            "上映时间": "release_time",
+            "对白语言": "languages",
+            "语言": "languages",
+            "色彩": "color",
+            "imdb编码": "imdb_id",
+            "IMDb编码": "imdb_id",
+            "出品时间": "production_year",
+            "制片成本": "budget",
+        }
+        normalized = {}
+        compact_map = {re.sub(r"\s+", "", key): value for key, value in basic_info.items()}
+
+        for label, field in aliases.items():
+            compact = re.sub(r"\s+", "", label)
+            value = compact_map.get(compact)
+            if not value:
+                continue
+            if field in {"other_titles", "genres", "production_companies", "distributors"}:
+                normalized[field] = self._split_text_list(value)
+            else:
+                normalized[field] = value
+
+        return normalized
+
+    def _filter_basic_info(self, basic_info: Dict[str, str]) -> Dict[str, str]:
+        allowed = {
+            "中文名", "外文名", "其他译名", "类型", "出品公司", "制片地区", "拍摄日期",
+            "发行公司", "导演", "编剧", "制片人", "主演", "片长", "上映时间",
+            "对白语言", "语言", "色彩", "imdb编码", "IMDb编码", "出品时间", "制片成本",
+        }
+        compact_allowed = {re.sub(r"\s+", "", item) for item in allowed}
+        filtered = {}
+        for key, value in basic_info.items():
+            compact = re.sub(r"\s+", "", key)
+            if compact in compact_allowed:
+                filtered[key] = value
+        return filtered
+
+    def _augment_credits_from_basic_info(self, credits: Dict[str, List], normalized: Dict[str, Any]):
+        if not credits:
+            credits.update({"directors": [], "writers": [], "cast": [], "producers": []})
+
+        mappings = [
+            ("directors_text", "directors"),
+            ("writers_text", "writers"),
+            ("producers_text", "producers"),
+            ("cast_text", "cast"),
+        ]
+        for text_key, credit_key in mappings:
+            existing = {item.get("name") for item in credits.get(credit_key, []) if isinstance(item, dict)}
+            for name in self._split_person_names(normalized.get(text_key, "")):
+                if name and name not in existing:
+                    credits.setdefault(credit_key, []).append({"name": name, "source": "baike_basic_info"})
+                    existing.add(name)
+
+    def _split_person_names(self, value: str) -> List[str]:
+        value = re.sub(r"\s*等$", "", value or "")
+        return [
+            item.strip()
+            for item in re.split(r"[、,，/／;；]", value)
+            if item.strip()
+        ]
+
+    def _split_text_list(self, value: str) -> List[str]:
+        return [
+            item.strip()
+            for item in re.split(r"[/／、,，;；]", value)
+            if item.strip()
+        ]
+
+    def _clean_text(self, text: str) -> str:
+        return re.sub(r"\s+", " ", text or "").strip()
     
     def _extract_credits_from_card(self, page_data: Dict) -> Dict[str, List]:
         """
