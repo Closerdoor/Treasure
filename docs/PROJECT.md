@@ -23,7 +23,7 @@ Treasure 是一个个人收藏馆项目，用来收录影视、书籍、音乐�
 | 数据库统计脚本 | `tools/db/check-counts.mjs` |
 | 数据库表结构查看 | `tools/db/view-schema.mjs` |
 | generated 与资源导出入口 | `tools/db/export-generated.mjs` |
-| 本地数据库后台管理 | `tools/admin/` |
+| 本地数据库后台管理 | `admin/` |
 | DB 工具说明 | `tools/db/README.md` |
 | 历史工具归档 | `tools/archive/README.md` |
 | 前台数据读取层 | `site/src/lib/archive.ts` |
@@ -171,7 +171,7 @@ node tools/db/view-schema.mjs Person
 核心目录：
 
 ```text
-tools/admin/
+admin/
 ```
 
 职责：

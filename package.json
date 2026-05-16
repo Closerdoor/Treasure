@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "admin": "node tools/admin/server.mjs",
+    "admin": "node admin/server.mjs",
     "prisma:studio": "prisma studio",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",

@@ -7,7 +7,7 @@ import Database from 'better-sqlite3';
 
 const __filename = fileURLToPath(import.meta.url);
 const ADMIN_DIR = path.dirname(__filename);
-const REPO_ROOT = path.resolve(ADMIN_DIR, '..', '..');
+const REPO_ROOT = path.resolve(ADMIN_DIR, '..');
 const PUBLIC_DIR = path.join(ADMIN_DIR, 'public');
 const DB_PATH = path.join(REPO_ROOT, '.local', 'treasure.db');
 const ASSETS_ROOT = path.join(REPO_ROOT, '.local', 'assets');
