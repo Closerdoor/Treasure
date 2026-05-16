@@ -1,3 +1,5 @@
+import { WORK_FIELD_META } from './field-meta.js';
+
 const state = {
   module: 'video',
   status: '',
@@ -220,24 +222,31 @@ async function selectBook(id) {
 function renderEditor() {
   const { work } = state.detail;
   $('[data-editor]').innerHTML = `
-    <form data-work-form>
-      <section class="editor-hero">
-        <div class="editor-poster"><img src="${work.posterUrl}" alt=""></div>
-        <div class="editor-title">
-          <p class="eyebrow">${escapeHtml(work.id)} · ${escapeHtml(work.module)} / ${escapeHtml(work.submodule || '-')}</p>
-          <h2>${escapeHtml(work.title)}</h2>
-          <p class="form-note">保存后直接写入本地 SQLite。需要刷新前台时，再运行现有导出脚本。</p>
-          <div class="editor-actions">
-            <button class="button button--primary" type="submit">保存基础信息</button>
-            <button class="button button--danger" type="button" data-delete-work>删除作品</button>
-          </div>
-        </div>
-      </section>
-      ${renderBasicFields(work)}
-    </form>
-    ${renderJsonSection(work)}
-    ${renderPeopleSection()}
-    ${renderCategorySection()}
+    <section class="edit-workspace">
+      <div class="edit-form-pane">
+        <form data-work-form>
+          <section class="editor-hero">
+            <div class="editor-poster"><img src="${work.posterUrl}" alt=""></div>
+            <div class="editor-title">
+              <p class="eyebrow">${escapeHtml(work.id)} · ${escapeHtml(work.module)} / ${escapeHtml(work.submodule || '-')}</p>
+              <h2>${escapeHtml(work.title)}</h2>
+              <p class="form-note">保存后写入 SQLite，并自动导出 generated，前台刷新即可查看更新。</p>
+              <div class="editor-actions">
+                <button class="button button--primary" type="submit">保存基础信息</button>
+                <button class="button button--danger" type="button" data-delete-work>删除作品</button>
+              </div>
+            </div>
+          </section>
+          ${renderBasicFields(work)}
+        </form>
+        ${renderJsonSection(work)}
+        ${renderPeopleSection()}
+        ${renderCategorySection()}
+      </div>
+      <aside class="preview-pane">
+        <div class="preview-sticky" data-preview>${renderWorkPreview(work)}</div>
+      </aside>
+    </section>
   `;
   bindEditorEvents();
 }
@@ -318,13 +327,17 @@ function renderBookFields(book) {
 }
 
 function renderField(name, label, type, value) {
+  const meta = WORK_FIELD_META[name];
+  const labelHtml = meta
+    ? `<span class="field-label"><strong>${escapeHtml(meta.label || label)}</strong><small>DB: ${escapeHtml(name)} · 前台: ${escapeHtml(meta.front)}</small></span><em>${escapeHtml(meta.note)}</em>`
+    : `<span>${label}</span>`;
   const wide = type === 'textarea' ? ' field--wide' : '';
   if (type === 'textarea') {
-    return `<label class="field${wide}"><span>${label}</span><textarea name="${name}">${escapeHtml(value || '')}</textarea></label>`;
+    return `<label class="field${wide}">${labelHtml}<textarea name="${name}">${escapeHtml(value || '')}</textarea></label>`;
   }
   if (type === 'select') {
     return `
-      <label class="field"><span>${label}</span>
+      <label class="field">${labelHtml}
         <select name="${name}">
           ${['draft', 'published', 'archived'].map((item) => `<option value="${item}" ${item === value ? 'selected' : ''}>${item}</option>`).join('')}
         </select>
@@ -333,18 +346,19 @@ function renderField(name, label, type, value) {
   }
   if (type === 'select-module') {
     return `
-      <label class="field"><span>${label}</span>
+      <label class="field">${labelHtml}
         <select name="${name}">
           ${['video', 'anime', 'book', 'music', 'game'].map((item) => `<option value="${item}" ${item === value ? 'selected' : ''}>${item}</option>`).join('')}
         </select>
       </label>
     `;
   }
-  return `<label class="field"><span>${label}</span><input name="${name}" type="${type}" value="${escapeAttr(value ?? '')}"></label>`;
+  return `<label class="field">${labelHtml}<input name="${name}" type="${type}" value="${escapeAttr(value ?? '')}"></label>`;
 }
 
 function renderJsonSection(work) {
   const activeValue = formatJson(work[state.jsonField]);
+  const meta = WORK_FIELD_META[state.jsonField] || {};
   return `
     <section class="editor-section">
       <div class="section-head">
@@ -353,6 +367,11 @@ function renderJsonSection(work) {
       </div>
       <div class="json-tabs">
         ${JSON_FIELDS.map(([field, label]) => `<button class="json-tab ${field === state.jsonField ? 'is-active' : ''}" type="button" data-json-field="${field}">${label}</button>`).join('')}
+      </div>
+      <div class="field-explain">
+        <strong>${escapeHtml(meta.label || state.jsonField)}</strong>
+        <span>DB: ${escapeHtml(state.jsonField)} · 前台: ${escapeHtml(meta.front || '结构化展示')}</span>
+        <p>${escapeHtml(meta.note || '保存为 JSON 后供导出和前台展示使用。')}</p>
       </div>
       <textarea class="json-editor" data-json-editor spellcheck="false">${escapeHtml(activeValue)}</textarea>
       <p class="form-note">这些字段会按 JSON 校验后保存。空白表示 NULL。</p>
@@ -432,10 +451,12 @@ function bindEditorEvents() {
     const form = new FormData(event.currentTarget);
     const payload = Object.fromEntries(WORK_FIELDS.filter((field) => form.has(field)).map((field) => [field, form.get(field)]));
     await api(`/api/works/${state.selectedId}`, { method: 'PATCH', body: payload });
-    toast('基础信息已保存');
+    toast('基础信息已保存，generated 已导出');
     await selectWork(state.selectedId);
     await loadSummary();
   });
+
+  $('[data-work-form]').addEventListener('input', debounce(updateWorkPreviewFromForm, 120));
 
   $('[data-delete-work]').addEventListener('click', async () => {
     if (!confirm(`确认删除作品 ${state.selectedId}？这个操作会级联删除关系。`)) return;
@@ -459,16 +480,18 @@ function bindEditorEvents() {
   $('[data-save-json]').addEventListener('click', async () => {
     const value = $('[data-json-editor]').value.trim();
     await api(`/api/works/${state.selectedId}`, { method: 'PATCH', body: { [state.jsonField]: value || null } });
-    toast(`${state.jsonField} 已保存`);
+    toast(`${state.jsonField} 已保存，generated 已导出`);
     await selectWork(state.selectedId);
   });
+
+  $('[data-json-editor]').addEventListener('input', debounce(updateWorkPreviewFromForm, 120));
 
   $$('[data-relation-id]').forEach((row) => {
     row.addEventListener('change', debounce(async () => {
       const payload = {};
       $$('[data-r-field]', row).forEach((field) => payload[field.dataset.rField] = field.value);
       await api(`/api/work-people/${row.dataset.relationId}`, { method: 'PATCH', body: payload });
-      toast('人物关系已保存');
+      toast('人物关系已保存，generated 已导出');
     }, 260));
   });
 
@@ -476,7 +499,7 @@ function bindEditorEvents() {
     button.addEventListener('click', async () => {
       const row = button.closest('[data-relation-id]');
       await api(`/api/work-people/${row.dataset.relationId}`, { method: 'DELETE' });
-      toast('人物关系已移除');
+      toast('人物关系已移除，generated 已导出');
       await selectWork(state.selectedId);
     });
   });
@@ -488,10 +511,106 @@ function bindEditorEvents() {
   $$('[data-remove-category]').forEach((button) => {
     button.addEventListener('click', async () => {
       await api(`/api/work-categories/${button.dataset.removeCategory}`, { method: 'DELETE' });
-      toast('分类已移除');
+      toast('分类已移除，generated 已导出');
       await selectWork(state.selectedId);
     });
   });
+}
+
+function renderWorkPreview(work) {
+  const images = parseJsonValue(work.images, work.imagesParsed || {});
+  const scores = parseJsonValue(work.scores, work.scoresParsed || {});
+  const comments = parseJsonValue(work.comments, []);
+  const videos = parseJsonValue(work.videos, []);
+  const related = parseJsonValue(work.related, {});
+  const posterUrl = work.posterUrl || resolvePosterFromImages(work, images);
+  const categories = state.detail?.categories || work.categories || [];
+  const people = state.detail?.people || [];
+  const directors = people.filter((item) => item.department === 'direction').slice(0, 3);
+  const cast = people.filter((item) => item.department === 'cast').slice(0, 8);
+  const imageCounts = countImages(images);
+
+  return `
+    <section class="preview-card">
+      <div class="preview-cover"><img src="${escapeAttr(posterUrl)}" alt=""></div>
+      <div class="preview-main">
+        <p class="eyebrow">FRONTEND PREVIEW</p>
+        <h2>${escapeHtml(work.title || '未命名作品')}</h2>
+        <p class="preview-subtitle">${escapeHtml([work.title_original, work.year, work.country].filter(Boolean).join(' · ') || work.id)}</p>
+        <div class="preview-score">
+          <strong>${escapeHtml(displayScore(scores))}</strong>
+          <span>综合评分</span>
+        </div>
+        <p class="preview-intro">${escapeHtml(work.introduction || '前台简介区域暂无内容。')}</p>
+      </div>
+    </section>
+    <section class="preview-section">
+      <h3>字段映射预览</h3>
+      ${renderPreviewRows([
+        ['title', work.title],
+        ['title_original', work.title_original],
+        ['year', work.year],
+        ['total_time', work.total_time ? `${work.total_time} 分钟` : ''],
+        ['studio', work.studio],
+        ['status', work.status]
+      ])}
+    </section>
+    <section class="preview-section">
+      <h3>前台内容块</h3>
+      <div class="preview-metrics">
+        <span><strong>${imageCounts.total}</strong>图片</span>
+        <span><strong>${asArray(videos).length}</strong>视频</span>
+        <span><strong>${countComments(comments)}</strong>评论/影评</span>
+        <span><strong>${countRelated(related)}</strong>关联</span>
+      </div>
+      <div class="preview-tags">
+        ${categories.slice(0, 10).map((item) => `<span class="chip">${escapeHtml(item.name || item.group)}</span>`).join('') || '<span class="form-note">暂无类型或标签</span>'}
+      </div>
+    </section>
+    <section class="preview-section">
+      <h3>演职员预览</h3>
+      <div class="preview-people">
+        ${directors.map(renderPreviewPerson).join('')}
+        ${cast.map(renderPreviewPerson).join('')}
+        ${directors.length + cast.length ? '' : '<p class="form-note">暂无演职员关系。</p>'}
+      </div>
+    </section>
+  `;
+}
+
+function renderPreviewRows(rows) {
+  return rows.map(([field, value]) => {
+    const meta = WORK_FIELD_META[field] || { label: field, front: field };
+    return `
+      <div class="preview-row">
+        <span>${escapeHtml(meta.label)}</span>
+        <small>${escapeHtml(field)} · ${escapeHtml(meta.front)}</small>
+        <strong>${escapeHtml(value || '待补充')}</strong>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderPreviewPerson(person) {
+  return `
+    <div class="preview-person">
+      <img src="${escapeAttr(person.avatarUrl || '/avatar-placeholder.svg')}" alt="">
+      <span>${escapeHtml(person.name)}</span>
+      <small>${escapeHtml(person.character || person.role || departmentLabel(person.department))}</small>
+    </div>
+  `;
+}
+
+function updateWorkPreviewFromForm() {
+  const form = $('[data-work-form]');
+  const preview = $('[data-preview]');
+  if (!form || !preview || !state.detail?.work) return;
+  const patch = Object.fromEntries(new FormData(form));
+  const current = { ...state.detail.work, ...patch };
+  if (state.jsonField && $('[data-json-editor]')) {
+    current[state.jsonField] = $('[data-json-editor]').value.trim();
+  }
+  preview.innerHTML = renderWorkPreview(current);
 }
 
 function bindBookEditorEvents() {
@@ -567,7 +686,7 @@ async function addSelectedPerson() {
       character: $('[data-add-character]').value
     }
   });
-  toast('人物已添加');
+  toast('人物已添加，generated 已导出');
   await selectWork(state.selectedId);
 }
 
@@ -585,7 +704,7 @@ async function addCategory() {
     method: 'POST',
     body: { category_id: Number(id), order: Number($('[data-category-order]').value || 0) }
   });
-  toast('分类已添加');
+  toast('分类已添加，generated 已导出');
   await selectWork(state.selectedId);
 }
 
@@ -670,6 +789,66 @@ function formatJson(value) {
   } catch {
     return value;
   }
+}
+
+function parseJsonValue(value, fallback) {
+  if (value == null || value === '') return fallback;
+  if (typeof value !== 'string') return value;
+  try {
+    return JSON.parse(value);
+  } catch {
+    return fallback;
+  }
+}
+
+function resolvePosterFromImages(work, images) {
+  const poster = images?.poster || images?.posters?.[0];
+  if (!poster) return '/poster-placeholder.svg';
+  if (/^https?:\/\//.test(poster)) return poster;
+  return work.posterUrl || '/poster-placeholder.svg';
+}
+
+function displayScore(scores) {
+  const candidates = [
+    scores?.avg,
+    scores?.douban?.rating,
+    scores?.douban,
+    scores?.imdb?.rating,
+    scores?.tmdb?.rating
+  ];
+  const score = candidates.find((item) => Number.isFinite(Number(item)));
+  return score == null ? '-' : Number(score).toFixed(1);
+}
+
+function countImages(images) {
+  const keys = ['poster', 'cover', 'posters', 'covers', 'stills', 'wallpapers'];
+  let total = 0;
+  for (const key of keys) {
+    const value = images?.[key];
+    if (Array.isArray(value)) total += value.length;
+    else if (value) total += 1;
+  }
+  return { total };
+}
+
+function countComments(comments) {
+  if (Array.isArray(comments)) return comments.length;
+  if (!comments || typeof comments !== 'object') return 0;
+  return Object.values(comments).reduce((sum, value) => sum + (Array.isArray(value) ? value.length : 0), 0);
+}
+
+function countRelated(related) {
+  if (Array.isArray(related)) return related.length;
+  if (!related || typeof related !== 'object') return 0;
+  return Object.values(related).reduce((sum, value) => sum + (Array.isArray(value) ? value.length : 0), 0);
+}
+
+function asArray(value) {
+  return Array.isArray(value) ? value : [];
+}
+
+function departmentLabel(value) {
+  return DEPARTMENTS.find(([key]) => key === value)?.[1] || value || '';
 }
 
 function toast(message) {

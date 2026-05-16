@@ -1,6 +1,6 @@
 # Treasure 当前状态
 
-最近校验时间：2026-05-13
+最近校验时间：2026-05-16
 
 当前项目处于 **DB-first 静态站闭环整理阶段**。电影模块已经跑通从 SQLite 到 generated，再到 Astro 静态构建的主链路；书籍模块已有数据库草稿，但还没有正式接入 generated 和前台页面。
 
@@ -9,13 +9,13 @@
 | 表 | 数量 | 说明 |
 |---|---:|---|
 | `works` | 250 | 影视 / 电影，全部为 `published` |
-| `person` | 11546 | 公共人物表 |
+| `person` | 11541 | 公共人物表 |
 | `category` | 28 | 公共分类 / 标签 |
 | `work_person` | 12999 | 电影演职员关系 |
 | `work_category` | 698 | 电影分类关系 |
 | `books` | 3 | 书籍草稿，全部为 `draft` |
 | `book_series` | 0 | 书籍系列 |
-| `book_person` | 5 | 书籍人物关系 |
+| `book_person` | 0 | 书籍人物关系 |
 | `book_category` | 1 | 书籍分类关系 |
 
 ## generated 快照
@@ -96,8 +96,11 @@ npm.cmd run build
 - 已将 `generated/recent.json` 与 `generated/tags.json` 从 Git 跟踪中移除；它们仍由 `tools/db/export-generated.mjs` 生成，但不再作为需要人工维护的仓库文件。
 - 已清理顶层一次性抓取 / 调试文件：`interstellar-reviews.json`、`shawshank-reviews.json`、`rt-requests.txt`、`rt-review-body.json`、`tmdb-requests.txt`。
 - 已移除旧 `content/` Markdown / 样例内容链路；设计稿引用的 6 张肖申克海报已复制到 `design-archive/references/`，并改写 `design-archive/drafts/` 中的图片引用。
-- 已新增原生本地后台管理应用 `admin/`，默认通过 `npm.cmd run admin` 启动，运行在 `http://127.0.0.1:4317`。该工具作为旁路人工校正入口，直接维护 `.local/treasure.db`，不参与 generated 导出、Astro 构建或 GitHub Pages 发布；Directus 方案已放弃，不作为长期后台方案。
+- 已新增原生本地后台管理应用 `admin/`，默认通过 `npm.cmd run admin` 启动，运行在 `http://127.0.0.1:4317`。该工具作为旁路人工校正入口，直接维护 `.local/treasure.db`，不参与 Astro 构建或 GitHub Pages 发布；Directus 方案已放弃，不作为长期后台方案。
 - 当前后台已覆盖：影视作品列表与搜索、作品新增/删除、基础字段编辑、JSON 字段编辑、演职员关系维护、分类/标签关系维护、人物检索添加，以及书籍基础字段与 JSON 字段维护。
+- 影视作品编辑页已改为左侧表单、右侧前台预览；字段表单会展示数据库字段名、中文说明和前台用途。
+- 影视作品保存基础信息、结构化 JSON、演职员关系或分类关系后，会自动执行 `node tools/db/export-generated.mjs`，本地 Astro 前台刷新后可读取最新 generated 数据。
+- 当前后台暂不提供字段级审计日志；人工修改没有 before / after 历史记录。若后续需要追溯，应新增本地审计表记录后台 API 写入行为。
 
 ## 未完成
 

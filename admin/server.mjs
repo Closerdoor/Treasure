@@ -1,6 +1,8 @@
 import { createServer } from 'node:http';
 import { createReadStream, existsSync } from 'node:fs';
 import { mkdir, copyFile } from 'node:fs/promises';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import Database from 'better-sqlite3';
@@ -12,6 +14,8 @@ const PUBLIC_DIR = path.join(ADMIN_DIR, 'public');
 const DB_PATH = path.join(REPO_ROOT, '.local', 'treasure.db');
 const ASSETS_ROOT = path.join(REPO_ROOT, '.local', 'assets');
 const PORT = Number(process.env.TREASURE_ADMIN_PORT || process.env.PORT || 4317);
+const execFileAsync = promisify(execFile);
+let exportGeneratedPromise = null;
 
 const db = new Database(DB_PATH);
 db.pragma('foreign_keys = ON');
@@ -147,7 +151,9 @@ async function handleApi(req, res, url) {
       return;
     }
     if (method === 'POST' && parts.length === 2) {
-      sendJson(res, 201, createWork(await readJson(req)));
+      const result = createWork(await readJson(req));
+      await exportGenerated();
+      sendJson(res, 201, withExport(result));
       return;
     }
     const workId = parts[2];
@@ -156,19 +162,27 @@ async function handleApi(req, res, url) {
       return;
     }
     if ((method === 'PATCH' || method === 'PUT') && parts.length === 3) {
-      sendJson(res, 200, updateWork(workId, await readJson(req)));
+      const result = updateWork(workId, await readJson(req));
+      await exportGenerated();
+      sendJson(res, 200, withExport(result));
       return;
     }
     if (method === 'DELETE' && parts.length === 3) {
-      sendJson(res, 200, deleteWork(workId, url.searchParams.get('confirm')));
+      const result = deleteWork(workId, url.searchParams.get('confirm'));
+      await exportGenerated();
+      sendJson(res, 200, withExport(result));
       return;
     }
     if (method === 'POST' && parts[3] === 'people') {
-      sendJson(res, 201, addWorkPerson(workId, await readJson(req)));
+      const result = addWorkPerson(workId, await readJson(req));
+      await exportGenerated();
+      sendJson(res, 201, withExport(result));
       return;
     }
     if (method === 'POST' && parts[3] === 'categories') {
-      sendJson(res, 201, addWorkCategory(workId, await readJson(req)));
+      const result = addWorkCategory(workId, await readJson(req));
+      await exportGenerated();
+      sendJson(res, 201, withExport(result));
       return;
     }
   }
@@ -200,11 +214,15 @@ async function handleApi(req, res, url) {
   if (parts[1] === 'work-people') {
     const id = Number(parts[2]);
     if (method === 'PATCH') {
-      sendJson(res, 200, updateWorkPerson(id, await readJson(req)));
+      const result = updateWorkPerson(id, await readJson(req));
+      await exportGenerated();
+      sendJson(res, 200, withExport(result));
       return;
     }
     if (method === 'DELETE') {
-      sendJson(res, 200, deleteById('work_person', id));
+      const result = deleteById('work_person', id);
+      await exportGenerated();
+      sendJson(res, 200, withExport(result));
       return;
     }
   }
@@ -212,11 +230,15 @@ async function handleApi(req, res, url) {
   if (parts[1] === 'work-categories') {
     const id = Number(parts[2]);
     if (method === 'PATCH') {
-      sendJson(res, 200, updateWorkCategory(id, await readJson(req)));
+      const result = updateWorkCategory(id, await readJson(req));
+      await exportGenerated();
+      sendJson(res, 200, withExport(result));
       return;
     }
     if (method === 'DELETE') {
-      sendJson(res, 200, deleteById('work_category', id));
+      const result = deleteById('work_category', id);
+      await exportGenerated();
+      sendJson(res, 200, withExport(result));
       return;
     }
   }
@@ -231,7 +253,9 @@ async function handleApi(req, res, url) {
       return;
     }
     if (method === 'PATCH' && parts.length === 3) {
-      sendJson(res, 200, updatePerson(Number(parts[2]), await readJson(req)));
+      const result = updatePerson(Number(parts[2]), await readJson(req));
+      await exportGenerated();
+      sendJson(res, 200, withExport(result));
       return;
     }
   }
@@ -260,6 +284,23 @@ function getSummary() {
     missingPoster: scalar("select count(*) as count from works where images is null or images not like '%poster%'"),
     updatedAt: db.prepare('select max(updated_at) as updatedAt from works').get()?.updatedAt || null
   };
+}
+
+async function exportGenerated() {
+  if (!exportGeneratedPromise) {
+    exportGeneratedPromise = execFileAsync(process.execPath, [path.join(REPO_ROOT, 'tools', 'db', 'export-generated.mjs')], {
+      cwd: REPO_ROOT,
+      windowsHide: true,
+      maxBuffer: 1024 * 1024 * 16
+    }).finally(() => {
+      exportGeneratedPromise = null;
+    });
+  }
+  await exportGeneratedPromise;
+}
+
+function withExport(payload) {
+  return { ...payload, generatedExported: true };
 }
 
 function listWorks(params) {
