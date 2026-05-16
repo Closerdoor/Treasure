@@ -96,7 +96,7 @@ npm.cmd run build
 - 已将 `generated/recent.json` 与 `generated/tags.json` 从 Git 跟踪中移除；它们仍由 `tools/db/export-generated.mjs` 生成，但不再作为需要人工维护的仓库文件。
 - 已清理顶层一次性抓取 / 调试文件：`interstellar-reviews.json`、`shawshank-reviews.json`、`rt-requests.txt`、`rt-review-body.json`、`tmdb-requests.txt`。
 - 已移除旧 `content/` Markdown / 样例内容链路；设计稿引用的 6 张肖申克海报已复制到 `design-archive/references/`，并改写 `design-archive/drafts/` 中的图片引用。
-- 已新增本地后台管理应用 `admin/`，默认通过 `npm.cmd run admin` 启动，运行在 `http://127.0.0.1:4317`。该工具作为旁路人工校正入口，直接维护 `.local/treasure.db`，不参与 generated 导出、Astro 构建或 GitHub Pages 发布。
+- 已新增原生本地后台管理应用 `admin/`，默认通过 `npm.cmd run admin` 启动，运行在 `http://127.0.0.1:4317`。该工具作为旁路人工校正入口，直接维护 `.local/treasure.db`，不参与 generated 导出、Astro 构建或 GitHub Pages 发布；Directus 方案已放弃，不作为长期后台方案。
 - 当前后台已覆盖：影视作品列表与搜索、作品新增/删除、基础字段编辑、JSON 字段编辑、演职员关系维护、分类/标签关系维护、人物检索添加，以及书籍基础字段与 JSON 字段维护。
 
 ## 未完成
