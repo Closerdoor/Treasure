@@ -120,10 +120,6 @@ FIELD_ROWS = [
         ("quotes", "名言(JSON数组)", "quotes", "Wikipedia 补充", {
             "wikipedia": ["quotes"],
         }),
-        ("awards", "获奖信息", "awards", "OMDb/Wikipedia 补充", {
-            "omdb": ["awards"],
-            "wikipedia": ["awards"],
-        }),
     ]),
     ("评分与分类", [
         ("scores", "评分(JSON对象)", "ratings", "各平台独立记录", {
@@ -133,16 +129,14 @@ FIELD_ROWS = [
             "rotten_tomatoes": ["ratings", "rating"],
             "metacritic": ["rating"],
         }),
-        ("rating_certification", "分级/适龄", "rated", "OMDb/TMDB 补充", {
-            "omdb": ["rated"],
-            "tmdb": ["release_dates.results"],
-            "rotten_tomatoes": ["ratings.metadata.certification"],
-        }),
-        ("genre", "类型(写入分类)", "genre", "豆瓣优先，TMDB/OMDb 补充", {
+        ("genre", "类型(写入分类)", "genre", "多源中文类型合并去重", {
             "douban": ["detail.genres", "genres"],
             "tmdb": ["detail.genres"],
+            "baike": ["genres", "basic_info.类型", "basic_info.类    型"],
+            "wikipedia": ["genres"],
             "omdb": ["genres"],
             "rotten_tomatoes": ["ratings.metadata.genres", "ratings.schema_movie.genre"],
+            "metacritic": ["schema_movie.genre"],
         }),
         ("tags", "标签(写入分类)", "tags", "豆瓣标签与 TMDB keywords", {
             "douban": ["detail.tags", "tags"],
@@ -191,9 +185,8 @@ FIELD_ROWS = [
             "rotten_tomatoes": ["reviews"],
             "metacritic": ["reviews"],
         }),
-        ("related", "相关作品(JSON对象)", "similar/recommendations", "豆瓣推荐、TMDB 推荐/相似", {
+        ("related", "相关作品(JSON对象)", "series/similar", "豆瓣系列与豆瓣推荐；TMDB 推荐/相似不进入最终合并", {
             "douban": ["detail.series", "series", "detail.recommendations", "recommendations"],
-            "tmdb": ["recommendations", "similar"],
         }),
     ]),
 ]

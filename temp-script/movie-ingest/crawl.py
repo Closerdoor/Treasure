@@ -221,6 +221,16 @@ class MovieCrawler:
         
         if images_result:
             merged["images"] = images_result
+
+        video_thumbnail_map = await self.downloader.download_video_thumbnails(
+            work_id,
+            merged.get("videos", [])
+        )
+        if video_thumbnail_map:
+            for video in merged.get("videos", []):
+                thumbnail = video.get("thumbnail")
+                if thumbnail in video_thumbnail_map:
+                    video["thumbnail"] = video_thumbnail_map[thumbnail]
         
         # ── 保存 staging ──
         staging_path = config.STAGING_DIR / f"{work_id}.json"
@@ -260,11 +270,22 @@ class MovieCrawler:
         }
         
         tmdb_all = raw_data.get("tmdb", {})
-        images_data["tmdb"] = tmdb_all.get("images", {})
+        tmdb_images = dict(tmdb_all.get("images", {}) or {})
+        tmdb_images["main_poster_url"] = tmdb_all.get("detail", {}).get("poster", "")
+        images_data["tmdb"] = tmdb_images
         
         omdb_data = raw_data.get("omdb", {})
         if omdb_data and omdb_data.get("poster"):
             images_data["omdb"] = {"poster": omdb_data["poster"]}
+
+        rt_ratings = raw_data.get("rotten_tomatoes", {}).get("ratings", {})
+        rt_poster = (
+            rt_ratings.get("poster")
+            or rt_ratings.get("images", {}).get("poster")
+            or rt_ratings.get("schema_movie", {}).get("image")
+        )
+        if rt_poster:
+            images_data["rotten_tomatoes"] = {"poster": rt_poster}
         
         asset_dir = config.WORK_ASSETS_DIR / work_id
         asset_dir.mkdir(parents=True, exist_ok=True)
@@ -273,6 +294,7 @@ class MovieCrawler:
         
         images = {
             "poster": None,
+            "covers": result.get("covers", {}),
             "posters": result.get("posters", []),
             "stills": result.get("stills", []),
             "wallpapers": result.get("wallpapers", []),
@@ -281,8 +303,10 @@ class MovieCrawler:
             "wallpapersTotal": douban_images.get("wallpapers_total", 0)
         }
         
-        if images["posters"]:
-            images["poster"] = images["posters"][0]
+        for source in ["douban", "tmdb", "omdb", "rottenTomatoes"]:
+            if images["covers"].get(source):
+                images["poster"] = images["covers"][source]
+                break
         
         Logger.success(
             f"图片下载完成: 海报 {len(images['posters'])} 张, "

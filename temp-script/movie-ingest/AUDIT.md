@@ -141,7 +141,44 @@ TMDB 单源当前覆盖详情、演职员、图片、视频、评论、外部 ID
 已确认的默认数量限制：
 
 - 评论默认取 `REVIEWS_PER_SOURCE` 条。
-- 推荐作品和相似作品默认全量分页获取，不设置人工数量上限。
+- TMDB recommendations / similar 不采集、不合并、不写入最终数据库；最终关联作品只保留 `series` 和 `similar` 两类。
+
+## 2026-05-19 合并与入库流程调试记录
+
+本轮以《社交网络》`0101000252` 为样本，完成 raw -> staging -> `.local/treasure.db` 的端到端调试。该样本曾临时入库用于验证事务和字段投影，随后已按备份恢复，当前 `.local/treasure.db` 仍是审视前的 250 部电影状态。
+
+已修复和确认：
+
+- `merger.py` 已把豆瓣 `series` 写入 `series`，把豆瓣 `recommendations` 写入最终 `similar`。TMDB recommendations / similar 不参与最终合并。
+- `database.py` 的 `related` 投影只覆盖 `series`、`similar`，并保留标题、原名、年份、评分、来源、来源 ID、URL 和海报信息。
+- 豆瓣纯英文角色名不再被错误拆分；已抓取 raw 中的历史拆分结果会在合并层修正为完整 `characterEn`。
+- `TreasureDB.import_movie()` 已改为真正的整部电影事务：主表、人物、人物关系、分类、分类关系统一提交；子保存函数单独调用时仍保持自动提交。
+- 采集阶段会并行下载视频封面，并把视频 `thumbnail` 改写为本地文件名；入库成功后会把作品图片同步到 `.local/assets/video/movie/{work_id}/`，确保后续 `export-generated` 能复制发布资源。
+- 使用临时数据库副本模拟导入中途失败，失败后测试作品回滚为 0 条，外键检查 0 条问题。
+
+《社交网络》样本临时入库核对：
+
+| 校验项 | 结果 |
+|---|---:|
+| 临时数据库作品总数 | 251 |
+| 数据库人物总数 | 11570 |
+| `work_person` 总数 | 13035 |
+| `work_category` 总数 | 700 |
+| 样本视频 | 20 |
+| 样本评论 | 84 |
+| 样本海报图 | 183 |
+| 样本剧照 | 748 |
+| 样本壁纸 | 4 |
+| 样本视频封面 | 20 |
+| 样本系列作品 | 1 |
+| 样本豆瓣推荐写入 `similar` | 10 |
+| 样本 TMDB recommendations / similar | 不使用 |
+| 样本演职员关系 | 36 |
+| 样本类型关系 | 2 |
+| 样本同步到 `.local/assets` 的作品资源 | 956 |
+| 外键检查问题 | 0 |
+
+当前结论：电影单作品的合并与 SQLite 入库流程已经可以继续用于下一批样本调试；DB -> generated -> Astro 仍不属于 `movie-ingest` 职责范围。本样本已恢复为未入库状态，后续需要先审视合并清单再决定是否正式导入。
 
 ## 过程产物归属
 
@@ -233,3 +270,12 @@ temp-script/movie-ingest/data/reports/   批次摘要、失败项、字段来源
 3. 对 `db_tools/` 中一次性样本 / 迁移脚本做归档或删除。
 4. 保留真正服务采集工坊的脚本：候选、抓取、staging、字段来源、质量校验、DB 导入。
 5. 最后更新 `README.md`、`RULES.md`、`DATA.md`，让它们只描述 movie-ingest 的采集和入库职责。
+
+## 2026-05-20 合并规则修订
+
+- `genre` 改为合并所有数据源中的中文类型结果并去重。当前会读取豆瓣、TMDB、百度百科、Wikipedia 的中文类型候选；英文类型只保留在 raw 中审视。
+- `rated` / `awards` 不再进入 staging 合并数据、SQLite 入库、generated 或 Astro 类型契约；这些信息只保留在 raw 中作为采集审视材料。
+- `all_cast` 明确为全量演员主数据，入库演员关系优先使用它；`cast` 为前 10 位展示切片，`otherCast` 为第 11 位之后的展示切片。
+- 豆瓣没有单独命名为 `similar` 的数据结构；豆瓣系列进入 `series`，豆瓣推荐进入最终 `similar`。
+- TMDB `/recommendations` 与 `/similar` 当前判定为冗余数据，不再采集、不再合并，也不写入数据库或 Astro 数据。
+- 百度百科已采集中文名、外文名、其他译名、类型、出品公司、制片地区、拍摄日期、发行公司、导演、编剧、制片人、主演、片长、上映时间、对白语言、色彩、IMDb 编码、出品时间、制片成本等字段；当前主合并规则仍是豆瓣优先、豆瓣缺失时 TMDB 补充，百度百科字段先保留在 raw 中审视。

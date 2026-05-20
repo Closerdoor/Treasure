@@ -143,6 +143,7 @@ model Work {
   /// - avg：综合评分（加权平均）
   /// - douban/imdb/tmdb：10分制
   /// - rottenTomatoes/metacritic：百分制
+  /// - rated/awards：不进入数据库字段，也不写入 scores
   scores String?
 
   // ========================================

@@ -340,12 +340,15 @@ class RottenTomatoesCrawler:
         href = review_link.get("href", "") if review_link else ""
         author_href = author_link.get("href", "") if author_link else ""
 
+        rating_text = self._clean_text(rating.get_text(" ", strip=True)) if rating else ""
+
         return {
             "author": self._clean_text(author_link.get_text(" ", strip=True)) if author_link else "",
             "author_url": urljoin(self.base_url, author_href) if author_href else "",
             "publication": self._clean_text(publication.get_text(" ", strip=True)) if publication else "",
             "date": self._clean_text(timestamp.get_text(" ", strip=True)) if timestamp else "",
-            "rating": self._clean_text(rating.get_text(" ", strip=True)) if rating else "",
+            "rating": rating_text,
+            "rating_parsed": self._parse_review_rating(rating_text),
             "sentiment": sentiment_icon.get("sentiment", "") if sentiment_icon else "",
             "top_critic": self._parse_bool(item.get("top-critic")),
             "top_publication": self._parse_bool(item.get("top-publication")),
@@ -383,6 +386,36 @@ class RottenTomatoesCrawler:
         if not match:
             return None
         return int(match.group(1).replace(",", ""))
+
+    def _parse_review_rating(self, text: str) -> Dict[str, Any]:
+        """Parse common critic rating formats, preserving the original text."""
+        text = self._clean_text(text)
+        if not text:
+            return {}
+
+        fraction = re.search(r"(\d+(?:\.\d+)?)\s*/\s*(\d+(?:\.\d+)?)", text)
+        if fraction:
+            value = float(fraction.group(1))
+            scale = float(fraction.group(2))
+            parsed: Dict[str, Any] = {
+                "value": value,
+                "scale": scale,
+                "raw_text": text,
+            }
+            if scale:
+                parsed["value_10"] = round(value / scale * 10, 2)
+            return parsed
+
+        percent = self._parse_percent_from_text(text)
+        if percent is not None:
+            return {
+                "value": percent / 10,
+                "scale": 10,
+                "raw": percent,
+                "raw_text": text,
+            }
+
+        return {"raw_text": text}
 
     def _parse_int(self, value: Any) -> Optional[int]:
         match = re.search(r"\d+", str(value or ""))

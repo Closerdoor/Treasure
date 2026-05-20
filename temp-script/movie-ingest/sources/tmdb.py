@@ -441,20 +441,6 @@ class TMDBClient:
         data = await self._request_with_retry(url, params)
         return data.get("keywords", []) if data else []
 
-    async def get_recommendations(self, tmdb_id: int, count: int = None) -> Dict[str, Any]:
-        """获取 TMDB 推荐作品；默认全量分页获取。"""
-        Logger.info(f"正在获取 TMDB 推荐作品: {tmdb_id}")
-        url = f"{self.base_url}/movie/{tmdb_id}/recommendations"
-        params = {"api_key": self.api_key, "language": "zh-CN"}
-        return await self._get_paginated_results(url, params, count=count)
-
-    async def get_similar(self, tmdb_id: int, count: int = None) -> Dict[str, Any]:
-        """获取 TMDB 相似作品；默认全量分页获取。"""
-        Logger.info(f"正在获取 TMDB 相似作品: {tmdb_id}")
-        url = f"{self.base_url}/movie/{tmdb_id}/similar"
-        params = {"api_key": self.api_key, "language": "zh-CN"}
-        return await self._get_paginated_results(url, params, count=count)
-
     async def get_all(self, imdb_id: str) -> Dict:
         """
         获取所有 TMDB 数据
@@ -486,9 +472,7 @@ class TMDBClient:
             reviews,
             external_ids,
             release_dates,
-            keywords,
-            recommendations,
-            similar
+            keywords
         ) = await asyncio.gather(
             self.get_detail(tmdb_id),
             self.get_credits(tmdb_id),
@@ -497,9 +481,7 @@ class TMDBClient:
             self.get_reviews(tmdb_id),
             self.get_external_ids(tmdb_id),
             self.get_release_dates(tmdb_id),
-            self.get_keywords(tmdb_id),
-            self.get_recommendations(tmdb_id),
-            self.get_similar(tmdb_id)
+            self.get_keywords(tmdb_id)
         )
 
         result["detail"] = detail
@@ -510,19 +492,5 @@ class TMDBClient:
         result["external_ids"] = external_ids
         result["release_dates"] = release_dates
         result["keywords"] = keywords
-        result["recommendations"] = recommendations.get("items", [])
-        result["recommendations_meta"] = {
-            "page_count": recommendations.get("page_count", 0),
-            "total_pages": recommendations.get("total_pages", 0),
-            "complete": recommendations.get("complete", False),
-            "limited_to": recommendations.get("limited_to")
-        }
-        result["similar"] = similar.get("items", [])
-        result["similar_meta"] = {
-            "page_count": similar.get("page_count", 0),
-            "total_pages": similar.get("total_pages", 0),
-            "complete": similar.get("complete", False),
-            "limited_to": similar.get("limited_to")
-        }
 
         return result

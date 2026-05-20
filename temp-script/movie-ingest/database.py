@@ -20,6 +20,7 @@ import sqlite3
 import json
 import re
 import io
+import shutil
 from pathlib import Path
 from typing import Dict, Any, List, Optional, Tuple
 from datetime import datetime
@@ -36,6 +37,7 @@ class TreasureDB:
             db_path = config.DB_PATH
         self.db_path = Path(db_path)
         self.conn: Optional[sqlite3.Connection] = None
+        self._bulk_import_depth = 0
         
     def connect(self):
         if not self.conn:
@@ -50,6 +52,42 @@ class TreasureDB:
             self.conn = None
             Logger.info("数据库已关闭")
     
+    def _commit_if_autonomous(self):
+        """单独调用保存函数时提交；批量导入时交给 import_movie 的事务统一提交。"""
+        if self.conn and self._bulk_import_depth == 0:
+            self.conn.commit()
+
+    def _promote_work_assets(self, work_id: str) -> Dict[str, int]:
+        """把采集阶段下载的作品图片提升到正式本地资源目录，供 export-generated 使用。"""
+        target_dir = config.REPO_ROOT / ".local" / "assets" / "video" / "movie" / work_id
+        stats = {"copied": 0, "missing": 0}
+
+        work_assets_dir = config.WORK_ASSETS_DIR / work_id
+        image_dir = work_assets_dir / "images"
+        cover_dir = work_assets_dir / "cover"
+
+        if not image_dir.exists() and not cover_dir.exists():
+            stats["missing"] = 1
+            return stats
+
+        target_dir.mkdir(parents=True, exist_ok=True)
+
+        if image_dir.exists():
+            for source_file in image_dir.iterdir():
+                if source_file.is_file():
+                    shutil.copy2(source_file, target_dir / source_file.name)
+                    stats["copied"] += 1
+
+        if cover_dir.exists():
+            target_cover_dir = target_dir / "cover"
+            target_cover_dir.mkdir(parents=True, exist_ok=True)
+            for source_file in cover_dir.iterdir():
+                if source_file.is_file():
+                    shutil.copy2(source_file, target_cover_dir / source_file.name)
+                    stats["copied"] += 1
+
+        return stats
+
     # ========================================
     # Work 表操作
     # ========================================
@@ -187,7 +225,7 @@ class TreasureDB:
         )
         
         self.conn.execute(sql, params)
-        self.conn.commit()
+        self._commit_if_autonomous()
         
         Logger.success(f"已保存作品: {data.get('title')} ({work_id})")
         return work_id
@@ -222,7 +260,7 @@ class TreasureDB:
             "UPDATE person SET avatar_path = ? WHERE person_id = ?",
             (avatar_path, person_id)
         )
-        self.conn.commit()
+        self._commit_if_autonomous()
     
     def get_next_person_id(self) -> str:
         """获取下一个人物 ID（格式：p000001）"""
@@ -290,7 +328,7 @@ class TreasureDB:
                     existing["person_id"]
                 )
             )
-            self.conn.commit()
+            self._commit_if_autonomous()
             return existing["id"], existing["person_id"]
         
         if not person_id:
@@ -323,7 +361,7 @@ class TreasureDB:
             source_ids, tmdb_avatar_path, douban_avatar_path
         ))
         
-        self.conn.commit()
+        self._commit_if_autonomous()
         
         Logger.success(f"已保存人物: {name} ({person_id})")
         return cursor.lastrowid, person_id
@@ -506,7 +544,7 @@ class TreasureDB:
                 )
                 order += 1
         
-        self.conn.commit()
+        self._commit_if_autonomous()
         Logger.success(f"已保存 {order} 条人物关联: {work_id}")
     
     # ========================================
@@ -563,7 +601,7 @@ class TreasureDB:
         """
         
         cursor = self.conn.execute(sql, (group, name, module, submodule))
-        self.conn.commit()
+        self._commit_if_autonomous()
         
         Logger.success(f"已保存类型/标签: {name} ({group})")
         return cursor.lastrowid
@@ -638,7 +676,7 @@ class TreasureDB:
                 self.save_work_category(work_id, category_db_id, order)
                 order += 1
         
-        self.conn.commit()
+        self._commit_if_autonomous()
         Logger.success(f"已保存 {order} 条类型关联: {work_id}")
     
     # ========================================
@@ -658,6 +696,7 @@ class TreasureDB:
         self.connect()
         
         try:
+            self._bulk_import_depth += 1
             self.conn.execute("BEGIN TRANSACTION")
             
             work_id = self.save_work(movie_data)
@@ -671,13 +710,19 @@ class TreasureDB:
             self.save_work_categories_from_movie(work_id, movie_data, category_map)
             
             self.conn.commit()
+            asset_stats = self._promote_work_assets(work_id)
+            if asset_stats["copied"]:
+                Logger.success(f"已同步 {asset_stats['copied']} 个作品图片资源: {work_id}")
+            elif asset_stats["missing"]:
+                Logger.warning(f"未找到采集阶段作品图片目录: {work_id}")
             
             return {
                 "success": True,
                 "work_id": work_id,
                 "title": movie_data.get("title"),
                 "persons": len(person_map),
-                "categories": len(category_map)
+                "categories": len(category_map),
+                "assets": asset_stats
             }
             
         except Exception as e:
@@ -687,6 +732,8 @@ class TreasureDB:
                 "success": False,
                 "error": str(e)
             }
+        finally:
+            self._bulk_import_depth = max(0, self._bulk_import_depth - 1)
     
     # ========================================
     # 辅助方法
@@ -767,12 +814,6 @@ class TreasureDB:
         if data.get("metascore"):
             scores["metacritic"] = data["metascore"]
         
-        if data.get("rated"):
-            scores["certification"] = data["rated"]
-        
-        if data.get("awards"):
-            scores["awards"] = data["awards"]
-        
         if scores:
             valid_ratings = [v for k, v in scores.items() 
                            if k in ["douban", "imdb", "tmdb", "rottenTomatoes", "metacritic"] 
@@ -785,32 +826,35 @@ class TreasureDB:
     def _build_related(self, data: Dict[str, Any]) -> Optional[str]:
         """构建 related 字段"""
         related = {}
+
+        def normalize_items(items: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+            normalized = []
+            for item in items:
+                if not isinstance(item, dict):
+                    continue
+                normalized.append({
+                    key: value
+                    for key, value in {
+                        "title": item.get("title"),
+                        "originalTitle": item.get("originalTitle"),
+                        "year": item.get("year"),
+                        "rating": item.get("rating"),
+                        "source": item.get("source", "douban"),
+                        "sourceId": item.get("sourceId", ""),
+                        "url": item.get("url", ""),
+                        "poster": item.get("poster"),
+                    }.items()
+                    if value not in (None, "")
+                })
+            return normalized
         
         similar = data.get("similar", [])
         if similar:
-            related["similar"] = [
-                {
-                    "title": item.get("title"),
-                    "year": item.get("year"),
-                    "rating": item.get("rating"),
-                    "source": item.get("source", "douban"),
-                    "sourceId": item.get("sourceId", "")
-                }
-                for item in similar
-            ]
-        
+            related["similar"] = normalize_items(similar)
+
         series = data.get("series", [])
         if series:
-            related["series"] = [
-                {
-                    "title": item.get("title"),
-                    "year": item.get("year"),
-                    "rating": item.get("rating"),
-                    "source": item.get("source", "douban"),
-                    "sourceId": item.get("sourceId", "")
-                }
-                for item in series
-            ]
+            related["series"] = normalize_items(series)
         
         return self._to_json(related) if related else None
     

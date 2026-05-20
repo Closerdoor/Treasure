@@ -7,6 +7,7 @@
 - 生成 staging JSON 文件供后续导入
 """
 import json
+import re
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 from datetime import datetime
@@ -90,6 +91,12 @@ class DataMerger:
                 "profileLink": None
             }
 
+        character = person.get("character")
+        character_en = person.get("characterEn")
+        if character and character_en and not re.search(r"[\u4e00-\u9fff]", str(character)):
+            character_en = f"{character} {character_en}".strip()
+            character = None
+
         return {
             "name": person.get("name"),
             "nameEn": person.get("nameEn"),
@@ -98,8 +105,8 @@ class DataMerger:
             "avatarSource": "douban" if person.get("avatar") else None,
             "profileLink": person.get("profileLink"),
             "doubanId": person.get("doubanId"),
-            "character": person.get("character"),
-            "characterEn": person.get("characterEn")
+            "character": character,
+            "characterEn": character_en
         }
 
     def _normalize_douban_video(self, video: Dict[str, Any]) -> Dict[str, Any]:
@@ -112,6 +119,105 @@ class DataMerger:
             "sourceUrl": video.get("source_url"),
             "sourceId": video.get("trailerId")
         }
+
+    def _normalize_related_item(self, item: Dict[str, Any], source: str) -> Dict[str, Any]:
+        """Normalize related works from Douban/TMDB without losing source identifiers."""
+        rating = item.get("rating")
+        vote_average = item.get("vote_average")
+        if rating in ("", None) and isinstance(vote_average, (int, float)):
+            rating = vote_average
+        elif isinstance(rating, str):
+            try:
+                rating = float(rating)
+            except ValueError:
+                rating = None
+
+        source_id = item.get("sourceId") or item.get("id") or ""
+        year = item.get("year")
+        release_date = item.get("release_date", "")
+        if not year and release_date:
+            try:
+                year = int(str(release_date)[:4])
+            except ValueError:
+                year = None
+
+        return {
+            "title": item.get("title") or item.get("name") or item.get("original_title"),
+            "originalTitle": item.get("original_title"),
+            "year": year,
+            "rating": rating,
+            "source": item.get("source", source),
+            "sourceId": str(source_id) if source_id else "",
+            "url": item.get("url") or (
+                f"https://www.themoviedb.org/movie/{source_id}" if source == "tmdb" and source_id else ""
+            ),
+            "poster": item.get("poster_path") or item.get("poster"),
+        }
+
+    def _contains_cjk(self, value: Any) -> bool:
+        return bool(re.search(r"[\u4e00-\u9fff]", str(value or "")))
+
+    def _split_text_values(self, value: Any) -> List[str]:
+        if value in (None, ""):
+            return []
+        if isinstance(value, list):
+            result = []
+            for item in value:
+                result.extend(self._split_text_values(item))
+            return result
+        if isinstance(value, dict):
+            if "name" in value:
+                return self._split_text_values(value.get("name"))
+            return []
+        text = str(value).strip()
+        if not text:
+            return []
+        return [
+            item.strip()
+            for item in re.split(r"[、,，/;；|]+", text)
+            if item and item.strip()
+        ]
+
+    def _merge_chinese_genres(self, raw_data: Dict[str, Any], current: List[Any]) -> List[str]:
+        """Merge Chinese genre/type values from all available sources."""
+        merged = []
+
+        def add(value: Any) -> None:
+            for item in self._split_text_values(value):
+                if self._contains_cjk(item) and item not in merged:
+                    merged.append(item)
+
+        add(current)
+        douban_payload = self._normalize_douban_payload(raw_data.get("douban", {}))
+        add(douban_payload.get("detail", {}).get("genres"))
+        add(raw_data.get("tmdb", {}).get("detail", {}).get("genres"))
+        add(raw_data.get("baike", {}).get("genres"))
+        add(raw_data.get("baike", {}).get("basic_info", {}).get("类型"))
+        add(raw_data.get("baike", {}).get("basic_info", {}).get("类    型"))
+        add(raw_data.get("wikipedia", {}).get("genres"))
+        add(raw_data.get("omdb", {}).get("genres"))
+        add(raw_data.get("rotten_tomatoes", {}).get("ratings", {}).get("metadata", {}).get("genres"))
+        add(raw_data.get("rotten_tomatoes", {}).get("ratings", {}).get("schema_movie", {}).get("genre"))
+        add(raw_data.get("metacritic", {}).get("schema_movie", {}).get("genre"))
+        return merged
+
+    def _sync_cast_views(self, result: Dict[str, Any]) -> None:
+        """Keep all_cast as the source of truth; cast/otherCast are display slices."""
+        all_cast = [item for item in result.get("all_cast", []) if isinstance(item, dict)]
+        if not all_cast:
+            all_cast = [
+                item
+                for item in (result.get("cast", []) + result.get("otherCast", []))
+                if isinstance(item, dict)
+            ]
+
+        for index, item in enumerate(all_cast):
+            item.setdefault("order", index)
+            item["isPrimary"] = index < 10
+
+        result["all_cast"] = all_cast
+        result["cast"] = all_cast[:10]
+        result["otherCast"] = all_cast[10:]
     
     def merge(self, work_id: str, raw_data: Dict[str, Any]) -> Dict[str, Any]:
         """
@@ -142,6 +248,7 @@ class DataMerger:
             "writer": [],
             "cast": [],
             "otherCast": [],
+            "all_cast": [],
             "producer": [],
             "genre": [],
             "tags": [],
@@ -155,14 +262,13 @@ class DataMerger:
             "tmdbRating": None,
             "rottenTomatoes": None,
             "metascore": None,
-            "rated": None,
-            "awards": None,
             "synopsis": None,
             "story": None,
             "videos": [],
             "images": None,
             "reviews": [],
             "soundtrack": None,
+            "series": [],
             "similar": [],
             "quotes": None,
             "baikeUrl": None,
@@ -227,18 +333,15 @@ class DataMerger:
                 for index, c in enumerate(douban_casts)
             ]
             
-            # 转换 recommendations 格式，添加 source 和 sourceId
-            recommendations = douban.get("recommendations", [])
-            similar = []
-            for rec in recommendations:
-                similar.append({
-                    "title": rec.get("title"),
-                    "source": rec.get("source", "douban"),
-                    "sourceId": rec.get("sourceId", ""),
-                    "year": None,  # 豆瓣推荐列表无年份
-                    "rating": float(rec.get("rating")) if rec.get("rating") and rec.get("rating").isdigit() else None
-                })
-            result["similar"] = similar
+            result["series"] = [
+                self._normalize_related_item(item, "douban")
+                for item in douban.get("series", [])
+            ]
+
+            result["similar"] = [
+                self._normalize_related_item(item, "douban")
+                for item in douban.get("recommendations", [])
+            ]
             
             result["images"] = {
                 "poster": "poster-main.jpg" if douban.get("main_poster_url") else None,
@@ -322,7 +425,7 @@ class DataMerger:
                         "url": r.get("url"),
                         "title": None
                     })
-        
+
         omdb = raw_data.get("omdb", {})
         if omdb:
             ratings = omdb.get("ratings", {})
@@ -348,12 +451,6 @@ class DataMerger:
                 else:
                     result["metascore"] = ms_data
             
-            if omdb.get("rated"):
-                result["rated"] = omdb.get("rated")
-            
-            if omdb.get("awards"):
-                result["awards"] = omdb.get("awards")
-        
         baike = raw_data.get("baike", {})
         if baike:
             if baike.get("url"):
@@ -382,12 +479,6 @@ class DataMerger:
             if wikipedia.get("quotes"):
                 result["quotes"] = wikipedia.get("quotes", [])
             
-            if wikipedia.get("awards"):
-                if result.get("awards"):
-                    result["awards"] += f"\n{'; '.join(wikipedia.get('awards', []))}"
-                else:
-                    result["awards"] = "; ".join(wikipedia.get("awards", []))
-        
         rotten_tomatoes = raw_data.get("rotten_tomatoes", {})
         if rotten_tomatoes:
             ratings = rotten_tomatoes.get("ratings", {})
@@ -437,6 +528,8 @@ class DataMerger:
             "imdb": f"https://www.imdb.com/title/{result.get('imdbId')}/" if result.get('imdbId') else None,
             "tmdb": f"https://www.themoviedb.org/movie/{result.get('tmdbId')}" if result.get('tmdbId') else None
         }
+        result["genre"] = self._merge_chinese_genres(raw_data, result.get("genre", []))
+        self._sync_cast_views(result)
         result["module"] = "video"
         result["submodule"] = "movie"
         result["createdAt"] = datetime.now().strftime("%Y-%m-%d")

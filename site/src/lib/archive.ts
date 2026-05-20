@@ -50,8 +50,6 @@ export type MovieRecord = RatingInput & {
   language?: string;
   publishCompany?: string;
   runtime?: number;
-  rated?: string;
-  awards?: string;
   releaseDate?: ReleaseDate[];
   aka?: string[];
   synopsis?: { text?: string; note?: string };
@@ -59,6 +57,7 @@ export type MovieRecord = RatingInput & {
   videos?: Array<{ title: string; duration?: string; thumbnail?: string; url?: string }>;
   images?: {
     poster?: string;
+    covers?: Record<string, string>;
     posters?: string[];
     stills?: string[];
     wallpapers?: string[];

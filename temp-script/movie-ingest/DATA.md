@@ -235,7 +235,7 @@
 │ story               │ String         │ 剧情                                  │
 │ tags                │ Array<String>  │ 标签列表                              │
 │ poster              │ String         │ 海报URL                               │
-│ recommendations     │ Array<Object>  │ 推荐电影                              │
+│ recommendations     │ Array<Object>  │ 豆瓣推荐；最终合并进 similar          │
 │ comments            │ Array<Object>  │ 短评                                  │
 │ reviews             │ Array<Object>  │ 影评                                  │
 │ images              │ Object         │ 图片信息                              │
@@ -546,7 +546,7 @@
 | quotes（名言） | Wikipedia | - |
 | soundtrack（原声） | TMDB | - |
 | videos（视频） | TMDB | - |
-| similar（相似推荐） | 豆瓣 | TMDB |
+| similar（相似推荐） | 豆瓣推荐 | TMDB recommendations / similar 不使用 |
 | reviews（评论） | 豆瓣/TMDB/烂番茄/Metacritic | 各平台独立 |
 
 ---

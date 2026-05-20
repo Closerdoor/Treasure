@@ -174,8 +174,6 @@ function buildEntry(row, credits, categories) {
     tmdbRating: scores.tmdb ?? undefined,
     rottenTomatoes: scores.rottenTomatoes ?? undefined,
     metascore: scores.metacritic ?? undefined,
-    rated: undefined,
-    awards: undefined,
     images,
     videos,
     reviews,
@@ -193,6 +191,7 @@ function buildEntry(row, credits, categories) {
 function normalizeImages(images) {
   return {
     poster: nonEmptyString(images?.poster) ?? undefined,
+    covers: images?.covers && typeof images.covers === 'object' ? images.covers : undefined,
     posters: asStringArray(images?.posters),
     stills: asStringArray(images?.stills),
     wallpapers: asStringArray(images?.wallpapers)
@@ -341,6 +340,7 @@ async function exportEntryAssets(entry) {
 
   const workFiles = [
     exportedEntry.images?.poster,
+    ...asStringArray(Object.values(exportedEntry.images?.covers ?? {})),
     ...asStringArray(exportedEntry.images?.posters),
     ...asStringArray(exportedEntry.images?.stills),
     ...asStringArray(exportedEntry.images?.wallpapers),

@@ -129,8 +129,7 @@ class BaikeCrawler:
                 result["baike_id"] = baike_id
             
             # 摘要
-            summary_elem = soup.select_one(".lemma-summary") or soup.select_one(".para")
-            result["summary"] = summary_elem.text.strip() if summary_elem else ""
+            result["summary"] = self._extract_summary(soup, content)
             
             # 提取 PAGE_DATA JSON
             page_data = self._extract_page_data(content)
@@ -204,6 +203,7 @@ class BaikeCrawler:
                 self._augment_credits_from_basic_info(credits_data, result)
 
             if credits_data:
+                credits_data = self._dedupe_credits(credits_data)
                 result["credits"] = credits_data
                 Logger.info(f"百度百科演职员数据: 导演 {len(credits_data.get('directors', []))} 人, "
                            f"编剧 {len(credits_data.get('writers', []))} 人, "
@@ -217,7 +217,65 @@ class BaikeCrawler:
             traceback.print_exc()
             
         return result
-    
+
+    def _extract_summary(self, soup: BeautifulSoup, html_content: str) -> str:
+        """Extract Baike summary from old/new layouts and metadata fallbacks."""
+        selectors = [
+            ".lemma-summary",
+            ".J-summary",
+            "[data-module-type='lemmaSummary']",
+            "[data-module-type='summary']",
+            ".para",
+            "meta[name='description']",
+            "meta[property='og:description']",
+        ]
+        for selector in selectors:
+            elem = soup.select_one(selector)
+            if not elem:
+                continue
+            text = elem.get("content", "") if elem.name == "meta" else elem.get_text(" ", strip=True)
+            text = self._clean_text(text)
+            if text:
+                return text
+
+        patterns = [
+            r'"description"\s*:\s*"([^"]{20,})"',
+            r'"lemmaDesc"\s*:\s*"([^"]{20,})"',
+            r'"summary"\s*:\s*"([^"]{20,})"',
+        ]
+        for pattern in patterns:
+            match = re.search(pattern, html_content)
+            if match:
+                text = self._clean_text(match.group(1))
+                if text:
+                    return text
+        return ""
+
+    def _dedupe_credits(self, credits: Dict[str, List]) -> Dict[str, List]:
+        """Deduplicate people inside each credit role while preserving first-seen data."""
+        deduped: Dict[str, List] = {}
+        for role, items in (credits or {}).items():
+            if not isinstance(items, list):
+                deduped[role] = items
+                continue
+            seen = set()
+            role_items = []
+            for item in items:
+                if not isinstance(item, dict):
+                    continue
+                name = self._clean_text(item.get("name", ""))
+                if not name:
+                    continue
+                key = (name, self._clean_text(item.get("character", "")))
+                if key in seen:
+                    continue
+                seen.add(key)
+                normalized = dict(item)
+                normalized["name"] = name
+                role_items.append(normalized)
+            deduped[role] = role_items
+        return deduped
+
     def _extract_page_data(self, html_content: str) -> Optional[Dict]:
         """
         从百度百科页面提取 PAGE_DATA JSON
@@ -1025,6 +1083,7 @@ class BaikeCrawler:
             for item in actor_items:
                 try:
                     # 姓名
+                    character = None
                     name_elem = item.select_one(".actorName_LnBCT a, .info_aRpVI dt a.innerLink_k6w5Y")
                     name = name_elem.text.strip() if name_elem else ""
                     
@@ -1033,9 +1092,9 @@ class BaikeCrawler:
                     avatar = avatar_elem.get("src") if avatar_elem else None
                     
                     # 角色名
-                    role_elems = item.select_one(".info_aRpVI dt")
-                    if role_elems:
-                        role_text = role_elem.text.strip() if role_elem else ""
+                    role_elem = item.select_one(".info_aRpVI dt")
+                    if role_elem:
+                        role_text = role_elem.text.strip()
                         # 解析 "姓名 饰 角色名"
                         if "饰" in role_text:
                             parts = role_text.split("饰")

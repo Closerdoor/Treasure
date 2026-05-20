@@ -248,6 +248,38 @@ python main.py update-fields --work-id 0101000001 --source douban --fields revie
 
 `db_tools/import-movie.mjs` 是 legacy JS 入口，默认禁止直接运行；后续如需要命令行导入，应在 Python 主链路上补一个只调用 `database.py` 的薄 CLI，而不是恢复 JS 入口。
 
+#### 2.6.1 合并与入库调试结论（2026-05-19）
+
+以《社交网络》`0101000252` 为样本，当前 raw -> staging -> SQLite 流程已完成一次端到端调试。该样本曾临时入库用于验证事务和字段投影，随后已按备份恢复，当前 `.local/treasure.db` 仍是审视前的 250 部电影状态：
+
+- `merger.py` 会合并豆瓣系列作品和豆瓣推荐；最终只输出 `series`、`similar` 两类关联。TMDB recommendations / similar 不参与采集和合并。
+- `database.py` 的 `related` 字段只保留 `series`、`similar` 两类关联，并保留 `title`、`originalTitle`、`year`、`rating`、`source`、`sourceId`、`url`、`poster`。
+- 豆瓣演职员角色名会避免把纯英文角色错误拆成中英文两段；历史 raw 中已经拆错的纯英文角色会在合并层修正为完整 `characterEn`。
+- `TreasureDB.import_movie(movie_data)` 是整部电影的正式入库入口；主表、人物、人物关系、分类、分类关系在同一个事务中提交。单独调用保存函数时仍会自动提交。
+- 采集阶段会并行下载视频封面，并把视频 `thumbnail` 改写为本地文件名；入库成功后会把作品图片从 `data/assets/works/{work_id}/images/` 同步到 `.local/assets/video/movie/{work_id}/`。
+- 已用临时数据库副本模拟“主表写入后中途失败”，失败后测试作品回滚为 0 条，外键检查 0 条问题。
+
+《社交网络》样本临时入库时的核对结果：
+
+| 项目 | 数量 / 结果 |
+|---|---:|
+| 临时数据库作品总数 | 251 |
+| 样本评论总数 | 84 |
+| 视频 | 20 |
+| 海报图 | 183 |
+| 剧照 | 748 |
+| 壁纸 | 4 |
+| 视频封面 | 20 |
+| 系列作品 | 1 |
+| 豆瓣推荐写入 `similar` | 10 |
+| TMDB recommendations / similar | 不使用 |
+| 演职员关系 | 36 |
+| 类型关系 | 2 |
+| 同步到 `.local/assets` 的作品资源 | 956 |
+| 外键问题 | 0 |
+
+当前仍未把 DB -> generated -> Astro 构建纳入 `movie-ingest` 职责；入库后的站点导出仍由仓库根目录的 `tools/db/export-generated.mjs` 负责。本样本已恢复为未入库状态，后续需要先审视合并清单再决定是否正式导入。
+
 ### 2.7 完整流程示例
 
 ```bash
@@ -306,8 +338,8 @@ python main.py --movie-name "社交网络" --year 2010
 | `/movie/{tmdb_id}/external_ids` | IMDb、Wikidata、社交平台外部 ID |
 | `/movie/{tmdb_id}/release_dates` | 各地区上映日期与分级信息 |
 | `/movie/{tmdb_id}/keywords` | 关键词 |
-| `/movie/{tmdb_id}/recommendations` | 推荐作品；默认全量分页获取 |
-| `/movie/{tmdb_id}/similar` | 相似作品；默认全量分页获取 |
+| `/movie/{tmdb_id}/recommendations` | 不采集；该数据不进入最终 `series` / `similar` |
+| `/movie/{tmdb_id}/similar` | 不采集；该数据不进入最终 `series` / `similar` |
 
 **OMDb API 采集契约**：
 
@@ -492,3 +524,14 @@ CHROME_PATH = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
 - 数据来源对照表
 
 采集后的实际字段核对页由 `field_map_report.py` 生成，默认输出到 `docs/field-map.html`，用于对比数据库字段与各数据源 raw 内容。涉及图片资源时只展示数量。
+
+### 2.12 电影单源采集后的合并规则补充
+
+- `genre`：合并所有数据源中的中文类型结果并去重。当前会读取豆瓣、TMDB、百度百科、Wikipedia 中可识别的中文类型候选；英文类型只保留在 raw 中审视，不直接进入合并后的 `genre`。
+- `rated` / `awards`：只作为原始采集数据保留在各数据源 raw 文件中，用于人工审视；不进入 staging 合并数据、不写入 SQLite、不导出到 generated，也不在 Astro 前台展示。
+- `all_cast` / `cast` / `otherCast`：`all_cast` 是全量演员主数据，入库演员关系优先使用它；`cast` 是 `all_cast` 前 10 位展示切片；`otherCast` 是第 11 位之后的展示切片。
+- `series` / `similar`：最终合并数据、SQLite 和 Astro 只保留这两类关联。豆瓣系列作品进入 `series`；豆瓣推荐进入 `similar`。
+- TMDB `recommendations` / `similar`：不采集、不合并、不写入数据库，也不作为 Astro 展示数据。
+- 封面主图：豆瓣、TMDB、OMDb、Rotten Tomatoes 的作品封面主图会分别下载到 `data/assets/works/{work_id}/cover/`，并在 `images.covers` 中按来源记录；`images.poster` 默认按豆瓣、TMDB、OMDb、Rotten Tomatoes 的顺序选择首个可用封面。
+- 普通图库：豆瓣海报/剧照/壁纸、TMDB posters/backdrops 仍下载到 `data/assets/works/{work_id}/images/`，不和封面主图混放。
+- 百度百科：已采集中文名、外文名、其他译名、类型、出品公司、制片地区、拍摄日期、发行公司、导演、编剧、制片人、主演、片长、上映时间、对白语言、色彩、IMDb 编码、出品时间、制片成本等中文基础字段；当前主合并规则仍是豆瓣优先、豆瓣缺失时 TMDB 补充，百度百科字段先保留在 raw 中用于审视。

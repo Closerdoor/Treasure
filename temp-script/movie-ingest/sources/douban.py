@@ -809,11 +809,14 @@ class DoubanCrawler:
                         char_match = re.search(r"饰\s+([^)]+)", role_text)
                         if char_match:
                             char_text = char_match.group(1).strip()
-                            # 分离中英文角色名
-                            char_parts = re.split(r'\s+', char_text, maxsplit=1)
-                            character = char_parts[0]
-                            if len(char_parts) > 1:
-                                character_en = char_parts[1]
+                            # 只有包含中文时才按“中文名 英文名”拆分；纯英文角色名保留完整文本。
+                            if re.search(r"[\u4e00-\u9fff]", char_text):
+                                char_parts = re.split(r'\s+', char_text, maxsplit=1)
+                                character = char_parts[0]
+                                if len(char_parts) > 1:
+                                    character_en = char_parts[1]
+                            else:
+                                character_en = char_text
                     
                     # 头像（豆瓣使用 background-image）
                     avatar_elem = celeb.select_one(".avatar")
