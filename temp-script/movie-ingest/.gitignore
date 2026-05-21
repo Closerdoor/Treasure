@@ -36,6 +36,7 @@ env/
 data/
 *.json
 !config.json
+docs/field-map.html
 
 # Logs
 *.log

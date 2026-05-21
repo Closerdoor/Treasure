@@ -1,6 +1,6 @@
 # Treasure 当前状态
 
-最近校验时间：2026-05-16
+最近校验时间：2026-05-20
 
 当前项目处于 **DB-first 静态站闭环整理阶段**。电影模块已经跑通从 SQLite 到 generated，再到 Astro 静态构建的主链路；书籍模块已有数据库草稿，但还没有正式接入 generated 和前台页面。
 
@@ -8,11 +8,11 @@
 
 | 表 | 数量 | 说明 |
 |---|---:|---|
-| `works` | 250 | 影视 / 电影，全部为 `published` |
-| `person` | 11541 | 公共人物表 |
+| `works` | 251 | 影视 / 电影，全部为 `published` |
+| `person` | 11570 | 公共人物表 |
 | `category` | 28 | 公共分类 / 标签 |
-| `work_person` | 12999 | 电影演职员关系 |
-| `work_category` | 698 | 电影分类关系 |
+| `work_person` | 13035 | 电影演职员关系 |
+| `work_category` | 700 | 电影分类关系 |
 | `books` | 3 | 书籍草稿，全部为 `draft` |
 | `book_series` | 0 | 书籍系列 |
 | `book_person` | 0 | 书籍人物关系 |
@@ -22,15 +22,15 @@
 
 | 校验项 | 结果 |
 |---|---:|
-| 数据库电影数 | 250 |
-| `generated/entries/video/movie/*.json` | 250 |
-| `generated/indexes/video-movie.json` 记录数 | 250 |
+| 数据库电影数 | 251 |
+| `generated/entries/video/movie/*.json` | 251 |
+| `generated/indexes/video-movie.json` 记录数 | 251 |
 | generated 中找不到数据库记录 | 0 |
 | 数据库中缺少 generated 详情 | 0 |
 | 关键字段不一致 | 0 |
 | 索引缺详情 | 0 |
 | 详情缺索引 | 0 |
-| 人物引用总数 | 12999 |
+| 人物引用总数 | 13035 |
 | 人物编号找不到数据库记录 | 0 |
 
 结论：数据库主数据与 generated 详情 / 索引已经对齐。
@@ -39,9 +39,9 @@
 
 | 资源项 | 总量 | 存在 | 缺失 | 覆盖率 |
 |---|---:|---:|---:|---:|
-| generated 资源引用 | 9199 | 9197 | 2 | 约 99.98% |
-| 作品主资源导出 | 250 | 249 | 1 | 99.6% |
-| 人物头像导出尝试 | 12999 | 9072 | 3927 | 约 69.8% |
+| generated 资源引用 | 10148 | 10146 | 2 | 约 99.98% |
+| 作品资源导出 | 1196 | 1195 | 1 | 约 99.92% |
+| 人物头像导出尝试 | 13030 | 9078 | 3952 | 约 69.7% |
 
 已知缺口：
 
@@ -64,7 +64,7 @@ npm.cmd run build
 
 ```text
 构建成功
-生成页面：254
+生成页面：255
 ```
 
 页面包括：
@@ -73,7 +73,7 @@ npm.cmd run build
 - 关于页 `/about`
 - 搜索入口 `/search`
 - 影视列表页 `/video`
-- 电影详情页 `/video/movie/{id}`，共 250 个
+- 电影详情页 `/video/movie/{id}`，共 251 个
 
 ## 已完成
 
@@ -81,9 +81,9 @@ npm.cmd run build
 - 明确本地内容工坊与公开静态站的边界。
 - 确认 SQLite 是本地结构化主数据源。
 - 确认 Astro 只消费 `generated/` 和 `site/public/assets/`。
-- 电影模块已导入 250 条作品记录。
-- 电影模块已导出 250 个详情 JSON 和 250 条列表索引。
-- Astro 静态站可成功构建 254 个页面。
+- 电影模块已导入 251 条作品记录。
+- 电影模块已导出 251 个详情 JSON 和 251 条列表索引。
+- Astro 静态站可成功构建 255 个页面。
 - 文档已收敛为入口、项目结构与状态三类。
 - 已完成一次 `movie-ingest` 与 `book-ingest` 的代码级流程审视，确认这两个目录的职责边界是爬取作品信息、下载到本地、录入 `.local/treasure.db`；generated / Astro / 发布校验不属于它们的职责。
 - 已将 `tools/db/` 收口为当前 DB 主链路工具，历史修库脚本和旧电影 intake / 样板脚本已移入 `tools/archive/`。
@@ -101,15 +101,17 @@ npm.cmd run build
 - 影视作品编辑页已改为左侧表单、右侧前台预览；字段表单会展示数据库字段名、中文说明和前台用途。
 - 影视作品保存基础信息、结构化 JSON、演职员关系或分类关系后，会自动执行 `node tools/db/export-generated.mjs`，本地 Astro 前台刷新后可读取最新 generated 数据。
 - 当前后台暂不提供字段级审计日志；人工修改没有 before / after 历史记录。若后续需要追溯，应新增本地审计表记录后台 API 写入行为。
+- 已以 `0101000251`《社交网络》跑通 movie-ingest 稳定单片流程：多源采集、图片本地化、staging 合并、入库预检、临时库演练、正式入库、generated 导出和 Astro 构建。
+- `temp-script/movie-ingest/import_staging.py` 已成为电影 staging 的正式入库 CLI：默认只预检，`--apply` 才会备份并写入 `.local/treasure.db`。
+- 已清理 `temp-script/movie-ingest` 旧内容：删除 legacy `db_tools/` JS 入库入口、过期 `AUDIT.md`、已跟踪的字段核对 HTML、旧进度 / 任务 / 报告产物和 Python 缓存；当前目录收口为单部电影稳定工作流。
 
 ## 未完成
 
 - 尚未建立稳定的 generated 完整性校验脚本。
 - 电影资源仍有已知缺口。
-- `generated.images` 中本地文件名和外链对象的边界需要统一。
+- 电影新增流程中的 `generated.images` 本地文件名和外链对象边界已在 movie-ingest 侧明确；历史存量记录仍可能需要逐步清理。
 - 书籍模块已有数据库草稿，但尚未进入 generated 和 Astro 页面链路。
 - 书籍录入脚本尚未完全对齐采集工坊契约：字段级来源追踪未落地，部分字段优先级与局部规则文档不一致，staging 阶段存在提前 JSON 字符串化，封面本地路径写回 staging 的流程仍需确认。
-- `temp-script/movie-ingest/db_tools/` 中仍有部分脚本涉及 generated、site 构建、发布校验或迁移验收语境，职责上更像历史过渡工具或应迁入 `tools/` 的工具，尚未逐一确认去留。
 - `tools/db/` 已收口为当前 DB 主链路工具；历史修库脚本和旧电影 intake / 样板脚本已移入 `tools/archive/`，后续完整跑工作流时再确认是否还有需要恢复的正式入口。
 - `temp-script/` 中仍有大量实验脚本、日志和调试产物，需要后续分类归档。
 - 当前仓库仍存在一批不在主链路上的历史或调试文件，尚未删除：
@@ -123,6 +125,5 @@ npm.cmd run build
 1. 新增 `tools/db/check-generated-integrity.mjs`，把当前手动校验固化为脚本。
 2. 按 `docs/PROJECT.md` 的“主链路文件分级”逐项确认清理候选，优先处理明显不该入库的调试日志、缓存和 generated 历史产物。
 3. 修正 `0101000178`《绿里奇迹》的 `poster-main.webp` 缺口后重新导出和构建。
-4. 明确 `images.posters/stills` 是否只允许本地文件名字符串。
-5. 审视 `temp-script/movie-ingest/db_tools/` 中的历史过渡脚本，决定迁移、归档或删除。
-6. 将书籍录入 staging 契约对齐采集工坊标准，再设计书籍模块的 generated 契约与 `/book`、`/book/{id}` 页面。
+4. 使用《社交网络》页面做一次前台渲染核对，确认新电影在 Astro 列表页和详情页展示正常。
+5. 将书籍录入 staging 契约对齐采集工坊标准，再设计书籍模块的 generated 契约与 `/book`、`/book/{id}` 页面。

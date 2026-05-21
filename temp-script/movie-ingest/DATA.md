@@ -174,9 +174,37 @@
 | images | images | String? | 图片（JSON） |
 | videos | videos | String? | 视频（JSON） |
 | reviews | comments | String? | 评论（JSON） |
-| similar | related | String? | 相似推荐（JSON） |
+| series | related | String? | 系列作品（写入 related.series） |
+| similar | related | String? | 相似推荐（写入 related.similar） |
 | soundtrack | soundtrack | String? | 原声（JSON） |
 | quotes | quotes | String? | 名言（JSON） |
+
+**staging.images 入库结构**：
+
+```json
+{
+  "poster": "cover/douban-main.webp",
+  "covers": {
+    "douban": "cover/douban-main.webp",
+    "tmdb": "cover/tmdb-main.jpg",
+    "omdb": "cover/omdb-main.jpg",
+    "rottenTomatoes": "cover/rotten-tomatoes-main.jpg"
+  },
+  "posters": ["poster-002.webp"],
+  "stills": ["still-036.webp"],
+  "wallpapers": ["wallpaper-934.webp"],
+  "postersTotal": 177,
+  "stillsTotal": 742,
+  "wallpapersTotal": 3
+}
+```
+
+约束：
+
+- `images.covers` 单独保存各数据源作品封面主图；入库后位于 `.local/assets/video/movie/{work_id}/cover/`。
+- `images.poster` 是前台默认主图引用，当前按豆瓣、TMDB、OMDb、Rotten Tomatoes 优先级选择。
+- `images.posters`、`images.stills`、`images.wallpapers` 只允许保存本地文件名字符串，不允许保存外链 URL 或 `{url,width,height}` 对象。
+- 视频 `thumbnail` 同样只允许保存本地文件名字符串。
 
 ### 2.2 演职员字段映射
 
@@ -533,21 +561,25 @@
 
 | 字段 | 主要来源 | 备用来源 | 说明 |
 |-----|---------|---------|------|
-| poster（海报） | TMDB | 豆瓣 | TMDB 图片质量高 |
-| stills（剧照） | TMDB | 豆瓣 | - |
-| backdrops（背景图） | TMDB | - | - |
-| 人物头像 | TMDB | 豆瓣 | TMDB 头像质量高 |
+| poster（展示主图） | 豆瓣 | TMDB / OMDb / 烂番茄 | 写入 `images.poster`，引用 `cover/` 下的本地封面主图 |
+| covers（各来源封面主图） | 豆瓣 / TMDB / OMDb / 烂番茄 | - | 写入 `images.covers`，各来源都下载并单独保留 |
+| posters（海报图库） | 豆瓣 / TMDB | - | 只保存本地文件名字符串 |
+| stills（剧照图库） | 豆瓣 / TMDB | - | 只保存本地文件名字符串 |
+| wallpapers（壁纸图库） | 豆瓣 | - | 只保存本地文件名字符串 |
+| 人物头像 | 豆瓣 / TMDB | - | 采集阶段下载，入库后由作品关系按需导出 |
 
 ### 4.5 其他字段来源
 
 | 字段 | 来源 | 说明 |
 |-----|------|------|
-| awards（奖项） | Wikipedia | 百度百科 |
+| awards（奖项） | Wikipedia | 百度百科；仅保留在 raw / staging 审视，不写入数据库与 Astro |
 | quotes（名言） | Wikipedia | - |
 | soundtrack（原声） | TMDB | - |
 | videos（视频） | TMDB | - |
 | similar（相似推荐） | 豆瓣推荐 | TMDB recommendations / similar 不使用 |
 | reviews（评论） | 豆瓣/TMDB/烂番茄/Metacritic | 各平台独立 |
+
+`rated` 与 `awards` 不进入 `works.scores`、不作为独立数据库字段，也不在 Astro 前台展示；它们可以作为 raw / staging 审视信息保留，用于人工判断。
 
 ---
 

@@ -264,6 +264,48 @@ source task / curated input
 - 如果脚本存在数量限制、数据源跳过、降级策略或只取前 N 条，必须在代码注释、运行前说明和批次摘要中同时可见。
 - 模块局部 README 可以记录实验细节，但不得覆盖本文件中的主线契约。
 
+### movie-ingest 稳定工作流
+
+`temp-script/movie-ingest` 当前已经具备“采集数据 -> 合并数据 -> 录入本地数据库”的稳定单部电影工作流。它的正式边界仍然止于 `.local/treasure.db`，入库后的 generated 导出与 Astro 构建属于仓库根目录主链路。
+
+电影新增标准流程：
+
+```text
+确认作品输入
+  -> 运行 movie-ingest 采集 raw
+  -> 下载作品图片、各来源封面主图、视频封面和人物头像到 data/assets/
+  -> 合并生成 data/staging/{work_id}.json
+  -> 生成字段核对 HTML 并人工审视
+  -> 运行 import_staging.py 做只读预检与临时库演练
+  -> 预检通过后运行 import_staging.py --apply 正式入库
+  -> 回到仓库根目录运行 tools/db/export-generated.mjs
+  -> 构建 site 验证静态页面
+```
+
+`import_staging.py` 是当前 movie-ingest 的正式入库 CLI。默认只预检，不写主库；只有显式传入 `--apply` 才会备份 `.local/treasure.db` 并调用 `database.py` 写入数据库。预检必须覆盖：
+
+- staging 文件名与内部 `id` 一致。
+- 新作品 ID 等于数据库当前最大电影 ID 的下一条 `0101NNNNNN`。
+- 使用豆瓣 ID、IMDb ID、TMDB ID、标题 + 年份、原名 + 年份查重；疑似存在时停止。
+- `images.poster`、`images.covers`、`images.posters/stills/wallpapers` 和 `videos.thumbnail` 全部指向本地文件。
+- 图片字段不得残留外链 URL 或 `{url,width,height}` 这类未本地化对象。
+- 临时数据库导入演练成功，外键检查为 0。
+
+电影图片资源约定：
+
+- 采集缓存位于 `temp-script/movie-ingest/data/assets/works/{work_id}/`。
+- 普通图库位于 `images/`，包括海报图库、剧照、壁纸和视频封面。
+- 各数据源封面主图单独位于 `cover/`，并写入 `images.covers`。
+- 正式入库后，`database.py` 把 `images/` 同步到 `.local/assets/video/movie/{work_id}/`，把 `cover/` 同步到 `.local/assets/video/movie/{work_id}/cover/`。
+- `tools/db/export-generated.mjs` 再把当前数据库记录引用的资源导出到 `site/public/assets/video/movie/{work_id}/`。
+
+电影关联作品约定：
+
+- 数据库和 Astro 只使用 `series` 与 `similar` 两类关联。
+- `series` 表示同一系列作品，例如同一电影系列的多部作品。
+- `similar` 当前只使用豆瓣推荐数据。
+- TMDB recommendations 与 TMDB similar 当前不采集、不合并、不进入数据库。
+
 主链路：
 
 ```text
@@ -398,6 +440,7 @@ submodule
 title
 year
 images.poster
+images.covers
 director
 writer
 cast
@@ -412,12 +455,13 @@ synopsis
 
 ```text
 images.poster      单个主海报文件名
+images.covers      各数据源封面主图映射，例如 douban/tmdb/omdb/rottenTomatoes
 images.posters     海报文件名数组
 images.stills      剧照文件名数组
 images.wallpapers  壁纸文件名数组
 ```
 
-这些字段当前应优先使用本地文件名字符串，例如 `poster-main.webp`。如果出现 TMDB 外链对象，必须明确是导出阶段过滤、转换，还是前台读取层支持；不要让两种形态长期混用。
+这些字段当前应使用本地文件名字符串，`images.covers` 的值允许带 `cover/` 子目录，例如 `cover/douban-main.webp`。新增电影入库时不允许 `images.posters/stills/wallpapers` 残留 TMDB 外链对象；历史存量记录如果仍有混用形态，应在后续人工清理或迁移时统一。
 
 人物头像资源约定：
 

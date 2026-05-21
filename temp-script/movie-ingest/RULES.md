@@ -40,7 +40,7 @@ main.py / crawl.py
 - `merger.py` 只合并 raw 到 staging，不写数据库、不写发布资源。
 - `downloader.py` 只下载采集阶段资源到 `data/assets/`。
 - `database.py` 是本目录写入 `.local/treasure.db` 的正式入口。
-- `db_tools/import-movie.mjs` 属于旧 JS 入库入口，因会触碰 `site/public/assets`，不得作为当前正式流程使用。
+- `import_staging.py` 是 staging 入库预检与正式导入 CLI；默认只预检，显式传入 `--apply` 才能写入 `.local/treasure.db`。
 - `generated/` 导出、`site/public/assets/` 发布资源同步、Astro 构建和发布校验都不属于本目录。
 
 修改本目录脚本时，必须保持以上边界。若确实需要越界，应先向用户确认并说明原因、影响范围和替代方案。
