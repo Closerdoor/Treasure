@@ -128,6 +128,13 @@ npm.cmd run build
 
 `import_staging.py` 默认只读主库，并使用临时数据库副本演练导入。只有 `--apply` 才写入 `.local/treasure.db`。
 
+已有电影的完整刷新必须显式传入 `--update-existing`，且只允许覆盖数据库中同一个 `work_id` 的作品。示例：
+
+```bash
+python import_staging.py --work-id 0101000178 --update-existing
+python import_staging.py --work-id 0101000178 --update-existing --apply
+```
+
 预检会检查：
 
 - `data/staging/{work_id}.json` 文件名与内部 `id` 一致。

@@ -84,13 +84,31 @@ def find_existing_matches(conn: sqlite3.Connection, data: Dict[str, Any]) -> Lis
     for row in rows:
         reasons: List[str] = []
         sources = parse_json_text(row["external_source"], [])
-        source_blob = json.dumps(sources, ensure_ascii=False)
+        source_map: Dict[str, str] = {}
+        if isinstance(sources, list):
+            for source in sources:
+                if not isinstance(source, dict):
+                    continue
+                name = str(source.get("name") or "").lower()
+                source_id = source.get("id")
+                if not source_id:
+                    continue
+                if "豆瓣" in name or "douban" in name:
+                    source_map["douban"] = str(source_id)
+                elif "imdb" in name:
+                    source_map["imdb"] = str(source_id)
+                elif "tmdb" in name:
+                    source_map["tmdb"] = str(source_id)
+                elif "百度" in name or "baike" in name:
+                    source_map["baike"] = str(source_id)
+                elif "维基" in name or "wikipedia" in name:
+                    source_map["wikipedia"] = str(source_id)
 
         if row["id"] == data.get("id"):
             reasons.append("id")
 
         for key, value in source_ids.items():
-            if value and value in source_blob:
+            if value and source_map.get(key) == value:
                 reasons.append(f"{key}:{value}")
 
         if data.get("title") and row["title"] == data.get("title") and row["year"] == data.get("year"):
@@ -204,7 +222,7 @@ def backup_database(work_id: str) -> Path:
     return backup_path
 
 
-def precheck(work_id: str, data: Dict[str, Any]) -> Dict[str, Any]:
+def precheck(work_id: str, data: Dict[str, Any], update_existing: bool = False) -> Dict[str, Any]:
     conn = sqlite3.connect(config.DB_PATH)
     conn.row_factory = sqlite3.Row
 
@@ -214,9 +232,18 @@ def precheck(work_id: str, data: Dict[str, Any]) -> Dict[str, Any]:
     conn.close()
 
     assets = validate_assets(work_id, data)
-    dry_run = dry_run_import(data) if not matches else None
+    dry_run = dry_run_import(data) if update_existing or not matches else None
 
     problems: List[str] = []
+    if update_existing:
+        id_matches = [match for match in matches if match.get("id") == work_id]
+        other_matches = [match for match in matches if match.get("id") != work_id]
+        if not id_matches:
+            problems.append("update-existing 模式下数据库中未找到同 ID 的已有电影")
+        if other_matches:
+            problems.append("update-existing 模式下数据库中存在其他疑似匹配作品")
+        matches = []
+        expected_id = data.get("id")
     if matches:
         problems.append("数据库中疑似已存在同一作品")
     if data.get("id") != expected_id:
@@ -240,6 +267,7 @@ def precheck(work_id: str, data: Dict[str, Any]) -> Dict[str, Any]:
         "source_ids": collect_source_ids(data),
         "db_max_movie_id": max_id,
         "expected_next_movie_id": expected_id,
+        "update_existing": update_existing,
         "matches": matches,
         "assets": assets,
         "dry_run": dry_run,
@@ -262,10 +290,15 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="movie-ingest staging 入库预检与正式导入")
     parser.add_argument("--work-id", required=True, help="待导入的电影作品 ID")
     parser.add_argument("--apply", action="store_true", help="通过预检后正式写入 .local/treasure.db")
+    parser.add_argument(
+        "--update-existing",
+        action="store_true",
+        help="刷新数据库中同 ID 的已有电影；只用于用户明确要求重新采集并覆盖入库的场景",
+    )
     args = parser.parse_args()
 
     data = load_staging(args.work_id)
-    report = precheck(args.work_id, data)
+    report = precheck(args.work_id, data, update_existing=args.update_existing)
     print(json.dumps(report, ensure_ascii=False, indent=2))
 
     if report["problems"]:

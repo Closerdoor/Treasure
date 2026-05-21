@@ -226,11 +226,12 @@ class MovieCrawler:
             work_id,
             merged.get("videos", [])
         )
-        if video_thumbnail_map:
-            for video in merged.get("videos", []):
-                thumbnail = video.get("thumbnail")
-                if thumbnail in video_thumbnail_map:
-                    video["thumbnail"] = video_thumbnail_map[thumbnail]
+        for video in merged.get("videos", []):
+            thumbnail = video.get("thumbnail")
+            if thumbnail in video_thumbnail_map:
+                video["thumbnail"] = video_thumbnail_map[thumbnail]
+            elif isinstance(thumbnail, str) and thumbnail.startswith(("http://", "https://")):
+                video["thumbnail"] = None
         
         # ── 保存 staging ──
         staging_path = config.STAGING_DIR / f"{work_id}.json"

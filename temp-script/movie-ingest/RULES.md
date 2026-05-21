@@ -220,7 +220,7 @@ with open(file_path, 'w', encoding='utf-8') as f:
 
 - 新增作品采集前必须只读查询 `.local/treasure.db`，优先按 `douban_id`、`imdb_id`、`tmdb_id` 判断作品是否已存在。
 - 如果作品已存在，默认停止新增流程，不重复采集、不重复入库。
-- 已有作品更新必须显式指定 `work_id`、`source` 和字段白名单。
+- 已有作品更新默认走字段级修正；如果用户明确要求“完整重新采集并覆盖已有作品”，必须显式指定 `work_id` 并使用 `import_staging.py --update-existing` 预检，确认只命中同一个作品后才允许 `--apply`。
 - `refresh-source` 只允许刷新 raw，不直接写库。
 - `update-fields` 只能写入白名单字段，未列出的字段必须保持不变。
 - 不得把“新增作品”和“已有作品更新”混在同一个默认入口里。
