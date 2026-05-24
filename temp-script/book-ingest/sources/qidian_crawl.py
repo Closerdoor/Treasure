@@ -6,11 +6,11 @@
 独立浏览器实例，仅适用于网络小说
 
 输出字段：
-- url, title, author
+- url, title, authors[{name, url}]
 - status (连载状态), word_count
 - category (分类), summary
-- cover_url, platform
-- tags (标签)
+- cover_url, tags (标签)
+- platform (raw留存)
 """
 import asyncio
 import json
@@ -106,9 +106,13 @@ class QidianCrawler(BaseCrawler):
             if title_elem:
                 result["title"] = title_elem.text.strip()
 
-            author_elem = soup.select_one(".book-info .writer")
+            author_elem = soup.select_one(".book-info .writer a") or soup.select_one(".book-info .writer")
             if author_elem:
-                result["author"] = author_elem.text.replace("作者:", "").strip()
+                author_name = author_elem.text.replace("作者:", "").strip()
+                author_href = author_elem.get("href", "") if author_elem.name == "a" else ""
+                if author_href and author_href.startswith("//"):
+                    author_href = "https:" + author_href
+                result["authors"] = [{"name": author_name, "url": author_href}]
 
             status_elem = soup.select_one(".book-info .tag")
             if status_elem:

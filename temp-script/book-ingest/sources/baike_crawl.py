@@ -12,6 +12,7 @@
 - word_count, year
 - publisher, language
 - summary
+- story (内容情节 / 故事情节)
 - info (完整信息框字典)
 - author_baike_url
 - type (类型/体裁)
@@ -23,6 +24,7 @@ import asyncio
 import json
 import random
 import re
+from pathlib import Path
 from typing import Dict, Any, Optional
 from urllib.parse import quote
 
@@ -48,8 +50,15 @@ class BaikeCrawler(BaseCrawler):
         Returns:
             完整的百度百科数据字典
         """
+        manual_data = self._load_manual_html(title)
+        if manual_data:
+            Logger.success(f"[baike] 已从本地 HTML 解析: {title}")
+            return manual_data
+
         if not self.page:
             await self.init_browser()
+
+        await self._load_baike_cookies()
 
         Logger.info(f"[baike] 正在搜索: {title}")
 
@@ -60,6 +69,198 @@ class BaikeCrawler(BaseCrawler):
 
         data = await self._get_detail(baike_url, title)
         return data
+
+    async def _load_baike_cookies(self):
+        """加载 Cookie-Editor 导出的百度 Cookie，用于提高通过安全验证的概率。"""
+        cookie_file = Path(config.OUTPUT_DIR) / "cookies" / "baike.json"
+        if not cookie_file.exists() or not self.context:
+            return
+
+        try:
+            raw_cookies = json.loads(cookie_file.read_text(encoding="utf-8"))
+            if not isinstance(raw_cookies, list):
+                Logger.warning(f"[baike] Cookie 文件不是数组，跳过: {cookie_file}")
+                return
+
+            same_site_map = {
+                "strict": "Strict",
+                "lax": "Lax",
+                "none": "None",
+                "no_restriction": "None",
+                "unspecified": "Lax",
+            }
+            cookies = []
+            for item in raw_cookies:
+                if not isinstance(item, dict) or not item.get("name"):
+                    continue
+                cookie = {
+                    "name": item.get("name"),
+                    "value": item.get("value", ""),
+                    "domain": item.get("domain") or ".baidu.com",
+                    "path": item.get("path") or "/",
+                    "httpOnly": bool(item.get("httpOnly")),
+                    "secure": bool(item.get("secure")),
+                    "sameSite": same_site_map.get(str(item.get("sameSite", "lax")).lower(), "Lax"),
+                }
+                if not item.get("session") and item.get("expirationDate"):
+                    cookie["expires"] = int(float(item["expirationDate"]))
+                cookies.append(cookie)
+
+            if cookies:
+                await self.context.add_cookies(cookies)
+                Logger.info(f"[baike] 已加载百度 Cookie: {cookie_file} ({len(cookies)} 条)")
+        except Exception as e:
+            Logger.warning(f"[baike] Cookie 加载失败: {e}")
+
+    def _load_manual_html(self, title: str) -> Optional[Dict[str, Any]]:
+        """优先从 data/manual/baike/*.html 解析用户手动保存的百科页面。"""
+        manual_dir = Path(config.OUTPUT_DIR) / "manual" / "baike"
+        if not manual_dir.exists():
+            return None
+
+        for html_file in sorted(manual_dir.glob("*.html")):
+            try:
+                content = html_file.read_text(encoding="utf-8", errors="ignore")
+                soup = BeautifulSoup(content, "html.parser")
+                page_title = soup.title.get_text(strip=True) if soup.title else ""
+                h1 = soup.select_one("h1")
+                h1_text = h1.get_text(strip=True) if h1 else ""
+                if title and title not in page_title and title not in h1_text:
+                    continue
+
+                data = self._parse_detail_html(content, title, source_url=str(html_file))
+                if data:
+                    data["_manualHtml"] = str(html_file)
+                    return data
+            except Exception as e:
+                Logger.warning(f"[baike] 本地 HTML 解析失败: {html_file} - {e}")
+        return None
+
+    def _extract_page_data_from_content(self, content: str) -> Optional[Dict]:
+        """从 HTML 字符串提取 PAGE_DATA JSON。"""
+        try:
+            start_idx = content.find('window.PAGE_DATA=')
+            if start_idx < 0:
+                return None
+            start_idx += len('window.PAGE_DATA=')
+            end_idx = content.find(';</script>', start_idx)
+            if end_idx < 0:
+                end_idx = content.find('</script>', start_idx)
+            if end_idx < 0:
+                return None
+            return json.loads(content[start_idx:end_idx].strip())
+        except Exception as e:
+            Logger.warning(f"[baike] 提取 PAGE_DATA 失败: {e}")
+            return None
+
+    def _parse_detail_html(self, content: str, title: str, source_url: str = "") -> Optional[Dict[str, Any]]:
+        """解析已经取得的百度百科 HTML，供线上页面和本地 HTML 共用。"""
+        if (
+            "百度安全验证" in content
+            or "验证_百度百科" in content
+            or "captcha" in source_url
+            or "anticrawl" in source_url
+        ):
+            Logger.warning("[baike] 检测到百度安全验证页，跳过解析")
+            return None
+
+        soup = BeautifulSoup(content, "html.parser")
+        result = {"url": source_url, "title": title, "source": "baike"}
+        page_data = self._extract_page_data_from_content(content)
+
+        if page_data:
+            result["baike_id"] = page_data.get("lemmaId")
+            result["baike_title"] = page_data.get("lemmaTitle")
+            result["baike_desc"] = page_data.get("lemmaDesc")
+
+            card_info = self._extract_card_info(page_data.get("card", {}))
+            if card_info:
+                result["info"] = card_info
+
+                author_data = card_info.get("作者")
+                if author_data:
+                    author_name = author_data.get("title", "") if isinstance(author_data, dict) else str(author_data)
+                    country_match = re.match(r'[\[【(（]([^\]】)）]+)[\]】)）]', author_name)
+                    if country_match:
+                        result["country"] = country_match.group(1)
+                        author_name = re.sub(r'[\[【(（][^\]】)）]+[\]】)）]', '', author_name).strip()
+                    authors = [a.strip() for a in re.split(r'[、，,]', author_name) if a.strip()]
+                    if authors:
+                        result["authors"] = authors
+                        result["author"] = authors[0]
+
+                word_count = self._parse_word_count(card_info)
+                if word_count:
+                    result["word_count"] = word_count
+                if card_info.get("外文名"):
+                    result["title_original"] = str(card_info["外文名"])
+                year = self._extract_first_publish_year(card_info)
+                if year:
+                    result["year"] = year
+                if card_info.get("出版社"):
+                    result["publisher"] = str(card_info["出版社"])
+                elif card_info.get("出版机构"):
+                    result["publisher"] = str(card_info["出版机构"])
+                if card_info.get("语言"):
+                    result["language"] = str(card_info["语言"])
+                if card_info.get("类型"):
+                    result["type"] = str(card_info["类型"])
+                if card_info.get("状态"):
+                    result["serial_status"] = str(card_info["状态"])
+                if card_info.get("首发平台") or card_info.get("连载平台"):
+                    result["serial_platform"] = str(card_info.get("首发平台") or card_info.get("连载平台"))
+                if card_info.get("页数"):
+                    pages_match = re.search(r"(\d+)", str(card_info["页数"]))
+                    if pages_match:
+                        result["pages"] = int(pages_match.group(1))
+                if card_info.get("定价"):
+                    result["price"] = str(card_info["定价"])
+                if card_info.get("ISBN"):
+                    result["isbn"] = str(card_info["ISBN"])
+
+            description = page_data.get("description", "")
+            if description:
+                result["summary"] = description
+            else:
+                summary = self._extract_abstract(page_data.get("abstract", {}))
+                if summary:
+                    result["summary"] = summary
+
+        if not result.get("baike_title"):
+            lemma_title = soup.select_one("h1")
+            if lemma_title:
+                result["baike_title"] = lemma_title.get_text(strip=True)
+
+        if not result.get("summary"):
+            summary_elem = (
+                soup.select_one(".J-summary")
+                or soup.select_one("[class*='lemmaSummary']")
+                or soup.select_one(".lemma-summary")
+            )
+            if summary_elem:
+                result["summary"] = summary_elem.get_text(strip=True)
+
+        story_titles = ["内容情节", "内容介绍", "故事情节", "作品情节", "故事大纲", "剧情简介"]
+        story = self._extract_section_text(soup, story_titles)
+        if not story and page_data:
+            story = self._extract_section_from_page_data(page_data, story_titles)
+        if story:
+            result["story"] = story
+
+        author_links = soup.select("a[href*='/item/']")
+        for link in author_links:
+            link_text = link.get_text(strip=True)
+            if "作者" in link_text or link_text in str(result.get("author", "")):
+                href = link.get("href", "")
+                if href:
+                    result["author_baike_url"] = f"{config.BAIKE_BASE_URL}{href}" if href.startswith("/") else href
+                    break
+
+        meaningful_keys = {"summary", "story", "info", "author", "authors", "word_count", "title_original", "year"}
+        if not any(result.get(key) for key in meaningful_keys):
+            Logger.warning("[baike] 未提取到有效百科正文")
+            return None
+        return result
 
     async def _search(self, title: str) -> Optional[str]:
         """搜索词条"""
@@ -103,6 +304,15 @@ class BaikeCrawler(BaseCrawler):
         try:
             await asyncio.sleep(1)
             content = await self.page.content()
+            if (
+                "百度安全验证" in content
+                or "验证_百度百科" in content
+                or "captcha" in self.page.url
+                or "anticrawl" in self.page.url
+                or "verify" in self.page.url
+            ):
+                Logger.warning("[baike] 触发百度安全验证，本次不保存稀疏数据")
+                return None
             soup = BeautifulSoup(content, "html.parser")
 
             # 多义词消歧
@@ -144,6 +354,11 @@ class BaikeCrawler(BaseCrawler):
                         await asyncio.sleep(2)
                         content = await self.page.content()
                         soup = BeautifulSoup(content, "html.parser")
+
+            parsed = self._parse_detail_html(content, title, source_url=self.page.url)
+            if parsed:
+                return parsed
+            return None
 
             # 从 PAGE_DATA JSON 提取数据
             page_data = await self._extract_page_data()
@@ -239,6 +454,18 @@ class BaikeCrawler(BaseCrawler):
                 if summary_elem:
                     result["summary"] = summary_elem.text.strip()
 
+            story_titles = ["内容情节", "内容介绍", "故事情节", "作品情节", "故事大纲", "剧情简介"]
+            story = self._extract_section_text(soup, story_titles)
+            if not story and page_data:
+                story = self._extract_section_from_page_data(page_data, story_titles)
+            if story:
+                result["story"] = story
+
+            meaningful_keys = {"summary", "story", "info", "author", "authors", "word_count", "title_original", "year"}
+            if not any(result.get(key) for key in meaningful_keys):
+                Logger.warning("[baike] 未提取到有效百科正文，本次不保存稀疏数据")
+                return None
+
             # 作者百科链接
             author_links = soup.select("a[href*='/item/']")
             for link in author_links:
@@ -253,6 +480,7 @@ class BaikeCrawler(BaseCrawler):
 
         except Exception as e:
             Logger.error(f"[baike] 解析失败: {e}")
+            return None
 
         return result
 
@@ -294,10 +522,12 @@ class BaikeCrawler(BaseCrawler):
             return str(d) if d else ''
 
         for side in ['left', 'right']:
-            items = card.get(side, [])
+            items = card.get(side, []) or []
             for item in items:
+                if not isinstance(item, dict):
+                    continue
                 title = item.get('title', '')
-                data_list = item.get('data', [])
+                data_list = item.get('data', []) or []
 
                 if data_list:
                     values = []
@@ -324,6 +554,102 @@ class BaikeCrawler(BaseCrawler):
                     texts.append(item.get('text', ''))
             return ''.join(texts)
         return ''
+
+    def _clean_section_text(self, text: str) -> str:
+        """清理百科正文分节文本，去掉编辑控件、脚注和多余空白。"""
+        if not text:
+            return ""
+        text = re.sub(r"\[\d+(?:-\d+)?\]", "", text)
+        text = re.sub(r"(编辑|播报|上传视频|TA说)\s*$", "", text)
+        text = re.sub(r"\s+", " ", text).strip()
+        return text
+
+    def _looks_like_heading(self, elem) -> bool:
+        classes = " ".join(elem.get("class", []))
+        text = self._clean_section_text(elem.get_text(" ", strip=True))
+        if not text or len(text) > 40:
+            return False
+        if elem.name in {"h2", "h3"}:
+            return True
+        return any(key in classes for key in ["para-title", "lemmaTitle", "title", "headline"])
+
+    def _extract_section_text(self, soup: BeautifulSoup, titles) -> str:
+        """从 HTML 正文中提取指定标题之后、下一个标题之前的正文。"""
+        collecting = False
+        chunks = []
+
+        for elem in soup.find_all(["h2", "h3", "div", "p"]):
+            text = self._clean_section_text(elem.get_text(" ", strip=True))
+            if not text:
+                continue
+
+            if self._looks_like_heading(elem):
+                if collecting:
+                    break
+                heading_text = text.replace("目录", "")
+                if any(title in heading_text for title in titles):
+                    collecting = True
+                continue
+
+            if not collecting:
+                continue
+
+            classes = " ".join(elem.get("class", []))
+            if elem.name == "p" or "para" in classes or "content" in classes:
+                if len(text) >= 8 and text not in chunks:
+                    chunks.append(text)
+
+        return "\n".join(chunks).strip()
+
+    def _extract_section_from_page_data(self, page_data, titles) -> str:
+        """从 PAGE_DATA 结构中兜底提取指定分节。"""
+        chunks = []
+
+        def node_text(node) -> str:
+            if isinstance(node, str):
+                return node
+            if isinstance(node, dict):
+                if isinstance(node.get("text"), str):
+                    return node["text"]
+                if isinstance(node.get("title"), str):
+                    return node["title"]
+            return ""
+
+        def collect_text(node):
+            if isinstance(node, str):
+                text = self._clean_section_text(node)
+                if len(text) >= 8:
+                    chunks.append(text)
+            elif isinstance(node, dict):
+                for key, value in node.items():
+                    if key in {"title", "name", "anchor"}:
+                        continue
+                    collect_text(value)
+            elif isinstance(node, list):
+                for item in node:
+                    collect_text(item)
+
+        def walk(node):
+            if isinstance(node, dict):
+                label = self._clean_section_text(" ".join(filter(None, [
+                    node_text(node.get("title")),
+                    node_text(node.get("name")),
+                    node_text(node.get("anchor")),
+                ])))
+                if any(title in label for title in titles):
+                    collect_text(node)
+                    return True
+                return any(walk(value) for value in node.values())
+            if isinstance(node, list):
+                return any(walk(item) for item in node)
+            return False
+
+        walk(page_data)
+        deduped = []
+        for chunk in chunks:
+            if not any(chunk == existing or chunk in existing for existing in deduped):
+                deduped.append(chunk)
+        return "\n".join(deduped).strip()
 
     def _parse_word_count(self, card_info: Dict) -> Optional[int]:
         """解析字数"""

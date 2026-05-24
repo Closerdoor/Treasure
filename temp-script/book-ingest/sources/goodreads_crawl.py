@@ -2,18 +2,18 @@
 """
 Goodreads 爬虫 - 独立脚本
 
-一次性获取全部信息：搜索 + 详情 + 评分 + 书评 + 封面URL
+一次性获取全部信息：搜索 + 详情 + 书评 + 封面URL
 独立浏览器实例
 
 输出字段：
-- goodreads_id, url, title, authors
-- rating, rating_count, rating_distribution
-- summary, cover_url
-- series, awards, genres
-- isbn, pages, year
-- translators, publisher
+- goodreads_id, url, title, authors[{name, url}]
+- rating, summary, cover_url
+- series, genres, isbn, pages, year
+- translators[{name}], publisher
 - similar_books (相似推荐)
 - reviews (书评)
+
+不采集：rating_count, rating_distribution, awards
 """
 import asyncio
 import random
@@ -135,12 +135,37 @@ class GoodreadsCrawler(BaseCrawler):
             result["title"] = title_elem.text.strip() if title_elem else ""
 
             authors = []
-            author_elems = soup.select("a.authorName") or soup.select("span.ContributorLink__name")
+            author_elems = soup.select("a.ContributorLink") or soup.select("a.authorName")
             for author_elem in author_elems:
-                author_name = author_elem.text.strip()
+                name_elem = author_elem.select_one("span.ContributorLink__name") or author_elem
+                author_name = name_elem.text.strip()
+                author_url = author_elem.get("href", "")
+                if author_url and not author_url.startswith("http"):
+                    author_url = config.GOODREADS_BASE_URL + author_url
                 if author_name:
-                    authors.append(author_name)
+                    authors.append({"name": author_name, "url": author_url})
             result["authors"] = authors
+
+            # 译者（Goodreads 新版在 ContributorLink 中 role=translator）
+            translators = []
+            translator_sections = soup.select("div[data-testid='authorsList']")
+            for section in translator_sections:
+                role_label = section.select_one("span.ContributorLinksList__roleLabel")
+                if role_label and "translator" in role_label.text.lower():
+                    for link in section.select("a.ContributorLink"):
+                        name_elem = link.select_one("span.ContributorLink__name") or link
+                        t_name = name_elem.text.strip()
+                        if t_name:
+                            translators.append({"name": t_name})
+            if not translators:
+                for link in soup.select("a.ContributorLink"):
+                    role = link.select_one("span.ContributorLinksList__roleLabel")
+                    if role and "translator" in role.text.lower():
+                        name_elem = link.select_one("span.ContributorLink__name") or link
+                        t_name = name_elem.text.strip()
+                        if t_name:
+                            translators.append({"name": t_name})
+            result["translators"] = translators
 
             # 评分
             rating_elem = soup.select_one("div.RatingStatistics__rating") or soup.select_one("span[itemprop='ratingValue']")
@@ -153,12 +178,6 @@ class GoodreadsCrawler(BaseCrawler):
             else:
                 result["rating"] = None
 
-            rating_count_elem = soup.select_one("span[data-testid='ratingsCount']") or soup.select_one("meta[itemprop='ratingCount']")
-            if rating_count_elem:
-                count_text = rating_count_elem.text.strip() if rating_count_elem.name != "meta" else rating_count_elem.get("content", "")
-                count_match = re.search(r'[\d,]+', count_text)
-                result["rating_count"] = count_match.group(0).replace(",", "") if count_match else "0"
-
             # 简介
             description_elem = soup.select_one("div[data-testid='description']") or soup.select_one("#description")
             if description_elem:
@@ -168,16 +187,6 @@ class GoodreadsCrawler(BaseCrawler):
             series_elem = soup.select_one("a[href*='/series/']")
             if series_elem:
                 result["series"] = {"name": series_elem.text.strip(), "url": config.GOODREADS_BASE_URL + series_elem.get("href", "")}
-
-            # 获奖
-            awards = []
-            awards_elem = soup.select_one("div[data-testid='awards']")
-            if awards_elem:
-                for item in awards_elem.select("span"):
-                    award_name = item.text.strip()
-                    if award_name:
-                        awards.append(award_name)
-            result["awards"] = awards
 
             # 封面
             cover_elem = soup.select_one("img.ResponsiveImage") or soup.select_one("#coverImage")
@@ -213,6 +222,16 @@ class GoodreadsCrawler(BaseCrawler):
                 pub_text = publish_elem.text.strip()
                 year_match = re.search(r'(\d{4})', pub_text)
                 result["year"] = int(year_match.group(1)) if year_match else None
+
+            # 出版社
+            publisher_elem = soup.select_one("div[data-testid='publisherInfo']")
+            if publisher_elem:
+                pub_text = publisher_elem.text.strip()
+                pub_match = re.search(r'by\s+(.+?)(?:\s*\(|$)', pub_text)
+                if pub_match:
+                    result["publisher"] = pub_match.group(1).strip()
+                else:
+                    result["publisher"] = pub_text.replace("by ", "").strip()
 
             # 相似推荐
             similar_books = []

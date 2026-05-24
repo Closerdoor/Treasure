@@ -17,10 +17,12 @@ if sys.platform == 'win32':
 import sqlite3
 import json
 import re
+import shutil
 from pathlib import Path
 from typing import Dict, Any, List, Optional, Tuple
 from datetime import datetime
 
+import config
 from utils import Logger
 
 
@@ -49,11 +51,37 @@ def _coalesce(new_val, existing_val):
 class BookDB:
     """书籍数据库操作"""
 
-    def __init__(self, db_path: str = None):
+    def __init__(self, db_path: str = None, promote_assets: bool = True):
         if db_path is None:
             db_path = Path(__file__).parent.parent.parent / ".local" / "treasure.db"
         self.db_path = Path(db_path)
         self.conn: Optional[sqlite3.Connection] = None
+        self._suspend_autocommit = False
+        self.promote_assets = promote_assets
+
+    def _commit_if_needed(self):
+        if self.conn and not self._suspend_autocommit:
+            self.conn.commit()
+
+    def _promote_book_assets(self, book_id: str) -> Dict[str, int]:
+        """把采集阶段下载的书籍资源提升到正式本地资源目录。"""
+        source_dir = Path(__file__).parent / "data" / "assets" / book_id
+        target_dir = config.OUTPUT_DIR.parents[2] / ".local" / "assets" / "book" / book_id
+        stats = {"copied": 0, "missing": 0}
+
+        if not source_dir.exists():
+            stats["missing"] = 1
+            return stats
+
+        for source_file in source_dir.rglob("*"):
+            if source_file.is_file():
+                relative = source_file.relative_to(source_dir)
+                target_file = target_dir / relative
+                target_file.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(source_file, target_file)
+                stats["copied"] += 1
+
+        return stats
 
     def connect(self):
         """连接数据库"""
@@ -98,6 +126,56 @@ class BookDB:
             if match:
                 return int(match.group(1)) + 1
         return 1
+
+    def get_next_series_id(self) -> str:
+        """获取下一个书籍系列 ID。"""
+        self.connect()
+        cursor = self.conn.execute("SELECT id FROM book_series WHERE id LIKE '0299%' ORDER BY id DESC LIMIT 1")
+        row = cursor.fetchone()
+        if row:
+            return f"0299{int(row['id'][-6:]) + 1:06d}"
+        return "0299000001"
+
+    def get_book_series_by_name(self, name: str) -> Optional[Dict]:
+        """通过系列名查找书籍系列。"""
+        self.connect()
+        cursor = self.conn.execute("SELECT * FROM book_series WHERE name = ?", (name,))
+        row = cursor.fetchone()
+        return dict(row) if row else None
+
+    def save_book_series(self, series_data: Dict[str, Any]) -> Optional[str]:
+        """保存或复用书籍系列。"""
+        name = series_data.get("name") if isinstance(series_data, dict) else None
+        if not name:
+            return None
+
+        existing = self.get_book_series_by_name(name)
+        if existing:
+            return existing["id"]
+
+        series_id = series_data.get("id") or self.get_next_series_id()
+        now = datetime.now().isoformat()
+        self.conn.execute(
+            """
+            INSERT INTO book_series (
+                id, name, name_original, book_count, summary, images, status, created_at, updated_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                series_id,
+                name,
+                series_data.get("nameOriginal"),
+                series_data.get("bookCount"),
+                series_data.get("summary"),
+                _serialize(series_data.get("images")),
+                series_data.get("status", "draft"),
+                now,
+                now,
+            ),
+        )
+        self._commit_if_needed()
+        Logger.success(f"已保存书籍系列: {name} ({series_id})")
+        return series_id
 
     def save_book(self, data: Dict[str, Any]) -> str:
         """
@@ -150,9 +228,18 @@ class BookDB:
                     language = COALESCE(NULLIF(?, ''), language),
                     word_count = COALESCE(?, word_count),
                     publisher = COALESCE(NULLIF(?, ''), publisher),
+                    publish_date = COALESCE(NULLIF(?, ''), publish_date),
+                    pages = COALESCE(?, pages),
+                    price = COALESCE(NULLIF(?, ''), price),
+                    binding = COALESCE(NULLIF(?, ''), binding),
+                    format = COALESCE(NULLIF(?, ''), format),
+                    edition = COALESCE(NULLIF(?, ''), edition),
                     summary = COALESCE(NULLIF(?, ''), summary),
+                    story = COALESCE(NULLIF(?, ''), story),
                     quotes = COALESCE(?, quotes),
                     excerpts = COALESCE(?, excerpts),
+                    series_id = COALESCE(NULLIF(?, ''), series_id),
+                    series_order = COALESCE(?, series_order),
                     scores = COALESCE(?, scores),
                     external_source = COALESCE(?, external_source),
                     images = COALESCE(?, images),
@@ -171,9 +258,18 @@ class BookDB:
                     data.get("language"),
                     data.get("wordCount"),
                     data.get("publisher"),
+                    data.get("publishDate"),
+                    data.get("pages"),
+                    data.get("price"),
+                    data.get("binding"),
+                    data.get("format"),
+                    data.get("edition"),
                     data.get("summary"),
+                    data.get("story"),
                     quotes_json,
                     excerpts_json,
+                    data.get("seriesId"),
+                    data.get("seriesOrder"),
                     scores_json,
                     external_source_json,
                     images_json,
@@ -184,7 +280,7 @@ class BookDB:
                 )
 
                 self.conn.execute(update_sql, update_params)
-                self.conn.commit()
+                self._commit_if_needed()
 
                 Logger.success(f"已更新书籍: {data.get('title')} ({existing_id})")
                 return existing_id
@@ -193,10 +289,11 @@ class BookDB:
         sql = """
         INSERT INTO books (
             id, title, title_original, other_titles, isbn, year, country,
-            language, word_count, publisher, summary, quotes, excerpts, series_id,
+            language, word_count, publisher, publish_date, pages, price,
+            binding, format, edition, summary, story, quotes, excerpts, series_id,
             series_order, scores, external_source, images, reviews, related,
             status, created_at, updated_at
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ON CONFLICT(id) DO UPDATE SET
             title = excluded.title,
             title_original = COALESCE(NULLIF(excluded.title_original, ''), books.title_original),
@@ -207,9 +304,18 @@ class BookDB:
             language = COALESCE(NULLIF(excluded.language, ''), books.language),
             word_count = COALESCE(excluded.word_count, books.word_count),
             publisher = COALESCE(NULLIF(excluded.publisher, ''), books.publisher),
+            publish_date = COALESCE(NULLIF(excluded.publish_date, ''), books.publish_date),
+            pages = COALESCE(excluded.pages, books.pages),
+            price = COALESCE(NULLIF(excluded.price, ''), books.price),
+            binding = COALESCE(NULLIF(excluded.binding, ''), books.binding),
+            format = COALESCE(NULLIF(excluded.format, ''), books.format),
+            edition = COALESCE(NULLIF(excluded.edition, ''), books.edition),
             summary = COALESCE(NULLIF(excluded.summary, ''), books.summary),
+            story = COALESCE(NULLIF(excluded.story, ''), books.story),
             quotes = COALESCE(excluded.quotes, books.quotes),
             excerpts = COALESCE(excluded.excerpts, books.excerpts),
+            series_id = COALESCE(excluded.series_id, books.series_id),
+            series_order = COALESCE(excluded.series_order, books.series_order),
             scores = COALESCE(excluded.scores, books.scores),
             external_source = COALESCE(excluded.external_source, books.external_source),
             images = COALESCE(excluded.images, books.images),
@@ -229,7 +335,14 @@ class BookDB:
             data.get("language"),
             data.get("wordCount"),
             data.get("publisher"),
+            data.get("publishDate"),
+            data.get("pages"),
+            data.get("price"),
+            data.get("binding"),
+            data.get("format"),
+            data.get("edition"),
             data.get("summary"),
+            data.get("story"),
             quotes_json,
             excerpts_json,
             data.get("seriesId"),
@@ -245,7 +358,7 @@ class BookDB:
         )
 
         self.conn.execute(sql, params)
-        self.conn.commit()
+        self._commit_if_needed()
 
         Logger.success(f"已保存书籍: {data.get('title')} ({book_id})")
         return book_id
@@ -322,18 +435,29 @@ class BookDB:
             if data.get("sourceIds") and not existing.get("source_ids"):
                 update_fields.append("source_ids = ?")
                 update_params.append(data["sourceIds"])
-            if data.get("doubanAvatarUrl") and not existing.get("douban_avatar_path"):
+            if data.get("avatarPath") and not existing.get("avatar_path"):
+                update_fields.append("avatar_path = ?")
+                update_params.append(data["avatarPath"])
+            if data.get("doubanAvatarPath") and not existing.get("douban_avatar_path"):
                 update_fields.append("douban_avatar_path = ?")
-                update_params.append(data["doubanAvatarUrl"])
+                update_params.append(data["doubanAvatarPath"])
             if update_fields:
                 update_sql = f"UPDATE person SET {', '.join(update_fields)} WHERE id = ?"
                 update_params.append(existing["id"])
                 self.conn.execute(update_sql, update_params)
-                self.conn.commit()
+                self._commit_if_needed()
             return existing["id"], existing["person_id"]
 
         if not person_id:
-            person_id = self.get_next_person_id()
+            source_ids = data.get("sourceIds")
+            try:
+                source_map = json.loads(source_ids) if source_ids else {}
+            except Exception:
+                source_map = {}
+            if source_map.get("douban"):
+                person_id = f"p{source_map['douban']}"
+            else:
+                person_id = self.get_next_person_id()
 
         sql = """
         INSERT INTO person (person_id, name, name_en, source_ids, avatar_path, douban_avatar_path, profile_link, intro)
@@ -344,12 +468,12 @@ class BookDB:
             person_id, name, name_en,
             data.get("sourceIds"),
             data.get("avatarPath"),
-            data.get("doubanAvatarUrl"),
+            data.get("doubanAvatarPath"),
             data.get("profileLink"),
             data.get("intro"),
         ))
 
-        self.conn.commit()
+        self._commit_if_needed()
 
         Logger.success(f"已保存人物: {name} ({person_id})")
         return cursor.lastrowid, person_id
@@ -412,7 +536,7 @@ class BookDB:
                 )
                 order += 1
 
-        self.conn.commit()
+        self._commit_if_needed()
         Logger.success(f"已保存 {order} 条人物关联: {book_id}")
 
     # ========================================
@@ -450,7 +574,7 @@ class BookDB:
         """
 
         cursor = self.conn.execute(sql, (group, name, module))
-        self.conn.commit()
+        self._commit_if_needed()
 
         Logger.success(f"已保存类型/标签: {name} ({group})")
         return cursor.lastrowid
@@ -506,7 +630,7 @@ class BookDB:
                 self.save_book_category(book_id, category_map[genre], order)
                 order += 1
 
-        self.conn.commit()
+        self._commit_if_needed()
         Logger.success(f"已保存 {order} 条类型关联: {book_id}")
 
     # ========================================
@@ -530,14 +654,22 @@ class BookDB:
         """
         self.connect()
 
+        previous_autocommit_state = self._suspend_autocommit
+        self._suspend_autocommit = True
         try:
             self.conn.execute("BEGIN TRANSACTION")
+
+            meta = book_data.get("_meta", {})
+            series_data = meta.get("series") if isinstance(meta, dict) else None
+            if series_data and not book_data.get("seriesId"):
+                series_id = self.save_book_series(series_data)
+                if series_id:
+                    book_data["seriesId"] = series_id
 
             # 保存书籍
             book_id = self.save_book(book_data)
 
             # 从 _meta 提取关联信息
-            meta = book_data.get("_meta", {})
             authors = meta.get("authors", [])
             translators = meta.get("translators", [])
             tags = meta.get("tags", [])
@@ -567,12 +699,17 @@ class BookDB:
                             person_data["profileLink"] = detail["personage_url"]
                         if detail.get("avatar_url"):
                             person_data["doubanAvatarUrl"] = detail["avatar_url"]
+                        if detail.get("avatarPath"):
+                            person_data["avatarPath"] = detail["avatarPath"]
+                            person_data["doubanAvatarPath"] = detail["avatarPath"]
                         if detail.get("douban_personage_id"):
                             source_ids = {"douban": detail["douban_personage_id"]}
                             if detail.get("imdb_id"):
                                 source_ids["imdb"] = detail["imdb_id"]
                             person_data["sourceIds"] = json.dumps(source_ids, ensure_ascii=False)
-                    db_id, _ = self.save_person(person_data)
+                        if detail.get("personId"):
+                            person_data["personId"] = detail["personId"]
+                    db_id, _ = self.save_person(person_data, person_id=person_data.get("personId"))
                     person_map[key] = db_id
 
             # 保存人物关联
@@ -600,6 +737,15 @@ class BookDB:
             self.save_book_categories(book_id, tags, subjects, genres, category_map)
 
             self.conn.commit()
+            asset_stats = {"copied": 0, "missing": 0, "skipped": 0}
+            if self.promote_assets:
+                asset_stats = self._promote_book_assets(book_id)
+                if asset_stats["copied"]:
+                    Logger.success(f"已同步 {asset_stats['copied']} 个书籍封面资源: {book_id}")
+                elif asset_stats["missing"]:
+                    Logger.warning(f"未找到采集阶段书籍封面目录: {book_id}")
+            else:
+                asset_stats["skipped"] = 1
 
             return {
                 "success": True,
@@ -607,6 +753,7 @@ class BookDB:
                 "title": book_data.get("title"),
                 "persons": len(person_map),
                 "categories": len(category_map),
+                "assets": asset_stats,
             }
 
         except Exception as e:
@@ -616,6 +763,8 @@ class BookDB:
                 "success": False,
                 "error": str(e),
             }
+        finally:
+            self._suspend_autocommit = previous_autocommit_state
 
     # ========================================
     # 统计

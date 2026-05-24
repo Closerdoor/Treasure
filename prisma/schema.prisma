@@ -653,12 +653,37 @@ model Book {
   /// 出版社
   publisher String?
 
+  /// 完整出版日期
+  ///
+  /// 优先保留来源文本，例如 "1991-02"、"1991年2月"。
+  publishDate String? @map("publish_date")
+
+  /// 页数
+  pages Int?
+
+  /// 定价
+  ///
+  /// 保留来源文本，避免丢失币种和版本说明。
+  price String?
+
+  /// 装帧
+  binding String?
+
+  /// 开本 / 版式
+  format String?
+
+  /// 版本 / 版次
+  edition String?
+
   // ========================================
   // 内容
   // ========================================
 
   /// 内容简介
   summary String?
+
+  /// 完整剧情 / 内容情节
+  story String?
 
   /// 名句摘录
   ///

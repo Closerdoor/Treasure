@@ -1,6 +1,6 @@
 {
-  "last_updated": "2026-05-11T23:55:52.543253",
-  "total": 3,
+  "last_updated": "2026-05-24T23:28:19.919797",
+  "total": 1,
   "completed_count": 3,
   "books": {
     "6082808": {
@@ -32,9 +32,9 @@
         "openlibrary": "done",
         "baike": "done",
         "wikipedia": "done",
-        "goodreads": "pending",
+        "goodreads": "done",
         "dangdang": "done",
-        "qidian": "pending",
+        "qidian": "done",
         "bookchina": "pending"
       },
       "basic_crawled": true,

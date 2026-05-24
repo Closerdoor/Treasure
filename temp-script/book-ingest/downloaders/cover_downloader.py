@@ -8,6 +8,7 @@ import asyncio
 from pathlib import Path
 from typing import Dict, List, Optional
 from urllib.parse import urlparse
+import re
 
 from .base import BaseDownloader
 from utils import Logger
@@ -63,6 +64,9 @@ class CoverDownloader(BaseDownloader):
         }
         return referer_map.get(source)
     
+    def _safe_source_name(self, source: str) -> str:
+        return re.sub(r"[^a-zA-Z0-9_-]+", "-", source).strip("-").lower() or "unknown"
+
     async def download_covers(
         self,
         book_id: str,
@@ -81,7 +85,6 @@ class CoverDownloader(BaseDownloader):
             {文件名: 来源} 字典
         """
         results = {}
-        cover_index = 1
         
         for source, url in cover_urls.items():
             if not url:
@@ -90,8 +93,7 @@ class CoverDownloader(BaseDownloader):
             if source == main_source:
                 filename = "cover-main.jpg"
             else:
-                filename = f"cover-{cover_index:03d}.jpg"
-                cover_index += 1
+                filename = f"covers/{self._safe_source_name(source)}.jpg"
                 
             result = await self.download_cover(book_id, url, source, filename)
             if result:
@@ -126,6 +128,15 @@ class CoverDownloader(BaseDownloader):
         openlibrary_data = raw_data.get("openlibrary", {})
         if openlibrary_data.get("cover_url"):
             cover_urls["openlibrary"] = openlibrary_data["cover_url"]
+
+        wikipedia_data = raw_data.get("wikipedia", {})
+        if wikipedia_data.get("cover_url"):
+            cover_urls["wikipedia"] = wikipedia_data["cover_url"]
+
+        goodreads_data = raw_data.get("goodreads", {})
+        goodreads_detail = goodreads_data.get("detail", goodreads_data)
+        if goodreads_detail.get("cover_url"):
+            cover_urls["goodreads"] = goodreads_detail["cover_url"]
             
         dangdang_data = raw_data.get("dangdang", {})
         if dangdang_data.get("cover_url"):

@@ -16,14 +16,16 @@
 import asyncio
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
+from typing import Dict
 
 import config
 from utils import Logger, generate_book_id
 from progress import ProgressManager
 from merger import DataMerger
-from database import BookDB
+from import_staging import apply_import, load_staging, precheck
 
 
 AVAILABLE_SOURCES = ["douban", "openlibrary", "baike", "wikipedia", "goodreads", "dangdang", "qidian"]
@@ -69,7 +71,6 @@ async def crawl_source(source: str, douban_id: str, title: str, book_id: str):
         from sources.baike_crawl import BaikeCrawler
         crawler = BaikeCrawler()
         try:
-            await crawler.init_browser()
             data = await crawler.crawl(title)
             if data:
                 merger.save_raw_data(book_id, "baike", data)
@@ -166,6 +167,18 @@ def _get_original_title_from_raw(book_id: str) -> str:
     return ""
 
 
+def _get_title_from_raw(book_id: str) -> str:
+    """从豆瓣 raw 数据中获取书名"""
+    raw_file = Path(config.OUTPUT_DIR) / "raw" / book_id / "douban.json"
+    if raw_file.exists():
+        try:
+            data = json.loads(raw_file.read_text(encoding="utf-8"))
+            return data.get("title", "")
+        except Exception:
+            pass
+    return ""
+
+
 def merge_book(book_id: str):
     """合并单本书的数据"""
     merger = DataMerger()
@@ -202,8 +215,102 @@ def merge_all():
     Logger.success(f"合并完成: {len(book_ids)} 本")
 
 
+def sync_cover_assets_to_staging(book_id: str, downloaded: Dict[str, str]):
+    """把实际下载成功的封面文件列表回写到 staging，避免合并阶段猜测文件名。"""
+    if not downloaded:
+        return
+
+    staging_file = Path(config.OUTPUT_DIR) / "staging" / f"{book_id}.json"
+    if not staging_file.exists():
+        Logger.warning(f"staging 不存在，跳过封面回写: {staging_file}")
+        return
+
+    try:
+        data = json.loads(staging_file.read_text(encoding="utf-8"))
+    except Exception as e:
+        Logger.warning(f"读取 staging 失败，跳过封面回写: {e}")
+        return
+
+    images = data.get("images") if isinstance(data.get("images"), dict) else {}
+    filenames = sorted(downloaded.keys())
+    main_cover = "cover-main.jpg" if "cover-main.jpg" in downloaded else filenames[0]
+
+    images["cover"] = main_cover
+    images["covers"] = {
+        source: filename
+        for filename, source in sorted(downloaded.items(), key=lambda item: item[0])
+        if filename != main_cover
+    }
+    images["assetDir"] = book_id
+    data["images"] = images
+
+    staging_file.write_text(
+        json.dumps(data, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    Logger.info(f"已同步封面资源到 staging: {staging_file}")
+
+
+def _person_id_from_detail(detail: dict) -> str:
+    douban_id = detail.get("douban_personage_id") or detail.get("douban_id")
+    if douban_id:
+        return f"p{douban_id}"
+    raw_name = detail.get("name") or detail.get("name_en") or "unknown"
+    safe_name = re.sub(r"[^a-zA-Z0-9\u4e00-\u9fa5_-]+", "-", str(raw_name)).strip("-")
+    return f"book-{safe_name or 'unknown'}"
+
+
+async def download_author_avatars(book_id: str) -> Dict[str, str]:
+    """下载 staging 中的作者头像，并把本地头像路径回写到 _meta.personDetails。"""
+    from downloaders import AvatarDownloader
+
+    staging_file = Path(config.OUTPUT_DIR) / "staging" / f"{book_id}.json"
+    if not staging_file.exists():
+        return {}
+
+    data = json.loads(staging_file.read_text(encoding="utf-8"))
+    meta = data.get("_meta") if isinstance(data.get("_meta"), dict) else {}
+    person_details = meta.get("personDetails") or []
+    if not person_details:
+        return {}
+
+    downloader = AvatarDownloader(Path(config.OUTPUT_DIR) / "assets" / book_id / "people")
+    downloaded: Dict[str, str] = {}
+    try:
+        await downloader.init()
+        for detail in person_details:
+            if not isinstance(detail, dict) or not detail.get("avatar_url"):
+                continue
+            person_id = _person_id_from_detail(detail)
+            filename = f"{person_id}-avatar.jpg"
+            result = await downloader.download_avatar(
+                person_id,
+                detail["avatar_url"],
+                source=detail.get("avatar_source", "douban"),
+                filename=filename,
+            )
+            if result:
+                local_path = f"people/{filename}"
+                detail["personId"] = person_id
+                detail["avatarPath"] = local_path
+                downloaded[local_path] = detail.get("name", person_id)
+    finally:
+        await downloader.close()
+
+    if downloaded:
+        meta["personDetails"] = person_details
+        data["_meta"] = meta
+        staging_file.write_text(
+            json.dumps(data, ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+        Logger.info(f"已同步作者头像资源到 staging: {staging_file}")
+
+    return downloaded
+
+
 async def download_covers(book_id: str):
-    """下载单本书的封面"""
+    """下载单本书的封面和作者头像"""
     from downloaders import CoverDownloader
 
     merger = DataMerger()
@@ -217,9 +324,14 @@ async def download_covers(book_id: str):
         await downloader.init()
         result = await downloader.download_from_raw_data(book_id, raw_data)
         if result:
+            sync_cover_assets_to_staging(book_id, result)
             Logger.success(f"封面下载完成: {book_id} ({len(result)} 张)")
         else:
             Logger.warning(f"无封面可下载: {book_id}")
+
+        avatar_result = await download_author_avatars(book_id)
+        if avatar_result:
+            Logger.success(f"作者头像下载完成: {book_id} ({len(avatar_result)} 张)")
     finally:
         await downloader.close()
 
@@ -245,47 +357,32 @@ async def download_all_covers():
         await download_covers(book_id)
 
 
-def import_book(book_id: str, dry_run: bool = False):
-    """入库单本书"""
-    staging_dir = Path(config.OUTPUT_DIR) / "staging"
-    staging_file = staging_dir / f"{book_id}.json"
-
-    if not staging_file.exists():
-        Logger.error(f"staging 文件不存在: {staging_file}")
-        return
-
+def import_book(book_id: str, apply: bool = False, update_existing: bool = False):
+    """预检并按需入库单本书。默认只预检，显式 apply 才写库。"""
     try:
-        book_data = json.loads(staging_file.read_text(encoding="utf-8"))
+        book_data = load_staging(book_id)
     except Exception as e:
         Logger.error(f"读取 staging 文件失败: {e}")
-        return
+        return {"success": False, "error": str(e)}
 
-    Logger.info(f"准备入库: {book_data.get('title', book_id)}")
+    report = precheck(book_id, book_data, update_existing=update_existing)
+    print(json.dumps(report, ensure_ascii=False, indent=2))
 
-    if dry_run:
-        Logger.info("[DRY RUN] 预览模式，不实际入库")
-        meta = book_data.get("_meta", {})
-        Logger.info(f"  书籍 ID: {book_id}")
-        Logger.info(f"  书名: {book_data.get('title')}")
-        Logger.info(f"  作者: {meta.get('authors', [])}")
-        Logger.info(f"  译者: {meta.get('translators', [])}")
-        Logger.info(f"  标签: {meta.get('tags', [])}")
-        return
+    if report["problems"]:
+        Logger.error("预检未通过，已停止。")
+        return {"success": False, "error": "precheck failed", "report": report}
 
-    db = BookDB()
-    result = db.import_book(book_data)
-    db.close()
+    if not apply:
+        Logger.info("预检通过。未传入 --apply，因此没有写入主数据库。")
+        return {"success": True, "dry_run": True, "report": report}
 
-    if result.get("success"):
-        Logger.success(f"入库成功: {book_data.get('title')} ({book_id})")
-        Logger.info(f"  人物: {result.get('persons', 0)}")
-        Logger.info(f"  标签: {result.get('categories', 0)}")
-    else:
-        Logger.error(f"入库失败: {result.get('error')}")
+    result = apply_import(book_data)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return result["result"]
 
 
-def import_all(dry_run: bool = False):
-    """入库所有 staging 数据"""
+def import_all(apply: bool = False, update_existing: bool = False):
+    """预检并按需入库所有 staging 数据。默认只预检。"""
     staging_dir = Path(config.OUTPUT_DIR) / "staging"
 
     if not staging_dir.exists():
@@ -302,17 +399,15 @@ def import_all(dry_run: bool = False):
     stats = {"total": len(book_ids), "success": 0, "failed": 0}
 
     for book_id in book_ids:
-        if dry_run:
-            import_book(book_id, dry_run=True)
-            stats["success"] += 1
+        if not apply:
+            result = import_book(book_id, apply=False, update_existing=update_existing)
+            if result.get("success"):
+                stats["success"] += 1
+            else:
+                stats["failed"] += 1
         else:
-            staging_file = staging_dir / f"{book_id}.json"
             try:
-                book_data = json.loads(staging_file.read_text(encoding="utf-8"))
-                db = BookDB()
-                result = db.import_book(book_data)
-                db.close()
-
+                result = import_book(book_id, apply=True, update_existing=update_existing)
                 if result.get("success"):
                     stats["success"] += 1
                 else:
@@ -323,11 +418,11 @@ def import_all(dry_run: bool = False):
                 Logger.error(f"处理失败: {book_id} - {e}")
 
     Logger.info("=" * 50)
-    Logger.info(f"入库完成: 总数 {stats['total']}, 成功 {stats['success']}, 失败 {stats['failed']}")
+    Logger.info(f"入库流程完成: 总数 {stats['total']}, 成功 {stats['success']}, 失败 {stats['failed']}")
 
 
-async def full_pipeline(douban_id: str, title: str):
-    """一键全流程：爬取 → 合并 → 下载封面 → 入库"""
+async def full_pipeline(douban_id: str, title: str, apply: bool = False, update_existing: bool = False):
+    """一键全流程：爬取 → 合并 → 下载封面 → 预检/按需入库"""
     progress = ProgressManager()
     progress.load()
 
@@ -357,9 +452,9 @@ async def full_pipeline(douban_id: str, title: str):
     Logger.info("\n[3/4] 下载封面...")
     await download_covers(book_id)
 
-    # 步骤4: 入库
-    Logger.info("\n[4/4] 入库...")
-    import_book(book_id)
+    # 步骤4: 预检 / 按需入库
+    Logger.info("\n[4/4] 入库预检...")
+    import_book(book_id, apply=apply, update_existing=update_existing)
 
     progress.mark_basic_completed(douban_id)
     progress.mark_data_merged(douban_id)
@@ -387,6 +482,8 @@ def main():
 
     # 选项
     parser.add_argument("--dry-run", action="store_true", help="预览模式，不实际入库")
+    parser.add_argument("--apply", action="store_true", help="通过预检后正式写入 .local/treasure.db")
+    parser.add_argument("--update-existing", action="store_true", help="刷新数据库中同 ID 的已有书籍")
     parser.add_argument("--batch", action="store_true", help="批量模式（使用 config.TEST_BOOKS）")
 
     args = parser.parse_args()
@@ -395,7 +492,7 @@ def main():
     if args.batch:
         book_list = config.TEST_BOOKS
     elif args.book:
-        book_list = [{"douban_id": args.book, "title": args.title or args.book}]
+        book_list = [{"douban_id": args.book, "title": args.title or ""}]
     else:
         book_list = []
 
@@ -405,7 +502,12 @@ def main():
             if not book_list:
                 book_list.extend(config.TEST_BOOKS)
             for book in book_list:
-                await full_pipeline(book["douban_id"], book.get("title", ""))
+                await full_pipeline(
+                    book["douban_id"],
+                    book.get("title", ""),
+                    apply=args.apply,
+                    update_existing=args.update_existing,
+                )
 
         elif args.crawl:
             # 爬取指定数据源
@@ -433,6 +535,11 @@ def main():
                 if not book_id:
                     book_id = generate_book_id()
                     progress.update_book_id(douban_id, book_id)
+
+                if not title and book_id:
+                    title = _get_title_from_raw(book_id)
+                if not title:
+                    title = douban_id
 
                 for src in sources:
                     try:
@@ -463,9 +570,9 @@ def main():
         elif args.import_db:
             # 入库
             if args.all:
-                import_all(dry_run=args.dry_run)
+                import_all(apply=args.apply and not args.dry_run, update_existing=args.update_existing)
             elif args.book:
-                import_book(args.book, dry_run=args.dry_run)
+                import_book(args.book, apply=args.apply and not args.dry_run, update_existing=args.update_existing)
             else:
                 Logger.error("请指定 --book <book_id> 或 --all")
 

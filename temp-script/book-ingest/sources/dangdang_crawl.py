@@ -3,16 +3,16 @@
 当当网爬虫 - 独立脚本
 
 一次性获取全部信息：搜索 + 详情 + 全部商品信息提取
-独立浏览器实例，大幅补齐字段解析
+独立浏览器实例
 
 输出字段：
-- url, dangdang_id, title, authors, translators
-- publisher, isbn, pages, publish_year
-- price, original_price
-- word_count, series_name
-- cover_url, rating
-- summary, author_intro, catalog, editor_recommend
-- format (开本)
+- url, dangdang_id, title, authors[{name, url}], translators[{name, url}]
+- publisher, isbn, pages, publish_date, publish_year
+- price, word_count, binding, format, edition, series_name
+- cover_url, summary
+- author_intro, catalog, editor_recommend (raw留存，暂不入库)
+
+不采集：rating, original_price
 """
 import asyncio
 import json
@@ -156,8 +156,11 @@ class DangdangCrawler(BaseCrawler):
             )
             for elem in author_elems:
                 name = elem.text.strip()
-                if name and name not in authors:
-                    authors.append(name)
+                href = elem.get("href", "")
+                if href and href.startswith("//"):
+                    href = "https:" + href
+                if name and name not in [a["name"] for a in authors]:
+                    authors.append({"name": name, "url": href})
             if authors:
                 result["authors"] = authors
 
@@ -169,8 +172,11 @@ class DangdangCrawler(BaseCrawler):
             )
             for elem in translator_elems:
                 name = elem.text.strip()
-                if name and name not in translators:
-                    translators.append(name)
+                href = elem.get("href", "")
+                if href and href.startswith("//"):
+                    href = "https:" + href
+                if name and name not in [t["name"] for t in translators]:
+                    translators.append({"name": name, "url": href})
             if translators:
                 result["translators"] = translators
 
@@ -203,22 +209,6 @@ class DangdangCrawler(BaseCrawler):
                 if price_match:
                     result["price"] = float(price_match.group())
 
-            # 原价
-            original_price_elem = soup.select_one(".price_r") or soup.select_one(".original-price")
-            if original_price_elem:
-                op_text = original_price_elem.text.strip()
-                op_match = re.search(r"[\d.]+", op_text)
-                if op_match:
-                    result["original_price"] = float(op_match.group())
-
-            # 评分
-            rating_elem = soup.select_one(".star a") or soup.select_one(".rating_num")
-            if rating_elem:
-                rating_text = rating_elem.text.strip()
-                rating_match = re.search(r"[\d.]+", rating_text)
-                if rating_match:
-                    result["rating"] = float(rating_match.group())
-
             # 详细参数区域
             info_items = soup.select(".key") or soup.select(".spc_info li")
             for item in info_items:
@@ -235,12 +225,12 @@ class DangdangCrawler(BaseCrawler):
                         result["pages"] = int(pages_match.group(1))
 
                 if "出版时间" in text or "出版日期" in text:
+                    cleaned = re.sub(r"^(出版时间|出版日期)[：:]\s*", "", text).strip()
+                    if cleaned:
+                        result["publish_date"] = cleaned
                     time_match = re.search(r"(\d{4})", text)
                     if time_match:
                         result["publish_year"] = int(time_match.group(1))
-
-                if "开本" in text:
-                    result["format"] = text.replace("开本", "").replace("：", "").replace(":", "").strip()
 
                 if "字数" in text:
                     word_match = re.search(r"(\d+)", text)
@@ -251,6 +241,21 @@ class DangdangCrawler(BaseCrawler):
                     series_match = re.search(r"丛书名[：:]\s*(.+)", text)
                     if series_match:
                         result["series_name"] = series_match.group(1).strip()
+
+                if "包装" in text or "装帧" in text:
+                    binding_match = re.search(r"(?:包装|装帧)[：:]\s*(.+)", text)
+                    if binding_match:
+                        result["binding"] = binding_match.group(1).strip()
+
+                if "开本" in text:
+                    format_match = re.search(r"开本[：:]\s*(.+)", text)
+                    if format_match:
+                        result["format"] = format_match.group(1).strip()
+
+                if "版次" in text:
+                    edition_match = re.search(r"版次[：:]\s*(.+)", text)
+                    if edition_match:
+                        result["edition"] = edition_match.group(1).strip()
 
             # 商品详情区域（内容简介、作者简介、目录等）
             # 尝试从详情标签页提取

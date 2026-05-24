@@ -734,6 +734,48 @@ generated/indexes/book.json
 5. 增加 `site/src/lib/book.ts`。
 6. 增加 `/book` 与 `/book/{id}` 页面。
 
+### book-ingest 当前工作流
+
+`temp-script/book-ingest` 当前已按 movie-ingest 的模式整理为单本书籍工作流。它的正式边界同样止于 `.local/treasure.db`，入库后的 generated 导出与 Astro 构建属于仓库根目录主链路。
+
+书籍新增或刷新标准流程：
+
+```text
+确认作品输入
+  -> 运行 book-ingest 采集 raw
+  -> 合并生成 data/staging/{book_id}.json
+  -> 下载封面到 data/assets/{book_id}/ 并回写 staging.images
+  -> 运行 import_staging.py 做只读预检与临时库演练
+  -> 预检通过后运行 import_staging.py --apply 正式入库
+```
+
+`import_staging.py` 是当前 book-ingest 的正式入库 CLI。默认只预检，不写主库；只有显式传入 `--apply` 才会备份 `.local/treasure.db` 并调用 `database.py` 写入数据库。刷新数据库中已有书籍时必须同时传入 `--update-existing`。
+
+书籍 staging 契约：
+
+- `scores`、`externalSource`、`images`、`reviews`、`related`、`quotes`、`excerpts`、`otherTitles` 在 staging 阶段保持对象 / 数组，不提前序列化。
+- `year` 表示作品首版年份，优先取百度百科首版年；当前版本的出版日期、页数、定价和装帧进入版本字段。
+- `publishDate`、`pages`、`price`、`binding`、`format`、`edition` 承载出版版本信息；其中 `price` 和 `publishDate` 保留来源文本。
+- `summary` 是书籍内容简介，优先取 Wikipedia 的“故事大纲”分节；`story` 是完整剧情 / 内容情节，优先取百度百科的“内容情节”等正文分节。
+- `excerpts` 是原文摘录数组；豆瓣摘录列表按热度排序取前 20 条，并尽量进入每条详情页获取纯原文，互动信息只可作为备注或丢弃，不进入 `content`。
+- 百度百科若触发安全验证，`book-ingest` 可优先读取 `data/manual/baike/*.html` 中的手动保存页面，或加载 `data/cookies/baike.json` 中的本地 Cookie；这两类文件只作本地辅助，不提交 Git。
+- 类似的反爬协作模式可复用于其他数据源：先量化脚本实际拿到的页面，再由用户提供本地 HTML 或 Cookie，脚本解析本地快照或加载 Cookie，并阻止验证码页 / 空壳页覆盖有效 raw。
+- `_meta.fieldSources` 记录字段来源。
+- `_meta.conflicts` 记录多源冲突。
+- `_meta.authors`、`_meta.translators`、`_meta.tags`、`_meta.subjects`、`_meta.genres` 在入库时投影到 `person`、`book_person`、`category`、`book_category`。
+- `_meta.series` 与 `_meta.seriesCandidates` 记录系列候选；正式入库时复用或创建 `book_series`，并写入 `books.series_id`。
+
+书籍图片资源约定：
+
+- 采集缓存位于 `temp-script/book-ingest/data/assets/{book_id}/`。
+- 主封面写入 `images.cover`，多源封面写入 `images.covers` 映射，例如 `openlibrary -> covers/openlibrary.jpg`。
+- 作者头像写入 `_meta.personDetails[].avatarPath`，路径形如 `people/{person_id}-avatar.jpg`。
+- 下载成功后，`main.py --download` 会把实际文件名写回 staging。
+- 正式入库后，`database.py` 递归复制资源到 `.local/assets/book/{book_id}/`。
+- 书籍模块尚未接入 generated / Astro，发布侧资源导出契约需要在书籍页面接入时设计。
+
+当前保留 `crawl_basic.py`、`crawl_reviews.py`、`db_tools/` 和 `sources/` 中不带 `_crawl.py` 的旧爬虫作为 legacy / 参考入口；正式单本流程以 `main.py` 与 `import_staging.py` 为准。
+
 ## 发布前校验
 
 发布前至少确认：

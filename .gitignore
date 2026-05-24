@@ -20,6 +20,10 @@ site/public/assets/people/
 node_modules/
 .env
 
+# Local crawl assistance artifacts
+temp-script/book-ingest/data/cookies/*.json
+temp-script/book-ingest/data/manual/
+
 # IDE
 .idea/
 .vscode/

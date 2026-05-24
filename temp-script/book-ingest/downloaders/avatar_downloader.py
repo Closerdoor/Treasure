@@ -24,7 +24,8 @@ class AvatarDownloader(BaseDownloader):
         self,
         person_id: str,
         avatar_url: str,
-        source: str = "unknown"
+        source: str = "unknown",
+        filename: str = None,
     ) -> Optional[Path]:
         """
         下载作者头像
@@ -40,7 +41,7 @@ class AvatarDownloader(BaseDownloader):
         if not avatar_url:
             return None
             
-        filename = f"{person_id}-avatar.jpg"
+        filename = filename or f"{person_id}-avatar.jpg"
         save_path = self.output_dir / filename
         
         referer = self._get_referer(source)

@@ -1,148 +1,181 @@
-# 书籍数据设计
+# 书籍数据契约
 
-本文档记录数据库字段设计、字段映射关系、JSON 格式规范。
+最后更新：2026-05-24
 
----
+本文记录 `book-ingest` 当前 staging、数据库字段与数据源能力。书籍模块尚未接入 generated / Astro，因此这里不定义前台发布字段契约。
 
-## 一、数据库表结构
+## 数据表
 
-| 表名 | 职责 |
-|------|------|
+| 表 | 职责 |
+|---|---|
 | `books` | 书籍主表 |
-| `book_series` | 书籍系列表 |
-| `person` | 人物主表（作者、译者等，复用） |
-| `book_person` | 书籍与人物关系表 |
-| `category` | 词项表（类型、标签，复用） |
-| `book_category` | 书籍与词项关联表 |
+| `book_series` | 书籍系列表，入库时可由 `_meta.series` 复用或创建 |
+| `person` | 公共人物表，作者和译者复用 |
+| `book_person` | 书籍与作者 / 译者关系 |
+| `category` | 公共分类 / 标签表 |
+| `book_category` | 书籍与分类 / 标签关系 |
 
----
+## books 字段
 
-## 二、books 表字段
+| DB 字段 | staging 字段 | 说明 |
+|---|---|---|
+| `id` | `id` | 书籍 ID，格式 `0200NNNNNN` |
+| `title` | `title` | 中文展示书名 |
+| `title_original` | `titleOriginal` | 原名 / 源语言标题 |
+| `other_titles` | `otherTitles` | 别名数组，入库时序列化 |
+| `isbn` | `isbn` | ISBN |
+| `year` | `year` | 作品首版年份，优先取百度百科首版年 |
+| `country` | `country` | 作者国家或作品国家 |
+| `language` | `language` | 语言 |
+| `word_count` | `wordCount` | 字数 |
+| `publisher` | `publisher` | 出版社 |
+| `publish_date` | `publishDate` | 完整出版日期，保留来源文本 |
+| `pages` | `pages` | 页数 |
+| `price` | `price` | 定价，保留币种 / 来源文本 |
+| `binding` | `binding` | 装帧 |
+| `format` | `format` | 开本 / 版式 |
+| `edition` | `edition` | 版本 / 版次 |
+| `summary` | `summary` | 内容简介，优先取 Wikipedia “故事大纲” |
+| `story` | `story` | 完整剧情 / 内容情节，优先取百度百科“内容情节” |
+| `quotes` | `quotes` | 名句数组，入库时序列化 |
+| `excerpts` | `excerpts` | 原文摘录数组，优先按豆瓣热度前 20 条取详情页原文，入库时序列化 |
+| `series_id` | `seriesId` | 系列 ID，入库时由 `_meta.series` 映射 |
+| `series_order` | `seriesOrder` | 系列内排序 |
+| `scores` | `scores` | 多平台评分对象，入库时序列化 |
+| `external_source` | `externalSource` | 外部来源数组，入库时序列化 |
+| `images` | `images` | 本地封面对象，入库时序列化 |
+| `reviews` | `reviews` | 评论 / 书评数组，入库时序列化 |
+| `related` | `related` | 相关书籍对象，入库时序列化 |
+| `status` | `status` | `draft` / `published` / `archived` |
 
-### 2.1 字段列表
+## Staging 结构
 
-| 字段 | 类型 | 说明 |
-|------|------|------|
-| `id` | TEXT | 书籍 ID，格式 `0200NNNNNN` |
-| `title` | TEXT | 中文书名 |
-| `title_original` | TEXT | 原名（英文/源语言） |
-| `other_titles` | TEXT | 别名 JSON 数组 |
-| `isbn` | TEXT | ISBN（唯一） |
-| `year` | INTEGER | 出版年份 |
-| `country` | TEXT | 作者国家 |
-| `language` | TEXT | 语言 |
-| `word_count` | INTEGER | 字数 |
-| `publisher` | TEXT | 出版社 |
-| `summary` | TEXT | 内容简介 |
-| `quotes` | TEXT | 名句摘录 JSON 数组 |
-| `series_id` | TEXT | 所属系列 ID |
-| `series_order` | INTEGER | 系列内序号 |
-| `scores` | TEXT | 评分 JSON（10 分制） |
-| `external_source` | TEXT | 外部来源 JSON |
-| `images` | TEXT | 封面 JSON |
-| `reviews` | TEXT | 书评 JSON（每源 20 条） |
-| `related` | TEXT | 相关书籍 JSON |
-| `status` | TEXT | 状态（draft/published/archived） |
-| `created_at` | DATETIME | 创建时间 |
-| `updated_at` | DATETIME | 更新时间 |
-
-### 2.2 字段来源优先级
-
-| 业务字段 | 数据库字段 | 来源优先级 |
-|----------|-----------|-----------|
-| 书名(中文) | `title` | 豆瓣 |
-| 原名 | `title_original` | OpenLibrary > 豆瓣 |
-| 别名 | `other_titles` | 豆瓣 + OpenLibrary |
-| ISBN | `isbn` | 豆瓣 > OpenLibrary |
-| 出版年份 | `year` | 豆瓣 > OpenLibrary |
-| 作者国家 | `country` | Wikipedia > 豆瓣 |
-| 语言 | `language` | 豆瓣 |
-| 字数 | `word_count` | 百度百科 > 当当网 |
-| 出版社 | `publisher` | 豆瓣 > 当当网 |
-| 内容简介 | `summary` | 豆瓣 > OpenLibrary |
-| 名句摘录 | `quotes` | Wikipedia > 百度百科 |
-
----
-
-## 三、关联表字段
-
-### 3.1 book_series 表
-
-| 字段 | 类型 | 说明 |
-|------|------|------|
-| `id` | TEXT | 系列 ID，格式 `0299NNNNNN` |
-| `name` | TEXT | 系列名 |
-| `name_original` | TEXT | 原名 |
-| `book_count` | INTEGER | 书籍数量 |
-| `summary` | TEXT | 系列简介 |
-| `images` | TEXT | 系列封面 JSON |
-| `status` | TEXT | 状态 |
-
-### 3.2 book_person 表
-
-| 字段 | 类型 | 说明 |
-|------|------|------|
-| `book_id` | TEXT | 书籍 ID |
-| `person_id` | INTEGER | 人物 ID（关联 person 表） |
-| `role` | TEXT | 角色（author/translator） |
-| `order` | INTEGER | 排序 |
-| `is_primary` | BOOLEAN | 是否主要 |
-
-### 3.3 person 表
-
-| 字段 | 类型 | 说明 |
-|------|------|------|
-| `person_id` | TEXT | 人物编码，格式 `p000001` |
-| `name` | TEXT | 中文名 |
-| `name_en` | TEXT | 英文名 |
-| `avatar_path` | TEXT | 头像路径 |
-| `profile_link` | TEXT | 外链 |
-| `intro` | TEXT | 简介 |
-
----
-
-## 四、JSON 字段格式
-
-### 4.1 scores（评分）
+staging 中复杂字段必须保持对象 / 数组，不能提前 JSON 字符串化。
 
 ```json
 {
-  "avg": 8.9,
-  "douban": 9.3,
-  "openlibrary": 8.4,
-  "goodreads": 8.2
+  "id": "0200000002",
+  "title": "围城",
+  "titleOriginal": "Fortress Besieged",
+  "isbn": "978...",
+  "scores": {
+    "douban": 9.3,
+    "goodreads": 8.1,
+    "avg": 8.7
+  },
+  "images": {
+    "cover": "cover-main.jpg",
+    "covers": {
+      "openlibrary": "covers/openlibrary.jpg",
+      "goodreads": "covers/goodreads.jpg"
+    },
+    "assetDir": "0200000002"
+  },
+  "externalSource": [
+    {
+      "name": "豆瓣",
+      "id": "1008145",
+      "link": "https://book.douban.com/subject/1008145/"
+    }
+  ],
+  "_meta": {
+    "fieldSources": {
+      "title": "douban",
+      "summary": "wikipedia",
+      "story": "baike"
+    },
+    "conflicts": [],
+    "authors": ["钱锺书"],
+    "translators": [],
+    "tags": ["小说", "中国文学"],
+    "subjects": [],
+    "genres": [],
+    "personDetails": [
+      {
+        "name": "钱锺书",
+        "personId": "p4502389",
+        "avatarPath": "people/p4502389-avatar.jpg"
+      }
+    ],
+    "series": {
+      "name": "三体三部曲",
+      "source": "douban"
+    },
+    "seriesCandidates": []
+  }
 }
 ```
 
-- `avg`：综合评分（有值评分的平均值）
-- 各平台评分均为 10 分制
+`_meta` 不直接写入 `books` 表；入库时用于生成人物、分类和关系表。
 
-### 4.2 external_source（外部来源）
+## 图片字段
 
-```json
-[
-  { "name": "豆瓣", "id": "2567638", "link": "https://book.douban.com/subject/2567638/" },
-  { "name": "OpenLibrary", "id": "OL123456M", "link": "https://openlibrary.org/works/OL123456M" },
-  { "name": "ISBN", "id": "9787536692930", "link": null },
-  { "name": "百度百科", "id": "三体", "link": "https://baike.baidu.com/item/三体" }
-]
+采集阶段：
+
+```text
+data/assets/{book_id}/cover-main.jpg
+data/assets/{book_id}/cover-001.jpg
 ```
 
-### 4.3 images（封面）
+入库后：
+
+```text
+.local/assets/book/{book_id}/cover-main.jpg
+.local/assets/book/{book_id}/cover-001.jpg
+```
+
+`images` 示例：
 
 ```json
 {
   "cover": "cover-main.jpg",
-  "covers": ["cover-002.jpg", "cover-003.jpg"],
-  "assetDir": "0200000001"
+  "covers": {
+    "douban_0": "covers/douban_0.jpg",
+    "openlibrary": "covers/openlibrary.jpg",
+    "goodreads": "covers/goodreads.jpg",
+    "dangdang": "covers/dangdang.jpg",
+    "wikipedia": "covers/wikipedia.jpg"
+  },
+  "assetDir": "0200000002"
 }
 ```
 
-- `cover`：主封面文件名
-- `covers`：补充封面列表
-- `assetDir`：资源目录路径（书籍 ID）
+`cover` 与 `covers` 都必须是本地文件名，不允许远程 URL。`covers` 是数据源到本地文件名的映射，用于保留多源封面并支持人工挑选主封面。
 
-### 4.4 reviews（书评）
+作者头像在采集阶段位于：
+
+```text
+data/assets/{book_id}/people/{person_id}-avatar.jpg
+```
+
+入库后复制到：
+
+```text
+.local/assets/book/{book_id}/people/{person_id}-avatar.jpg
+```
+
+## 评分字段
+
+```json
+{
+  "douban": 9.3,
+  "openlibrary": 8.4,
+  "goodreads": 8.2,
+  "avg": 8.6
+}
+```
+
+评分换算：
+
+| 来源 | 原始范围 | 当前规则 |
+|---|---|---|
+| 豆瓣 | 0-10 | 直接使用 |
+| OpenLibrary | 通常 0-5 | 爬虫 / 合并层应换算到 10 分制 |
+| Goodreads | 通常 0-5 | 爬虫 / 合并层应换算到 10 分制 |
+
+## 评论字段
+
+当前数量限制来自 `config.REVIEWS_PER_SOURCE = 20`。
 
 ```json
 [
@@ -150,128 +183,62 @@
     "author": "读者A",
     "source": "豆瓣短评",
     "date": "2024-01-01",
-    "content": "书评内容...",
+    "content": "评论内容",
     "rating": "5",
     "votes": 100,
     "url": null,
     "title": null
-  },
-  {
-    "author": "读者B",
-    "source": "豆瓣长评",
-    "date": "2024-01-02",
-    "content": "长评内容...",
-    "url": "https://book.douban.com/review/123456/",
-    "title": "三体读后感"
   }
 ]
 ```
 
-数量要求：每源严格 20 条
+当前不是全量评论采集。修改为全量前需要确认排序、页数和反爬风险。
 
-### 4.5 related（相关书籍）
+## 相关书籍字段
 
 ```json
 {
   "series": [
-    { "title": "三体Ⅱ·黑暗森林", "year": 2008, "rating": 9.3, "bookId": "0200000002" }
+    { "title": "三体II：黑暗森林", "year": 2008, "rating": 9.3, "bookId": null }
   ],
   "similar": [
-    { "title": "基地", "year": 1951, "rating": 9.0, "bookId": "0200000050" }
+    { "title": "基地", "year": 1951, "rating": 9.0, "bookId": null }
   ],
   "sameAuthor": [
-    { "title": "球状闪电", "year": 2005, "rating": 8.6, "bookId": "0200000100" }
+    { "title": "球状闪电", "year": 2005, "rating": 8.6, "bookId": null }
   ]
 }
 ```
 
-### 4.6 quotes（名句）
+当前 `bookId` 多数为空，后续需要在更多书籍入库后做站内匹配。真正的系列关系应写入 `book_series` 与 `books.series_id`；`related.series` 只保留来源候选和展示补充。
 
-```json
-[
-  { "text": "给岁月以文明，而不是给文明以岁月。", "source": "三体" }
-]
-```
+## 数据源能力
 
----
+| 字段 | 豆瓣 | OpenLibrary | 百度百科 | Wikipedia | Goodreads | 当当 | 起点 |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| 标题 | 主 | 补 | 补 | 补 | 补 | 补 | 补 |
+| 原名 | 补 | 补 | 补 | 主 | 补 | - | - |
+| 别名 | 主 | - | 补 | 补 | - | - | - |
+| ISBN | 主 | 补 | - | - | 补 | 补 | - |
+| 年份 | 主 | 补 | 补 | 补 | 补 | 补 | - |
+| 国家 | 补 | - | 主 | 补 | - | - | - |
+| 语言 | 补 | - | 主 | 补 | - | - | - |
+| 字数 | - | - | 主 | - | - | 补 | 主 |
+| 出版社 | 主 | 补 | 补 | 补 | 补 | 补 | - |
+| 简介 | 主 | 补 | 补 | 补 | 补 | 补 | 补 |
+| 评分 | 主 | 补 | - | - | 补 | - | - |
+| 作者 | 主 | 补 | 补 | 补 | 补 | 补 | 主 |
+| 译者 | 主 | - | - | 补 | 补 | 补 | - |
+| 标签 / 主题 | 主 | 补 | - | - | 补 | - | 补 |
+| 封面 | 主 | 补 | - | 补 | 补 | 补 | 补 |
+| 评论 / 书评 | 主 | - | - | - | 补 | - | - |
+| 名句 / 摘录 | 摘录 | - | - | 名句 | - | - | - |
+| 系列 / 相关 | 主 | - | - | - | 补 | 补 | - |
 
-## 五、数据来源字段覆盖
-
-| 字段 | 豆瓣 | OpenLibrary | Goodreads | 当当网 | 百度百科 | Wikipedia |
-|------|:----:|:-----------:|:---------:|:------:|:--------:|:---------:|
-| 标题 | ✅ | ✅ | ✅ | ✅ | ✅ | - |
-| 原名 | ✅ | ✅ | ✅ | - | - | - |
-| 作者 | ✅ | ✅ | ✅ | ✅ | ✅ | - |
-| 译者 | ✅ | - | - | ✅ | - | - |
-| ISBN | ✅ | ✅ | ✅ | ✅ | - | - |
-| 出版社 | ✅ | ✅ | - | ✅ | ✅ | - |
-| 出版日期 | ✅ | ✅ | ✅ | ✅ | - | - |
-| 页数 | ✅ | ✅ | - | ✅ | - | - |
-| 字数 | - | - | - | ✅ | ✅ | - |
-| 评分 | ✅ | ✅ | ✅ | - | - | - |
-| 简介 | ✅ | ✅ | ✅ | ✅ | ✅ | - |
-| 封面 | ✅ | ✅ | ✅ | ✅ | - | - |
-| 标签 | ✅ | ✅ | ✅ | - | - | - |
-| 书评 | ✅ | - | ✅ | - | - | - |
-| 获奖 | - | - | ✅ | ✅ | ✅ | ✅ |
-| 系列 | ✅ | ✅ | ✅ | ✅ | - | - |
-| 名句 | - | - | - | - | ✅ | ✅ |
-
----
-
-## 六、评分换算规则
-
-| 来源 | 原始分数范围 | 换算公式 |
-|------|-------------|----------|
-| 豆瓣 | 0-10 | 直接使用 |
-| OpenLibrary | 0-5 | `value = raw * 2` |
-| Goodreads | 0-5 | `value = raw * 2` |
-
----
-
-## 七、数据来源标识
-
-| 来源 | 标识符 |
-|------|--------|
-| 豆瓣读书 | `douban` |
-| OpenLibrary | `openlibrary` |
-| Goodreads | `goodreads` |
-| 当当网 | `dangdang` |
-| 百度百科 | `baike` |
-| Wikipedia | `wikipedia` |
-| 中国图书网 | `bookchina` |
-
----
-
-## 八、ID 生成规则
+## ID 规则
 
 | 类型 | 格式 | 示例 |
-|------|------|------|
+|---|---|---|
 | 书籍 ID | `0200NNNNNN` | `0200000001` |
-| 系列 ID | `0299NNNNNN` | `0299000001` |
-| 人物编码 | `pNNNNNN` | `p000001` |
-
----
-
-## 九、存储路径
-
-### 9.1 book-ingest 内部路径（临时存储）
-
-| 类型 | 路径 |
-|------|------|
-| 原始数据 | `data/raw/{book_id}/{source}.json` |
-| 合并数据 | `data/staging/{book_id}.json` |
-| 书籍封面 | `data/assets/{book_id}/cover-main.jpg` |
-
-### 9.2 最终存储路径（录入数据库后）
-
-| 类型 | 路径 |
-|------|------|
-| 书籍封面 | `.local/assets/book/{book_id}/` |
-| 人物头像 | `.local/assets/people/{person_id}-avatar.jpg` |
-
-**说明**：封面在 book-ingest 内临时存储，导出到 generated 或发布时复制到 `.local/assets/book/`
-
----
-
-**最后更新**：2026-05-12
+| 书籍系列 ID | `0299NNNNNN` | `0299000001` |
+| 人物编码 | `pNNNNNN` 或外部源派生 ID | `p000001` |

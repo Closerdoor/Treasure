@@ -14,22 +14,27 @@
 | country（国家） | ✅补 | - | ✅主 | ✅补 | - | - | - |
 | language（语言） | ✅ | - | ✅主 | ✅补 | - | - | - |
 | wordCount（字数） | - | - | ✅主 | - | - | ✅补 | ✅(网文) |
-| publisher（出版社） | ✅主 | ✅补 | ✅补 | ✅补 | - | ✅补 | - |
-| summary（简介） | ✅主 | ✅补 | ✅补 | ✅补 | ✅补 | ✅补 | ✅(网文) |
+| publisher（出版社） | ✅主 | ✅补 | ✅补 | ✅补 | ✅补 | ✅补 | - |
+| publishDate（完整出版日期） | ✅主 | - | ✅补 | ✅补 | - | ✅补 | - |
+| pages（页数） | ✅主 | - | ✅补 | ✅补 | ✅补 | ✅补 | - |
+| price（定价） | ✅主 | - | ✅补 | - | - | ✅补 | - |
+| binding / format / edition（版本信息） | 待补 | - | 待补 | - | - | 待补 | - |
+| summary（内容简介 / 故事大纲） | 补 | 补 | 审视 | ✅主 | 补 | 补 | ✅(网文补充) |
+| story（完整剧情 / 内容情节） | - | - | ✅主 | 补 | - | - | - |
 | scores（评分） | ✅主 | ✅补 | - | - | ✅补 | - | - |
 | authors（作者） | ✅主 | ✅补 | ✅补 | ✅补 | ✅补 | ✅补 | ✅(网文) |
-| translators（译者） | ✅主 | ✅补 | - | ✅补 | ✅补 | ✅补 | - |
+| translators（译者） | ✅主 | - | - | ✅补 | ✅补 | ✅补 | - |
 | tags（标签） | ✅主 | ✅(subjects) | - | - | ✅(genres) | - | ✅(category) |
 | images（封面URL） | ✅主 | ✅补 | - | - | ✅补 | ✅补 | ✅(网文) |
 | quotes（名句） | - | - | - | ✅主 | - | - | - |
-| excerpts（原文摘录） | ✅主 | - | - | - | - | - | - |
-| awards（获奖） | - | - | ✅补 | ✅主 | ✅主 | - | - |
+| excerpts（原文摘录） | ✅主，热度前 20 条并进详情页取正文 | - | - | - | - | - | - |
+| awards（获奖） | - | - | - | ✅主 | - | - | - |
 | reviews（书评） | ✅主 | - | - | - | ✅补 | - | - |
 | related（相关推荐） | ✅主 | - | - | - | ✅补 | - | - |
 | series（丛书） | ✅ | ✅ | - | - | ✅ | ✅ | - |
 | pages（页数） | ✅ | - | ✅补 | ✅补 | ✅ | ✅主 | - |
 | price（定价） | ✅ | - | ✅补 | - | - | ✅主 | - |
-| ratingCount（评价人数） | ✅主 | ✅补 | - | - | ✅补 | - | - |
+| ratingCount（评价人数） | ✅主 | ✅补 | - | - | - | - | - |
 | serialStatus（连载状态） | - | - | ✅ | - | - | - | ✅主 |
 
 ## 合并优先级
@@ -61,15 +66,16 @@
 
 ## 图片下载规则
 
-数据库中存储的封面URL和头像URL是**本地路径**，不是远程URL。流程：
+数据库中存储的封面字段必须指向本地文件名，不保留远程 URL。流程：
 
-1. **爬虫阶段**：采集远程URL（如豆瓣 `/raw/`、OL `covers.openlibrary.org` 等）
-2. **下载阶段**：将远程图片下载到本地 `site/public/assets/` 目录，按作品隔离
-3. **入库阶段**：数据库字段存本地路径（如 `assets/books/0200000001/cover-001.jpg`、`assets/people/p000001/avatar.jpg`）
+1. **爬虫阶段**：采集远程 URL（如豆瓣图片、OpenLibrary `covers.openlibrary.org` 等）。
+2. **下载阶段**：将远程图片下载到 `data/assets/{book_id}/`，并把实际下载成功的文件名回写到 staging 的 `images.cover` / `images.covers`。
+3. **入库阶段**：将 `data/assets/{book_id}/` 递归复制到 `.local/assets/book/{book_id}/`，数据库 `images` 字段保存本地文件名对象。
 
 涉及图片的字段：
-- `images`（书籍封面）→ 下载到 `assets/books/{bookId}/cover-NNN.jpg`
-- `personDetails.avatarUrl`（人物头像）→ 下载到 `assets/people/{personId}/avatar.jpg`
+- `images.cover`（主封面）→ `cover-main.jpg`
+- `images.covers`（多源封面）→ `{ "openlibrary": "covers/openlibrary.jpg" }`
+- `personDetails.avatarPath`（人物头像）→ `people/{personId}-avatar.jpg`
 
 ## 作者名清洗规则
 
@@ -80,4 +86,4 @@
 
 同一作者不同格式自动去重（按去除前缀后的名字比较）。
 
-最后更新：2026-05-14
+最后更新：2026-05-22

@@ -36,6 +36,20 @@ def _is_chinese(text: str) -> bool:
     return bool(re.match(r'^[\u4e00-\u9fa5]+$', text))
 
 
+def _has_cjk(text: str) -> bool:
+    return bool(text and re.search(r"[\u4e00-\u9fff]", text))
+
+
+def _parse_int(value) -> Optional[int]:
+    """从来源文本中提取整数。"""
+    if value is None:
+        return None
+    if isinstance(value, int):
+        return value
+    match = re.search(r"\d+", str(value).replace(",", ""))
+    return int(match.group(0)) if match else None
+
+
 def _strip_country_prefix(name: str) -> tuple:
     """
     去除作者名中的国籍前缀，返回 (清洗后名字, 国籍)
@@ -130,10 +144,21 @@ def _dedupe_authors(author_lists: List[List[str]]) -> List[str]:
             if not name or not name.strip():
                 continue
             clean_name, _ = _strip_country_prefix(name)
-            key = clean_name.lower().replace(" ", "").replace("·", "")
+            key = (
+                clean_name.lower()
+                .replace(" ", "")
+                .replace("·", "")
+                .replace(",", "")
+                .replace("-", "")
+                .replace("锺", "钟")
+                .replace("鐘", "钟")
+            )
             if key not in seen_clean:
                 seen_clean.add(key)
                 result.append(clean_name)
+
+    if any(_has_cjk(name) for name in result):
+        result = [name for name in result if _has_cjk(name)]
 
     return result
 
@@ -191,7 +216,14 @@ class DataMerger:
             "language": None,
             "wordCount": None,
             "publisher": None,
+            "publishDate": None,
+            "pages": None,
+            "price": None,
+            "binding": None,
+            "format": None,
+            "edition": None,
             "summary": None,
+            "story": None,
             "quotes": None,
             "excerpts": None,
             "seriesId": None,
@@ -212,10 +244,9 @@ class DataMerger:
                 "genres": [],
                 "awards": [],
                 "series": None,
+                "seriesCandidates": [],
                 "coverUrls": {},
                 "prices": {},
-                "pages": None,
-                "price": None,
                 "personDetails": [],
             },
         }
@@ -254,13 +285,18 @@ class DataMerger:
         goodreads = raw_data.get("goodreads", {})
         gr_detail = goodreads.get("detail", goodreads)
         if gr_detail.get("authors"):
-            all_author_lists.append(gr_detail["authors"])
+            gr_names = [a["name"] if isinstance(a, dict) else a for a in gr_detail["authors"]]
+            all_author_lists.append(gr_names)
         dangdang = raw_data.get("dangdang", {})
         dd_detail = dangdang.get("detail", dangdang)
         if dd_detail.get("authors"):
-            all_author_lists.append(dd_detail["authors"])
+            dd_names = [a["name"] if isinstance(a, dict) else a for a in dd_detail["authors"]]
+            all_author_lists.append(dd_names)
         qidian = raw_data.get("qidian", {})
-        if qidian.get("author"):
+        if qidian.get("authors"):
+            qd_names = [a["name"] if isinstance(a, dict) else a for a in qidian["authors"]]
+            all_author_lists.append(qd_names)
+        elif qidian.get("author"):
             all_author_lists.append([qidian["author"]])
 
         meta["authors"] = _dedupe_authors(all_author_lists)
@@ -276,8 +312,15 @@ class DataMerger:
         all_translator_lists = []
         if douban.get("translators"):
             all_translator_lists.append(douban["translators"])
+        if wikipedia.get("translators"):
+            wiki_translators = [t["name"] if isinstance(t, dict) else t for t in wikipedia["translators"]]
+            all_translator_lists.append(wiki_translators)
+        if gr_detail.get("translators"):
+            gr_translators = [t["name"] if isinstance(t, dict) else t for t in gr_detail["translators"]]
+            all_translator_lists.append(gr_translators)
         if dd_detail.get("translators"):
-            all_translator_lists.append(dd_detail["translators"])
+            dd_translators = [t["name"] if isinstance(t, dict) else t for t in dd_detail["translators"]]
+            all_translator_lists.append(dd_translators)
         meta["translators"] = _dedupe_authors(all_translator_lists)
 
         # 计算综合评分
@@ -296,7 +339,7 @@ class DataMerger:
         if not result.get("images"):
             has_cover = any(meta["coverUrls"].values())
             if has_cover:
-                result["images"] = {"cover": "cover-main.jpg", "covers": [], "assetDir": book_id}
+                result["images"] = {"cover": "cover-main.jpg", "covers": {}, "assetDir": book_id}
 
         # 构建 related
         if not result.get("related"):
@@ -320,6 +363,24 @@ class DataMerger:
 
         Logger.success(f"数据合并完成: {book_id}")
         return result
+
+    def _add_series_candidate(self, meta: dict, series, source: str):
+        """记录系列候选，不直接伪造 book_series ID。"""
+        if not _is_valid(series):
+            return
+        item = series if isinstance(series, dict) else {"name": str(series)}
+        if not item.get("name"):
+            return
+        item = {**item, "source": source}
+        key = (item.get("name"), item.get("url", ""))
+        existing = {
+            (candidate.get("name"), candidate.get("url", ""))
+            for candidate in meta.get("seriesCandidates", [])
+        }
+        if key not in existing:
+            meta.setdefault("seriesCandidates", []).append(item)
+        if not _is_valid(meta.get("series")):
+            meta["series"] = item
 
     def _set_field(self, result, fs, field, value, source, conflicts=None):
         """设置字段值，仅在当前值为空时设置，否则记录冲突"""
@@ -373,7 +434,14 @@ class DataMerger:
         self._set_field(result, fs, "isbn", data.get("isbn"), "douban", conflicts)
         self._set_field(result, fs, "year", data.get("year"), "douban", conflicts)
         self._set_field(result, fs, "publisher", data.get("publisher"), "douban", conflicts)
-        self._set_field(result, fs, "summary", data.get("summary"), "douban", conflicts)
+        self._set_field(result, fs, "publishDate", data.get("publish_date"), "douban", conflicts)
+        self._set_field(result, fs, "pages", _parse_int(data.get("pages")), "douban", conflicts)
+        self._set_field(result, fs, "price", data.get("price"), "douban", conflicts)
+        self._set_field(result, fs, "binding", data.get("binding"), "douban", conflicts)
+        self._set_field(result, fs, "format", data.get("format"), "douban", conflicts)
+        self._set_field(result, fs, "edition", data.get("edition"), "douban", conflicts)
+        if _is_valid(data.get("summary")):
+            meta["doubanSummary"] = data.get("summary")
 
         rating = data.get("rating")
         if _is_valid(rating):
@@ -385,7 +453,7 @@ class DataMerger:
 
         cover_url = data.get("main_cover_url")
         if _is_valid(cover_url):
-            result["images"] = {"cover": "cover-main.jpg", "covers": [], "assetDir": book_id}
+            result["images"] = {"cover": "cover-main.jpg", "covers": {}, "assetDir": book_id}
             meta["coverUrls"]["douban"] = cover_url
 
         tags = data.get("tags", [])
@@ -394,22 +462,17 @@ class DataMerger:
 
         series = data.get("series")
         if _is_valid(series):
-            meta["series"] = {"name": series}
+            self._add_series_candidate(meta, series, "douban")
 
-        pages = data.get("pages")
-        if _is_valid(pages):
-            try:
-                meta["pages"] = int(pages)
-            except (ValueError, TypeError):
-                pass
-
-        price = data.get("price")
-        if _is_valid(price):
-            meta["price"] = price
-
+        comments = data.get("comments", [])
         reviews = data.get("reviews", [])
+        combined_reviews = []
+        if comments:
+            combined_reviews.extend(comments)
         if reviews:
-            result["reviews"] = reviews
+            combined_reviews.extend(reviews)
+        if combined_reviews:
+            result["reviews"] = combined_reviews
             fs["reviews"] = "douban"
 
         excerpts = data.get("excerpts", [])
@@ -434,9 +497,19 @@ class DataMerger:
         if _is_valid(title_original) and not _is_chinese(title_original):
             self._set_field(result, fs, "titleOriginal", title_original, "baike", conflicts)
 
-        # 百度百科的首版时间优先级最高
+        # year 表示作品首版年，百度百科的首版时间优先级最高，可覆盖豆瓣版本出版年。
         if _is_valid(data.get("year")):
-            self._set_field(result, fs, "year", data["year"], "baike", conflicts)
+            current_year = result.get("year")
+            if _is_valid(current_year) and current_year != data["year"] and conflicts is not None:
+                conflicts.append({
+                    "field": "year",
+                    "existing": {"value": current_year, "source": fs.get("year", "unknown")},
+                    "candidate": {"value": data["year"], "source": "baike"},
+                    "reason": "year 使用作品首版年，百度百科覆盖版本出版年",
+                    "resolution": "use_candidate",
+                })
+            result["year"] = data["year"]
+            fs["year"] = "baike"
 
         if _is_valid(data.get("word_count")):
             self._set_field(result, fs, "wordCount", data["word_count"], "baike", conflicts)
@@ -450,13 +523,21 @@ class DataMerger:
         if _is_valid(data.get("language")):
             self._set_field(result, fs, "language", data["language"], "baike", conflicts)
 
-        # 百度百科简介作为补充（不覆盖豆瓣）
-        if not _is_valid(result["summary"]) and _is_valid(data.get("summary")):
-            self._set_field(result, fs, "summary", data["summary"], "baike", conflicts)
+        # 百度百科简介只作为 raw 审视保留；summary 正式优先取 Wikipedia 的“故事大纲”。
+        if _is_valid(data.get("summary")):
+            meta["baikeSummary"] = data.get("summary")
+
+        # 完整剧情 / 内容情节：优先取百度百科“内容情节”等正文分节。
+        story = data.get("story") or data.get("content_plot") or data.get("plot")
+        if _is_valid(story):
+            self._set_field(result, fs, "story", story, "baike", conflicts)
 
         # 出版社作为补充（不覆盖豆瓣）
         if not _is_valid(result["publisher"]) and _is_valid(data.get("publisher")):
             self._set_field(result, fs, "publisher", data["publisher"], "baike", conflicts)
+
+        self._set_field(result, fs, "pages", _parse_int(data.get("pages")), "baike", conflicts)
+        self._set_field(result, fs, "price", data.get("price"), "baike", conflicts)
 
         # 作者（补充，列表格式）
         if _is_valid(data.get("authors")) and not meta["authors"]:
@@ -474,14 +555,18 @@ class DataMerger:
                         if t not in result["otherTitles"]:
                             result["otherTitles"].append(t)
 
-            if info.get("页数") and not _is_valid(meta["pages"]):
-                try:
-                    meta["pages"] = int(info["页数"])
-                except (ValueError, TypeError):
-                    pass
+            if info.get("出版时间") and not _is_valid(result["publishDate"]):
+                self._set_field(result, fs, "publishDate", str(info["出版时间"]), "baike", conflicts)
 
-            if info.get("定价") and not _is_valid(meta["price"]):
-                meta["price"] = str(info["定价"])
+            if info.get("页数") and not _is_valid(result["pages"]):
+                self._set_field(result, fs, "pages", _parse_int(info["页数"]), "baike", conflicts)
+
+            if info.get("定价") and not _is_valid(result["price"]):
+                self._set_field(result, fs, "price", str(info["定价"]), "baike", conflicts)
+
+            for info_key, field in [("装帧", "binding"), ("开本", "format"), ("版次", "edition")]:
+                if info.get(info_key) and not _is_valid(result[field]):
+                    self._set_field(result, fs, field, str(info[info_key]), "baike", conflicts)
 
     def _apply_wikipedia(self, data: dict, result: dict, fs: dict, conflicts: list, meta: dict, book_id: str):
         """维基百科数据"""
@@ -497,7 +582,7 @@ class DataMerger:
             result["titleOriginal"] = title_original
             fs["titleOriginal"] = "wikipedia"
 
-        # 简介作为补充
+        # 内容简介：按当前规则优先取 Wikipedia 的“故事大纲”分节。
         if not _is_valid(result["summary"]) and _is_valid(data.get("summary")):
             self._set_field(result, fs, "summary", data["summary"], "wikipedia", conflicts)
 
@@ -514,14 +599,23 @@ class DataMerger:
             result["quotes"] = data["quotes"]
             fs["quotes"] = "wikipedia"
 
-        # 原文摘录
-        if _is_valid(data.get("excerpts")):
-            result["excerpts"] = data["excerpts"]
-            fs["excerpts"] = "wikipedia"
+        # 作者（补充，列表格式）
+        if _is_valid(data.get("authors")) and not meta["authors"]:
+            meta["authors"] = data["authors"]
 
-        # 获奖
-        if data.get("awards"):
-            meta["awards"].extend(data["awards"])
+        # 译者（补充，列表格式）
+        if _is_valid(data.get("translators")) and not meta["translators"]:
+            meta["translators"] = data["translators"]
+
+        # 别名（从翻译版本提取）
+        if _is_valid(data.get("other_titles")) and not _is_valid(result["otherTitles"]):
+            result["otherTitles"] = data["other_titles"]
+            fs["otherTitles"] = "wikipedia"
+
+        # 封面URL
+        cover_url = data.get("cover_url")
+        if _is_valid(cover_url) and not _is_valid(meta["coverUrls"].get("wikipedia")):
+            meta["coverUrls"]["wikipedia"] = cover_url
 
         # 从 info 提取补充信息
         info = data.get("info", {})
@@ -535,10 +629,18 @@ class DataMerger:
             if info.get("出版机构") and not _is_valid(result["publisher"]):
                 self._set_field(result, fs, "publisher", info["出版机构"], "wikipedia", conflicts)
 
+            if info.get("出版日期"):
+                self._set_field(result, fs, "publishDate", str(info["出版日期"]), "wikipedia", conflicts)
             if info.get("出版日期") and not _is_valid(result["year"]):
                 year_match = re.search(r"(\d{4})", str(info["出版日期"]))
                 if year_match:
                     self._set_field(result, fs, "year", int(year_match.group(1)), "wikipedia", conflicts)
+
+            if info.get("页数") and not _is_valid(result["pages"]):
+                self._set_field(result, fs, "pages", _parse_int(info["页数"]), "wikipedia", conflicts)
+
+            if info.get("系列"):
+                self._add_series_candidate(meta, {"name": str(info["系列"])}, "wikipedia")
 
             if not _is_valid(result["country"]):
                 for key in ["地点", "出版地", "国家", "Country"]:
@@ -571,6 +673,12 @@ class DataMerger:
         if not _is_valid(result["year"]) and _is_valid(data.get("first_publish_year")):
             self._set_field(result, fs, "year", data["first_publish_year"], "openlibrary", conflicts)
 
+        if not _is_valid(result["publisher"]) and _is_valid(data.get("publisher")):
+            self._set_field(result, fs, "publisher", data["publisher"], "openlibrary", conflicts)
+
+        if not _is_valid(result["language"]) and _is_valid(data.get("language")):
+            self._set_field(result, fs, "language", str(data["language"]), "openlibrary", conflicts)
+
         # 封面 URL
         cover_url = data.get("cover_url")
         if _is_valid(cover_url):
@@ -578,7 +686,7 @@ class DataMerger:
 
         cover_urls = data.get("cover_urls", [])
         if cover_urls and _is_valid(result.get("images")):
-            result["images"]["covers"] = [f"cover-{i+2:03d}.jpg" for i in range(len(cover_urls[:3]))]
+            result["images"]["covers"] = result["images"].get("covers") or {}
 
         # 主题标签
         subjects = data.get("subjects", [])
@@ -615,16 +723,16 @@ class DataMerger:
             if not _is_chinese(title_orig):
                 self._set_field(result, fs, "titleOriginal", title_orig, "goodreads", conflicts)
 
+        # ISBN
+        if not _is_valid(result["isbn"]) and _is_valid(detail.get("isbn")):
+            self._set_field(result, fs, "isbn", detail["isbn"], "goodreads", conflicts)
+
         # 评分
         if _is_valid(detail.get("rating")):
             if not _is_valid(result.get("scores")):
                 result["scores"] = {}
             if isinstance(result["scores"], dict):
                 result["scores"]["goodreads"] = detail["rating"]
-
-        rating_count = detail.get("rating_count")
-        if _is_valid(rating_count):
-            meta["ratingCount"]["goodreads"] = rating_count
 
         # 封面
         cover_url = detail.get("cover_url")
@@ -633,31 +741,33 @@ class DataMerger:
 
         # 系列
         if _is_valid(detail.get("series")) and not _is_valid(meta["series"]):
-            meta["series"] = detail["series"]
+            self._add_series_candidate(meta, detail["series"], "goodreads")
 
-        # 获奖
-        awards = detail.get("awards", [])
-        if awards:
-            for award in awards:
-                if award not in meta["awards"]:
-                    meta["awards"].append(award)
-
-        # 类型标签
+        # Goodreads 页面结构容易把站点导航分类误识别为书籍类型，先保留 raw，不入库。
         genres = detail.get("genres", [])
         if genres:
-            meta["genres"] = genres
+            meta["rawGoodreadsGenres"] = genres
 
         # 页数
-        if _is_valid(detail.get("pages")) and not _is_valid(meta["pages"]):
-            meta["pages"] = detail["pages"]
+        if _is_valid(detail.get("pages")) and not _is_valid(result["pages"]):
+            self._set_field(result, fs, "pages", _parse_int(detail["pages"]), "goodreads", conflicts)
 
         # 出版年
         if not _is_valid(result["year"]) and _is_valid(detail.get("year")):
             self._set_field(result, fs, "year", detail["year"], "goodreads", conflicts)
 
+        # 出版社
+        if not _is_valid(result["publisher"]) and _is_valid(detail.get("publisher")):
+            self._set_field(result, fs, "publisher", detail["publisher"], "goodreads", conflicts)
+
         # 简介
         if not _is_valid(result["summary"]) and _is_valid(detail.get("summary")):
             self._set_field(result, fs, "summary", detail["summary"], "goodreads", conflicts)
+
+        # 译者
+        if _is_valid(detail.get("translators")) and not meta["translators"]:
+            translator_names = [t["name"] if isinstance(t, dict) else t for t in detail["translators"]]
+            meta["translators"] = translator_names
 
         # 书评
         gr_reviews = data.get("reviews", [])
@@ -666,6 +776,22 @@ class DataMerger:
                 result["reviews"] = []
             if isinstance(result["reviews"], list):
                 result["reviews"].extend(gr_reviews)
+
+        # 相似推荐
+        similar_books = detail.get("similar_books", [])
+        if similar_books and not _is_valid(result.get("related")):
+            related = {"similar": [], "series": [], "sameAuthor": []}
+            for book in similar_books:
+                book_title = book.get("title") if isinstance(book, dict) else str(book)
+                if book_title:
+                    related["similar"].append({
+                        "title": book_title,
+                        "year": None,
+                        "rating": None,
+                        "bookId": None,
+                    })
+            if related["similar"]:
+                result["related"] = related
 
     def _apply_dangdang(self, data: dict, result: dict, fs: dict, conflicts: list, meta: dict, book_id: str):
         """当当网数据"""
@@ -677,6 +803,10 @@ class DataMerger:
         if not _is_valid(result["title"]):
             self._set_field(result, fs, "title", detail.get("title"), "dangdang", conflicts)
 
+        # ISBN
+        if not _is_valid(result["isbn"]) and _is_valid(detail.get("isbn")):
+            self._set_field(result, fs, "isbn", detail["isbn"], "dangdang", conflicts)
+
         # 出版社作为补充
         if not _is_valid(result["publisher"]) and _is_valid(detail.get("publisher")):
             self._set_field(result, fs, "publisher", detail["publisher"], "dangdang", conflicts)
@@ -687,19 +817,35 @@ class DataMerger:
 
         # 页数（当当网优先）
         if _is_valid(detail.get("pages")):
-            meta["pages"] = detail["pages"]
+            self._set_field(result, fs, "pages", _parse_int(detail["pages"]), "dangdang", conflicts)
 
         # 价格
         if _is_valid(detail.get("price")):
             meta["prices"]["dangdang"] = detail["price"]
+            self._set_field(result, fs, "price", str(detail["price"]), "dangdang", conflicts)
+
+        for source_key, field in [("binding", "binding"), ("format", "format"), ("edition", "edition")]:
+            if _is_valid(detail.get(source_key)):
+                self._set_field(result, fs, field, str(detail[source_key]), "dangdang", conflicts)
 
         # 出版年
         if not _is_valid(result["year"]) and _is_valid(detail.get("publish_year")):
             self._set_field(result, fs, "year", detail["publish_year"], "dangdang", conflicts)
+        if _is_valid(detail.get("publish_date")):
+            self._set_field(result, fs, "publishDate", detail["publish_date"], "dangdang", conflicts)
 
         # 简介
         if not _is_valid(result["summary"]) and _is_valid(detail.get("summary")):
             self._set_field(result, fs, "summary", detail["summary"], "dangdang", conflicts)
+
+        # 译者
+        if _is_valid(detail.get("translators")) and not meta["translators"]:
+            dd_translators = [t["name"] if isinstance(t, dict) else t for t in detail["translators"]]
+            meta["translators"] = dd_translators
+
+        # 丛书
+        if _is_valid(detail.get("series_name")) and not _is_valid(meta["series"]):
+            self._add_series_candidate(meta, {"name": detail["series_name"]}, "dangdang")
 
         # 封面
         cover_url = detail.get("cover_url")
@@ -726,6 +872,11 @@ class DataMerger:
         # 分类
         if _is_valid(data.get("category")):
             meta["genres"] = [data["category"]]
+
+        # 标签
+        tags = data.get("tags", [])
+        if tags and not meta["tags"]:
+            meta["tags"] = tags
 
         # 简介
         if not _is_valid(result["summary"]) and _is_valid(data.get("summary")):

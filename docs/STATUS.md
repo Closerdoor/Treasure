@@ -1,6 +1,6 @@
 # Treasure 当前状态
 
-最近校验时间：2026-05-21
+最近校验时间：2026-05-22
 
 当前项目处于 **DB-first 静态站闭环整理阶段**。电影模块已经跑通从 SQLite 到 generated，再到 Astro 静态构建的主链路；书籍模块已有数据库草稿，但还没有正式接入 generated 和前台页面。
 
@@ -104,6 +104,9 @@ npm.cmd run build
 - `temp-script/movie-ingest/import_staging.py` 已成为电影 staging 的正式入库 CLI：默认只预检，`--apply` 才会备份并写入 `.local/treasure.db`。
 - 已清理 `temp-script/movie-ingest` 旧内容：删除 legacy `db_tools/` JS 入库入口、过期 `AUDIT.md`、已跟踪的字段核对 HTML、旧进度 / 任务 / 报告产物和 Python 缓存；当前目录收口为单部电影稳定工作流。
 - 已以 `0101000178`《绿里奇迹》跑通“已有电影完整刷新”流程：多源重新采集、图片本地化、staging 合并、`--update-existing` 预检、正式覆盖入库、generated 导出、资源完整性校验和 Astro 构建；作品资源缺失从 2 条降为 0。
+- 已将 `temp-script/book-ingest` 的入库入口整理为 movie-ingest 同类模式：新增 / 使用 `import_staging.py` 做只读预检、临时库演练、查重、资源校验和显式 `--apply` 入库；`main.py --import` 也走同一预检入口。
+- 已修正书籍封面资源链路：封面下载后回写 `data/staging/{book_id}.json` 的 `images` 字段，正式入库时把 `data/assets/{book_id}/` 复制到 `.local/assets/book/{book_id}/`。
+- 已用《围城》草稿执行一次不写主库的书籍流程演练：合并、主封面下载、staging 回写、`--update-existing` 预检、临时库导入和外键检查均通过；预检问题数为 0，临时库生成 `book_person` 1 条、`book_category` 1 条。
 
 ## 未完成
 
@@ -111,7 +114,14 @@ npm.cmd run build
 - 电影作品资源引用当前完整；人物头像仍有历史缺口，前台使用占位头像回退。
 - 电影新增流程中的 `generated.images` 本地文件名和外链对象边界已在 movie-ingest 侧明确；历史存量记录仍可能需要逐步清理。
 - 书籍模块已有数据库草稿，但尚未进入 generated 和 Astro 页面链路。
-- 书籍录入脚本尚未完全对齐采集工坊契约：字段级来源追踪未落地，部分字段优先级与局部规则文档不一致，staging 阶段存在提前 JSON 字符串化，封面本地路径写回 staging 的流程仍需确认。
+- 书籍录入脚本已开始对齐采集工坊契约：当前正式入口是 `temp-script/book-ingest/main.py` 与 `import_staging.py`，staging 保持对象 / 数组结构，入库预检默认只读，并已补齐封面下载后回写 staging 与正式入库时递归复制到 `.local/assets/book/{book_id}/` 的流程。
+- 书籍数据库已补齐出版版本字段：`publish_date`、`pages`、`price`、`binding`、`format`、`edition`，并新增 `story` 用于对齐电影作品的完整剧情 / 内容情节字段。上述字段均为可空字段，现有草稿记录可逐步刷新。
+- 书籍系列关系已接入入库流程：`_meta.series.name` 存在时会复用或创建 `book_series`，并写入当前书籍的 `series_id`。
+- 书籍图片资源契约已升级为主封面 + 多源封面映射 + 作者头像：`images.cover`、`images.covers`、`_meta.personDetails[].avatarPath`。
+- 书籍模块尚未完成端到端前台闭环：当前只验证了《围城》已有草稿的采集、合并、封面/头像下载、staging 回写、临时库导入和外键检查；尚未执行正式覆盖入库，也未接入 generated / Astro 页面。
+- 《围城》当前书籍样板已刷新豆瓣、当当、Goodreads，并保留百度百科、Wikipedia、OpenLibrary raw；起点未找到该作品，符合网文源定位。当前 staging 覆盖：`year` 已按作品首版年使用百度百科 1947，`publishDate` 保留豆瓣版本日期 1991-2，`summary` 已切换为 Wikipedia “故事大纲”，`story` 已通过本地保存的百度百科 HTML 取自“内容情节”分节（1226 字），豆瓣短评 20、豆瓣长评 20、原文摘录 20、作者头像 1、主封面 1、多源补充封面 2、字段来源 18；版本年与首版年的差异作为已决冲突记录保留。
+- 已将“用户协助处理反爬”的流程记录为书籍采集规则：当自动化浏览器遇到验证码、风控页或端侧差异时，先量化脚本拿到的页面，再使用用户保存的本地 HTML 或导出的 Cookie 辅助解析；辅助材料不提交 Git，脚本不得用验证码页 / 空壳页覆盖有效 raw。
+- 已新增 `temp-script/book-ingest/tools/field_report.py`，可生成 `temp-script/book-ingest/docs/field-map.html`，用于对照 DB 字段、staging 当前值和各 raw 数据源实际内容。
 - `tools/db/` 已收口为当前 DB 主链路工具；历史修库脚本和旧电影 intake / 样板脚本已移入 `tools/archive/`，后续完整跑工作流时再确认是否还有需要恢复的正式入口。
 - `temp-script/` 中仍有大量实验脚本、日志和调试产物，需要后续分类归档。
 - 当前仓库仍存在一批不在主链路上的历史或调试文件，尚未删除：
@@ -125,4 +135,5 @@ npm.cmd run build
 1. 新增 `tools/db/check-generated-integrity.mjs`，把当前手动校验固化为脚本。
 2. 按 `docs/PROJECT.md` 的“主链路文件分级”逐项确认清理候选，优先处理明显不该入库的调试日志、缓存和 generated 历史产物。
 3. 使用《社交网络》和《绿里奇迹》页面做前台渲染抽查，确认新流程电影在 Astro 列表页和详情页展示正常。
-4. 将书籍录入 staging 契约对齐采集工坊标准，再设计书籍模块的 generated 契约与 `/book`、`/book/{id}` 页面。
+4. 继续核对 book-ingest 各数据源采集质量，确认书评 20 条限制、legacy 入口去留和字段核对 HTML 入口后，再正式刷新已有书籍或新增书籍。
+5. 书籍入库流程稳定后，再设计书籍模块的 generated 契约与 `/book`、`/book/{id}` 页面。

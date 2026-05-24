@@ -10,7 +10,7 @@
 - rating, rating_count, rating_distribution
 - main_cover_url, cover_urls
 - authors, translators
-- publisher, year, pages, isbn, price, series
+- publisher, publish_date, year, pages, isbn, price, binding, series
 - summary, tags
 - recommendations
 - comments (短评), reviews (长评), excerpts (原文摘录)
@@ -21,6 +21,7 @@ import json
 import random
 import re
 from typing import Optional, List, Dict, Any
+from urllib.parse import urljoin
 
 from bs4 import BeautifulSoup
 
@@ -125,6 +126,10 @@ class DoubanCrawler(BaseCrawler):
         except Exception as e:
             Logger.error(f"[douban] 验证失败: {e}")
             raise Exception("[douban] 反爬验证未通过")
+
+    def _is_anti_crawl_page(self) -> bool:
+        current_url = self.page.url if self.page else ""
+        return any(marker in current_url for marker in ["sorry", "misc", "sec.douban.com"])
 
     async def crawl(self, douban_id: str, expected_title: str = None) -> Optional[Dict[str, Any]]:
         """
@@ -330,6 +335,7 @@ class DoubanCrawler(BaseCrawler):
                 # 出版年
                 year_match = re.search(r"出版年:</span>([^<]+)", str(info))
                 year_text = year_match.group(1).strip() if year_match else ""
+                result["publish_date"] = year_text
                 year_num = re.search(r"(\d{4})", year_text)
                 result["year"] = int(year_num.group(1)) if year_num else None
 
@@ -344,6 +350,10 @@ class DoubanCrawler(BaseCrawler):
                 # 定价
                 price_match = re.search(r"定价:</span>([^<]+)", str(info))
                 result["price"] = price_match.group(1).strip() if price_match else ""
+
+                # 装帧
+                binding_match = re.search(r"装帧:</span>([^<]+)", str(info))
+                result["binding"] = binding_match.group(1).strip() if binding_match else ""
 
                 # 丛书
                 series_match = re.search(r"丛书:</span>.*?<a[^>]*>([^<]+)</a>", str(info), re.DOTALL)
@@ -424,7 +434,7 @@ class DoubanCrawler(BaseCrawler):
         await self.page.goto(url, timeout=60000, wait_until="domcontentloaded")
         await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
 
-        if "sorry" in self.page.url or "misc" in self.page.url:
+        if self._is_anti_crawl_page():
             await self._handle_anti_crawl()
             await self.page.goto(url, timeout=60000, wait_until="domcontentloaded")
             await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
@@ -507,7 +517,7 @@ class DoubanCrawler(BaseCrawler):
         await self.page.goto(url, timeout=60000, wait_until="domcontentloaded")
         await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
 
-        if "sorry" in self.page.url or "misc" in self.page.url:
+        if self._is_anti_crawl_page():
             await self._handle_anti_crawl()
             await self.page.goto(url, timeout=60000, wait_until="domcontentloaded")
             await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
@@ -582,7 +592,7 @@ class DoubanCrawler(BaseCrawler):
         return reviews
 
     async def _crawl_excerpts(self, douban_id: str, count: int = 20) -> List[Dict]:
-        """爬取原文摘录（按热度排序）"""
+        """爬取原文摘录（列表页按热度排序，逐条进入详情页取原文内容）。"""
         Logger.info(f"[douban] 正在爬取原文摘录: {douban_id}")
 
         excerpts = []
@@ -591,7 +601,7 @@ class DoubanCrawler(BaseCrawler):
         await self.page.goto(url, timeout=60000, wait_until="domcontentloaded")
         await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
 
-        if "sorry" in self.page.url or "misc" in self.page.url:
+        if self._is_anti_crawl_page():
             await self._handle_anti_crawl()
             await self.page.goto(url, timeout=60000, wait_until="domcontentloaded")
             await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
@@ -603,6 +613,10 @@ class DoubanCrawler(BaseCrawler):
             await self.page.goto(page_url, timeout=60000, wait_until="domcontentloaded")
             await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
 
+            if self._is_anti_crawl_page():
+                Logger.warning("[douban] 摘录列表触发反爬，本次停止摘录抓取以避免写入空数据")
+                break
+
             content = await self.page.content()
             soup = BeautifulSoup(content, "html.parser")
 
@@ -612,44 +626,25 @@ class DoubanCrawler(BaseCrawler):
 
             for figure in items:
                 try:
-                    content_text = ""
-                    for child in figure.children:
-                        if isinstance(child, str):
-                            content_text += child.strip()
-                        elif hasattr(child, 'name'):
-                            if child.name == "a" and "查看原文" in child.text:
-                                continue
-                            content_text += child.get_text(strip=True)
+                    detail_url = self._find_excerpt_detail_url(figure)
+                    note = self._extract_excerpt_note(figure)
+                    votes = self._extract_excerpt_votes(figure)
 
-                    content_text = content_text.strip()
+                    content_text = ""
+                    if detail_url:
+                        content_text = await self._get_excerpt_content(detail_url)
+
+                    if not content_text:
+                        content_text = self._clean_excerpt_text(figure.get_text(" ", strip=True), note)
+
                     if not content_text:
                         continue
-
-                    note = ""
-                    note_elem = figure.select_one("div[class*='引自']")
-                    if note_elem:
-                        note = note_elem.text.strip()
-                    else:
-                        for div in figure.select("div"):
-                            div_text = div.text.strip()
-                            if div_text.startswith("——"):
-                                note = div_text
-                                break
-                            elif "引自" in div_text:
-                                note = div_text
-                                break
-
-                    votes = 0
-                    info_div = figure.select_one("div")
-                    if info_div:
-                        votes_match = re.search(r"(\d+)\s*赞", info_div.text)
-                        if votes_match:
-                            votes = int(votes_match.group(1))
 
                     excerpts.append({
                         "content": content_text,
                         "note": note,
                         "votes": votes,
+                        "url": detail_url,
                     })
 
                     if len(excerpts) >= count:
@@ -664,6 +659,88 @@ class DoubanCrawler(BaseCrawler):
         excerpts = excerpts[:count]
         Logger.success(f"[douban] 获取 {len(excerpts)} 条原文摘录")
         return excerpts
+
+    def _find_excerpt_detail_url(self, figure) -> Optional[str]:
+        """从摘录列表项找到详情页链接。"""
+        for link in figure.select("a[href]"):
+            href = link.get("href", "")
+            text = link.get_text(" ", strip=True)
+            if not href:
+                continue
+            if "查看原文" in text or "/annotation/" in href or "/blockquotes/" in href:
+                return urljoin(config.DOUBAN_BASE_URL, href)
+        return None
+
+    def _extract_excerpt_note(self, figure) -> str:
+        """提取页码 / 章节备注，不混入 content。"""
+        text = figure.get_text("\n", strip=True)
+        match = re.search(r"(——\s*引自[^\n]+)", text)
+        if match:
+            return match.group(1).strip()
+        for div in figure.select("div"):
+            div_text = div.get_text(" ", strip=True)
+            if "引自" in div_text:
+                note_match = re.search(r"(——\s*引自.+)$", div_text)
+                return (note_match.group(1) if note_match else div_text).strip()
+        return ""
+
+    def _extract_excerpt_votes(self, figure) -> int:
+        text = figure.get_text(" ", strip=True)
+        match = re.search(r"(\d+)\s*赞", text)
+        return int(match.group(1)) if match else 0
+
+    def _clean_excerpt_text(self, text: str, note: str = "") -> str:
+        """只保留原文摘录本身，去掉用户、回复数、点赞数、日期和页码备注。"""
+        if not text:
+            return ""
+        text = text.replace("查看原文", " ")
+        if note:
+            text = text.replace(note, " ")
+        text = re.split(r"(?:——\s*)?引自", text, maxsplit=1)[0]
+        text = re.split(r"\(?\)?\s*[^，。！？；：\n]{0,40}\d+\s*回复\s*\d+\s*赞\s*\d{4}-\d{2}-\d{2}", text, maxsplit=1)[0]
+        text = re.sub(r"\b\d+\s*回复\b", " ", text)
+        text = re.sub(r"\b\d+\s*赞\b", " ", text)
+        text = re.sub(r"\d{4}-\d{2}-\d{2}\s+\d{2}:\d{2}:\d{2}", " ", text)
+        text = re.sub(r"\(\s*\)", " ", text)
+        text = re.sub(r"\s+", " ", text).strip()
+        return text
+
+    async def _get_excerpt_content(self, excerpt_url: str) -> str:
+        """进入摘录详情页获取完整原文内容。"""
+        try:
+            new_page = await self.context.new_page()
+            await new_page.goto(excerpt_url, timeout=30000, wait_until="domcontentloaded")
+            await asyncio.sleep(random.uniform(0.5, 1.2))
+
+            content = await new_page.content()
+            soup = BeautifulSoup(content, "html.parser")
+
+            selectors = [
+                ".blockquote-content",
+                ".annotation",
+                ".annotation-content",
+                "#content figure",
+                "#link-report",
+                "figure",
+                ".article",
+            ]
+            for selector in selectors:
+                for elem in soup.select(selector):
+                    text = self._clean_excerpt_text(elem.get_text(" ", strip=True))
+                    if text and len(text) >= 8:
+                        await new_page.close()
+                        return text
+
+            await new_page.close()
+            return ""
+
+        except Exception as e:
+            Logger.warning(f"[douban] 获取摘录详情失败: {excerpt_url} - {e}")
+            try:
+                await new_page.close()
+            except Exception:
+                pass
+            return ""
 
     async def _get_review_content(self, review_url: str) -> str:
         """获取长评完整内容"""
@@ -792,7 +869,7 @@ class DoubanCrawler(BaseCrawler):
             summary_elem = soup.select_one("#intro") or soup.select_one(".bd")
             if summary_elem:
                 summary_text = summary_elem.text.strip()
-                if summary_text:
+                if summary_text and "登录/注册" not in summary_text and "下载豆瓣客户端" not in summary_text:
                     result["intro"] = summary_text
             
             await new_page.close()
