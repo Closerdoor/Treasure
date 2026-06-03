@@ -1,0 +1,36 @@
+---
+import type { ArchiveBook } from '../lib/book';
+
+const { book } = Astro.props as { book: ArchiveBook };
+const meta = [book.yearLabel, book.country]
+  .filter(Boolean)
+  .join(' · ');
+const rating = book.aggregateRating ? book.aggregateRating.toFixed(1) : '--';
+---
+
+<article class="book-list-item">
+  <a class="book-list-item__cover" href={book.path}>
+    <img src={book.coverUrl} alt={`${book.title} 封面`} loading="lazy" onerror="this.src='/assets/poster-placeholder.svg'" />
+  </a>
+
+  <div class="book-list-item__content">
+    <div class="book-list-item__rank">{book.id.slice(-2)}</div>
+    <div class="book-list-item__main">
+      <a class="book-list-item__title" href={book.path}>{book.title}</a>
+      {book.originalTitle ? <p class="book-list-item__original">{book.originalTitle}</p> : null}
+      <p class="book-list-item__author">{book.authorNames || '作者待补充'}</p>
+      <p class="book-list-item__meta">{meta}</p>
+      <p class="book-list-item__summary">{book.synopsis?.text || '简介待补充'}</p>
+      <div class="book-list-item__tags">
+        {(book.tags.length ? book.tags : ['待分类']).slice(0, 4).map((tag) => (
+          <span>{tag}</span>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="book-list-item__side">
+    <span>馆藏评分</span>
+    <strong>{rating}</strong>
+  </div>
+</article>

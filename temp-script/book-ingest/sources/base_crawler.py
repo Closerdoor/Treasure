@@ -78,6 +78,17 @@ class BaseCrawler:
         if cookie_file.exists():
             try:
                 cookies = json.loads(cookie_file.read_text(encoding="utf-8"))
+                same_site_map = {
+                    "strict": "Strict",
+                    "lax": "Lax",
+                    "none": "None",
+                    "no_restriction": "None",
+                    "unspecified": "Lax",
+                }
+                for cookie in cookies:
+                    same_site = cookie.get("sameSite")
+                    if isinstance(same_site, str):
+                        cookie["sameSite"] = same_site_map.get(same_site.lower(), same_site)
                 await self.context.add_cookies(cookies)
                 Logger.info(f"[{self.source_name}] 已加载 Cookie: {cookie_file}")
                 return True

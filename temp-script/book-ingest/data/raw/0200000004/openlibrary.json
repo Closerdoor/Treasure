@@ -1,0 +1,201 @@
+{
+  "isbn": "9787536692930",
+  "source": "openlibrary",
+  "title": "三体",
+  "title_original": "三体",
+  "authors": [
+    "刘慈欣",
+    "Vincent Schmitt",
+    "Gwennaël Gaffric",
+    "Marc Simonetti"
+  ],
+  "translators": [],
+  "cover_url": "https://covers.openlibrary.org/b/id/9157544-L.jpg",
+  "first_publish_year": 2008,
+  "publisher": [],
+  "language": "chi",
+  "openlibrary_id": "OL17267881W",
+  "openlibrary_url": "https://openlibrary.org/works/OL17267881W",
+  "description": "Cixin Liu's trilogy-opening novel about first contact with aliens and the clandestine struggle with them over Earth's future, and its scientific progress in particular.\r\n\r\nSet against the backdrop of China's Cultural Revolution, a secret military project sends signals into space in an attempt to make contact with aliens—and they succeed. An alien civilization on the brink of destruction captures the signal and plans to invade Earth. Now, on Earth, different factions start forming, planning to either welcome the superior beings and help them take over a world seen as corrupt, or fight against the invasion. The result is a science fiction masterpiece of enormous scope and vision.",
+  "cover_ids": [
+    9157544,
+    9094212,
+    7414616,
+    8478888,
+    8536946,
+    9944433,
+    10479498,
+    8136574,
+    8435507,
+    10376565,
+    10851222,
+    10193254,
+    10377315,
+    7451691,
+    13865922
+  ],
+  "cover_urls": [
+    "https://covers.openlibrary.org/b/id/9157544-L.jpg",
+    "https://covers.openlibrary.org/b/id/9094212-L.jpg",
+    "https://covers.openlibrary.org/b/id/7414616-L.jpg",
+    "https://covers.openlibrary.org/b/id/8478888-L.jpg",
+    "https://covers.openlibrary.org/b/id/8536946-L.jpg"
+  ],
+  "subjects": [
+    "Hugo Award Winner",
+    "award:hugo_award=2015",
+    "award:hugo_award=novel",
+    "Human-alien encounters",
+    "Imaginary wars and battles",
+    "Fiction",
+    "Chinese fiction",
+    "FICTION / Science Fiction / General",
+    "Science fiction",
+    "General"
+  ],
+  "rating": 7.9,
+  "author_details": [
+    {
+      "bio": "Chinese science fiction writer",
+      "birth_date": "23 June 1963",
+      "photos": [
+        10246623
+      ],
+      "alternate_names": [
+        "Liu Cixin",
+        "Cixin Liu",
+        "Cixin Liu; Liu Cixin",
+        "Лю Цысинь"
+      ],
+      "source_records": [
+        "ia:shijianyimintime0000liuc",
+        "bwb:9781784978501",
+        "marc:marc_columbia/Columbia-extract-20221130-032.mrc:8984307:1453",
+        "amazon:2367629439",
+        "promise:bwb_daily_pallets_2024-07-31:W9-AWP-178",
+        "amazon:8381881544"
+      ],
+      "type": {
+        "key": "/type/author"
+      },
+      "personal_name": "Cixin Liu",
+      "key": "/authors/OL7044246A",
+      "remote_ids": {
+        "amazon": "B007JP96JU",
+        "viaf": "78192675",
+        "wikidata": "Q607588",
+        "librarything": "liucixin",
+        "goodreads": "5780686",
+        "isni": "0000000037048121",
+        "bookbrainz": "12c8f5fd-2482-4228-bfdb-5920e72ffe26",
+        "gnd": "1072055163",
+        "imdb": "nm7286732",
+        "lc_naf": "n2005083742",
+        "musicbrainz": "57f8a54d-521c-46f6-9340-c4f44096e203",
+        "storygraph": "db769bf7-855e-4886-897e-676b77f18ccb",
+        "inventaire": "wd:Q607588"
+      },
+      "name": "刘慈欣",
+      "links": [
+        {
+          "title": "Author's Blog (in Chinese)",
+          "url": "https://blog.sina.com.cn/lcx",
+          "type": {
+            "key": "/type/link"
+          }
+        },
+        {
+          "title": "Fantastic Fiction Author Entry",
+          "url": "https://www.fantasticfiction.com/c/liu-cixin/",
+          "type": {
+            "key": "/type/link"
+          }
+        },
+        {
+          "title": "ISFDB Author Entry",
+          "url": "https://www.isfdb.org/cgi-bin/ea.cgi?208409",
+          "type": {
+            "key": "/type/link"
+          }
+        },
+        {
+          "title": "SFE Author Entry",
+          "url": "https://sf-encyclopedia.com/entry/liu_cixin",
+          "type": {
+            "key": "/type/link"
+          }
+        }
+      ],
+      "latest_revision": 16,
+      "revision": 16,
+      "created": {
+        "type": "/type/datetime",
+        "value": "2011-12-07T06:54:50.825332"
+      },
+      "last_modified": {
+        "type": "/type/datetime",
+        "value": "2026-01-18T05:23:41.341106"
+      }
+    },
+    {
+      "type": {
+        "key": "/type/author"
+      },
+      "name": "Vincent Schmitt",
+      "key": "/authors/OL10346704A",
+      "source_records": [
+        "amazon:2367629455"
+      ],
+      "latest_revision": 1,
+      "revision": 1,
+      "created": {
+        "type": "/type/datetime",
+        "value": "2022-04-08T21:36:34.775791"
+      },
+      "last_modified": {
+        "type": "/type/datetime",
+        "value": "2022-04-08T21:36:34.775791"
+      }
+    },
+    {
+      "type": {
+        "key": "/type/author"
+      },
+      "name": "Gwennaël Gaffric",
+      "key": "/authors/OL9081346A",
+      "source_records": [
+        "amazon:2330143192"
+      ],
+      "latest_revision": 1,
+      "revision": 1,
+      "created": {
+        "type": "/type/datetime",
+        "value": "2021-01-07T12:07:30.194600"
+      },
+      "last_modified": {
+        "type": "/type/datetime",
+        "value": "2021-01-07T12:07:30.194600"
+      }
+    },
+    {
+      "type": {
+        "key": "/type/author"
+      },
+      "name": "Marc Simonetti",
+      "key": "/authors/OL9118672A",
+      "source_records": [
+        "amazon:226621182X"
+      ],
+      "latest_revision": 1,
+      "revision": 1,
+      "created": {
+        "type": "/type/datetime",
+        "value": "2021-03-12T20:03:01.911335"
+      },
+      "last_modified": {
+        "type": "/type/datetime",
+        "value": "2021-03-12T20:03:01.911335"
+      }
+    }
+  ]
+}

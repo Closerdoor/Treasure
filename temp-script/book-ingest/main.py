@@ -31,8 +31,13 @@ from import_staging import apply_import, load_staging, precheck
 AVAILABLE_SOURCES = ["douban", "openlibrary", "baike", "wikipedia", "goodreads", "dangdang", "qidian"]
 
 
-async def crawl_source(source: str, douban_id: str, title: str, book_id: str):
+def _looks_like_book_id(value: str) -> bool:
+    return bool(value and re.fullmatch(r"0200\d{6}", str(value)))
+
+
+async def crawl_source(source: str, douban_id: str, title: str, book_id: str, source_options: Dict = None):
     """爬取单个数据源"""
+    source_options = source_options or {}
     merger = DataMerger()
 
     if source == "douban":
@@ -43,6 +48,9 @@ async def crawl_source(source: str, douban_id: str, title: str, book_id: str):
             await crawler.ensure_login()
             data = await crawler.crawl(douban_id, title)
             if data:
+                if data.get("_critical_errors"):
+                    Logger.error(f"豆瓣关键数据采集失败，跳过保存 raw，避免覆盖完整旧数据: {data['_critical_errors']}")
+                    return
                 merger.save_raw_data(book_id, "douban", data)
                 Logger.success(f"豆瓣爬取完成: {title}")
             else:
@@ -71,7 +79,12 @@ async def crawl_source(source: str, douban_id: str, title: str, book_id: str):
         from sources.baike_crawl import BaikeCrawler
         crawler = BaikeCrawler()
         try:
-            data = await crawler.crawl(title)
+            data = await crawler.crawl(
+                title,
+                _get_author_from_raw(book_id),
+                baike_url=source_options.get("baike_url", ""),
+                baike_id=source_options.get("baike_id", ""),
+            )
             if data:
                 merger.save_raw_data(book_id, "baike", data)
                 Logger.success(f"百度百科爬取完成: {title}")
@@ -130,7 +143,7 @@ async def crawl_source(source: str, douban_id: str, title: str, book_id: str):
         crawler = QidianCrawler()
         try:
             await crawler.init_browser()
-            data = await crawler.crawl(title)
+            data = await crawler.crawl(title, _get_author_from_raw(book_id))
             if data:
                 merger.save_raw_data(book_id, "qidian", data)
                 Logger.success(f"起点中文网爬取完成: {title}")
@@ -162,6 +175,20 @@ def _get_original_title_from_raw(book_id: str) -> str:
         try:
             data = json.loads(raw_file.read_text(encoding="utf-8"))
             return data.get("title_original", "")
+        except Exception:
+            pass
+    return ""
+
+
+def _get_author_from_raw(book_id: str) -> str:
+    """从豆瓣 raw 数据中获取第一作者，用于起点搜索精确匹配。"""
+    raw_file = Path(config.OUTPUT_DIR) / "raw" / book_id / "douban.json"
+    if raw_file.exists():
+        try:
+            data = json.loads(raw_file.read_text(encoding="utf-8"))
+            authors = data.get("authors") or []
+            if authors:
+                return str(authors[0])
         except Exception:
             pass
     return ""
@@ -421,12 +448,19 @@ def import_all(apply: bool = False, update_existing: bool = False):
     Logger.info(f"入库流程完成: 总数 {stats['total']}, 成功 {stats['success']}, 失败 {stats['failed']}")
 
 
-async def full_pipeline(douban_id: str, title: str, apply: bool = False, update_existing: bool = False):
+async def full_pipeline(
+    douban_id: str,
+    title: str,
+    apply: bool = False,
+    update_existing: bool = False,
+    source_options: Dict = None,
+):
     """一键全流程：爬取 → 合并 → 下载封面 → 预检/按需入库"""
     progress = ProgressManager()
     progress.load()
 
-    book_id = progress.get_book_id(douban_id)
+    source_options = source_options or {}
+    book_id = source_options.get("book_id") or progress.get_book_id(douban_id)
     if not book_id:
         book_id = generate_book_id()
         progress.update_book_id(douban_id, book_id)
@@ -440,7 +474,7 @@ async def full_pipeline(douban_id: str, title: str, apply: bool = False, update_
     for source in AVAILABLE_SOURCES:
         Logger.info(f"\n--- {source} ---")
         try:
-            await crawl_source(source, douban_id, title, book_id)
+            await crawl_source(source, douban_id, title, book_id, source_options)
         except Exception as e:
             Logger.error(f"{source} 爬取失败: {e}")
 
@@ -485,6 +519,8 @@ def main():
     parser.add_argument("--apply", action="store_true", help="通过预检后正式写入 .local/treasure.db")
     parser.add_argument("--update-existing", action="store_true", help="刷新数据库中同 ID 的已有书籍")
     parser.add_argument("--batch", action="store_true", help="批量模式（使用 config.TEST_BOOKS）")
+    parser.add_argument("--baike-id", help="百度百科词条 ID；用于同名多义词时锚定书籍 / 小说词条")
+    parser.add_argument("--baike-url", help="百度百科词条 URL；用于同名多义词时锚定书籍 / 小说词条")
 
     args = parser.parse_args()
 
@@ -492,7 +528,13 @@ def main():
     if args.batch:
         book_list = config.TEST_BOOKS
     elif args.book:
-        book_list = [{"douban_id": args.book, "title": args.title or ""}]
+        book_list = [{
+            "douban_id": args.book,
+            "book_id": args.book if _looks_like_book_id(args.book) else "",
+            "title": args.title or "",
+            "baike_id": args.baike_id or "",
+            "baike_url": args.baike_url or "",
+        }]
     else:
         book_list = []
 
@@ -507,6 +549,7 @@ def main():
                     book.get("title", ""),
                     apply=args.apply,
                     update_existing=args.update_existing,
+                    source_options=book,
                 )
 
         elif args.crawl:
@@ -531,7 +574,7 @@ def main():
             for book in book_list:
                 douban_id = book["douban_id"]
                 title = book.get("title", "")
-                book_id = progress.get_book_id(douban_id)
+                book_id = book.get("book_id") or progress.get_book_id(douban_id)
                 if not book_id:
                     book_id = generate_book_id()
                     progress.update_book_id(douban_id, book_id)
@@ -543,7 +586,7 @@ def main():
 
                 for src in sources:
                     try:
-                        await crawl_source(src, douban_id, title, book_id)
+                        await crawl_source(src, douban_id, title, book_id, book)
                         progress.update_source_status(douban_id, src, "done")
                     except Exception as e:
                         Logger.error(f"{src} 爬取失败: {e}")

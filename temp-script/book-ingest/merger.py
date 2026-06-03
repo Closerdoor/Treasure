@@ -40,6 +40,11 @@ def _has_cjk(text: str) -> bool:
     return bool(text and re.search(r"[\u4e00-\u9fff]", text))
 
 
+def _is_chinese_category(value) -> bool:
+    """书籍类型 / 标签入库只接受中文值；英文分类保留在 raw/staging 审视字段。"""
+    return _has_cjk(str(value).strip()) if value is not None else False
+
+
 def _parse_int(value) -> Optional[int]:
     """从来源文本中提取整数。"""
     if value is None:
@@ -48,6 +53,68 @@ def _parse_int(value) -> Optional[int]:
         return value
     match = re.search(r"\d+", str(value).replace(",", ""))
     return int(match.group(0)) if match else None
+
+
+def _is_chinese_text(value, min_cjk_ratio: float = 0.15) -> bool:
+    """判断正文是否有足够中文内容，避免英文简介进入中文展示字段。"""
+    if not isinstance(value, str):
+        return False
+    text = value.strip()
+    if not text:
+        return False
+    cjk = len(re.findall(r"[\u4e00-\u9fff]", text))
+    letters = len(re.findall(r"[A-Za-z]", text))
+    return cjk > 0 and cjk / max(cjk + letters, 1) >= min_cjk_ratio
+
+
+def _extract_labeled_int(text: str, labels: List[str]) -> Optional[int]:
+    """从一段中文商品详情中提取“字数/页码”等标签后的整数。"""
+    if not text:
+        return None
+    for label in labels:
+        pattern = rf"{re.escape(label)}\s*[：:\n\r\t ]*\s*([0-9][0-9,]*)"
+        match = re.search(pattern, str(text))
+        if match:
+            return int(match.group(1).replace(",", ""))
+    return None
+
+
+def _clean_dangdang_summary(detail: dict) -> Optional[str]:
+    """从当当混合文本中提取适合前台展示的中文简介。"""
+    candidates = [
+        detail.get("summary"),
+        detail.get("description"),
+        detail.get("editor_recommend"),
+        detail.get("author_intro"),
+        detail.get("catalog"),
+    ]
+    for raw in candidates:
+        if not isinstance(raw, str) or not raw.strip():
+            continue
+        text = raw.replace("\r", "\n")
+        markers = ["内容简介", "内容介绍", "编辑推荐"]
+        for marker in markers:
+            idx = text.find(marker)
+            if idx >= 0:
+                text = text[idx + len(marker):]
+                break
+        for stop in ["作者简介", "目　　录", "目录", "商品详情", "在线试读", "图书信息"]:
+            idx = text.find(stop)
+            if idx > 0:
+                text = text[:idx]
+        text = re.sub(r"^\s*重磅推荐\s*", "", text)
+        text = re.sub(r"\s+", " ", text).strip(" 　：:")
+        if _is_chinese_text(text):
+            return text
+    return None
+
+
+def _build_baike_public_url(title: str, baike_id) -> Optional[str]:
+    """用百度百科条目 ID 生成公开词条链接，避免把本地 HTML 辅助路径写入数据库。"""
+    if not _is_valid(title) or not _is_valid(baike_id):
+        return None
+    from urllib.parse import quote
+    return f"https://baike.baidu.com/item/{quote(str(title).strip())}/{quote(str(baike_id).strip())}"
 
 
 def _strip_country_prefix(name: str) -> tuple:
@@ -69,6 +136,12 @@ def _strip_country_prefix(name: str) -> tuple:
         clean_name = match.group(2).strip()
         return clean_name, country
 
+    match = re.match(r'^([^\]】)）]{1,8})[\]】)）]\s*(.+)$', name)
+    if match:
+        country = match.group(1)
+        clean_name = match.group(2).strip()
+        return clean_name, country
+
     return name.strip(), None
 
 
@@ -80,13 +153,17 @@ def _normalize_country(location: str) -> Optional[str]:
     location = str(location).strip()
 
     country_map = {
+        "中": "中国",
         "中华民国": "中国",
         "中国": "中国",
         "中国大陆": "中国",
         "台湾": "中国",
         "香港": "中国",
+        "美": "美国",
         "美国": "美国",
+        "英": "英国",
         "英国": "英国",
+        "日": "日本",
         "日本": "日本",
         "法国": "法国",
         "德国": "德国",
@@ -161,6 +238,82 @@ def _dedupe_authors(author_lists: List[List[str]]) -> List[str]:
         result = [name for name in result if _has_cjk(name)]
 
     return result
+
+
+def _dedupe_excerpts(excerpts: List[dict]) -> List[dict]:
+    """Keep excerpt order while removing duplicate detail URLs and duplicate text."""
+    result = []
+    seen_urls = set()
+    seen_text = set()
+    for item in excerpts or []:
+        if not isinstance(item, dict):
+            continue
+        url = str(item.get("url") or "").strip()
+        text = str(item.get("content") or "").strip()
+        if not text:
+            continue
+        text_key = re.sub(r"\s+", "", text)
+        if url and url in seen_urls:
+            continue
+        if text_key in seen_text:
+            continue
+        result.append(item)
+        if url:
+            seen_urls.add(url)
+        seen_text.add(text_key)
+    return result
+
+
+def _series_key(value: str) -> str:
+    if not value:
+        return ""
+    return re.sub(r"[\s《》〈〉「」『』\"'()（）:：·・.\-_/]+", "", str(value)).lower()
+
+
+def _is_valid_series_candidate(item: dict, title: str = None) -> bool:
+    """Reject source noise before it can create or link book_series records."""
+    if not isinstance(item, dict):
+        return False
+    name = str(item.get("name") or "").strip()
+    if not name:
+        return False
+    name_key = _series_key(name)
+    title_key = _series_key(title or "")
+    if title_key and name_key == title_key:
+        return False
+    url = str(item.get("url") or "").lower()
+    if "novelupdates.com" in url:
+        return False
+    noisy_names = {
+        "novelupdatesenglishtranslationpage",
+        "englishtranslationpage",
+    }
+    if name_key in noisy_names:
+        return False
+    return True
+
+
+def _has_truncation_ellipsis(value: str) -> bool:
+    if not isinstance(value, str):
+        return False
+    text = value.strip()
+    return text.endswith("...") or text.endswith("…") or "..." in text[-20:]
+
+
+def _is_web_novel(raw_data: dict) -> bool:
+    qidian = raw_data.get("qidian") or {}
+    if qidian.get("url") or qidian.get("title"):
+        return True
+    baike = raw_data.get("baike") or {}
+    info = baike.get("info") if isinstance(baike.get("info"), dict) else {}
+    markers = [
+        baike.get("serial_platform"),
+        baike.get("platform"),
+        info.get("首发平台"),
+        info.get("连载平台"),
+        info.get("状态"),
+    ]
+    return any(marker and ("起点" in str(marker) or "连载" in str(marker) or "完结" in str(marker)) for marker in markers)
 
 
 def _extract_country_from_authors(author_lists: List[List[str]]) -> Optional[str]:
@@ -254,6 +407,8 @@ class DataMerger:
         fs = result["_meta"]["fieldSources"]
         conflicts = result["_meta"]["conflicts"]
         meta = result["_meta"]
+        is_web_novel = _is_web_novel(raw_data)
+        meta["isWebNovel"] = is_web_novel
 
         # ============================================================
         # 各数据源提取（按优先级顺序，后提取的不会覆盖先提取的有效值）
@@ -266,6 +421,9 @@ class DataMerger:
         self._apply_goodreads(raw_data.get("goodreads", {}), result, fs, conflicts, meta, book_id)
         self._apply_dangdang(raw_data.get("dangdang", {}), result, fs, conflicts, meta, book_id)
         self._apply_qidian(raw_data.get("qidian", {}), result, fs, conflicts, meta, book_id)
+        if is_web_novel:
+            self._apply_web_novel_text_rules(raw_data, result, fs, conflicts, meta)
+        self._filter_series_candidates(meta, result.get("title"))
 
         # ============================================================
         # 后处理
@@ -322,6 +480,10 @@ class DataMerger:
             dd_translators = [t["name"] if isinstance(t, dict) else t for t in dd_detail["translators"]]
             all_translator_lists.append(dd_translators)
         meta["translators"] = _dedupe_authors(all_translator_lists)
+
+        if not _is_valid(result["language"]) and _has_cjk(str(result.get("title") or "")):
+            result["language"] = "中文"
+            fs["language"] = "title_inference"
 
         # 计算综合评分
         if result.get("scores") and isinstance(result["scores"], dict):
@@ -381,6 +543,14 @@ class DataMerger:
             meta.setdefault("seriesCandidates", []).append(item)
         if not _is_valid(meta.get("series")):
             meta["series"] = item
+
+    def _filter_series_candidates(self, meta: dict, title: str = None):
+        candidates = [
+            item for item in meta.get("seriesCandidates", [])
+            if _is_valid_series_candidate(item, title)
+        ]
+        meta["seriesCandidates"] = candidates
+        meta["series"] = candidates[0] if candidates else None
 
     def _set_field(self, result, fs, field, value, source, conflicts=None):
         """设置字段值，仅在当前值为空时设置，否则记录冲突"""
@@ -458,7 +628,7 @@ class DataMerger:
 
         tags = data.get("tags", [])
         if tags:
-            meta["tags"] = tags
+            meta["tags"] = [str(tag).strip() for tag in tags if _is_chinese_category(tag)]
 
         series = data.get("series")
         if _is_valid(series):
@@ -477,7 +647,7 @@ class DataMerger:
 
         excerpts = data.get("excerpts", [])
         if excerpts:
-            result["excerpts"] = excerpts
+            result["excerpts"] = _dedupe_excerpts(excerpts)
             fs["excerpts"] = "douban"
 
         person_details = data.get("person_details", [])
@@ -523,13 +693,15 @@ class DataMerger:
         if _is_valid(data.get("language")):
             self._set_field(result, fs, "language", data["language"], "baike", conflicts)
 
-        # 百度百科简介只作为 raw 审视保留；summary 正式优先取 Wikipedia 的“故事大纲”。
-        if _is_valid(data.get("summary")):
+        # 百度百科简介作为中文补充；summary 正式优先取 Wikipedia 的“故事大纲”。
+        if _is_valid(data.get("summary")) and _is_chinese_text(data.get("summary")):
             meta["baikeSummary"] = data.get("summary")
+            if not _is_valid(result["summary"]):
+                self._set_field(result, fs, "summary", data["summary"], "baike", conflicts)
 
         # 完整剧情 / 内容情节：优先取百度百科“内容情节”等正文分节。
         story = data.get("story") or data.get("content_plot") or data.get("plot")
-        if _is_valid(story):
+        if _is_valid(story) and _is_chinese_text(story):
             self._set_field(result, fs, "story", story, "baike", conflicts)
 
         # 出版社作为补充（不覆盖豆瓣）
@@ -568,6 +740,17 @@ class DataMerger:
                 if info.get(info_key) and not _is_valid(result[field]):
                     self._set_field(result, fs, field, str(info[info_key]), "baike", conflicts)
 
+            genre = data.get("genre") or data.get("type")
+            for info_key in ("文学体裁", "作品类型", "类型", "体裁"):
+                if not _is_valid(genre) and _is_valid(info.get(info_key)):
+                    genre = info[info_key]
+            if _is_valid(genre):
+                values = genre if isinstance(genre, list) else [genre]
+                for item in values:
+                    item = str(item).strip()
+                    if _is_chinese_category(item) and item not in meta["genres"]:
+                        meta["genres"].append(item)
+
     def _apply_wikipedia(self, data: dict, result: dict, fs: dict, conflicts: list, meta: dict, book_id: str):
         """维基百科数据"""
         if not data:
@@ -583,7 +766,7 @@ class DataMerger:
             fs["titleOriginal"] = "wikipedia"
 
         # 内容简介：按当前规则优先取 Wikipedia 的“故事大纲”分节。
-        if not _is_valid(result["summary"]) and _is_valid(data.get("summary")):
+        if not _is_valid(result["summary"]) and _is_valid(data.get("summary")) and _is_chinese_text(data.get("summary")):
             self._set_field(result, fs, "summary", data["summary"], "wikipedia", conflicts)
 
         # 国家
@@ -591,8 +774,17 @@ class DataMerger:
             self._set_field(result, fs, "country", _normalize_country(data["country"]), "wikipedia", conflicts)
 
         # 语言
-        if not _is_valid(result["language"]) and _is_valid(data.get("language")):
+        if not _is_valid(result["language"]) and _is_valid(data.get("language")) and _is_chinese_text(str(data.get("language"))):
             self._set_field(result, fs, "language", str(data["language"]), "wikipedia", conflicts)
+
+        # 类型 / 体裁：书籍也要像电影一样落到 category.group = type。
+        genre = data.get("genre") or (data.get("info") or {}).get("类型") or (data.get("info") or {}).get("体裁")
+        if _is_valid(genre):
+            values = genre if isinstance(genre, list) else [genre]
+            for item in values:
+                item = str(item).strip()
+                if _is_chinese_category(item) and item not in meta["genres"]:
+                    meta["genres"].append(item)
 
         # 名句
         if _is_valid(data.get("quotes")):
@@ -667,7 +859,7 @@ class DataMerger:
         if not _is_valid(result["isbn"]) and _is_valid(data.get("isbn")):
             self._set_field(result, fs, "isbn", data["isbn"], "openlibrary", conflicts)
 
-        if not _is_valid(result["summary"]) and _is_valid(data.get("description")):
+        if not _is_valid(result["summary"]) and _is_valid(data.get("description")) and _is_chinese_text(data.get("description")):
             self._set_field(result, fs, "summary", data["description"], "openlibrary", conflicts)
 
         if not _is_valid(result["year"]) and _is_valid(data.get("first_publish_year")):
@@ -676,7 +868,7 @@ class DataMerger:
         if not _is_valid(result["publisher"]) and _is_valid(data.get("publisher")):
             self._set_field(result, fs, "publisher", data["publisher"], "openlibrary", conflicts)
 
-        if not _is_valid(result["language"]) and _is_valid(data.get("language")):
+        if not _is_valid(result["language"]) and _is_valid(data.get("language")) and _is_chinese_text(str(data.get("language"))):
             self._set_field(result, fs, "language", str(data["language"]), "openlibrary", conflicts)
 
         # 封面 URL
@@ -691,7 +883,11 @@ class DataMerger:
         # 主题标签
         subjects = data.get("subjects", [])
         if subjects:
-            meta["subjects"] = subjects[:10]
+            chinese_subjects = [str(subject).strip() for subject in subjects if _is_chinese_category(subject)]
+            if chinese_subjects:
+                meta["subjects"] = chinese_subjects
+            if len(chinese_subjects) != len(subjects):
+                meta["rawOpenLibrarySubjects"] = subjects
 
         # 评分
         rating = data.get("rating")
@@ -761,7 +957,7 @@ class DataMerger:
             self._set_field(result, fs, "publisher", detail["publisher"], "goodreads", conflicts)
 
         # 简介
-        if not _is_valid(result["summary"]) and _is_valid(detail.get("summary")):
+        if not _is_valid(result["summary"]) and _is_valid(detail.get("summary")) and _is_chinese_text(detail.get("summary")):
             self._set_field(result, fs, "summary", detail["summary"], "goodreads", conflicts)
 
         # 译者
@@ -812,12 +1008,26 @@ class DataMerger:
             self._set_field(result, fs, "publisher", detail["publisher"], "dangdang", conflicts)
 
         # 字数
-        if not _is_valid(result["wordCount"]) and _is_valid(detail.get("word_count")):
-            self._set_field(result, fs, "wordCount", detail["word_count"], "dangdang", conflicts)
+        word_count = detail.get("word_count")
+        if not _is_valid(word_count):
+            mixed_text = "\n".join(
+                str(detail.get(key) or "")
+                for key in ["author_intro", "editor_recommend", "catalog"]
+            )
+            word_count = _extract_labeled_int(mixed_text, ["字数"])
+        if not _is_valid(result["wordCount"]) and _is_valid(word_count):
+            self._set_field(result, fs, "wordCount", word_count, "dangdang", conflicts)
 
         # 页数（当当网优先）
-        if _is_valid(detail.get("pages")):
-            self._set_field(result, fs, "pages", _parse_int(detail["pages"]), "dangdang", conflicts)
+        pages = detail.get("pages")
+        if not _is_valid(pages):
+            mixed_text = "\n".join(
+                str(detail.get(key) or "")
+                for key in ["author_intro", "editor_recommend", "catalog"]
+            )
+            pages = _extract_labeled_int(mixed_text, ["页码", "页数"])
+        if _is_valid(pages):
+            self._set_field(result, fs, "pages", _parse_int(pages), "dangdang", conflicts)
 
         # 价格
         if _is_valid(detail.get("price")):
@@ -835,8 +1045,9 @@ class DataMerger:
             self._set_field(result, fs, "publishDate", detail["publish_date"], "dangdang", conflicts)
 
         # 简介
-        if not _is_valid(result["summary"]) and _is_valid(detail.get("summary")):
-            self._set_field(result, fs, "summary", detail["summary"], "dangdang", conflicts)
+        dangdang_summary = _clean_dangdang_summary(detail)
+        if not _is_valid(result["summary"]) and _is_valid(dangdang_summary):
+            self._set_field(result, fs, "summary", dangdang_summary, "dangdang", conflicts)
 
         # 译者
         if _is_valid(detail.get("translators")) and not meta["translators"]:
@@ -857,13 +1068,30 @@ class DataMerger:
         if not data:
             return
 
-        if not _is_valid(result["title"]):
-            self._set_field(result, fs, "title", data.get("title"), "qidian", conflicts)
+        qidian_title = data.get("title")
+        if _is_valid(qidian_title):
+            current_title = result.get("title")
+            if not _is_valid(current_title):
+                self._set_field(result, fs, "title", qidian_title, "qidian", conflicts)
+            elif str(qidian_title) in str(current_title) and str(qidian_title) != str(current_title):
+                if not isinstance(result.get("otherTitles"), list):
+                    result["otherTitles"] = []
+                if current_title not in result["otherTitles"]:
+                    result["otherTitles"].append(current_title)
+                result["title"] = qidian_title
+                fs["title"] = "qidian"
 
         # 字数（网络小说字数更准确）
         if _is_valid(data.get("word_count")):
             result["wordCount"] = data["word_count"]
             fs["wordCount"] = "qidian"
+
+        if not _is_valid(result.get("country")):
+            result["country"] = "中国"
+            fs["country"] = "qidian"
+        if not _is_valid(result.get("language")):
+            result["language"] = "中文"
+            fs["language"] = "qidian"
 
         # 连载状态
         if _is_valid(data.get("status")):
@@ -871,12 +1099,14 @@ class DataMerger:
 
         # 分类
         if _is_valid(data.get("category")):
-            meta["genres"] = [data["category"]]
+            category = str(data["category"]).strip()
+            values = [item.strip() for item in re.split(r"[/、,，|]", category) if item.strip()]
+            meta["genres"] = [item for item in values if _is_chinese_category(item)]
 
         # 标签
         tags = data.get("tags", [])
         if tags and not meta["tags"]:
-            meta["tags"] = tags
+            meta["tags"] = [str(tag).strip() for tag in tags if _is_chinese_category(tag)]
 
         # 简介
         if not _is_valid(result["summary"]) and _is_valid(data.get("summary")):
@@ -886,6 +1116,45 @@ class DataMerger:
         cover_url = data.get("cover_url")
         if _is_valid(cover_url):
             meta["coverUrls"]["qidian"] = cover_url
+
+    def _apply_web_novel_text_rules(self, raw_data: dict, result: dict, fs: dict, conflicts: list, meta: dict):
+        """
+        网络小说专用文本规则：
+        - summary 只取起点或豆瓣介绍，不使用 Wikipedia。
+        - story 取百度百科词条顶部正文，用于对齐“完整剧情 / 内容情节”展示位。
+        """
+        qidian = raw_data.get("qidian") or {}
+        douban = raw_data.get("douban") or {}
+        baike = raw_data.get("baike") or {}
+
+        summary_candidates = [
+            ("qidian", qidian.get("summary")),
+            ("douban", douban.get("summary")),
+        ]
+        for source, value in summary_candidates:
+            if _is_valid(value) and _is_chinese_text(value) and not _has_truncation_ellipsis(value):
+                result["summary"] = str(value).strip()
+                fs["summary"] = source
+                break
+        else:
+            if fs.get("summary") not in {"qidian", "douban"}:
+                result["summary"] = None
+                fs.pop("summary", None)
+
+        story_candidates = [
+            baike.get("top_content"),
+            baike.get("topContent"),
+            baike.get("summary"),
+        ]
+        for value in story_candidates:
+            if _is_valid(value) and _is_chinese_text(value) and not _has_truncation_ellipsis(value):
+                result["story"] = str(value).strip()
+                fs["story"] = "baike_top"
+                break
+        else:
+            if fs.get("story") != "baike_top":
+                result["story"] = None
+                fs.pop("story", None)
 
     def _build_external_sources(self, raw_data: dict, book_id: str) -> list:
         """从各来源构建 externalSource 列表"""
@@ -921,11 +1190,15 @@ class DataMerger:
             })
 
         baike = raw_data.get("baike", {})
-        if baike.get("url"):
+        if baike.get("baike_id") or baike.get("url"):
+            baike_id = baike.get("baike_id") or baike.get("title", "")
+            public_link = _build_baike_public_url(baike.get("baike_title") or baike.get("title"), baike_id)
+            if not public_link and str(baike.get("url", "")).startswith(("http://", "https://")):
+                public_link = baike["url"]
             external.append({
                 "name": "百度百科",
-                "id": str(baike.get("baike_id") or baike.get("title", "")),
-                "link": baike["url"],
+                "id": str(baike_id),
+                "link": public_link,
             })
 
         wikipedia = raw_data.get("wikipedia", {})

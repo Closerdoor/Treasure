@@ -27,6 +27,26 @@ from utils import Logger
 from sources.base_crawler import BaseCrawler
 
 
+def _search_aliases(title: str) -> list[str]:
+    aliases = [title]
+    for marker in ("：", ":"):
+        if marker in title:
+            short = title.split(marker, 1)[1].strip()
+            if short:
+                aliases.append(short)
+    cleaned = re.sub(r"（卷[一二三四五六七八九十]+）", "", title).strip()
+    if cleaned and cleaned not in aliases:
+        aliases.append(cleaned)
+    return aliases
+
+
+def _is_related_title(expected: str, actual: str, summary: str = "") -> bool:
+    aliases = _search_aliases(expected)
+    actual_text = str(actual or "")
+    context = f"{actual_text} {summary or ''}"
+    return any(alias and (alias in context or actual_text in alias) for alias in aliases)
+
+
 class WikipediaCrawler(BaseCrawler):
 
     def __init__(self):
@@ -54,15 +74,19 @@ class WikipediaCrawler(BaseCrawler):
             return None
 
         data = await self._get_detail(wiki_url)
+        if data and not _is_related_title(title, data.get("title", ""), data.get("summary", "")):
+            Logger.warning(f"[wikipedia] 词条不匹配，已跳过。预期: {title}, 实际: {data.get('title', '')}")
+            return None
         return data
 
     async def _search(self, title: str, original_title: str = "") -> Optional[str]:
         """搜索词条"""
         search_strategies = []
 
-        search_strategies.append(f"{config.WIKIPEDIA_BASE_URL}/wiki/{quote(title)}_(小说)")
-        search_strategies.append(f"{config.WIKIPEDIA_BASE_URL}/wiki/{quote(title)}_(书)")
-        search_strategies.append(f"{config.WIKIPEDIA_BASE_URL}/wiki/{quote(title)}")
+        for alias in _search_aliases(title):
+            search_strategies.append(f"{config.WIKIPEDIA_BASE_URL}/wiki/{quote(alias)}_(小说)")
+            search_strategies.append(f"{config.WIKIPEDIA_BASE_URL}/wiki/{quote(alias)}_(书)")
+            search_strategies.append(f"{config.WIKIPEDIA_BASE_URL}/wiki/{quote(alias)}")
 
         if original_title:
             search_strategies.append(f"{config.WIKIPEDIA_BASE_URL}/wiki/{quote(original_title)}")
@@ -110,7 +134,9 @@ class WikipediaCrawler(BaseCrawler):
 
                 soup = BeautifulSoup(content, "html.parser")
                 content_div = soup.select_one("#mw-content-text")
-                if content_div:
+                title_elem = soup.select_one("#firstHeading") or soup.select_one("h1")
+                title_text = title_elem.text.strip() if title_elem else ""
+                if content_div and _is_related_title(title, title_text, content_div.get_text(" ", strip=True)[:500]):
                     Logger.success(f"[wikipedia] 找到词条: {current_url}")
                     return current_url
 

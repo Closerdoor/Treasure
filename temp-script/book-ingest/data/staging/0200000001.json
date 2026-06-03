@@ -2,32 +2,124 @@
   "id": "0200000001",
   "title": "百年孤独",
   "titleOriginal": "Cien años de soledad",
-  "otherTitles": "[\"一百年的孤寂\"]",
+  "otherTitles": [
+    "一百年的孤寂"
+  ],
   "isbn": "9787544253994",
   "year": 1967,
   "country": "哥伦比亚",
   "language": null,
   "wordCount": 228000,
-  "publisher": "",
-  "summary": "《百年孤独》是哥伦比亚作家加西亚·马尔克斯创作的长篇小说，该小说于1965年开始创作，1967年首次出版。小说以他所虚构的小镇马孔多为背景，全面地描述了布恩迪亚...",
+  "publisher": null,
+  "publishDate": null,
+  "pages": 360,
+  "price": "39.50元",
+  "binding": "精装",
+  "format": null,
+  "edition": null,
+  "summary": null,
+  "story": null,
   "quotes": null,
+  "excerpts": null,
   "seriesId": null,
   "seriesOrder": null,
-  "scores": "{\"douban\": 9.3, \"avg\": 9.3}",
-  "externalSource": "[{\"name\": \"豆瓣\", \"id\": \"6082808\", \"link\": \"https://book.douban.com/subject/6082808/\"}, {\"name\": \"ISBN\", \"id\": \"9787544253994\", \"link\": null}, {\"name\": \"百度百科\", \"id\": 688708, \"link\": \"https://baike.baidu.com/item/%E7%99%BE%E5%B9%B4%E5%AD%A4%E7%8B%AC\"}, {\"name\": \"维基百科\", \"id\": \"%E7%99%BE%E5%B9%B4%E5%AD%A4%E7%8B%AC_(%E5%B0%8F%E8%AF%B4)\", \"link\": \"https://zh.wikipedia.org/wiki/%E7%99%BE%E5%B9%B4%E5%AD%A4%E7%8B%AC_(%E5%B0%8F%E8%AF%B4)\"}, {\"name\": \"当当网\", \"id\": \"9787544253994001082\", \"link\": \"https://product.dangdang.com/11530906544.html\"}]",
-  "images": "{\"cover\": \"cover-main.jpg\", \"covers\": [], \"assetDir\": \"0200000001\"}",
-  "reviews": "[]",
+  "scores": {
+    "douban": 9.3,
+    "avg": 9.3
+  },
+  "externalSource": [
+    {
+      "name": "豆瓣",
+      "id": "6082808",
+      "link": "https://book.douban.com/subject/6082808/"
+    },
+    {
+      "name": "ISBN",
+      "id": "9787544253994",
+      "link": null
+    },
+    {
+      "name": "百度百科",
+      "id": "688708",
+      "link": "https://baike.baidu.com/item/%E7%99%BE%E5%B9%B4%E5%AD%A4%E7%8B%AC/688708"
+    },
+    {
+      "name": "维基百科",
+      "id": "%E7%99%BE%E5%B9%B4%E5%AD%A4%E7%8B%AC_(%E5%B0%8F%E8%AF%B4)",
+      "link": "https://zh.wikipedia.org/wiki/%E7%99%BE%E5%B9%B4%E5%AD%A4%E7%8B%AC_(%E5%B0%8F%E8%AF%B4)"
+    },
+    {
+      "name": "当当网",
+      "id": "9787544253994001082",
+      "link": "https://product.dangdang.com/11530906544.html"
+    }
+  ],
+  "images": {
+    "cover": "cover-main.jpg",
+    "covers": {},
+    "assetDir": "0200000001"
+  },
+  "reviews": null,
   "related": null,
   "status": "draft",
-  "_authors": [
-    "[哥伦比亚] 加西亚·马尔克斯",
-    "【哥伦比亚】加西亚·马尔克斯"
-  ],
-  "_translators": [
-    "范晔"
-  ],
-  "_tags": [],
-  "_prices": {
-    "dangdang": 48.0
+  "_meta": {
+    "fieldSources": {
+      "title": "douban",
+      "isbn": "douban",
+      "year": "baike",
+      "pages": "douban",
+      "price": "douban",
+      "binding": "douban",
+      "scores": "douban",
+      "titleOriginal": "baike",
+      "wordCount": "baike",
+      "country": "baike",
+      "otherTitles": "baike"
+    },
+    "conflicts": [
+      {
+        "field": "year",
+        "existing": {
+          "value": 2011,
+          "source": "douban"
+        },
+        "candidate": {
+          "value": 1967,
+          "source": "baike"
+        },
+        "reason": "year 使用作品首版年，百度百科覆盖版本出版年",
+        "resolution": "use_candidate"
+      }
+    ],
+    "authors": [
+      "加西亚·马尔克斯"
+    ],
+    "translators": [
+      "范晔"
+    ],
+    "tags": [],
+    "subjects": [],
+    "genres": [
+      "长篇小说"
+    ],
+    "awards": [],
+    "series": {
+      "name": "新经典文库：加西亚·马尔克斯作品",
+      "source": "douban"
+    },
+    "seriesCandidates": [
+      {
+        "name": "新经典文库：加西亚·马尔克斯作品",
+        "source": "douban"
+      }
+    ],
+    "coverUrls": {
+      "douban": "http://img1.doubanio.com/view/subject/raw/public/s27237850.jpg"
+    },
+    "prices": {
+      "dangdang": 48.0
+    },
+    "personDetails": [],
+    "baikeSummary": "《百年孤独》是哥伦比亚作家加西亚·马尔克斯创作的长篇小说，该小说于1965年开始创作，1967年首次出版。小说以他所虚构的小镇马孔多为背景，全面地描述了布恩迪亚..."
   }
 }

@@ -53,6 +53,21 @@ class BaseDownloader:
     def _get_content_hash(self, content: bytes) -> str:
         """计算内容的哈希值"""
         return hashlib.md5(content).hexdigest()
+
+    def _looks_like_image(self, content: bytes, content_type: str = "") -> bool:
+        """校验下载结果确实是图片，避免把反爬 HTML 保存成 jpg。"""
+        if not content or len(content) < 128:
+            return False
+        if content_type and "image/" in content_type.lower():
+            return True
+        signatures = (
+            b"\xff\xd8\xff",  # jpg
+            b"\x89PNG\r\n\x1a\n",
+            b"GIF87a",
+            b"GIF89a",
+            b"RIFF",  # webp starts with RIFF....WEBP
+        )
+        return content.startswith(signatures)
     
     def _get_filename_from_url(self, url: str) -> str:
         """从 URL 提取文件名"""
@@ -106,6 +121,10 @@ class BaseDownloader:
                 async with self.session.get(url, headers=default_headers) as response:
                     if response.status == 200:
                         content = await response.read()
+                        content_type = response.headers.get("Content-Type", "")
+                        if not self._looks_like_image(content, content_type):
+                            Logger.warning(f"下载结果不是有效图片，跳过: {url}")
+                            continue
                         
                         content_hash = self._get_content_hash(content)
                         if content_hash in self.downloaded_hashes:

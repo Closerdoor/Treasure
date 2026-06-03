@@ -48,6 +48,20 @@ def _coalesce(new_val, existing_val):
     return existing_val
 
 
+def _has_cjk(value) -> bool:
+    """书籍分类 / 标签入库只接受含中文字符的值，避免英文来源类型进入前台。"""
+    return bool(value and re.search(r"[\u4e00-\u9fff]", str(value)))
+
+
+def _filter_chinese_values(values: List[Any]) -> List[str]:
+    result: List[str] = []
+    for value in values or []:
+        text = str(value).strip()
+        if text and _has_cjk(text) and text not in result:
+            result.append(text)
+    return result
+
+
 class BookDB:
     """书籍数据库操作"""
 
@@ -600,7 +614,7 @@ class BookDB:
         self.conn.execute(sql, (book_id, category_db_id, order))
 
     def save_book_categories(self, book_id: str, tags: List[str], subjects: List[str],
-                              genres: List[str], category_map: Dict[str, int]):
+                              genres: List[str], category_map: Dict[tuple, int]):
         """
         保存书籍的所有类型/标签关联
 
@@ -609,25 +623,28 @@ class BookDB:
             tags: 标签列表
             subjects: 主题列表（OpenLibrary）
             genres: 类型列表（Goodreads/起点）
-            category_map: 标签映射 {"name": category_db_id}
+            category_map: 分类映射 {("tag"|"type", "name"): category_db_id}
         """
         self.clear_book_categories(book_id)
 
         order = 0
 
         for tag in tags:
-            if tag and tag in category_map:
-                self.save_book_category(book_id, category_map[tag], order)
+            category_id = category_map.get(("tag", tag))
+            if tag and category_id:
+                self.save_book_category(book_id, category_id, order)
                 order += 1
 
         for subject in subjects:
-            if subject and subject in category_map:
-                self.save_book_category(book_id, category_map[subject], order)
+            category_id = category_map.get(("tag", subject))
+            if subject and category_id:
+                self.save_book_category(book_id, category_id, order)
                 order += 1
 
         for genre in genres:
-            if genre and genre in category_map:
-                self.save_book_category(book_id, category_map[genre], order)
+            category_id = category_map.get(("type", genre))
+            if genre and category_id:
+                self.save_book_category(book_id, category_id, order)
                 order += 1
 
         self._commit_if_needed()
@@ -665,6 +682,13 @@ class BookDB:
                 series_id = self.save_book_series(series_data)
                 if series_id:
                     book_data["seriesId"] = series_id
+            if series_data and book_data.get("seriesOrder") is None:
+                order = series_data.get("order")
+                if order is not None:
+                    try:
+                        book_data["seriesOrder"] = int(order)
+                    except (TypeError, ValueError):
+                        Logger.warning(f"书籍系列顺序不是有效数字: {order}")
 
             # 保存书籍
             book_id = self.save_book(book_data)
@@ -675,6 +699,9 @@ class BookDB:
             tags = meta.get("tags", [])
             subjects = meta.get("subjects", [])
             genres = meta.get("genres", [])
+            tags = _filter_chinese_values(tags)
+            subjects = _filter_chinese_values(subjects)
+            genres = _filter_chinese_values(genres)
 
             # 保存人物
             person_map = {}
@@ -719,19 +746,22 @@ class BookDB:
             category_map = {}
 
             for tag in tags:
-                if tag and tag not in category_map:
+                key = ("tag", tag)
+                if tag and key not in category_map:
                     db_id = self.save_category(tag, "tag")
-                    category_map[tag] = db_id
+                    category_map[key] = db_id
 
             for subject in subjects:
-                if subject and subject not in category_map:
+                key = ("tag", subject)
+                if subject and key not in category_map:
                     db_id = self.save_category(subject, "tag", "book")
-                    category_map[subject] = db_id
+                    category_map[key] = db_id
 
             for genre in genres:
-                if genre and genre not in category_map:
-                    db_id = self.save_category(genre, "tag", "book")
-                    category_map[genre] = db_id
+                key = ("type", genre)
+                if genre and key not in category_map:
+                    db_id = self.save_category(genre, "type", "book")
+                    category_map[key] = db_id
 
             # 保存类型关联
             self.save_book_categories(book_id, tags, subjects, genres, category_map)

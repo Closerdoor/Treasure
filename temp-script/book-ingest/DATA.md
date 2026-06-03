@@ -35,8 +35,8 @@
 | `binding` | `binding` | 装帧 |
 | `format` | `format` | 开本 / 版式 |
 | `edition` | `edition` | 版本 / 版次 |
-| `summary` | `summary` | 内容简介，优先取 Wikipedia “故事大纲” |
-| `story` | `story` | 完整剧情 / 内容情节，优先取百度百科“内容情节” |
+| `summary` | `summary` | 内容简介。普通书籍优先取 Wikipedia “故事大纲”；网络小说取起点或豆瓣介绍 |
+| `story` | `story` | 完整剧情 / 内容情节。普通书籍优先取百度百科“内容情节”；网络小说取百度百科词条顶部正文 |
 | `quotes` | `quotes` | 名句数组，入库时序列化 |
 | `excerpts` | `excerpts` | 原文摘录数组，优先按豆瓣热度前 20 条取详情页原文，入库时序列化 |
 | `series_id` | `seriesId` | 系列 ID，入库时由 `_meta.series` 映射 |

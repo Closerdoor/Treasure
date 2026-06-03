@@ -1,0 +1,186 @@
+---
+import type { ArchiveBook, BookReview } from '../lib/book';
+import { formatExternalSourceLabel } from '../lib/site';
+
+const { book } = Astro.props as { book: ArchiveBook };
+
+function splitParagraphs(value?: string) {
+  return String(value ?? '')
+    .split(/\n{1,}/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
+}
+
+function getReviewParagraphs(review: BookReview) {
+  return splitParagraphs(review.content);
+}
+
+const storyParagraphs = splitParagraphs(book.story?.text);
+const synopsisParagraphs = splitParagraphs(book.synopsis?.text);
+const tabItems = [
+  { id: 'summary', label: '内容简介', hidden: !synopsisParagraphs.length },
+  { id: 'story', label: '内容情节', hidden: !storyParagraphs.length },
+  { id: 'excerpts', label: '原文摘录', hidden: !book.excerpts?.length },
+  { id: 'reviews', label: '读者评论', hidden: !book.reviews?.length },
+  { id: 'covers', label: '多源封面', hidden: !book.coverGallery.length },
+  { id: 'links', label: '外部来源', hidden: !Object.values(book.links ?? {}).some(Boolean) }
+].filter((item) => !item.hidden);
+---
+
+<div class="book-detail-tabs">
+  <nav class="book-detail-tabs__nav" aria-label="书籍详情索引" data-detail-index>
+    {tabItems.map((item, index) => (
+      <a
+        class:list={["book-detail-tabs__tab", index === 0 && 'is-active']}
+        href={`#${item.id}`}
+        data-detail-tab={item.id}
+        aria-current={index === 0 ? 'true' : 'false'}
+      >
+        {item.label}
+      </a>
+    ))}
+  </nav>
+
+  {synopsisParagraphs.length ? (
+    <section class="book-section" id="summary">
+      <h2>内容简介</h2>
+      <div class="book-prose">
+        {synopsisParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </section>
+  ) : null}
+
+  {storyParagraphs.length ? (
+    <section class="book-section" id="story">
+      <h2>内容情节</h2>
+      <div class="book-prose">
+        {storyParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </section>
+  ) : null}
+
+  {book.excerpts?.length ? (
+    <section class="book-section" id="excerpts">
+      <h2>原文摘录</h2>
+      <div class="book-quote-list">
+        {book.excerpts.slice(0, 20).map((excerpt) => (
+          <blockquote class="book-quote-card">
+            <p>{excerpt.content}</p>
+            {excerpt.note ? <cite>{excerpt.note}</cite> : null}
+          </blockquote>
+        ))}
+      </div>
+    </section>
+  ) : null}
+
+  {book.reviews?.length ? (
+    <section class="book-section" id="reviews">
+      <h2>读者评论</h2>
+      <div class="book-review-list">
+        {book.reviews.slice(0, 40).map((review) => (
+          <article class="book-review-card" data-review-card>
+            <header>
+              <div>
+                <strong>{review.author || '匿名读者'}</strong>
+                <span>{review.source || '书评'}</span>
+              </div>
+              <time>{review.date || ''}</time>
+            </header>
+            {review.title ? <h3>{review.title}</h3> : null}
+            <div class="book-review-card__content" data-review-content>
+              {getReviewParagraphs(review).map((paragraph) => <p>{paragraph}</p>)}
+            </div>
+            <button class="book-review-card__expand" type="button" data-review-expand>
+              <span data-expand-text>展开全文</span>
+            </button>
+          </article>
+        ))}
+      </div>
+    </section>
+  ) : null}
+
+  {book.coverGallery.length ? (
+    <section class="book-section" id="covers">
+      <h2>多源封面</h2>
+      <div class="book-cover-gallery">
+        <figure>
+          <img src={book.coverUrl} alt={`${book.title} 主封面`} loading="lazy" onerror="this.src='/assets/poster-placeholder.svg'" />
+          <figcaption>主封面</figcaption>
+        </figure>
+        {book.coverGallery.map((cover) => (
+          <figure>
+            <img src={cover.url} alt={`${book.title} ${cover.source} 封面`} loading="lazy" onerror="this.src='/assets/poster-placeholder.svg'" />
+            <figcaption>{cover.source}</figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
+  ) : null}
+
+  {Object.values(book.links ?? {}).some(Boolean) ? (
+    <section class="book-section" id="links">
+      <h2>外部来源</h2>
+      <div class="book-link-list">
+        {Object.entries(book.links ?? {}).map(([name, href]) =>
+          href ? <a href={href} target="_blank" rel="noreferrer">{formatExternalSourceLabel(name)}</a> : null
+        )}
+      </div>
+    </section>
+  ) : null}
+
+  <script is:inline>
+    (() => {
+      const nav = document.querySelector('[data-detail-index]');
+      if (!(nav instanceof HTMLElement)) return;
+
+      const tabs = [...nav.querySelectorAll('[data-detail-tab]')].filter((tab) => tab instanceof HTMLAnchorElement);
+      const sections = tabs
+        .map((tab) => {
+          const id = tab.getAttribute('data-detail-tab');
+          const section = id ? document.getElementById(id) : null;
+          return section instanceof HTMLElement ? { id, tab, section } : null;
+        })
+        .filter(Boolean);
+
+      const setActive = (id) => {
+        sections.forEach((item) => {
+          const isActive = item.id === id;
+          item.tab.classList.toggle('is-active', isActive);
+          item.tab.setAttribute('aria-current', String(isActive));
+        });
+      };
+
+      sections.forEach((item) => {
+        item.tab.addEventListener('click', (event) => {
+          event.preventDefault();
+          item.section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          setActive(item.id);
+          window.history.replaceState({}, '', `#${item.id}`);
+        });
+      });
+
+      document.querySelectorAll('[data-review-card]').forEach((card) => {
+        if (!(card instanceof HTMLElement)) return;
+        const content = card.querySelector('[data-review-content]');
+        const button = card.querySelector('[data-review-expand]');
+        const text = button?.querySelector('[data-expand-text]');
+        if (!(content instanceof HTMLElement) || !(button instanceof HTMLButtonElement)) return;
+
+        const sync = () => {
+          const truncated = content.scrollHeight > content.clientHeight + 10;
+          button.hidden = !truncated && !content.classList.contains('is-expanded');
+        };
+
+        button.addEventListener('click', () => {
+          const expanded = content.classList.toggle('is-expanded');
+          card.classList.toggle('is-expanded', expanded);
+          if (text) text.textContent = expanded ? '收起' : '展开全文';
+          sync();
+        });
+
+        sync();
+        window.addEventListener('resize', sync);
+      });
+    })();
+  </script>
+</div>

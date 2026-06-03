@@ -67,6 +67,10 @@ class CoverDownloader(BaseDownloader):
     def _safe_source_name(self, source: str) -> str:
         return re.sub(r"[^a-zA-Z0-9_-]+", "-", source).strip("-").lower() or "unknown"
 
+    def _is_placeholder_cover(self, url: str) -> bool:
+        value = str(url or "").lower()
+        return any(marker in value for marker in ["no-cover", "nocover", "placeholder"])
+
     async def download_covers(
         self,
         book_id: str,
@@ -88,6 +92,9 @@ class CoverDownloader(BaseDownloader):
         
         for source, url in cover_urls.items():
             if not url:
+                continue
+            if self._is_placeholder_cover(url):
+                Logger.warning(f"跳过占位封面: {source} -> {url}")
                 continue
                 
             if source == main_source:

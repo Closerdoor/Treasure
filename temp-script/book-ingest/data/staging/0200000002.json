@@ -170,7 +170,7 @@
     {
       "name": "百度百科",
       "id": "2068378",
-      "link": "F:\\MyProject\\Treasure\\temp-script\\book-ingest\\data\\manual\\baike\\weicheng.html"
+      "link": "https://baike.baidu.com/item/%E5%9B%B4%E5%9F%8E/2068378"
     },
     {
       "name": "维基百科",
@@ -190,10 +190,7 @@
   ],
   "images": {
     "cover": "cover-main.jpg",
-    "covers": {
-      "dangdang": "covers/dangdang.jpg",
-      "goodreads": "covers/goodreads.jpg"
-    },
+    "covers": {},
     "assetDir": "0200000002"
   },
   "reviews": [
@@ -621,10 +618,10 @@
     ],
     "translators": [],
     "tags": [],
-    "subjects": [
-      "Chinese fiction"
+    "subjects": [],
+    "genres": [
+      "长篇小说"
     ],
-    "genres": [],
     "awards": [],
     "series": null,
     "seriesCandidates": [],
@@ -645,12 +642,13 @@
         "personage_url": "https://www.douban.com/personage/30072411/",
         "douban_personage_id": "30072411",
         "avatar_url": "https://img3.doubanio.com/view/celebrity/raw/public/p28922.webp",
-        "name_en": "Zhong-Shu Qian",
-        "personId": "p30072411",
-        "avatarPath": "people/p30072411-avatar.jpg"
+        "name_en": "Zhong-Shu Qian"
       }
     ],
     "baikeSummary": "《围城》是现代文学家钱锺书创作的长篇讽刺小说，写于1944年到1946年之间，从1946年2月开始，在《文艺复兴》上连载。1947年出版单行本。《围城》以留学归...",
+    "rawOpenLibrarySubjects": [
+      "Chinese fiction"
+    ],
     "rawGoodreadsGenres": [
       "Art",
       "Biography",

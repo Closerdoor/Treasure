@@ -20,6 +20,8 @@ import asyncio
 import json
 import random
 import re
+import sys
+from pathlib import Path
 from typing import Optional, List, Dict, Any
 from urllib.parse import urljoin
 
@@ -35,13 +37,102 @@ class DoubanCrawler(BaseCrawler):
     def __init__(self):
         super().__init__(source_name="douban")
         self._logged_in = False
+        self._cookie_state_file = Path(config.OUTPUT_DIR) / "cookies" / "douban.json"
+        self._cookie_header_file = Path(config.OUTPUT_DIR) / "cookies" / "douban-cookie.txt"
+        self._loaded_cookie_sources = set()
+
+    async def _load_cookie_header_file(self) -> bool:
+        """加载从浏览器 Network 面板复制的 Cookie 请求头。"""
+        if not self.context:
+            return False
+
+        cookie_file = self._cookie_header_file
+        if not cookie_file.exists():
+            return False
+
+        text = cookie_file.read_text(encoding="utf-8", errors="ignore").strip()
+        if text.lower().startswith("cookie:"):
+            text = text.split(":", 1)[1].strip()
+
+        pairs = []
+        for item in re.split(r";\s*", text):
+            if "=" not in item:
+                continue
+            name, value = item.split("=", 1)
+            name = name.strip()
+            value = value.strip()
+            if name and value:
+                pairs.append((name, value))
+
+        if not pairs:
+            Logger.warning(f"[douban] Cookie 请求头为空或格式不正确: {cookie_file}")
+            return False
+
+        cookies = []
+        for domain in [".douban.com", "book.douban.com"]:
+            for name, value in pairs:
+                cookies.append({
+                    "name": name,
+                    "value": value,
+                    "domain": domain,
+                    "path": "/",
+                    "sameSite": "Lax",
+                })
+
+        await self.context.add_cookies(cookies)
+        self._loaded_cookie_sources.add(str(cookie_file))
+        Logger.info(f"[douban] 已加载请求头 Cookie: {cookie_file} ({len(pairs)} 项)")
+        return True
+
+    async def _load_cookie_state_file(self) -> bool:
+        """加载脚本上次成功访问后自动保存的 Playwright Cookie。"""
+        if not self.context or not self._cookie_state_file.exists():
+            return False
+        loaded = await self.load_cookies(self._cookie_state_file)
+        if loaded:
+            self._loaded_cookie_sources.add(str(self._cookie_state_file))
+        return loaded
+
+    async def _load_available_cookies(self) -> bool:
+        """
+        合并加载可用 Cookie。
+
+        douban-cookie.txt 是用户从浏览器 Network 复制的初始授权；
+        douban.json 是脚本运行中自动续存的浏览器状态。两者都存在时，
+        先加载较旧文件，再加载较新文件，让更新的 Cookie 覆盖旧值。
+        """
+        candidates = [
+            (self._cookie_state_file, self._load_cookie_state_file),
+            (self._cookie_header_file, self._load_cookie_header_file),
+        ]
+        candidates = [item for item in candidates if item[0].exists()]
+        candidates.sort(key=lambda item: item[0].stat().st_mtime)
+
+        loaded_any = False
+        for _, loader in candidates:
+            loaded_any = await loader() or loaded_any
+        return loaded_any
+
+    async def _persist_cookies(self, reason: str = ""):
+        """把当前浏览器上下文里的 Cookie 自动续存，供下次采集复用。"""
+        if not self.context:
+            return
+        try:
+            await self.save_cookies(self._cookie_state_file)
+            if reason:
+                Logger.info(f"[douban] 已续存 Cookie 状态: {reason}")
+        except Exception as e:
+            Logger.warning(f"[douban] Cookie 状态续存失败: {e}")
 
     async def ensure_login(self):
         """确保已登录豆瓣"""
+        await self._load_available_cookies()
+
         if config.SKIP_LOGIN:
             Logger.info("[douban] 跳过登录验证，直接访问豆瓣...")
             await self.page.goto(config.DOUBAN_BASE_URL, timeout=30000, wait_until="domcontentloaded")
             await asyncio.sleep(2)
+            await self._handle_security_continue()
 
             current_url = self.page.url
             if "sorry" in current_url or "misc" in current_url:
@@ -49,16 +140,17 @@ class DoubanCrawler(BaseCrawler):
                 await self._handle_anti_crawl()
             else:
                 Logger.info("[douban] 豆瓣访问正常")
+                await self._persist_cookies("启动验证通过")
             self._logged_in = True
             return
 
-        cookie_file = Path(config.OUTPUT_DIR) / "cookies" / "douban.json"
-        if await self.load_cookies(cookie_file):
+        if await self._load_cookie_state_file():
             try:
                 await self.page.goto(config.DOUBAN_BASE_URL, timeout=30000, wait_until="domcontentloaded")
                 await asyncio.sleep(2)
                 await self.page.wait_for_selector(".nav-user-account", timeout=10000)
                 Logger.info("[douban] 登录状态有效")
+                await self._persist_cookies("登录状态验证通过")
                 self._logged_in = True
                 return
             except Exception:
@@ -95,7 +187,7 @@ class DoubanCrawler(BaseCrawler):
                 await asyncio.sleep(2)
                 await self.page.wait_for_selector(".nav-user-account", timeout=5000)
 
-                await self.save_cookies(cookie_file)
+                await self._persist_cookies("手动登录成功")
                 Logger.success("[douban] 登录成功！")
                 self._logged_in = True
                 return
@@ -109,6 +201,14 @@ class DoubanCrawler(BaseCrawler):
 
     async def _handle_anti_crawl(self):
         """处理反爬页面"""
+        await self._persist_cookies("触发反爬前保存现场")
+
+        if config.HEADLESS or not sys.stdin.isatty():
+            raise Exception(
+                "[douban] 触发验证码/安全限制，当前为无交互采集环境，脚本无法代替用户完成验证。"
+                "请稍后重试，或在浏览器中完成验证后更新 data/cookies/douban-cookie.txt。"
+            )
+
         print("\n" + "=" * 60)
         print("检测到反爬机制（验证码或限制页面）")
         print("请在浏览器中手动完成验证")
@@ -120,8 +220,7 @@ class DoubanCrawler(BaseCrawler):
             await self.page.goto(config.DOUBAN_BASE_URL, timeout=30000, wait_until="domcontentloaded")
             await asyncio.sleep(2)
             await self.page.wait_for_selector(".nav-user-account", timeout=5000)
-            cookie_file = Path(config.OUTPUT_DIR) / "cookies" / "douban.json"
-            await self.save_cookies(cookie_file)
+            await self._persist_cookies("人工验证通过")
             Logger.success("[douban] 验证通过！")
         except Exception as e:
             Logger.error(f"[douban] 验证失败: {e}")
@@ -130,6 +229,34 @@ class DoubanCrawler(BaseCrawler):
     def _is_anti_crawl_page(self) -> bool:
         current_url = self.page.url if self.page else ""
         return any(marker in current_url for marker in ["sorry", "misc", "sec.douban.com"])
+
+    async def _remember_successful_page(self, label: str):
+        """成功拿到正常页面后，及时续存当前 Cookie。"""
+        current_url = self.page.url if self.page else ""
+        if any(marker in current_url for marker in ["sorry", "misc", "sec.douban.com", "accounts.douban.com"]):
+            return
+        await self._persist_cookies(label)
+
+    async def _handle_security_continue(self) -> bool:
+        """处理豆瓣“点我继续浏览”的轻量安全页。"""
+        try:
+            content = await self.page.content()
+        except Exception:
+            return False
+
+        if "点我继续浏览" not in content and 'id="sec"' not in content:
+            return False
+
+        Logger.info("[douban] 检测到安全继续页，自动点击继续浏览...")
+        try:
+            await self.page.click("#sub", timeout=5000)
+            await self.page.wait_for_load_state("domcontentloaded", timeout=30000)
+            await asyncio.sleep(random.uniform(2, 4))
+            await self._persist_cookies("自动通过安全继续页")
+            return True
+        except Exception as e:
+            Logger.warning(f"[douban] 自动继续浏览失败: {e}")
+            return False
 
     async def crawl(self, douban_id: str, expected_title: str = None) -> Optional[Dict[str, Any]]:
         """
@@ -152,6 +279,8 @@ class DoubanCrawler(BaseCrawler):
         detail = await self._crawl_detail(douban_id, expected_title)
         if not detail:
             return None
+        critical_errors = []
+        noncritical_errors = []
 
         # 爬取短评
         try:
@@ -159,6 +288,7 @@ class DoubanCrawler(BaseCrawler):
             detail["comments"] = comments
         except Exception as e:
             Logger.error(f"[douban] 短评爬取失败: {e}")
+            critical_errors.append(f"comments: {e}")
             detail["comments"] = []
 
         # 爬取长评
@@ -167,6 +297,7 @@ class DoubanCrawler(BaseCrawler):
             detail["reviews"] = reviews
         except Exception as e:
             Logger.error(f"[douban] 长评爬取失败: {e}")
+            critical_errors.append(f"reviews: {e}")
             detail["reviews"] = []
 
         # 爬取原文摘录
@@ -175,6 +306,7 @@ class DoubanCrawler(BaseCrawler):
             detail["excerpts"] = excerpts
         except Exception as e:
             Logger.error(f"[douban] 原文摘录爬取失败: {e}")
+            critical_errors.append(f"excerpts: {e}")
             detail["excerpts"] = []
 
         # 爬取创作者信息
@@ -185,8 +317,13 @@ class DoubanCrawler(BaseCrawler):
                 detail["person_details"] = person_details
         except Exception as e:
             Logger.error(f"[douban] 创作者信息爬取失败: {e}")
+            noncritical_errors.append(f"person_details: {e}")
             detail["person_details"] = []
 
+        if critical_errors:
+            detail["_critical_errors"] = critical_errors
+        if noncritical_errors:
+            detail["_crawl_errors"] = noncritical_errors
         return detail
 
     async def _crawl_detail(self, douban_id: str, expected_title: str = None) -> Optional[Dict[str, Any]]:
@@ -199,6 +336,7 @@ class DoubanCrawler(BaseCrawler):
 
                 await self.page.goto(url, timeout=60000, wait_until="domcontentloaded")
                 await asyncio.sleep(random.uniform(2, 4))
+                await self._handle_security_continue()
 
                 current_url = self.page.url
                 if "sorry" in current_url or "misc" in current_url:
@@ -212,20 +350,27 @@ class DoubanCrawler(BaseCrawler):
                     raise Exception(f"页面不存在或被重定向: {current_url}")
 
                 content = await self.page.content()
+                await self._remember_successful_page("详情页访问成功")
                 soup = BeautifulSoup(content, "html.parser")
 
                 title_elem = soup.select_one("h1 span[property='v:itemreviewed']") or soup.select_one("h1")
                 if not title_elem:
-                    raise Exception("未能获取到标题，页面可能未正确加载")
+                    if await self._handle_security_continue():
+                        content = await self.page.content()
+                        await self._remember_successful_page("安全继续页通过")
+                        soup = BeautifulSoup(content, "html.parser")
+                        title_elem = soup.select_one("h1 span[property='v:itemreviewed']") or soup.select_one("h1")
+                    if not title_elem:
+                        security_page = soup.select_one("form#sec") or soup.find(string=re.compile("点我继续浏览"))
+                        if security_page:
+                            raise Exception("豆瓣安全继续页未能自动通过")
+                        raise Exception("未能获取到标题，页面可能未正确加载")
 
                 actual_title = title_elem.text.strip()
+                if actual_title in {"登录跳转", "豆瓣"} or "登录" in actual_title:
+                    raise Exception("豆瓣返回登录/安全跳转页，未取得作品详情")
                 if expected_title and expected_title not in actual_title and actual_title not in expected_title:
                     Logger.warning(f"[douban] 标题不匹配！预期: {expected_title}, 实际: {actual_title}")
-                    await self._handle_anti_crawl()
-                    await self.page.goto(url, timeout=60000, wait_until="domcontentloaded")
-                    await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
-                    content = await self.page.content()
-                    soup = BeautifulSoup(content, "html.parser")
 
                 break
 
@@ -246,8 +391,9 @@ class DoubanCrawler(BaseCrawler):
             # 书名
             title_elem = soup.select_one("h1 span[property='v:itemreviewed']") or soup.select_one("h1")
             full_title = title_elem.text.strip() if title_elem else ""
-            chinese_match = re.match(r'^([\u4e00-\u9fa5]+)', full_title)
-            result["title"] = chinese_match.group(1) if chinese_match else (full_title.split()[0] if full_title else "")
+            result["title"] = expected_title if expected_title and full_title and (
+                expected_title in full_title or full_title in expected_title
+            ) else full_title
 
             # info 区域
             info = soup.select_one("#info")
@@ -446,7 +592,11 @@ class DoubanCrawler(BaseCrawler):
             await self.page.goto(page_url, timeout=60000, wait_until="domcontentloaded")
             await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
 
+            if self._is_anti_crawl_page():
+                await self._handle_anti_crawl()
+
             content = await self.page.content()
+            await self._remember_successful_page("短评页访问成功")
             soup = BeautifulSoup(content, "html.parser")
 
             items = soup.select(".comment-item")
@@ -537,7 +687,11 @@ class DoubanCrawler(BaseCrawler):
             await self.page.goto(page_url, timeout=60000, wait_until="domcontentloaded")
             await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
 
+            if self._is_anti_crawl_page():
+                await self._handle_anti_crawl()
+
             content = await self.page.content()
+            await self._remember_successful_page("长评列表访问成功")
             soup = BeautifulSoup(content, "html.parser")
 
             items = soup.select(".review-list article") or soup.select(".review-item")
@@ -555,6 +709,8 @@ class DoubanCrawler(BaseCrawler):
                         continue
 
                     full_content = await self._get_review_content(review_url)
+                    if not full_content:
+                        continue
 
                     author_elem = item.select_one(".author a") or item.select_one(".review-meta a")
                     author = author_elem.text.strip() if author_elem else ""
@@ -596,6 +752,8 @@ class DoubanCrawler(BaseCrawler):
         Logger.info(f"[douban] 正在爬取原文摘录: {douban_id}")
 
         excerpts = []
+        seen_urls = set()
+        seen_contents = set()
         url = f"{config.DOUBAN_BASE_URL}/subject/{douban_id}/blockquotes"
 
         await self.page.goto(url, timeout=60000, wait_until="domcontentloaded")
@@ -614,10 +772,10 @@ class DoubanCrawler(BaseCrawler):
             await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
 
             if self._is_anti_crawl_page():
-                Logger.warning("[douban] 摘录列表触发反爬，本次停止摘录抓取以避免写入空数据")
-                break
+                await self._handle_anti_crawl()
 
             content = await self.page.content()
+            await self._remember_successful_page("摘录列表访问成功")
             soup = BeautifulSoup(content, "html.parser")
 
             items = soup.select("li figure")
@@ -630,6 +788,9 @@ class DoubanCrawler(BaseCrawler):
                     note = self._extract_excerpt_note(figure)
                     votes = self._extract_excerpt_votes(figure)
 
+                    if detail_url and detail_url in seen_urls:
+                        continue
+
                     content_text = ""
                     if detail_url:
                         content_text = await self._get_excerpt_content(detail_url)
@@ -640,12 +801,19 @@ class DoubanCrawler(BaseCrawler):
                     if not content_text:
                         continue
 
+                    content_key = re.sub(r"\s+", "", content_text)
+                    if content_key in seen_contents:
+                        continue
+
                     excerpts.append({
                         "content": content_text,
                         "note": note,
                         "votes": votes,
                         "url": detail_url,
                     })
+                    if detail_url:
+                        seen_urls.add(detail_url)
+                    seen_contents.add(content_key)
 
                     if len(excerpts) >= count:
                         break
@@ -711,8 +879,12 @@ class DoubanCrawler(BaseCrawler):
             new_page = await self.context.new_page()
             await new_page.goto(excerpt_url, timeout=30000, wait_until="domcontentloaded")
             await asyncio.sleep(random.uniform(0.5, 1.2))
+            if any(marker in new_page.url for marker in ["sorry", "misc", "sec.douban.com", "accounts.douban.com"]):
+                await self._persist_cookies("摘录详情触发限制前保存现场")
+                raise Exception("摘录详情页触发豆瓣安全限制")
 
             content = await new_page.content()
+            await self._persist_cookies("摘录详情访问成功")
             soup = BeautifulSoup(content, "html.parser")
 
             selectors = [
@@ -748,8 +920,12 @@ class DoubanCrawler(BaseCrawler):
             new_page = await self.context.new_page()
             await new_page.goto(review_url, timeout=30000, wait_until="domcontentloaded")
             await asyncio.sleep(random.uniform(0.5, 1.5))
+            if any(marker in new_page.url for marker in ["sorry", "misc", "sec.douban.com", "accounts.douban.com"]):
+                await self._persist_cookies("长评详情触发限制前保存现场")
+                raise Exception("长评详情页触发豆瓣安全限制")
 
             content = await new_page.content()
+            await self._persist_cookies("长评详情访问成功")
             soup = BeautifulSoup(content, "html.parser")
 
             review_body = soup.select_one(".review-content") or soup.select_one("#link-report")
@@ -807,10 +983,14 @@ class DoubanCrawler(BaseCrawler):
             new_page = await self.context.new_page()
             await new_page.goto(url, timeout=30000, wait_until="domcontentloaded")
             await asyncio.sleep(random.uniform(1, 2))
+            if any(marker in new_page.url for marker in ["sorry", "misc", "sec.douban.com", "accounts.douban.com"]):
+                await self._persist_cookies("作者页触发限制前保存现场")
+                raise Exception("作者页触发豆瓣安全限制")
             
             final_url = new_page.url
             
             content = await new_page.content()
+            await self._persist_cookies("作者页访问成功")
             soup = BeautifulSoup(content, "html.parser")
             
             result = {

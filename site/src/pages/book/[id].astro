@@ -1,0 +1,153 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BookDetailSections from '../../components/BookDetailSections.astro';
+import { loadAllBookIds, loadArchiveBookById } from '../../lib/book';
+
+export async function getStaticPaths() {
+  const ids = await loadAllBookIds();
+  return ids.map((id) => ({ params: { id } }));
+}
+
+const { id } = Astro.params;
+const book = id ? await loadArchiveBookById(id) : null;
+
+if (!book) {
+  throw new Error(`Book not found: ${id}`);
+}
+
+function formatWordCount(value?: number) {
+  if (!value || value <= 0) {
+    return '待补充';
+  }
+
+  if (value >= 10000) {
+    const wan = value / 10000;
+    return `${Number.isInteger(wan) ? wan.toFixed(0) : wan.toFixed(1)} 万字`;
+  }
+
+  return `${value} 字`;
+}
+
+const titleLine = [book.yearLabel, book.genre?.join(' / ')].filter(Boolean).join(' | ');
+const factRows = [
+  { label: '作者', value: book.authorNames || '待补充' },
+  book.translatorNames ? { label: '译者', value: book.translatorNames } : null,
+  { label: '语言', value: book.language || '待补充' },
+  { label: '国家', value: book.country || '待补充' },
+  { label: '总字数', value: formatWordCount(book.wordCount) }
+].filter((item): item is { label: string; value: string } => Boolean(item));
+
+const seriesItems = book.series ? [book.series] : [];
+const similarItems = book.similar ?? [];
+---
+
+<BaseLayout title={`${book.title} | Treasure 资料馆`}>
+  <div class="book-page">
+    <section class="book-shell book-detail-hero">
+      <nav class="book-breadcrumb" aria-label="详情页面包屑">
+        <a href="/">首页</a>
+        <span>/</span>
+        <a href="/book">书籍</a>
+        <span>/</span>
+        <strong>{book.title}</strong>
+      </nav>
+
+      <div class="book-detail-hero__grid">
+        <div class="book-detail-hero__cover">
+          <img src={book.coverUrl} alt={`${book.title} 封面`} onerror="this.src='/assets/poster-placeholder.svg'" />
+        </div>
+
+        <div class="book-detail-hero__content">
+          <h1>{book.title}</h1>
+          {book.originalTitle ? <p class="book-detail-hero__original">{book.originalTitle}</p> : null}
+          <p class="book-detail-hero__title-line">{titleLine}</p>
+
+          <div class="book-detail-hero__score">
+            <span>评分</span>
+            <strong>{book.aggregateRating ? book.aggregateRating.toFixed(1) : '--'}</strong>
+          </div>
+
+          <dl class="book-detail-hero__facts">
+            {factRows.map((item) => (
+              <div>
+                <dt>{item.label}</dt>
+                <dd>{item.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section class="book-shell book-detail-layout">
+      <main>
+        <BookDetailSections book={book} />
+      </main>
+
+      <aside class="book-side-panel">
+        <section>
+          <h2>版本信息</h2>
+          <dl>
+            <div><dt>原名</dt><dd>{book.originalTitle || '待补充'}</dd></div>
+            <div><dt>出版社</dt><dd>{book.publisher || '待补充'}</dd></div>
+            <div><dt>出版日期</dt><dd>{book.publishDate || '待补充'}</dd></div>
+            <div><dt>页数</dt><dd>{book.pages ? `${book.pages} 页` : '待补充'}</dd></div>
+            <div><dt>装帧</dt><dd>{book.binding || '待补充'}</dd></div>
+            <div><dt>ISBN</dt><dd>{book.isbn || '待补充'}</dd></div>
+            <div><dt>定价</dt><dd>{book.price || '待补充'}</dd></div>
+          </dl>
+        </section>
+
+        {seriesItems.length ? (
+          <section>
+            <h2>系列作品</h2>
+            <div class="book-related-list">
+              {seriesItems.map((item) => (
+                <article>
+                  <strong>{item.title}</strong>
+                  {item.order ? <span>系列第 {item.order} 部</span> : null}
+                </article>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
+        {similarItems.length ? (
+          <section>
+            <h2>相似作品</h2>
+            <div class="book-related-list">
+              {similarItems.slice(0, 8).map((item) => (
+                <article>
+                  <strong>{item.title}</strong>
+                  <span>{[item.year, item.rating ? `${item.rating.toFixed(1)} 分` : ''].filter(Boolean).join(' · ')}</span>
+                </article>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
+        {book.authors?.length ? (
+          <section>
+            <h2>作者</h2>
+            <div class="book-author-list">
+              {book.authors.map((person) => (
+                <article>
+                  <img
+                    src={person.avatarPath ? `/assets/${person.avatarPath}` : '/assets/avatar-placeholder.svg'}
+                    alt={person.name}
+                    loading="lazy"
+                    onerror="this.src='/assets/avatar-placeholder.svg'"
+                  />
+                  <div>
+                    <strong>{person.name}</strong>
+                    {person.nameEn ? <span>{person.nameEn}</span> : null}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        ) : null}
+      </aside>
+    </section>
+  </div>
+</BaseLayout>

@@ -28,9 +28,9 @@ export const moduleCards = [
   {
     slug: 'book',
     title: '书',
-    description: '保留入口与视觉占位，等待后续模块结构确认。',
-    href: '',
-    state: 'placeholder' as const
+    description: '已接入本地数据库，采用更接近阅读产品的纯白列表与详情页。',
+    href: '/book',
+    state: 'active' as const
   },
   {
     slug: 'music',
@@ -56,7 +56,8 @@ const moduleLabels: Record<string, string> = {
 };
 
 const submoduleLabels: Record<string, string> = {
-  movie: '电影'
+  movie: '电影',
+  book: '书籍'
 };
 
 const homeMovieIds = ['0101000001', '0101000004', '0101000003', '0101000002'];
@@ -183,7 +184,12 @@ export function formatExternalSourceLabel(name: string) {
   const labels: Record<string, string> = {
     douban: '豆瓣条目',
     imdb: 'IMDb',
-    tmdb: 'TMDB'
+    tmdb: 'TMDB',
+    baike: '百度百科',
+    wikipedia: 'Wikipedia',
+    openlibrary: 'OpenLibrary',
+    goodreads: 'Goodreads',
+    dangdang: '当当'
   };
 
   return labels[name] ?? name;

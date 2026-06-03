@@ -245,6 +245,49 @@ def validate_staging_shape(data: Dict[str, Any]) -> List[str]:
     return problems
 
 
+def validate_content_quality(data: Dict[str, Any]) -> List[str]:
+    problems: List[str] = []
+
+    for field in ("summary", "story"):
+        value = data.get(field)
+        if value is None or (isinstance(value, str) and not value.strip()):
+            problems.append(f"{field} is missing")
+            continue
+        if not isinstance(value, str):
+            problems.append(f"{field} is not text")
+            continue
+        text = value.strip()
+        if text.endswith("...") or text.endswith("…") or "..." in text[-20:]:
+            problems.append(f"{field} appears truncated with ellipsis")
+
+    excerpts = data.get("excerpts") or []
+    if isinstance(excerpts, list):
+        seen_urls = set()
+        seen_text = set()
+        duplicate_urls = 0
+        duplicate_text = 0
+        for item in excerpts:
+            if not isinstance(item, dict):
+                continue
+            url = str(item.get("url") or "").strip()
+            text = str(item.get("content") or "").strip()
+            if url:
+                if url in seen_urls:
+                    duplicate_urls += 1
+                seen_urls.add(url)
+            if text:
+                text_key = "".join(text.split())
+                if text_key in seen_text:
+                    duplicate_text += 1
+                seen_text.add(text_key)
+        if duplicate_urls or duplicate_text:
+            problems.append(
+                f"excerpts contain duplicates: duplicate_urls={duplicate_urls}, duplicate_text={duplicate_text}"
+            )
+
+    return problems
+
+
 def dry_run_import(data: Dict[str, Any]) -> Dict[str, Any]:
     with tempfile.TemporaryDirectory() as temp_dir:
         temp_db = Path(temp_dir) / "treasure-book-precheck.db"
@@ -295,10 +338,12 @@ def precheck(book_id: str, data: Dict[str, Any], update_existing: bool = False) 
 
     assets = validate_assets(book_id, data)
     shape_problems = validate_staging_shape(data)
+    quality_problems = validate_content_quality(data)
     dry_run = dry_run_import(data) if update_existing or not matches else None
 
     problems: List[str] = []
     problems.extend(shape_problems)
+    problems.extend(quality_problems)
 
     if update_existing:
         id_matches = [match for match in matches if match.get("id") == book_id]

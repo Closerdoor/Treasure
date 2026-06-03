@@ -1,0 +1,36 @@
+{
+  "isbn": "9787806807583",
+  "source": "openlibrary",
+  "title": "凡人修仙传",
+  "title_original": "凡人修仙传",
+  "authors": [
+    "忘语"
+  ],
+  "translators": [],
+  "cover_url": "https://covers.openlibrary.org/b/id/15124417-L.jpg",
+  "first_publish_year": 2010,
+  "publisher": [],
+  "language": [],
+  "openlibrary_id": "OL44044095W",
+  "openlibrary_url": "https://openlibrary.org/works/OL44044095W",
+  "subjects": [],
+  "author_details": [
+    {
+      "name": "忘语",
+      "key": "/authors/OL15818589A",
+      "type": {
+        "key": "/type/author"
+      },
+      "latest_revision": 1,
+      "revision": 1,
+      "created": {
+        "type": "/type/datetime",
+        "value": "2025-09-19T14:16:38.513735"
+      },
+      "last_modified": {
+        "type": "/type/datetime",
+        "value": "2025-09-19T14:16:38.513735"
+      }
+    }
+  ]
+}

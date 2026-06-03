@@ -1,0 +1,184 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BookListItem from '../../components/BookListItem.astro';
+import { loadArchiveBooks } from '../../lib/book';
+
+const allBooks = await loadArchiveBooks();
+const genres = [...new Set(allBooks.flatMap((book) => book.tags))].sort();
+const years = [...new Set(allBooks.map((book) => book.year).filter(Boolean))].sort((left, right) => Number(right) - Number(left));
+
+const booksData = allBooks.map((book) => ({
+  id: book.id,
+  path: book.path,
+  title: book.title,
+  originalTitle: book.originalTitle,
+  authorNames: book.authorNames,
+  publisher: book.publisher,
+  country: book.country,
+  year: book.year,
+  tags: book.tags,
+  synopsis: book.synopsis?.text
+}));
+---
+
+<BaseLayout title="书籍分馆 | Treasure 资料馆">
+  <div class="book-page">
+    <section class="book-shell book-list-hero">
+      <div>
+        <p class="book-kicker">Treasure Books</p>
+        <h1>书籍</h1>
+        <p>用干净的阅读列表整理作品资料，先看书名、作者与简介，再进入详情核对版本、剧情、摘录与评论。</p>
+      </div>
+      <div class="book-list-hero__stats">
+        <span>当前收录</span>
+        <strong>{allBooks.length}</strong>
+      </div>
+    </section>
+
+    <section class="book-shell book-filter-bar">
+      <form class="book-search" method="get">
+        <input name="q" type="search" placeholder="搜索书名、作者、出版社" data-book-search />
+        <button type="submit">搜索</button>
+        <a href="/book" data-book-clear>清空</a>
+      </form>
+
+      <div class="book-filter-row" data-filter-group="tag">
+        <span>分类</span>
+        <button type="button" class="is-active" data-filter-value="">全部</button>
+        {genres.map((genre) => <button type="button" data-filter-value={genre}>{genre}</button>)}
+      </div>
+
+      <div class="book-filter-row" data-filter-group="year">
+        <span>年份</span>
+        <button type="button" class="is-active" data-filter-value="">全部</button>
+        {years.map((year) => <button type="button" data-filter-value={String(year)}>{year}</button>)}
+      </div>
+    </section>
+
+    <section class="book-shell book-result-meta">
+      <p data-book-result>共 {allBooks.length} 本书</p>
+    </section>
+
+    <section class="book-shell book-list" data-book-list>
+      {allBooks.map((book) => <BookListItem book={book} />)}
+    </section>
+  </div>
+
+  <script is:inline define:vars={{ booksData }}>
+    const state = {
+      query: '',
+      tag: '',
+      year: ''
+    };
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function filterBooks() {
+      const query = state.query.trim().toLowerCase();
+      return booksData.filter((book) => {
+        if (state.tag && !book.tags.includes(state.tag)) return false;
+        if (state.year && String(book.year ?? '') !== state.year) return false;
+
+        if (!query) return true;
+        const haystack = [
+          book.title,
+          book.originalTitle,
+          book.authorNames,
+          book.publisher,
+          book.synopsis,
+          ...book.tags
+        ].filter(Boolean).join(' ').toLowerCase();
+        return haystack.includes(query);
+      });
+    }
+
+    function renderBooks() {
+      const list = document.querySelector('[data-book-list]');
+      const result = document.querySelector('[data-book-result]');
+      if (!list) return;
+
+      const books = filterBooks();
+      list.innerHTML = books.map((book) => {
+        const meta = [book.year, book.country].filter(Boolean).join(' · ');
+        const tags = book.tags.length ? book.tags : ['待分类'];
+        return `
+          <article class="book-list-item">
+            <a class="book-list-item__cover" href="${book.path}">
+              <img src="/assets/book/${book.id}/cover-main.jpg" alt="${escapeHtml(book.title)} 封面" loading="lazy" onerror="this.src='/assets/poster-placeholder.svg'">
+            </a>
+            <div class="book-list-item__content">
+              <div class="book-list-item__rank">${escapeHtml(book.id.slice(-2))}</div>
+              <div class="book-list-item__main">
+                <a class="book-list-item__title" href="${book.path}">${escapeHtml(book.title)}</a>
+                <p class="book-list-item__original">${escapeHtml(book.originalTitle ?? '')}</p>
+                <p class="book-list-item__author">${escapeHtml(book.authorNames || '作者待补充')}</p>
+                <p class="book-list-item__meta">${escapeHtml(meta)}</p>
+                <p class="book-list-item__summary">${escapeHtml(book.synopsis || '简介待补充')}</p>
+                <div class="book-list-item__tags">${tags.slice(0, 4).map((tag) => `<span>${escapeHtml(tag)}</span>`).join('')}</div>
+              </div>
+            </div>
+            <div class="book-list-item__side">
+              <span>馆藏</span>
+              <strong>Book</strong>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      if (result) {
+        result.textContent = `共 ${books.length} 本书`;
+      }
+    }
+
+    function syncFilterButtons() {
+      document.querySelectorAll('[data-filter-group]').forEach((group) => {
+        const key = group.dataset.filterGroup;
+        group.querySelectorAll('[data-filter-value]').forEach((button) => {
+          button.classList.toggle('is-active', button.dataset.filterValue === state[key]);
+        });
+      });
+    }
+
+    function bind() {
+      const input = document.querySelector('[data-book-search]');
+      const form = document.querySelector('.book-search');
+      const clear = document.querySelector('[data-book-clear]');
+
+      form?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        state.query = input?.value ?? '';
+        renderBooks();
+      });
+
+      clear?.addEventListener('click', (event) => {
+        event.preventDefault();
+        state.query = '';
+        state.tag = '';
+        state.year = '';
+        if (input) input.value = '';
+        syncFilterButtons();
+        renderBooks();
+      });
+
+      document.querySelectorAll('[data-filter-group]').forEach((group) => {
+        group.addEventListener('click', (event) => {
+          const target = event.target;
+          if (!(target instanceof HTMLElement)) return;
+          const button = target.closest('[data-filter-value]');
+          if (!(button instanceof HTMLElement)) return;
+          state[group.dataset.filterGroup] = button.dataset.filterValue ?? '';
+          syncFilterButtons();
+          renderBooks();
+        });
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', bind);
+  </script>
+</BaseLayout>

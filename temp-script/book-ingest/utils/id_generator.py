@@ -13,7 +13,7 @@ from utils import Logger
 
 
 def _get_db_path() -> Path:
-    return Path(__file__).parent.parent.parent / ".local" / "treasure.db"
+    return Path(__file__).parents[3] / ".local" / "treasure.db"
 
 
 def generate_book_id() -> str:

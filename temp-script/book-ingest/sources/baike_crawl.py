@@ -26,7 +26,7 @@ import random
 import re
 from pathlib import Path
 from typing import Dict, Any, Optional
-from urllib.parse import quote
+from urllib.parse import quote, unquote
 
 from bs4 import BeautifulSoup
 
@@ -35,12 +35,122 @@ from utils import Logger
 from sources.base_crawler import BaseCrawler
 
 
+def _search_aliases(title: str, author: str = "") -> list[str]:
+    aliases = [title]
+    for marker in ("：", ":"):
+        if marker in title:
+            short = title.split(marker, 1)[1].strip()
+            if short:
+                aliases.append(short)
+    cleaned = re.sub(r"（卷[一二三四五六七八九十]+）", "", title).strip()
+    if cleaned and cleaned not in aliases:
+        aliases.append(cleaned)
+    for base in list(aliases):
+        for suffix in ("小说", "网络小说", "长篇小说"):
+            value = f"{base} {suffix}"
+            if value not in aliases:
+                aliases.append(value)
+        if author:
+            value = f"{base} {author}"
+            if value not in aliases:
+                aliases.append(value)
+    return aliases
+
+
+def _is_related_title(expected: str, actual: str, summary: str = "") -> bool:
+    if not expected or not actual:
+        return False
+    aliases = _search_aliases(expected)
+    actual_text = str(actual)
+    context = f"{actual_text} {summary or ''}"
+    return any(alias and (alias in context or actual_text in alias) for alias in aliases)
+
+
+def _looks_like_non_book_entry(data: Dict[str, Any]) -> bool:
+    info = data.get("info") if isinstance(data.get("info"), dict) else {}
+    context = " ".join(
+        str(value or "")
+        for value in [
+            data.get("summary"),
+            data.get("top_content"),
+            data.get("story"),
+            data.get("baike_desc"),
+            *info.keys(),
+            *info.values(),
+        ]
+    )
+    non_book_markers = ["电视剧", "网络剧", "古装剧", "主演", "导演", "执导", "出品公司", "制片地区", "有声小说"]
+    book_markers = ["网络小说", "长篇小说", "文学作品", "连载", "起点中文网"]
+    return any(marker in context for marker in non_book_markers) and not any(marker in context for marker in book_markers)
+
+
+def _score_book_candidate(text: str, expected_title: str, author: str = "", href: str = "") -> int:
+    context = re.sub(r"\s+", "", str(text or ""))
+    href_text = str(href or "")
+    score = 0
+    for alias in _search_aliases(expected_title):
+        alias_key = re.sub(r"\s+", "", alias)
+        if alias_key and alias_key in context:
+            score += 30
+            if context.startswith(alias_key):
+                score += 20
+            break
+    if author:
+        author_key = re.sub(r"\s+", "", author)
+        if author_key and author_key in context:
+            score += 80
+    positive_weights = {
+        "网络小说": 120,
+        "长篇小说": 100,
+        "小说": 70,
+        "文学作品": 70,
+        "起点中文网": 80,
+        "连载": 40,
+        "完结": 30,
+        "作者": 20,
+    }
+    negative_weights = {
+        "电视剧": 140,
+        "网络剧": 140,
+        "古装剧": 120,
+        "电影": 110,
+        "动画": 90,
+        "动漫": 90,
+        "漫画": 90,
+        "游戏": 100,
+        "手游": 100,
+        "网游": 100,
+        "有声小说": 80,
+        "广播剧": 80,
+        "主演": 100,
+        "导演": 100,
+        "执导": 100,
+        "出品公司": 100,
+        "制片地区": 100,
+    }
+    for marker, weight in positive_weights.items():
+        if marker in context:
+            score += weight
+    for marker, weight in negative_weights.items():
+        if marker in context:
+            score -= weight
+    if "fromModule=disambiguation" in href_text:
+        score += 10
+    return score
+
+
 class BaikeCrawler(BaseCrawler):
 
     def __init__(self):
         super().__init__(source_name="baike")
 
-    async def crawl(self, title: str) -> Optional[Dict[str, Any]]:
+    async def crawl(
+        self,
+        title: str,
+        author: str = "",
+        baike_url: str = "",
+        baike_id: str = "",
+    ) -> Optional[Dict[str, Any]]:
         """
         一次性获取百度百科全部信息
 
@@ -62,13 +172,43 @@ class BaikeCrawler(BaseCrawler):
 
         Logger.info(f"[baike] 正在搜索: {title}")
 
-        baike_url = await self._search(title)
-        if not baike_url:
-            Logger.warning(f"[baike] 未找到词条: {title}")
+        anchor_url = self._build_anchor_url(title, baike_url=baike_url, baike_id=baike_id)
+        if anchor_url:
+            Logger.info(f"[baike] 使用指定词条锚点: {anchor_url}")
+            await self.page.goto(anchor_url, timeout=30000, wait_until="domcontentloaded")
+            await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
+            data = await self._get_detail(self.page.url, title, author)
+            if data:
+                data["_baikeAnchor"] = {"url": anchor_url, "id": str(baike_id or "")}
+                return data
+            Logger.warning("[baike] 指定词条未通过书籍 / 小说验收，停止保存")
             return None
 
-        data = await self._get_detail(baike_url, title)
-        return data
+        tried_urls = set()
+        for _ in range(len(_search_aliases(title, author))):
+            baike_url = await self._search(title, author, tried_urls)
+            if not baike_url:
+                break
+            tried_urls.add(baike_url)
+            data = await self._get_detail(baike_url, title, author)
+            if data:
+                return data
+
+        wap_url = await self._search_wap_disambiguation(title, author, tried_urls)
+        if wap_url:
+            data = await self._get_detail(wap_url, title, author)
+            if data:
+                return data
+
+        Logger.warning(f"[baike] 未找到词条: {title}")
+        return None
+
+    def _build_anchor_url(self, title: str, baike_url: str = "", baike_id: str = "") -> str:
+        if baike_url:
+            return str(baike_url).strip()
+        if baike_id and title:
+            return f"{config.BAIKE_BASE_URL}/item/{quote(title)}/{quote(str(baike_id).strip())}"
+        return ""
 
     async def _load_baike_cookies(self):
         """加载 Cookie-Editor 导出的百度 Cookie，用于提高通过安全验证的概率。"""
@@ -218,13 +358,13 @@ class BaikeCrawler(BaseCrawler):
                 if card_info.get("ISBN"):
                     result["isbn"] = str(card_info["ISBN"])
 
+            summary = self._extract_abstract(page_data.get("abstract", {}))
             description = page_data.get("description", "")
-            if description:
+            if summary:
+                result["summary"] = summary
+                result["top_content"] = summary
+            elif description and "..." not in description and "…" not in description:
                 result["summary"] = description
-            else:
-                summary = self._extract_abstract(page_data.get("abstract", {}))
-                if summary:
-                    result["summary"] = summary
 
         if not result.get("baike_title"):
             lemma_title = soup.select_one("h1")
@@ -239,6 +379,7 @@ class BaikeCrawler(BaseCrawler):
             )
             if summary_elem:
                 result["summary"] = summary_elem.get_text(strip=True)
+                result["top_content"] = result["summary"]
 
         story_titles = ["内容情节", "内容介绍", "故事情节", "作品情节", "故事大纲", "剧情简介"]
         story = self._extract_section_text(soup, story_titles)
@@ -260,42 +401,114 @@ class BaikeCrawler(BaseCrawler):
         if not any(result.get(key) for key in meaningful_keys):
             Logger.warning("[baike] 未提取到有效百科正文")
             return None
+        if not _is_related_title(title, result.get("baike_title", ""), result.get("summary", "")):
+            Logger.warning(
+                f"[baike] 词条不匹配，已跳过。预期: {title}, 实际: {result.get('baike_title', '')}"
+            )
+            return None
+        if _looks_like_non_book_entry(result):
+            Logger.warning(f"[baike] 词条不是书籍 / 网络小说，已跳过: {result.get('baike_title', '')}")
+            return None
         return result
 
-    async def _search(self, title: str) -> Optional[str]:
+    async def _search(self, title: str, author: str = "", skip_urls: set = None) -> Optional[str]:
         """搜索词条"""
-        encoded_title = quote(title)
-        url = f"{config.BAIKE_BASE_URL}/item/{encoded_title}"
+        skip_urls = skip_urls or set()
+        for alias in _search_aliases(title, author):
+            encoded_title = quote(alias)
+            url = f"{config.BAIKE_BASE_URL}/item/{encoded_title}"
 
-        try:
-            await self.page.goto(url, timeout=30000, wait_until="domcontentloaded")
-            await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
+            try:
+                await self.page.goto(url, timeout=30000, wait_until="domcontentloaded")
+                await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
 
-            current_url = self.page.url
-            if "search" in current_url:
+                current_url = self.page.url
+                if "error.html" in current_url or "status=404" in current_url:
+                    continue
+                if current_url in skip_urls:
+                    continue
+                if current_url.rstrip("/") == config.BAIKE_BASE_URL.rstrip("/"):
+                    continue
+                if "search" in current_url:
+                    content = await self.page.content()
+                    soup = BeautifulSoup(content, "html.parser")
+
+                    candidates = []
+                    for index, link in enumerate(soup.select(".result-list .result-title a, a[href*='/item/']")):
+                        href = link.get("href", "")
+                        if not href:
+                            continue
+                        container = link.find_parent(["div", "li", "section"]) or link
+                        text = container.get_text(" ", strip=True)
+                        score = _score_book_candidate(text, title, author, href) - index
+                        candidates.append((score, href, text))
+                    candidates.sort(key=lambda item: item[0], reverse=True)
+                    if not candidates or candidates[0][0] <= 0:
+                        Logger.warning(f"[baike] 搜索候选未命中书籍义项: {alias}")
+                        continue
+                    score, href, text = candidates[0]
+                    url = f"{config.BAIKE_BASE_URL}{href}" if href.startswith("/") else href
+                    Logger.info(f"[baike] 搜索候选评分 {score}: {text[:80]}")
+                    await self.page.goto(url, timeout=30000, wait_until="domcontentloaded")
+                    await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
+                    current_url = self.page.url
+
+                Logger.success(f"[baike] 找到词条: {current_url}")
+                return current_url
+
+            except Exception as e:
+                Logger.error(f"[baike] 搜索失败: {e}")
+                continue
+
+        Logger.warning(f"[baike] 未找到词条: {title}")
+        return None
+
+    async def _search_wap_disambiguation(self, title: str, author: str = "", skip_urls: set = None) -> Optional[str]:
+        """桌面入口误中影视等词条时，从移动百科多义词列表补充查找书籍义项。"""
+        skip_urls = skip_urls or set()
+        for alias in _search_aliases(title, author):
+            url = f"https://wapbaike.baidu.com/item/{quote(alias)}"
+            try:
+                await self.page.goto(url, timeout=30000, wait_until="domcontentloaded")
+                await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
                 content = await self.page.content()
-                soup = BeautifulSoup(content, "html.parser")
-
-                first_result = soup.select_one(".result-list .result-title a")
-                if first_result:
-                    href = first_result.get("href", "")
-                    if href:
-                        url = f"{config.BAIKE_BASE_URL}{href}" if href.startswith("/") else href
-                        await self.page.goto(url, timeout=30000, wait_until="domcontentloaded")
-                        await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
-                        current_url = self.page.url
-                else:
-                    Logger.warning(f"[baike] 未找到词条: {title}")
+                if "百度安全验证" in content or "验证_百度百科" in content:
+                    Logger.warning("[baike] 移动百科触发安全验证，停止移动端候选查找")
                     return None
+                soup = BeautifulSoup(content, "html.parser")
+                candidates = []
+                for index, link in enumerate(soup.select("a[href*='/item/']")):
+                    href = link.get("href", "")
+                    if not href:
+                        continue
+                    absolute = f"https://wapbaike.baidu.com{href}" if href.startswith("/") else href
+                    decoded_href = unquote(absolute)
+                    if title not in decoded_href:
+                        continue
+                    container = link.find_parent(["li", "div", "section"]) or link
+                    text = container.get_text(" ", strip=True)
+                    score = _score_book_candidate(text, title, author, absolute) - index
+                    if score <= 0:
+                        continue
+                    desktop_url = absolute.replace("https://wapbaike.baidu.com", config.BAIKE_BASE_URL)
+                    desktop_url = desktop_url.replace("http://wapbaike.baidu.com", config.BAIKE_BASE_URL)
+                    if desktop_url in skip_urls:
+                        continue
+                    candidates.append((score, desktop_url, text))
+                candidates.sort(key=lambda item: item[0], reverse=True)
+                if candidates:
+                    score, desktop_url, text = candidates[0]
+                    Logger.info(f"[baike] 移动百科候选评分 {score}: {text[:80]}")
+                    await self.page.goto(desktop_url, timeout=30000, wait_until="domcontentloaded")
+                    await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
+                    Logger.success(f"[baike] 移动百科找到词条: {self.page.url}")
+                    return self.page.url
+            except Exception as e:
+                Logger.error(f"[baike] 移动百科候选查找失败: {e}")
+                continue
+        return None
 
-            Logger.success(f"[baike] 找到词条: {current_url}")
-            return current_url
-
-        except Exception as e:
-            Logger.error(f"[baike] 搜索失败: {e}")
-            return None
-
-    async def _get_detail(self, url: str, title: str) -> Dict[str, Any]:
+    async def _get_detail(self, url: str, title: str, author: str = "") -> Dict[str, Any]:
         """获取词条内容"""
         Logger.info(f"[baike] 正在获取内容: {url}")
 
@@ -326,24 +539,15 @@ class BaikeCrawler(BaseCrawler):
 
             if disambiguation_links or "多义词" in content:
                 Logger.info("[baike] 检测到多义词页面，查找小说义项...")
-                novel_link = None
-
-                for link in disambiguation_links:
-                    link_text = link.text.strip()
-                    if any(kw in link_text for kw in ["长篇小说", "网络小说", "小说", "文学作品"]):
-                        novel_link = link
-                        break
-
-                if not novel_link:
-                    for link in disambiguation_links:
-                        link_text = link.text.strip()
-                        if any(kw in link_text for kw in ["书", "图书", "原著"]):
-                            if not any(ex in link_text for ex in ["游戏", "动画", "电影", "漫画", "剧", "手游", "网游"]):
-                                novel_link = link
-                                break
-
-                if not novel_link and disambiguation_links:
-                    novel_link = disambiguation_links[0]
+                scored_links = []
+                for index, link in enumerate(disambiguation_links):
+                    href = link.get("href", "")
+                    container = link.find_parent(["li", "div", "section"]) or link
+                    link_text = container.get_text(" ", strip=True)
+                    score = _score_book_candidate(link_text, title, author, href) - index
+                    scored_links.append((score, link, link_text))
+                scored_links.sort(key=lambda item: item[0], reverse=True)
+                novel_link = scored_links[0][1] if scored_links and scored_links[0][0] > 0 else None
 
                 if novel_link:
                     href = novel_link.get("href", "")
@@ -354,6 +558,9 @@ class BaikeCrawler(BaseCrawler):
                         await asyncio.sleep(2)
                         content = await self.page.content()
                         soup = BeautifulSoup(content, "html.parser")
+                else:
+                    Logger.warning("[baike] 多义词页没有可信小说义项，跳过")
+                    return None
 
             parsed = self._parse_detail_html(content, title, source_url=self.page.url)
             if parsed:
@@ -407,8 +614,10 @@ class BaikeCrawler(BaseCrawler):
                     if "语言" in card_info:
                         result["language"] = str(card_info["语言"])
 
-                    if "类型" in card_info:
-                        result["type"] = str(card_info["类型"])
+                    for type_key in ("文学体裁", "作品类型", "类型", "体裁"):
+                        if type_key in card_info:
+                            result["genre"] = str(card_info[type_key])
+                            break
 
                     if "状态" in card_info:
                         result["serial_status"] = str(card_info["状态"])
@@ -430,14 +639,14 @@ class BaikeCrawler(BaseCrawler):
                     if "ISBN" in card_info:
                         result["isbn"] = str(card_info["ISBN"])
 
+                abstract = page_data.get("abstract", {})
+                summary = self._extract_abstract(abstract)
                 description = page_data.get("description", "")
-                if description:
+                if summary:
+                    result["summary"] = summary
+                    result["top_content"] = summary
+                elif description and "..." not in description and "…" not in description:
                     result["summary"] = description
-                else:
-                    abstract = page_data.get("abstract", {})
-                    summary = self._extract_abstract(abstract)
-                    if summary:
-                        result["summary"] = summary
 
             # HTML 回退
             if not result.get("baike_title"):
@@ -453,6 +662,7 @@ class BaikeCrawler(BaseCrawler):
                 )
                 if summary_elem:
                     result["summary"] = summary_elem.text.strip()
+                    result["top_content"] = result["summary"]
 
             story_titles = ["内容情节", "内容介绍", "故事情节", "作品情节", "故事大纲", "剧情简介"]
             story = self._extract_section_text(soup, story_titles)

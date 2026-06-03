@@ -20,8 +20,12 @@ site/public/assets/people/
 node_modules/
 .env
 
+# Python
+__pycache__/
+*.pyc
+
 # Local crawl assistance artifacts
-temp-script/book-ingest/data/cookies/*.json
+temp-script/book-ingest/data/cookies/
 temp-script/book-ingest/data/manual/
 
 # IDE

@@ -1,0 +1,134 @@
+{
+  "isbn": "9787536693968",
+  "source": "openlibrary",
+  "title": "The Dark Forest (The Three-Body Problem Series Book 2)",
+  "title_original": "The Dark Forest (The Three-Body Problem Series Book 2)",
+  "authors": [
+    "刘慈欣"
+  ],
+  "translators": [],
+  "cover_url": "https://covers.openlibrary.org/b/id/10526598-L.jpg",
+  "first_publish_year": 2008,
+  "publisher": [],
+  "language": "chi",
+  "openlibrary_id": "OL16314245W",
+  "openlibrary_url": "https://openlibrary.org/works/OL16314245W",
+  "description": "Soon to be a Netflix Original Series!\r\n\r\n\"Wildly imaginative.\" —President Barack Obama on The Three-Body Problem trilogy\r\n\r\nThis near-future trilogy is the first chance for English-speaking readers to experience this multiple-award-winning phenomenon from Cixin Liu, China's most beloved science fiction author.\r\n\r\nIn The Dark Forest, Earth is reeling from the revelation of a coming alien invasion-in just four centuries' time. The aliens' human collaborators may have been defeated, but the presence of the sophons, the subatomic particles that allow Trisolaris instant access to all human information, means that Earth's defense plans are totally exposed to the enemy. Only the human mind remains a secret. This is the motivation for the Wallfacer Project, a daring plan that grants four men enormous resources to design secret strategies, hidden through deceit and misdirection from Earth and Trisolaris alike. Three of the Wallfacers are influential statesmen and scientists, but the fourth is a total unknown. Luo Ji, an unambitious Chinese astronomer and sociologist, is baffled by his new status. All he knows is that he's the one Wallfacer that Trisolaris wants dead.",
+  "cover_ids": [
+    10526598,
+    6977799,
+    7893957,
+    7892505,
+    9324894,
+    9323519,
+    8136573,
+    8747497,
+    9694620,
+    10376579,
+    10376599,
+    10376603,
+    8850958
+  ],
+  "cover_urls": [
+    "https://covers.openlibrary.org/b/id/10526598-L.jpg",
+    "https://covers.openlibrary.org/b/id/6977799-L.jpg",
+    "https://covers.openlibrary.org/b/id/7893957-L.jpg",
+    "https://covers.openlibrary.org/b/id/7892505-L.jpg",
+    "https://covers.openlibrary.org/b/id/9324894-L.jpg"
+  ],
+  "subjects": [
+    "Chinese Science fiction",
+    "Fiction",
+    "Science Fiction",
+    "Fiction, science fiction, general",
+    "Human-alien encounters",
+    "Imaginary wars and battles",
+    "FICTION / Science Fiction / General",
+    "General"
+  ],
+  "rating": 8.9,
+  "author_details": [
+    {
+      "bio": "Chinese science fiction writer",
+      "birth_date": "23 June 1963",
+      "photos": [
+        10246623
+      ],
+      "alternate_names": [
+        "Liu Cixin",
+        "Cixin Liu",
+        "Cixin Liu; Liu Cixin",
+        "Лю Цысинь"
+      ],
+      "source_records": [
+        "ia:shijianyimintime0000liuc",
+        "bwb:9781784978501",
+        "marc:marc_columbia/Columbia-extract-20221130-032.mrc:8984307:1453",
+        "amazon:2367629439",
+        "promise:bwb_daily_pallets_2024-07-31:W9-AWP-178",
+        "amazon:8381881544"
+      ],
+      "type": {
+        "key": "/type/author"
+      },
+      "personal_name": "Cixin Liu",
+      "key": "/authors/OL7044246A",
+      "remote_ids": {
+        "amazon": "B007JP96JU",
+        "viaf": "78192675",
+        "wikidata": "Q607588",
+        "librarything": "liucixin",
+        "goodreads": "5780686",
+        "isni": "0000000037048121",
+        "bookbrainz": "12c8f5fd-2482-4228-bfdb-5920e72ffe26",
+        "gnd": "1072055163",
+        "imdb": "nm7286732",
+        "lc_naf": "n2005083742",
+        "musicbrainz": "57f8a54d-521c-46f6-9340-c4f44096e203",
+        "storygraph": "db769bf7-855e-4886-897e-676b77f18ccb",
+        "inventaire": "wd:Q607588"
+      },
+      "name": "刘慈欣",
+      "links": [
+        {
+          "title": "Author's Blog (in Chinese)",
+          "url": "https://blog.sina.com.cn/lcx",
+          "type": {
+            "key": "/type/link"
+          }
+        },
+        {
+          "title": "Fantastic Fiction Author Entry",
+          "url": "https://www.fantasticfiction.com/c/liu-cixin/",
+          "type": {
+            "key": "/type/link"
+          }
+        },
+        {
+          "title": "ISFDB Author Entry",
+          "url": "https://www.isfdb.org/cgi-bin/ea.cgi?208409",
+          "type": {
+            "key": "/type/link"
+          }
+        },
+        {
+          "title": "SFE Author Entry",
+          "url": "https://sf-encyclopedia.com/entry/liu_cixin",
+          "type": {
+            "key": "/type/link"
+          }
+        }
+      ],
+      "latest_revision": 16,
+      "revision": 16,
+      "created": {
+        "type": "/type/datetime",
+        "value": "2011-12-07T06:54:50.825332"
+      },
+      "last_modified": {
+        "type": "/type/datetime",
+        "value": "2026-01-18T05:23:41.341106"
+      }
+    }
+  ]
+}
