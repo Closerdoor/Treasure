@@ -1,0 +1,75 @@
+{
+  "id": "0200000032",
+  "title": "道诡异仙",
+  "titleOriginal": null,
+  "otherTitles": null,
+  "isbn": null,
+  "year": null,
+  "country": "中国",
+  "language": "中文",
+  "wordCount": 2208900,
+  "publisher": null,
+  "publishDate": null,
+  "pages": null,
+  "price": null,
+  "binding": null,
+  "format": null,
+  "edition": null,
+  "summary": "诡异的天道，异常的仙佛，是真？是假？陷入迷惘的李火旺无法分辨。 可让他无法分辨的不仅仅只是这些。还有他自己，他病了，病的很重。",
+  "story": null,
+  "quotes": null,
+  "excerpts": null,
+  "seriesId": null,
+  "seriesOrder": null,
+  "scores": null,
+  "externalSource": [
+    {
+      "name": "起点中文网",
+      "id": "道诡异仙",
+      "link": "https://www.qidian.com/book/1031794030/"
+    }
+  ],
+  "images": {
+    "cover": "covers/qidian.jpg",
+    "covers": {},
+    "assetDir": "0200000032"
+  },
+  "reviews": null,
+  "related": null,
+  "status": "draft",
+  "_meta": {
+    "fieldSources": {
+      "title": "qidian",
+      "wordCount": "qidian",
+      "country": "qidian",
+      "language": "qidian",
+      "summary": "qidian"
+    },
+    "conflicts": [],
+    "authors": [
+      "狐尾的笔"
+    ],
+    "translators": [],
+    "tags": [
+      "玄幻",
+      "东方玄幻"
+    ],
+    "subjects": [],
+    "genres": [
+      "玄幻",
+      "东方玄幻"
+    ],
+    "awards": [],
+    "series": null,
+    "seriesCandidates": [],
+    "coverUrls": {
+      "qidian": "https://bookcover.yuewen.com/qdbimg/349573/1031794030/600.webp"
+    },
+    "prices": {},
+    "personDetails": [],
+    "isWebNovel": true,
+    "serialStatus": "连载",
+    "contentKind": "web_novel",
+    "batchRunId": "2026-06-10-web-novel-bulk-import-candidates"
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "id": "0200000026",
+  "title": "盘龙",
+  "titleOriginal": null,
+  "otherTitles": null,
+  "isbn": null,
+  "year": null,
+  "country": "中国",
+  "language": "中文",
+  "wordCount": 3364800,
+  "publisher": null,
+  "publishDate": null,
+  "pages": null,
+  "price": null,
+  "binding": null,
+  "format": null,
+  "edition": null,
+  "summary": "楼房大小的血睛鬃毛狮，力大无穷的紫睛金毛猿，毁天灭地的九头蛇皇，携带着毁灭雷电的恐怖雷龙……这里无奇不有，这是一个广博的魔幻世界。强者可以站在黑色巨龙的头顶遨游天际，恐怖的魔法可以焚烧江河，可以毁灭城池，可以夷平山岳…… 这本书，讲述了一个拥有‘盘龙戒指’的少年的梦幻旅程。 热血",
+  "story": null,
+  "quotes": null,
+  "excerpts": null,
+  "seriesId": null,
+  "seriesOrder": null,
+  "scores": null,
+  "externalSource": [
+    {
+      "name": "起点中文网",
+      "id": "盘龙",
+      "link": "https://www.qidian.com/book/1017141/"
+    }
+  ],
+  "images": {
+    "cover": "covers/qidian.jpg",
+    "covers": {},
+    "assetDir": "0200000026"
+  },
+  "reviews": null,
+  "related": null,
+  "status": "draft",
+  "_meta": {
+    "fieldSources": {
+      "title": "qidian",
+      "wordCount": "qidian",
+      "country": "qidian",
+      "language": "qidian",
+      "summary": "qidian"
+    },
+    "conflicts": [],
+    "authors": [
+      "我吃西红柿"
+    ],
+    "translators": [],
+    "tags": [
+      "奇幻",
+      "剑与魔法"
+    ],
+    "subjects": [],
+    "genres": [
+      "奇幻",
+      "剑与魔法"
+    ],
+    "awards": [],
+    "series": null,
+    "seriesCandidates": [],
+    "coverUrls": {
+      "qidian": "https://bookcover.yuewen.com/qdbimg/349573/1017141/600.webp"
+    },
+    "prices": {},
+    "personDetails": [],
+    "isWebNovel": true,
+    "serialStatus": "完本",
+    "contentKind": "web_novel",
+    "batchRunId": "2026-06-10-web-novel-bulk-import-candidates"
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "id": "0200000045",
+  "title": "佣兵天下",
+  "titleOriginal": null,
+  "otherTitles": null,
+  "isbn": null,
+  "year": null,
+  "country": "中国",
+  "language": "中文",
+  "wordCount": null,
+  "publisher": null,
+  "publishDate": null,
+  "pages": null,
+  "price": null,
+  "binding": null,
+  "format": null,
+  "edition": null,
+  "summary": "奇幻战争题材网络小说。作品围绕佣兵团、国家战争、种族冲突和英雄成长展开，以宏大的世界观和群像冒险构成主要叙事。",
+  "story": "以艾米等年轻佣兵的成长为主线，故事从佣兵任务逐渐扩展到大陆战争与历史命运。个人友情、团队责任和时代巨变交织，推动角色走向更大的战场。",
+  "quotes": null,
+  "excerpts": null,
+  "seriesId": null,
+  "seriesOrder": null,
+  "scores": null,
+  "externalSource": [
+    {
+      "name": "起点中文网",
+      "id": "起点中文网:佣兵天下",
+      "link": "https://www.qidian.com/book/1026121482/"
+    },
+    {
+      "name": "微信读书",
+      "id": "微信读书:佣兵天下",
+      "link": "https://weread.qq.com/web/search/books?author=%E8%AF%B4%E4%B8%8D%E5%BE%97%E5%A4%A7%E5%B8%88"
+    }
+  ],
+  "images": null,
+  "reviews": null,
+  "related": null,
+  "status": "draft",
+  "_meta": {
+    "fieldSources": {
+      "title": "manual_fallback",
+      "country": "manual_fallback",
+      "language": "manual_fallback",
+      "summary": "manual_fallback",
+      "story": "manual_fallback"
+    },
+    "conflicts": [],
+    "authors": [
+      "说不得大师"
+    ],
+    "translators": [],
+    "tags": [
+      "奇幻",
+      "战争",
+      "冒险"
+    ],
+    "subjects": [],
+    "genres": [
+      "网络小说",
+      "奇幻小说"
+    ],
+    "awards": [],
+    "series": null,
+    "seriesCandidates": [],
+    "coverUrls": {},
+    "prices": {},
+    "personDetails": [],
+    "isWebNovel": true,
+    "contentKind": "web_novel",
+    "batchRunId": "2026-06-11-web-novel-blocked-manual-fallback",
+    "manualFallback": {
+      "reason": "Existing automated sources did not produce safe whole-work staging in the fast batch.",
+      "sourceNames": "起点中文网, 微信读书",
+      "sourceGovernance": "candidate/reference/manual_fallback only; not a new automated adapter"
+    }
+  }
+}

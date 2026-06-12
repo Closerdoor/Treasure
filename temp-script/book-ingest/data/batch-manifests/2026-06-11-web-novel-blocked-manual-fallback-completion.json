@@ -1,0 +1,95 @@
+{
+  "batchId": "2026-06-11-web-novel-blocked-manual-fallback",
+  "completedAt": "2026-06-11",
+  "sourceMode": "manual_fallback_staging",
+  "officialAutomatedSourcesAdded": false,
+  "requested": 14,
+  "applied": 14,
+  "generatedBookCount": 54,
+  "items": [
+    {
+      "bookId": "0200000041",
+      "title": "雪中悍刀行",
+      "author": "烽火戏诸侯",
+      "status": "applied"
+    },
+    {
+      "bookId": "0200000042",
+      "title": "新宋",
+      "author": "阿越",
+      "status": "applied"
+    },
+    {
+      "bookId": "0200000043",
+      "title": "风姿物语",
+      "author": "罗森",
+      "status": "applied"
+    },
+    {
+      "bookId": "0200000044",
+      "title": "陈二狗的妖孽人生",
+      "author": "烽火戏诸侯",
+      "status": "applied"
+    },
+    {
+      "bookId": "0200000045",
+      "title": "佣兵天下",
+      "author": "说不得大师",
+      "status": "applied"
+    },
+    {
+      "bookId": "0200000046",
+      "title": "天行健",
+      "author": "燕垒生",
+      "status": "applied"
+    },
+    {
+      "bookId": "0200000047",
+      "title": "鬼吹灯",
+      "author": "天下霸唱",
+      "status": "applied"
+    },
+    {
+      "bookId": "0200000048",
+      "title": "第一次的亲密接触",
+      "author": "痞子蔡",
+      "status": "applied"
+    },
+    {
+      "bookId": "0200000049",
+      "title": "悟空传",
+      "author": "今何在",
+      "status": "applied"
+    },
+    {
+      "bookId": "0200000050",
+      "title": "飘邈之旅",
+      "author": "萧潜",
+      "status": "applied"
+    },
+    {
+      "bookId": "0200000051",
+      "title": "亵渎",
+      "author": "烟雨江南",
+      "status": "applied"
+    },
+    {
+      "bookId": "0200000052",
+      "title": "花千骨",
+      "author": "Fresh果果",
+      "status": "applied"
+    },
+    {
+      "bookId": "0200000053",
+      "title": "宰执天下",
+      "author": "cuslaa",
+      "status": "applied"
+    },
+    {
+      "bookId": "0200000054",
+      "title": "十日终焉",
+      "author": "杀虫队队员",
+      "status": "applied"
+    }
+  ]
+}

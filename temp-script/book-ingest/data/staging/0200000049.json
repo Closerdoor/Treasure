@@ -1,0 +1,80 @@
+{
+  "id": "0200000049",
+  "title": "悟空传",
+  "titleOriginal": null,
+  "otherTitles": null,
+  "isbn": null,
+  "year": 2000,
+  "country": "中国",
+  "language": "中文",
+  "wordCount": null,
+  "publisher": null,
+  "publishDate": null,
+  "pages": null,
+  "price": null,
+  "binding": null,
+  "format": null,
+  "edition": null,
+  "summary": "以《西游记》人物为基础的重写型网络小说。作品用现代意识重新诠释孙悟空、唐僧、猪八戒等角色，突出反抗、宿命和自我追问。",
+  "story": "孙悟空等角色在既定神佛秩序和个人自由之间挣扎。小说通过碎片化叙事与神话重构，呈现人物对命运、记忆、爱情和反抗意义的追寻。",
+  "quotes": null,
+  "excerpts": null,
+  "seriesId": null,
+  "seriesOrder": null,
+  "scores": null,
+  "externalSource": [
+    {
+      "name": "维基百科",
+      "id": "Wikipedia:悟空传",
+      "link": "https://zh.wikipedia.org/wiki/%E4%BB%8A%E4%BD%95%E5%9C%A8"
+    },
+    {
+      "name": "中国作家网",
+      "id": "中国作家网:悟空传",
+      "link": "https://www.chinawriter.com.cn/n1/2017/0717/c404079-29409132.html"
+    }
+  ],
+  "images": null,
+  "reviews": null,
+  "related": null,
+  "status": "draft",
+  "_meta": {
+    "fieldSources": {
+      "title": "manual_fallback",
+      "country": "manual_fallback",
+      "language": "manual_fallback",
+      "summary": "manual_fallback",
+      "story": "manual_fallback",
+      "year": "manual_fallback"
+    },
+    "conflicts": [],
+    "authors": [
+      "今何在"
+    ],
+    "translators": [],
+    "tags": [
+      "神话",
+      "重写",
+      "幻想"
+    ],
+    "subjects": [],
+    "genres": [
+      "网络小说",
+      "奇幻小说"
+    ],
+    "awards": [],
+    "series": null,
+    "seriesCandidates": [],
+    "coverUrls": {},
+    "prices": {},
+    "personDetails": [],
+    "isWebNovel": true,
+    "contentKind": "web_novel",
+    "batchRunId": "2026-06-11-web-novel-blocked-manual-fallback",
+    "manualFallback": {
+      "reason": "Existing automated sources did not produce safe whole-work staging in the fast batch.",
+      "sourceNames": "维基百科, 中国作家网",
+      "sourceGovernance": "candidate/reference/manual_fallback only; not a new automated adapter"
+    }
+  }
+}

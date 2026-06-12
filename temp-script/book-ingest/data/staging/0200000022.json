@@ -1,0 +1,75 @@
+{
+  "id": "0200000022",
+  "title": "牧神记",
+  "titleOriginal": null,
+  "otherTitles": null,
+  "isbn": null,
+  "year": null,
+  "country": "中国",
+  "language": "中文",
+  "wordCount": 5911799,
+  "publisher": null,
+  "publishDate": null,
+  "pages": null,
+  "price": null,
+  "binding": null,
+  "format": null,
+  "edition": null,
+  "summary": "大墟的祖训说，天黑，别出门。 大墟残老村的老弱病残们从江边捡到了一个婴儿，取名秦牧，含辛茹苦将他养大。这一天夜幕降临，黑暗笼罩大墟，秦牧走出了家门…… 做个春风中荡漾的反派吧！ 瞎子对他说。 秦牧的反派之路，正在崛起！ 书友群：600290060，624672265，VIP群：663057414（有验证）普通群：424940671 勇猛 玄学 练功流",
+  "story": null,
+  "quotes": null,
+  "excerpts": null,
+  "seriesId": null,
+  "seriesOrder": null,
+  "scores": null,
+  "externalSource": [
+    {
+      "name": "起点中文网",
+      "id": "牧神记",
+      "link": "https://www.qidian.com/book/1009704712/"
+    }
+  ],
+  "images": {
+    "cover": "covers/qidian.jpg",
+    "covers": {},
+    "assetDir": "0200000022"
+  },
+  "reviews": null,
+  "related": null,
+  "status": "draft",
+  "_meta": {
+    "fieldSources": {
+      "title": "qidian",
+      "wordCount": "qidian",
+      "country": "qidian",
+      "language": "qidian",
+      "summary": "qidian"
+    },
+    "conflicts": [],
+    "authors": [
+      "宅猪"
+    ],
+    "translators": [],
+    "tags": [
+      "玄幻",
+      "东方玄幻"
+    ],
+    "subjects": [],
+    "genres": [
+      "玄幻",
+      "东方玄幻"
+    ],
+    "awards": [],
+    "series": null,
+    "seriesCandidates": [],
+    "coverUrls": {
+      "qidian": "https://bookcover.yuewen.com/qdbimg/349573/1009704712/600.webp"
+    },
+    "prices": {},
+    "personDetails": [],
+    "isWebNovel": true,
+    "serialStatus": "完本",
+    "contentKind": "web_novel",
+    "batchRunId": "2026-06-10-web-novel-bulk-import-candidates"
+  }
+}

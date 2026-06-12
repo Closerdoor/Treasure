@@ -1,0 +1,75 @@
+{
+  "id": "0200000038",
+  "title": "间客",
+  "titleOriginal": null,
+  "otherTitles": null,
+  "isbn": null,
+  "year": null,
+  "country": "中国",
+  "language": "中文",
+  "wordCount": 3435100,
+  "publisher": null,
+  "publishDate": null,
+  "pages": null,
+  "price": null,
+  "binding": null,
+  "format": null,
+  "edition": null,
+  "summary": "世界上有两件东西能够深深地震撼人们的心灵，一件是我们心中崇高的道德准则，另一件是我们头顶上灿烂的星空——康德 当许乐从这行字上收回目光，第一次真正看到尘埃后方那繁若芝麻的群星时，并没有被震撼，相反他怒了：大区天空外面的星星这么刺眼，谁能受得了？天天被这些光晃着，只怕会变成矿道上那些被大灯照成痴呆的野猫！ 于是许乐放弃了成为一名高贵女性战舰指挥官辅官的梦想，开始在引力的作用下，堕落，堕落，堕落成了看门房的外乡穷小子，出卖身体的可怜男子，从事繁琐工作的男保姆……在波澜壮阔的大时代里，露着白牙，眯眼傻笑，披着莫名的光辉，一步一步地迈向谁也不知道的远方。 …… …… 许乐，东林大区公民，从一颗荒凉的半废弃星球上离开，脑海里拥有一些希奇古怪的知识，身体里拥有这个世界谁也不曾接触过的力量，并不浑沌，一味荒唐知足地进入了这个最无趣也是最有趣的世界。 间客的人生，一定很精彩。 技术流 特种兵",
+  "story": null,
+  "quotes": null,
+  "excerpts": null,
+  "seriesId": null,
+  "seriesOrder": null,
+  "scores": null,
+  "externalSource": [
+    {
+      "name": "起点中文网",
+      "id": "间客",
+      "link": "https://www.qidian.com/book/1223147/"
+    }
+  ],
+  "images": {
+    "cover": "covers/qidian.jpg",
+    "covers": {},
+    "assetDir": "0200000038"
+  },
+  "reviews": null,
+  "related": null,
+  "status": "draft",
+  "_meta": {
+    "fieldSources": {
+      "title": "qidian",
+      "wordCount": "qidian",
+      "country": "qidian",
+      "language": "qidian",
+      "summary": "qidian"
+    },
+    "conflicts": [],
+    "authors": [
+      "猫腻"
+    ],
+    "translators": [],
+    "tags": [
+      "玄幻",
+      "东方玄幻"
+    ],
+    "subjects": [],
+    "genres": [
+      "玄幻",
+      "东方玄幻"
+    ],
+    "awards": [],
+    "series": null,
+    "seriesCandidates": [],
+    "coverUrls": {
+      "qidian": "https://bookcover.yuewen.com/qdbimg/349573/1223147/600.webp"
+    },
+    "prices": {},
+    "personDetails": [],
+    "isWebNovel": true,
+    "serialStatus": "完本",
+    "contentKind": "web_novel",
+    "batchRunId": "2026-06-10-web-novel-bulk-import-candidates"
+  }
+}

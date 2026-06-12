@@ -1,0 +1,75 @@
+{
+  "id": "0200000037",
+  "title": "将夜",
+  "titleOriginal": null,
+  "otherTitles": null,
+  "isbn": null,
+  "year": null,
+  "country": "中国",
+  "language": "中文",
+  "wordCount": 3797300,
+  "publisher": null,
+  "publishDate": null,
+  "pages": null,
+  "price": null,
+  "binding": null,
+  "format": null,
+  "edition": null,
+  "summary": "与天斗，其乐无穷。 …… 热血",
+  "story": null,
+  "quotes": null,
+  "excerpts": null,
+  "seriesId": null,
+  "seriesOrder": null,
+  "scores": null,
+  "externalSource": [
+    {
+      "name": "起点中文网",
+      "id": "将夜",
+      "link": "https://www.qidian.com/book/2083259/"
+    }
+  ],
+  "images": {
+    "cover": "covers/qidian.jpg",
+    "covers": {},
+    "assetDir": "0200000037"
+  },
+  "reviews": null,
+  "related": null,
+  "status": "draft",
+  "_meta": {
+    "fieldSources": {
+      "title": "qidian",
+      "wordCount": "qidian",
+      "country": "qidian",
+      "language": "qidian",
+      "summary": "qidian"
+    },
+    "conflicts": [],
+    "authors": [
+      "猫腻"
+    ],
+    "translators": [],
+    "tags": [
+      "玄幻",
+      "东方玄幻"
+    ],
+    "subjects": [],
+    "genres": [
+      "玄幻",
+      "东方玄幻"
+    ],
+    "awards": [],
+    "series": null,
+    "seriesCandidates": [],
+    "coverUrls": {
+      "qidian": "https://bookcover.yuewen.com/qdbimg/349573/2083259/600.webp"
+    },
+    "prices": {},
+    "personDetails": [],
+    "isWebNovel": true,
+    "serialStatus": "完本",
+    "contentKind": "web_novel",
+    "batchRunId": "2026-06-10-web-novel-bulk-import-candidates"
+  }
+}

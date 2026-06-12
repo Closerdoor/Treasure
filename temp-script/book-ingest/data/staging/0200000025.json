@@ -1,0 +1,75 @@
+{
+  "id": "0200000025",
+  "title": "佛本是道",
+  "titleOriginal": null,
+  "otherTitles": null,
+  "isbn": null,
+  "year": null,
+  "country": "中国",
+  "language": "中文",
+  "wordCount": 2038899,
+  "publisher": null,
+  "publishDate": null,
+  "pages": null,
+  "price": null,
+  "binding": null,
+  "format": null,
+  "edition": null,
+  "summary": "天道无常，天道无情，包容万物，游离其外。无善无恶，无是无非，无恩无怨，无喜无悲。仙道是道，魔道是道，妖道是道，佛本是道。高卧九重云，蒲团了道真。天地玄黄外，吾当掌教尊。盘古生太极，两仪四象循。一道传三友，二教阐截分。玄门都领袖，一气化三清",
+  "story": null,
+  "quotes": null,
+  "excerpts": null,
+  "seriesId": null,
+  "seriesOrder": null,
+  "scores": null,
+  "externalSource": [
+    {
+      "name": "起点中文网",
+      "id": "佛本是道",
+      "link": "https://www.qidian.com/book/53234/"
+    }
+  ],
+  "images": {
+    "cover": "covers/qidian.jpg",
+    "covers": {},
+    "assetDir": "0200000025"
+  },
+  "reviews": null,
+  "related": null,
+  "status": "draft",
+  "_meta": {
+    "fieldSources": {
+      "title": "qidian",
+      "wordCount": "qidian",
+      "country": "qidian",
+      "language": "qidian",
+      "summary": "qidian"
+    },
+    "conflicts": [],
+    "authors": [
+      "梦入神机"
+    ],
+    "translators": [],
+    "tags": [
+      "仙侠",
+      "神话修真"
+    ],
+    "subjects": [],
+    "genres": [
+      "仙侠",
+      "神话修真"
+    ],
+    "awards": [],
+    "series": null,
+    "seriesCandidates": [],
+    "coverUrls": {
+      "qidian": "https://bookcover.yuewen.com/qdbimg/349573/53234/600.webp"
+    },
+    "prices": {},
+    "personDetails": [],
+    "isWebNovel": true,
+    "serialStatus": "完本",
+    "contentKind": "web_novel",
+    "batchRunId": "2026-06-10-web-novel-bulk-import-candidates"
+  }
+}

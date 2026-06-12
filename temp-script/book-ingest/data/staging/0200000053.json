@@ -1,0 +1,79 @@
+{
+  "id": "0200000053",
+  "title": "宰执天下",
+  "titleOriginal": null,
+  "otherTitles": null,
+  "isbn": null,
+  "year": null,
+  "country": "中国",
+  "language": "中文",
+  "wordCount": null,
+  "publisher": null,
+  "publishDate": null,
+  "pages": null,
+  "price": null,
+  "binding": null,
+  "format": null,
+  "edition": null,
+  "summary": "宋代背景的架空历史小说。作品以主角进入北宋政治社会后的经历为核心，展开军事、政务、技术、士人政治和天下格局的长篇叙事。",
+  "story": "主角在北宋时代逐步进入权力中心，借助知识、制度和现实判断影响历史走向。小说通过朝堂、边疆和社会治理多线推进，呈现个人与时代结构的互动。",
+  "quotes": null,
+  "excerpts": null,
+  "seriesId": null,
+  "seriesOrder": null,
+  "scores": null,
+  "externalSource": [
+    {
+      "name": "微信读书",
+      "id": "微信读书:宰执天下",
+      "link": "https://weread.qq.com/web/bookDetail/8f432ca052ba378f4cd737b"
+    },
+    {
+      "name": "抖音百科",
+      "id": "抖音百科:宰执天下",
+      "link": "https://m.baike.com/wikiid/8369379632458482201"
+    }
+  ],
+  "images": null,
+  "reviews": null,
+  "related": null,
+  "status": "draft",
+  "_meta": {
+    "fieldSources": {
+      "title": "manual_fallback",
+      "country": "manual_fallback",
+      "language": "manual_fallback",
+      "summary": "manual_fallback",
+      "story": "manual_fallback"
+    },
+    "conflicts": [],
+    "authors": [
+      "cuslaa"
+    ],
+    "translators": [],
+    "tags": [
+      "历史",
+      "两宋元明",
+      "穿越"
+    ],
+    "subjects": [],
+    "genres": [
+      "网络小说",
+      "历史小说"
+    ],
+    "awards": [],
+    "series": null,
+    "seriesCandidates": [],
+    "coverUrls": {},
+    "prices": {},
+    "personDetails": [],
+    "isWebNovel": true,
+    "contentKind": "web_novel",
+    "batchRunId": "2026-06-11-web-novel-blocked-manual-fallback",
+    "manualFallback": {
+      "reason": "Existing automated sources did not produce safe whole-work staging in the fast batch.",
+      "sourceNames": "微信读书, 抖音百科",
+      "sourceGovernance": "candidate/reference/manual_fallback only; not a new automated adapter"
+    }
+  }
+}

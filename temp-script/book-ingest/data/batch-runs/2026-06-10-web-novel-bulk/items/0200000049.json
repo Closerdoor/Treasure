@@ -1,0 +1,73 @@
+{
+  "bookId": "0200000049",
+  "title": "飘邈之旅",
+  "type": "web_novel",
+  "contentKind": "web_novel",
+  "profile": "web-novel-fast",
+  "expectedAction": "create",
+  "doubanId": "",
+  "sourceHints": {},
+  "rawSources": {
+    "baike": false,
+    "wikipedia": false,
+    "qidian": true
+  },
+  "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000049.html",
+  "precheck": {
+    "book_id": "0200000049",
+    "title": null,
+    "title_original": null,
+    "year": null,
+    "isbn": null,
+    "source_ids": {},
+    "db_max_book_id": "0200000013",
+    "expected_next_book_id": "0200000014",
+    "update_existing": false,
+    "matches": [],
+    "assets": {
+      "local_refs": 1,
+      "external_refs": [],
+      "non_local_objects": [],
+      "missing": []
+    },
+    "authors": 0,
+    "translators": 0,
+    "tags": 0,
+    "reviews": 0,
+    "field_sources": 2,
+    "conflicts": 0,
+    "dry_run": {
+      "result": {
+        "success": false,
+        "error": "NOT NULL constraint failed: books.title"
+      },
+      "foreign_key_problems": 0,
+      "book_person": 0,
+      "book_category": 0
+    },
+    "problems": [
+      "summary is missing",
+      "story is missing",
+      "书籍 ID 不是数据库下一条书籍 ID，当前 0200000049，预期 0200000014",
+      "临时库导入失败: NOT NULL constraint failed: books.title"
+    ],
+    "warnings": []
+  },
+  "status": "failed",
+  "reviewNotes": [
+    "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+    "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+  ],
+  "precheckProblems": [
+    "summary is missing",
+    "story is missing",
+    "书籍 ID 不是数据库下一条书籍 ID，当前 0200000049，预期 0200000014",
+    "临时库导入失败: NOT NULL constraint failed: books.title"
+  ],
+  "blockingProblems": [
+    "summary is missing",
+    "临时库导入失败: NOT NULL constraint failed: books.title",
+    "web-novel-fast 缺少作者"
+  ],
+  "errors": []
+}

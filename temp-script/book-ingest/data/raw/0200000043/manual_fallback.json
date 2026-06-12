@@ -1,0 +1,33 @@
+{
+  "source": "manual_fallback",
+  "title": "风姿物语",
+  "authors": [
+    "罗森"
+  ],
+  "year": 1997,
+  "word_count": null,
+  "summary": "早期中文网络奇幻小说代表作之一。作品以庞大的异世界设定和多线人物关系展开，融合冒险、战争、政治、魔法与成长叙事。",
+  "story": "故事围绕兰斯洛等角色在风之大陆上的冒险和纷争展开，多方势力、历史谜团与人物命运相互牵连，逐步形成横跨大陆格局的史诗叙事。",
+  "tags": [
+    "奇幻",
+    "玄幻",
+    "冒险"
+  ],
+  "genres": [
+    "网络小说",
+    "奇幻小说"
+  ],
+  "sources": [
+    {
+      "name": "维基百科",
+      "id": "Wikipedia:风姿物语",
+      "link": "https://zh.wikipedia.org/zh-hans/%E9%A2%A8%E5%A7%BF%E7%89%A9%E8%AA%9E"
+    },
+    {
+      "name": "豆瓣作者作品",
+      "id": "豆瓣:风姿物语",
+      "link": "https://book.douban.com/author/4513708/books?format=pic&sortby=time"
+    }
+  ],
+  "note": "Manual fallback raw compiled from reviewed candidate/reference anchors. This is not an automated source adapter."
+}

@@ -1,0 +1,74 @@
+{
+  "bookId": "0200000031",
+  "title": "死人经",
+  "type": "web_novel",
+  "contentKind": "web_novel",
+  "profile": "web-novel-fast",
+  "expectedAction": "create",
+  "doubanId": "",
+  "sourceHints": {
+    "qidianUrl": "https://www.qidian.com/book/2389275/"
+  },
+  "rawSources": {
+    "qidian": true
+  },
+  "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk-import-candidates/field-reports/0200000031.html",
+  "precheck": {
+    "book_id": "0200000031",
+    "title": "死人经",
+    "title_original": null,
+    "year": null,
+    "isbn": null,
+    "source_ids": {
+      "qidian": "死人经"
+    },
+    "db_max_book_id": "0200000013",
+    "expected_next_book_id": "0200000014",
+    "update_existing": false,
+    "matches": [],
+    "assets": {
+      "local_refs": 1,
+      "external_refs": [],
+      "non_local_objects": [],
+      "missing": []
+    },
+    "authors": 1,
+    "translators": 0,
+    "tags": 2,
+    "reviews": 0,
+    "field_sources": 5,
+    "conflicts": 0,
+    "dry_run": {
+      "result": {
+        "success": true,
+        "book_id": "0200000031",
+        "title": "死人经",
+        "persons": 1,
+        "categories": 4,
+        "assets": {
+          "copied": 0,
+          "missing": 0,
+          "skipped": 1
+        }
+      },
+      "foreign_key_problems": 0,
+      "book_person": 1,
+      "book_category": 4
+    },
+    "problems": [
+      "书籍 ID 不是数据库下一条书籍 ID，当前 0200000031，预期 0200000014"
+    ],
+    "warnings": [
+      "story is missing; web novel uses summary as whole-work outline"
+    ]
+  },
+  "status": "needs_review",
+  "reviewNotes": [
+    "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。"
+  ],
+  "precheckProblems": [
+    "书籍 ID 不是数据库下一条书籍 ID，当前 0200000031，预期 0200000014"
+  ],
+  "blockingProblems": [],
+  "errors": []
+}

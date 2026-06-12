@@ -1,0 +1,87 @@
+{
+  "runId": "2026-06-10-web-novel-bulk",
+  "createdAt": "2026-06-10",
+  "status": "draft",
+  "profile": "web-novel-fast",
+  "scope": {
+    "source": "用户一次性提供的网络小说批量书单",
+    "originalRows": 44,
+    "uniqueTitles": 43,
+    "alreadyInDatabase": 2,
+    "actionableItems": 41,
+    "note": "本 manifest 已保存完整输入；后续无需用户再次发送这批书名。网络小说快链路默认起点优先，百度百科/维基百科可作为补充；豆瓣、Goodreads、当当默认不跑，以提升批量稳定性。正式入库仍必须通过 approval JSON。"
+  },
+  "alreadyInDatabase": [
+    {
+      "bookId": "0200000012",
+      "title": "诡秘之主",
+      "authors": ["爱潜水的乌贼"],
+      "note": "数据库已有记录，默认不重复录入。"
+    },
+    {
+      "bookId": "0200000013",
+      "title": "庆余年",
+      "authors": ["猫腻"],
+      "note": "数据库已有记录，默认不重复录入。"
+    }
+  ],
+  "duplicateRows": [
+    {
+      "title": "佛本是道",
+      "authors": ["梦入神机"],
+      "duplicateOfBookId": "0200000040",
+      "note": "用户清单中重复出现，manifest 只保留一个 actionable item。"
+    }
+  ],
+  "inferredAuthors": [
+    { "title": "吞噬星空", "authors": ["我吃西红柿"] },
+    { "title": "道诡异仙", "authors": ["狐尾的笔"] },
+    { "title": "大奉打更人", "authors": ["卖报小郎君"] },
+    { "title": "十日终焉", "authors": ["杀虫队队员"] },
+    { "title": "仙逆", "authors": ["耳根"] },
+    { "title": "神墓", "authors": ["辰东"] }
+  ],
+  "items": [
+    { "bookId": "0200000022", "title": "斗罗大陆", "authors": ["唐家三少"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000023", "title": "无限恐怖", "authors": ["zhttty"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000024", "title": "雪中悍刀行", "authors": ["烽火戏诸侯"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000025", "title": "恶魔法则", "authors": ["跳舞"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000026", "title": "卡徒", "authors": ["方想"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000027", "title": "诛仙", "authors": ["萧鼎"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000028", "title": "遮天", "authors": ["辰东"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000029", "title": "新宋", "authors": ["阿越"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000030", "title": "搜神记", "authors": ["树下野狐"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000031", "title": "风姿物语", "authors": ["罗森"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000032", "title": "陈二狗的妖孽人生", "authors": ["烽火戏诸侯"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000033", "title": "升龙道", "authors": ["血红"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {}, "reviewNotes": ["用户原文作者为“是血红”，按常见作者名规范为“血红”。"] },
+    { "bookId": "0200000034", "title": "佣兵天下", "authors": ["说不得大师"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000035", "title": "牧神记", "authors": ["宅猪"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000036", "title": "全职高手", "authors": ["蝴蝶蓝"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000037", "title": "天行健", "authors": ["燕垒生"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000038", "title": "盗墓笔记", "authors": ["南派三叔"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000039", "title": "鬼吹灯", "authors": ["天下霸唱"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000040", "title": "佛本是道", "authors": ["梦入神机"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000041", "title": "盘龙", "authors": ["我吃西红柿"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000042", "title": "星辰变", "authors": ["我吃西红柿"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000043", "title": "吞噬星空", "authors": ["我吃西红柿"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {}, "reviewNotes": ["用户未提供作者，已按常见资料补为“我吃西红柿”。"] },
+    { "bookId": "0200000044", "title": "第一次的亲密接触", "authors": ["痞子蔡"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000045", "title": "悟空传", "authors": ["今何在"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000046", "title": "致我们终将逝去的青春", "authors": ["辛夷坞"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000047", "title": "尘缘", "authors": ["烟雨江南"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000048", "title": "死人经", "authors": ["冰临神下"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000049", "title": "飘邈之旅", "authors": ["萧潜"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000050", "title": "亵渎", "authors": ["烟雨江南"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000051", "title": "道诡异仙", "authors": ["狐尾的笔"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {}, "reviewNotes": ["用户未提供作者，已按常见资料补为“狐尾的笔”。"] },
+    { "bookId": "0200000052", "title": "微微一笑很倾城", "authors": ["顾漫"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000053", "title": "花千骨", "authors": ["Fresh果果"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000054", "title": "何以笙箫默", "authors": ["顾漫"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000055", "title": "晚明", "authors": ["柯山梦"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000056", "title": "大奉打更人", "authors": ["卖报小郎君"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {}, "reviewNotes": ["用户未提供作者，已按常见资料补为“卖报小郎君”。"] },
+    { "bookId": "0200000057", "title": "宰执天下", "authors": ["cuslaa"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {} },
+    { "bookId": "0200000058", "title": "十日终焉", "authors": ["杀虫队队员"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {}, "reviewNotes": ["用户未提供作者，已按常见资料补为“杀虫队队员”。"] },
+    { "bookId": "0200000020", "title": "将夜", "authors": ["猫腻"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "continue_existing_staging", "profile": "web-novel-fast", "sourceHints": { "qidianId": "2083259", "qidianUrl": "https://book.qidian.com/info/2083259/" }, "reviewNotes": ["沿用上一批 staging ID，尚未写入数据库。"] },
+    { "bookId": "0200000021", "title": "间客", "authors": ["猫腻"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "continue_existing_staging", "profile": "web-novel-fast", "sourceHints": { "qidianId": "1223147", "qidianUrl": "https://book.qidian.com/info/1223147/" }, "reviewNotes": ["沿用上一批 staging ID，尚未写入数据库。"] },
+    { "bookId": "0200000059", "title": "仙逆", "authors": ["耳根"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {}, "reviewNotes": ["用户未提供作者，已按常见资料补为“耳根”。"] },
+    { "bookId": "0200000060", "title": "神墓", "authors": ["辰东"], "type": "web_novel", "contentKind": "web_novel", "expectedAction": "create", "profile": "web-novel-fast", "sourceHints": {}, "reviewNotes": ["用户未提供作者，已按常见资料补为“辰东”。"] }
+  ]
+}

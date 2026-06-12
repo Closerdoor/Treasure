@@ -245,12 +245,21 @@ def validate_staging_shape(data: Dict[str, Any]) -> List[str]:
     return problems
 
 
-def validate_content_quality(data: Dict[str, Any]) -> List[str]:
+def validate_content_quality(data: Dict[str, Any]) -> Tuple[List[str], List[str]]:
     problems: List[str] = []
+    warnings: List[str] = []
+    meta = data.get("_meta") if isinstance(data.get("_meta"), dict) else {}
+    content_kind = meta.get("contentKind")
 
     for field in ("summary", "story"):
         value = data.get(field)
         if value is None or (isinstance(value, str) and not value.strip()):
+            if field == "story" and content_kind == "nonfiction" and isinstance(data.get("summary"), str) and data["summary"].strip():
+                warnings.append("story is missing; nonfiction uses summary as content outline")
+                continue
+            if field == "story" and content_kind == "web_novel" and isinstance(data.get("summary"), str) and data["summary"].strip():
+                warnings.append("story is missing; web novel uses summary as whole-work outline")
+                continue
             problems.append(f"{field} is missing")
             continue
         if not isinstance(value, str):
@@ -285,7 +294,7 @@ def validate_content_quality(data: Dict[str, Any]) -> List[str]:
                 f"excerpts contain duplicates: duplicate_urls={duplicate_urls}, duplicate_text={duplicate_text}"
             )
 
-    return problems
+    return problems, warnings
 
 
 def dry_run_import(data: Dict[str, Any]) -> Dict[str, Any]:
@@ -338,7 +347,7 @@ def precheck(book_id: str, data: Dict[str, Any], update_existing: bool = False) 
 
     assets = validate_assets(book_id, data)
     shape_problems = validate_staging_shape(data)
-    quality_problems = validate_content_quality(data)
+    quality_problems, quality_warnings = validate_content_quality(data)
     dry_run = dry_run_import(data) if update_existing or not matches else None
 
     problems: List[str] = []
@@ -392,6 +401,7 @@ def precheck(book_id: str, data: Dict[str, Any], update_existing: bool = False) 
         "conflicts": len(meta.get("conflicts") or []),
         "dry_run": dry_run,
         "problems": problems,
+        "warnings": quality_warnings,
     }
 
 

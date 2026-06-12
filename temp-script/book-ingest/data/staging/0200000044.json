@@ -1,0 +1,79 @@
+{
+  "id": "0200000044",
+  "title": "陈二狗的妖孽人生",
+  "titleOriginal": null,
+  "otherTitles": null,
+  "isbn": null,
+  "year": null,
+  "country": "中国",
+  "language": "中文",
+  "wordCount": null,
+  "publisher": null,
+  "publishDate": null,
+  "pages": null,
+  "price": null,
+  "binding": null,
+  "format": null,
+  "edition": null,
+  "summary": "都市题材网络小说。作品以出身底层的陈二狗为主角，描写他从东北乡村走入城市，在现实、欲望、人情和阶层流动中寻找出路。",
+  "story": "陈二狗离开熟悉的乡土环境后，进入更复杂的城市社会。他在不同人物与势力的牵引中成长，也不断面对身份、野心、情义和现实规则的考验。",
+  "quotes": null,
+  "excerpts": null,
+  "seriesId": null,
+  "seriesOrder": null,
+  "scores": null,
+  "externalSource": [
+    {
+      "name": "起点中文网",
+      "id": "起点中文网:陈二狗的妖孽人生",
+      "link": "https://www.qidian.com/book/1204224/"
+    },
+    {
+      "name": "中国作家网",
+      "id": "中国作家网:陈二狗的妖孽人生",
+      "link": "https://www.chinawriter.com.cn/n1/2020/0331/c404027-31655577.html"
+    }
+  ],
+  "images": null,
+  "reviews": null,
+  "related": null,
+  "status": "draft",
+  "_meta": {
+    "fieldSources": {
+      "title": "manual_fallback",
+      "country": "manual_fallback",
+      "language": "manual_fallback",
+      "summary": "manual_fallback",
+      "story": "manual_fallback"
+    },
+    "conflicts": [],
+    "authors": [
+      "烽火戏诸侯"
+    ],
+    "translators": [],
+    "tags": [
+      "都市",
+      "成长",
+      "现实"
+    ],
+    "subjects": [],
+    "genres": [
+      "网络小说",
+      "都市小说"
+    ],
+    "awards": [],
+    "series": null,
+    "seriesCandidates": [],
+    "coverUrls": {},
+    "prices": {},
+    "personDetails": [],
+    "isWebNovel": true,
+    "contentKind": "web_novel",
+    "batchRunId": "2026-06-11-web-novel-blocked-manual-fallback",
+    "manualFallback": {
+      "reason": "Existing automated sources did not produce safe whole-work staging in the fast batch.",
+      "sourceNames": "起点中文网, 中国作家网",
+      "sourceGovernance": "candidate/reference/manual_fallback only; not a new automated adapter"
+    }
+  }
+}

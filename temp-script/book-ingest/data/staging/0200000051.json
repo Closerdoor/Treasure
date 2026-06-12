@@ -1,0 +1,79 @@
+{
+  "id": "0200000051",
+  "title": "亵渎",
+  "titleOriginal": null,
+  "otherTitles": null,
+  "isbn": null,
+  "year": null,
+  "country": "中国",
+  "language": "中文",
+  "wordCount": null,
+  "publisher": null,
+  "publishDate": null,
+  "pages": null,
+  "price": null,
+  "binding": null,
+  "format": null,
+  "edition": null,
+  "summary": "西式奇幻风格网络小说。作品以罗格的成长与权力道路为主线，构建宗教、战争、欲望和命运交织的黑暗奇幻世界。",
+  "story": "罗格在复杂的大陆格局中不断攀爬，经历战争、阴谋、信仰和情感的试炼。故事以反英雄式人物和灰色价值观展开，呈现奇幻世界中的权力与代价。",
+  "quotes": null,
+  "excerpts": null,
+  "seriesId": null,
+  "seriesOrder": null,
+  "scores": null,
+  "externalSource": [
+    {
+      "name": "豆瓣评论",
+      "id": "豆瓣:亵渎",
+      "link": "https://m.douban.com/book/review/14604982/"
+    },
+    {
+      "name": "搜狐",
+      "id": "搜狐:亵渎",
+      "link": "https://www.sohu.com/a/756234842_121698175"
+    }
+  ],
+  "images": null,
+  "reviews": null,
+  "related": null,
+  "status": "draft",
+  "_meta": {
+    "fieldSources": {
+      "title": "manual_fallback",
+      "country": "manual_fallback",
+      "language": "manual_fallback",
+      "summary": "manual_fallback",
+      "story": "manual_fallback"
+    },
+    "conflicts": [],
+    "authors": [
+      "烟雨江南"
+    ],
+    "translators": [],
+    "tags": [
+      "奇幻",
+      "史诗",
+      "黑暗"
+    ],
+    "subjects": [],
+    "genres": [
+      "网络小说",
+      "奇幻小说"
+    ],
+    "awards": [],
+    "series": null,
+    "seriesCandidates": [],
+    "coverUrls": {},
+    "prices": {},
+    "personDetails": [],
+    "isWebNovel": true,
+    "contentKind": "web_novel",
+    "batchRunId": "2026-06-11-web-novel-blocked-manual-fallback",
+    "manualFallback": {
+      "reason": "Existing automated sources did not produce safe whole-work staging in the fast batch.",
+      "sourceNames": "豆瓣评论, 搜狐",
+      "sourceGovernance": "candidate/reference/manual_fallback only; not a new automated adapter"
+    }
+  }
+}

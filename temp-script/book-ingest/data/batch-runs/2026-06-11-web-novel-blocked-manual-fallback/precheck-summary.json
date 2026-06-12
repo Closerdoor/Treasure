@@ -1,0 +1,132 @@
+{
+  "runId": "2026-06-11-web-novel-blocked-manual-fallback",
+  "total": 14,
+  "ok": 1,
+  "failed": 13,
+  "items": [
+    {
+      "bookId": "0200000041",
+      "precheckOk": true,
+      "fieldReportOk": true,
+      "problems": [],
+      "warnings": []
+    },
+    {
+      "bookId": "0200000042",
+      "precheckOk": false,
+      "fieldReportOk": true,
+      "problems": [
+        "�鼮 ID �������ݿ���һ���鼮 ID����ǰ 0200000042��Ԥ�� 0200000041"
+      ],
+      "warnings": []
+    },
+    {
+      "bookId": "0200000043",
+      "precheckOk": false,
+      "fieldReportOk": true,
+      "problems": [
+        "�鼮 ID �������ݿ���һ���鼮 ID����ǰ 0200000043��Ԥ�� 0200000041"
+      ],
+      "warnings": []
+    },
+    {
+      "bookId": "0200000044",
+      "precheckOk": false,
+      "fieldReportOk": true,
+      "problems": [
+        "�鼮 ID �������ݿ���һ���鼮 ID����ǰ 0200000044��Ԥ�� 0200000041"
+      ],
+      "warnings": []
+    },
+    {
+      "bookId": "0200000045",
+      "precheckOk": false,
+      "fieldReportOk": true,
+      "problems": [
+        "�鼮 ID �������ݿ���һ���鼮 ID����ǰ 0200000045��Ԥ�� 0200000041"
+      ],
+      "warnings": []
+    },
+    {
+      "bookId": "0200000046",
+      "precheckOk": false,
+      "fieldReportOk": true,
+      "problems": [
+        "�鼮 ID �������ݿ���һ���鼮 ID����ǰ 0200000046��Ԥ�� 0200000041"
+      ],
+      "warnings": []
+    },
+    {
+      "bookId": "0200000047",
+      "precheckOk": false,
+      "fieldReportOk": true,
+      "problems": [
+        "�鼮 ID �������ݿ���һ���鼮 ID����ǰ 0200000047��Ԥ�� 0200000041"
+      ],
+      "warnings": []
+    },
+    {
+      "bookId": "0200000048",
+      "precheckOk": false,
+      "fieldReportOk": true,
+      "problems": [
+        "�鼮 ID �������ݿ���һ���鼮 ID����ǰ 0200000048��Ԥ�� 0200000041"
+      ],
+      "warnings": []
+    },
+    {
+      "bookId": "0200000049",
+      "precheckOk": false,
+      "fieldReportOk": true,
+      "problems": [
+        "�鼮 ID �������ݿ���һ���鼮 ID����ǰ 0200000049��Ԥ�� 0200000041"
+      ],
+      "warnings": []
+    },
+    {
+      "bookId": "0200000050",
+      "precheckOk": false,
+      "fieldReportOk": true,
+      "problems": [
+        "�鼮 ID �������ݿ���һ���鼮 ID����ǰ 0200000050��Ԥ�� 0200000041"
+      ],
+      "warnings": []
+    },
+    {
+      "bookId": "0200000051",
+      "precheckOk": false,
+      "fieldReportOk": true,
+      "problems": [
+        "�鼮 ID �������ݿ���һ���鼮 ID����ǰ 0200000051��Ԥ�� 0200000041"
+      ],
+      "warnings": []
+    },
+    {
+      "bookId": "0200000052",
+      "precheckOk": false,
+      "fieldReportOk": true,
+      "problems": [
+        "�鼮 ID �������ݿ���һ���鼮 ID����ǰ 0200000052��Ԥ�� 0200000041"
+      ],
+      "warnings": []
+    },
+    {
+      "bookId": "0200000053",
+      "precheckOk": false,
+      "fieldReportOk": true,
+      "problems": [
+        "�鼮 ID �������ݿ���һ���鼮 ID����ǰ 0200000053��Ԥ�� 0200000041"
+      ],
+      "warnings": []
+    },
+    {
+      "bookId": "0200000054",
+      "precheckOk": false,
+      "fieldReportOk": true,
+      "problems": [
+        "�鼮 ID �������ݿ���һ���鼮 ID����ǰ 0200000054��Ԥ�� 0200000041"
+      ],
+      "warnings": []
+    }
+  ]
+}

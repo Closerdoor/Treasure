@@ -1,0 +1,33 @@
+{
+  "source": "manual_fallback",
+  "title": "陈二狗的妖孽人生",
+  "authors": [
+    "烽火戏诸侯"
+  ],
+  "year": null,
+  "word_count": null,
+  "summary": "都市题材网络小说。作品以出身底层的陈二狗为主角，描写他从东北乡村走入城市，在现实、欲望、人情和阶层流动中寻找出路。",
+  "story": "陈二狗离开熟悉的乡土环境后，进入更复杂的城市社会。他在不同人物与势力的牵引中成长，也不断面对身份、野心、情义和现实规则的考验。",
+  "tags": [
+    "都市",
+    "成长",
+    "现实"
+  ],
+  "genres": [
+    "网络小说",
+    "都市小说"
+  ],
+  "sources": [
+    {
+      "name": "起点中文网",
+      "id": "起点中文网:陈二狗的妖孽人生",
+      "link": "https://www.qidian.com/book/1204224/"
+    },
+    {
+      "name": "中国作家网",
+      "id": "中国作家网:陈二狗的妖孽人生",
+      "link": "https://www.chinawriter.com.cn/n1/2020/0331/c404027-31655577.html"
+    }
+  ],
+  "note": "Manual fallback raw compiled from reviewed candidate/reference anchors. This is not an automated source adapter."
+}

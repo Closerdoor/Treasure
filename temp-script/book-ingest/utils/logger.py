@@ -24,8 +24,11 @@ class Logger:
     @staticmethod
     def _print(color, prefix, message):
         timestamp = Logger._get_timestamp()
+        text = f"[{timestamp}] {prefix} {message}"
         if sys.platform == 'win32':
-            print(f"[{timestamp}] {prefix} {message}")
+            encoding = sys.stdout.encoding or "utf-8"
+            safe_text = text.encode(encoding, errors="replace").decode(encoding, errors="replace")
+            print(safe_text)
         else:
             color_code = Logger.COLORS.get(color, '')
             reset = Logger.COLORS['reset']

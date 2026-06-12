@@ -1,0 +1,33 @@
+{
+  "source": "manual_fallback",
+  "title": "悟空传",
+  "authors": [
+    "今何在"
+  ],
+  "year": 2000,
+  "word_count": null,
+  "summary": "以《西游记》人物为基础的重写型网络小说。作品用现代意识重新诠释孙悟空、唐僧、猪八戒等角色，突出反抗、宿命和自我追问。",
+  "story": "孙悟空等角色在既定神佛秩序和个人自由之间挣扎。小说通过碎片化叙事与神话重构，呈现人物对命运、记忆、爱情和反抗意义的追寻。",
+  "tags": [
+    "神话",
+    "重写",
+    "幻想"
+  ],
+  "genres": [
+    "网络小说",
+    "奇幻小说"
+  ],
+  "sources": [
+    {
+      "name": "维基百科",
+      "id": "Wikipedia:悟空传",
+      "link": "https://zh.wikipedia.org/wiki/%E4%BB%8A%E4%BD%95%E5%9C%A8"
+    },
+    {
+      "name": "中国作家网",
+      "id": "中国作家网:悟空传",
+      "link": "https://www.chinawriter.com.cn/n1/2017/0717/c404079-29409132.html"
+    }
+  ],
+  "note": "Manual fallback raw compiled from reviewed candidate/reference anchors. This is not an automated source adapter."
+}

@@ -1,0 +1,55 @@
+{
+  "bookId": "0200000046",
+  "fieldReport": "data\\batch-runs\\2026-06-11-web-novel-blocked-manual-fallback\\field-reports\\0200000046.html",
+  "fieldReportOk": true,
+  "precheckOk": false,
+  "stdout": "[22:25:58] [INFO] ���ݿ�������: C:\\Users\\wicked\\AppData\\Local\\Temp\\tmpqwqpxgrb\\treasure-book-precheck.db\n[22:25:58] [OK] �ѱ����鼮: ���н� (0200000046)\n[22:25:58] [OK] �ѱ�������: ������ (p27587335)\n[22:25:58] [OK] �ѱ��� 1 ���������: 0200000046\n[22:25:58] [OK] �ѱ�������/��ǩ: ���� (tag)\n[22:25:58] [OK] �ѱ�������/��ǩ: ս�� (tag)\n[22:25:58] [OK] �ѱ�������/��ǩ: ����С˵ (type)\n[22:25:58] [OK] �ѱ��� 5 �����͹���: 0200000046\n[22:25:58] [INFO] ���ݿ��ѹر�\n{\n  \"book_id\": \"0200000046\",\n  \"title\": \"���н�\",\n  \"title_original\": null,\n  \"year\": null,\n  \"isbn\": null,\n  \"source_ids\": {\n    \"douban\": \"����\"\n  },\n  \"db_max_book_id\": \"0200000040\",\n  \"expected_next_book_id\": \"0200000041\",\n  \"update_existing\": false,\n  \"matches\": [],\n  \"assets\": {\n    \"local_refs\": 0,\n    \"external_refs\": [],\n    \"non_local_objects\": [],\n    \"missing\": []\n  },\n  \"authors\": 1,\n  \"translators\": 0,\n  \"tags\": 3,\n  \"reviews\": 0,\n  \"field_sources\": 5,\n  \"conflicts\": 0,\n  \"dry_run\": {\n    \"result\": {\n      \"success\": true,\n      \"book_id\": \"0200000046\",\n      \"title\": \"���н�\",\n      \"persons\": 1,\n      \"categories\": 5,\n      \"assets\": {\n        \"copied\": 0,\n        \"missing\": 0,\n        \"skipped\": 1\n      }\n    },\n    \"foreign_key_problems\": 0,\n    \"book_person\": 1,\n    \"book_category\": 5\n  },\n  \"problems\": [\n    \"�鼮 ID �������ݿ���һ���鼮 ID����ǰ 0200000046��Ԥ�� 0200000041\"\n  ],\n  \"warnings\": []\n}\n[22:25:58] [ERR] Ԥ��δͨ������ֹͣ��\n",
+  "stderr": "",
+  "precheck": {
+    "book_id": "0200000046",
+    "title": "���н�",
+    "title_original": null,
+    "year": null,
+    "isbn": null,
+    "source_ids": {
+      "douban": "����"
+    },
+    "db_max_book_id": "0200000040",
+    "expected_next_book_id": "0200000041",
+    "update_existing": false,
+    "matches": [],
+    "assets": {
+      "local_refs": 0,
+      "external_refs": [],
+      "non_local_objects": [],
+      "missing": []
+    },
+    "authors": 1,
+    "translators": 0,
+    "tags": 3,
+    "reviews": 0,
+    "field_sources": 5,
+    "conflicts": 0,
+    "dry_run": {
+      "result": {
+        "success": true,
+        "book_id": "0200000046",
+        "title": "���н�",
+        "persons": 1,
+        "categories": 5,
+        "assets": {
+          "copied": 0,
+          "missing": 0,
+          "skipped": 1
+        }
+      },
+      "foreign_key_problems": 0,
+      "book_person": 1,
+      "book_category": 5
+    },
+    "problems": [
+      "�鼮 ID �������ݿ���һ���鼮 ID����ǰ 0200000046��Ԥ�� 0200000041"
+    ],
+    "warnings": []
+  }
+}

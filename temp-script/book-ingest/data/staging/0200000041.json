@@ -1,0 +1,81 @@
+{
+  "id": "0200000041",
+  "title": "雪中悍刀行",
+  "titleOriginal": null,
+  "otherTitles": null,
+  "isbn": null,
+  "year": 2011,
+  "country": "中国",
+  "language": "中文",
+  "wordCount": 4600000,
+  "publisher": null,
+  "publishDate": null,
+  "pages": null,
+  "price": null,
+  "binding": null,
+  "format": null,
+  "edition": null,
+  "summary": "一部兼具庙堂权谋与江湖气象的长篇网络小说。故事以北凉世子徐凤年为中心，展开关于家国、江湖、亲情、师友与个人成长的群像叙事。",
+  "story": "徐凤年从纨绔世子逐步走向承担北凉命运的位置，在游历江湖、卷入朝堂纷争和面对天下格局变化的过程中，完成从个人逍遥到家国担当的转变。",
+  "quotes": null,
+  "excerpts": null,
+  "seriesId": null,
+  "seriesOrder": null,
+  "scores": null,
+  "externalSource": [
+    {
+      "name": "QQ阅读",
+      "id": "QQ阅读:雪中悍刀行",
+      "link": "https://ubook.reader.qq.com/book-detail/172865"
+    },
+    {
+      "name": "中国作家网",
+      "id": "中国作家网:雪中悍刀行",
+      "link": "https://www.chinawriter.com.cn/n1/2022/0125/c404027-32339304.html"
+    }
+  ],
+  "images": null,
+  "reviews": null,
+  "related": null,
+  "status": "draft",
+  "_meta": {
+    "fieldSources": {
+      "title": "manual_fallback",
+      "country": "manual_fallback",
+      "language": "manual_fallback",
+      "summary": "manual_fallback",
+      "story": "manual_fallback",
+      "year": "manual_fallback",
+      "wordCount": "manual_fallback"
+    },
+    "conflicts": [],
+    "authors": [
+      "烽火戏诸侯"
+    ],
+    "translators": [],
+    "tags": [
+      "武侠",
+      "玄幻",
+      "江湖"
+    ],
+    "subjects": [],
+    "genres": [
+      "网络小说",
+      "武侠幻想"
+    ],
+    "awards": [],
+    "series": null,
+    "seriesCandidates": [],
+    "coverUrls": {},
+    "prices": {},
+    "personDetails": [],
+    "isWebNovel": true,
+    "contentKind": "web_novel",
+    "batchRunId": "2026-06-11-web-novel-blocked-manual-fallback",
+    "manualFallback": {
+      "reason": "Existing automated sources did not produce safe whole-work staging in the fast batch.",
+      "sourceNames": "QQ阅读, 中国作家网",
+      "sourceGovernance": "candidate/reference/manual_fallback only; not a new automated adapter"
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "id": "0200000054",
+  "title": "十日终焉",
+  "titleOriginal": null,
+  "otherTitles": null,
+  "isbn": null,
+  "year": null,
+  "country": "中国",
+  "language": "中文",
+  "wordCount": 3201000,
+  "publisher": null,
+  "publishDate": null,
+  "pages": null,
+  "price": null,
+  "binding": null,
+  "format": null,
+  "edition": null,
+  "summary": "悬疑生存题材网络小说。故事围绕被卷入异常空间的角色群体展开，在有限时间、规则博弈和不断反转的局面中推进。",
+  "story": "主角与众多人物被迫进入充满规则和危险的局面，需要在十日循环、谜题和人性考验中寻找生路。作品以群像、推理和世界观揭示为主要驱动力。",
+  "quotes": null,
+  "excerpts": null,
+  "seriesId": null,
+  "seriesOrder": null,
+  "scores": null,
+  "externalSource": [
+    {
+      "name": "番茄小说",
+      "id": "番茄小说:十日终焉",
+      "link": "https://fanqienovel.com/page/7143038691944959011"
+    },
+    {
+      "name": "中国作家网",
+      "id": "中国作家网:十日终焉",
+      "link": "https://www.chinawriter.com.cn/n1/2024/0227/c404024-40184501.html"
+    }
+  ],
+  "images": null,
+  "reviews": null,
+  "related": null,
+  "status": "draft",
+  "_meta": {
+    "fieldSources": {
+      "title": "manual_fallback",
+      "country": "manual_fallback",
+      "language": "manual_fallback",
+      "summary": "manual_fallback",
+      "story": "manual_fallback",
+      "wordCount": "manual_fallback"
+    },
+    "conflicts": [],
+    "authors": [
+      "杀虫队队员"
+    ],
+    "translators": [],
+    "tags": [
+      "悬疑",
+      "无限流",
+      "群像"
+    ],
+    "subjects": [],
+    "genres": [
+      "网络小说",
+      "悬疑小说"
+    ],
+    "awards": [],
+    "series": null,
+    "seriesCandidates": [],
+    "coverUrls": {},
+    "prices": {},
+    "personDetails": [],
+    "isWebNovel": true,
+    "contentKind": "web_novel",
+    "batchRunId": "2026-06-11-web-novel-blocked-manual-fallback",
+    "manualFallback": {
+      "reason": "Existing automated sources did not produce safe whole-work staging in the fast batch.",
+      "sourceNames": "番茄小说, 中国作家网",
+      "sourceGovernance": "candidate/reference/manual_fallback only; not a new automated adapter"
+    }
+  }
+}

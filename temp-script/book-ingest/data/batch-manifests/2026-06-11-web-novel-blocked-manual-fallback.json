@@ -1,0 +1,183 @@
+{
+  "runId": "2026-06-11-web-novel-blocked-manual-fallback",
+  "createdAt": "2026-06-11",
+  "status": "manual_fallback_staging_ready",
+  "sourceRunId": "2026-06-11-web-novel-blocked-source-review",
+  "profile": "manual-fallback",
+  "scope": {
+    "total": 14,
+    "idRange": "0200000041-0200000054",
+    "writeDatabase": false,
+    "note": "Staging only. Import still requires import_staging.py precheck and explicit approval JSON."
+  },
+  "items": [
+    {
+      "bookId": "0200000041",
+      "title": "雪中悍刀行",
+      "authors": [
+        "烽火戏诸侯"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "manual-fallback",
+      "sourcePolicy": "candidate/reference/manual_fallback; not automated adapter"
+    },
+    {
+      "bookId": "0200000042",
+      "title": "新宋",
+      "authors": [
+        "阿越"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "manual-fallback",
+      "sourcePolicy": "candidate/reference/manual_fallback; not automated adapter"
+    },
+    {
+      "bookId": "0200000043",
+      "title": "风姿物语",
+      "authors": [
+        "罗森"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "manual-fallback",
+      "sourcePolicy": "candidate/reference/manual_fallback; not automated adapter"
+    },
+    {
+      "bookId": "0200000044",
+      "title": "陈二狗的妖孽人生",
+      "authors": [
+        "烽火戏诸侯"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "manual-fallback",
+      "sourcePolicy": "candidate/reference/manual_fallback; not automated adapter"
+    },
+    {
+      "bookId": "0200000045",
+      "title": "佣兵天下",
+      "authors": [
+        "说不得大师"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "manual-fallback",
+      "sourcePolicy": "candidate/reference/manual_fallback; not automated adapter"
+    },
+    {
+      "bookId": "0200000046",
+      "title": "天行健",
+      "authors": [
+        "燕垒生"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "manual-fallback",
+      "sourcePolicy": "candidate/reference/manual_fallback; not automated adapter"
+    },
+    {
+      "bookId": "0200000047",
+      "title": "鬼吹灯",
+      "authors": [
+        "天下霸唱"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "manual-fallback",
+      "sourcePolicy": "candidate/reference/manual_fallback; not automated adapter"
+    },
+    {
+      "bookId": "0200000048",
+      "title": "第一次的亲密接触",
+      "authors": [
+        "痞子蔡"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "manual-fallback",
+      "sourcePolicy": "candidate/reference/manual_fallback; not automated adapter"
+    },
+    {
+      "bookId": "0200000049",
+      "title": "悟空传",
+      "authors": [
+        "今何在"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "manual-fallback",
+      "sourcePolicy": "candidate/reference/manual_fallback; not automated adapter"
+    },
+    {
+      "bookId": "0200000050",
+      "title": "飘邈之旅",
+      "authors": [
+        "萧潜"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "manual-fallback",
+      "sourcePolicy": "candidate/reference/manual_fallback; not automated adapter"
+    },
+    {
+      "bookId": "0200000051",
+      "title": "亵渎",
+      "authors": [
+        "烟雨江南"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "manual-fallback",
+      "sourcePolicy": "candidate/reference/manual_fallback; not automated adapter"
+    },
+    {
+      "bookId": "0200000052",
+      "title": "花千骨",
+      "authors": [
+        "Fresh果果"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "manual-fallback",
+      "sourcePolicy": "candidate/reference/manual_fallback; not automated adapter"
+    },
+    {
+      "bookId": "0200000053",
+      "title": "宰执天下",
+      "authors": [
+        "cuslaa"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "manual-fallback",
+      "sourcePolicy": "candidate/reference/manual_fallback; not automated adapter"
+    },
+    {
+      "bookId": "0200000054",
+      "title": "十日终焉",
+      "authors": [
+        "杀虫队队员"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "manual-fallback",
+      "sourcePolicy": "candidate/reference/manual_fallback; not automated adapter"
+    }
+  ]
+}

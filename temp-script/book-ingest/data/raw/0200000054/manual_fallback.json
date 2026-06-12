@@ -1,0 +1,33 @@
+{
+  "source": "manual_fallback",
+  "title": "十日终焉",
+  "authors": [
+    "杀虫队队员"
+  ],
+  "year": null,
+  "word_count": 3201000,
+  "summary": "悬疑生存题材网络小说。故事围绕被卷入异常空间的角色群体展开，在有限时间、规则博弈和不断反转的局面中推进。",
+  "story": "主角与众多人物被迫进入充满规则和危险的局面，需要在十日循环、谜题和人性考验中寻找生路。作品以群像、推理和世界观揭示为主要驱动力。",
+  "tags": [
+    "悬疑",
+    "无限流",
+    "群像"
+  ],
+  "genres": [
+    "网络小说",
+    "悬疑小说"
+  ],
+  "sources": [
+    {
+      "name": "番茄小说",
+      "id": "番茄小说:十日终焉",
+      "link": "https://fanqienovel.com/page/7143038691944959011"
+    },
+    {
+      "name": "中国作家网",
+      "id": "中国作家网:十日终焉",
+      "link": "https://www.chinawriter.com.cn/n1/2024/0227/c404024-40184501.html"
+    }
+  ],
+  "note": "Manual fallback raw compiled from reviewed candidate/reference anchors. This is not an automated source adapter."
+}

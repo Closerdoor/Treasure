@@ -1,0 +1,441 @@
+{
+  "runId": "2026-06-11-web-novel-blocked-source-review",
+  "createdAt": "2026-06-11",
+  "sourceRunId": "2026-06-10-web-novel-bulk-import-candidates",
+  "status": "source_review",
+  "purpose": "Candidate source list for the 14 web novels that were recorded but not imported in the 2026-06-10 fast batch.",
+  "policy": {
+    "importMode": "web_novel_whole_work",
+    "writeDatabase": false,
+    "reviewRequiredBeforeApply": true,
+    "sourceGovernance": {
+      "approvedAutomatedSources": [
+        "douban",
+        "openlibrary",
+        "baike",
+        "wikipedia",
+        "goodreads",
+        "dangdang",
+        "qidian"
+      ],
+      "webNovelFastAutomatedSources": [
+        "qidian"
+      ],
+      "candidateOnlySources": [
+        "QQ阅读",
+        "微信读书",
+        "番茄小说",
+        "晋江文学城",
+        "中国作家网",
+        "抖音百科",
+        "好读",
+        "九九藏书",
+        "全本小说网",
+        "搜狐",
+        "萌娘百科"
+      ],
+      "rule": "Candidate-only sources are search/review anchors. They must not be used by batch_runner.py or batch_apply.py as automated ingest sources until an adapter, field mapping, precheck rules, and documentation are added.",
+      "fallbackRule": "Third-party fulltext/media pages may only be used as low-priority synopsis/story fallback after review; they must not be the sole source for title, author, cover, or primary metadata."
+    },
+    "preferredSources": [
+      "existing approved automated sources first",
+      "qidian for web-novel-fast automated collection",
+      "candidate-only sources only for human review, source hints, or future adapter development",
+      "third-party fulltext pages only as reviewed low-priority synopsis/story fallback"
+    ]
+  },
+  "items": [
+    {
+      "title": "雪中悍刀行",
+      "author": "烽火戏诸侯",
+      "previousBlockReason": "qidian search matched a numbered volume, not the whole work; summary was truncated.",
+      "suggestedAction": "Use whole-work source, not a single print volume.",
+      "confidence": "medium",
+      "reviewQuestion": "确认按网络小说整体入库，而不是某一册实体书。",
+      "candidateSources": [
+        {
+          "kind": "licensed_reading_platform",
+          "name": "QQ阅读",
+          "url": "https://ubook.reader.qq.com/book-detail/172865",
+          "useFor": ["title", "author", "summary", "cover"],
+          "note": "Search result presents the whole work and author; likely better than qidian numbered-volume result."
+        },
+        {
+          "kind": "reference",
+          "name": "中国作家网",
+          "url": "https://www.chinawriter.com.cn/n1/2022/0125/c404027-32339304.html",
+          "useFor": ["author", "word_count_or_completion_context", "work_context"],
+          "note": "Authoritative article states the work began in 2011, took four and a half years, and is about 4.6 million characters."
+        },
+        {
+          "kind": "fallback",
+          "name": "九九藏书 numbered volumes",
+          "url": "https://read.99csw.com/book/10864/",
+          "useFor": ["story_fallback"],
+          "note": "Volume pages only; use cautiously and never as whole-work title anchor."
+        }
+      ]
+    },
+    {
+      "title": "新宋",
+      "author": "阿越",
+      "previousBlockReason": "qidian search matched 新宋风流 / 银箭.",
+      "suggestedAction": "Use encyclopedia/WeRead/Haodoo as whole-work anchor.",
+      "confidence": "high",
+      "reviewQuestion": "确认按《新宋》整体作品入库。",
+      "candidateSources": [
+        {
+          "kind": "encyclopedia",
+          "name": "Wikipedia",
+          "url": "https://zh.wikipedia.org/wiki/%E6%96%B0%E5%AE%8B",
+          "useFor": ["title", "author", "genre", "publish_date", "story"],
+          "note": "Identifies 新宋 as 阿越's alternate-history novel."
+        },
+        {
+          "kind": "licensed_reading_platform",
+          "name": "微信读书 author page",
+          "url": "https://weread.qq.com/web/search/books?author=%E9%98%BF%E8%B6%8A",
+          "useFor": ["author", "edition_anchor", "cover"],
+          "note": "Search result shows 新宋·大结局（全15册） under 阿越."
+        },
+        {
+          "kind": "fallback",
+          "name": "好读",
+          "url": "https://www.haodoo.net/?M=book&P=15Q0",
+          "useFor": ["summary_fallback", "author_context"],
+          "note": "Useful but not preferred over encyclopedia/licensed platform."
+        }
+      ]
+    },
+    {
+      "title": "风姿物语",
+      "author": "罗森",
+      "previousBlockReason": "no usable raw source in fast pass.",
+      "suggestedAction": "Use Wikipedia and Douban/edition pages as metadata anchors; fallback page for synopsis.",
+      "confidence": "medium",
+      "reviewQuestion": "确认按《风姿物语》整体作品入库，不按单册《暹罗结义》入库。",
+      "candidateSources": [
+        {
+          "kind": "encyclopedia",
+          "name": "Wikipedia",
+          "url": "https://zh.wikipedia.org/zh-hans/%E9%A2%A8%E5%A7%BF%E7%89%A9%E8%AA%9E",
+          "useFor": ["title", "author", "genre", "work_context"],
+          "note": "States it is a fantasy web novel by 罗森, serialized from 1997."
+        },
+        {
+          "kind": "metadata",
+          "name": "Douban author works",
+          "url": "https://book.douban.com/author/4513708/books?format=pic&sortby=time",
+          "useFor": ["edition_anchor", "cover_candidates"],
+          "note": "Includes 风姿物语1·暹罗结义 and related editions; use only as edition reference."
+        },
+        {
+          "kind": "fallback",
+          "name": "全本小说网",
+          "url": "https://quanben.io/n/fengziwuyu/",
+          "useFor": ["summary_fallback"],
+          "note": "Third-party source with title, author, category and synopsis."
+        }
+      ]
+    },
+    {
+      "title": "陈二狗的妖孽人生",
+      "author": "烽火戏诸侯",
+      "previousBlockReason": "no usable raw source in fast pass.",
+      "suggestedAction": "Rerun with exact qidian URL.",
+      "confidence": "high",
+      "reviewQuestion": "确认使用起点《陈二狗的妖孽人生》作为主来源。",
+      "candidateSources": [
+        {
+          "kind": "original_platform",
+          "name": "起点中文网",
+          "url": "https://www.qidian.com/book/1204224/",
+          "useFor": ["title", "author", "status", "summary", "cover"],
+          "note": "Exact title/author match in search result."
+        },
+        {
+          "kind": "reference",
+          "name": "中国作家网",
+          "url": "https://www.chinawriter.com.cn/n1/2020/0331/c404027-31655577.html",
+          "useFor": ["story_context", "author_context"],
+          "note": "Article describes the work and protagonist; useful for story fallback."
+        }
+      ]
+    },
+    {
+      "title": "佣兵天下",
+      "author": "说不得大师",
+      "previousBlockReason": "qidian raw existed but summary appeared truncated in fast pass.",
+      "suggestedAction": "Rerun with exact qidian URL; fallback to WeRead/99csw for summary if truncation persists.",
+      "confidence": "high",
+      "reviewQuestion": "确认使用起点作为主来源，允许必要时用微信读书/九九藏书补简介。",
+      "candidateSources": [
+        {
+          "kind": "original_platform",
+          "name": "起点中文网",
+          "url": "https://www.qidian.com/book/1026121482/",
+          "useFor": ["title", "author", "summary", "cover"],
+          "note": "Exact title/author candidate found."
+        },
+        {
+          "kind": "licensed_reading_platform",
+          "name": "微信读书 author/work search",
+          "url": "https://weread.qq.com/web/search/books?author=%E8%AF%B4%E4%B8%8D%E5%BE%97%E5%A4%A7%E5%B8%88",
+          "useFor": ["author", "summary_fallback", "cover_candidate"],
+          "note": "Shows 佣兵天下 under 说不得大师."
+        },
+        {
+          "kind": "fallback",
+          "name": "九九藏书",
+          "url": "https://www.99csw.com/book/1734/index.htm",
+          "useFor": ["summary_fallback", "story_fallback"],
+          "note": "Third-party source with stable synopsis; use if qidian summary remains truncated."
+        }
+      ]
+    },
+    {
+      "title": "天行健",
+      "author": "燕垒生",
+      "previousBlockReason": "qidian search matched 天行健：渡 / 薄酒敬余生.",
+      "suggestedAction": "Use WeRead or Douban as whole-work anchor.",
+      "confidence": "high",
+      "reviewQuestion": "确认按《天行健》修订版全集/整体作品入库。",
+      "candidateSources": [
+        {
+          "kind": "licensed_reading_platform",
+          "name": "微信读书",
+          "url": "https://weread.qq.com/web/bookDetail/fec32090811e1a5d6g019018",
+          "useFor": ["title", "author", "summary", "cover"],
+          "note": "Exact title/author and whole-work synopsis."
+        },
+        {
+          "kind": "metadata",
+          "name": "豆瓣",
+          "url": "https://book.douban.com/subject/1437858//",
+          "useFor": ["edition_anchor", "rating", "summary_fallback"],
+          "note": "Exact title/author edition page."
+        },
+        {
+          "kind": "fallback",
+          "name": "九九藏书",
+          "url": "https://www.99csw.com/book/3143/index.htm",
+          "useFor": ["story_fallback"],
+          "note": "First volume page; not whole-work primary anchor."
+        }
+      ]
+    },
+    {
+      "title": "鬼吹灯",
+      "author": "天下霸唱",
+      "previousBlockReason": "qidian search matched 鬼吹灯II / 本物天下霸唱.",
+      "suggestedAction": "Use encyclopedia as whole-series anchor.",
+      "confidence": "high",
+      "reviewQuestion": "确认按《鬼吹灯》全八卷/整体作品入库，而不是《鬼吹灯II》单部。",
+      "candidateSources": [
+        {
+          "kind": "encyclopedia",
+          "name": "Wikipedia",
+          "url": "https://zh.wikipedia.org/wiki/%E9%AC%BC%E5%90%B9%E7%81%AF",
+          "useFor": ["title", "author", "genre", "series_structure", "story"],
+          "note": "Identifies 鬼吹灯 as a web novel by 天下霸唱 and lists first/second part volumes."
+        }
+      ]
+    },
+    {
+      "title": "第一次的亲密接触",
+      "author": "痞子蔡",
+      "previousBlockReason": "qidian search matched unrelated 第一次.",
+      "suggestedAction": "Use Wikipedia/Douban as metadata and story anchors.",
+      "confidence": "high",
+      "reviewQuestion": "确认作者展示用“痞子蔡”，别名/本名可记录为蔡智恒。",
+      "candidateSources": [
+        {
+          "kind": "encyclopedia",
+          "name": "Wikipedia",
+          "url": "https://zh.wikipedia.org/wiki/%E7%AC%AC%E4%B8%80%E6%AC%A1%E7%9A%84%E8%A6%AA%E5%AF%86%E6%8E%A5%E8%A7%B8",
+          "useFor": ["title", "author", "first_publication", "story", "work_context"],
+          "note": "States the novel was written by 蔡智恆 under the pen name 痞子蔡 and first posted in 1998."
+        },
+        {
+          "kind": "metadata",
+          "name": "Douban",
+          "url": "https://m.douban.com/book/subject/1566311/",
+          "useFor": ["summary", "author_bio", "rating", "cover_candidate"],
+          "note": "Book page for 第一次亲密接触."
+        },
+        {
+          "kind": "reference",
+          "name": "中国作家网",
+          "url": "https://www.chinawriter.com.cn/n1/2020/0113/c425784-31546524.html",
+          "useFor": ["work_context", "author_context"],
+          "note": "Useful contextual article about the work's role in early Chinese web literature."
+        }
+      ]
+    },
+    {
+      "title": "悟空传",
+      "author": "今何在",
+      "previousBlockReason": "qidian search matched a print commemorative edition; not necessarily wrong, but fast pass blocked as title mismatch.",
+      "suggestedAction": "Use author/edition reference and treat qidian commemorative edition only as cover/edition candidate.",
+      "confidence": "medium",
+      "reviewQuestion": "确认按《悟空传》整体作品入库，版本可不锁定典藏纪念版。",
+      "candidateSources": [
+        {
+          "kind": "author_reference",
+          "name": "Wikipedia author page",
+          "url": "https://zh.wikipedia.org/wiki/%E4%BB%8A%E4%BD%95%E5%9C%A8",
+          "useFor": ["author", "bibliography", "publication_context"],
+          "note": "Lists 悟空传 among 今何在's notable works and publication history."
+        },
+        {
+          "kind": "reference",
+          "name": "中国作家网",
+          "url": "https://www.chinawriter.com.cn/n1/2017/0717/c404079-29409132.html",
+          "useFor": ["summary_context", "work_context"],
+          "note": "States 悟空传 was serialized in 2000 and published in 2001."
+        }
+      ]
+    },
+    {
+      "title": "飘邈之旅",
+      "author": "萧潜",
+      "previousBlockReason": "qidian raw lacked title/summary/author and failed temporary import.",
+      "suggestedAction": "Use encyclopedia/fallback source; verify spelling 飘邈 vs 飘渺 in metadata aliases.",
+      "confidence": "medium",
+      "reviewQuestion": "确认主标题使用用户原文《飘邈之旅》，并把《飘渺之旅》作为别名。",
+      "candidateSources": [
+        {
+          "kind": "encyclopedia",
+          "name": "抖音百科",
+          "url": "https://m.baike.com/wikiid/3469911547108204524",
+          "useFor": ["title", "alias", "author", "summary", "story"],
+          "note": "Entry states 飘邈之旅/飘渺之旅 is a 2002/2003 cultivation novel by 萧潜."
+        },
+        {
+          "kind": "reference",
+          "name": "Sohu article",
+          "url": "https://www.sohu.com/a/674854587_121698175",
+          "useFor": ["work_context", "genre_context"],
+          "note": "Useful context, not primary source."
+        }
+      ]
+    },
+    {
+      "title": "亵渎",
+      "author": "烟雨江南",
+      "previousBlockReason": "qidian search matched 亵渎牧师 / 血腥queen.",
+      "suggestedAction": "Use reference/fallback sources; do not use qidian search result.",
+      "confidence": "medium",
+      "reviewQuestion": "确认按烟雨江南《亵渎》整体作品入库。",
+      "candidateSources": [
+        {
+          "kind": "reference",
+          "name": "Douban review/context",
+          "url": "https://m.douban.com/book/review/14604982/",
+          "useFor": ["work_context", "genre_context"],
+          "note": "Discussion of 烟雨江南《亵渎》; useful for validation, not enough alone for full staging."
+        },
+        {
+          "kind": "fallback",
+          "name": "Sohu synopsis article",
+          "url": "https://www.sohu.com/a/756234842_121698175",
+          "useFor": ["summary_fallback", "story_fallback"],
+          "note": "Contains plot description; third-party fallback."
+        }
+      ]
+    },
+    {
+      "title": "花千骨",
+      "author": "Fresh果果",
+      "previousBlockReason": "qidian search matched derivative 花千骨之谭凡 / 白色的宇宙.",
+      "suggestedAction": "Use original Jinjiang page as primary source.",
+      "confidence": "high",
+      "reviewQuestion": "确认按小说《花千骨》整体作品入库，原名/相关名可记录《仙侠奇缘之花千骨》。",
+      "candidateSources": [
+        {
+          "kind": "original_platform",
+          "name": "晋江文学城",
+          "url": "https://www.jjwxc.net/onebook.php?novelid=316358",
+          "useFor": ["title", "author", "tags", "summary", "status"],
+          "note": "Exact original platform candidate."
+        },
+        {
+          "kind": "encyclopedia",
+          "name": "Wikipedia TV page book section",
+          "url": "https://zh.wikipedia.org/wiki/%E8%8A%B1%E5%8D%83%E9%AA%A8_%28%E9%9B%BB%E8%A6%96%E5%8A%87%29",
+          "useFor": ["edition_context", "adaptation_context"],
+          "note": "TV page but includes novel publication editions; use only as supplemental reference."
+        },
+        {
+          "kind": "reference",
+          "name": "萌娘百科",
+          "url": "https://zh.moegirl.org.cn/%E8%8A%B1%E5%8D%83%E9%AA%A8",
+          "useFor": ["summary_fallback", "work_context"],
+          "note": "States it is by Fresh果果 and first serialized on Jinjiang."
+        }
+      ]
+    },
+    {
+      "title": "宰执天下",
+      "author": "cuslaa",
+      "previousBlockReason": "qidian search matched 红楼之宰执天下 / 太费神.",
+      "suggestedAction": "Use WeRead and encyclopedia/reference sources; if possible later locate Zongheng original page.",
+      "confidence": "high",
+      "reviewQuestion": "确认按《宰执天下》整体作品入库，作者展示为 cuslaa。",
+      "candidateSources": [
+        {
+          "kind": "licensed_reading_platform",
+          "name": "微信读书",
+          "url": "https://weread.qq.com/web/bookDetail/8f432ca052ba378f4cd737b",
+          "useFor": ["title", "author", "summary", "word_count", "cover"],
+          "note": "Exact work page and useful metadata."
+        },
+        {
+          "kind": "encyclopedia",
+          "name": "抖音百科",
+          "url": "https://m.baike.com/wikiid/8369379632458482201",
+          "useFor": ["title", "author", "serialization_dates", "summary", "story"],
+          "note": "States it is by cuslaa, serialized on Zongheng, completed in 2019."
+        },
+        {
+          "kind": "reference",
+          "name": "搜狐/北青网 article",
+          "url": "https://www.sohu.com/a/712634939_255783",
+          "useFor": ["author_context", "award_context"],
+          "note": "Context source only."
+        }
+      ]
+    },
+    {
+      "title": "十日终焉",
+      "author": "杀虫队队员",
+      "previousBlockReason": "no usable raw source in fast pass.",
+      "suggestedAction": "Use Fanqie exact page as primary source.",
+      "confidence": "high",
+      "reviewQuestion": "确认使用番茄小说《十日终焉》作为主来源。",
+      "candidateSources": [
+        {
+          "kind": "original_platform",
+          "name": "番茄小说",
+          "url": "https://fanqienovel.com/page/7143038691944959011",
+          "useFor": ["title", "author", "status", "word_count", "summary", "cover"],
+          "note": "Exact work page; search result states completed, 3.201 million characters, author 杀虫队队员."
+        },
+        {
+          "kind": "author_platform",
+          "name": "番茄小说 author page",
+          "url": "https://fanqienovel.com/author-page/66292947550-6914903776998462727",
+          "useFor": ["author", "author_works"],
+          "note": "Author page lists 十日终焉 and 传说管理局."
+        },
+        {
+          "kind": "reference",
+          "name": "中国作家网 interview",
+          "url": "https://www.chinawriter.com.cn/n1/2024/0227/c404024-40184501.html",
+          "useFor": ["author_context", "work_context"],
+          "note": "Authoritative interview/context source."
+        }
+      ]
+    }
+  ]
+}

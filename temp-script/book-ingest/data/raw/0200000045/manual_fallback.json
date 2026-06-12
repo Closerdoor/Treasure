@@ -1,0 +1,33 @@
+{
+  "source": "manual_fallback",
+  "title": "佣兵天下",
+  "authors": [
+    "说不得大师"
+  ],
+  "year": null,
+  "word_count": null,
+  "summary": "奇幻战争题材网络小说。作品围绕佣兵团、国家战争、种族冲突和英雄成长展开，以宏大的世界观和群像冒险构成主要叙事。",
+  "story": "以艾米等年轻佣兵的成长为主线，故事从佣兵任务逐渐扩展到大陆战争与历史命运。个人友情、团队责任和时代巨变交织，推动角色走向更大的战场。",
+  "tags": [
+    "奇幻",
+    "战争",
+    "冒险"
+  ],
+  "genres": [
+    "网络小说",
+    "奇幻小说"
+  ],
+  "sources": [
+    {
+      "name": "起点中文网",
+      "id": "起点中文网:佣兵天下",
+      "link": "https://www.qidian.com/book/1026121482/"
+    },
+    {
+      "name": "微信读书",
+      "id": "微信读书:佣兵天下",
+      "link": "https://weread.qq.com/web/search/books?author=%E8%AF%B4%E4%B8%8D%E5%BE%97%E5%A4%A7%E5%B8%88"
+    }
+  ],
+  "note": "Manual fallback raw compiled from reviewed candidate/reference anchors. This is not an automated source adapter."
+}

@@ -1,0 +1,75 @@
+{
+  "id": "0200000035",
+  "title": "晚明",
+  "titleOriginal": null,
+  "otherTitles": null,
+  "isbn": null,
+  "year": null,
+  "country": "中国",
+  "language": "中文",
+  "wordCount": 2272300,
+  "publisher": null,
+  "publishDate": null,
+  "pages": null,
+  "price": null,
+  "binding": null,
+  "format": null,
+  "edition": null,
+  "summary": "明朝末年，北国狼烟横卷，尸骨山积；江南小桥流水，歌舞升平。朝代末世的内忧外患之中，腹黑办公室主任强势崛起，吹响华夏最后的号角。真英雄，改天命。 残酷惨烈的古代战争，真实的明代市井，一个个小人物创造的历史，展开一幅波澜壮阔而又温婉缠绵的晚明画卷。 书友QQ群：145034435 热血",
+  "story": null,
+  "quotes": null,
+  "excerpts": null,
+  "seriesId": null,
+  "seriesOrder": null,
+  "scores": null,
+  "externalSource": [
+    {
+      "name": "起点中文网",
+      "id": "晚明",
+      "link": "https://www.qidian.com/book/2430034/"
+    }
+  ],
+  "images": {
+    "cover": "covers/qidian.jpg",
+    "covers": {},
+    "assetDir": "0200000035"
+  },
+  "reviews": null,
+  "related": null,
+  "status": "draft",
+  "_meta": {
+    "fieldSources": {
+      "title": "qidian",
+      "wordCount": "qidian",
+      "country": "qidian",
+      "language": "qidian",
+      "summary": "qidian"
+    },
+    "conflicts": [],
+    "authors": [
+      "柯山梦"
+    ],
+    "translators": [],
+    "tags": [
+      "历史",
+      "两宋元明"
+    ],
+    "subjects": [],
+    "genres": [
+      "历史",
+      "两宋元明"
+    ],
+    "awards": [],
+    "series": null,
+    "seriesCandidates": [],
+    "coverUrls": {
+      "qidian": "https://bookcover.yuewen.com/qdbimg/349573/2430034/600.webp"
+    },
+    "prices": {},
+    "personDetails": [],
+    "isWebNovel": true,
+    "serialStatus": "完本",
+    "contentKind": "web_novel",
+    "batchRunId": "2026-06-10-web-novel-bulk-import-candidates"
+  }
+}

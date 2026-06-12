@@ -1,0 +1,22 @@
+{
+  "runId": "2026-06-11-web-novel-blocked-manual-fallback",
+  "createdAt": "2026-06-11",
+  "approvedBy": "user-requested-complete-backfill",
+  "policy": "Apply manual fallback staging for the 14 previously blocked web novels. Staging uses candidate/reference/manual_fallback sources only; no new automated source adapter is introduced.",
+  "approved": [
+    "0200000041",
+    "0200000042",
+    "0200000043",
+    "0200000044",
+    "0200000045",
+    "0200000046",
+    "0200000047",
+    "0200000048",
+    "0200000049",
+    "0200000050",
+    "0200000051",
+    "0200000052",
+    "0200000053",
+    "0200000054"
+  ]
+}

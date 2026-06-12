@@ -60,6 +60,28 @@ npm.cmd run build
 
 Windows PowerShell 下优先使用 `npm.cmd`，避免执行策略拦截 `npm.ps1`。
 
+## Encoding Rules
+
+本项目默认使用 UTF-8。写文件和输出中文时必须显式处理编码，避免 Windows PowerShell 控制台编码把中文替换成 `?` 或产生乱码。
+
+- Markdown、JSON、脚本、报告等文本文件统一使用 UTF-8 编码写入。
+- 生成或改写文件时优先使用明确指定 UTF-8 的工具链，例如 Node.js `fs.writeFileSync(path, text, { encoding: "utf8" })`，或 Python `Path.write_text(text, encoding="utf-8")`。
+- PowerShell 读取中文文件时使用 `Get-Content -Encoding UTF8`；写中文文件时不要依赖默认编码，必须显式指定 UTF-8。
+- 不要把 PowerShell 控制台里显示的乱码直接复制回文件；如果只是终端显示乱码，先用 UTF-8 读取或用脚本检查文件字节内容。
+- 在 PowerShell 中执行包含中文字符串的内联脚本要特别小心；如需生成中文 Markdown/JSON，优先从已有 UTF-8 JSON 读取中文内容，或使用 UTF-8 脚本文件/Node.js 生成，避免中文常量经过控制台转码。
+- 控制台输出中文时，脚本应使用 UTF-8 或对当前 stdout 编码做安全降级，只允许影响显示，不得把降级后的文本写入数据文件。
+
+## Source Governance Rules
+
+数据源必须分层管理，不能因为临时搜索到页面就把新站点直接并入正式录入流程。
+
+- 书籍现有自动采集数据源以 `docs/PROJECT.md` 和 `temp-script/book-ingest` 当前实现为准：`douban`、`openlibrary`、`baike`、`wikipedia`、`goodreads`、`dangdang`、`qidian`。
+- 网络小说 fast 批次默认只使用已实现的 `qidian` 自动采集；其他已有来源只能按当前规则补充，不得静默扩大。
+- 新搜索到的 QQ阅读、微信读书、番茄、晋江、纵横、中国作家网、第三方全文站等页面，只能先标记为 `candidate`、`reference` 或 `manual_fallback`，用于人工审视、补强 source hints 或后续开发 adapter。
+- 未实现 adapter、未验证反爬稳定性、未纳入字段映射和预检规则的新站点，不得进入 `batch_runner.py` 自动采集和 `batch_apply.py` 正式入库。
+- 第三方全文站、论坛、博客、媒体文章只能作为低优先级参考或剧情补充候选；不得作为标题、作者、封面、主元数据的唯一事实来源。
+- 如果确需新增正式数据源，必须先更新文档和配置，说明字段用途、可信度、失败模式、预检规则和人工确认边界。
+
 ## Data Integrity Rules
 
 涉及以下情况时，必须先向用户确认：

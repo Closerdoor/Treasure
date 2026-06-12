@@ -1,0 +1,75 @@
+{
+  "id": "0200000047",
+  "title": "鬼吹灯",
+  "titleOriginal": null,
+  "otherTitles": null,
+  "isbn": null,
+  "year": 2006,
+  "country": "中国",
+  "language": "中文",
+  "wordCount": null,
+  "publisher": null,
+  "publishDate": null,
+  "pages": null,
+  "price": null,
+  "binding": null,
+  "format": null,
+  "edition": null,
+  "summary": "悬疑探险类网络小说代表作。作品以胡八一、王胖子、Shirley杨等人的探险经历为主线，融合民俗传说、地理秘境和古墓机关。",
+  "story": "主角一行在不同地域和古墓遗迹中寻找线索，面对机关、传说和未知危险。系列通过多卷探险串联人物身世、历史谜团和民间志怪想象。",
+  "quotes": null,
+  "excerpts": null,
+  "seriesId": null,
+  "seriesOrder": null,
+  "scores": null,
+  "externalSource": [
+    {
+      "name": "维基百科",
+      "id": "Wikipedia:鬼吹灯",
+      "link": "https://zh.wikipedia.org/wiki/%E9%AC%BC%E5%90%B9%E7%81%AF"
+    }
+  ],
+  "images": null,
+  "reviews": null,
+  "related": null,
+  "status": "draft",
+  "_meta": {
+    "fieldSources": {
+      "title": "manual_fallback",
+      "country": "manual_fallback",
+      "language": "manual_fallback",
+      "summary": "manual_fallback",
+      "story": "manual_fallback",
+      "year": "manual_fallback"
+    },
+    "conflicts": [],
+    "authors": [
+      "天下霸唱"
+    ],
+    "translators": [],
+    "tags": [
+      "悬疑",
+      "探险",
+      "盗墓"
+    ],
+    "subjects": [],
+    "genres": [
+      "网络小说",
+      "悬疑灵异"
+    ],
+    "awards": [],
+    "series": null,
+    "seriesCandidates": [],
+    "coverUrls": {},
+    "prices": {},
+    "personDetails": [],
+    "isWebNovel": true,
+    "contentKind": "web_novel",
+    "batchRunId": "2026-06-11-web-novel-blocked-manual-fallback",
+    "manualFallback": {
+      "reason": "Existing automated sources did not produce safe whole-work staging in the fast batch.",
+      "sourceNames": "维基百科",
+      "sourceGovernance": "candidate/reference/manual_fallback only; not a new automated adapter"
+    }
+  }
+}

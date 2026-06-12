@@ -1,0 +1,33 @@
+{
+  "source": "manual_fallback",
+  "title": "雪中悍刀行",
+  "authors": [
+    "烽火戏诸侯"
+  ],
+  "year": 2011,
+  "word_count": 4600000,
+  "summary": "一部兼具庙堂权谋与江湖气象的长篇网络小说。故事以北凉世子徐凤年为中心，展开关于家国、江湖、亲情、师友与个人成长的群像叙事。",
+  "story": "徐凤年从纨绔世子逐步走向承担北凉命运的位置，在游历江湖、卷入朝堂纷争和面对天下格局变化的过程中，完成从个人逍遥到家国担当的转变。",
+  "tags": [
+    "武侠",
+    "玄幻",
+    "江湖"
+  ],
+  "genres": [
+    "网络小说",
+    "武侠幻想"
+  ],
+  "sources": [
+    {
+      "name": "QQ阅读",
+      "id": "QQ阅读:雪中悍刀行",
+      "link": "https://ubook.reader.qq.com/book-detail/172865"
+    },
+    {
+      "name": "中国作家网",
+      "id": "中国作家网:雪中悍刀行",
+      "link": "https://www.chinawriter.com.cn/n1/2022/0125/c404027-32339304.html"
+    }
+  ],
+  "note": "Manual fallback raw compiled from reviewed candidate/reference anchors. This is not an automated source adapter."
+}

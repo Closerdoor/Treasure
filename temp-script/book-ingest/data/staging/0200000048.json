@@ -1,0 +1,82 @@
+{
+  "id": "0200000048",
+  "title": "第一次的亲密接触",
+  "titleOriginal": null,
+  "otherTitles": [
+    "第一次亲密接触"
+  ],
+  "isbn": null,
+  "year": 1998,
+  "country": "中国",
+  "language": "中文",
+  "wordCount": null,
+  "publisher": null,
+  "publishDate": null,
+  "pages": null,
+  "price": null,
+  "binding": null,
+  "format": null,
+  "edition": null,
+  "summary": "早期中文网络文学代表作。小说以网络聊天和现实相遇为线索，讲述痞子蔡与轻舞飞扬之间带有青春、浪漫和遗憾色彩的爱情故事。",
+  "story": "主人公在网络上结识轻舞飞扬，两人从文字交流走向现实接触。故事在轻快幽默的网络语言背后，逐渐显露疾病、离别和青春记忆的伤感底色。",
+  "quotes": null,
+  "excerpts": null,
+  "seriesId": null,
+  "seriesOrder": null,
+  "scores": null,
+  "externalSource": [
+    {
+      "name": "维基百科",
+      "id": "Wikipedia:第一次的亲密接触",
+      "link": "https://zh.wikipedia.org/wiki/%E7%AC%AC%E4%B8%80%E6%AC%A1%E7%9A%84%E8%A6%AA%E5%AF%86%E6%8E%A5%E8%A7%B8"
+    },
+    {
+      "name": "豆瓣",
+      "id": "豆瓣:第一次的亲密接触",
+      "link": "https://m.douban.com/book/subject/1566311/"
+    }
+  ],
+  "images": null,
+  "reviews": null,
+  "related": null,
+  "status": "draft",
+  "_meta": {
+    "fieldSources": {
+      "title": "manual_fallback",
+      "country": "manual_fallback",
+      "language": "manual_fallback",
+      "summary": "manual_fallback",
+      "story": "manual_fallback",
+      "year": "manual_fallback"
+    },
+    "conflicts": [],
+    "authors": [
+      "痞子蔡"
+    ],
+    "translators": [],
+    "tags": [
+      "爱情",
+      "网络文学",
+      "青春"
+    ],
+    "subjects": [],
+    "genres": [
+      "网络小说",
+      "爱情小说"
+    ],
+    "awards": [],
+    "series": null,
+    "seriesCandidates": [],
+    "coverUrls": {},
+    "prices": {},
+    "personDetails": [],
+    "isWebNovel": true,
+    "contentKind": "web_novel",
+    "batchRunId": "2026-06-11-web-novel-blocked-manual-fallback",
+    "manualFallback": {
+      "reason": "Existing automated sources did not produce safe whole-work staging in the fast batch.",
+      "sourceNames": "维基百科, 豆瓣",
+      "sourceGovernance": "candidate/reference/manual_fallback only; not a new automated adapter"
+    }
+  }
+}

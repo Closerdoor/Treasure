@@ -1,0 +1,33 @@
+{
+  "source": "manual_fallback",
+  "title": "新宋",
+  "authors": [
+    "阿越"
+  ],
+  "year": 2004,
+  "word_count": null,
+  "summary": "架空历史小说。现代人石越来到北宋神宗年间，以知识、制度与政治经验介入王安石变法前后的时代浪潮，重新想象宋代政治、经济与社会演变。",
+  "story": "主人公石越进入北宋政治场域后，在理想、现实、派系和制度之间周旋，试图推动一个不同于真实历史走向的新宋，同时也不断面对个人能力与时代惯性的边界。",
+  "tags": [
+    "历史",
+    "架空历史",
+    "穿越"
+  ],
+  "genres": [
+    "网络小说",
+    "历史小说"
+  ],
+  "sources": [
+    {
+      "name": "维基百科",
+      "id": "Wikipedia:新宋",
+      "link": "https://zh.wikipedia.org/wiki/%E6%96%B0%E5%AE%8B"
+    },
+    {
+      "name": "微信读书",
+      "id": "微信读书:新宋",
+      "link": "https://weread.qq.com/web/search/books?author=%E9%98%BF%E8%B6%8A"
+    }
+  ],
+  "note": "Manual fallback raw compiled from reviewed candidate/reference anchors. This is not an automated source adapter."
+}

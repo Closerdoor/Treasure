@@ -1,0 +1,830 @@
+{
+  "runId": "2026-06-10-web-novel-bulk-import-candidates",
+  "createdAt": "2026-06-10",
+  "status": "candidate_manifest_from_first_pass",
+  "profile": "web-novel-fast",
+  "scope": {
+    "sourceRunId": "2026-06-10-web-novel-bulk",
+    "originalRows": 44,
+    "uniqueTitles": 43,
+    "alreadyInDatabase": [
+      {
+        "bookId": "0200000012",
+        "title": "诡秘之主",
+        "authors": [
+          "爱潜水的乌贼"
+        ],
+        "note": "数据库已有记录，默认不重复录入。"
+      },
+      {
+        "bookId": "0200000013",
+        "title": "庆余年",
+        "authors": [
+          "猫腻"
+        ],
+        "note": "数据库已有记录，默认不重复录入。"
+      }
+    ],
+    "duplicateRows": [
+      {
+        "title": "佛本是道",
+        "authors": [
+          "梦入神机"
+        ],
+        "duplicateOfBookId": "0200000040",
+        "note": "用户清单中重复出现，manifest 只保留一个 actionable item。"
+      }
+    ],
+    "firstPassActionableItems": 41,
+    "candidateItems": 27,
+    "blockedItems": 14,
+    "idRange": "0200000014-0200000040",
+    "policy": "Network novels use qidian as primary source. Missing story is allowed as warning when summary exists; blocked items stay in config for later rerun."
+  },
+  "blockedQueue": [
+    {
+      "originalBookId": "0200000024",
+      "title": "雪中悍刀行",
+      "authors": [
+        "烽火戏诸侯"
+      ],
+      "status": "failed",
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "qidianUrl": "https://www.qidian.com/book/1003766574/",
+      "qidianTitle": "雪中悍刀行9：新桃换旧符",
+      "reasons": [
+        "qidian title mismatch: 雪中悍刀行9：新桃换旧符",
+        "summary appears truncated with ellipsis"
+      ],
+      "nextAction": "rerun with stronger source hints / manual source page before import"
+    },
+    {
+      "originalBookId": "0200000029",
+      "title": "新宋",
+      "authors": [
+        "阿越"
+      ],
+      "status": "needs_review",
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "qidianUrl": "https://www.qidian.com/book/181966/",
+      "qidianTitle": "新宋风流",
+      "reasons": [
+        "qidian title mismatch: 新宋风流"
+      ],
+      "nextAction": "rerun with stronger source hints / manual source page before import"
+    },
+    {
+      "originalBookId": "0200000031",
+      "title": "风姿物语",
+      "authors": [
+        "罗森"
+      ],
+      "status": "needs_review",
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": false
+      },
+      "qidianUrl": null,
+      "qidianTitle": null,
+      "reasons": [
+        "no usable raw source in fast pass"
+      ],
+      "nextAction": "rerun with stronger source hints / manual source page before import"
+    },
+    {
+      "originalBookId": "0200000032",
+      "title": "陈二狗的妖孽人生",
+      "authors": [
+        "烽火戏诸侯"
+      ],
+      "status": "needs_review",
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": false
+      },
+      "qidianUrl": null,
+      "qidianTitle": null,
+      "reasons": [
+        "no usable raw source in fast pass"
+      ],
+      "nextAction": "rerun with stronger source hints / manual source page before import"
+    },
+    {
+      "originalBookId": "0200000034",
+      "title": "佣兵天下",
+      "authors": [
+        "说不得大师"
+      ],
+      "status": "failed",
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "qidianUrl": "https://www.qidian.com/book/1026121482/",
+      "qidianTitle": "佣兵天下",
+      "reasons": [
+        "summary appears truncated with ellipsis",
+        "summary truncated in qidian fast pass"
+      ],
+      "nextAction": "rerun with stronger source hints / manual source page before import"
+    },
+    {
+      "originalBookId": "0200000037",
+      "title": "天行健",
+      "authors": [
+        "燕垒生"
+      ],
+      "status": "needs_review",
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "qidianUrl": "https://www.qidian.com/book/1049470072/",
+      "qidianTitle": "天行健：渡",
+      "reasons": [
+        "qidian title mismatch: 天行健：渡"
+      ],
+      "nextAction": "rerun with stronger source hints / manual source page before import"
+    },
+    {
+      "originalBookId": "0200000039",
+      "title": "鬼吹灯",
+      "authors": [
+        "天下霸唱"
+      ],
+      "status": "needs_review",
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "qidianUrl": "https://www.qidian.com/book/123900/",
+      "qidianTitle": "鬼吹灯II",
+      "reasons": [
+        "qidian title mismatch: 鬼吹灯II"
+      ],
+      "nextAction": "rerun with stronger source hints / manual source page before import"
+    },
+    {
+      "originalBookId": "0200000044",
+      "title": "第一次的亲密接触",
+      "authors": [
+        "痞子蔡"
+      ],
+      "status": "needs_review",
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "qidianUrl": "https://www.qidian.com/book/1038736701/",
+      "qidianTitle": "第一次",
+      "reasons": [
+        "qidian title mismatch: 第一次"
+      ],
+      "nextAction": "rerun with stronger source hints / manual source page before import"
+    },
+    {
+      "originalBookId": "0200000045",
+      "title": "悟空传",
+      "authors": [
+        "今何在"
+      ],
+      "status": "needs_review",
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "qidianUrl": "https://www.qidian.com/book/1009537680/",
+      "qidianTitle": "悟空传（典藏纪念版）",
+      "reasons": [
+        "qidian title mismatch: 悟空传（典藏纪念版）"
+      ],
+      "nextAction": "rerun with stronger source hints / manual source page before import"
+    },
+    {
+      "originalBookId": "0200000049",
+      "title": "飘邈之旅",
+      "authors": [
+        "萧潜"
+      ],
+      "status": "failed",
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "qidianUrl": "https://www.qidian.com/book/1031625078/",
+      "qidianTitle": null,
+      "reasons": [
+        "summary is missing",
+        "web-novel-fast 缺少作者",
+        "临时库导入失败: NOT NULL constraint failed: books.title"
+      ],
+      "nextAction": "rerun with stronger source hints / manual source page before import"
+    },
+    {
+      "originalBookId": "0200000050",
+      "title": "亵渎",
+      "authors": [
+        "烟雨江南"
+      ],
+      "status": "needs_review",
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "qidianUrl": "https://www.qidian.com/book/1041030016/",
+      "qidianTitle": "亵渎牧师",
+      "reasons": [
+        "qidian title mismatch: 亵渎牧师"
+      ],
+      "nextAction": "rerun with stronger source hints / manual source page before import"
+    },
+    {
+      "originalBookId": "0200000053",
+      "title": "花千骨",
+      "authors": [
+        "Fresh果果"
+      ],
+      "status": "needs_review",
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "qidianUrl": "https://www.qidian.com/book/1025375601/",
+      "qidianTitle": "花千骨之谭凡",
+      "reasons": [
+        "qidian title mismatch: 花千骨之谭凡"
+      ],
+      "nextAction": "rerun with stronger source hints / manual source page before import"
+    },
+    {
+      "originalBookId": "0200000057",
+      "title": "宰执天下",
+      "authors": [
+        "cuslaa"
+      ],
+      "status": "needs_review",
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "qidianUrl": "https://www.qidian.com/book/1034913669/",
+      "qidianTitle": "红楼之宰执天下",
+      "reasons": [
+        "qidian title mismatch: 红楼之宰执天下"
+      ],
+      "nextAction": "rerun with stronger source hints / manual source page before import"
+    },
+    {
+      "originalBookId": "0200000058",
+      "title": "十日终焉",
+      "authors": [
+        "杀虫队队员"
+      ],
+      "status": "needs_review",
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": false
+      },
+      "qidianUrl": null,
+      "qidianTitle": null,
+      "reasons": [
+        "no usable raw source in fast pass"
+      ],
+      "nextAction": "rerun with stronger source hints / manual source page before import"
+    }
+  ],
+  "items": [
+    {
+      "bookId": "0200000014",
+      "title": "斗罗大陆",
+      "authors": [
+        "唐家三少"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "web-novel-fast",
+      "sourceHints": {
+        "qidianUrl": "https://www.qidian.com/book/1115277/"
+      },
+      "previousBookId": "0200000022",
+      "notes": [
+        "Remapped from first-pass staging 0200000022 for contiguous DB import."
+      ]
+    },
+    {
+      "bookId": "0200000015",
+      "title": "无限恐怖",
+      "authors": [
+        "zhttty"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "web-novel-fast",
+      "sourceHints": {
+        "qidianUrl": "https://www.qidian.com/book/109222/"
+      },
+      "previousBookId": "0200000023",
+      "notes": [
+        "Remapped from first-pass staging 0200000023 for contiguous DB import."
+      ]
+    },
+    {
+      "bookId": "0200000016",
+      "title": "恶魔法则",
+      "authors": [
+        "跳舞"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "web-novel-fast",
+      "sourceHints": {
+        "qidianUrl": "https://www.qidian.com/book/163560/"
+      },
+      "previousBookId": "0200000025",
+      "notes": [
+        "Remapped from first-pass staging 0200000025 for contiguous DB import."
+      ]
+    },
+    {
+      "bookId": "0200000017",
+      "title": "卡徒",
+      "authors": [
+        "方想"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "web-novel-fast",
+      "sourceHints": {
+        "qidianUrl": "https://www.qidian.com/book/1031950/"
+      },
+      "previousBookId": "0200000026",
+      "notes": [
+        "Remapped from first-pass staging 0200000026 for contiguous DB import."
+      ]
+    },
+    {
+      "bookId": "0200000018",
+      "title": "诛仙",
+      "authors": [
+        "萧鼎"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "web-novel-fast",
+      "sourceHints": {
+        "qidianUrl": "https://www.qidian.com/book/2019/"
+      },
+      "previousBookId": "0200000027",
+      "notes": [
+        "Remapped from first-pass staging 0200000027 for contiguous DB import."
+      ]
+    },
+    {
+      "bookId": "0200000019",
+      "title": "遮天",
+      "authors": [
+        "辰东"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "web-novel-fast",
+      "sourceHints": {
+        "qidianUrl": "https://www.qidian.com/book/1735921/"
+      },
+      "previousBookId": "0200000028",
+      "notes": [
+        "Remapped from first-pass staging 0200000028 for contiguous DB import."
+      ]
+    },
+    {
+      "bookId": "0200000020",
+      "title": "搜神记",
+      "authors": [
+        "树下野狐"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "web-novel-fast",
+      "sourceHints": {
+        "qidianUrl": "https://www.qidian.com/book/1017408618/"
+      },
+      "previousBookId": "0200000030",
+      "notes": [
+        "Remapped from first-pass staging 0200000030 for contiguous DB import."
+      ]
+    },
+    {
+      "bookId": "0200000021",
+      "title": "升龙道",
+      "authors": [
+        "血红"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "web-novel-fast",
+      "sourceHints": {
+        "qidianUrl": "https://www.qidian.com/book/8795/"
+      },
+      "reviewNotes": [
+        "用户原文作者为“是血红”，按常见作者名规范为“血红”。"
+      ],
+      "previousBookId": "0200000033",
+      "notes": [
+        "Remapped from first-pass staging 0200000033 for contiguous DB import."
+      ]
+    },
+    {
+      "bookId": "0200000022",
+      "title": "牧神记",
+      "authors": [
+        "宅猪"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "web-novel-fast",
+      "sourceHints": {
+        "qidianUrl": "https://www.qidian.com/book/1009704712/"
+      },
+      "previousBookId": "0200000035",
+      "notes": [
+        "Remapped from first-pass staging 0200000035 for contiguous DB import."
+      ]
+    },
+    {
+      "bookId": "0200000023",
+      "title": "全职高手",
+      "authors": [
+        "蝴蝶蓝"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "web-novel-fast",
+      "sourceHints": {
+        "qidianUrl": "https://www.qidian.com/book/1887208/"
+      },
+      "previousBookId": "0200000036",
+      "notes": [
+        "Remapped from first-pass staging 0200000036 for contiguous DB import."
+      ]
+    },
+    {
+      "bookId": "0200000024",
+      "title": "盗墓笔记",
+      "authors": [
+        "南派三叔"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "web-novel-fast",
+      "sourceHints": {
+        "qidianUrl": "https://www.qidian.com/book/68223/"
+      },
+      "previousBookId": "0200000038",
+      "notes": [
+        "Remapped from first-pass staging 0200000038 for contiguous DB import."
+      ]
+    },
+    {
+      "bookId": "0200000025",
+      "title": "佛本是道",
+      "authors": [
+        "梦入神机"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "web-novel-fast",
+      "sourceHints": {
+        "qidianUrl": "https://www.qidian.com/book/53234/"
+      },
+      "previousBookId": "0200000040",
+      "notes": [
+        "Remapped from first-pass staging 0200000040 for contiguous DB import."
+      ]
+    },
+    {
+      "bookId": "0200000026",
+      "title": "盘龙",
+      "authors": [
+        "我吃西红柿"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "web-novel-fast",
+      "sourceHints": {
+        "qidianUrl": "https://www.qidian.com/book/1017141/"
+      },
+      "previousBookId": "0200000041",
+      "notes": [
+        "Remapped from first-pass staging 0200000041 for contiguous DB import."
+      ]
+    },
+    {
+      "bookId": "0200000027",
+      "title": "星辰变",
+      "authors": [
+        "我吃西红柿"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "web-novel-fast",
+      "sourceHints": {
+        "qidianUrl": "https://www.qidian.com/book/118447/"
+      },
+      "previousBookId": "0200000042",
+      "notes": [
+        "Remapped from first-pass staging 0200000042 for contiguous DB import."
+      ]
+    },
+    {
+      "bookId": "0200000028",
+      "title": "吞噬星空",
+      "authors": [
+        "我吃西红柿"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "web-novel-fast",
+      "sourceHints": {
+        "qidianUrl": "https://www.qidian.com/book/1639199/"
+      },
+      "reviewNotes": [
+        "用户未提供作者，已按常见资料补为“我吃西红柿”。"
+      ],
+      "previousBookId": "0200000043",
+      "notes": [
+        "Remapped from first-pass staging 0200000043 for contiguous DB import."
+      ]
+    },
+    {
+      "bookId": "0200000029",
+      "title": "致我们终将逝去的青春",
+      "authors": [
+        "辛夷坞"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "web-novel-fast",
+      "sourceHints": {
+        "qidianUrl": "https://www.qidian.com/book/1001615663/"
+      },
+      "previousBookId": "0200000046",
+      "notes": [
+        "Remapped from first-pass staging 0200000046 for contiguous DB import."
+      ]
+    },
+    {
+      "bookId": "0200000030",
+      "title": "尘缘",
+      "authors": [
+        "烟雨江南"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "web-novel-fast",
+      "sourceHints": {
+        "qidianUrl": "https://www.qidian.com/book/1023828415/"
+      },
+      "previousBookId": "0200000047",
+      "notes": [
+        "Remapped from first-pass staging 0200000047 for contiguous DB import."
+      ]
+    },
+    {
+      "bookId": "0200000031",
+      "title": "死人经",
+      "authors": [
+        "冰临神下"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "web-novel-fast",
+      "sourceHints": {
+        "qidianUrl": "https://www.qidian.com/book/2389275/"
+      },
+      "previousBookId": "0200000048",
+      "notes": [
+        "Remapped from first-pass staging 0200000048 for contiguous DB import."
+      ]
+    },
+    {
+      "bookId": "0200000032",
+      "title": "道诡异仙",
+      "authors": [
+        "狐尾的笔"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "web-novel-fast",
+      "sourceHints": {
+        "qidianUrl": "https://www.qidian.com/book/1031794030/"
+      },
+      "reviewNotes": [
+        "用户未提供作者，已按常见资料补为“狐尾的笔”。"
+      ],
+      "previousBookId": "0200000051",
+      "notes": [
+        "Remapped from first-pass staging 0200000051 for contiguous DB import."
+      ]
+    },
+    {
+      "bookId": "0200000033",
+      "title": "微微一笑很倾城",
+      "authors": [
+        "顾漫"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "web-novel-fast",
+      "sourceHints": {
+        "qidianUrl": "https://www.qidian.com/book/1038767306/"
+      },
+      "previousBookId": "0200000052",
+      "notes": [
+        "Remapped from first-pass staging 0200000052 for contiguous DB import."
+      ]
+    },
+    {
+      "bookId": "0200000034",
+      "title": "何以笙箫默",
+      "authors": [
+        "顾漫"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "web-novel-fast",
+      "sourceHints": {
+        "qidianUrl": "https://www.qidian.com/book/1038767295/"
+      },
+      "previousBookId": "0200000054",
+      "notes": [
+        "Remapped from first-pass staging 0200000054 for contiguous DB import."
+      ]
+    },
+    {
+      "bookId": "0200000035",
+      "title": "晚明",
+      "authors": [
+        "柯山梦"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "web-novel-fast",
+      "sourceHints": {
+        "qidianUrl": "https://www.qidian.com/book/2430034/"
+      },
+      "previousBookId": "0200000055",
+      "notes": [
+        "Remapped from first-pass staging 0200000055 for contiguous DB import."
+      ]
+    },
+    {
+      "bookId": "0200000036",
+      "title": "大奉打更人",
+      "authors": [
+        "卖报小郎君"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "web-novel-fast",
+      "sourceHints": {
+        "qidianUrl": "https://www.qidian.com/book/1019664125/"
+      },
+      "reviewNotes": [
+        "用户未提供作者，已按常见资料补为“卖报小郎君”。"
+      ],
+      "previousBookId": "0200000056",
+      "notes": [
+        "Remapped from first-pass staging 0200000056 for contiguous DB import."
+      ]
+    },
+    {
+      "bookId": "0200000037",
+      "title": "将夜",
+      "authors": [
+        "猫腻"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "web-novel-fast",
+      "sourceHints": {
+        "qidianId": "2083259",
+        "qidianUrl": "https://www.qidian.com/book/2083259/"
+      },
+      "reviewNotes": [
+        "沿用上一批 staging ID，尚未写入数据库。"
+      ],
+      "previousBookId": "0200000020",
+      "notes": [
+        "Remapped from first-pass staging 0200000020 for contiguous DB import."
+      ]
+    },
+    {
+      "bookId": "0200000038",
+      "title": "间客",
+      "authors": [
+        "猫腻"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "web-novel-fast",
+      "sourceHints": {
+        "qidianId": "1223147",
+        "qidianUrl": "https://www.qidian.com/book/1223147/"
+      },
+      "reviewNotes": [
+        "沿用上一批 staging ID，尚未写入数据库。"
+      ],
+      "previousBookId": "0200000021",
+      "notes": [
+        "Remapped from first-pass staging 0200000021 for contiguous DB import."
+      ]
+    },
+    {
+      "bookId": "0200000039",
+      "title": "仙逆",
+      "authors": [
+        "耳根"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "web-novel-fast",
+      "sourceHints": {
+        "qidianUrl": "https://www.qidian.com/book/1264634/"
+      },
+      "reviewNotes": [
+        "用户未提供作者，已按常见资料补为“耳根”。"
+      ],
+      "previousBookId": "0200000059",
+      "notes": [
+        "Remapped from first-pass staging 0200000059 for contiguous DB import."
+      ]
+    },
+    {
+      "bookId": "0200000040",
+      "title": "神墓",
+      "authors": [
+        "辰东"
+      ],
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "expectedAction": "create",
+      "profile": "web-novel-fast",
+      "sourceHints": {
+        "qidianUrl": "https://www.qidian.com/book/63856/"
+      },
+      "reviewNotes": [
+        "用户未提供作者，已按常见资料补为“辰东”。"
+      ],
+      "previousBookId": "0200000060",
+      "notes": [
+        "Remapped from first-pass staging 0200000060 for contiguous DB import."
+      ]
+    }
+  ]
+}

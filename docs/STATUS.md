@@ -1,8 +1,8 @@
 # Treasure 当前状态
 
-最近校验时间：2026-06-03
+最近校验时间：2026-06-12
 
-当前项目处于 **DB-first 静态站闭环整理阶段**。电影模块已经完成稳定单部工作流；书籍模块已经完成普通书、系列书、网络小说样本的端到端验证，并已接入 Astro 前台页面。下一阶段重点不是继续扩大数据量，而是把书籍批量录入编排层补齐，使“多本采集 -> 质量报告 -> 人工确认 -> 批量入库”变成稳定流程。
+当前项目处于 **DB-first 静态站闭环整理阶段**。电影模块已经完成稳定单部工作流；书籍模块已经完成普通书、系列书、网络小说样本的端到端验证，并已接入 Astro 前台页面。书籍批量编排层已经完成网络小说 fast 流程与 blockedQueue manual fallback 补录验证：manifest 记录、批量采集、质量分组、人工 fallback staging、approval apply、generated 导出和 Astro 构建均已跑通。下一阶段按用户安排回到电影作品录入，书籍模块暂时转入维护和质量补强。
 
 ## 数据库快照
 
@@ -17,14 +17,14 @@ node tools/db/check-counts.mjs
 | 表 | 数量 | 说明 |
 |---|---:|---|
 | `works` | 251 | 影视 / 电影 |
-| `person` | 11599 | 公共人物表 |
-| `category` | 53 | 公共分类 / 标签 |
+| `person` | 11632 | 公共人物表 |
+| `category` | 115 | 公共分类 / 标签 |
 | `work_person` | 13027 | 电影人物关系 |
 | `work_category` | 700 | 电影分类关系 |
-| `books` | 13 | 书籍记录，当前均为 `draft` |
+| `books` | 54 | 书籍记录，当前均为 `draft` |
 | `book_series` | 2 | 书籍系列 |
-| `book_person` | 23 | 书籍人物关系 |
-| `book_category` | 36 | 书籍分类关系 |
+| `book_person` | 64 | 书籍人物关系 |
+| `book_category` | 206 | 书籍分类关系 |
 
 ## Generated 快照
 
@@ -40,17 +40,17 @@ node tools/db/export-generated.mjs
 |---|---:|
 | `generated/entries/video/movie/*.json` | 251 |
 | `generated/indexes/video-movie.json` | 251 |
-| `generated/entries/book/*.json` | 13 |
-| `generated/indexes/book.json` | 13 |
-| `generated/indexes/all.json` | 264 |
-| `generated/persons.json` | 11599 |
+| `generated/entries/book/*.json` | 54 |
+| `generated/indexes/book.json` | 54 |
+| `generated/indexes/all.json` | 305 |
+| `generated/persons.json` | 11632 |
 
 资源导出最近结果：
 
 | 资源项 | 结果 |
 |---|---|
-| 作品资源 | copied=2795, missing=1 |
-| 人物头像 | copied=9076, missing=3955 |
+| 作品资源 | copied=2822, missing=1 |
+| 人物头像 | copied=9076, missing=3957 |
 | 共享人物资源目录 | 不再导出 |
 
 说明：
@@ -72,7 +72,7 @@ npm.cmd run build
 
 ```text
 构建成功
-生成页面：269
+生成页面：310
 ```
 
 当前已落地路由：
@@ -149,19 +149,26 @@ npm.cmd run dev -- --host 127.0.0.1
   - 纯白、偏微信读书的信息流和阅读型详情页。
   - 已修复详情页长评论横向溢出、右侧信息区叠压、列表页元信息展示等问题。
 - 已完成从本地数据库到 Astro 的书籍端到端验证，13 本书均生成静态详情页。
+- 已完成第一轮网络小说批量 fast 入库：
+  - 用户一次性提供 44 行网络小说书单，已完整记录到 `temp-script/book-ingest/data/batch-manifests/2026-06-10-web-novel-bulk.json`。
+  - 去重后 43 个唯一书名，其中 2 本已在库、1 行重复、41 本进入批量处理。
+  - 第一轮起点优先只读采集完成 41 本分组；27 本通过标题/作者核对并重新编排为连续 ID `0200000014` 至 `0200000040`。
+  - 27 本已通过 `batch_apply.py` 正式写入 `.local/treasure.db`，并完成 generated 导出和 Astro 构建。
+  - 14 本曾因错配、无 raw、简介截断等进入 blockedQueue，已于 2026-06-11 通过 manual fallback staging 补录完成，ID 为 `0200000041` 至 `0200000054`。
+  - manual fallback 批次没有新增正式自动数据源；额外页面仅作为候选锚点 / 参考来源，仍走 staging、字段报告、`import_staging.py` 预检、approval apply、generated 导出和 Astro 构建。
 
 ## 当前限制与风险
 
-### 大批量书籍录入尚未稳定
+### 书籍批量录入已可用于受控 fast 批次
 
-当前可以进行“小批量试运行”，例如每批 5-10 本；还不能视为无人值守的大批量正式录入。
+当前已经跑通网络小说 fast 批次的端到端编排，但仍不能视为无人值守的全自动大批量录入。适合处理“来源明确、可按起点整体入库、允许后续补 story”的受控批次。
 
 原因：
 
-- `book-ingest --batch` 目前仍依赖 `config.TEST_BOOKS`，不是长期可维护的正式批量清单。
+- 已新增 manifest-driven `batch_runner.py` 和 explicit approval `batch_apply.py`，可替代旧的 `config.TEST_BOOKS` 批量思路。
 - `db_tools/import_batch.py` 仍是 legacy 入口，会绕过当前正式 `import_staging.py` 预检体系，不得用于正式入库。
-- 豆瓣、百度百科、当当、起点、Goodreads 都可能触发反爬或返回异常页，无法保证几十本连续无人值守。
-- 当前字段 HTML 核对仍以单本为主，缺少批量质量报告和“可入库 / 需人工确认 / 失败”分组。
+- 豆瓣、百度百科、当当、起点、Goodreads 都可能触发反爬或返回异常页；fast 批次当前只使用起点作为主来源。
+- 当前批量报告已经能分组“可入库 / 需人工确认 / 失败”，但错配标题、无 raw、简介截断仍必须进入 blockedQueue。
 - 系列、译本、套装、多册版本、网络小说实体书版本等复杂场景还需要更多样本规则。
 
 ### 资源缺口
@@ -180,10 +187,11 @@ npm.cmd run dev -- --host 127.0.0.1
 
 优先级从高到低：
 
-1. 为 `book-ingest` 设计正式批量清单和批量 runner：
-   `manifest -> 逐本采集 -> 字段 HTML -> 批量质量报告 -> 人工确认 -> apply 入库`。
-2. 归档或删除 `book-ingest` legacy 批量入口，避免误用绕过预检的旧脚本。
-3. 新增 generated 完整性校验脚本，覆盖电影和书籍：
+1. 回到电影作品录入，继续使用已验证的 `movie-ingest` 单部稳定工作流。
+2. 电影新增或刷新时继续量化采集、预检、入库、导出、构建结果，并保留字段核对报告。
+3. 将 `web-novel-fast` 的标题/作者错配校验前移到 runner，避免后续书籍批次中错误候选进入 approval 候选池。
+4. 为 manual fallback 批次补充更高质量封面或正式 adapter 前的 HTML 快照，但不得把新站点静默升格为自动来源。
+5. 归档或删除 `book-ingest` legacy 批量入口，避免误用绕过预检的旧脚本。
+6. 新增 generated 完整性校验脚本，覆盖电影和书籍：
    DB 数量、generated 数量、索引一致性、资源存在性、关键字段完整性。
-4. 用 5-10 本新书执行第一轮正式小批量试运行，验证批量报告和人工确认流程。
-5. 再考虑扩大书籍录入规模。
+7. 再考虑扩大书籍录入规模；扩大前必须保留 manifest、approval、apply-result 和 blockedQueue。

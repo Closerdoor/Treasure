@@ -264,6 +264,7 @@ temp-script/book-ingest/
 当前状态：
 
 - 已跑通普通书、系列书、网络小说的单本和小批量样本。
+- 已完成网络小说 fast 批次与 blockedQueue manual fallback 补录验证，当前书籍库为 54 本。
 - 当前正式入口是 `main.py` 与 `import_staging.py`。
 - `import_staging.py` 默认只预检；`--apply` 才写 `.local/treasure.db`。
 - `crawl_basic.py`、`crawl_reviews.py`、`db_tools/`、`sources/` 中不带 `_crawl.py` 的旧爬虫均视为 legacy / 参考入口，不得用于正式入库。
@@ -336,9 +337,9 @@ site/public/assets/book/{book_id}/...
 
 书籍批量状态：
 
-- 当前可进行 5-10 本的小批量试运行。
-- 尚不适合无人值守的大批量正式录入。
-- 缺少正式 manifest、批量质量报告、人工确认分组和安全 apply 编排。
+- 当前已具备受控 fast 批次能力：manifest、批量质量报告、blockedQueue、approval apply、generated 导出和 Astro 构建均已跑通。
+- 尚不适合无人值守的大批量正式录入；错配、无 raw、反爬、简介截断等仍必须进入 blockedQueue 或 manual fallback。
+- manual fallback 只能作为 staging 级补录方式，不等于新增正式自动数据源。
 
 ## 前台 UI 方向
 
@@ -375,17 +376,19 @@ site/public/assets/book/{book_id}/...
 
 ## 当前下一步
 
-优先补齐书籍批量编排层：
+下一阶段回到电影作品录入。电影模块仍使用既有稳定单部工作流，新增或刷新作品时继续保持：
 
 ```text
-batch manifest
-  -> 逐本运行单本采集链路
-  -> 每本字段 HTML
-  -> 批量质量摘要
-  -> 分组：可入库 / 需人工确认 / 失败
-  -> 只对确认通过项执行 --apply
+确认电影输入
+  -> 多源采集 raw
+  -> 合并 normalized staging
+  -> 图片 / 视频封面 / 人物头像本地化
+  -> 字段 HTML 核对
+  -> import_staging.py 只读预检
+  -> 人工确认
+  -> import_staging.py --apply 正式入库
   -> 导出 generated
   -> 构建 Astro
 ```
 
-在这个批量层完成前，不建议一次性录入几十本或上百本书。
+书籍模块暂时进入维护状态；如继续扩大书籍批量，必须保留 manifest、approval、apply-result 和 blockedQueue。

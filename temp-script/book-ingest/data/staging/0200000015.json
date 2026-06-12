@@ -1,0 +1,77 @@
+{
+  "id": "0200000015",
+  "title": "无限恐怖",
+  "titleOriginal": null,
+  "otherTitles": null,
+  "isbn": null,
+  "year": null,
+  "country": "中国",
+  "language": "中文",
+  "wordCount": 2659300,
+  "publisher": null,
+  "publishDate": null,
+  "pages": null,
+  "price": null,
+  "binding": null,
+  "format": null,
+  "edition": null,
+  "summary": "新书开写，欢迎大家品尝。 最后结局：人的结局是死亡，那死亡的结局又是什么呢？ 新书开更，急需收藏，点击，评论，打赏。 新的世界观，新的角色们，这是我为大家准备的一个崭新的故事！ 技术流 热血",
+  "story": null,
+  "quotes": null,
+  "excerpts": null,
+  "seriesId": null,
+  "seriesOrder": null,
+  "scores": null,
+  "externalSource": [
+    {
+      "name": "起点中文网",
+      "id": "无限恐怖",
+      "link": "https://www.qidian.com/book/109222/"
+    }
+  ],
+  "images": {
+    "cover": "covers/qidian.jpg",
+    "covers": {},
+    "assetDir": "0200000015"
+  },
+  "reviews": null,
+  "related": null,
+  "status": "draft",
+  "_meta": {
+    "fieldSources": {
+      "title": "qidian",
+      "wordCount": "qidian",
+      "country": "qidian",
+      "language": "qidian",
+      "summary": "qidian"
+    },
+    "conflicts": [],
+    "authors": [
+      "zhttty"
+    ],
+    "translators": [],
+    "tags": [
+      "诸天无限",
+      "无限",
+      "轻小说"
+    ],
+    "subjects": [],
+    "genres": [
+      "诸天无限",
+      "无限",
+      "轻小说"
+    ],
+    "awards": [],
+    "series": null,
+    "seriesCandidates": [],
+    "coverUrls": {
+      "qidian": "https://bookcover.yuewen.com/qdbimg/349573/109222/600.webp"
+    },
+    "prices": {},
+    "personDetails": [],
+    "isWebNovel": true,
+    "serialStatus": "完本",
+    "contentKind": "web_novel",
+    "batchRunId": "2026-06-10-web-novel-bulk-import-candidates"
+  }
+}

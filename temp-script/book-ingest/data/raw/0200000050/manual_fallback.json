@@ -1,0 +1,33 @@
+{
+  "source": "manual_fallback",
+  "title": "飘邈之旅",
+  "authors": [
+    "萧潜"
+  ],
+  "year": 2002,
+  "word_count": null,
+  "summary": "早期修真小说代表作之一。作品以李强的修行历程为核心，展开从现代现实到修真世界、星际空间与多层境界的冒险。",
+  "story": "李强因机缘踏入修真道路，在不断突破境界和结识同伴的过程中游历多个世界。小说以升级、法宝、门派和异域冒险奠定了后来修真文的重要类型范式。",
+  "tags": [
+    "修真",
+    "仙侠",
+    "玄幻"
+  ],
+  "genres": [
+    "网络小说",
+    "仙侠小说"
+  ],
+  "sources": [
+    {
+      "name": "抖音百科",
+      "id": "抖音百科:飘邈之旅",
+      "link": "https://m.baike.com/wikiid/3469911547108204524"
+    },
+    {
+      "name": "搜狐",
+      "id": "搜狐:飘邈之旅",
+      "link": "https://www.sohu.com/a/674854587_121698175"
+    }
+  ],
+  "note": "Manual fallback raw compiled from reviewed candidate/reference anchors. This is not an automated source adapter."
+}

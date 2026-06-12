@@ -1,0 +1,81 @@
+{
+  "id": "0200000052",
+  "title": "花千骨",
+  "titleOriginal": null,
+  "otherTitles": [
+    "仙侠奇缘之花千骨"
+  ],
+  "isbn": null,
+  "year": null,
+  "country": "中国",
+  "language": "中文",
+  "wordCount": null,
+  "publisher": null,
+  "publishDate": null,
+  "pages": null,
+  "price": null,
+  "binding": null,
+  "format": null,
+  "edition": null,
+  "summary": "仙侠爱情题材网络小说。作品围绕花千骨与白子画之间的师徒情感、命运牵绊和仙门纷争展开，兼具虐恋、成长与仙侠世界观。",
+  "story": "花千骨拜入长留后与白子画产生深刻羁绊，却因身份、命格和仙魔冲突不断遭遇误解与磨难。故事在爱情、责任和正邪秩序之间推进悲剧性命运。",
+  "quotes": null,
+  "excerpts": null,
+  "seriesId": null,
+  "seriesOrder": null,
+  "scores": null,
+  "externalSource": [
+    {
+      "name": "晋江文学城",
+      "id": "晋江文学城:花千骨",
+      "link": "https://www.jjwxc.net/onebook.php?novelid=316358"
+    },
+    {
+      "name": "萌娘百科",
+      "id": "萌娘百科:花千骨",
+      "link": "https://zh.moegirl.org.cn/%E8%8A%B1%E5%8D%83%E9%AA%A8"
+    }
+  ],
+  "images": null,
+  "reviews": null,
+  "related": null,
+  "status": "draft",
+  "_meta": {
+    "fieldSources": {
+      "title": "manual_fallback",
+      "country": "manual_fallback",
+      "language": "manual_fallback",
+      "summary": "manual_fallback",
+      "story": "manual_fallback"
+    },
+    "conflicts": [],
+    "authors": [
+      "Fresh果果"
+    ],
+    "translators": [],
+    "tags": [
+      "仙侠",
+      "爱情",
+      "师徒"
+    ],
+    "subjects": [],
+    "genres": [
+      "网络小说",
+      "仙侠小说"
+    ],
+    "awards": [],
+    "series": null,
+    "seriesCandidates": [],
+    "coverUrls": {},
+    "prices": {},
+    "personDetails": [],
+    "isWebNovel": true,
+    "contentKind": "web_novel",
+    "batchRunId": "2026-06-11-web-novel-blocked-manual-fallback",
+    "manualFallback": {
+      "reason": "Existing automated sources did not produce safe whole-work staging in the fast batch.",
+      "sourceNames": "晋江文学城, 萌娘百科",
+      "sourceGovernance": "candidate/reference/manual_fallback only; not a new automated adapter"
+    }
+  }
+}

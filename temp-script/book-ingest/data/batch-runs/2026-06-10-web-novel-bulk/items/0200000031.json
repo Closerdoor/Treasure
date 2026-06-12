@@ -1,0 +1,27 @@
+{
+  "bookId": "0200000031",
+  "title": "风姿物语",
+  "type": "web_novel",
+  "contentKind": "web_novel",
+  "profile": "web-novel-fast",
+  "expectedAction": "create",
+  "doubanId": "",
+  "sourceHints": {},
+  "rawSources": {
+    "baike": false,
+    "wikipedia": false,
+    "qidian": false
+  },
+  "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000031.html",
+  "precheck": null,
+  "status": "needs_review",
+  "reviewNotes": [
+    "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+    "缺少起点 raw：允许用百科/维基等来源继续，但需人工确认来源是否可靠。"
+  ],
+  "precheckProblems": [],
+  "blockingProblems": [],
+  "errors": [
+    "precheck failed: 找不到 staging 文件: F:\\MyProject\\Treasure\\temp-script\\book-ingest\\data\\staging\\0200000031.json"
+  ]
+}

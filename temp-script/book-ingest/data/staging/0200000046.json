@@ -1,0 +1,79 @@
+{
+  "id": "0200000046",
+  "title": "天行健",
+  "titleOriginal": null,
+  "otherTitles": null,
+  "isbn": null,
+  "year": null,
+  "country": "中国",
+  "language": "中文",
+  "wordCount": null,
+  "publisher": null,
+  "publishDate": null,
+  "pages": null,
+  "price": null,
+  "binding": null,
+  "format": null,
+  "edition": null,
+  "summary": "幻想武侠长篇小说。作品以战争、权力、个人信念和时代秩序为核心，塑造了兼具传统武侠气质和架空史诗格局的世界。",
+  "story": "主人公在战乱和权谋中不断选择自己的道路，个人武勇与国家机器、理想主义与现实规则发生冲突，形成关于秩序、牺牲和命运的长篇叙事。",
+  "quotes": null,
+  "excerpts": null,
+  "seriesId": null,
+  "seriesOrder": null,
+  "scores": null,
+  "externalSource": [
+    {
+      "name": "微信读书",
+      "id": "微信读书:天行健",
+      "link": "https://weread.qq.com/web/bookDetail/fec32090811e1a5d6g019018"
+    },
+    {
+      "name": "豆瓣",
+      "id": "豆瓣:天行健",
+      "link": "https://book.douban.com/subject/1437858//"
+    }
+  ],
+  "images": null,
+  "reviews": null,
+  "related": null,
+  "status": "draft",
+  "_meta": {
+    "fieldSources": {
+      "title": "manual_fallback",
+      "country": "manual_fallback",
+      "language": "manual_fallback",
+      "summary": "manual_fallback",
+      "story": "manual_fallback"
+    },
+    "conflicts": [],
+    "authors": [
+      "燕垒生"
+    ],
+    "translators": [],
+    "tags": [
+      "武侠",
+      "幻想",
+      "战争"
+    ],
+    "subjects": [],
+    "genres": [
+      "网络小说",
+      "武侠幻想"
+    ],
+    "awards": [],
+    "series": null,
+    "seriesCandidates": [],
+    "coverUrls": {},
+    "prices": {},
+    "personDetails": [],
+    "isWebNovel": true,
+    "contentKind": "web_novel",
+    "batchRunId": "2026-06-11-web-novel-blocked-manual-fallback",
+    "manualFallback": {
+      "reason": "Existing automated sources did not produce safe whole-work staging in the fast batch.",
+      "sourceNames": "微信读书, 豆瓣",
+      "sourceGovernance": "candidate/reference/manual_fallback only; not a new automated adapter"
+    }
+  }
+}

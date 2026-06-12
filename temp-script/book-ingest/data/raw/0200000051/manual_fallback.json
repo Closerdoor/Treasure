@@ -1,0 +1,33 @@
+{
+  "source": "manual_fallback",
+  "title": "亵渎",
+  "authors": [
+    "烟雨江南"
+  ],
+  "year": null,
+  "word_count": null,
+  "summary": "西式奇幻风格网络小说。作品以罗格的成长与权力道路为主线，构建宗教、战争、欲望和命运交织的黑暗奇幻世界。",
+  "story": "罗格在复杂的大陆格局中不断攀爬，经历战争、阴谋、信仰和情感的试炼。故事以反英雄式人物和灰色价值观展开，呈现奇幻世界中的权力与代价。",
+  "tags": [
+    "奇幻",
+    "史诗",
+    "黑暗"
+  ],
+  "genres": [
+    "网络小说",
+    "奇幻小说"
+  ],
+  "sources": [
+    {
+      "name": "豆瓣评论",
+      "id": "豆瓣:亵渎",
+      "link": "https://m.douban.com/book/review/14604982/"
+    },
+    {
+      "name": "搜狐",
+      "id": "搜狐:亵渎",
+      "link": "https://www.sohu.com/a/756234842_121698175"
+    }
+  ],
+  "note": "Manual fallback raw compiled from reviewed candidate/reference anchors. This is not an automated source adapter."
+}

@@ -1,0 +1,3009 @@
+{
+  "runId": "2026-06-10-web-novel-bulk",
+  "manifest": "F:\\MyProject\\Treasure\\temp-script\\book-ingest\\data\\batch-manifests\\2026-06-10-web-novel-bulk.json",
+  "generatedAt": "2026-06-10T23:24:12",
+  "summary": {
+    "total": 41,
+    "statusCounts": {
+      "ready": 0,
+      "needs_review": 34,
+      "failed": 7
+    },
+    "sourceCoverage": {
+      "douban": {
+        "count": 0,
+        "rate": 0.0
+      },
+      "openlibrary": {
+        "count": 0,
+        "rate": 0.0
+      },
+      "baike": {
+        "count": 1,
+        "rate": 0.0244
+      },
+      "wikipedia": {
+        "count": 2,
+        "rate": 0.0488
+      },
+      "goodreads": {
+        "count": 0,
+        "rate": 0.0
+      },
+      "dangdang": {
+        "count": 0,
+        "rate": 0.0
+      },
+      "qidian": {
+        "count": 38,
+        "rate": 0.9268
+      }
+    },
+    "assetCoverage": {
+      "itemsWithLocalAssets": 38,
+      "rate": 0.9268
+    }
+  },
+  "items": [
+    {
+      "bookId": "0200000022",
+      "title": "斗罗大陆",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000022.html",
+      "precheck": {
+        "book_id": "0200000022",
+        "title": "斗罗大陆",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "斗罗大陆"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 2,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000022",
+            "title": "斗罗大陆",
+            "persons": 1,
+            "categories": 4,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 4
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000022，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000022，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000023",
+      "title": "无限恐怖",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000023.html",
+      "precheck": {
+        "book_id": "0200000023",
+        "title": "无限恐怖",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "无限恐怖"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 3,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000023",
+            "title": "无限恐怖",
+            "persons": 1,
+            "categories": 6,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 6
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000023，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000023，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000024",
+      "title": "雪中悍刀行",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000024.html",
+      "precheck": {
+        "book_id": "0200000024",
+        "title": "雪中悍刀行9：新桃换旧符",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "雪中悍刀行9：新桃换旧符"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 0,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000024",
+            "title": "雪中悍刀行9：新桃换旧符",
+            "persons": 1,
+            "categories": 0,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 0
+        },
+        "problems": [
+          "summary appears truncated with ellipsis",
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000024，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "failed",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "summary appears truncated with ellipsis",
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000024，预期 0200000014"
+      ],
+      "blockingProblems": [
+        "summary appears truncated with ellipsis"
+      ],
+      "errors": []
+    },
+    {
+      "bookId": "0200000025",
+      "title": "恶魔法则",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000025.html",
+      "precheck": {
+        "book_id": "0200000025",
+        "title": "恶魔法则",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "恶魔法则"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 2,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000025",
+            "title": "恶魔法则",
+            "persons": 1,
+            "categories": 4,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 4
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000025，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000025，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000026",
+      "title": "卡徒",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000026.html",
+      "precheck": {
+        "book_id": "0200000026",
+        "title": "卡徒",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "卡徒"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 2,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000026",
+            "title": "卡徒",
+            "persons": 1,
+            "categories": 4,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 4
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000026，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000026，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000027",
+      "title": "诛仙",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000027.html",
+      "precheck": {
+        "book_id": "0200000027",
+        "title": "诛仙",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "诛仙"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 2,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000027",
+            "title": "诛仙",
+            "persons": 1,
+            "categories": 4,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 4
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000027，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000027，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000028",
+      "title": "遮天",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000028.html",
+      "precheck": {
+        "book_id": "0200000028",
+        "title": "遮天",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "遮天"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 2,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000028",
+            "title": "遮天",
+            "persons": 1,
+            "categories": 4,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 4
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000028，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000028，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000029",
+      "title": "新宋",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000029.html",
+      "precheck": {
+        "book_id": "0200000029",
+        "title": "新宋风流",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "新宋风流"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 2,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000029",
+            "title": "新宋风流",
+            "persons": 1,
+            "categories": 4,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 4
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000029，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000029，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000030",
+      "title": "搜神记",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000030.html",
+      "precheck": {
+        "book_id": "0200000030",
+        "title": "搜神记",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "搜神记"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 2,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000030",
+            "title": "搜神记",
+            "persons": 1,
+            "categories": 4,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 4
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000030，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000030，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000031",
+      "title": "风姿物语",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": false
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000031.html",
+      "precheck": null,
+      "status": "needs_review",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "缺少起点 raw：允许用百科/维基等来源继续，但需人工确认来源是否可靠。"
+      ],
+      "precheckProblems": [],
+      "blockingProblems": [],
+      "errors": [
+        "precheck failed: 找不到 staging 文件: F:\\MyProject\\Treasure\\temp-script\\book-ingest\\data\\staging\\0200000031.json"
+      ]
+    },
+    {
+      "bookId": "0200000032",
+      "title": "陈二狗的妖孽人生",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": false
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000032.html",
+      "precheck": null,
+      "status": "needs_review",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "缺少起点 raw：允许用百科/维基等来源继续，但需人工确认来源是否可靠。"
+      ],
+      "precheckProblems": [],
+      "blockingProblems": [],
+      "errors": [
+        "precheck failed: 找不到 staging 文件: F:\\MyProject\\Treasure\\temp-script\\book-ingest\\data\\staging\\0200000032.json"
+      ]
+    },
+    {
+      "bookId": "0200000033",
+      "title": "升龙道",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000033.html",
+      "precheck": {
+        "book_id": "0200000033",
+        "title": "升龙道",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "升龙道"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 2,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000033",
+            "title": "升龙道",
+            "persons": 1,
+            "categories": 4,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 4
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000033，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "用户原文作者为“是血红”，按常见作者名规范为“血红”。",
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000033，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000034",
+      "title": "佣兵天下",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000034.html",
+      "precheck": {
+        "book_id": "0200000034",
+        "title": "佣兵天下",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "佣兵天下"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 0,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000034",
+            "title": "佣兵天下",
+            "persons": 1,
+            "categories": 0,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 0
+        },
+        "problems": [
+          "summary appears truncated with ellipsis",
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000034，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "failed",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "summary appears truncated with ellipsis",
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000034，预期 0200000014"
+      ],
+      "blockingProblems": [
+        "summary appears truncated with ellipsis"
+      ],
+      "errors": []
+    },
+    {
+      "bookId": "0200000035",
+      "title": "牧神记",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000035.html",
+      "precheck": {
+        "book_id": "0200000035",
+        "title": "牧神记",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "牧神记"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 2,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000035",
+            "title": "牧神记",
+            "persons": 1,
+            "categories": 4,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 4
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000035，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000035，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000036",
+      "title": "全职高手",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000036.html",
+      "precheck": {
+        "book_id": "0200000036",
+        "title": "全职高手",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "全职高手"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 2,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000036",
+            "title": "全职高手",
+            "persons": 1,
+            "categories": 4,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 4
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000036，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000036，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000037",
+      "title": "天行健",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000037.html",
+      "precheck": {
+        "book_id": "0200000037",
+        "title": "天行健：渡",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "天行健：渡"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 2,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000037",
+            "title": "天行健：渡",
+            "persons": 1,
+            "categories": 4,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 4
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000037，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000037，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000038",
+      "title": "盗墓笔记",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000038.html",
+      "precheck": {
+        "book_id": "0200000038",
+        "title": "盗墓笔记",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "盗墓笔记"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 2,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000038",
+            "title": "盗墓笔记",
+            "persons": 1,
+            "categories": 4,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 4
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000038，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000038，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000039",
+      "title": "鬼吹灯",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000039.html",
+      "precheck": {
+        "book_id": "0200000039",
+        "title": "鬼吹灯II",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "鬼吹灯II"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 2,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000039",
+            "title": "鬼吹灯II",
+            "persons": 1,
+            "categories": 4,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 4
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000039，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000039，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000040",
+      "title": "佛本是道",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000040.html",
+      "precheck": {
+        "book_id": "0200000040",
+        "title": "佛本是道",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "佛本是道"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 2,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000040",
+            "title": "佛本是道",
+            "persons": 1,
+            "categories": 4,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 4
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000040，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000040，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000041",
+      "title": "盘龙",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000041.html",
+      "precheck": {
+        "book_id": "0200000041",
+        "title": "盘龙",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "盘龙"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 2,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000041",
+            "title": "盘龙",
+            "persons": 1,
+            "categories": 4,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 4
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000041，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000041，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000042",
+      "title": "星辰变",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000042.html",
+      "precheck": {
+        "book_id": "0200000042",
+        "title": "星辰变",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "星辰变"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 3,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000042",
+            "title": "星辰变",
+            "persons": 1,
+            "categories": 6,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 6
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000042，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000042，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000043",
+      "title": "吞噬星空",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000043.html",
+      "precheck": {
+        "book_id": "0200000043",
+        "title": "吞噬星空",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "吞噬星空"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 2,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000043",
+            "title": "吞噬星空",
+            "persons": 1,
+            "categories": 4,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 4
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000043，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "用户未提供作者，已按常见资料补为“我吃西红柿”。",
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000043，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000044",
+      "title": "第一次的亲密接触",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000044.html",
+      "precheck": {
+        "book_id": "0200000044",
+        "title": "第一次",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "第一次"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 0,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000044",
+            "title": "第一次",
+            "persons": 1,
+            "categories": 0,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 0
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000044，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000044，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000045",
+      "title": "悟空传",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000045.html",
+      "precheck": {
+        "book_id": "0200000045",
+        "title": "悟空传（典藏纪念版）",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "悟空传（典藏纪念版）"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 0,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000045",
+            "title": "悟空传（典藏纪念版）",
+            "persons": 1,
+            "categories": 0,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 0
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000045，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000045，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000046",
+      "title": "致我们终将逝去的青春",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000046.html",
+      "precheck": {
+        "book_id": "0200000046",
+        "title": "致我们终将逝去的青春",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "致我们终将逝去的青春"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 0,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000046",
+            "title": "致我们终将逝去的青春",
+            "persons": 1,
+            "categories": 0,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 0
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000046，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000046，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000047",
+      "title": "尘缘",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000047.html",
+      "precheck": {
+        "book_id": "0200000047",
+        "title": "尘缘",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "尘缘"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 2,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000047",
+            "title": "尘缘",
+            "persons": 1,
+            "categories": 4,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 4
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000047，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000047，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000048",
+      "title": "死人经",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000048.html",
+      "precheck": {
+        "book_id": "0200000048",
+        "title": "死人经",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "死人经"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 2,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000048",
+            "title": "死人经",
+            "persons": 1,
+            "categories": 4,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 4
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000048，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000048，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000049",
+      "title": "飘邈之旅",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000049.html",
+      "precheck": {
+        "book_id": "0200000049",
+        "title": null,
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {},
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 0,
+        "translators": 0,
+        "tags": 0,
+        "reviews": 0,
+        "field_sources": 2,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": false,
+            "error": "NOT NULL constraint failed: books.title"
+          },
+          "foreign_key_problems": 0,
+          "book_person": 0,
+          "book_category": 0
+        },
+        "problems": [
+          "summary is missing",
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000049，预期 0200000014",
+          "临时库导入失败: NOT NULL constraint failed: books.title"
+        ],
+        "warnings": []
+      },
+      "status": "failed",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "summary is missing",
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000049，预期 0200000014",
+        "临时库导入失败: NOT NULL constraint failed: books.title"
+      ],
+      "blockingProblems": [
+        "summary is missing",
+        "临时库导入失败: NOT NULL constraint failed: books.title",
+        "web-novel-fast 缺少作者"
+      ],
+      "errors": []
+    },
+    {
+      "bookId": "0200000050",
+      "title": "亵渎",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000050.html",
+      "precheck": {
+        "book_id": "0200000050",
+        "title": "亵渎牧师",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "亵渎牧师"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 2,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000050",
+            "title": "亵渎牧师",
+            "persons": 1,
+            "categories": 4,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 4
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000050，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000050，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000051",
+      "title": "道诡异仙",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000051.html",
+      "precheck": {
+        "book_id": "0200000051",
+        "title": "道诡异仙",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "道诡异仙"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 2,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000051",
+            "title": "道诡异仙",
+            "persons": 1,
+            "categories": 4,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 4
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000051，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "用户未提供作者，已按常见资料补为“狐尾的笔”。",
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000051，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000052",
+      "title": "微微一笑很倾城",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000052.html",
+      "precheck": {
+        "book_id": "0200000052",
+        "title": "微微一笑很倾城",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "微微一笑很倾城"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 0,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000052",
+            "title": "微微一笑很倾城",
+            "persons": 1,
+            "categories": 0,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 0
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000052，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000052，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000053",
+      "title": "花千骨",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000053.html",
+      "precheck": {
+        "book_id": "0200000053",
+        "title": "花千骨之谭凡",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "花千骨之谭凡"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 3,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000053",
+            "title": "花千骨之谭凡",
+            "persons": 1,
+            "categories": 6,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 6
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000053，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000053，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000054",
+      "title": "何以笙箫默",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000054.html",
+      "precheck": {
+        "book_id": "0200000054",
+        "title": "何以笙箫默",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "何以笙箫默"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 0,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000054",
+            "title": "何以笙箫默",
+            "persons": 1,
+            "categories": 0,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 0
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000054，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000054，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000055",
+      "title": "晚明",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000055.html",
+      "precheck": {
+        "book_id": "0200000055",
+        "title": "晚明",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "晚明"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 2,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000055",
+            "title": "晚明",
+            "persons": 1,
+            "categories": 4,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 4
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000055，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000055，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000056",
+      "title": "大奉打更人",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000056.html",
+      "precheck": {
+        "book_id": "0200000056",
+        "title": "大奉打更人",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "大奉打更人"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 2,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000056",
+            "title": "大奉打更人",
+            "persons": 1,
+            "categories": 4,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 4
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000056，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "用户未提供作者，已按常见资料补为“卖报小郎君”。",
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000056，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000057",
+      "title": "宰执天下",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000057.html",
+      "precheck": {
+        "book_id": "0200000057",
+        "title": "红楼之宰执天下",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "红楼之宰执天下"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 2,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000057",
+            "title": "红楼之宰执天下",
+            "persons": 1,
+            "categories": 4,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 4
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000057，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "needs_review",
+      "reviewNotes": [
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000057，预期 0200000014"
+      ],
+      "blockingProblems": [],
+      "errors": []
+    },
+    {
+      "bookId": "0200000058",
+      "title": "十日终焉",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": false
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000058.html",
+      "precheck": null,
+      "status": "needs_review",
+      "reviewNotes": [
+        "用户未提供作者，已按常见资料补为“杀虫队队员”。",
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "缺少起点 raw：允许用百科/维基等来源继续，但需人工确认来源是否可靠。"
+      ],
+      "precheckProblems": [],
+      "blockingProblems": [],
+      "errors": [
+        "precheck failed: 找不到 staging 文件: F:\\MyProject\\Treasure\\temp-script\\book-ingest\\data\\staging\\0200000058.json"
+      ]
+    },
+    {
+      "bookId": "0200000020",
+      "title": "将夜",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "continue_existing_staging",
+      "doubanId": "",
+      "sourceHints": {
+        "qidianId": "2083259",
+        "qidianUrl": "https://book.qidian.com/info/2083259/"
+      },
+      "rawSources": {
+        "baike": false,
+        "wikipedia": true,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000020.html",
+      "precheck": {
+        "book_id": "0200000020",
+        "title": "将夜",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "wikipedia": "%E5%B0%86%E5%A4%9C_(%E5%B0%8F%E8%AF%B4)",
+          "qidian": "将夜"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 2,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000020",
+            "title": "将夜",
+            "persons": 1,
+            "categories": 4,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 4
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000020，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "failed",
+      "reviewNotes": [
+        "沿用上一批 staging ID，尚未写入数据库。",
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000020，预期 0200000014"
+      ],
+      "blockingProblems": [
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000020，预期 0200000014"
+      ],
+      "errors": []
+    },
+    {
+      "bookId": "0200000021",
+      "title": "间客",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "continue_existing_staging",
+      "doubanId": "",
+      "sourceHints": {
+        "qidianId": "1223147",
+        "qidianUrl": "https://book.qidian.com/info/1223147/"
+      },
+      "rawSources": {
+        "baike": true,
+        "wikipedia": true,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000021.html",
+      "precheck": {
+        "book_id": "0200000021",
+        "title": "间客",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "baike": "4670684",
+          "wikipedia": "%E9%97%B4%E5%AE%A2_(%E5%B0%8F%E8%AF%B4)",
+          "qidian": "间客"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 2,
+        "reviews": 0,
+        "field_sources": 6,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000021",
+            "title": "间客",
+            "persons": 1,
+            "categories": 4,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 4
+        },
+        "problems": [
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000021，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "failed",
+      "reviewNotes": [
+        "沿用上一批 staging ID，尚未写入数据库。",
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。"
+      ],
+      "precheckProblems": [
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000021，预期 0200000014"
+      ],
+      "blockingProblems": [
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000021，预期 0200000014"
+      ],
+      "errors": []
+    },
+    {
+      "bookId": "0200000059",
+      "title": "仙逆",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000059.html",
+      "precheck": {
+        "book_id": "0200000059",
+        "title": "仙逆",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "仙逆"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 2,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000059",
+            "title": "仙逆",
+            "persons": 1,
+            "categories": 4,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 4
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000059，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "failed",
+      "reviewNotes": [
+        "用户未提供作者，已按常见资料补为“耳根”。",
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000059，预期 0200000014"
+      ],
+      "blockingProblems": [
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000059，预期 0200000014"
+      ],
+      "errors": []
+    },
+    {
+      "bookId": "0200000060",
+      "title": "神墓",
+      "type": "web_novel",
+      "contentKind": "web_novel",
+      "profile": "web-novel-fast",
+      "expectedAction": "create",
+      "doubanId": "",
+      "sourceHints": {},
+      "rawSources": {
+        "baike": false,
+        "wikipedia": false,
+        "qidian": true
+      },
+      "fieldReport": "data/batch-runs/2026-06-10-web-novel-bulk/field-reports/0200000060.html",
+      "precheck": {
+        "book_id": "0200000060",
+        "title": "神墓",
+        "title_original": null,
+        "year": null,
+        "isbn": null,
+        "source_ids": {
+          "qidian": "神墓"
+        },
+        "db_max_book_id": "0200000013",
+        "expected_next_book_id": "0200000014",
+        "update_existing": false,
+        "matches": [],
+        "assets": {
+          "local_refs": 1,
+          "external_refs": [],
+          "non_local_objects": [],
+          "missing": []
+        },
+        "authors": 1,
+        "translators": 0,
+        "tags": 2,
+        "reviews": 0,
+        "field_sources": 5,
+        "conflicts": 0,
+        "dry_run": {
+          "result": {
+            "success": true,
+            "book_id": "0200000060",
+            "title": "神墓",
+            "persons": 1,
+            "categories": 4,
+            "assets": {
+              "copied": 0,
+              "missing": 0,
+              "skipped": 1
+            }
+          },
+          "foreign_key_problems": 0,
+          "book_person": 1,
+          "book_category": 4
+        },
+        "problems": [
+          "story is missing",
+          "书籍 ID 不是数据库下一条书籍 ID，当前 0200000060，预期 0200000014"
+        ],
+        "warnings": []
+      },
+      "status": "failed",
+      "reviewNotes": [
+        "用户未提供作者，已按常见资料补为“辰东”。",
+        "缺少豆瓣读书锚点；根据项目规则，不得静默跳过豆瓣后直接正式入库。",
+        "story 缺失：可先按网络小说整体入库，但需后续用百科或人工摘要补齐。"
+      ],
+      "precheckProblems": [
+        "story is missing",
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000060，预期 0200000014"
+      ],
+      "blockingProblems": [
+        "书籍 ID 不是数据库下一条书籍 ID，当前 0200000060，预期 0200000014"
+      ],
+      "errors": []
+    }
+  ]
+}

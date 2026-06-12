@@ -1,0 +1,20 @@
+{
+  "runId": "2026-06-11-web-novel-blocked-manual-fallback-continue",
+  "createdAt": "2026-06-11",
+  "approvedBy": "resume-after-source-id-fix",
+  "policy": "Continue applying manual fallback staging after fixing externalSource IDs to unique site:title anchors. Previously applied 0200000041 and 0200000042 are intentionally excluded.",
+  "approved": [
+    "0200000043",
+    "0200000044",
+    "0200000045",
+    "0200000046",
+    "0200000047",
+    "0200000048",
+    "0200000049",
+    "0200000050",
+    "0200000051",
+    "0200000052",
+    "0200000053",
+    "0200000054"
+  ]
+}

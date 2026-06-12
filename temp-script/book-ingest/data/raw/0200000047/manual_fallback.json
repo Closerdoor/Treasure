@@ -1,0 +1,28 @@
+{
+  "source": "manual_fallback",
+  "title": "鬼吹灯",
+  "authors": [
+    "天下霸唱"
+  ],
+  "year": 2006,
+  "word_count": null,
+  "summary": "悬疑探险类网络小说代表作。作品以胡八一、王胖子、Shirley杨等人的探险经历为主线，融合民俗传说、地理秘境和古墓机关。",
+  "story": "主角一行在不同地域和古墓遗迹中寻找线索，面对机关、传说和未知危险。系列通过多卷探险串联人物身世、历史谜团和民间志怪想象。",
+  "tags": [
+    "悬疑",
+    "探险",
+    "盗墓"
+  ],
+  "genres": [
+    "网络小说",
+    "悬疑灵异"
+  ],
+  "sources": [
+    {
+      "name": "维基百科",
+      "id": "Wikipedia:鬼吹灯",
+      "link": "https://zh.wikipedia.org/wiki/%E9%AC%BC%E5%90%B9%E7%81%AF"
+    }
+  ],
+  "note": "Manual fallback raw compiled from reviewed candidate/reference anchors. This is not an automated source adapter."
+}

@@ -1,0 +1,33 @@
+{
+  "source": "manual_fallback",
+  "title": "第一次的亲密接触",
+  "authors": [
+    "痞子蔡"
+  ],
+  "year": 1998,
+  "word_count": null,
+  "summary": "早期中文网络文学代表作。小说以网络聊天和现实相遇为线索，讲述痞子蔡与轻舞飞扬之间带有青春、浪漫和遗憾色彩的爱情故事。",
+  "story": "主人公在网络上结识轻舞飞扬，两人从文字交流走向现实接触。故事在轻快幽默的网络语言背后，逐渐显露疾病、离别和青春记忆的伤感底色。",
+  "tags": [
+    "爱情",
+    "网络文学",
+    "青春"
+  ],
+  "genres": [
+    "网络小说",
+    "爱情小说"
+  ],
+  "sources": [
+    {
+      "name": "维基百科",
+      "id": "Wikipedia:第一次的亲密接触",
+      "link": "https://zh.wikipedia.org/wiki/%E7%AC%AC%E4%B8%80%E6%AC%A1%E7%9A%84%E8%A6%AA%E5%AF%86%E6%8E%A5%E8%A7%B8"
+    },
+    {
+      "name": "豆瓣",
+      "id": "豆瓣:第一次的亲密接触",
+      "link": "https://m.douban.com/book/subject/1566311/"
+    }
+  ],
+  "note": "Manual fallback raw compiled from reviewed candidate/reference anchors. This is not an automated source adapter."
+}

@@ -1,0 +1,75 @@
+{
+  "id": "0200000020",
+  "title": "搜神记",
+  "titleOriginal": null,
+  "otherTitles": null,
+  "isbn": null,
+  "year": null,
+  "country": "中国",
+  "language": "中文",
+  "wordCount": 1428100,
+  "publisher": null,
+  "publishDate": null,
+  "pages": null,
+  "price": null,
+  "binding": null,
+  "format": null,
+  "edition": null,
+  "summary": "传说中的三皇五帝时的洪荒时代，随着天下公认的领袖神农氏的去世，各族群雄都开始蠢蠢欲动，就在此波涛暗涌的动荡时代，一位少年横空出世，在机缘巧合下开始了一段惊心动魄的传奇历程。",
+  "story": null,
+  "quotes": null,
+  "excerpts": null,
+  "seriesId": null,
+  "seriesOrder": null,
+  "scores": null,
+  "externalSource": [
+    {
+      "name": "起点中文网",
+      "id": "搜神记",
+      "link": "https://www.qidian.com/book/1017408618/"
+    }
+  ],
+  "images": {
+    "cover": "covers/qidian.jpg",
+    "covers": {},
+    "assetDir": "0200000020"
+  },
+  "reviews": null,
+  "related": null,
+  "status": "draft",
+  "_meta": {
+    "fieldSources": {
+      "title": "qidian",
+      "wordCount": "qidian",
+      "country": "qidian",
+      "language": "qidian",
+      "summary": "qidian"
+    },
+    "conflicts": [],
+    "authors": [
+      "树下野狐"
+    ],
+    "translators": [],
+    "tags": [
+      "玄幻",
+      "东方玄幻"
+    ],
+    "subjects": [],
+    "genres": [
+      "玄幻",
+      "东方玄幻"
+    ],
+    "awards": [],
+    "series": null,
+    "seriesCandidates": [],
+    "coverUrls": {
+      "qidian": "https://bookcover.yuewen.com/qdbimg/349573/1017408618/600.webp"
+    },
+    "prices": {},
+    "personDetails": [],
+    "isWebNovel": true,
+    "serialStatus": "完本",
+    "contentKind": "web_novel",
+    "batchRunId": "2026-06-10-web-novel-bulk-import-candidates"
+  }
+}
