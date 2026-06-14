@@ -236,6 +236,9 @@ function buildEntry(row, credits, categories) {
     language: row.language ?? undefined,
     publishCompany: row.studio ?? undefined,
     runtime: row.total_time ?? undefined,
+    episodeCount: row.episode_count ?? undefined,
+    episodeTime: row.episode_time ?? undefined,
+    episodesStory: parseJsonText(row.episodes_story, []),
     synopsis: { text: row.introduction ?? undefined, note: undefined },
     story: { text: row.story ?? undefined },
     director: credits.director,
@@ -263,6 +266,7 @@ function buildEntry(row, credits, categories) {
     similar: Array.isArray(relations.similar) ? relations.similar : [],
     links,
     quotes,
+    characters: parseJsonText(row.characters, []),
     createdAt: row.created_at,
     updatedAt: row.updated_at,
     status: row.status
@@ -642,10 +646,12 @@ async function exportEntryAssets(entry) {
 
 async function exportAssetsForEntries(entries) {
   console.log('导出静态资源...');
-  const videoMovieAssetsRoot = path.join(siteAssetsRoot, 'video', 'movie');
+  const videoAssetsRoot = path.join(siteAssetsRoot, 'video');
+  const animeAssetsRoot = path.join(siteAssetsRoot, 'anime');
   const bookAssetsRoot = path.join(siteAssetsRoot, 'book');
   const sharedPeopleRoot = path.join(siteAssetsRoot, 'people');
-  await cleanDirectory(videoMovieAssetsRoot);
+  await cleanDirectory(videoAssetsRoot);
+  await cleanDirectory(animeAssetsRoot);
   await cleanDirectory(bookAssetsRoot);
   await fs.rm(sharedPeopleRoot, { recursive: true, force: true });
 
@@ -714,8 +720,9 @@ async function main() {
   const works = queryJson(`
     SELECT *
     FROM works
-    WHERE module = 'video' AND submodule = 'movie' AND status != 'archived'
-    ORDER BY year DESC, id ASC;
+    WHERE status != 'archived'
+      AND module IN ('video', 'anime')
+    ORDER BY module ASC, submodule ASC, year DESC, id ASC;
   `);
 
   const books = queryJson(`
@@ -818,27 +825,35 @@ async function main() {
 
   // 按作品拆分 JSON
   console.log(`导出 ${entries.length} 个作品文件...`);
-  const movieEntriesDir = path.join(entriesRoot, 'video', 'movie');
   const bookEntriesDir = path.join(entriesRoot, 'book');
-  await fs.mkdir(movieEntriesDir, { recursive: true });
   await fs.mkdir(bookEntriesDir, { recursive: true });
 
   for (const entry of entries) {
     const filePath = entry.module === 'book'
       ? path.join(bookEntriesDir, `${entry.id}.json`)
-      : path.join(movieEntriesDir, `${entry.id}.json`);
+      : path.join(entriesRoot, entry.module, entry.submodule, `${entry.id}.json`);
     await writeJson(filePath, entry);
   }
 
   // 生成索引文件
   console.log('生成索引文件...');
   const movieEntries = entries.filter((e) => e.module === 'video' && e.submodule === 'movie');
+  const documentaryEntries = entries.filter((e) => e.module === 'video' && e.submodule === 'documentary');
+  const tvSeriesEntries = entries.filter((e) => e.module === 'video' && e.submodule === 'tv_series');
   const videoEntries = entries.filter((e) => e.module === 'video');
+  const animeMovieEntries = entries.filter((e) => e.module === 'anime' && e.submodule === 'anime_movie');
+  const animeSeriesEntries = entries.filter((e) => e.module === 'anime' && e.submodule === 'anime_series');
+  const animeEntries = entries.filter((e) => e.module === 'anime');
   const bookEntries = entries.filter((e) => e.module === 'book');
 
   // 列表索引
   await writeJson(path.join(indexesRoot, 'video-movie.json'), movieEntries.map(buildListIndex));
+  await writeJson(path.join(indexesRoot, 'video-documentary.json'), documentaryEntries.map(buildListIndex));
+  await writeJson(path.join(indexesRoot, 'video-tv_series.json'), tvSeriesEntries.map(buildListIndex));
   await writeJson(path.join(indexesRoot, 'video.json'), videoEntries.map(buildListIndex));
+  await writeJson(path.join(indexesRoot, 'anime-anime_movie.json'), animeMovieEntries.map(buildListIndex));
+  await writeJson(path.join(indexesRoot, 'anime-anime_series.json'), animeSeriesEntries.map(buildListIndex));
+  await writeJson(path.join(indexesRoot, 'anime.json'), animeEntries.map(buildListIndex));
   await writeJson(path.join(indexesRoot, 'book.json'), bookEntries.map(buildBookListIndex));
   await writeJson(path.join(indexesRoot, 'all.json'), entries.map(buildSearchIndex));
 
@@ -847,7 +862,8 @@ async function main() {
 
   // 标签聚合
   const tagsPayload = {
-    genres: [...new Set(movieEntries.flatMap((entry) => entry.genre ?? []))].sort(),
+    genres: [...new Set(videoEntries.flatMap((entry) => entry.genre ?? []))].sort(),
+    animeGenres: [...new Set(animeEntries.flatMap((entry) => entry.genre ?? []))].sort(),
     tags: [...new Set(entries.flatMap((entry) => entry.tags ?? []))].sort(),
     bookGenres: [...new Set(bookEntries.flatMap((entry) => entry.genre ?? []))].sort()
   };
@@ -862,12 +878,20 @@ async function main() {
   console.log('导出完成！');
   console.log('='.repeat(50));
   console.log(`  电影文件: generated/entries/video/movie/*.json (${movieEntries.length} 个)`);
+  console.log(`  纪录片文件: generated/entries/video/documentary/*.json (${documentaryEntries.length} 个)`);
+  console.log(`  电视剧文件: generated/entries/video/tv_series/*.json (${tvSeriesEntries.length} 个)`);
+  console.log(`  动画电影文件: generated/entries/anime/anime_movie/*.json (${animeMovieEntries.length} 个)`);
+  console.log(`  番剧文件: generated/entries/anime/anime_series/*.json (${animeSeriesEntries.length} 个)`);
   console.log(`  书籍文件: generated/entries/book/*.json (${bookEntries.length} 个)`);
   console.log(`  列表索引: generated/indexes/video-movie.json`);
+  console.log(`  纪录片索引: generated/indexes/video-documentary.json`);
+  console.log(`  电视剧索引: generated/indexes/video-tv_series.json`);
+  console.log(`  动漫索引: generated/indexes/anime-anime_movie.json`);
+  console.log(`  番剧索引: generated/indexes/anime-anime_series.json`);
   console.log(`  书籍索引: generated/indexes/book.json`);
   console.log(`  搜索索引: generated/indexes/all.json`);
   console.log(`  人物数据: generated/persons.json`);
-  console.log(`  图片资源: site/public/assets/{module}/{id}/`);
+  console.log(`  图片资源: site/public/assets/{module}/{submodule}/{id}/`);
 }
 
 main().catch((error) => {

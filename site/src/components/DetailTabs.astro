@@ -74,6 +74,9 @@ const secondaryImageItems = movie.wallpaperGallery.length
     ? movie.stillGallery
     : movie.posterGallery;
 const soundtrackAlbums = movie.soundtrack?.albums ?? [];
+const hasEpisodeMeta = Boolean(movie.episodeCount || movie.episodeTime);
+const episodeStories = movie.episodesStory ?? [];
+const characterItems = movie.characters ?? [];
 const storyParagraphs = String(movie.story?.text ?? movie.synopsis?.text ?? '')
   .split(/\n{2,}/)
   .map((paragraph) => paragraph.trim())
@@ -98,8 +101,17 @@ function getReviewParagraphs(content: string | null | undefined) {
     .filter(Boolean);
 }
 
+function resolveCharacterImage(image: string) {
+  if (/^https?:\/\//.test(image) || image.startsWith('/')) {
+    return image;
+  }
+  return `/assets/${movie.module}/${movie.submodule}/${movie.id}/${image}`;
+}
+
 const tabItems = [
   { id: 'story', label: '详情介绍' },
+  { id: 'episodes', label: '剧集资料', hidden: !hasEpisodeMeta && !episodeStories.length },
+  { id: 'characters', label: '角色', hidden: !characterItems.length },
   { id: 'credits', label: '演职员' },
   { id: 'images', label: '图片', hidden: !movie.stillGallery.length && !movie.posterGallery.length },
   { id: 'reviews', label: '精彩影评' },
@@ -141,6 +153,65 @@ const tabItems = [
       ))}
     </div>
   </section>
+
+  {hasEpisodeMeta || episodeStories.length ? (
+    <section class="detail-panel" id="episodes">
+      <div class="detail-panel__header">
+        <h2>剧集资料</h2>
+        <span class="detail-panel__eyebrow">Episode File</span>
+      </div>
+
+      {hasEpisodeMeta ? (
+        <div class="episode-summary-grid">
+          {movie.episodeCount ? (
+            <div>
+              <span>集数</span>
+              <strong>{movie.episodeCount}</strong>
+            </div>
+          ) : null}
+          {movie.episodeTime ? (
+            <div>
+              <span>单集时长</span>
+              <strong>{movie.episodeTime} 分钟</strong>
+            </div>
+          ) : null}
+        </div>
+      ) : null}
+
+      {episodeStories.length ? (
+        <div class="episode-story-list">
+          {episodeStories.map((episode) => (
+            <article>
+              <strong>{episode.episode ? `第 ${episode.episode} 集` : '分集剧情'}{episode.title ? ` · ${episode.title}` : ''}</strong>
+              {episode.plot ? <p>{episode.plot}</p> : null}
+            </article>
+          ))}
+        </div>
+      ) : null}
+    </section>
+  ) : null}
+
+  {characterItems.length ? (
+    <section class="detail-panel" id="characters">
+      <div class="detail-panel__header">
+        <h2>角色</h2>
+        <span class="detail-panel__eyebrow">Characters</span>
+      </div>
+
+      <div class="character-grid">
+        {characterItems.map((character) => (
+          <article class="character-card">
+            {character.image ? <img src={resolveCharacterImage(character.image)} alt={character.name ?? '角色'} loading="lazy" /> : null}
+            <div>
+              <strong>{character.name ?? '未命名角色'}</strong>
+              {character.voiceActor || character.actor ? <span>{character.voiceActor ? `声优：${character.voiceActor}` : `演员：${character.actor}`}</span> : null}
+              {character.description ? <p>{character.description}</p> : null}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  ) : null}
 
   <section class="detail-panel" id="credits">
     <div class="detail-panel__header">

@@ -1,0 +1,279 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MovieGridCard from '../../components/MovieGridCard.astro';
+import MovieListCard from '../../components/MovieListCard.astro';
+import { loadArchiveAnimeWorks } from '../../lib/archive';
+
+const allMovies = await loadArchiveAnimeWorks();
+const genres = [...new Set(allMovies.flatMap((movie) => movie.genre ?? []))].sort();
+
+const countryOptions = [...new Set(allMovies.map((movie) => movie.country).filter(Boolean))].sort();
+const yearOptions = [...new Set(allMovies.map((movie) => movie.year).filter(Boolean))].sort((left, right) => right - left);
+
+const moviesData = allMovies.map((movie) => ({
+  id: movie.id,
+  title: movie.title,
+  originalTitle: movie.originalTitle,
+  year: movie.year,
+  country: movie.country,
+  genre: movie.genre ?? [],
+  submodule: movie.submodule,
+  directorNames: movie.directorNames,
+  castPreview: movie.castPreview,
+  synopsis: movie.synopsis,
+  aggregateRating: movie.aggregateRating,
+  runtime: movie.runtime,
+  posterUrl: movie.posterUrl,
+  path: movie.path,
+  doubanRating: movie.doubanRating,
+  imdbRating: movie.imdbRating,
+  tmdbRating: movie.tmdbRating,
+  rottenTomatoes: movie.rottenTomatoes
+}));
+---
+
+<BaseLayout title="动漫分馆 | Treasure 资料馆">
+  <section class="shell filters-panel filters-panel--compact">
+    <form class="archive-search-bar" method="get">
+      <input name="q" type="search" placeholder="搜索动画、番剧标题、原名、导演" data-search-input />
+      <button class="button button--primary" type="submit">搜索</button>
+      <a class="button button--ghost" href="/anime">清空</a>
+    </form>
+
+    <div class="filter-link-rows">
+      <div class="filter-link-row">
+        <span class="filter-link-row__label">类型</span>
+        <div class="filter-link-row__options" data-filter-group="genre">
+          <button type="button" class="filter-link-row__option is-active" data-filter-value="" data-filter-all="true">全部</button>
+          {genres.slice(0, 12).map((genre) => (
+            <button type="button" class="filter-link-row__option" data-filter-value={genre}>{genre}</button>
+          ))}
+        </div>
+      </div>
+
+      <div class="filter-link-row">
+        <span class="filter-link-row__label">地区</span>
+        <div class="filter-link-row__options" data-filter-group="country">
+          <button type="button" class="filter-link-row__option is-active" data-filter-value="" data-filter-all="true">全部</button>
+          {countryOptions.map((country) => (
+            <button type="button" class="filter-link-row__option" data-filter-value={country}>{country}</button>
+          ))}
+        </div>
+      </div>
+
+      <div class="filter-link-row">
+        <span class="filter-link-row__label">年份</span>
+        <div class="filter-link-row__options" data-filter-group="year">
+          <button type="button" class="filter-link-row__option is-active" data-filter-value="" data-filter-all="true">全部</button>
+          {yearOptions.slice(0, 14).map((year) => (
+            <button type="button" class="filter-link-row__option" data-filter-value={String(year)}>{year}</button>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <div class="active-filter-tags" data-active-filters></div>
+  </section>
+
+  <section class="shell listing-toolbar">
+    <p data-result-info>共 {allMovies.length} 条内容，当前第 1 / {Math.ceil(allMovies.length / 12)} 页。</p>
+    <div class="listing-toolbar__views" data-view-switcher>
+      <button type="button" class:list={['is-active']} data-view-option="grid">卡片</button>
+      <button type="button" data-view-option="list">列表</button>
+    </div>
+  </section>
+
+  <section class="shell grid-cards" data-view-panel="grid" data-movies-container="grid">
+    {allMovies.slice(0, 12).map((movie) => (
+      <MovieGridCard movie={movie} />
+    ))}
+  </section>
+
+  <section class="shell list-cards is-hidden" data-view-panel="list" data-movies-container="list">
+    {allMovies.slice(0, 12).map((movie) => (
+      <MovieListCard movie={movie} />
+    ))}
+  </section>
+
+  <nav class="shell pagination-bar" aria-label="列表分页" data-pagination>
+    <div class="pagination-bar__left">
+      <span class="pagination-bar__label">每页显示</span>
+      <select class="pagination-bar__size-select" data-page-size>
+        <option value="12">12 条</option>
+        <option value="24">24 条</option>
+        <option value="48">48 条</option>
+      </select>
+    </div>
+    <div class="pagination-bar__center">
+      <button type="button" class="pagination-bar__nav" data-pagination-prev aria-label="上一页">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div class="pagination-bar__pages" data-pagination-pages></div>
+      <button type="button" class="pagination-bar__nav" data-pagination-next aria-label="下一页">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+    <div class="pagination-bar__right"></div>
+  </nav>
+
+  <script is:inline define:vars={{ moviesData }}>
+    const PAGE_SIZES = [12, 24, 48];
+    const state = { query: '', genre: '', country: '', year: '', view: 'grid', page: 1, pageSize: 12 };
+
+    function init() {
+      const params = new URL(window.location.href).searchParams;
+      state.query = params.get('q') ?? '';
+      state.genre = params.get('genre') ?? '';
+      state.country = params.get('country') ?? '';
+      state.year = params.get('year') ?? '';
+      state.view = params.get('view') === 'list' ? 'list' : 'grid';
+      state.page = Math.max(1, parseInt(params.get('page') ?? '1', 10) || 1);
+      state.pageSize = PAGE_SIZES.includes(parseInt(params.get('size') ?? '12', 10)) ? parseInt(params.get('size') ?? '12', 10) : 12;
+
+      const searchInput = document.querySelector('[data-search-input]');
+      if (searchInput) searchInput.value = state.query;
+      updateFilterUI();
+      bindEvents();
+      applyFilters();
+    }
+
+    function updateFilterUI() {
+      document.querySelectorAll('[data-filter-group]').forEach((group) => {
+        const key = group.dataset.filterGroup;
+        const activeValue = state[key];
+        group.querySelectorAll('[data-filter-value]').forEach((btn) => {
+          const isAll = btn.dataset.filterAll === 'true';
+          btn.classList.toggle('is-active', isAll ? !activeValue : activeValue === btn.dataset.filterValue);
+        });
+      });
+      document.querySelectorAll('[data-view-option]').forEach((btn) => {
+        btn.classList.toggle('is-active', btn.dataset.viewOption === state.view);
+      });
+      document.querySelectorAll('[data-view-panel]').forEach((panel) => {
+        panel.classList.toggle('is-hidden', panel.dataset.viewPanel !== state.view);
+      });
+    }
+
+    function filterMovies() {
+      return moviesData.filter((movie) => {
+        if (state.query) {
+          const q = state.query.toLowerCase();
+          const haystack = [movie.title, movie.originalTitle, movie.synopsis?.text, movie.country, ...movie.genre, ...movie.castPreview].filter(Boolean).join(' ').toLowerCase();
+          if (!haystack.includes(q)) return false;
+        }
+        if (state.genre && !movie.genre.includes(state.genre)) return false;
+        if (state.country && movie.country !== state.country) return false;
+        if (state.year && String(movie.year) !== state.year) return false;
+        return true;
+      });
+    }
+
+    function applyFilters() {
+      const filtered = filterMovies();
+      const totalPages = Math.max(1, Math.ceil(filtered.length / state.pageSize));
+      state.page = Math.min(state.page, totalPages);
+      const start = (state.page - 1) * state.pageSize;
+      renderMovies(filtered.slice(start, start + state.pageSize));
+      renderPagination(totalPages, filtered.length);
+      updateURL();
+    }
+
+    function renderMovies(movies) {
+      const gridContainer = document.querySelector('[data-movies-container="grid"]');
+      const listContainer = document.querySelector('[data-movies-container="list"]');
+      if (gridContainer) gridContainer.innerHTML = movies.map(createGridCard).join('');
+      if (listContainer) listContainer.innerHTML = movies.map(createListCard).join('');
+    }
+
+    function createGridCard(movie) {
+      const metaLeft = [String(movie.year ?? ''), movie.genre?.[0]].filter(Boolean).join(' · ');
+      const metaRight = movie.country ?? '';
+      const rating = movie.aggregateRating ? movie.aggregateRating.toFixed(1) : '--';
+      return `<article class="movie-grid-card"><a class="movie-grid-card__frame" href="${movie.path}"><img class="movie-grid-card__poster-bg" src="${movie.posterUrl}" alt="" aria-hidden="true" loading="lazy"><div class="movie-grid-card__poster-shell"><img class="movie-grid-card__poster" src="${movie.posterUrl}" alt="${movie.title} 海报" loading="lazy"><span class="movie-grid-card__rating">${rating}</span></div><div class="movie-grid-card__body"><strong class="movie-grid-card__title">${movie.title}</strong><div class="movie-grid-card__meta-row"><span class="movie-grid-card__meta-left">${metaLeft}</span><span class="movie-grid-card__meta-right">${metaRight}</span></div></div><div class="movie-grid-card__hover"><strong class="movie-grid-card__hover-title">${movie.title}</strong><p class="movie-grid-card__hover-meta">${[movie.genre?.[0], String(movie.year ?? ''), movie.country].filter(Boolean).join(' · ')}</p><p class="movie-grid-card__hover-cast">主演：${movie.castPreview?.slice(0, 3).join(' / ') ?? ''}</p><p class="movie-grid-card__hover-summary">${movie.synopsis?.text ?? ''}</p></div></a></article>`;
+    }
+
+    function createListCard(movie) {
+      const facts = [String(movie.year ?? ''), movie.country, movie.genre?.join('/')].filter(Boolean);
+      return `<article class="movie-list-card"><a class="movie-list-card__poster" href="${movie.path}"><img src="${movie.posterUrl}" alt="${movie.title} 海报" loading="lazy"></a><div class="movie-list-card__body"><a class="movie-list-card__detail-link" href="${movie.path}">查看详情</a><div class="movie-list-card__title-row"><a class="movie-list-card__title" href="${movie.path}">${movie.title}</a><p class="movie-list-card__subtitle">${movie.originalTitle ?? ''}</p></div><div class="movie-list-card__facts">${facts.map((f) => `<span class="movie-list-card__fact-chip">${f}</span>`).join('')}</div><div class="movie-list-card__director-row"><span>导演：${movie.directorNames ?? '待补充'}</span></div><div class="movie-list-card__cast-row"><span>主演：${movie.castPreview?.join(' / ') ?? '待补充'}</span></div><div class="movie-list-card__summary-row"><span>简介：${movie.synopsis?.text ?? '待补充'}</span></div></div><div class="movie-list-card__ratings"><div class="movie-list-card__score"><span>综合评分</span><strong>${movie.aggregateRating ? movie.aggregateRating.toFixed(1) : '--'}</strong></div></div></article>`;
+    }
+
+    function renderPagination(totalPages, totalItems) {
+      const info = document.querySelector('[data-result-info]');
+      if (info) info.textContent = `共 ${totalItems} 条，当前第 ${state.page} / ${totalPages} 页。`;
+      const pages = document.querySelector('[data-pagination-pages]');
+      if (pages) pages.innerHTML = Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => page === state.page ? `<span class="pagination-bar__page is-active">${page}</span>` : `<button type="button" class="pagination-bar__page" data-page="${page}">${page}</button>`).join('');
+    }
+
+    function updateURL() {
+      const params = new URLSearchParams();
+      if (state.query) params.set('q', state.query);
+      if (state.genre) params.set('genre', state.genre);
+      if (state.country) params.set('country', state.country);
+      if (state.year) params.set('year', state.year);
+      if (state.view === 'list') params.set('view', 'list');
+      if (state.page > 1) params.set('page', String(state.page));
+      if (state.pageSize !== 12) params.set('size', String(state.pageSize));
+      window.history.replaceState({}, '', params.toString() ? `/anime?${params.toString()}` : '/anime');
+    }
+
+    function bindEvents() {
+      document.querySelectorAll('[data-filter-group]').forEach((group) => {
+        group.addEventListener('click', (event) => {
+          const btn = event.target.closest('[data-filter-value]');
+          if (!btn) return;
+          state[group.dataset.filterGroup] = btn.dataset.filterValue;
+          state.page = 1;
+          updateFilterUI();
+          applyFilters();
+        });
+      });
+      document.querySelector('[data-view-switcher]')?.addEventListener('click', (event) => {
+        const btn = event.target.closest('[data-view-option]');
+        if (!btn) return;
+        state.view = btn.dataset.viewOption;
+        updateFilterUI();
+        applyFilters();
+      });
+      document.querySelector('[data-pagination]')?.addEventListener('click', (event) => {
+        const pageBtn = event.target.closest('[data-page]');
+        if (pageBtn) {
+          state.page = parseInt(pageBtn.dataset.page, 10);
+          applyFilters();
+        }
+        if (event.target.closest('[data-pagination-prev]')) {
+          state.page = Math.max(1, state.page - 1);
+          applyFilters();
+        }
+        if (event.target.closest('[data-pagination-next]')) {
+          state.page += 1;
+          applyFilters();
+        }
+      });
+      document.querySelector('.archive-search-bar')?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        state.query = document.querySelector('[data-search-input]')?.value?.trim() ?? '';
+        state.page = 1;
+        applyFilters();
+      });
+      document.querySelector('.archive-search-bar .button--ghost')?.addEventListener('click', (event) => {
+        event.preventDefault();
+        state.query = '';
+        state.genre = '';
+        state.country = '';
+        state.year = '';
+        const searchInput = document.querySelector('[data-search-input]');
+        if (searchInput) searchInput.value = '';
+        state.page = 1;
+        updateFilterUI();
+        applyFilters();
+      });
+      document.querySelector('[data-page-size]')?.addEventListener('change', (event) => {
+        state.pageSize = parseInt(event.target.value, 10);
+        state.page = 1;
+        applyFilters();
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</BaseLayout>

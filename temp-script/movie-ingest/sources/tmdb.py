@@ -135,6 +135,267 @@ class TMDBClient:
 
         return None
 
+    async def search_tv_by_imdb(self, imdb_id: str) -> Optional[Dict]:
+        """
+        通过 IMDb ID 搜索剧集 / 番剧。
+
+        Args:
+            imdb_id: IMDb ID（如 tt0944947）
+
+        Returns:
+            TV 数据或 None
+        """
+        Logger.info(f"正在通过 IMDb ID 搜索 TMDB TV: {imdb_id}")
+
+        url = f"{self.base_url}/find/{imdb_id}"
+        params = {
+            "api_key": self.api_key,
+            "external_source": "imdb_id"
+        }
+
+        data = await self._request_with_retry(url, params)
+        if data:
+            tv_results = data.get("tv_results", [])
+            if tv_results:
+                tv = tv_results[0]
+                Logger.success(f"找到 TMDB TV: {tv.get('name', '')}")
+                return tv
+
+        return None
+
+    async def get_tv_detail(self, tv_id: int, language: str = "zh-CN") -> Dict:
+        """获取 TMDB TV 详情。"""
+        Logger.info(f"正在获取 TMDB TV 详情: {tv_id} ({language})")
+
+        url = f"{self.base_url}/tv/{tv_id}"
+        params = {
+            "api_key": self.api_key,
+            "language": language
+        }
+
+        result = {
+            "tmdb_id": tv_id,
+            "source": "tmdb",
+            "media_type": "tv",
+            "language": language,
+            "seasons": []
+        }
+
+        data = await self._request_with_retry(url, params)
+        if data:
+            result.update({
+                "title": data.get("name", ""),
+                "original_title": data.get("original_name", ""),
+                "year": data.get("first_air_date", "")[:4] if data.get("first_air_date") else "",
+                "first_air_date": data.get("first_air_date", ""),
+                "last_air_date": data.get("last_air_date", ""),
+                "overview": data.get("overview", ""),
+                "episode_run_time": data.get("episode_run_time", []),
+                "number_of_episodes": data.get("number_of_episodes", 0),
+                "number_of_seasons": data.get("number_of_seasons", 0),
+                "genres": [g.get("name", "") for g in data.get("genres", [])],
+                "countries": data.get("origin_country", []),
+                "languages": data.get("languages", []),
+                "production_companies": [c.get("name", "") for c in data.get("production_companies", [])],
+                "production_company_details": data.get("production_companies", []),
+                "rating": data.get("vote_average", 0),
+                "rating_count": data.get("vote_count", 0),
+                "popularity": data.get("popularity", 0),
+                "status": data.get("status", ""),
+                "tagline": data.get("tagline", ""),
+                "homepage": data.get("homepage", ""),
+                "poster": f"{self.image_base_url}{data.get('poster_path', '')}" if data.get("poster_path") else "",
+                "backdrop": f"{self.image_base_url}{data.get('backdrop_path', '')}" if data.get("backdrop_path") else "",
+                "seasons": [
+                    {
+                        "season_number": season.get("season_number"),
+                        "episode_count": season.get("episode_count"),
+                        "name": season.get("name", ""),
+                        "air_date": season.get("air_date", ""),
+                        "overview": season.get("overview", ""),
+                    }
+                    for season in data.get("seasons", [])
+                ]
+            })
+            Logger.success(f"TMDB TV 详情获取完成")
+
+        return result
+
+    async def get_tv_season(self, tv_id: int, season_number: int, language: str = "zh-CN") -> Dict:
+        """获取 TMDB TV 单季分集信息，不限制集数。"""
+        Logger.info(f"正在获取 TMDB TV 第 {season_number} 季分集: {tv_id} ({language})")
+
+        url = f"{self.base_url}/tv/{tv_id}/season/{season_number}"
+        params = {
+            "api_key": self.api_key,
+            "language": language
+        }
+
+        result = {
+            "tmdb_id": tv_id,
+            "season_number": season_number,
+            "source": "tmdb",
+            "language": language,
+            "episodes": []
+        }
+
+        data = await self._request_with_retry(url, params)
+        if data:
+            result.update({
+                "name": data.get("name", ""),
+                "overview": data.get("overview", ""),
+                "air_date": data.get("air_date", ""),
+                "poster": f"{self.image_base_url}{data.get('poster_path', '')}" if data.get("poster_path") else "",
+                "episodes": [
+                    {
+                        "episode": episode.get("episode_number"),
+                        "season": episode.get("season_number"),
+                        "title": episode.get("name", ""),
+                        "story": episode.get("overview", ""),
+                        "airDate": episode.get("air_date", ""),
+                        "runtime": episode.get("runtime"),
+                        "rating": episode.get("vote_average"),
+                        "ratingCount": episode.get("vote_count"),
+                        "source": "tmdb",
+                        "language": language,
+                    }
+                    for episode in data.get("episodes", [])
+                ]
+            })
+            Logger.success(f"获取 TMDB TV 第 {season_number} 季分集 {len(result['episodes'])} 集")
+
+        return result
+
+    async def get_tv_episode_stories(
+        self,
+        tv_id: int,
+        expected_count: int = 0,
+        languages: Optional[List[str]] = None
+    ) -> Dict:
+        """
+        获取 TV 分集剧情。优先选择集数与 expected_count 匹配的季；
+        中文缺剧情时回退英文，但不会截断或采样。
+        """
+        languages = languages or ["zh-CN", "en-US"]
+        detail_by_language = {}
+        for language in languages:
+            detail_by_language[language] = await self.get_tv_detail(tv_id, language=language)
+
+        base_detail = detail_by_language.get(languages[0]) or {}
+        seasons = [
+            season
+            for season in base_detail.get("seasons", [])
+            if int(season.get("season_number") or 0) > 0
+        ]
+        if expected_count:
+            exact = [season for season in seasons if int(season.get("episode_count") or 0) == expected_count]
+            candidates = exact or seasons
+        else:
+            candidates = seasons
+
+        best: Dict[str, Any] = {
+            "tmdb_id": tv_id,
+            "source": "tmdb",
+            "detail": base_detail,
+            "episodes": [],
+            "complete": False,
+            "language": None,
+            "season_number": None,
+            "missing": list(range(1, expected_count + 1)) if expected_count else [],
+        }
+
+        for season in candidates:
+            season_number = int(season.get("season_number") or 0)
+            for language in languages:
+                season_data = await self.get_tv_season(tv_id, season_number, language=language)
+                episodes = season_data.get("episodes", [])
+                present = {
+                    int(episode.get("episode") or 0)
+                    for episode in episodes
+                    if episode.get("episode") and str(episode.get("story") or "").strip()
+                }
+                missing = (
+                    [number for number in range(1, expected_count + 1) if number not in present]
+                    if expected_count else []
+                )
+                complete = bool(episodes) and not missing
+                if (
+                    complete
+                    or len(present) > len({
+                        int(episode.get("episode") or 0)
+                        for episode in best.get("episodes", [])
+                        if episode.get("episode") and str(episode.get("story") or "").strip()
+                    })
+                ):
+                    best.update({
+                        "episodes": episodes,
+                        "complete": complete,
+                        "language": language,
+                        "season_number": season_number,
+                        "missing": missing,
+                        "season": season_data,
+                        "detail": detail_by_language.get(language) or base_detail,
+                    })
+                if complete:
+                    return best
+
+        return best
+
+    async def get_tv_credits(self, tv_id: int) -> Dict:
+        """获取 TMDB TV 聚合演职人员，保留全部返回的 cast/crew。"""
+        Logger.info(f"正在获取 TMDB TV 演职人员: {tv_id}")
+
+        result = {
+            "tmdb_id": tv_id,
+            "source": "tmdb",
+            "media_type": "tv",
+            "cast": [],
+            "crew": []
+        }
+
+        url = f"{self.base_url}/tv/{tv_id}/aggregate_credits"
+        params = {"api_key": self.api_key}
+        data = await self._request_with_retry(url, params)
+        if not data:
+            url = f"{self.base_url}/tv/{tv_id}/credits"
+            data = await self._request_with_retry(url, params)
+
+        if data:
+            for cast in data.get("cast", []):
+                roles = cast.get("roles", []) if isinstance(cast.get("roles"), list) else []
+                role_names = []
+                for role in roles:
+                    if isinstance(role, dict) and role.get("character"):
+                        role_names.append(str(role.get("character")).strip())
+                character = " / ".join(dict.fromkeys(role_names)) or cast.get("character", "")
+                result["cast"].append({
+                    "id": cast.get("id", 0),
+                    "name": cast.get("name", ""),
+                    "original_name": cast.get("original_name", ""),
+                    "character": character,
+                    "order": cast.get("order", 0),
+                    "total_episode_count": cast.get("total_episode_count"),
+                    "profile_path": f"{self.image_base_url}{cast.get('profile_path', '')}" if cast.get("profile_path") else "",
+                    "roles": roles,
+                })
+
+            for crew in data.get("crew", []):
+                jobs = crew.get("jobs", []) if isinstance(crew.get("jobs"), list) else []
+                result["crew"].append({
+                    "id": crew.get("id", 0),
+                    "name": crew.get("name", ""),
+                    "original_name": crew.get("original_name", ""),
+                    "job": crew.get("job", ""),
+                    "department": crew.get("department", ""),
+                    "total_episode_count": crew.get("total_episode_count"),
+                    "profile_path": f"{self.image_base_url}{crew.get('profile_path', '')}" if crew.get("profile_path") else "",
+                    "jobs": jobs,
+                })
+
+            Logger.success(f"获取 TMDB TV 演员 {len(result['cast'])} 人，演职人员 {len(result['crew'])} 人")
+
+        return result
+
     async def get_detail(self, tmdb_id: int) -> Dict:
         """
         获取电影详情

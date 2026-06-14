@@ -26,6 +26,7 @@ from typing import Dict, Any, List, Optional, Tuple
 from datetime import datetime
 
 import config
+from media_profiles import MODULE_CODE, SUBMODULE_CODE
 from utils import Logger
 
 
@@ -57,9 +58,9 @@ class TreasureDB:
         if self.conn and self._bulk_import_depth == 0:
             self.conn.commit()
 
-    def _promote_work_assets(self, work_id: str) -> Dict[str, int]:
+    def _promote_work_assets(self, work_id: str, module: str = "video", submodule: str = "movie") -> Dict[str, int]:
         """把采集阶段下载的作品图片提升到正式本地资源目录，供 export-generated 使用。"""
-        target_dir = config.REPO_ROOT / ".local" / "assets" / "video" / "movie" / work_id
+        target_dir = config.REPO_ROOT / ".local" / "assets" / module / submodule / work_id
         stats = {"copied": 0, "missing": 0}
 
         work_assets_dir = config.WORK_ASSETS_DIR / work_id
@@ -102,29 +103,14 @@ class TreasureDB:
         获取指定模块的最大作品 ID 序号
         
         Args:
-            module: 一级模块（video/book/music/game）
-            submodule: 二级模块（movie/tv/anime/documentary/short）
+            module: 一级模块（video/book/anime/music/game）
+            submodule: 二级模块（movie/tv_series/documentary/short_drama/anime_movie/anime_series）
             
         Returns:
             最大序号（NNNNNN 部分），如果没有则返回 0
         """
-        module_map = {
-            "video": "01",
-            "book": "02",
-            "music": "03",
-            "game": "04"
-        }
-        
-        submodule_map = {
-            "movie": "01",
-            "tv": "02",
-            "anime": "03",
-            "documentary": "04",
-            "short": "05"
-        }
-        
-        mm = module_map.get(module, "01")
-        ss = submodule_map.get(submodule, "01")
+        mm = MODULE_CODE.get(module, "01")
+        ss = SUBMODULE_CODE.get(submodule, "01")
         prefix = f"{mm}{ss}"
         
         self.connect()
@@ -168,11 +154,15 @@ class TreasureDB:
         INSERT INTO works (
             id, module, submodule, schema_type, title, title_original,
             year, country, language, total_time, studio,
+            episode_count, episode_time, episodes_story, characters,
             introduction, story, other_titles, release_dates,
             external_source, scores, images, videos, comments,
             soundtrack, related, quotes, status, created_at, updated_at
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ON CONFLICT(id) DO UPDATE SET
+            module = excluded.module,
+            submodule = excluded.submodule,
+            schema_type = excluded.schema_type,
             title = excluded.title,
             title_original = COALESCE(excluded.title_original, works.title_original),
             year = COALESCE(excluded.year, works.year),
@@ -180,6 +170,10 @@ class TreasureDB:
             language = COALESCE(excluded.language, works.language),
             total_time = COALESCE(excluded.total_time, works.total_time),
             studio = COALESCE(excluded.studio, works.studio),
+            episode_count = COALESCE(excluded.episode_count, works.episode_count),
+            episode_time = COALESCE(excluded.episode_time, works.episode_time),
+            episodes_story = COALESCE(excluded.episodes_story, works.episodes_story),
+            characters = COALESCE(excluded.characters, works.characters),
             introduction = COALESCE(excluded.introduction, works.introduction),
             story = COALESCE(excluded.story, works.story),
             other_titles = COALESCE(excluded.other_titles, works.other_titles),
@@ -197,9 +191,9 @@ class TreasureDB:
         
         params = (
             work_id,
-            "video",
-            "movie",
-            "live_action_movie",
+            data.get("module") or "video",
+            data.get("submodule") or "movie",
+            data.get("schemaType") or data.get("schema_type") or "live_action_movie",
             data.get("title", ""),
             data.get("originalTitle"),
             data.get("year"),
@@ -207,6 +201,10 @@ class TreasureDB:
             data.get("language"),
             data.get("runtime"),
             data.get("studio"),
+            data.get("episodeCount") or data.get("episode_count"),
+            data.get("episodeTime") or data.get("episode_time"),
+            self._to_json(data.get("episodesStory") or data.get("episodes_story")),
+            self._to_json(data.get("characters")),
             data.get("synopsis", {}).get("text") if isinstance(data.get("synopsis"), dict) else data.get("synopsis"),
             data.get("story", {}).get("text") if isinstance(data.get("story"), dict) else data.get("story"),
             self._to_json(data.get("aka")),
@@ -620,7 +618,12 @@ class TreasureDB:
         
         for genre in movie_data.get("genre", []):
             if genre and genre not in category_map:
-                db_id = self.save_category(genre, "type", "video", "movie")
+                db_id = self.save_category(
+                    genre,
+                    "type",
+                    movie_data.get("module") or "video",
+                    movie_data.get("submodule") or "movie"
+                )
                 category_map[genre] = db_id
         
         for tag in movie_data.get("tags", []):
@@ -710,7 +713,11 @@ class TreasureDB:
             self.save_work_categories_from_movie(work_id, movie_data, category_map)
             
             self.conn.commit()
-            asset_stats = self._promote_work_assets(work_id)
+            asset_stats = self._promote_work_assets(
+                work_id,
+                movie_data.get("module") or "video",
+                movie_data.get("submodule") or "movie"
+            )
             if asset_stats["copied"]:
                 Logger.success(f"已同步 {asset_stats['copied']} 个作品图片资源: {work_id}")
             elif asset_stats["missing"]:
@@ -734,6 +741,10 @@ class TreasureDB:
             }
         finally:
             self._bulk_import_depth = max(0, self._bulk_import_depth - 1)
+
+    def import_media(self, media_data: Dict[str, Any]) -> Dict[str, Any]:
+        """导入媒体作品；保留 import_movie 兼容旧调用。"""
+        return self.import_movie(media_data)
     
     # ========================================
     # 辅助方法
@@ -769,10 +780,11 @@ class TreasureDB:
         
         tmdb_id = data.get("tmdbId")
         if tmdb_id:
+            tmdb_kind = "tv" if str(data.get("schemaType") or data.get("schema_type") or "").endswith("_series") else "movie"
             sources.append({
                 "name": "TMDB",
                 "id": str(tmdb_id),
-                "link": f"https://www.themoviedb.org/movie/{tmdb_id}"
+                "link": f"https://www.themoviedb.org/{tmdb_kind}/{tmdb_id}"
             })
         
         baike_id = data.get("baikeId")

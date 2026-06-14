@@ -12,6 +12,8 @@ from datetime import date
 from pathlib import Path
 from typing import Any, Dict, List
 
+from media_profiles import MEDIA_PROFILES
+
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 RAW_DIR = SCRIPT_DIR / "data" / "raw"
@@ -32,9 +34,9 @@ SOURCES = [
 FIELD_ROWS = [
     ("标识信息", [
         ("id", "作品ID", "id", "自动生成", {}),
-        ("module", "一级模块", "module", "固定 video", {}),
-        ("submodule", "二级模块", "submodule", "固定 movie", {}),
-        ("schema_type", "内容类型", "schemaType", "固定 live_action_movie", {}),
+        ("module", "一级模块", "module", "由 media profile 决定", {}),
+        ("submodule", "二级模块", "submodule", "由 media profile 决定", {}),
+        ("schema_type", "内容类型", "schemaType", "由 media profile 决定", {}),
         ("external_source", "外部来源(JSON数组)", "externalSource", "由 doubanId / imdbId / tmdbId 等生成", {
             "douban": ["douban_id"],
             "tmdb": ["detail.tmdb_id", "external_ids.imdb_id", "external_ids.wikidata_id"],
@@ -89,6 +91,16 @@ FIELD_ROWS = [
             "tmdb": ["detail.production_companies"],
             "baike": ["production_companies", "basic_info.出品公司"],
         }),
+        ("episode_count", "集数", "episodeCount", "剧集 / 番剧 profile 必填", {
+            "douban": ["detail.episodes", "episodes"],
+            "tmdb": ["detail.number_of_episodes"],
+            "baike": ["episode_count", "basic_info.集数"],
+        }),
+        ("episode_time", "单集时长", "episodeTime", "剧集 / 番剧 profile 可选", {
+            "douban": ["detail.episode_runtime", "episode_runtime"],
+            "tmdb": ["detail.episode_run_time"],
+            "baike": ["episode_time", "basic_info.单集片长"],
+        }),
         ("distributor", "发行公司", "distributor", "百度百科补充", {
             "baike": ["distributors", "basic_info.发行公司"],
         }),
@@ -119,6 +131,14 @@ FIELD_ROWS = [
         }),
         ("quotes", "名言(JSON数组)", "quotes", "Wikipedia 补充", {
             "wikipedia": ["quotes"],
+        }),
+        ("episodes_story", "分集剧情(JSON数组)", "episodesStory", "剧集 / 番剧专用", {
+            "douban": ["episodes", "detail.episodes"],
+            "baike": ["episodes_story", "分集剧情章节", "data-module-value.episodes"],
+        }),
+        ("characters", "角色介绍(JSON数组)", "characters", "动漫 / 番剧专用", {
+            "douban": ["celebrities.cast.character", "celebrities.cast.characterEn"],
+            "baike": ["characters", "roles", "role module", "credits.cast.character", "credits.cast.characterEn"],
         }),
     ]),
     ("评分与分类", [
@@ -393,6 +413,7 @@ def main():
     parser = argparse.ArgumentParser(description="生成 movie-ingest 字段映射对照 HTML")
     parser.add_argument("--work-id", required=True, help="data/raw/{work_id} 的作品 ID")
     parser.add_argument("--output", default=str(DOCS_DIR / "field-map.html"), help="输出 HTML 路径")
+    parser.add_argument("--schema-type", choices=sorted(MEDIA_PROFILES.keys()), help="用于报告说明的媒体作品类型")
     args = parser.parse_args()
 
     raw = load_raw(args.work_id)

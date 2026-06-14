@@ -2,9 +2,9 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import MovieGridCard from '../../components/MovieGridCard.astro';
 import MovieListCard from '../../components/MovieListCard.astro';
-import { loadArchiveMovies } from '../../lib/archive';
+import { loadArchiveVideoWorks } from '../../lib/archive';
 
-const allMovies = await loadArchiveMovies();
+const allMovies = await loadArchiveVideoWorks();
 
 const genres = [...new Set(allMovies.flatMap((movie) => movie.genre ?? []))].sort();
 
@@ -74,10 +74,9 @@ const filterRows = [
 
 const submodules = [
   { value: 'movie', label: '电影', enabled: true },
-  { value: 'series', label: '电视剧', enabled: false },
-  { value: 'documentary', label: '纪录片', enabled: false },
-  { value: 'animation', label: '动漫', enabled: false },
-  { value: 'short', label: '短片', enabled: false }
+  { value: 'tv_series', label: '电视剧', enabled: allMovies.some((movie) => movie.submodule === 'tv_series') },
+  { value: 'documentary', label: '纪录片', enabled: allMovies.some((movie) => movie.submodule === 'documentary') },
+  { value: 'short_drama', label: '短剧', enabled: false }
 ];
 
 const moviesData = allMovies.map((movie) => ({
@@ -94,6 +93,7 @@ const moviesData = allMovies.map((movie) => ({
   runtime: movie.runtime,
   posterUrl: movie.posterUrl,
   path: movie.path,
+  submodule: movie.submodule,
   doubanRating: movie.doubanRating,
   imdbRating: movie.imdbRating,
   tmdbRating: movie.tmdbRating,
@@ -314,6 +314,10 @@ const moviesData = allMovies.map((movie) => ({
           if (!haystack.includes(q)) {
             return false;
           }
+        }
+
+        if (state.submodule && movie.submodule !== state.submodule) {
+          return false;
         }
 
         if (state.genre && !movie.genre.includes(state.genre)) {

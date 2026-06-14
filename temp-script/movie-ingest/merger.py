@@ -54,7 +54,8 @@ class DataMerger:
                 "comments": [],
                 "reviews": [],
                 "images": {},
-                "trailers": []
+                "trailers": [],
+                "episodes": []
             }
 
         detail = payload.get("detail")
@@ -67,7 +68,8 @@ class DataMerger:
             "comments": payload.get("comments", detail.get("comments", [])) or [],
             "reviews": payload.get("reviews", detail.get("reviews", [])) or [],
             "images": payload.get("images", detail.get("images", {})) or {},
-            "trailers": payload.get("trailers", detail.get("trailers", [])) or []
+            "trailers": payload.get("trailers", detail.get("trailers", [])) or [],
+            "episodes": payload.get("episodes", detail.get("episodes", [])) or []
         }
 
     def _normalize_douban_person(self, person: Any, role: Optional[str] = None) -> Dict[str, Any]:
@@ -119,6 +121,113 @@ class DataMerger:
             "sourceUrl": video.get("source_url"),
             "sourceId": video.get("trailerId")
         }
+
+    def _normalize_episode_story(self, episode: Dict[str, Any]) -> Dict[str, Any]:
+        episode_number = episode.get("episode") or episode.get("episodeNumber") or episode.get("number")
+        try:
+            episode_number = int(episode_number)
+        except (TypeError, ValueError):
+            episode_number = None
+
+        return {
+            key: value
+            for key, value in {
+                "episode": episode_number,
+                "title": episode.get("title") or (f"第 {episode_number} 集" if episode_number else ""),
+                "story": episode.get("story") or episode.get("summary") or episode.get("content") or "",
+                "source": episode.get("source", "douban"),
+                "sourceUrl": episode.get("sourceUrl") or episode.get("source_url") or episode.get("url"),
+            }.items()
+            if value not in (None, "")
+        }
+
+    def _normalize_character_item(self, item: Dict[str, Any], source: str = "baike") -> Dict[str, Any]:
+        return {
+            key: value
+            for key, value in {
+                "name": item.get("name") or item.get("character"),
+                "nameEn": item.get("nameEn") or item.get("characterEn"),
+                "actorName": item.get("actorName") or item.get("actor"),
+                "actorNameEn": item.get("actorNameEn"),
+                "actorDoubanId": item.get("actorDoubanId") or item.get("doubanId"),
+                "actorTmdbId": item.get("actorTmdbId") or item.get("tmdbId"),
+                "actorAvatar": item.get("actorAvatar") or item.get("avatar"),
+                "source": item.get("source", source),
+                "sourceUrl": item.get("sourceUrl") or item.get("source_url") or item.get("link") or item.get("url"),
+                "description": item.get("description") or item.get("intro") or item.get("note") or "",
+            }.items()
+            if value not in (None, "")
+        }
+
+    def _build_characters_from_cast(self, cast: List[Dict[str, Any]], source: str = "douban_celebrities") -> List[Dict[str, Any]]:
+        characters: List[Dict[str, Any]] = []
+        seen = set()
+
+        for person in cast:
+            if not isinstance(person, dict):
+                continue
+            character = person.get("character")
+            character_en = person.get("characterEn")
+            if not character and not character_en:
+                continue
+
+            key = (
+                str(character or "").strip(),
+                str(character_en or "").strip(),
+                str(person.get("doubanId") or "").strip(),
+            )
+            if key in seen:
+                continue
+            seen.add(key)
+
+            characters.append({
+                item_key: item_value
+                for item_key, item_value in {
+                    "name": character,
+                    "nameEn": character_en,
+                    "actorName": person.get("name"),
+                    "actorNameEn": person.get("nameEn"),
+                    "actorDoubanId": person.get("doubanId"),
+                    "actorAvatar": person.get("avatar"),
+                    "source": person.get("source", source),
+                    "sourceUrl": person.get("profileLink") or person.get("link"),
+                    "description": "",
+                }.items()
+                if item_value not in (None, "")
+            })
+
+        return characters
+
+    def _build_characters_from_tmdb_cast(self, cast: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        characters: List[Dict[str, Any]] = []
+        seen = set()
+
+        for person in cast:
+            if not isinstance(person, dict):
+                continue
+            character = person.get("character")
+            if not character:
+                continue
+            key = (str(character).strip(), str(person.get("id") or "").strip())
+            if key in seen:
+                continue
+            seen.add(key)
+
+            avatar = self._build_avatar_url(person.get("profile_path"))
+            characters.append({
+                item_key: item_value
+                for item_key, item_value in {
+                    "nameEn": character,
+                    "actorNameEn": person.get("name") or person.get("original_name"),
+                    "actorTmdbId": person.get("id"),
+                    "actorAvatar": avatar,
+                    "source": "tmdb_credits",
+                    "description": "",
+                }.items()
+                if item_value not in (None, "")
+            })
+
+        return characters
 
     def _normalize_related_item(self, item: Dict[str, Any], source: str) -> Dict[str, Any]:
         """Normalize related works from Douban/TMDB without losing source identifiers."""
@@ -264,6 +373,8 @@ class DataMerger:
             "metascore": None,
             "synopsis": None,
             "story": None,
+            "episodesStory": [],
+            "characters": [],
             "videos": [],
             "images": None,
             "reviews": [],
@@ -285,6 +396,7 @@ class DataMerger:
         douban_reviews = douban_payload["reviews"]
         douban_images = douban_payload["images"]
         douban_trailers = douban_payload["trailers"]
+        douban_episodes = douban_payload["episodes"]
         if douban_source:
             result["title"] = douban.get("title", "")
             result["year"] = int(douban.get("year", 0)) if douban.get("year") else None
@@ -298,6 +410,10 @@ class DataMerger:
             
             result["language"] = douban.get("languages", "")
             result["runtime"] = douban.get("runtime_minutes")
+            if douban.get("episodes_count"):
+                result["episodeCount"] = douban.get("episodes_count")
+            if douban.get("episode_runtime_minutes"):
+                result["episodeTime"] = douban.get("episode_runtime_minutes")
             
             if douban.get("summary"):
                 result["synopsis"] = {
@@ -332,6 +448,13 @@ class DataMerger:
                 }
                 for index, c in enumerate(douban_casts)
             ]
+
+            result["episodesStory"] = [
+                self._normalize_episode_story(item)
+                for item in douban_episodes
+                if isinstance(item, dict)
+            ]
+            result["characters"] = self._build_characters_from_cast(result["all_cast"])
             
             result["series"] = [
                 self._normalize_related_item(item, "douban")
@@ -408,6 +531,8 @@ class DataMerger:
                 result["cast"] = self._merge_cast(result.get("cast", []), credits)
                 result["otherCast"] = self._merge_other_cast(result.get("otherCast", []), credits)
                 result["producer"] = self._extract_producers(credits)
+                if not result.get("characters"):
+                    result["characters"] = self._build_characters_from_tmdb_cast(credits.get("cast", []))
             
             if images:
                 result["images"] = self._merge_images(result.get("images", {}), images)
@@ -457,6 +582,25 @@ class DataMerger:
                 result["baikeUrl"] = baike.get("url")
             if baike.get("baike_id") or baike.get("title"):
                 result["baikeId"] = baike.get("baike_id") or baike.get("title")
+            if not result.get("characters"):
+                baike_characters = baike.get("characters") or baike.get("roles") or []
+                if baike_characters:
+                    result["characters"] = [
+                        self._normalize_character_item(item, "baike")
+                        for item in baike_characters
+                        if isinstance(item, dict)
+                    ]
+                else:
+                    result["characters"] = self._build_characters_from_cast(
+                        baike.get("credits", {}).get("cast", []),
+                        source="baike_credits",
+                    )
+            if not result.get("episodesStory") and baike.get("episodes_story"):
+                result["episodesStory"] = [
+                    self._normalize_episode_story(item)
+                    for item in baike.get("episodes_story") or []
+                    if isinstance(item, dict)
+                ]
         
         wikipedia = raw_data.get("wikipedia", {})
         if wikipedia:
@@ -530,8 +674,9 @@ class DataMerger:
         }
         result["genre"] = self._merge_chinese_genres(raw_data, result.get("genre", []))
         self._sync_cast_views(result)
-        result["module"] = "video"
-        result["submodule"] = "movie"
+        result.setdefault("module", "video")
+        result.setdefault("submodule", "movie")
+        result.setdefault("schemaType", "live_action_movie")
         result["createdAt"] = datetime.now().strftime("%Y-%m-%d")
         result["updatedAt"] = datetime.now().strftime("%Y-%m-%d")
         

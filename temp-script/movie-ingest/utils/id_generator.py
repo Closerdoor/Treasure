@@ -6,25 +6,15 @@ ID 生成工具
 """
 from typing import Dict
 
+from media_profiles import MODULE_CODE, SUBMODULE_CODE
+
 
 _work_id_counter: Dict[str, int] = {}
 _person_id_counter: int = 0
 _term_id_counter: int = 0
 
-MODULE_MAP = {
-    "video": "01",
-    "book": "02",
-    "music": "03",
-    "game": "04"
-}
-
-SUBMODULE_MAP = {
-    "movie": "01",
-    "tv": "02",
-    "anime": "03",
-    "documentary": "04",
-    "short": "05"
-}
+MODULE_MAP = MODULE_CODE
+SUBMODULE_MAP = SUBMODULE_CODE
 
 
 def _get_db_max_work_id(module: str, submodule: str) -> int:
@@ -45,8 +35,8 @@ def generate_work_id(module: str = "video", submodule: str = "movie") -> str:
     """
     生成作品 ID
     格式：MMSSNNNNNN
-    - MM: 一级模块编号（01-04）
-    - SS: 子模块编号（01-05）
+    - MM: 一级模块编号（01-05）
+    - SS: 该一级模块下的子模块编号
     - NNNNNN: 递增序号
     
     重要：从数据库读取最大 ID，确保不冲突

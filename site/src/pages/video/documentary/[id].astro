@@ -1,0 +1,117 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import DetailTabs from '../../../components/DetailTabs.astro';
+import { loadAllDocumentaryIds, loadArchiveDocumentaryById } from '../../../lib/archive';
+import { formatArchiveRuntimeLabel } from '../../../lib/site';
+
+export async function getStaticPaths() {
+  const ids = await loadAllDocumentaryIds();
+  return ids.map((id) => ({ params: { id } }));
+}
+
+const { id } = Astro.params;
+const movie = id ? await loadArchiveDocumentaryById(id) : null;
+
+if (!movie) {
+  throw new Error(`Documentary not found: ${id}`);
+}
+
+const titleLine = [String(movie.year), (movie.genre ?? []).join(' / ')].filter(Boolean).join(' | ');
+const heroCreditRows = [
+  { label: '导演', value: movie.directorNames || '待补充' },
+  { label: '编剧', value: movie.writerNames || '待补充' },
+  { label: '主演', value: movie.castPreview.join(' / ') || '待补充' }
+];
+const heroMetaRows = [
+  { label: '地区', value: movie.country || '待补充' },
+  { label: '语言', value: movie.language || '待补充' },
+  movie.episodeCount
+    ? { label: '集数', value: `${movie.episodeCount} 集` }
+    : { label: '片长', value: formatArchiveRuntimeLabel(movie.runtime) },
+  ...(movie.episodeTime ? [{ label: '单集时长', value: formatArchiveRuntimeLabel(movie.episodeTime) }] : []),
+  { label: '制片方', value: movie.publishCompany || '待补充' },
+  { label: movie.episodeCount ? '首播日期' : '上映日期', value: movie.releaseDateLabel || '待补充' },
+  { label: '更多片名', value: (movie.aka ?? []).join(' / ') || '无' }
+];
+const heroSynopsis = movie.synopsis?.text?.replace(/\n\s*\n+/g, '\n').trim();
+---
+
+<BaseLayout title={`${movie.title} | Treasure 资料馆`}>
+  <section class="detail-hero shell">
+    <nav class="detail-breadcrumb" aria-label="详情页面包屑">
+      <a href="/">首页</a>
+      <span aria-hidden="true">/</span>
+      <a href="/video">影视</a>
+      <span aria-hidden="true">/</span>
+      <a href="/video?submodule=documentary">纪录片</a>
+      <span aria-hidden="true">/</span>
+      <strong aria-current="page">{movie.title}</strong>
+    </nav>
+
+    <div class="detail-hero__backdrop">
+      <img src={movie.posterUrl} alt={`${movie.title} 海报`} />
+    </div>
+
+    <div class="detail-hero__main">
+      <div class="detail-hero__poster-column">
+        <div class="detail-hero__poster">
+          <img src={movie.posterUrl} alt={`${movie.title} 海报`} />
+        </div>
+      </div>
+
+      <div class="detail-hero__content">
+        <div class="detail-hero__info-board">
+          <div class="detail-hero__masthead">
+            <div class="detail-hero__heading">
+              <h1>{movie.title}</h1>
+              <p class="detail-hero__original">{movie.originalTitle || movie.title}</p>
+              <p class="detail-hero__title-line">{titleLine}</p>
+            </div>
+          </div>
+
+          <p class="detail-hero__score-line" aria-label="Treasure 评分">
+            <strong class="detail-hero__score-value">{movie.aggregateRating ? movie.aggregateRating.toFixed(1) : '--'}</strong>
+          </p>
+
+          <div class="detail-hero__divider" aria-hidden="true"></div>
+
+          <dl class="detail-hero__facts detail-hero__facts--credits" aria-label="影片主创资料">
+            {heroCreditRows.map((item) => (
+              <div class="detail-hero__fact-row"><dt>{item.label}</dt><dd>{item.value}</dd></div>
+            ))}
+          </dl>
+
+          <div class="detail-hero__divider" aria-hidden="true"></div>
+
+          <dl class="detail-hero__facts detail-hero__facts--meta" aria-label="影片核心资料">
+            {heroMetaRows.map((item) => (
+              <div class="detail-hero__fact-row"><dt>{item.label}</dt><dd>{item.value}</dd></div>
+            ))}
+          </dl>
+
+          {heroSynopsis ? (
+            <>
+              <div class="detail-hero__divider" aria-hidden="true"></div>
+              <dl class="detail-hero__facts" aria-label="影片简介">
+                <div class="detail-hero__fact-row detail-hero__fact-row--summary">
+                  <dt>简介</dt>
+                  <dd class="detail-hero__summary">{heroSynopsis}</dd>
+                </div>
+              </dl>
+            </>
+          ) : null}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="shell detail-layout">
+    <div class="detail-layout__main">
+      <DetailTabs movie={movie} />
+      <section class="detail-panel">
+        <h2>评论区</h2>
+        <div class="comment-placeholder">Giscus 将只在详情页接入；当前先保留占位区。</div>
+      </section>
+    </div>
+  </section>
+</BaseLayout>

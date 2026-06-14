@@ -6,9 +6,10 @@ import asyncio
 import json
 import random
 import re
+import sys
 from pathlib import Path
 from typing import Optional, List, Dict, Any
-from urllib.parse import urljoin
+from urllib.parse import quote, urljoin
 
 from bs4 import BeautifulSoup
 from playwright.async_api import async_playwright, Browser, Page, BrowserContext
@@ -81,6 +82,35 @@ class DoubanCrawler:
             encoding="utf-8"
         )
         Logger.info("Cookie 已保存")
+
+    async def _has_login_signal(self) -> bool:
+        """检查豆瓣登录态，兼容豆瓣首页结构变化。"""
+        selectors = [
+            ".nav-user-account",
+            ".top-nav-info a[href*='logout']",
+            "a[href*='/mine/']",
+            "a[href*='accounts.douban.com/passport/logout']",
+        ]
+        for selector in selectors:
+            try:
+                if await self.page.query_selector(selector):
+                    return True
+            except Exception:
+                continue
+
+        try:
+            cookies = await self.context.cookies()
+            if any(cookie.get("name") == "dbcl2" for cookie in cookies):
+                Logger.info("检测到 dbcl2 Cookie，继续使用当前登录态")
+                return True
+        except Exception:
+            pass
+
+        return False
+
+    def _can_wait_for_user_action(self) -> bool:
+        """批量验证必须失败快进；单部交互调试才允许等待人工验证码。"""
+        return not getattr(config, "NONINTERACTIVE_BATCH", False) and sys.stdin.isatty()
         
     async def ensure_login(self):
         """确保已登录"""
@@ -89,15 +119,18 @@ class DoubanCrawler:
                 await self.page.goto(config.DOUBAN_BASE_URL, timeout=60000, wait_until="domcontentloaded")
                 await asyncio.sleep(2)
                 
-                await self.page.wait_for_selector(".nav-user-account", timeout=5000)
-                Logger.info("登录状态有效")
-                return
+                if await self._has_login_signal():
+                    Logger.info("登录状态有效")
+                    return
             except Exception as e:
                 Logger.warning(f"Cookie 验证失败: {e}")
                 # 检查浏览器是否还在运行
                 if not self.browser or not self.page:
                     Logger.error("浏览器连接已断开，请重新运行")
                     raise Exception("浏览器连接已断开")
+
+        if not self._can_wait_for_user_action():
+            raise Exception("豆瓣 Cookie 验证失败，当前为无交互环境，无法等待手动登录")
         
         print("\n" + "="*50)
         print("请在打开的浏览器中手动登录豆瓣")
@@ -121,7 +154,8 @@ class DoubanCrawler:
                 if "accounts.douban.com" not in current_url:
                     # 已经跳转离开登录页，检查登录状态
                     await self.page.goto(config.DOUBAN_BASE_URL, timeout=10000, wait_until="domcontentloaded")
-                    await self.page.wait_for_selector(".nav-user-account", timeout=3000)
+                    if not await self._has_login_signal():
+                        continue
                     
                     # 登录成功
                     await self.save_cookies()
@@ -153,6 +187,14 @@ class DoubanCrawler:
             }
         """
         Logger.info(f"正在通过百度搜索获取豆瓣 ID: {movie_name}")
+
+        suggest_candidates = await self._search_douban_suggest(movie_name, year)
+        if suggest_candidates:
+            selected = suggest_candidates[0]
+            Logger.success(f"豆瓣 suggest 命中: {selected['title']} ({selected['doubanId']})")
+            return selected
+
+        Logger.warning("豆瓣 suggest 未命中，降级通过百度搜索豆瓣链接")
         
         # 搜索百度
         search_query = f"{movie_name} 豆瓣"
@@ -217,6 +259,54 @@ class DoubanCrawler:
             Logger.info(f"  - {c['title']} ({c['year']}) - {c['doubanUrl']}")
         
         return validated_candidates[0]
+
+    async def _search_douban_suggest(self, movie_name: str, year: int = None) -> List[Dict[str, Any]]:
+        """使用豆瓣电影 suggest 接口获取候选。"""
+        url = f"{config.DOUBAN_BASE_URL}/j/subject_suggest?q={quote(movie_name)}"
+        try:
+            await self.page.goto(url, timeout=30000, wait_until="domcontentloaded")
+            content = await self.page.content()
+            soup = BeautifulSoup(content, "html.parser")
+            raw_text = soup.get_text("", strip=True)
+            candidates = json.loads(raw_text)
+        except Exception as e:
+            Logger.warning(f"豆瓣 suggest 查询失败: {e}")
+            return []
+
+        normalized_query = self._normalize_title_for_match(movie_name)
+        result = []
+        for item in candidates:
+            title = str(item.get("title") or "")
+            sub_title = str(item.get("sub_title") or "")
+            item_year = None
+            try:
+                item_year = int(str(item.get("year") or ""))
+            except ValueError:
+                pass
+
+            if year and item_year and item_year != year:
+                continue
+
+            haystack = self._normalize_title_for_match(f"{title} {sub_title}")
+            if normalized_query and normalized_query not in haystack and haystack not in normalized_query:
+                continue
+
+            douban_id = str(item.get("id") or "")
+            if not douban_id:
+                continue
+
+            result.append({
+                "doubanId": douban_id,
+                "doubanUrl": f"{config.DOUBAN_BASE_URL}/subject/{douban_id}/",
+                "title": title,
+                "year": item_year,
+                "source": "douban_suggest",
+            })
+
+        return result
+
+    def _normalize_title_for_match(self, value: str) -> str:
+        return re.sub(r"[\W_]+", "", str(value or "").lower())
     
     async def _validate_douban_page(self, candidate: Dict, expected_title: str, expected_year: int = None) -> Optional[Dict]:
         """
@@ -248,6 +338,8 @@ class DoubanCrawler:
             needs_user_action = True
         
         if needs_user_action:
+            if not self._can_wait_for_user_action():
+                raise Exception("豆瓣页面需要登录/验证码，当前为无交互环境，无法继续采集")
             Logger.warning("页面需要登录/验证码，等待用户处理...")
             await self._wait_for_user_action()
             content = await self.page.content()
@@ -272,7 +364,9 @@ class DoubanCrawler:
                 page_year = int(year_match.group(1))
         
         # 验证标题匹配
-        if expected_title.lower() not in page_title.lower() and page_title.lower() not in expected_title.lower():
+        expected_norm = self._normalize_title_for_match(expected_title)
+        page_norm = self._normalize_title_for_match(page_title)
+        if expected_norm not in page_norm and page_norm not in expected_norm:
             Logger.warning(f"标题不匹配: 页面 '{page_title}' vs 期望 '{expected_title}'")
             return None
         
@@ -382,6 +476,8 @@ class DoubanCrawler:
                 content = await self.page.content()
                 
                 if "嗯…" in content or "验证码" in content:
+                    if not self._can_wait_for_user_action():
+                        raise Exception("豆瓣触发验证码/反爬，当前为无交互环境，无法继续采集")
                     Logger.warning("遇到反爬/验证码页面，等待用户处理...")
                     await self._wait_for_user_action()
                     content = await self.page.content()
@@ -415,15 +511,16 @@ class DoubanCrawler:
         }
         
         try:
-            # 标题（只取中文部分）
+            # 标题：保留本地标题里的数字和空格，只去掉后接的英文原名。
             title_elem = soup.select_one("h1 span[property='v:itemreviewed']")
             full_title = title_elem.text.strip() if title_elem else ""
-            # 分离中文和英文：中文标题通常是第一个部分
-            # 例如 "星际穿越 Interstellar" -> "星际穿越"
             import re as re_module
-            chinese_match = re_module.match(r'^([\u4e00-\u9fa5]+)', full_title)
-            if chinese_match:
-                result["title"] = chinese_match.group(1)
+            local_title_match = re_module.match(r"^[\u4e00-\u9fff0-9·・：:！!？?、，,。.\-—~～\s]+", full_title)
+            if local_title_match:
+                local_title = local_title_match.group(0).strip()
+                if re_module.search(r"\s+\S*[\u3040-\u30ff]", full_title):
+                    local_title = local_title.split()[0]
+                result["title"] = local_title
             else:
                 result["title"] = full_title.split()[0] if full_title else ""
             
@@ -515,6 +612,20 @@ class DoubanCrawler:
                 # 提取数字
                 runtime_match = re.search(r"(\d+)", runtime_text)
                 result["runtime_minutes"] = int(runtime_match.group(1)) if runtime_match else 0
+
+                episodes_match = re.search(r"集数:</span>\s*([^<]+)", str(info))
+                if episodes_match:
+                    episodes_count_match = re.search(r"(\d+)", episodes_match.group(1))
+                    result["episodes_count"] = int(episodes_count_match.group(1)) if episodes_count_match else 0
+                else:
+                    result["episodes_count"] = 0
+
+                episode_runtime_match = re.search(r"单集片长:</span>\s*([^<]+)", str(info))
+                if episode_runtime_match:
+                    episode_runtime_number = re.search(r"(\d+)", episode_runtime_match.group(1))
+                    result["episode_runtime_minutes"] = int(episode_runtime_number.group(1)) if episode_runtime_number else 0
+                else:
+                    result["episode_runtime_minutes"] = 0
                 
                 # 又名
                 aka_match = re.search(r"又名:</span>([^<]+)", str(info))
@@ -717,6 +828,88 @@ class DoubanCrawler:
             Logger.warning(f"获取豆瓣系列/相关作品失败: {e}")
 
         return series
+
+    def _clean_episode_text(self, value: str) -> str:
+        return re.sub(r"\s+", " ", str(value or "")).strip()
+
+    def _extract_episode_story_from_soup(self, soup: BeautifulSoup) -> Dict[str, str]:
+        """解析豆瓣单集页面。豆瓣页面结构会变，选择器按可信度降级。"""
+        title = ""
+        for selector in [
+            "h1",
+            ".episode-title",
+            ".episode h2",
+            ".subject-episode-title",
+            "title",
+        ]:
+            elem = soup.select_one(selector)
+            text = self._clean_episode_text(elem.get_text(" ", strip=True) if elem else "")
+            if text:
+                title = re.sub(r"\s*\(豆瓣\).*$", "", text).strip()
+                break
+
+        story = ""
+        for selector in [
+            "span[property='v:summary']",
+            "#link-report span.all",
+            "#link-report span[property='v:summary']",
+            "#link-report",
+            ".episode-summary",
+            ".episode-recapse",
+            ".episode-content",
+            ".article .indent",
+        ]:
+            elem = soup.select_one(selector)
+            text = self._clean_episode_text(elem.get_text(" ", strip=True) if elem else "")
+            if text and len(text) > len(story):
+                story = text
+
+        if story:
+            story = re.sub(r"^\s*剧情简介[:：]\s*", "", story).strip()
+            story = re.sub(r"\s*©豆瓣\s*$", "", story).strip()
+
+        return {"title": title, "story": story}
+
+    async def crawl_episodes(self, douban_id: str, episode_count: int = 0) -> List[Dict[str, Any]]:
+        """按豆瓣分集页面逐集采集剧情。无 episode_count 时不猜测页数。"""
+        if not episode_count:
+            Logger.info("未取得集数，跳过豆瓣分集剧情采集")
+            return []
+
+        Logger.info(f"正在采集豆瓣分集剧情: {douban_id}，共 {episode_count} 集")
+        episodes: List[Dict[str, Any]] = []
+
+        for episode_number in range(1, episode_count + 1):
+            url = f"{config.DOUBAN_BASE_URL}/subject/{douban_id}/episode/{episode_number}/"
+            try:
+                await self.page.goto(url, timeout=60000, wait_until="domcontentloaded")
+                await asyncio.sleep(random.uniform(config.MIN_DELAY, config.MAX_DELAY))
+                await self._handle_douban_block_if_needed()
+
+                content = await self.page.content()
+                if "页面不存在" in content or "没有这个页面" in content:
+                    Logger.warning(f"豆瓣分集页面不存在: 第 {episode_number} 集")
+                    continue
+
+                parsed = self._extract_episode_story_from_soup(BeautifulSoup(content, "html.parser"))
+                if not parsed["title"] and not parsed["story"]:
+                    Logger.warning(f"未解析到豆瓣分集剧情: 第 {episode_number} 集")
+                    continue
+
+                episodes.append({
+                    "episode": episode_number,
+                    "title": parsed["title"] or f"第 {episode_number} 集",
+                    "story": parsed["story"],
+                    "source": "douban",
+                    "sourceUrl": url,
+                })
+            except Exception as e:
+                Logger.warning(f"采集豆瓣分集剧情失败: 第 {episode_number} 集 - {e}")
+                continue
+
+        with_story = sum(1 for item in episodes if item.get("story"))
+        Logger.success(f"豆瓣分集剧情采集完成: {len(episodes)}/{episode_count} 集，含剧情 {with_story} 集")
+        return episodes
     
     async def crawl_celebrities(self, douban_id: str) -> Dict[str, List[Dict]]:
         """
@@ -752,8 +945,18 @@ class DoubanCrawler:
             content = await self.page.content()
             soup = BeautifulSoup(content, "html.parser")
             
-            # 查找演职员列表
-            celebrities = soup.select(".celebrities-list .celebrity")
+            # 查找演职员列表。不同年代/类型的豆瓣页面 class 名不完全一致。
+            celebrities = []
+            for selector in [
+                ".celebrities-list .celebrity",
+                ".celebrity-list .celebrity",
+                ".list-wrapper .celebrity",
+                ".celebrity",
+                "li[class*='celebrity']",
+            ]:
+                celebrities = soup.select(selector)
+                if celebrities:
+                    break
             
             if not celebrities:
                 Logger.warning("未找到演职员列表")
@@ -764,11 +967,18 @@ class DoubanCrawler:
             for celeb in celebrities:
                 try:
                     # 类型（导演/编剧/演员）
-                    role_elem = celeb.select_one(".role")
+                    role_elem = celeb.select_one(".role") or celeb.select_one("[class*='role']")
                     role_text = role_elem.text.strip() if role_elem else ""
+                    if not role_text:
+                        header = celeb.find_previous(["h2", "h3"])
+                        role_text = header.get_text(" ", strip=True) if header else ""
                     
                     # 名字（中英文）
-                    name_elem = celeb.select_one(".name a")
+                    name_elem = (
+                        celeb.select_one(".name a")
+                        or celeb.select_one("[class*='name'] a")
+                        or celeb.select_one("a[href*='/celebrity/']")
+                    )
                     if not name_elem:
                         continue
                     
@@ -838,7 +1048,8 @@ class DoubanCrawler:
                         "character": character,
                         "characterEn": character_en,
                         "avatar": avatar_url,
-                        "role": role_text
+                        "role": role_text,
+                        "profileLink": urljoin(config.DOUBAN_BASE_URL, href) if href else None,
                     }
                     
                     # 根据角色分类
@@ -1224,6 +1435,11 @@ class DoubanCrawler:
             items.extend(page_items)
             if page_count == 1 or page_count % 10 == 0:
                 Logger.info(f"图片分类 {type_code} 已抓取 {len(items)}/{total or '?'} 张")
+            limit = getattr(config, "PHOTO_CATEGORY_LIMIT", 0)
+            if limit and len(items) >= limit:
+                items = items[:limit]
+                Logger.info(f"图片分类 {type_code} 已按验证上限截取 {len(items)}/{total or '?'} 张")
+                break
             if total and len(items) >= total:
                 break
 
@@ -1236,6 +1452,9 @@ class DoubanCrawler:
         content = await self.page.content()
         if "douban.com/misc/sorry" not in current_url and "证明你是人类" not in content and "像机器人程序" not in content:
             return
+
+        if not self._can_wait_for_user_action():
+            raise Exception("豆瓣触发机器人验证，当前为无交互环境，无法继续采集")
 
         Logger.warning("豆瓣触发机器人验证，请在浏览器中点击证明后继续")
         await self._wait_for_user_action()
@@ -1404,8 +1623,17 @@ class DoubanCrawler:
         except Exception as e:
             Logger.error(f"豆瓣演职员爬取失败: {e}")
             result["celebrities"] = {"directors": [], "writers": [], "cast": []}
+
+        # 3. 分集剧情
+        try:
+            episode_count = int(result.get("detail", {}).get("episodes_count") or 0)
+            episodes = await self.crawl_episodes(douban_id, episode_count)
+            result["episodes"] = episodes
+        except Exception as e:
+            Logger.error(f"豆瓣分集剧情爬取失败: {e}")
+            result["episodes"] = []
         
-        # 3. 短评
+        # 4. 短评
         try:
             comments = await self.crawl_comments(douban_id, comments_count)
             result["comments"] = comments
@@ -1413,7 +1641,7 @@ class DoubanCrawler:
             Logger.error(f"豆瓣短评爬取失败: {e}")
             result["comments"] = []
         
-        # 4. 影评
+        # 5. 影评
         try:
             reviews = await self.crawl_reviews(douban_id, reviews_count)
             result["reviews"] = reviews
@@ -1421,7 +1649,7 @@ class DoubanCrawler:
             Logger.error(f"豆瓣影评爬取失败: {e}")
             result["reviews"] = []
         
-        # 5. 视频
+        # 6. 视频
         try:
             trailers = await self.crawl_trailers(douban_id)
             result["trailers"] = trailers
@@ -1429,7 +1657,7 @@ class DoubanCrawler:
             Logger.error(f"豆瓣视频爬取失败: {e}")
             result["trailers"] = []
 
-        # 6. 图片（剧照 + 海报 + 壁纸列表）
+        # 7. 图片（剧照 + 海报 + 壁纸列表）
         try:
             images = await self.crawl_images(douban_id)
             result["images"] = images

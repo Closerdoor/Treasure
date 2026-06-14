@@ -14,7 +14,7 @@ import json
 import random
 import re
 from typing import Dict, Any, Optional, List
-from urllib.parse import quote
+from urllib.parse import quote, unquote
 
 from bs4 import BeautifulSoup
 from playwright.async_api import Page
@@ -108,28 +108,38 @@ class BaikeCrawler:
             except:
                 Logger.warning("role 模块未找到，继续尝试...")
             
+            current_url = self.page.url or url
+            result["url"] = current_url
             content = await self.page.content()
             soup = BeautifulSoup(content, "html.parser")
+            if self._is_invalid_baike_page(content, soup):
+                raise RuntimeError("百度百科返回验证页或空壳页，拒绝作为有效 raw")
             
             # 词条名
             title_elem = soup.select_one("h1") or soup.select_one(".lemmaTitle") or soup.select_one(".lemma-title")
             title_text = title_elem.text.strip() if title_elem else ""
             if not title_text:
-                match = re.search(r"/item/([^/]+)", url)
+                match = re.search(r"/item/([^/]+)", current_url)
                 if match:
-                    from urllib.parse import unquote
                     title_text = unquote(match.group(1))
             result["title"] = title_text
             
             # 词条 ID
-            match = re.search(r"/item/([^/]+)", url)
-            if match:
-                from urllib.parse import unquote
-                baike_id = unquote(match.group(1))
-                result["baike_id"] = baike_id
+            numeric_match = re.search(r"/item/[^/?#]+/(\d+)(?:[/?#]|$)", current_url)
+            if numeric_match:
+                result["baike_id"] = numeric_match.group(1)
+            else:
+                match = re.search(r"/item/([^/?#]+)", current_url)
+                if match:
+                    result["baike_id"] = unquote(match.group(1))
             
+            dynamic_episodes = await self._extract_dynamic_plot_episodes()
+
             # 摘要
             result["summary"] = self._extract_summary(soup, content)
+            result["episodes_story"] = self._dedupe_episodes_story(
+                dynamic_episodes + self._extract_episodes_story(soup, content)
+            )
             
             # 提取 PAGE_DATA JSON
             page_data = self._extract_page_data(content)
@@ -205,6 +215,9 @@ class BaikeCrawler:
             if credits_data:
                 credits_data = self._dedupe_credits(credits_data)
                 result["credits"] = credits_data
+                characters = self._extract_characters(soup, credits_data)
+                if characters:
+                    result["characters"] = characters
                 Logger.info(f"百度百科演职员数据: 导演 {len(credits_data.get('directors', []))} 人, "
                            f"编剧 {len(credits_data.get('writers', []))} 人, "
                            f"演员 {len(credits_data.get('cast', []))} 人")
@@ -215,6 +228,8 @@ class BaikeCrawler:
             Logger.error(f"百度百科内容获取失败: {e}")
             import traceback
             traceback.print_exc()
+            if "拒绝作为有效 raw" in str(e):
+                raise
             
         return result
 
@@ -490,6 +505,389 @@ class BaikeCrawler:
 
     def _clean_text(self, text: str) -> str:
         return re.sub(r"\s+", " ", text or "").strip()
+
+    def _episode_number_from_text(self, text: str) -> Optional[int]:
+        match = re.search(r"第\s*0*(\d+)\s*[集话話回]", text or "")
+        if match:
+            return int(match.group(1))
+        match = re.search(r"^\s*0*(\d+)\s*$", text or "")
+        return int(match.group(1)) if match else None
+
+    def _dedupe_episodes_story(self, episodes: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """分集剧情不截断；同集多来源时保留正文质量更好的一条。"""
+        by_number: Dict[int, Dict[str, Any]] = {}
+        no_number: List[Dict[str, Any]] = []
+        for episode in episodes:
+            if not isinstance(episode, dict):
+                continue
+            story = self._clean_text(episode.get("story") or episode.get("summary") or episode.get("content") or "")
+            title = self._clean_text(episode.get("title", ""))
+            episode_number = episode.get("episode") or episode.get("episodeNumber") or episode.get("number")
+            try:
+                episode_number = int(episode_number) if episode_number not in (None, "") else self._episode_number_from_text(title)
+            except (TypeError, ValueError):
+                episode_number = self._episode_number_from_text(title)
+
+            if not story and not title:
+                continue
+            normalized = {
+                item_key: item_value
+                for item_key, item_value in {
+                    "episode": episode_number,
+                    "title": title or (f"第 {episode_number} 集" if episode_number else ""),
+                    "story": story,
+                    "source": episode.get("source", "baike"),
+                    "sourceUrl": episode.get("sourceUrl") or episode.get("source_url") or episode.get("url"),
+                }.items()
+                if item_value not in (None, "")
+            }
+
+            if not episode_number:
+                no_number.append(normalized)
+                continue
+
+            previous = by_number.get(episode_number)
+            if not previous or self._episode_story_score(normalized) > self._episode_story_score(previous):
+                by_number[episode_number] = normalized
+
+        return [by_number[key] for key in sorted(by_number)] + no_number
+
+    def _is_invalid_baike_page(self, html_content: str, soup: BeautifulSoup) -> bool:
+        text = self._clean_text(soup.get_text(" ", strip=True))
+        page_title = self._clean_text(soup.title.get_text(" ", strip=True) if soup.title else "")
+        invalid_markers = (
+            "百度安全验证",
+            "百度百科-验证",
+            "访问异常，请进行验证",
+            "请完成下方验证后继续操作",
+        )
+        if any(marker in page_title or marker in text[:300] or marker in html_content[:3000] for marker in invalid_markers):
+            return True
+        generic_summary = "百度百科是一部内容开放、自由的网络百科全书"
+        has_lemma_body = bool(soup.select_one("[class*=lemmaWrapper], [class*=J-lemma-main-wrapper], [class*=mainContent]"))
+        if generic_summary in text[:500] and not has_lemma_body:
+            return True
+        return False
+
+    def _episode_story_score(self, episode: Dict[str, Any]) -> int:
+        story = self._clean_text(episode.get("story", ""))
+        score = len(story)
+        noisy_keywords = ("播放", "相关搜索", "分享到微信", "新手上路", "百度百科合作平台")
+        if any(keyword in story for keyword in noisy_keywords):
+            score -= 10000
+        if episode.get("source") == "baike_plot":
+            score += 1000
+        return score
+
+    def _episode_from_text_blocks(self, text: str, source_url: str = "") -> List[Dict[str, Any]]:
+        """从连续文本中按“第 N 集/话/回”切分，不裁剪正文。"""
+        text = self._clean_text(text)
+        if not text:
+            return []
+
+        pattern = re.compile(r"第\s*0*(\d+)\s*[集话話回]")
+        matches = list(pattern.finditer(text))
+        if not matches:
+            return []
+
+        episodes = []
+        for index, match in enumerate(matches):
+            start = match.start()
+            end = matches[index + 1].start() if index + 1 < len(matches) else len(text)
+            block = self._clean_text(text[start:end])
+            story = self._clean_text(text[match.end():end])
+            episode_number = int(match.group(1))
+            episodes.append({
+                "episode": episode_number,
+                "title": f"第 {episode_number} 集",
+                "story": story or block,
+                "source": "baike",
+                "sourceUrl": source_url,
+            })
+        return episodes
+
+    async def _extract_dynamic_plot_episodes(self) -> List[Dict[str, Any]]:
+        """点击百度百科分集剧情分页，采集完整 plot 模块；不扫描全页。"""
+        if not self.page:
+            return []
+
+        source_url = self.page.url
+        try:
+            labels = await self.page.evaluate(
+                """
+                () => {
+                  const root = document.querySelector('.plot, [class*=plot_], [class*=Plot]');
+                  if (!root) return [];
+                  return Array.from(root.querySelectorAll('a'))
+                    .map((item) => (item.innerText || item.textContent || '').trim())
+                    .filter((text) => /^\\d+\\s*-\\s*\\d+$/.test(text));
+                }
+                """
+            )
+        except Exception as exc:
+            Logger.warning(f"百度百科动态分集分页探测失败: {exc}")
+            return []
+
+        if not labels:
+            return []
+
+        episodes: List[Dict[str, Any]] = []
+        for label in dict.fromkeys(labels):
+            try:
+                clicked = await self.page.evaluate(
+                    """
+                    (label) => {
+                      const roots = Array.from(document.querySelectorAll('.plot, [class*=plot_], [class*=Plot]'));
+                      const links = roots.flatMap((root) => Array.from(root.querySelectorAll('a')));
+                      const target = links.find((item) => (item.innerText || item.textContent || '').trim() === label);
+                      if (!target) return false;
+                      target.click();
+                      return true;
+                    }
+                    """,
+                    label,
+                )
+                if not clicked:
+                    Logger.warning(f"百度百科动态分集分页未找到标签: {label}")
+                    continue
+                await self.page.wait_for_timeout(500)
+                text = await self.page.evaluate(
+                    """
+                    () => {
+                      const root = document.querySelector('.plotWrap, [class*=plotWrap]');
+                      return root ? root.innerText : '';
+                    }
+                    """
+                )
+                for episode in self._episode_from_text_blocks(text, source_url):
+                    episode["source"] = "baike_plot"
+                    episodes.append(episode)
+            except Exception as exc:
+                Logger.warning(f"百度百科动态分集分页采集失败 {label}: {exc}")
+
+        episodes = self._dedupe_episodes_story(episodes)
+        if episodes:
+            Logger.info(f"百度百科动态分集剧情: {len(episodes)} 集")
+        return episodes
+
+    def _extract_episode_rows_from_table(self, table, source_url: str = "") -> List[Dict[str, Any]]:
+        episodes = []
+        for row in table.select("tr"):
+            cells = [self._clean_text(cell.get_text(" ", strip=True)) for cell in row.find_all(["th", "td"])]
+            cells = [cell for cell in cells if cell]
+            if len(cells) < 2:
+                continue
+            joined = " ".join(cells)
+            episode_number = self._episode_number_from_text(cells[0]) or self._episode_number_from_text(joined)
+            if not episode_number:
+                continue
+            title = cells[1] if len(cells) > 2 else f"第 {episode_number} 集"
+            story = " ".join(cells[2:]) if len(cells) > 2 else cells[1]
+            episodes.append({
+                "episode": episode_number,
+                "title": title,
+                "story": story,
+                "source": "baike",
+                "sourceUrl": source_url,
+            })
+        return episodes
+
+    def _extract_episodes_from_section(self, section, source_url: str = "") -> List[Dict[str, Any]]:
+        episodes = []
+        for table in section.select("table"):
+            episodes.extend(self._extract_episode_rows_from_table(table, source_url))
+
+        for item in section.select("li, dt, dd, p, .para"):
+            text = self._clean_text(item.get_text(" ", strip=True))
+            if self._episode_number_from_text(text):
+                episodes.extend(self._episode_from_text_blocks(text, source_url))
+
+        if not episodes:
+            episodes.extend(self._episode_from_text_blocks(section.get_text(" ", strip=True), source_url))
+
+        return episodes
+
+    def _find_story_sections(self, soup: BeautifulSoup) -> List[Any]:
+        keywords = ("分集剧情", "每集剧情", "剧集列表", "剧情分集", "分集介绍", "各集剧情")
+        sections = []
+
+        for elem in soup.find_all(True):
+            text = self._clean_text(elem.get_text(" ", strip=True))
+            if not text or not any(keyword in text[:80] for keyword in keywords):
+                continue
+            if elem.name in ("h2", "h3", "h4") or elem.get("data-module-type") or "title" in " ".join(elem.get("class", [])):
+                container = elem.find_parent(["section", "div", "article"]) or elem.parent or elem
+                if container not in sections:
+                    sections.append(container)
+
+        for module in soup.find_all(attrs={"data-module-type": True}):
+            module_type = str(module.get("data-module-type") or "")
+            text = self._clean_text(module.get_text(" ", strip=True))
+            if any(keyword in module_type or keyword in text[:120] for keyword in keywords):
+                if module not in sections:
+                    sections.append(module)
+
+        return sections
+
+    def _extract_episodes_from_json_value(self, value: Any) -> List[Dict[str, Any]]:
+        """从百科内嵌 JSON 中递归抽取可能的分集剧情，不限制条数。"""
+        episodes = []
+        if isinstance(value, list):
+            for item in value:
+                episodes.extend(self._extract_episodes_from_json_value(item))
+            return episodes
+        if not isinstance(value, dict):
+            return episodes
+
+        key_text = self._clean_text(" ".join(str(key) for key in value.keys()))
+        combined_text = self._clean_text(json.dumps(value, ensure_ascii=False))
+        episode_number = None
+        title = ""
+        story = ""
+
+        for key in ("episode", "episodeNo", "episodeNum", "episodeNumber", "number", "index", "sort"):
+            if key in value:
+                try:
+                    episode_number = int(str(value.get(key)).strip())
+                    break
+                except (TypeError, ValueError):
+                    pass
+
+        for key in ("title", "name", "episodeTitle", "subTitle"):
+            if value.get(key):
+                title = self._clean_text(str(value.get(key)))
+                break
+
+        for key in ("story", "summary", "content", "desc", "description", "plot", "intro"):
+            if value.get(key):
+                story = self._clean_text(str(value.get(key)))
+                break
+
+        if not episode_number:
+            episode_number = self._episode_number_from_text(title) or self._episode_number_from_text(story)
+
+        if episode_number and story and any(keyword in key_text + combined_text[:300] for keyword in ("episode", "剧情", "分集", "剧集")):
+            episodes.append({
+                "episode": episode_number,
+                "title": title or f"第 {episode_number} 集",
+                "story": story,
+                "source": "baike",
+            })
+
+        for child in value.values():
+            if isinstance(child, (dict, list)):
+                episodes.extend(self._extract_episodes_from_json_value(child))
+
+        return episodes
+
+    def _extract_episodes_story(self, soup: BeautifulSoup, html_content: str) -> List[Dict[str, Any]]:
+        """抽取百度百科分集剧情，采到多少保留多少，不做截断。"""
+        source_url = self.page.url if self.page else ""
+        episodes = []
+
+        for section in self._find_story_sections(soup):
+            episodes.extend(self._extract_episodes_from_section(section, source_url))
+
+        for elem in soup.find_all(attrs={"data-module-value": True}):
+            try:
+                episodes.extend(self._extract_episodes_from_json_value(json.loads(elem.get("data-module-value", ""))))
+            except Exception:
+                continue
+
+        page_data = self._extract_page_data(html_content)
+        if page_data:
+            episodes.extend(self._extract_episodes_from_json_value(page_data))
+
+        if not episodes:
+            episodes.extend(self._episode_from_text_blocks(soup.get_text(" ", strip=True), source_url))
+
+        episodes = self._dedupe_episodes_story(episodes)
+        if episodes:
+            Logger.info(f"百度百科分集剧情: {len(episodes)} 集")
+        return episodes
+
+    def _dedupe_characters(self, characters: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        deduped = []
+        seen = set()
+        for item in characters:
+            if not isinstance(item, dict):
+                continue
+            name = self._clean_text(item.get("name") or item.get("character") or "")
+            name_en = self._clean_text(item.get("nameEn") or item.get("characterEn") or "")
+            actor = self._clean_text(item.get("actorName") or item.get("actor") or item.get("nameActor") or "")
+            if not name and not name_en:
+                continue
+            key = (name, name_en, actor)
+            if key in seen:
+                continue
+            seen.add(key)
+            deduped.append({
+                key_name: value
+                for key_name, value in {
+                    "name": name,
+                    "nameEn": name_en,
+                    "actorName": actor,
+                    "actorNameEn": self._clean_text(item.get("actorNameEn", "")),
+                    "actorAvatar": item.get("actorAvatar") or item.get("avatar"),
+                    "source": item.get("source", "baike"),
+                    "sourceUrl": item.get("sourceUrl") or item.get("link") or item.get("url"),
+                    "description": self._clean_text(item.get("description") or item.get("intro") or item.get("note") or ""),
+                }.items()
+                if value not in (None, "")
+            })
+        return deduped
+
+    def _extract_role_characters(self, soup: BeautifulSoup) -> List[Dict[str, Any]]:
+        characters = []
+        role_module = soup.find(attrs={"data-module-type": "role"})
+        if not role_module:
+            return characters
+
+        for item in role_module.find_all(class_=re.compile(r"roleItem")):
+            role_name_elem = item.find(class_=re.compile(r"roleName"))
+            actor_elem = item.find(class_=re.compile(r"roleActor"))
+            desc_elem = item.find(class_=re.compile(r"roleDesc|roleIntro|desc|intro"))
+            avatar_elem = item.select_one("img")
+            link_elem = actor_elem.find("a") if actor_elem else None
+            role_name = self._clean_text(role_name_elem.get_text(" ", strip=True) if role_name_elem else "")
+            actor_name = self._clean_text(link_elem.get_text(" ", strip=True) if link_elem else actor_elem.get_text(" ", strip=True) if actor_elem else "")
+            description = self._clean_text(desc_elem.get_text(" ", strip=True) if desc_elem else "")
+            if role_name:
+                name, name_en = self._split_character_name(role_name)
+                characters.append({
+                    "name": name,
+                    "nameEn": name_en,
+                    "actorName": actor_name,
+                    "actorAvatar": avatar_elem.get("src") if avatar_elem else None,
+                    "source": "baike_role",
+                    "sourceUrl": link_elem.get("href") if link_elem else None,
+                    "description": description,
+                })
+
+        return characters
+
+    def _extract_characters(self, soup: BeautifulSoup, credits: Dict[str, List]) -> List[Dict[str, Any]]:
+        """抽取角色介绍，不限制角色数量。"""
+        characters = self._extract_role_characters(soup)
+        for actor in credits.get("cast", []) if credits else []:
+            character = actor.get("character")
+            character_en = actor.get("characterEn")
+            if not character and not character_en:
+                continue
+            characters.append({
+                "name": character,
+                "nameEn": character_en,
+                "actorName": actor.get("name"),
+                "actorAvatar": actor.get("avatar"),
+                "source": actor.get("source", "baike_credits"),
+                "sourceUrl": actor.get("link"),
+                "description": actor.get("note", ""),
+            })
+
+        characters = self._dedupe_characters(characters)
+        if characters:
+            Logger.info(f"百度百科角色介绍: {len(characters)} 个")
+        return characters
     
     def _extract_credits_from_card(self, page_data: Dict) -> Dict[str, List]:
         """

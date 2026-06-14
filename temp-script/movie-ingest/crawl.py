@@ -31,6 +31,7 @@ from typing import Dict, Any, Optional
 
 import config
 from utils import Logger, generate_work_id
+from media_profiles import apply_profile_defaults, get_profile_by_schema_type, supported_schema_types
 from merger import DataMerger
 from downloader import ImageDownloader
 from progress import ProgressManager
@@ -82,16 +83,17 @@ class MovieCrawler:
         if self.douban:
             await self.douban.close()
     
-    async def crawl_movie(self, douban_id: str, title: str = "") -> Optional[str]:
+    async def crawl_movie(self, douban_id: str, title: str = "", schema_type: str = "live_action_movie") -> Optional[str]:
+        profile = get_profile_by_schema_type(schema_type)
         Logger.info("=" * 60)
-        Logger.info(f"开始爬取: {title or douban_id}")
+        Logger.info(f"开始爬取: {title or douban_id} [{profile.label}]")
         Logger.info("=" * 60)
         
         raw_data = {}
         work_id = None
         
         # ── 1. 豆瓣（一次性采集） ──
-        Logger.info("\n[1/7] 豆瓣 - 详情 + 演职员 + 视频 + 图片 + 短评 + 影评")
+        Logger.info("\n[1/7] 豆瓣 - 详情 + 演职员 + 分集剧情 + 视频 + 图片 + 短评 + 影评")
         try:
             douban_data = await self.douban.crawl_all(
                 douban_id,
@@ -101,6 +103,8 @@ class MovieCrawler:
             raw_data["douban"] = douban_data
             
             detail = douban_data.get("detail", {})
+            if not detail.get("title") and getattr(config, "NONINTERACTIVE_BATCH", False):
+                raise Exception("豆瓣详情缺少标题，批量验证停止当前条目，避免生成空标题 staging")
             if detail.get("title"):
                 title = detail["title"]
             
@@ -108,7 +112,7 @@ class MovieCrawler:
             
             work_id = self.progress_manager.get_work_id(douban_id)
             if not work_id:
-                work_id = generate_work_id()
+                work_id = generate_work_id(profile.module, profile.submodule)
                 self.progress_manager.update_work_id(douban_id, work_id)
             
             self.progress_manager.update_source_status(douban_id, "douban", "done")
@@ -218,6 +222,10 @@ class MovieCrawler:
         # ── 合并数据 ──
         Logger.info("\n合并数据...")
         merged = self.merger.merge(work_id, raw_data)
+        merged["module"] = profile.module
+        merged["submodule"] = profile.submodule
+        merged["schemaType"] = profile.schema_type
+        apply_profile_defaults(merged)
         
         if images_result:
             merged["images"] = images_result
@@ -327,7 +335,7 @@ class MovieCrawler:
             Logger.success(f"豆瓣演职员头像下载完成: {len(result)} 张")
         return result
     
-    async def run_by_movie_name(self, movie_name: str, year: int = None):
+    async def run_by_movie_name(self, movie_name: str, year: int = None, schema_type: str = "live_action_movie"):
         Logger.info(f"通过影片名称爬取: {movie_name}")
         
         douban_info = await self.douban.search_douban_id(movie_name, year)
@@ -342,10 +350,10 @@ class MovieCrawler:
             "title": title
         }])
         
-        work_id = await self.crawl_movie(douban_id, title)
+        work_id = await self.crawl_movie(douban_id, title, schema_type)
         return work_id
     
-    async def run_by_douban_id(self, douban_id: str, title: str = "", work_id: str = ""):
+    async def run_by_douban_id(self, douban_id: str, title: str = "", work_id: str = "", schema_type: str = "live_action_movie"):
         Logger.info(f"通过豆瓣 ID 爬取: {douban_id}")
         
         self.progress_manager.init_movies([{
@@ -356,7 +364,7 @@ class MovieCrawler:
         if work_id:
             self.progress_manager.update_work_id(douban_id, work_id)
         
-        result_work_id = await self.crawl_movie(douban_id, title)
+        result_work_id = await self.crawl_movie(douban_id, title, schema_type)
         return result_work_id
 
 
@@ -369,6 +377,7 @@ def main():
     parser.add_argument("--douban-id", type=str, help="指定豆瓣 ID 爬取")
     parser.add_argument("--title", type=str, default="", help="电影标题（配合 --douban-id 使用）")
     parser.add_argument("--work-id", type=str, help="作品 ID（配合 --douban-id 使用）")
+    parser.add_argument("--schema-type", choices=sorted(supported_schema_types()), default="live_action_movie", help="媒体作品类型")
     
     args = parser.parse_args()
     
@@ -379,9 +388,9 @@ def main():
             await crawler.init()
             
             if args.movie_name:
-                await crawler.run_by_movie_name(args.movie_name, args.year)
+                await crawler.run_by_movie_name(args.movie_name, args.year, args.schema_type)
             elif args.douban_id:
-                await crawler.run_by_douban_id(args.douban_id, args.title, args.work_id or "")
+                await crawler.run_by_douban_id(args.douban_id, args.title, args.work_id or "", args.schema_type)
             else:
                 parser.print_help()
         finally:

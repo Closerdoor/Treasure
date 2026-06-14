@@ -42,11 +42,26 @@ temp-script/ 数据采集与实验
 
 | 模块 | 当前状态 |
 |---|---|
-| 电影 | 已跑通稳定单部工作流：多源采集、合并、图片本地化、预检、入库、导出、Astro 渲染。当前数据库 251 部电影。下一阶段回到电影作品录入。 |
+| 影视 | 已跑通稳定单部电影工作流，并已接入通用媒体作品 profile 层。纪录片统一归入 `video/documentary`，不再拆分纪录片电影 / 纪录片剧集；内部仅用 `documentary_film` / `documentary_series` 兼容不同字段形态。当前数据库 218 条影视作品，其中电影 213 部、纪录片 3 部、电视剧 2 部。 |
+| 动漫 | 一级模块，和影视同级，不是影视子模块。已从豆瓣电影 250 存量中迁移 40 部动画电影，并完成首批动画电影 / 番剧混合样本入库；当前数据库 45 条动漫作品，其中动画电影 43 部、番剧 2 部。 |
 | 书籍 | 已跑通单本、小批量和网络小说 fast / manual fallback 批量补录流程。当前数据库 54 本书，书籍前台 `/book` 与 `/book/{id}` 已可访问。 |
 | 音乐 | planned，尚未正式建模。 |
 | 游戏 | planned，尚未正式建模。 |
 | 本地后台 | `admin/` 为旁路人工校正工具，使用原生 Node + 定制前端，不使用 Directus。 |
+
+## 已确认工作流
+
+| 工作流 | 状态 | 当前入口 |
+|---|---|---|
+| DB -> generated -> Astro 发布链路 | 已完成并稳定使用 | `node tools/db/export-generated.mjs`、`cd site && npm.cmd run build` |
+| 媒体作品单部新增 / 刷新 | 已完成 | `temp-script/movie-ingest/main.py`、`temp-script/movie-ingest/import_staging.py` |
+| 媒体作品混合批量录入 | 已完成受控批量流程 | agent-assisted preflight -> `batch_validate.py` -> 审核 -> `prepare_media_batch_for_apply.mjs` / `import_staging.py --apply` |
+| 剧集 / 番剧增强字段回填 | 已完成首版并通过 6/6 样本 | `temp-script/movie-ingest/backfill_enhancements.py` |
+| 书籍单本录入 | 已完成 | `temp-script/book-ingest/main.py`、`temp-script/book-ingest/import_staging.py` |
+| 网络小说 fast / manual fallback 批量 | 已完成受控批次验证 | `temp-script/book-ingest/batch_runner.py`、`batch_apply.py`、manual fallback staging |
+| 本地人工校正后台 | 已建立旁路工具 | `npm.cmd run admin` |
+
+新对话接手时，先读 `PROJECT.md` 的工作流细则，再用 `STATUS.md` 核对当前数据量、完成率和剩余风险。
 
 ## 常用命令
 

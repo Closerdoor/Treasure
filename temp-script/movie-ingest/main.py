@@ -18,6 +18,7 @@ if sys.platform == 'win32':
 
 import asyncio
 from crawl import MovieCrawler
+from media_profiles import supported_schema_types
 from utils import Logger
 
 
@@ -31,6 +32,7 @@ def main():
     parser.add_argument("--douban-id", type=str, help="指定豆瓣 ID 爬取")
     parser.add_argument("--title", type=str, default="", help="电影标题（配合 --douban-id 使用）")
     parser.add_argument("--work-id", type=str, help="作品 ID（配合 --douban-id 使用）")
+    parser.add_argument("--schema-type", choices=sorted(supported_schema_types()), default="live_action_movie", help="媒体作品类型")
     
     args = parser.parse_args()
     
@@ -45,9 +47,9 @@ def main():
             await crawler.init()
             
             if args.movie_name:
-                await crawler.run_by_movie_name(args.movie_name, args.year)
+                await crawler.run_by_movie_name(args.movie_name, args.year, args.schema_type)
             elif args.douban_id:
-                await crawler.run_by_douban_id(args.douban_id, args.title, args.work_id or "")
+                await crawler.run_by_douban_id(args.douban_id, args.title, args.work_id or "", args.schema_type)
         finally:
             await crawler.close()
     

@@ -33,6 +33,13 @@ export const moduleCards = [
     state: 'active' as const
   },
   {
+    slug: 'anime',
+    title: '动漫',
+    description: '收录动画电影与后续番剧，复用影视资料卡片与详情模板。',
+    href: '/anime',
+    state: 'active' as const
+  },
+  {
     slug: 'music',
     title: '音乐',
     description: '保留入口与视觉占位，暂不开放完整页面链路。',
@@ -50,6 +57,7 @@ export const moduleCards = [
 
 const moduleLabels: Record<string, string> = {
   video: '影视',
+  anime: '动漫',
   book: '书',
   music: '音乐',
   game: '游戏'
@@ -57,6 +65,9 @@ const moduleLabels: Record<string, string> = {
 
 const submoduleLabels: Record<string, string> = {
   movie: '电影',
+  documentary: '纪录片',
+  anime_movie: '动画电影',
+  anime_series: '番剧',
   book: '书籍'
 };
 

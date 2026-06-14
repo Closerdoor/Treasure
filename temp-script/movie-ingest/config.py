@@ -46,6 +46,8 @@ ERRORS_FILE = str(SCRIPT_DIR / "errors.json")
 # 爬取配置
 COMMENTS_PER_SOURCE = 20
 REVIEWS_PER_SOURCE = 20
+PHOTO_CATEGORY_LIMIT = 0  # 0 表示完整抓取；批量验证可显式传入采样上限
+NONINTERACTIVE_BATCH = False  # 批量验证入口会打开；打开后验证码/登录页不等待人工处理
 
 # 延迟配置（秒）
 MIN_DELAY = 2.0

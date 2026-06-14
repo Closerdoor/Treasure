@@ -2,12 +2,14 @@
 
 `temp-script/book-ingest` 是 Treasure 书籍作品的本地采集工作坊。它的职责边界止于写入 `.local/treasure.db`；入库后的 generated 导出、Astro 页面、站点构建和发布校验属于仓库根目录主链路。
 
-当前书籍模块已经完成普通书、系列书、网络小说样本的端到端验证，并已接入 Astro 前台 `/book` 与 `/book/{id}`。当前仍未完成的是“稳定的大批量无人值守录入”；现在适合每批 5-10 本的小批量试运行。
+当前书籍模块已经完成普通书、系列书、网络小说样本的端到端验证，并已接入 Astro 前台 `/book` 与 `/book/{id}`。网络小说 fast 批次与 blockedQueue manual fallback 补录已经跑通，当前书籍库为 54 本。当前仍未完成的是“稳定的大批量无人值守录入”；扩大批量前必须保留 manifest、质量分组、blockedQueue、approval apply 和字段报告。
 
 ## 当前标准流程
 
 ```text
 确认作品输入
+  -> manifest 记录原始输入
+  -> agent-assisted preflight 查重、候选消歧、来源可信度判断
   -> 多数据源采集 raw
   -> 合并 normalized staging
   -> 下载封面和作者头像并回写 staging
@@ -205,24 +207,25 @@ site/public/assets/book/{book_id}/...
 当前结论：
 
 - 单本完整链路稳定。
-- 5-10 本小批量试运行可行。
+- 网络小说 fast 批次和 blockedQueue manual fallback 补录已完成端到端验证。
+- 受控批量可继续使用 manifest、质量分组、approval apply 和 blockedQueue 机制。
 - 尚不适合无人值守的大批量正式录入。
 
 原因：
 
-- 缺少正式 `batch manifest`。
+- 已具备正式 `batch manifest`，但仍需要 Codex 结合候选来源和脚本报告做 agent-assisted preflight。
 - 旧 `db_tools/import_batch.py` 仍是 legacy，不能用于正式入库。
 - 豆瓣、百度百科、当当、起点、Goodreads 都可能触发反爬。
-- 缺少批量质量报告和“可入库 / 需人工确认 / 失败”分组。
+- 错配、无 raw、简介截断、来源不可信等仍必须进入 blockedQueue 或 manual fallback。
 
-下一步应新增正式批量编排层：
+当前正式批量编排层：
 
 ```text
 batch manifest
   -> 逐本运行单本链路
   -> 每本字段 HTML
   -> 批量质量摘要
+  -> blockedQueue / manual fallback
   -> 人工确认
   -> 只对确认通过项执行 --apply
 ```
-
